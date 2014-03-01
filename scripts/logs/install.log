@@ -1,0 +1,134 @@
+------------------------START--------------------------
+Process started at  2014/03/01 00:02:48
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 404: Can't create table 'pymeERP.CON_BalanzaComprobacionAjustada' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1048 (23000) at line 5: Column 'CON_ClasificacionCuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_CatalogoContable_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_Subcuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_MotivoTransaccion_FechaCreacion' cannot be null
+ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_MotivoTransaccion` FOREIGN KEY (`CON_MotivoTransaccion_ID`) REFERENCES `CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`) ON DELETE NO ACTION ON)
+ERROR 1048 (23000) at line 5: Column 'CON_UnidadMonetaria_FechaCreacion' cannot be null
+Populating Ventas 
+Process ended at  2014/03/01 00:02:48
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/01 00:03:15
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 404: Can't create table 'pymeERP.CON_BalanzaComprobacionAjustada' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1048 (23000) at line 5: Column 'CON_ClasificacionCuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_CatalogoContable_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_Subcuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_MotivoTransaccion_FechaCreacion' cannot be null
+ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_MotivoTransaccion` FOREIGN KEY (`CON_MotivoTransaccion_ID`) REFERENCES `CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`) ON DELETE NO ACTION ON)
+ERROR 1048 (23000) at line 5: Column 'CON_UnidadMonetaria_FechaCreacion' cannot be null
+Populating Ventas 
+Process ended at  2014/03/01 00:03:15
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/01 00:34:12
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 424: Can't create table 'pymeERP.CON_CuentaTBalanzaComprobacionAjustada' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1048 (23000) at line 5: Column 'CON_ClasificacionCuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_CatalogoContable_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_Subcuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_MotivoTransaccion_FechaCreacion' cannot be null
+ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_MotivoTransaccion` FOREIGN KEY (`CON_MotivoTransaccion_ID`) REFERENCES `CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`) ON DELETE NO ACTION ON)
+ERROR 1048 (23000) at line 5: Column 'CON_UnidadMonetaria_FechaCreacion' cannot be null
+Populating Ventas 
+Process ended at  2014/03/01 00:34:13
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/01 00:34:58
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 458: Can't create table 'pymeERP.CON_BalanceGeneral' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1048 (23000) at line 5: Column 'CON_ClasificacionCuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_CatalogoContable_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_Subcuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_MotivoTransaccion_FechaCreacion' cannot be null
+ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_MotivoTransaccion` FOREIGN KEY (`CON_MotivoTransaccion_ID`) REFERENCES `CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`) ON DELETE NO ACTION ON)
+ERROR 1048 (23000) at line 5: Column 'CON_UnidadMonetaria_FechaCreacion' cannot be null
+Populating Ventas 
+Process ended at  2014/03/01 00:34:59
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/01 00:35:12
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1048 (23000) at line 5: Column 'CON_ClasificacionCuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_CatalogoContable_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_Subcuenta_FechaCreacion' cannot be null
+ERROR 1048 (23000) at line 5: Column 'CON_MotivoTransaccion_FechaCreacion' cannot be null
+ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_MotivoTransaccion` FOREIGN KEY (`CON_MotivoTransaccion_ID`) REFERENCES `CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`) ON DELETE NO ACTION ON)
+ERROR 1048 (23000) at line 5: Column 'CON_UnidadMonetaria_FechaCreacion' cannot be null
+Populating Ventas 
+Process ended at  2014/03/01 00:35:13
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/01 00:37:34
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '3' for key 'CON_ClasificacionCuenta_Codigo_UNIQUE'
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1062 (23000) at line 9: Duplicate entry '1' for key 'CON_Subcuenta_Codigo_UNIQUE'
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/01 00:37:35
+------------------------END----------------------------
