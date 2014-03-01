@@ -25,7 +25,7 @@ vagrant ssh
 
 ...
 
-vagrant@precise32:~$ cd /vagrant/pymeSolutions/
+vagrant@precise32:~$ cd /vagrant/pymeSolutionsDev/
 vagrant@precise32:/vagrant/pymeSolutions$ composer install
 
 ```
