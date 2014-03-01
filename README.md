@@ -14,7 +14,7 @@ Usage
 
 ```bash
 git clone git@github.com:jorgeacaballero/pymeSolutions.git
-cd laravel-vagrant-sandbox
+cd pymeSolutions
 vagrant up 
 ```
 Wait for the download to finish. Once the VM is running, connect to the machine via ssh and install dependencies:
@@ -31,6 +31,27 @@ vagrant@precise32:/vagrant/pymeSolutions$ composer install
 ```
 
 Once done go to `http://localhost:4567` and you should recive the "You have arrived." message from Laravel.
+
+**Database script**
+
+Inside the vagrant machine, go to the `scripts` folder and add the +x permission:
+
+```bash
+
+vagrant@precise32:~$ cd /vagrant/pymeSolutions/scripts
+vagrant@precise32:/vagrant/pymeSolutions/scripts$ chmod +x ./run.sh
+
+```
+
+Run the bash script:
+
+```bash
+
+vagrant@precise32:/vagrant/pymeSolutions/scripts$ ./run.sh
+
+```
+
+Check the log inside the logs folder.
 
 **Troubleshoot**
 
