@@ -15,3 +15,9 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::resource('Cajas', 'CajasController');
+
+Route::resource('CierreCajas', 'CierreCajasController');
+
+Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
