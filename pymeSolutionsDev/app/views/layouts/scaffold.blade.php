@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>pymeSolutions</title>
+	<link rel="stylesheet" type="text/css" href="/assets/css/general.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 </head>
 <body style="margin-top: 50px">

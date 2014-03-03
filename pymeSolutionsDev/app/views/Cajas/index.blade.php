@@ -2,25 +2,30 @@
 
 @section('main')
 
-<h1>All Cajas</h1>
 
-<p>{{ link_to_route('Cajas.create', 'Add new Caja') }}</p>
+<h2 class="sub-header">Listado de Cajas</h2>
+<div class="btn-agregar">
+	<a type="button" href="{{ URL::route('Cajas.create') }}" class="btn btn-default">
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Caja
+	</a>
+</div>
 
 @if ($Cajas->count())
-	<table class="table table-striped table-bordered">
-		<thead>
-			<tr>
-				<th>VEN_Caja_id</th>
-				<th>VEN_Caja_Codigo</th>
-				<th>VEN_Caja_Numero</th>
-				<th>VEN_Caja_Estado</th>
-				<th>VEN_Caja_SaldoInicial</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			@foreach ($Cajas as $Caja)
+	
+	<div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
 				<tr>
+					<th>#</th>
+					<th>Código</th>
+					<th>Número de Caja</th>
+					<th>Estado de Caja</th>
+					<th>Saldo Inicial</th>
+				</tr>
+			</thead>
+            <tbody>
+            	@foreach ($Cajas as $Caja)
+                <tr>
 					<td>{{{ $Caja->VEN_Caja_id }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Codigo }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Numero }}}</td>
@@ -33,11 +38,14 @@
                         {{ Form::close() }}
                     </td>
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
 @else
-	There are no Cajas
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay cajas disponibles :(
+    </div>
 @endif
 
 @stop

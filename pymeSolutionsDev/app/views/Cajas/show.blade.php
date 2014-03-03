@@ -6,6 +6,7 @@
 
 <p>{{ link_to_route('Cajas.index', 'Return to all Cajas') }}</p>
 
+
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
