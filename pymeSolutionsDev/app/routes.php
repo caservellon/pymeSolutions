@@ -15,3 +15,11 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::resource('Ciudad', 'CiudadController');
+
+Route::resource('UnidadMedidas', 'UnidadMedidasController');
+
+Route::resource('Categoria', 'CategoriaController');
+
+Route::resource('Atributos', 'AtributosController');
