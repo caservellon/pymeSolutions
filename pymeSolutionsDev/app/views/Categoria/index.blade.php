@@ -6,7 +6,7 @@
 
 @if ($Categoria->count())
 	<div class="col-md-5 col-md-push-10">
-    	<p>{{ link_to_route('Categoria.create', 'Nueva Categoría') }}</p>
+    	<p>{{ link_to_route('Categoria.create', 'Nueva Categoría', '', array('class' => 'btn btn-success')) }}</p>
   	</div>
 	<table class="table table-striped table-bordered table-condensed">
 		<thead>

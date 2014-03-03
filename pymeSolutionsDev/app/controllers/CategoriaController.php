@@ -104,7 +104,14 @@ class CategoriaController extends BaseController {
 		if ($validation->passes())
 		{
 			$Categoria = $this->Categoria->find($id);
-			$Categoria->update($input);
+			$Categoria->INV_Categoria_ID = $id;
+			$Categoria->INV_Categoria_Codigo = Input::get('INV_Categoria_Codigo');
+			$Categoria->INV_Categoria_Nombre = Input::get('INV_Categoria_Nombre');
+			$Categoria->INV_Categoria_Descripcion = Input::get('INV_Categoria_Descripcion');
+			$Categoria->INV_Categoria_HorarioDescuento_ID = Input::get('INV_Categoria_HorarioDescuento_ID');
+			$Categoria->INV_Categoria_Activo = Input::get('INV_Categoria_Activo');
+			$Categoria->INV_Categoria_IDCategoriaPadre = Input::get('INV_Categoria_IDCategoriaPadre');
+			$Categoria->update();
 
 			return Redirect::route('Categoria.show', $id);
 		}

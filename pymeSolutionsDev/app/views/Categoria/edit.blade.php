@@ -12,7 +12,7 @@
           <div class="form-group col-md-10">
             <label for="Codigo" class="col-md-3 control-label">ID:</label>
               <div class="col-md-4">
-                {{ Form::text('INV_Categoria_ID') }}
+                <input class="form-control" id="disabledInput" type="text" placeholder="{{$Categoria->INV_Categoria_ID}}" disabled>
               </div>
           </div>
 
@@ -60,9 +60,10 @@
         </form> 
         </div>
         
-        <div class="form-group col-md-12">
+        <div class="col-md-1 col-md-push-2">
             {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Categoria.show', 'Cancel', $Categoria->INV_Categoria_ID, array('class' => 'btn')) }}
+            <br><br>
+            {{ link_to_route('Categoria.show', 'Cancel', $Categoria->INV_Categoria_ID, array('class' => 'btn btn-danger')) }}
         </div>
     </div>
 

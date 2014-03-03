@@ -9,12 +9,9 @@ class Categoria extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'INV_Categoria_ID' => 'required',
 		'INV_Categoria_Codigo' => 'required',
 		'INV_Categoria_Nombre' => 'required',
-		'INV_Categoria_Descripcion' => 'required',
-		'INV_Categoria_Activo' => 'required',
-		'INV_Categoria_IDCategoriaPadre' => 'required',
-		'INV_Categoria_HorarioDescuento_ID' => 'required'
+		'INV_Categoria_IDCategoriaPadre' => 'required|numeric',
+		'INV_Categoria_HorarioDescuento_ID' => 'required|numeric'
 	);
 }
