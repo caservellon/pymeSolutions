@@ -1,4 +1,3 @@
-
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CON_UnidadMonetaria`
 -- -----------------------------------------------------
@@ -93,8 +92,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CatalogoContable` (
   `CON_CatalogoContable_FechaModificacion` DATETIME NOT NULL,
   `CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID` INT NOT NULL,
   PRIMARY KEY (`CON_CatalogoContable_ID`, `CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID`),
-  UNIQUE INDEX `CON_CatalogoContable_Codigo_UNIQUE` (`CON_CatalogoContable_Codigo` ASC),
-  UNIQUE INDEX `CON_CatalogoContable_Nombre_UNIQUE` (`CON_CatalogoContable_Nombre` ASC),
   INDEX `fk_CON_CatalogoContable_CON_ClasificacionCuenta1_idx` (`CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID` ASC),
   CONSTRAINT `fk_CON_CatalogoContable_CON_ClasificacionCuenta1`
     FOREIGN KEY (`CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID`)
@@ -102,7 +99,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CatalogoContable` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CON_CuentaMotivo`
@@ -161,12 +157,12 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_DetalleAsiento` (
   PRIMARY KEY (`CON_DetalleAsiento_ID`),
   INDEX `CON_MotivoTransaccion_ID_idx` (`CON_MotivoTransaccion_ID` ASC),
   INDEX `CON_LibroDiario_ID_idx` (`CON_LibroDiario_ID` ASC),
-  CONSTRAINT `CON_MotivoTransaccion_ID`
+  CONSTRAINT `fk_CON_MotivoTransaccion_ID`
     FOREIGN KEY (`CON_MotivoTransaccion_ID`)
     REFERENCES `pymeERP`.`CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `CON_LibroDiario_ID`
+  CONSTRAINT `fk_CON_LibroDiario_ID`
     FOREIGN KEY (`CON_LibroDiario_ID`)
     REFERENCES `pymeERP`.`CON_LibroDiario` (`CON_LibroDiario_ID`)
     ON DELETE NO ACTION
@@ -187,8 +183,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Subcuenta` (
   `CON_Subcuenta_FechaModificacion` DATETIME NOT NULL,
   `CON_CatalogoContable_ID` INT NOT NULL,
   PRIMARY KEY (`CON_Subcuenta_ID`, `CON_CatalogoContable_ID`),
-  UNIQUE INDEX `CON_Subcuenta_Nombre_UNIQUE` (`CON_Subcuenta_Nombre` ASC),
-  UNIQUE INDEX `CON_Subcuenta_Codigo_UNIQUE` (`CON_Subcuenta_Codigo` ASC),
   INDEX `fk_CON_Subcuenta_CON_CatalogoContable1_idx` (`CON_CatalogoContable_ID` ASC),
   CONSTRAINT `fk_CON_Subcuenta_CON_CatalogoContable1`
     FOREIGN KEY (`CON_CatalogoContable_ID`)
@@ -225,16 +219,16 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaT` (
   `CON_CuentaT_FechaModificacion` DATETIME NOT NULL,
   `CON_CuentaT_FechaCreacion` DATETIME NOT NULL,
   `CON_CatalogoContable_CON_CatalogoContable_ID` INT NOT NULL,
-  `CON_CatalogoContable_CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID` INT NOT NULL,
-  PRIMARY KEY (`CON_LibroMayor_ID`, `CON_CatalogoContable_CON_CatalogoContable_ID`, `CON_CatalogoContable_CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID`),
-  INDEX `fk_CON_CuentaT_CON_CatalogoContable1_idx` (`CON_CatalogoContable_CON_CatalogoContable_ID` ASC, `CON_CatalogoContable_CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID` ASC),
+  `CON_CatCont_CON_ClasCuen_CON_ClasCuen_ID` INT NOT NULL,
+  PRIMARY KEY (`CON_LibroMayor_ID`, `CON_CatalogoContable_CON_CatalogoContable_ID`, `CON_CatCont_CON_ClasCuen_CON_ClasCuen_ID`),
+  INDEX `fk_CON_CuentaT_CON_CatalogoContable1_idx` (`CON_CatalogoContable_CON_CatalogoContable_ID` ASC, `CON_CatCont_CON_ClasCuen_CON_ClasCuen_ID` ASC),
   CONSTRAINT `CON_LibroMayor_ID`
     FOREIGN KEY (`CON_LibroMayor_ID`)
     REFERENCES `pymeERP`.`CON_LibroMayor` (`CON_LibroMayor_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_CON_CuentaT_CON_CatalogoContable1`
-    FOREIGN KEY (`CON_CatalogoContable_CON_CatalogoContable_ID` , `CON_CatalogoContable_CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID`)
+    FOREIGN KEY (`CON_CatalogoContable_CON_CatalogoContable_ID` , `CON_CatCont_CON_ClasCuen_CON_ClasCuen_ID`)
     REFERENCES `pymeERP`.`CON_CatalogoContable` (`CON_CatalogoContable_ID` , `CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -323,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CapitalContable` (
   `CON_CapitalContable_FechaCreacion` DATETIME NOT NULL,
   `CON_CapitalContable_FechaModificacion` DATETIME NOT NULL,
   PRIMARY KEY (`CON_PeriodoContable_ID`),
-  CONSTRAINT `CON_PeriodoContable_ID`
+  CONSTRAINT `fk_CON_PeriodoContable_ID`
     FOREIGN KEY (`CON_PeriodoContable_ID`)
     REFERENCES `pymeERP`.`CON_PeriodoContable` (`CON_PeriodoContable_ID`)
     ON DELETE NO ACTION
@@ -369,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_PuntoEquilibrio` (
   `CON_LibroMayor_ID` INT NOT NULL,
   PRIMARY KEY (`CON_PuntoEquilibrio_ID`),
   INDEX `CON_LibroMayor_DID_idx` (`CON_LibroMayor_ID` ASC),
-  CONSTRAINT `CON_LibroMayor_ID`
+  CONSTRAINT `fk_CON_LibroMayor_ID`
     FOREIGN KEY (`CON_LibroMayor_ID`)
     REFERENCES `pymeERP`.`CON_LibroMayor` (`CON_LibroMayor_ID`)
     ON DELETE NO ACTION
@@ -389,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_BalanzaComprobacion` (
   `CON_LibroMayor_ID` INT NOT NULL,
   PRIMARY KEY (`CON_BalanzaComprobacion_ID`),
   INDEX `CON_LibroMayor_ID_idx` (`CON_LibroMayor_ID` ASC),
-  CONSTRAINT `CON_LibroMayor_ID`
+  CONSTRAINT `fk_CON_LibroMayor_ID_fk`
     FOREIGN KEY (`CON_LibroMayor_ID`)
     REFERENCES `pymeERP`.`CON_LibroMayor` (`CON_LibroMayor_ID`)
     ON DELETE NO ACTION
@@ -409,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_BalanzaComprobacionAjustada` (
   `CON_LibroMayor_Id` INT NOT NULL,
   PRIMARY KEY (`CON_BalanzaComprobacionAjustada_ID`),
   INDEX `CON_LibroMayor_Id_idx` (`CON_LibroMayor_Id` ASC),
-  CONSTRAINT `CON_LibroMayor_Id`
+  CONSTRAINT `CON_LibroMayor_Id_fk`
     FOREIGN KEY (`CON_LibroMayor_Id`)
     REFERENCES `pymeERP`.`CON_LibroMayor` (`CON_LibroMayor_ID`)
     ON DELETE NO ACTION
@@ -433,17 +427,17 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaTBalanzaComprobacionAjustada` (
   PRIMARY KEY (`CON_BalanzaComprobacionAjustada_ID`),
   INDEX `CON_CuentaT_ID_idx` (`CON_CuentaT_ID` ASC),
   INDEX `CON_LibroMayor_ID_idx` (`CON_LibroMayor_ID` ASC),
-  CONSTRAINT `CON_BalanzaComprobacionAjustada`
+  CONSTRAINT `CON_BalanzaComprobacionAjustada_fk`
     FOREIGN KEY (`CON_BalanzaComprobacionAjustada_ID`)
     REFERENCES `pymeERP`.`CON_BalanzaComprobacionAjustada` (`CON_BalanzaComprobacionAjustada_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `CON_CuentaT_ID`
+  CONSTRAINT `CON_CuentaT_ID_fk`
     FOREIGN KEY (`CON_CuentaT_ID`)
     REFERENCES `pymeERP`.`CON_CuentaT` (`CON_LibroMayor_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `CON_LibroMayor_ID`
+  CONSTRAINT `fk_CON_LibroMayor_ID_fk_fk`
     FOREIGN KEY (`CON_LibroMayor_ID`)
     REFERENCES `pymeERP`.`CON_LibroMayor` (`CON_LibroMayor_ID`)
     ON DELETE NO ACTION
@@ -466,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_BalanceGeneral` (
   `CON_BalanceGeneral_FechaCreacion` DATETIME NOT NULL,
   `CON_BalanceGeneral_FechaModificacion` DATETIME NOT NULL,
   PRIMARY KEY (`CON_PeriodoContable_ID`),
-  CONSTRAINT `CON_PeriodoContable_ID`
+  CONSTRAINT `fk_fk_CON_PeriodoContable_ID`
     FOREIGN KEY (`CON_PeriodoContable_ID`)
     REFERENCES `pymeERP`.`CON_PeriodoContable` (`CON_PeriodoContable_ID`)
     ON DELETE NO ACTION
