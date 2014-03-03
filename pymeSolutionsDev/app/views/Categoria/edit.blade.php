@@ -3,68 +3,69 @@
 @section('main')
 
 <h1>Edit Categoria</h1>
-{{ Form::model($Categoria, array('method' => 'PATCH', 'route' => array('Categoria.update', $Categoria->id))) }}
-	<ul>
-        <li>
-            {{ Form::label('INV_Categoria_ID', 'INV_Categoria_ID:') }}
-            {{ Form::text('INV_Categoria_ID') }}
-        </li>
+{{ Form::model($Categoria, array('method' => 'PATCH', 'route' => array('Categoria.update', $Categoria->INV_Categoria_ID))) }}
+	
+    <div class="row"> 
+      <div class="col-md-4 col-md-offset-1">
 
-        <li>
-            {{ Form::label('INV_Categoria_Codigo', 'INV_Categoria_Codigo:') }}
-            {{ Form::text('INV_Categoria_Codigo') }}
-        </li>
+        <form class="form-horizontal" role="form">
+          <div class="form-group col-md-10">
+            <label for="Codigo" class="col-md-3 control-label">ID:</label>
+              <div class="col-md-4">
+                {{ Form::text('INV_Categoria_ID') }}
+              </div>
+          </div>
 
-        <li>
-            {{ Form::label('INV_Categoria_Nombre', 'INV_Categoria_Nombre:') }}
-            {{ Form::text('INV_Categoria_Nombre') }}
-        </li>
+          <div class="form-group col-md-12">
+            <label for="Codigo" class="col-md-3 control-label">Codigo:</label>
+              <div class="col-md-8">
+                {{ Form::text('INV_Categoria_Codigo') }}
+              </div>
+          </div>
 
-        <li>
-            {{ Form::label('INV_Categoria_Descripcion', 'INV_Categoria_Descripcion:') }}
-            {{ Form::text('INV_Categoria_Descripcion') }}
-        </li>
+         <div class="form-group col-md-12">
+            <label for="Nombre" class="col-md-3 control-label">Nombre:</label>
+              <div class="col-md-8">
+                {{ Form::text('INV_Categoria_Nombre') }}
+              </div>
+         </div> 
 
-        <li>
-            {{ Form::label('INV_Categoria_FechaCreacion', 'INV_Categoria_FechaCreacion:') }}
-            {{ Form::text('INV_Categoria_FechaCreacion') }}
-        </li>
+         <div class="form-group col-md-12">
+           <label for="Descripcion" class="col-md-3 control-label">Descripcion:</label> 
+            <div class="col-md-9 col-md-push-1">
+             {{ Form::textarea('INV_Categoria_Descripcion') }}
+          </div>
+        </div>
 
-        <li>
-            {{ Form::label('INV_Categoria_UsuarioCreacion', 'INV_Categoria_UsuarioCreacion:') }}
-            {{ Form::text('INV_Categoria_UsuarioCreacion') }}
-        </li>
+        <div class="form-group col-md-12">
+            <label for="Nombre" class="col-md-5 control-label">Horario Descuento ID:</label>
+              <div class="col-md-4">
+                {{ Form::text('INV_Categoria_HorarioDescuento_ID') }}
+              </div>
+        </div> 
 
-        <li>
-            {{ Form::label('INV_Categoria_FechaModificacion', 'INV_Categoria_FechaModificacion:') }}
-            {{ Form::text('INV_Categoria_FechaModificacion') }}
-        </li>
+        <div class="form-group col-md-12">
+            <label for="Nombre" class="col-md-3 control-label">Activo:</label>
+            <div class="col-md-8">
+                {{ Form::checkbox('INV_Categoria_Activo') }}
+            </div>
+        </div>
 
-        <li>
-            {{ Form::label('INV_Categoria_UsuarioModificacion', 'INV_Categoria_UsuarioModificacion:') }}
-            {{ Form::text('INV_Categoria_UsuarioModificacion') }}
-        </li>
+         <div class="form-group col-md-12">
+            <label for="CategoriaPadre" class="col-md-3 control-label">Categoria Padre:</label>
+              <div class="col-md-8">
+                {{ Form::text('INV_Categoria_IDCategoriaPadre') }}
+              </div>
+         </div>
+        </form> 
+        </div>
+        
+        <div class="form-group col-md-12">
+            {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
+            {{ link_to_route('Categoria.show', 'Cancel', $Categoria->INV_Categoria_ID, array('class' => 'btn')) }}
+        </div>
+    </div>
 
-        <li>
-            {{ Form::label('INV_Categoria_Activo', 'INV_Categoria_Activo:') }}
-            {{ Form::checkbox('INV_Categoria_Activo') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Categoria_IDCategoriaPadre', 'INV_Categoria_IDCategoriaPadre:') }}
-            {{ Form::text('INV_Categoria_IDCategoriaPadre') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Categoria_HorarioDescuento_ID', 'INV_Categoria_HorarioDescuento_ID:') }}
-            {{ Form::text('INV_Categoria_HorarioDescuento_ID') }}
-        </li>
-
-		<li>
-			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('Categoria.show', 'Cancel', $Categoria->id, array('class' => 'btn')) }}
-		</li>
-	</ul>
 {{ Form::close() }}
 
 @if ($errors->any())

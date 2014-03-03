@@ -36,15 +36,6 @@
             {{ Form::text('INV_Categoria_UsuarioCreacion') }}
         </li>
 
-        <li>
-            {{ Form::label('INV_Categoria_FechaModificacion', 'INV_Categoria_FechaModificacion:') }}
-            {{ Form::text('INV_Categoria_FechaModificacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Categoria_UsuarioModificacion', 'INV_Categoria_UsuarioModificacion:') }}
-            {{ Form::text('INV_Categoria_UsuarioModificacion') }}
-        </li>
 
         <li>
             {{ Form::label('INV_Categoria_Activo', 'INV_Categoria_Activo:') }}

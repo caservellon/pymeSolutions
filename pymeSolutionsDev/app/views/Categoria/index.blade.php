@@ -4,23 +4,24 @@
 
 <h1>All Categoria</h1>
 
-<p>{{ link_to_route('Categoria.create', 'Add new Categoria') }}</p>
-
 @if ($Categoria->count())
-	<table class="table table-striped table-bordered">
+	<div class="col-md-5 col-md-push-10">
+    	<p>{{ link_to_route('Categoria.create', 'Nueva Categoría') }}</p>
+  	</div>
+	<table class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>INV_Categoria_ID</th>
-				<th>INV_Categoria_Codigo</th>
-				<th>INV_Categoria_Nombre</th>
-				<th>INV_Categoria_Descripcion</th>
-				<th>INV_Categoria_FechaCreacion</th>
-				<th>INV_Categoria_UsuarioCreacion</th>
-				<th>INV_Categoria_FechaModificacion</th>
-				<th>INV_Categoria_UsuarioModificacion</th>
-				<th>INV_Categoria_Activo</th>
-				<th>INV_Categoria_IDCategoriaPadre</th>
-				<th>INV_Categoria_HorarioDescuento_ID</th>
+				<th>ID</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>FechaCreacion</th>
+				<th>UsuarioCreacion</th>
+				<th>FechaModificacion</th>
+				<th>UsuarioModificacion</th>
+				<th>Activo</th>
+				<th>IDCategoriaPadre</th>
+				<th>HorarioDescuento_ID</th>
 			</tr>
 		</thead>
 
@@ -38,9 +39,9 @@
 					<td>{{{ $Categoria->INV_Categoria_Activo }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_HorarioDescuento_ID }}}</td>
-                    <td>{{ link_to_route('Categoria.edit', 'Edit', array($Categoria->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Categoria.edit', 'Edit', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Categoria.destroy', $Categoria->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Categoria.destroy', $Categoria->INV_Categoria_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
@@ -51,5 +52,4 @@
 @else
 	There are no Categoria
 @endif
-
 @stop
