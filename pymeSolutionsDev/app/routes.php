@@ -15,3 +15,19 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::resource('AperturaCajas', 'AperturacajasController');
+
+Route::resource('Ventas', 'VentasController');
+
+Route::resource('DetalleDeVenta', 'DetalleDeVentaController');
+
+Route::resource('FormaPagos', 'FormaPagosController');
+
+Route::resource('EstadoBonos', 'EstadobonosController');
+
+Route::resource('BonoDeCompras', 'BonodecomprasController');
+
+Route::resource('Devoluciones', 'DevolucionesController');
+
+Route::resource('DetalleDevoluciones', 'DetalleDevolucionesController');
