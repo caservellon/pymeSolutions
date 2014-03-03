@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit UnidadMedida</h1>
-{{ Form::model($UnidadMedida, array('method' => 'PATCH', 'route' => array('UnidadMedidas.update', $UnidadMedida->id))) }}
+{{ Form::model($UnidadMedida, array('method' => 'PATCH', 'route' => array('UnidadMedidas.update', $UnidadMedida->INV_UnidadMedida_ID))) }}
 	<ul>
         <li>
             {{ Form::label('INV_UnidadMedida_ID', 'INV_UnidadMedida_ID:') }}
@@ -47,7 +47,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('UnidadMedidas.show', 'Cancel', $UnidadMedida->id, array('class' => 'btn')) }}
+			{{ link_to_route('UnidadMedidas.show', 'Cancel', $UnidadMedida->INV_UnidadMedida_ID, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

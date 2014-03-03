@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Atributo</h1>
-{{ Form::model($Atributo, array('method' => 'PATCH', 'route' => array('Atributos.update', $Atributo->id))) }}
+{{ Form::model($Atributo, array('method' => 'PATCH', 'route' => array('Atributos.update', $Atributo->INV_Atributo_ID))) }}
 	<ul>
         <li>
             {{ Form::label('INV_Atributo_ID', 'INV_Atributo_ID:') }}
@@ -52,7 +52,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('Atributos.show', 'Cancel', $Atributo->id, array('class' => 'btn')) }}
+			{{ link_to_route('Atributos.show', 'Cancel', $Atributo->INV_Atributo_ID, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

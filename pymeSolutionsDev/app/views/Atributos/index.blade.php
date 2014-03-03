@@ -34,9 +34,9 @@
 					<td>{{{ $Atributo->INV_Atributo_FechaModificacion }}}</td>
 					<td>{{{ $Atributo->INV_Atributo_UsuarioModificacion }}}</td>
 					<td>{{{ $Atributo->INV_Atributo_Activo }}}</td>
-                    <td>{{ link_to_route('Atributos.edit', 'Edit', array($Atributo->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Atributos.edit', 'Edit', array($Atributo->INV_Atributo_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Atributos.destroy', $Atributo->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Atributos.destroy', $Atributo->INV_Atributo_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

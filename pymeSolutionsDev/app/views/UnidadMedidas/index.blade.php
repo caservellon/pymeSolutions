@@ -32,9 +32,9 @@
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_FechaModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_Activo }}}</td>
-                    <td>{{ link_to_route('UnidadMedidas.edit', 'Edit', array($UnidadMedida->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('UnidadMedidas.edit', 'Edit', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('UnidadMedidas.destroy', $UnidadMedida->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('UnidadMedidas.destroy', $UnidadMedida->INV_UnidadMedida_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
