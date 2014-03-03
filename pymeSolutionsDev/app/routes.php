@@ -16,6 +16,7 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+
 Route::resource('AperturaCajas', 'AperturacajasController');
 
 Route::resource('Ventas', 'VentasController');
@@ -31,3 +32,10 @@ Route::resource('BonoDeCompras', 'BonodecomprasController');
 Route::resource('Devoluciones', 'DevolucionesController');
 
 Route::resource('DetalleDevoluciones', 'DetalleDevolucionesController');
+
+Route::resource('Cajas', 'CajasController');
+
+Route::resource('CierreCajas', 'CierreCajasController');
+
+Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
+

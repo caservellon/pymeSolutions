@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder {
 		$this->call('BonodecomprasTableSeeder');
 		$this->call('DevolucionsTableSeeder');
 		$this->call('DetalledevolucionsTableSeeder');
+		$this->call('CajasTableSeeder');
+		$this->call('CierrecajasTableSeeder');
+		$this->call('PeriodocierredecajasTableSeeder');
+
 	}
 
 }
