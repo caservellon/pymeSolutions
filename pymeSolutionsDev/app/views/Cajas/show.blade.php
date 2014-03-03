@@ -24,9 +24,9 @@
 					<td>{{{ $Caja->VEN_Caja_Numero }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Estado }}}</td>
 					<td>{{{ $Caja->VEN_Caja_SaldoInicial }}}</td>
-                    <td>{{ link_to_route('Cajas.edit', 'Edit', array($Caja->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Cajas.edit', 'Edit', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Cajas.destroy', $Caja->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Cajas.destroy', $Caja->VEN_Caja_id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

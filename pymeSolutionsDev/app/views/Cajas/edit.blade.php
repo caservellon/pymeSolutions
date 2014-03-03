@@ -32,7 +32,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('Cajas.show', 'Cancel', $Caja->id, array('class' => 'btn')) }}
+			{{ link_to_route('Cajas.show', 'Cancel', $Caja->VEN_Caja_id, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}
