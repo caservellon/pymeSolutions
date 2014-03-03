@@ -14,6 +14,7 @@
 				<th>Id</th>
 				<th>Nombre</th>
 				<th>Tasa</th>
+				<th>Observacion</th>
 				<th>Action</th>
 			</tr>
 
@@ -24,6 +25,7 @@
 					<td>{{{ $unidad->CON_UnidadMonetaria_ID }}}</td>
 					<td>{{{ $unidad->CON_UnidadMonetaria_Nombre }}}</td>
 					<td>{{{ $unidad->CON_UnidadMonetaria_TasaConversion }}}</td>
+					<td>{{{ $unidad->CON_UnidadMonetaria_Observacion }}}</td>
 					<td><a class="btn btn-success" href="{{ URL::to('unidad-monetaria/'.$unidad->CON_UnidadMonetaria_ID.'/edit') }}">Edit</a>
 					<a class="btn btn-primary" href="{{ URL::to('unidad-monetaria/'.$unidad->CON_UnidadMonetaria_ID) }}">Show</a></td>
 				</tr>
