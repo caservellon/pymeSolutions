@@ -48,6 +48,7 @@ class CajasController extends BaseController {
 
 		if ($validation->passes())
 		{
+		
 			$this->Caja->create($input);
 
 			return Redirect::route('Cajas.index');
