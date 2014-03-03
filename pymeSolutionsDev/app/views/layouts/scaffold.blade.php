@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 </head>
 <body style="margin-top: 50px">
-	
+	<header>
 	<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 		<a class="navbar-brand" href="#">pymeERP</a>
 		
@@ -89,7 +89,7 @@
 
 		<p class="navbar-text navbar-right" style="margin-right: 1em;">Signed in as <a href="#" class="navbar-link">Jorge Caballero</a></p>
 	</nav>
-
+	</header>
 	<div class="container col-md-8 col-md-offset-2">
 		@yield('main')
 	</div>
