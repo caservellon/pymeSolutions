@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Categoria</h1>
-{{ Form::model($Categoria, array('method' => 'PATCH', 'route' => array('Categoria.update', $Categoria->id))) }}
+{{ Form::model($Categoria, array('method' => 'PATCH', 'route' => array('Categoria.update', $Categoria->INV_Categoria_ID))) }}
 	<ul>
         <li>
             {{ Form::label('INV_Categoria_ID', 'INV_Categoria_ID:') }}
@@ -62,7 +62,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('Categoria.show', 'Cancel', $Categoria->id, array('class' => 'btn')) }}
+			{{ link_to_route('Categoria.show', 'Cancel', $Categoria->INV_Categoria_ID, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

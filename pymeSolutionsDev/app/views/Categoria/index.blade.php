@@ -38,9 +38,9 @@
 					<td>{{{ $Categoria->INV_Categoria_Activo }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_HorarioDescuento_ID }}}</td>
-                    <td>{{ link_to_route('Categoria.edit', 'Edit', array($Categoria->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Categoria.edit', 'Edit', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Categoria.destroy', $Categoria->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Categoria.destroy', $Categoria->INV_Categoria_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

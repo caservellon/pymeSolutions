@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Ciudad</h1>
-{{ Form::model($Ciudad, array('method' => 'PATCH', 'route' => array('Ciudad.update', $Ciudad->id))) }}
+{{ Form::model($Ciudad, array('method' => 'PATCH', 'route' => array('Ciudad.update', $Ciudad->INV_Ciudad_ID))) }}
 	<ul>
         <li>
             {{ Form::label('INV_Ciudad_ID', 'INV_Ciudad_ID:') }}
