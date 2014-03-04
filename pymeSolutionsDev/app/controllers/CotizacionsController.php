@@ -55,17 +55,17 @@ class CotizacionsController extends BaseController {
             
                 $input = Input::all();
 		$validation = Validator::make($input, CampoLocal::$rules);
-
+                
 		if ($validation->passes())
 		{
                         
                         
 			$this->CampoLocal->create($input);
                        
-			return Redirect::route('Cotizacions.parametrizar');
+			return Redirect::route('parametrizar');
 		}
 
-		return Redirect::route('Cotizacions.parametrizar')
+		return Redirect::route('parametrizar')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
