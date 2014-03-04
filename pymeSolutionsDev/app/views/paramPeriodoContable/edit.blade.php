@@ -3,7 +3,7 @@
 @section('main')
 
 
-<h1>Edit Unidad Monetaria</h1>
+<h1>Edit Clasificacion de Cuenta</h1>
 
 @if ($errors->any())
 <div class="bs-callout bs-callout-danger error">
