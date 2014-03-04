@@ -8,7 +8,6 @@ class Caja extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'VEN_Caja_id' => 'autoincrement',
 		'VEN_Caja_Codigo' => 'required',
 		'VEN_Caja_Numero' => 'required',
 		'VEN_Caja_Estado' => 'required',

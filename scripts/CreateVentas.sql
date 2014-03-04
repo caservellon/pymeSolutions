@@ -5,7 +5,7 @@
 DROP TABLE IF EXISTS `pymeERP`.`VEN_DescuentoEspecial` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DescuentoEspecial` (
-  `VEN_DescuentoEspecial_id` INT NOT NULL,
+  `VEN_DescuentoEspecial_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_DescuentoEspecial_Codigo` VARCHAR(45) NULL,
   `VEN_DescuentoEspecial_Nombre` VARCHAR(45) NULL,
   `VEN_DescuentoEspecial_Valor` DECIMAL(10,2) NULL,
@@ -23,7 +23,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_PeriodoCierreDeCaja` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_PeriodoCierreDeCaja` (
-  `VEN_PeriodoCierreDeCaja_id` INT NOT NULL,
+  `VEN_PeriodoCierreDeCaja_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_PeriodoCierreDeCaja_Codigo` VARCHAR(45) NULL,
   `VEN_PeriodoCierreDeCaja_ValorHoras` INT NULL,
   `VEN_PeriodoCierreDeCaja_Estado` INT NULL,
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_FormaPago` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_FormaPago` (
-  `VEN_FormaPago_id` INT NOT NULL,
+  `VEN_FormaPago_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_FormaPago_Descripcion` VARCHAR(45) NULL,
   `VEN_FormaPago_Codigo` VARCHAR(45) NULL,
   PRIMARY KEY (`VEN_FormaPago_id`))
@@ -51,7 +51,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_Caja` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Caja` (
-  `VEN_Caja_id` INT NOT NULL,
+  `VEN_Caja_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_Caja_Codigo` VARCHAR(45) NULL,
   `VEN_Caja_Numero` INT NULL,
   `VEN_Caja_Estado` INT NULL,
@@ -66,7 +66,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_Venta` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Venta` (
-  `VEN_Venta_id` INT NOT NULL,
+  `VEN_Venta_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_Venta_Codigo` VARCHAR(45) NULL,
   `VEN_Venta_DescuentoCliente` DECIMAL(10,2) NULL,
   `VEN_Venta_TotalDescuentoProductos` DECIMAL(10,2) NULL,
@@ -98,7 +98,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_DetalleDeVenta` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDeVenta` (
-  `VEN_DetalleDeVenta_id` INT NOT NULL,
+  `VEN_DetalleDeVenta_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_DetalleDeVenta_CantidadVendida` INT NULL,
   `VEN_DetalleDeVenta_PrecioVenta` DECIMAL(10,2) NULL,
   `VEN_Venta_VEN_Venta_id` INT NOT NULL,
@@ -118,7 +118,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_AperturaCaja` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_AperturaCaja` (
-  `VEN_AperturaCaja_id` INT NOT NULL,
+  `VEN_AperturaCaja_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_AperturaCaja_Codigo` VARCHAR(45) NULL,
   `VEN_Caja_VEN_Caja_id` INT NOT NULL,
   PRIMARY KEY (`VEN_AperturaCaja_id`, `VEN_Caja_VEN_Caja_id`),
@@ -137,7 +137,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_CierreCaja` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_CierreCaja` (
-  `VEN_CierreCaja_id` INT NOT NULL,
+  `VEN_CierreCaja_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_CierreCaja_TotalVentas` DECIMAL(10,2) NULL,
   `VEN_CierreCaja_SaldoInicial` DECIMAL(10,2) NULL,
   `VEN_CierreCaja_SaldoFinal` DECIMAL(10,2) NULL,
@@ -166,7 +166,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_Devolucion` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Devolucion` (
-  `VEN_Devolucion_id` INT NOT NULL,
+  `VEN_Devolucion_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_Devolucion_Codigo` VARCHAR(45) NULL,
   `VEN_Devolucion_Monto` DECIMAL(10,2) NULL,
   PRIMARY KEY (`VEN_Devolucion_id`))
@@ -179,7 +179,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_DetalleDevolucion` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDevolucion` (
-  `VEN_DetalleDevolucion_id` INT NOT NULL,
+  `VEN_DetalleDevolucion_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_DetalleDevolucion_Cantidad` DOUBLE NULL,
   `VEN_Devolucion_VEN_Devolucion_id` INT NOT NULL,
   PRIMARY KEY (`VEN_DetalleDevolucion_id`, `VEN_Devolucion_VEN_Devolucion_id`),
@@ -198,7 +198,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_EstadoBono` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_EstadoBono` (
-  `VEN_EstadoBono_id` INT NOT NULL,
+  `VEN_EstadoBono_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_EstadoBono_Codigo` VARCHAR(45) NULL,
   `VEN_EstadoBono_Nombre` VARCHAR(45) NULL,
   `VEN_EstadoBono_Descripcion` VARCHAR(45) NULL,
@@ -212,7 +212,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_BonoDeCompra` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_BonoDeCompra` (
-  `VEN_BonoDeCompra_id` INT NOT NULL,
+  `VEN_BonoDeCompra_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_BonoDeCompra_Numero` VARCHAR(45) NULL,
   `VEN_BonoDeCompra_Valor` DECIMAL(10,2) NULL,
   `VEN_EstadoBono_VEN_EstadoBono_id` INT NOT NULL,
