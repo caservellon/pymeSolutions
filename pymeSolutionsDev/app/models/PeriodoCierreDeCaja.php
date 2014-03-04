@@ -9,7 +9,6 @@ class PeriodoCierreDeCaja extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'VEN_PeriodoCierreDeCaja_id' => 'required',
 		'VEN_PeriodoCierreDeCaja_Codigo' => 'required',
 		'VEN_PeriodoCierreDeCaja_ValorHoras' => 'required',
 		'VEN_PeriodoCierreDeCaja_Estado' => 'required',
