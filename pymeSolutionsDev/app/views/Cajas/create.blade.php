@@ -1,11 +1,13 @@
 @extends('layouts.scaffold')
 
 @section('main')
-
-<div class="col-md-offset-1">
-  <h2>Caja &gt; <small>Nueva Caja</small>
-  </h2>
+<div class="page-header clearfix">
+      <h3 class="pull-left">Caja &gt; <small>Nueva Caja</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('Cajas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+      </div>
 </div>
+
 
               
 {{ Form::open(array('route' => 'Cajas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
@@ -33,7 +35,7 @@
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>
 		</div>
-	</ul>
+	
 {{ Form::close() }}
 
 @if ($errors->any())

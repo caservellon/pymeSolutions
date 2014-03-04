@@ -29,7 +29,12 @@
 					<td>{{{ $Caja->VEN_Caja_id }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Codigo }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Numero }}}</td>
-					<td>{{{ $Caja->VEN_Caja_Estado }}}</td>
+					@if ($Caja->VEN_Caja_Estado == 1)
+						<td>Activa</td>
+					@else
+						<td>Desactivada</td>
+					@endif
+					
 					<td>{{{ $Caja->VEN_Caja_SaldoInicial }}}</td>
                     <td>{{ link_to_route('Cajas.edit', 'Edit', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}</td>
                     <td>
