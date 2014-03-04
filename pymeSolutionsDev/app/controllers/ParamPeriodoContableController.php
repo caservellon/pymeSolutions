@@ -42,7 +42,6 @@ class ParamPeriodoContableController extends BaseController {
 	{
 		$input = Input::all();
 		$validation = Validator::make($input, ClasificacionPeriodo::$rules);
-
 		if ($validation->fails())
 		{
 			return Redirect::action('ParamPeriodoContableController@create')
@@ -50,8 +49,17 @@ class ParamPeriodoContableController extends BaseController {
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
 		}else{
-			$this->ClasificacionPeriodo->create($input);
-
+			$ClasificacionPeriodo = new ClasificacionPeriodo;
+			$ClasificacionPeriodo->CON_ClasificacionPeriodo_Nombre = Input::get('CON_ClasificacionPeriodo_Nombre');
+			$ClasificacionPeriodo->CON_ClasificacionPeriodo_CatidadDias= Input::get('CON_ClasificacionPeriodo_CatidadDias');
+			$ClasificacionPeriodo->save();
+			//$this->ClasificacionPeriodo->create($input);
+			$PeriodoContable = new PeriodoContable;
+			$PeriodoContable->CON_PeriodoContable_FechaInicio = Input::get('CON_PeriodoContable_FechaInicio');
+			$PeriodoContable->CON_PeriodoContable_FechaFinal = Input::get('CON_PeriodoContable_FechaFinal');
+			$PeriodoContable->CON_PeriodoContable_Nombre = Input::get('CON_ClasificacionPeriodo_Nombre');
+			$PeriodoContable->CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID= $ClasificacionPeriodo->CON_ClasificacionPeriodo_ID;
+			$PeriodoContable->save();
 			return Redirect::action('ParamPeriodoContableController@index');
 		}
 

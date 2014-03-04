@@ -34,3 +34,67 @@ Populating Contabilidad
 Populating Ventas 
 Process ended at  2014/03/04 14:29:14
 ------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 21:40:35
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 21:40:35
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 21:52:44
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 21:52:45
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 22:32:02
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 22:32:03
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 22:34:16
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 22:34:16
+------------------------END----------------------------
