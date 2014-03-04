@@ -4,7 +4,7 @@ class Cotizacion extends Eloquent {
 	protected $guarded = array();
         
         protected $table = 'COM_Cotizacion';
-	protected $primaryKey = 'COM_Cotizacion_IdCotizacion';
+	protected $primaryKey = 'COM_Cotizacion_Idcotizacion';
 
 	public $timestamps = false;
 
@@ -18,10 +18,13 @@ class Cotizacion extends Eloquent {
 		'COM_Cotizacion_Vigencia' => 'required',
 		'COM_Cotizacion_NumeroCotizacion' => 'required',
 		'COM_Cotizacion_FechaCreacion' => 'required',
-		'COM_Cotizacion_FechaModificacion' => 'required',
 		'COM_SolicitudCotizacion_idSolicitudCotizacion' => 'required',
 		'COM_Usuario_idUsuarioCreo' => 'required',
 		'COM_Proveedor_idProveedor' => 'required',
 		'Usuario_idUsuarioModifico' => 'required'
 	);
+        
+        public function valorcampolocal(){
+            return $this->hasMany('ValorCampoLocal', 'COM_ValorCampoLocal_IdValorCampoLocal');
+        }
 }

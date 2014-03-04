@@ -30,6 +30,11 @@ class CotizacionsController extends BaseController {
             
             return View::make('Cotizacions.parametrizar');
         }
+        
+        public function editarParametrizar(){
+            
+            return View::make('Cotizacions.editarParametrizar');
+        }
 
         /**
 	 * Show the form for creating a new resource.
@@ -46,6 +51,26 @@ class CotizacionsController extends BaseController {
 	 *
 	 * @return Response
 	 */
+        public function campoLocal(){
+            
+                $input = Input::all();
+		$validation = Validator::make($input, CampoLocal::$rules);
+
+		if ($validation->passes())
+		{
+                        
+                        
+			$this->CampoLocal->create($input);
+                       
+			return Redirect::route('Cotizacions.parametrizar');
+		}
+
+		return Redirect::route('Cotizacions.parametrizar')
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
+        }
+        
 	public function store()
 	{
 		$input = Input::all();
@@ -53,6 +78,7 @@ class CotizacionsController extends BaseController {
 
 		if ($validation->passes())
 		{
+                        
 			$this->Cotizacion->create($input);
 
 			return Redirect::route('Cotizacions.index');

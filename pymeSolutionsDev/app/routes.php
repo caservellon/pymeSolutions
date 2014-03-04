@@ -16,5 +16,11 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::get('Cotizacions/parametrizar', 'CotizacionsController@parametrizar');
+
+//Route::get('parametrizar', 'CotizacionsController@parametrizar');
+Route::get('campoLocal', 'CotizacionsController@campoLocal');
+
+Route::get('editarParametrizar', 'CotizacionsController@editarParametrizar');
 Route::resource('Cotizacions', 'CotizacionsController');
-Route::get('parametrizar', 'CotizacionsController@parametrizar');
+

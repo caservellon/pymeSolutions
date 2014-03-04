@@ -20,4 +20,8 @@ class ValorCampoLocal extends Eloquent {
 		'Usuario_idUsuarioModifico' => 'required',
 		
 	);
+        
+        public function campolocal(){
+            return $this->hasone('CampoLocal', 'GEN_CampoLocal_IdCampoLocal');
+        }
 }
