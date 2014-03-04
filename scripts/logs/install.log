@@ -18,3 +18,19 @@ ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key co
 Populating Ventas 
 Process ended at  2014/03/03 21:56:40
 ------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 14:29:13
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 14:29:14
+------------------------END----------------------------
