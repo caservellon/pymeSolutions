@@ -9,7 +9,6 @@ class Persona extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'CRM_Personas_ID' => 'required',
 		'CRM_Personas_codigo' => 'required',
 		'CRM_Personas_Nombres' => 'required',
 		'CRM_Personas_Apellidos' => 'required',

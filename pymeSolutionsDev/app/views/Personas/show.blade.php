@@ -34,9 +34,9 @@
 					<td>{{{ $Persona->CRM_Personas_Fijo }}}</td>
 					<td>{{{ $Persona->CRM_Personas_Descuento }}}</td>
 					<td>{{{ $Persona->CRM_Personas_Foto }}}</td>
-                    <td>{{ link_to_route('Personas.edit', 'Edit', array($Persona->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Personas.edit', 'Edit', array($Persona->CRM_Personas_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Personas.destroy', $Persona->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Personas.destroy', $Persona->CRM_Personas_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

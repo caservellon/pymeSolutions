@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Persona</h1>
-{{ Form::model($Persona, array('method' => 'PATCH', 'route' => array('Personas.update', $Persona->id))) }}
+{{ Form::model($Persona, array('method' => 'PATCH', 'route' => array('Personas.update', $Persona->CRM_Personas_ID))) }}
 	<ul>
         <li>
             {{ Form::label('CRM_Personas_ID', 'CRM_Personas_ID:') }}
