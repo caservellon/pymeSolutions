@@ -15,3 +15,6 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::resource('unidad-monetaria', 'UnidadMonetariaController');
+Route::resource('param-periodo', 'ParamPeriodoContableController');
