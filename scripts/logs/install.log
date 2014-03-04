@@ -35,7 +35,11 @@ Populating Ventas
 Process ended at  2014/03/04 14:29:14
 ------------------------END----------------------------
 ------------------------START--------------------------
+<<<<<<< HEAD
 Process started at  2014/03/04 21:40:35
+=======
+Process started at  2014/03/04 20:08:22
+>>>>>>> 9e7d4a3935446516389696c8ec3979177916bd06
 ***Creating database*** 
 Creating General Tables 
 Creating Inventario 
@@ -48,6 +52,7 @@ Populating Compras
 Populating Inventario 
 Populating Contabilidad 
 Populating Ventas 
+<<<<<<< HEAD
 Process ended at  2014/03/04 21:40:35
 ------------------------END----------------------------
 ------------------------START--------------------------
@@ -97,4 +102,7 @@ Populating Inventario
 Populating Contabilidad 
 Populating Ventas 
 Process ended at  2014/03/04 22:34:16
+=======
+Process ended at  2014/03/04 20:08:23
+>>>>>>> 9e7d4a3935446516389696c8ec3979177916bd06
 ------------------------END----------------------------
