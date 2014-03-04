@@ -2,23 +2,23 @@
 
 @section('main')
 
-<h1>All Atributos</h1>
+<h1>Configuración <small>Atributos<small></h1>
 
-<p>{{ link_to_route('Atributos.create', 'Add new Atributo') }}</p>
+<p>{{ link_to_route('Atributos.create', 'Crear Atributo') }}</p>
 
 @if ($Atributos->count())
-	<table class="table table-striped table-bordered">
+	<table class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>INV_Atributo_ID</th>
-				<th>INV_Atributo_Codigo</th>
-				<th>INV_Atributo_Nombre</th>
-				<th>INV_Atributo_TipoDato</th>
-				<th>INV_Atributo_FechaCreacion</th>
-				<th>INV_Atributo_UsuarioCreacion</th>
-				<th>INV_Atributo_FechaModificacion</th>
-				<th>INV_Atributo_UsuarioModificacion</th>
-				<th>INV_Atributo_Activo</th>
+				<th>ID</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>TipoDato</th>
+				<th>Fecha Creacion</th>
+				<th>Usuario Creacion</th>
+				<th>Fecha Modificacion</th>
+				<th>Usuario Modificacion</th>
+				<th>Activo</th>
 			</tr>
 		</thead>
 

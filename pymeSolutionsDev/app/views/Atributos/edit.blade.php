@@ -6,47 +6,47 @@
 {{ Form::model($Atributo, array('method' => 'PATCH', 'route' => array('Atributos.update', $Atributo->INV_Atributo_ID))) }}
 	<ul>
         <li>
-            {{ Form::label('INV_Atributo_ID', 'INV_Atributo_ID:') }}
+            {{ Form::label('INV_Atributo_ID', 'ID:') }}
             {{ Form::text('INV_Atributo_ID') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_Codigo', 'INV_Atributo_Codigo:') }}
+            {{ Form::label('INV_Atributo_Codigo', 'Codigo:') }}
             {{ Form::text('INV_Atributo_Codigo') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_Nombre', 'INV_Atributo_Nombre:') }}
+            {{ Form::label('INV_Atributo_Nombre', 'Nombre:') }}
             {{ Form::text('INV_Atributo_Nombre') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_TipoDato', 'INV_Atributo_TipoDato:') }}
+            {{ Form::label('INV_Atributo_TipoDato', 'Tipo Dato:') }}
             {{ Form::text('INV_Atributo_TipoDato') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_FechaCreacion', 'INV_Atributo_FechaCreacion:') }}
+            {{ Form::label('INV_Atributo_FechaCreacion', 'Fecha Creacion:') }}
             {{ Form::text('INV_Atributo_FechaCreacion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_UsuarioCreacion', 'INV_Atributo_UsuarioCreacion:') }}
+            {{ Form::label('INV_Atributo_UsuarioCreacion', 'Usuario Creacion:') }}
             {{ Form::text('INV_Atributo_UsuarioCreacion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_FechaModificacion', 'INV_Atributo_FechaModificacion:') }}
+            {{ Form::label('INV_Atributo_FechaModificacion', 'Fecha Modificacion:') }}
             {{ Form::text('INV_Atributo_FechaModificacion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_UsuarioModificacion', 'INV_Atributo_UsuarioModificacion:') }}
+            {{ Form::label('INV_Atributo_UsuarioModificacion', 'Usuario Modificacion:') }}
             {{ Form::text('INV_Atributo_UsuarioModificacion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_Activo', 'INV_Atributo_Activo:') }}
+            {{ Form::label('INV_Atributo_Activo', 'Activo:') }}
             {{ Form::checkbox('INV_Atributo_Activo') }}
         </li>
 
