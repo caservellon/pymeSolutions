@@ -3,7 +3,8 @@
 @section('main')
 
 <h1>Edit CatalogoContable</h1>
-{{ Form::model($CatalogoContable, array('method' => 'PATCH', 'url' => array('catalogo-contable', $CatalogoContable->id))) }}
+{{ Form::model($CatalogoContable, array('action' => array('CatalogoContablesController@update', $CatalogoContable->CON_CatalogoContable_ID), 'method' => 'PUT')) }}
+
 	<ul>
         <li>
             {{ Form::label('CON_CatalogoContable_ID', 'ID:') }}

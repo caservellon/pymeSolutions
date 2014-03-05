@@ -33,7 +33,9 @@ class CatalogoContablesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('CatalogoContables.create');
+		$clasi = ClasificacionCuenta::all()->lists('CON_ClasificacionCuenta_Nombre','CON_ClasificacionCuenta_ID');
+    	$selected = array();
+		return View::make('CatalogoContables.create',compact('clasi', 'selected'));
 	}
 
 	/**
@@ -84,7 +86,7 @@ class CatalogoContablesController extends BaseController {
 
 		if (is_null($CatalogoContable))
 		{
-			return Redirect::route('CatalogoContables.index');
+			return Redirect::action('CatalogoContablesController@index');
 		}
 
 		return View::make('CatalogoContables.edit', compact('CatalogoContable'));
@@ -98,7 +100,7 @@ class CatalogoContablesController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = Input::except('_method');
+		$input = array_except(Input::all(), '_method');
 		$validation = Validator::make($input, CatalogoContable::$rules);
 
 		if ($validation->passes())
@@ -106,10 +108,11 @@ class CatalogoContablesController extends BaseController {
 			$CatalogoContable = $this->CatalogoContable->find($id);
 			$CatalogoContable->update($input);
 
-			return Redirect::route('CatalogoContables.show', $id);
+			//return Redirect::route('CatalogoContables.show', $id);
+			return Redirect::action('CatalogoContablesController@show', $id);
 		}
 
-		return Redirect::route('CatalogoContables.edit', $id)
+		return Redirect::action('CatalogoContablesController@edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');

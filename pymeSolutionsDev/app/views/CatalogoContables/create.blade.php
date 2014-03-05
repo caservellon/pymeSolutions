@@ -33,7 +33,7 @@
 
         <li>
             {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion Cuenta:') }}
-            {{ Form::input('number', 'CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID') }}
+            {{ Form::select('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', $clasi, $selected) }}
         </li>
 
 		<li>
