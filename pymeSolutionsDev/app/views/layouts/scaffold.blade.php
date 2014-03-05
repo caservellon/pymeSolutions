@@ -87,7 +87,7 @@
 
 		</ul>
 
-		<p class="navbar-text navbar-right" style="margin-right: 1em;">Signed in as <a href="#" class="navbar-link">Jorge Caballero</a></p>
+		<p class="navbar-text navbar-right" style="margin-right: 1em;">Signed in as <a href="#" class="navbar-link">Admin</a></p>
 	</nav>
 	</header>
 	<div class="container col-md-8 col-md-offset-2">
