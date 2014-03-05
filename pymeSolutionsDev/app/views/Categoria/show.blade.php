@@ -2,24 +2,24 @@
 
 @section('main')
 
-<h1>Show Categoria</h1>
+<h2>Categoria <small>Editada<small></h2>
 
-<p>{{ link_to_route('Categoria.index', 'Return to all Categoria') }}</p>
+<p>{{ link_to_route('Categoria.index', 'Regresar a Categorias') }}</p>
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered table-condensed">
 	<thead>
 		<tr>
-			<th>INV_Categoria_ID</th>
-				<th>INV_Categoria_Codigo</th>
-				<th>INV_Categoria_Nombre</th>
-				<th>INV_Categoria_Descripcion</th>
-				<th>INV_Categoria_FechaCreacion</th>
-				<th>INV_Categoria_UsuarioCreacion</th>
-				<th>INV_Categoria_FechaModificacion</th>
-				<th>INV_Categoria_UsuarioModificacion</th>
-				<th>INV_Categoria_Activo</th>
-				<th>INV_Categoria_IDCategoriaPadre</th>
-				<th>INV_Categoria_HorarioDescuento_ID</th>
+				<th>ID</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>FechaCreacion</th>
+				<th>Usuario Creacion</th>
+				<th>Fecha Modificacion</th>
+				<th>Usuario Modificacion</th>
+				<th>Activo</th>
+				<th>IDCategoriaPadre</th>
+				<th>HorarioDescuento ID</th>
 		</tr>
 	</thead>
 

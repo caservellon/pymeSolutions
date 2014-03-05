@@ -2,48 +2,46 @@
 
 @section('main')
 
-<h1>Edit UnidadMedida</h1>
+<h2>Editar <small>Unidades Medidas</small></h2>
 {{ Form::model($UnidadMedida, array('method' => 'PATCH', 'route' => array('UnidadMedidas.update', $UnidadMedida->INV_UnidadMedida_ID))) }}
 	<ul>
-        <li>
-            {{ Form::label('INV_UnidadMedida_ID', 'INV_UnidadMedida_ID:') }}
-            {{ Form::text('INV_UnidadMedida_ID') }}
-        </li>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_Nombre', 'INV_UnidadMedida_Nombre:') }}
+            {{ Form::label('INV_UnidadMedida_Nombre', 'Nombre:') }}
             {{ Form::text('INV_UnidadMedida_Nombre') }}
         </li>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_Descripcion', 'INV_UnidadMedida_Descripcion:') }}
+            {{ Form::label('INV_UnidadMedida_Descripcion', 'Descripcion:') }}
             {{ Form::text('INV_UnidadMedida_Descripcion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_FechaCreacion', 'INV_UnidadMedida_FechaCreacion:') }}
+            {{ Form::label('INV_UnidadMedida_FechaCreacion', 'Fecha Creacion:') }}
             {{ Form::text('INV_UnidadMedida_FechaCreacion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_UsuarioCreacion', 'INV_UnidadMedida_UsuarioCreacion:') }}
+            {{ Form::label('INV_UnidadMedida_UsuarioCreacion', 'Usuario Creacion:') }}
             {{ Form::text('INV_UnidadMedida_UsuarioCreacion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_FechaModificacion', 'INV_UnidadMedida_FechaModificacion:') }}
+            {{ Form::label('INV_UnidadMedida_FechaModificacion', 'Fecha Modificacion:') }}
             {{ Form::text('INV_UnidadMedida_FechaModificacion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_UsuarioModificacion', 'INV_UnidadMedida_UsuarioModificacion:') }}
+            {{ Form::label('INV_UnidadMedida_UsuarioModificacion', 'Usuario Modificacion:') }}
             {{ Form::text('INV_UnidadMedida_UsuarioModificacion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_Activo', 'INV_UnidadMedida_Activo:') }}
+            {{ Form::label('INV_UnidadMedida_Activo', 'Activo:') }}
             {{ Form::checkbox('INV_UnidadMedida_Activo') }}
         </li>
+
+        <br/>
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}

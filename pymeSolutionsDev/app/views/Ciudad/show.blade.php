@@ -2,21 +2,21 @@
 
 @section('main')
 
-<h1>Show Ciudad</h1>
+<h2>Ciudad <small>Editada</small></h2>
 
-<p>{{ link_to_route('Ciudad.index', 'Return to all Ciudad') }}</p>
+<p>{{ link_to_route('Ciudad.index', 'Regresar a Ciudades') }}</p>
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered table-condensed">
 	<thead>
 		<tr>
-			<th>INV_Ciudad_ID</th>
-				<th>INV_Ciudad_Codigo</th>
-				<th>INV_Ciudad_Nombre</th>
-				<th>INV_Ciudad_FechaCreacion</th>
-				<th>INV_Ciudad_UsuarioCreacion</th>
-				<th>INV_Ciudad_FechaModificacion</th>
-				<th>INV_Ciudad_UsuarioModificacion</th>
-				<th>INV_Ciudad_Activo</th>
+			<th>ID</th>
+			<th>Codigo</th>
+			<th>Nombre</th>
+			<th>Fecha Creacion</th>
+			<th>Usuario Creacion</th>
+			<th>Fecha Modificacion</th>
+			<th>Usuario Modificacion</th>
+			<th>Activo</th>
 		</tr>
 	</thead>
 

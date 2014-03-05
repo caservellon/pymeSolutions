@@ -2,22 +2,22 @@
 
 @section('main')
 
-<h1>All UnidadMedidas</h1>
+<h2><span class="glyphicon glyphicon-cog"></span> Configuración <small>Unidades Medidas</small></h2>
 
-<p>{{ link_to_route('UnidadMedidas.create', 'Add new UnidadMedida') }}</p>
+<p>{{ link_to_route('UnidadMedidas.create', 'Crear Unidad Medida') }}</p>
 
 @if ($UnidadMedidas->count())
-	<table class="table table-striped table-bordered">
+	<table class="table table-striped table-bordered table-condensed table-responsive">
 		<thead>
 			<tr>
-				<th>INV_UnidadMedida_ID</th>
-				<th>INV_UnidadMedida_Nombre</th>
-				<th>INV_UnidadMedida_Descripcion</th>
-				<th>INV_UnidadMedida_FechaCreacion</th>
-				<th>INV_UnidadMedida_UsuarioCreacion</th>
-				<th>INV_UnidadMedida_FechaModificacion</th>
-				<th>INV_UnidadMedida_UsuarioModificacion</th>
-				<th>INV_UnidadMedida_Activo</th>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Fecha Creacion</th>
+				<th>UsuarioCreacion</th>
+				<th>FechaModificacion</th>
+				<th>UsuarioModificacion</th>
+				<th>Activo</th>
 			</tr>
 		</thead>
 
@@ -32,7 +32,7 @@
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_FechaModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_Activo }}}</td>
-                    <td>{{ link_to_route('UnidadMedidas.edit', 'Edit', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('UnidadMedidas.edit', '', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('UnidadMedidas.destroy', $UnidadMedida->INV_UnidadMedida_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}

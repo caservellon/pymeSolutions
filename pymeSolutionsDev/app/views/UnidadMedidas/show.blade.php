@@ -2,21 +2,21 @@
 
 @section('main')
 
-<h1>Show UnidadMedida</h1>
+<h2>Unidades Medida <small>Editada</small></h2>
 
-<p>{{ link_to_route('UnidadMedidas.index', 'Return to all UnidadMedidas') }}</p>
+<p>{{ link_to_route('UnidadMedidas.index', 'Regresar a Unidades Medidas') }}</p>
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered table-condensed">
 	<thead>
 		<tr>
-			<th>INV_UnidadMedida_ID</th>
-				<th>INV_UnidadMedida_Nombre</th>
-				<th>INV_UnidadMedida_Descripcion</th>
-				<th>INV_UnidadMedida_FechaCreacion</th>
-				<th>INV_UnidadMedida_UsuarioCreacion</th>
-				<th>INV_UnidadMedida_FechaModificacion</th>
-				<th>INV_UnidadMedida_UsuarioModificacion</th>
-				<th>INV_UnidadMedida_Activo</th>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Descripcion</th>
+			<th>Fecha Creacion</th>
+			<th>UsuarioCreacion</th>
+			<th>FechaModificacion</th>
+			<th>UsuarioModificacion</th>
+			<th>Activo</th>Activo</th>
 		</tr>
 	</thead>
 
