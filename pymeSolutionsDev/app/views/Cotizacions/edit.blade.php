@@ -22,7 +22,7 @@
                  <div class="form-group">
                      
                      {{ Form::label('GEN_CampoLocal_Tipo', 'Tipo') }}
-                     {{ Form::select('GEN_CampoLocal_Tipo', array('Numerico'=>'Numerico', 'Texto'=>'Texto'));}}
+                     {{ Form::select('GEN_CampoLocal_Tipo', array('Numerico'=>'Numerico', 'Texto'=>'Texto', 'Float'=>'Float'));}}
                      
                  </div>
                  <div class="form-group">
