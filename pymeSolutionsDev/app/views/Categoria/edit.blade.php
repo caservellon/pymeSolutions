@@ -47,7 +47,7 @@
         <div class="form-group col-md-12">
             <label for="Nombre" class="col-md-3 control-label">Activo:</label>
             <div class="col-md-8">
-                {{ Form::checkbox('INV_Categoria_Activo') }}
+                {{ Form::select('INV_Categoria_Activo', array('1' => 'Activado', '0' => 'Desactivado'),'INV_Categoria_Activo') }}
             </div>
         </div>
 
