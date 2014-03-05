@@ -27,17 +27,33 @@
          </div>
         <br>
     </div>
+    <div class="col-md-4 col-md-offset-1">
+        <div class="row">
+        <h4>Campos Locales</h4>
+        @if($parametrizar->count())
+            @foreach($parametrizar as $campolocal)
+                <label>{{$campolocal->GEN_CampoLocal_Nombre}}</label>
+                
+                @if($campolocal->GEN_CampoLocal_Activo==1)
+                    <h5 class="is-hidden">Activo</h5>
+                @else
+                    <h5 class="is-hidden">Inactivo</h5>
+                @endif 
+        @endforeach
+        @endif
+        </div>
+    </div>
          <div class="col-md-4 col-md-offset-1">
              
              <div class="row">
                  <h4>Crear Campos Locales</h4>
              </div>
-             {{ Form::open(array('route' => 'campoLocal')) }}
+             {{ Form::open(array('route' => 'campoLocal'), array('class' => 'form-inline'), array('style' => 'width: 1000px')) }}
             <div class="row">
-        
+                
                 <div class="col-md-1 col-md-offset-7">{{ Form::submit('Guardar', array('class' => 'btn btn-default btn-md')) }}</div>
             </div>
-             <div class="form-inline" style="width: 1000px">
+             
                  <div class="form-group">
                      {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre') }}
                      {{ Form::text('GEN_CampoLocal_Nombre') }}
@@ -49,20 +65,22 @@
                      
                  </div>
                  <div class="form-group">
-                     {{ Form::checkbox('GEN_CampoLocal_Requerido') }}
+                       {{ Form::checkbox('GEN_CampoLocal_Requerido') }}
                      {{ Form::label('GEN_CampoLocal_Requerido', 'Requerido') }}
+                     <!--{{ Form::select('GEN_CampoLocal_Requerido', array('1' => 'Activado', '0' => 'Desactivado')) }}-->
             
                  </div>
                  <div class="form-group">
                      {{ Form::checkbox('GEN_CampoLocal_ParametroBusqueda') }}
                      {{ Form::label('GEN_CampoLocal_ParametroBusqueda', 'Parametro de Busqueda') }}
+                     <!--{{ Form::select('GEN_CampoLocal_ParametroBusqueda', array('1' => 'Activado', '0' => 'Desactivado')) }}-->
                  </div>
                  <div class="form-group">
                      {{ Form::checkbox('GEN_CampoLocal_Activo') }}
                      {{ Form::label('GEN_CampoLocal_Activo', 'Activo') }}
-                 </div>
-         
-             </div>
+                     <!--{{ Form::select('GEN_CampoLocal_Activo', array('1' => 'Activado', '0' => 'Inactivo')) }}-->
+                
+                  </div>
              {{ Form::close() }}
 
 
@@ -88,9 +106,5 @@
 
 </body>
 </html>
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+
 @stop

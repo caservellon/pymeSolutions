@@ -9,15 +9,15 @@ class CampoLocal extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'GEN_CampoLocal_IdCampoLocal' => 'required',
-                'GEN_CampoLocal_Codigo' => 'required',
-                'GEN_CampoLocal_Activo' => 'required',
-		'GEN_CampoLocal_Nombre' => 'required',
-		'GEN_CampoLocal_Tipo' => 'required',
-		'GEN_CampoLocal_Requerido' => 'required',
-		'GEN_CampoLocal_ParametroBusqueda' => 'required',
-		'GEN_Usuario_idUsuarioCreo' => 'required',
-		'Usuario_idUsuarioModifico' => 'required',
+                'GEN_CampoLocal_Codigo' => 'max:16',
+                'GEN_CampoLocal_Activo',
+		'GEN_CampoLocal_Nombre' => 'required|max:245',
+		'GEN_CampoLocal_Tipo' => 'required|max:45',
+		'GEN_CampoLocal_Requerido',
+		'GEN_CampoLocal_ParametroBusqueda',
+                'GEN_CampoLocal_idUsuarioCreo',
+                'Usuario_idUsuarioModifico',
+		
 		
 	);
 }

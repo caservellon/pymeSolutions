@@ -12,12 +12,7 @@ class ValorCampoLocal extends Eloquent {
 		'COM_ValorCampoLocal_IdValorCampoLocal' => 'required',
 		'COM_ValorCampoLocal_Valor' => 'required',
 		'COM_CampoLocal_IdCampoLocal' => 'required',
-		'COM_OrdenCompra_IdOrdenCompra' => 'required',
-		'COM_SolicitudCotizacion_IdSolicitudCotizacion' => 'required',
-		'COM_Cotizacion_IdCotizacion' => 'required',
-		'COM_ValorCampoLocalcol' => 'required',
-		'COM_Usuario_idUsuarioCreo' => 'required',
-		'Usuario_idUsuarioModifico' => 'required',
+		
 		
 	);
         

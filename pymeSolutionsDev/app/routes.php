@@ -19,8 +19,9 @@ Route::get('/', function()
 Route::get('Cotizacions/parametrizar', array('as'=>'parametrizar', 'uses'=> 'CotizacionsController@parametrizar'));
 
 //Route::get('parametrizar', 'CotizacionsController@parametrizar');
-Route::get('Cotizacions/campoLocal', array('as'=>'campoLocal', 'uses'=> 'CotizacionsController@campoLocal'));
+Route::post('Cotizacions/campoLocal', array('as'=>'campoLocal', 'uses'=> 'CotizacionsController@campoLocal'));
 
-Route::get('editarParametrizar', 'CotizacionsController@editarParametrizar');
+Route::get('Cotizacions/editarParametrizar', array('as'=>'editarParametrizar', 'uses'=>'CotizacionsController@editarParametrizar'));
+Route::get('Cotizacions/actualizar', array('as'=>'actualizar', 'uses'=>'CotizacionsController@actualizar'));
 Route::resource('Cotizacions', 'CotizacionsController');
 
