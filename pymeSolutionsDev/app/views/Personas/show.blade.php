@@ -2,23 +2,30 @@
 
 @section('main')
 
-<h1>Show Persona</h1>
+<h1>Mostrar Persona</h1>
 
 <p>{{ link_to_route('Personas.index', 'Return to all Personas') }}</p>
+
+<div class="page-header clearfix">
+      <h3 class="pull-left">Persona &gt; <small>{{{ $Persona->CRM_Personas_ID }}}</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+      </div>
+</div>
 
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
-			<th>CRM_Personas_ID</th>
-				<th>CRM_Personas_codigo</th>
-				<th>CRM_Personas_Nombres</th>
-				<th>CRM_Personas_Apellidos</th>
-				<th>CRM_Personas_Direccion</th>
-				<th>CRM_Personas_Email</th>
-				<th>CRM_Personas_Celular</th>
-				<th>CRM_Personas_Fijo</th>
-				<th>CRM_Personas_Descuento</th>
-				<th>CRM_Personas_Foto</th>
+			<th>#</th>
+			<th>Código</th>
+			<th>Nombres</th>
+			<th>Apellidos</th>
+			<th>Dirección</th>
+			<th>Email</th>
+			<th>Celular</th>
+			<th>Teléfono Fijo</th>
+			<th>Descuento</th>
+			<th>Foto</th>
 		</tr>
 	</thead>
 

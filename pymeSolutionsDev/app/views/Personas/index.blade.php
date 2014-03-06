@@ -2,24 +2,28 @@
 
 @section('main')
 
-<h1>All Personas</h1>
-
-<p>{{ link_to_route('Personas.create', 'Add new Persona') }}</p>
+<h2 class="sub-header">Listado de Personas</h2>
+<div class="btn-agregar">
+	<a type="button" href="{{ URL::route('Personas.create') }}" class="btn btn-default">
+	  <span class="glyphicon glyphicon-user"></span> Agregar Persona
+	</a>
+</div>
 
 @if ($Personas->count())
+	<div class="table-responsive">
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<th>CRM_Personas_ID</th>
-				<th>CRM_Personas_codigo</th>
-				<th>CRM_Personas_Nombres</th>
-				<th>CRM_Personas_Apellidos</th>
-				<th>CRM_Personas_Direccion</th>
-				<th>CRM_Personas_Email</th>
-				<th>CRM_Personas_Celular</th>
-				<th>CRM_Personas_Fijo</th>
-				<th>CRM_Personas_Descuento</th>
-				<th>CRM_Personas_Foto</th>
+				<th>#</th>
+				<th>Código</th>
+				<th>Nombres</th>
+				<th>Apellidos</th>
+				<th>Dirección</th>
+				<th>Email</th>
+				<th>Celular</th>
+				<th>Teléfono Fijo</th>
+				<th>Descuento</th>
+				<th>Foto</th>
 			</tr>
 		</thead>
 
@@ -46,8 +50,11 @@
 			@endforeach
 		</tbody>
 	</table>
+	</div>
 @else
-	There are no Personas
+	<div class="alert alert-danger">
+     	<strong>Oh no!</strong> No hay personas disponibles :(
+    </div>
 @endif
 
 @stop

@@ -2,64 +2,89 @@
 
 @section('main')
 
-<h1>Create Persona</h1>
+<div class="page-header clearfix">
+      <h3 class="pull-left">Persona &gt; <small>Crear Persona</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+      </div>
+</div>
 
-{{ Form::open(array('route' => 'Personas.store')) }}
-	<ul>
-        <li>
-            {{ Form::label('CRM_Personas_ID', 'CRM_Personas_ID:') }}
-            {{ Form::text('CRM_Personas_ID') }}
-        </li>
+{{ Form::open(array('route' => 'Personas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
+	<div class="form-group">
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_ID', 'ID:',array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-4">
+                {{ Form::text('CRM_Personas_ID', null, array('class' => 'form-control', 'id' => 'CRM_Personas_ID', 'placeholder'=>'00001')) }}
+            </div>
+        </div>
 
-        <li>
-            {{ Form::label('CRM_Personas_codigo', 'CRM_Personas_codigo:') }}
-            {{ Form::text('CRM_Personas_codigo') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => '###' )) }}
+            </div>
+        </div> 
 
-        <li>
-            {{ Form::label('CRM_Personas_Nombres', 'CRM_Personas_Nombres:') }}
-            {{ Form::text('CRM_Personas_Nombres') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_Nombres', 'Nombres:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_Personas_Nombres',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Nombres', 'placeholder' => 'Carlos' )) }}
+            </div>
+        </div> 
 
-        <li>
-            {{ Form::label('CRM_Personas_Apellidos', 'CRM_Personas_Apellidos:') }}
-            {{ Form::text('CRM_Personas_Apellidos') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_Apellidos', 'Apellidos:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_Personas_Apellidos',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Apellidos', 'placeholder' => 'Maldonado' )) }}
+            </div>
+        </div> 
 
-        <li>
-            {{ Form::label('CRM_Personas_Direccion', 'CRM_Personas_Direccion:') }}
-            {{ Form::textarea('CRM_Personas_Direccion') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_Direccion', 'Dirección:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::textarea('CRM_Personas_Direccion',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Direccion', 'placeholder' => 'Res. Bella Oriente, Casa #2003, Bloque F' )) }}
+            </div>
+        </div> 
 
-        <li>
-            {{ Form::label('CRM_Personas_Email', 'CRM_Personas_Email:') }}
-            {{ Form::text('CRM_Personas_Email') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_Email', 'Correo Electrónico:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_Personas_Email',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Email', 'placeholder' => 'a@a.com' )) }}
+            </div>
+        </div> 
 
-        <li>
-            {{ Form::label('CRM_Personas_Celular', 'CRM_Personas_Celular:') }}
-            {{ Form::text('CRM_Personas_Celular') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_Celular', 'Celular:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_Personas_Celular',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Celular', 'placeholder' => '98505193' )) }}
+            </div>
+        </div> 
 
-        <li>
-            {{ Form::label('CRM_Personas_Fijo', 'CRM_Personas_Fijo:') }}
-            {{ Form::text('CRM_Personas_Fijo') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_Fijo', 'Teléfono Fijo:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_Personas_Fijo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Fijo', 'placeholder' => '22352142' )) }}
+            </div>
+        </div> 
 
-        <li>
-            {{ Form::label('CRM_Personas_Descuento', 'CRM_Personas_Descuento:') }}
-            {{ Form::text('CRM_Personas_Descuento') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_Descuento', 'Descuento:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_Personas_Descuento',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Descuento', 'placeholder' => '##.##' )) }}
+            </div>
+        </div> 
 
-        <li>
-            {{ Form::label('CRM_Personas_Foto', 'CRM_Personas_Foto:') }}
-            {{ Form::text('CRM_Personas_Foto') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_Personas_Foto', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_Personas_Foto',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Foto', 'placeholder' => '#' )) }}
+            </div>
+        </div> 
 
-		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-		</li>
-	</ul>
+		<div class="col-md-5">
+            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+      </div>
+	</div>
 {{ Form::close() }}
 
 @if ($errors->any())
