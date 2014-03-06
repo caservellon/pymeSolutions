@@ -20,22 +20,22 @@
 
         <div class="form-group">
             {{ Form::label('CON_ClasificacionPeriodo_Nombre', 'Nombre:') }}
-            {{ Form::text('CON_ClasificacionPeriodo_Nombre') }}
+            {{ Form::text('CON_ClasificacionPeriodo_Nombre','',array('maxlength'=>'45')) }}
         </div>
 
         <div class="form-group">
             {{ Form::label('CON_ClasificacionPeriodo_CatidadDias', 'Cantidad de dias:') }}
-            {{ Form::text('CON_ClasificacionPeriodo_CatidadDias') }}
+            {{ Form::text('CON_ClasificacionPeriodo_CatidadDias','',array('maxlength'=>'3','placeholder'=>'###')) }}
         </div>
 
         <table class="table">
         <thead>
           <tr>
             <th>{{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que inicia:') }} 
-                {{ Form::text('CON_PeriodoContable_FechaInicio','',array('type'=>'text','class'=>'span2','value'=>'','id'=>'dpd1')) }}
+                {{ Form::text('CON_PeriodoContable_FechaInicio','',array('type'=>'text','class'=>'span2','value'=>'','id'=>'dpd1','placeholder'=>'yyyy-mm-dd')) }}
             </th>
             <th>{{ Form::label('CON_PeriodoContable_FechaFinal', 'Fecha que finaliza:') }} 
-                {{ Form::text('CON_PeriodoContable_FechaFinal','',array('type'=>'text','class'=>'span2','value'=>'','id'=>'dpd2')) }}
+                {{ Form::text('CON_PeriodoContable_FechaFinal','',array('type'=>'text','class'=>'span2','value'=>'','id'=>'dpd2','placeholder'=>'yyyy-mm-dd')) }}
             </th>
           </tr>
         </thead>

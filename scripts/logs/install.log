@@ -186,3 +186,73 @@ Populating Contabilidad
 Populating Ventas 
 Process ended at  2014/03/05 00:08:04
 ------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/05 23:36:59
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1064 (42000) at line 68: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ENGINE = InnoDB' at line 8
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_ClasificacionCuenta' doesn't exist
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_CatalogoContable' doesn't exist
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_CuentaMotivo' doesn't exist
+Populating Ventas 
+Process ended at  2014/03/05 23:36:59
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/05 23:45:43
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1064 (42000) at line 242: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ENGINE = InnoDB' at line 8
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/05 23:45:44
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/05 23:46:25
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/05 23:46:25
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/06 01:30:30
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/06 01:30:30
+------------------------END----------------------------

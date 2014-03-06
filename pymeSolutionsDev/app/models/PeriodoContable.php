@@ -8,10 +8,10 @@ class PeriodoContable extends Eloquent {
 	protected $primaryKey='CON_PeriodoContable_ID';
 
 	public static $rules = array(
-			'CON_PeriodoContable_ID' => 'required|integer',
-			'CON_PeriodoContable_Nombre' => 'required',
-			'CON_PeriodoContable_FechaInicio' => 'required|date',
-			'CON_PeriodoContable_FechaFinal' => 'required|date'
+			//'CON_PeriodoContable_ID' => 'required|integer',
+			'CON_PeriodoContable_Nombre' => 'required|max:45|alpha',
+			'CON_PeriodoContable_FechaInicio' => 'required|date_format:yyyy-mm-dd',
+			'CON_PeriodoContable_FechaFinal' => 'required|date_format:yyyy-mm-dd'
 
 		);
 }

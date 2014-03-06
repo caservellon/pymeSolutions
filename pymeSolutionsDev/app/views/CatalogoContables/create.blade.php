@@ -4,16 +4,23 @@
 
 <h1>Create CatalogoContables</h1>
 
+@if ($errors->any())
+<div class="bs-callout bs-callout-danger error">
+    <ul >
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+    </ul>
+    </div>
+@endif
 {{ Form::open(array('url' => 'catalogo-contable')) }}
 	<ul>
         <li>
             {{ Form::label('CON_CatalogoContable_Codigo', 'Codigo:') }}
-            {{ Form::text('CON_CatalogoContable_Codigo') }}
+            {{ Form::text('CON_CatalogoContable_Codigo','',array('maxlength'=>'10')) }}
         </li>
 
         <li>
             {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre:') }}
-            {{ Form::text('CON_CatalogoContable_Nombre') }}
+            {{ Form::text('CON_CatalogoContable_Nombre','',array('maxlength'=>'45')) }}
         </li>
 
         <li>
@@ -42,10 +49,5 @@
 	</ul>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

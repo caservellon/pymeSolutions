@@ -71,8 +71,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ClasificacionCuenta` (
   `CON_ClasificacionCuenta_Nombre` VARCHAR(45) NOT NULL,
   `CON_ClasificacionCuenta_FechaCreacion` DATETIME NOT NULL,
   `CON_ClasificacionCuenta_FechaModificacion` DATETIME NOT NULL,
-  PRIMARY KEY (`CON_ClasificacionCuenta_ID`),
-  UNIQUE INDEX `CON_ClasificacionCuenta_Codigo_UNIQUE` (`CON_ClasificacionCuenta_Codigo` ASC))
+  PRIMARY KEY (`CON_ClasificacionCuenta_ID`))
 ENGINE = InnoDB;
 
 
@@ -86,8 +85,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CatalogoContable` (
   `CON_CatalogoContable_Codigo` VARCHAR(45) NOT NULL,
   `CON_CatalogoContable_Nombre` VARCHAR(120) NOT NULL,
   `CON_CatalogoContable_UsuarioCreacion` VARCHAR(45) NOT NULL,
-  `CON_CatalogoContable_NaturalezaSaldo` BIT NOT NULL,
-  `CON_CatalogoContable_Estado` BIT NOT NULL DEFAULT 0,
+  `CON_CatalogoContable_NaturalezaSaldo` TINYINT(1) NOT NULL,
+  `CON_CatalogoContable_Estado` TINYINT(1) NOT NULL DEFAULT 0,
   `CON_CatalogoContable_FechaCreacion` DATETIME NOT NULL,
   `CON_CatalogoContable_FechaModificacion` DATETIME NOT NULL,
   `CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID` INT NOT NULL,
@@ -107,7 +106,7 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_CuentaMotivo` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaMotivo` (
   `CON_CuentaMotivo_ID` INT NOT NULL AUTO_INCREMENT,
-  `CON_CuentaMotivo_DebeHaber` BIT NOT NULL,
+  `CON_CuentaMotivo_DebeHaber` TINYINT(1) NOT NULL,
   `CON_CuentaMotivo_FechaCreacion` DATETIME NOT NULL,
   `CON_CuentaMotivo_FechaModificacion` DATETIME NOT NULL,
   `CON_MotivoTransaccion_ID` INT NOT NULL,
@@ -215,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaT` (
   `CON_CuentaT_SaldoDeudor` FLOAT NOT NULL,
   `CON_CuentaT_SaldoAcreedor` FLOAT NOT NULL,
   `CON_CuentaT_SaldoFinal` FLOAT NOT NULL,
-  `CON_CuentaT_AcreedorDeudor` BIT NOT NULL,
+  `CON_CuentaT_AcreedorDeudor` TINYINT(1) NOT NULL,
   `CON_CuentaT_FechaModificacion` DATETIME NOT NULL,
   `CON_CuentaT_FechaCreacion` DATETIME NOT NULL,
   `CON_CatalogoContable_CON_CatalogoContable_ID` INT NOT NULL,
@@ -246,8 +245,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ClasificacionPeriodo` (
   `CON_ClasificacionPeriodo_CatidadDias` INT NOT NULL,
   `CON_ClasificacionPeriodo_FechaCreacion` DATETIME NOT NULL,
   `CON_ClasificacionPeriodo_FechaModificacion` DATETIME NOT NULL,
-  PRIMARY KEY (`CON_ClasificacionPeriodo_ID`),
-  UNIQUE INDEX `CON_ClasificacionPeriodo_CatidadDias_UNIQUE` (`CON_ClasificacionPeriodo_CatidadDias` ASC))
+  PRIMARY KEY (`CON_ClasificacionPeriodo_ID`))
 ENGINE = InnoDB;
 
 
@@ -257,7 +255,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`CON_PeriodoContable` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_PeriodoContable` (
-  `CON_PeriodoContable_ID` INT NOT NULL AUTO_INCREMENT,
+  `CON_PeriodoContable_ID` INT NOT NULL,
   `CON_PeriodoContable_FechaInicio` DATETIME NOT NULL,
   `CON_PeriodoContable_FechaFinal` DATETIME NOT NULL,
   `CON_PeriodoContable_Nombre` VARCHAR(50) NOT NULL,
@@ -419,7 +417,7 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_CuentaTBalanzaComprobacionAjustada` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaTBalanzaComprobacionAjustada` (
   `CON_BalanzaComprobacionAjustada_ID` INT NOT NULL,
   `CON_CuentaTBalanzaComprobacionAjustada_Saldo` FLOAT NOT NULL,
-  `CON_CuentaTBalanzaComprobacionAjustada_DebeHaber` BIT NOT NULL,
+  `CON_CuentaTBalanzaComprobacionAjustada_DebeHaber` TINYINT(1) NOT NULL,
   `CON_CuentaTBalanzaComprobacionAjustada_FechaCreacion` DATETIME NOT NULL,
   `CON_CuentaTBalanzaComprobacionAjustada_FechaModificacion` DATETIME NOT NULL,
   `CON_LibroMayor_ID` INT NOT NULL,

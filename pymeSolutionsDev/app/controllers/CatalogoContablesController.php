@@ -23,7 +23,9 @@ class CatalogoContablesController extends BaseController {
 	{
 		$Catalogo = $this->CatalogoContable->all();
 
-		return View::make('CatalogoContables.index', compact('Catalogo'));
+		return View::make('CatalogoContables.index')
+			->with('Catalogo',$Catalogo)
+			->with('CatalogoContable',$Catalogo);
 	}
 
 	/**
@@ -35,6 +37,7 @@ class CatalogoContablesController extends BaseController {
 	{
 		$clasi = ClasificacionCuenta::all()->lists('CON_ClasificacionCuenta_Nombre','CON_ClasificacionCuenta_ID');
     	$selected = array();
+    	$esta = array('1' => 'Habiltado' ,'0' => 'Deshabiltado' );
 		return View::make('CatalogoContables.create',compact('clasi', 'selected'));
 	}
 
@@ -88,8 +91,9 @@ class CatalogoContablesController extends BaseController {
 		{
 			return Redirect::action('CatalogoContablesController@index');
 		}
+		$clasi =array('Habiltado' => 1,'Deshabiltado' => 0 );
 
-		return View::make('CatalogoContables.edit', compact('CatalogoContable'));
+		return View::make('CatalogoContables.edit', compact('CatalogoContable','clasi'));
 	}
 
 	/**
@@ -118,17 +122,36 @@ class CatalogoContablesController extends BaseController {
 			->with('message', 'There were validation errors.');
 	}
 
+	public function destroy($id)
+	{
+		$input = array_except(Input::all(), '_method');
+		
+
+		
+			$CatalogoContable = $this->CatalogoContable->find($id);
+			$CatalogoContable->update($input);
+
+			//return Redirect::route('CatalogoContables.show', $id);
+			return Redirect::action('CatalogoContablesController@show', $id);
+	
+		/*return Redirect::action('CatalogoContablesController@edit', $id)
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');*/
+	}
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
+	/*
 	public function destroy($id)
 	{
 		$this->CatalogoContable->find($id)->delete();
 
 		return Redirect::route('CatalogoContables.index');
-	}
+	}*/
 
 }
