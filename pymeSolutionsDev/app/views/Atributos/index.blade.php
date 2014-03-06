@@ -4,7 +4,7 @@
 
 <h2><span class="glyphicon glyphicon-cog"></span> Configuración <small>Atributos<small></h2> 
 
-<p>{{ link_to_route('Atributos.create', 'Crear Atributo') }}</p> 
+<p>{{ link_to_route('Inventario.Atributos.create', 'Crear Atributo') }}</p> 
 
 @if ($Atributos->count())
 	<table class="table table-striped table-bordered table-condensed table-responsive">
@@ -34,9 +34,9 @@
 					<td>{{{ $Atributo->INV_Atributo_FechaModificacion }}}</td>
 					<td>{{{ $Atributo->INV_Atributo_UsuarioModificacion }}}</td>
 					<td>{{{ ($Atributo->INV_Atributo_Activo ? 'Si' : 'No') }}}</td>
-                    <td>{{ link_to_route('Atributos.edit', '', array($Atributo->INV_Atributo_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    <td>{{ link_to_route('Inventario.Atributos.edit', '', array($Atributo->INV_Atributo_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Atributos.destroy', $Atributo->INV_Atributo_ID))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Atributos.destroy', $Atributo->INV_Atributo_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger glyphicon glyphicon-trash')) }}
                         {{ Form::close() }}
                     </td>

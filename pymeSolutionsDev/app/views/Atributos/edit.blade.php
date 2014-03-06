@@ -3,7 +3,7 @@
 @section('main')
 
 <h2><span class='glyphicon glyphicon-pencil'></span> Editar <small>Atributo<small></h2>
-{{ Form::model($Atributo, array('method' => 'PATCH', 'route' => array('Atributos.update', $Atributo->INV_Atributo_ID))) }}
+{{ Form::model($Atributo, array('method' => 'PATCH', 'route' => array('Inventario.Atributos.update', $Atributo->INV_Atributo_ID))) }}
 	<ul>
         <li>
             {{ Form::label('INV_Atributo_Codigo', 'Codigo:') }}
@@ -29,7 +29,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('Atributos.show', 'Cancel', $Atributo->INV_Atributo_ID, array('class' => 'btn btn-danger')) }}
+			{{ link_to_route('Inventario.Atributos.show', 'Cancel', $Atributo->INV_Atributo_ID, array('class' => 'btn btn-danger')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

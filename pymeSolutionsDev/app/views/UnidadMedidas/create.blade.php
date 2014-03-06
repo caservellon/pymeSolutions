@@ -4,7 +4,7 @@
 
 <h2>Crear <small>Unidades Medidas</small></h2>
 
-{{ Form::open(array('route' => 'UnidadMedidas.store')) }}
+{{ Form::open(array('route' => 'Inventario.UnidadMedidas.store')) }}
 	<ul>
 
         <li>
@@ -26,7 +26,7 @@
 
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('UnidadMedidas.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
+            {{ link_to_route('Inventario.UnidadMedidas.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

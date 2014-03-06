@@ -4,7 +4,7 @@
 
 <h2>Unidades Medida <small>Editada</small></h2>
 
-<p>{{ link_to_route('UnidadMedidas.index', 'Regresar a Unidades Medidas') }}</p>
+<p>{{ link_to_route('Inventario.UnidadMedidas.index', 'Regresar a Unidades Medidas') }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
 	<thead>
@@ -30,9 +30,9 @@
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_FechaModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioModificacion }}}</td>
 					<td>{{{ ($UnidadMedida->INV_UnidadMedida_Activo ? 'Si' : 'No') }}}</td>
-                    <td>{{ link_to_route('UnidadMedidas.edit', 'Edit', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.UnidadMedidas.edit', 'Edit', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('UnidadMedidas.destroy', $UnidadMedida->INV_UnidadMedida_ID))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.UnidadMedidas.destroy', $UnidadMedida->INV_UnidadMedida_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

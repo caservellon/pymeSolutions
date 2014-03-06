@@ -57,10 +57,10 @@ class AtributosController extends BaseController {
 			$Atributo->INV_Atributo_FechaModificacion = date('Y-m-d H:i:s');
 			$Atributo->INV_Atributo_UsuarioModificacion = Input::get('INV_Atributo_UsuarioModificacion');
 			$Atributo->save();
-			return Redirect::route('Atributos.index');
+			return Redirect::route('Inventario.Atributos.index');
 		}
 
-		return Redirect::route('Atributos.create')
+		return Redirect::route('Inventario.Atributos.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -91,7 +91,7 @@ class AtributosController extends BaseController {
 
 		if (is_null($Atributo))
 		{
-			return Redirect::route('Atributos.index');
+			return Redirect::route('Inventario.Atributos.index');
 		}
 
 		return View::make('Atributos.edit', compact('Atributo'));
@@ -120,10 +120,10 @@ class AtributosController extends BaseController {
 			$Atributo->INV_Atributo_UsuarioModificacion = Input::get('INV_Atributo_UsuarioModificacion');
 			$Atributo->update();
 
-			return Redirect::route('Atributos.show', $id);
+			return Redirect::route('Inventario.Atributos.show', $id);
 		}
 
-		return Redirect::route('Atributos.edit', $id)
+		return Redirect::route('Inventario.Atributos.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -139,7 +139,7 @@ class AtributosController extends BaseController {
 	{
 		$this->Atributo->find($id)->delete();
 
-		return Redirect::route('Atributos.index');
+		return Redirect::route('Inventario.Atributos.index');
 	}
 
 }

@@ -4,7 +4,7 @@
 
 <h2>Crear <small>Atributo<small></h2>
 
-{{ Form::open(array('route' => 'Atributos.store')) }}
+{{ Form::open(array('route' => 'Inventario.Atributos.store')) }}
 	<ul>
         <li>
             {{ Form::label('INV_Atributo_Codigo', 'Codigo:') }}
@@ -30,7 +30,7 @@
 
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Atributos.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
+            {{ link_to_route('Inventario.Atributos.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

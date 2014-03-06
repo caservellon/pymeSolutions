@@ -4,7 +4,7 @@
 
 <h2>Categoria <small>Editada<small></h2>
 
-<p>{{ link_to_route('Categoria.index', 'Regresar a Categorias') }}</p>
+<p>{{ link_to_route('Inventario.Categoria.index', 'Regresar a Categorias') }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
 	<thead>
@@ -36,9 +36,9 @@
 					<td>{{{ ($Categoria->INV_Categoria_Activo ? 'Si' : 'No') }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_HorarioDescuento_ID }}}</td>
-                    <td>{{ link_to_route('Categoria.edit', 'Edit', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.Categoria.edit', 'Edit', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Categoria.destroy', $Categoria->INV_Categoria_ID))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Categoria.destroy', $Categoria->INV_Categoria_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

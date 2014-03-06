@@ -10,7 +10,7 @@ class Categoria extends Eloquent {
 
 	public static $rules = array(
 		//'INV_Categoria_ID' => 'required',
-		'INV_Categoria_Codigo' => 'alpha_num',
+		//'INV_Categoria_Codigo' => 'required',
 		'INV_Categoria_Nombre' => 'required|alpha',
 		'INV_Categoria_Descripcion' => 'required',
 		'INV_Categoria_FechaCreacion' => '',

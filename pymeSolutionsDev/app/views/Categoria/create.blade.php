@@ -4,7 +4,7 @@
 
 <h2>Crear <small>Categoria<small></h2>
 
-{{ Form::open(array('route' => 'Categoria.store')) }}
+{{ Form::open(array('route' => 'Inventario.Categoria.store')) }}
 	<ul>
         <li>
             {{ Form::label('INV_Categoria_Codigo', 'Codigo:') }}
@@ -40,7 +40,7 @@
 
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Categoria.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
+            {{ link_to_route('Inventario.Categoria.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

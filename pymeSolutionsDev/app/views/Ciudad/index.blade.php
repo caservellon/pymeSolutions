@@ -4,7 +4,7 @@
 
 <h2><span class="glyphicon glyphicon-cog"></span> Configuración <small>Ciudad</small></h2>
 
-<p>{{ link_to_route('Ciudad.create', 'Crear Ciudad') }}</p>
+<p>{{ link_to_route('Inventario.Ciudad.create', 'Crear Ciudad') }}</p>
 
 @if ($Ciudad->count())
 	<table class="table table-striped table-bordered table-condensed table-responsive">
@@ -32,9 +32,9 @@
 					<td>{{{ $Ciudad->INV_Ciudad_FechaModificacion }}}</td>
 					<td>{{{ $Ciudad->INV_Ciudad_UsuarioModificacion }}}</td>
 					<td>{{{ ($Ciudad->INV_Ciudad_Activo ? 'Si' : 'No') }}}</td>
-                    <td>{{ link_to_route('Ciudad.edit', '', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    <td>{{ link_to_route('Inventario.Ciudad.edit', '', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Ciudad.destroy', $Ciudad->INV_Ciudad_ID))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Ciudad.destroy', $Ciudad->INV_Ciudad_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

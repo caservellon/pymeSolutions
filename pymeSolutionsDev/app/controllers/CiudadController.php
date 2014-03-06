@@ -57,10 +57,10 @@ class CiudadController extends BaseController {
 			$Ciudad->INV_Ciudad_FechaModificacion = date('Y-m-d H:i:s');
 			$Ciudad->INV_Ciudad_UsuarioModificacion = Input::get('INV_Ciudad_UsuarioModificacion');
 			$Ciudad->save();
-			return Redirect::route('Ciudad.index');
+			return Redirect::route('Inventario.Ciudad.index');
 		}
 
-		return Redirect::route('Ciudad.create')
+		return Redirect::route('Inventario.Ciudad.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -91,7 +91,7 @@ class CiudadController extends BaseController {
 
 		if (is_null($Ciudad))
 		{
-			return Redirect::route('Ciudad.index');
+			return Redirect::route('Inventario.Ciudad.index');
 		}
 
 		return View::make('Ciudad.edit', compact('Ciudad'));
@@ -119,10 +119,10 @@ class CiudadController extends BaseController {
 			$Ciudad->INV_Ciudad_UsuarioModificacion = Input::get('INV_Ciudad_UsuarioModificacion');
 			$Ciudad->update();
 
-			return Redirect::route('Ciudad.show', $id);
+			return Redirect::route('Inventario.Ciudad.show', $id);
 		}
 
-		return Redirect::route('Ciudad.edit', $id)
+		return Redirect::route('Inventario.Ciudad.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -138,7 +138,7 @@ class CiudadController extends BaseController {
 	{
 		$this->Ciudad->find($id)->delete();
 
-		return Redirect::route('Ciudad.index');
+		return Redirect::route('Inventario.Ciudad.index');
 	}
 
 }

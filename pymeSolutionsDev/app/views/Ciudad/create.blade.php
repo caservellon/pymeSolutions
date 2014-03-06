@@ -4,7 +4,7 @@
 
 <h2>Crear <small>Ciudad</small></h2>
 
-{{ Form::open(array('route' => 'Ciudad.store')) }}
+{{ Form::open(array('route' => 'Inventario.Ciudad.store')) }}
 	<ul>
        
         <li>
@@ -26,7 +26,7 @@
 
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Ciudad.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
+            {{ link_to_route('Inventario.Ciudad.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

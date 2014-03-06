@@ -4,7 +4,7 @@
 
 <h2>Ciudad <small>Editada</small></h2>
 
-<p>{{ link_to_route('Ciudad.index', 'Regresar a Ciudades') }}</p>
+<p>{{ link_to_route('Inventario.Ciudad.index', 'Regresar a Ciudades') }}</p>
 
 <table class="table table-striped table-bordered table-condensed">
 	<thead>
@@ -30,9 +30,9 @@
 					<td>{{{ $Ciudad->INV_Ciudad_FechaModificacion }}}</td>
 					<td>{{{ $Ciudad->INV_Ciudad_UsuarioModificacion }}}</td>
 					<td>{{{ ($Ciudad->INV_Ciudad_Activo ? 'Si' : 'No') }}}</td>
-                    <td>{{ link_to_route('Ciudad.edit', 'Edit', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.Ciudad.edit', 'Edit', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Ciudad.destroy', $Ciudad->INV_Ciudad_ID))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Ciudad.destroy', $Ciudad->INV_Ciudad_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

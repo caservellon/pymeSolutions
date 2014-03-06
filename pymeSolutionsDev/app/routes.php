@@ -16,6 +16,9 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::group(array('prefix' => 'Inventario'), function()
+{
+
 Route::resource('Ciudad', 'CiudadController');
 
 Route::resource('UnidadMedidas', 'UnidadMedidasController');
@@ -23,3 +26,5 @@ Route::resource('UnidadMedidas', 'UnidadMedidasController');
 Route::resource('Categoria', 'CategoriaController');
 
 Route::resource('Atributos', 'AtributosController');
+
+});

@@ -11,7 +11,7 @@ class Ciudad extends Eloquent {
 
 	public static $rules = array(
 		//'INV_Ciudad_ID' => 'required',
-		'INV_Ciudad_Codigo' => 'alpha_num',
+		//'INV_Ciudad_Codigo' => 'required',
 		'INV_Ciudad_Nombre' => 'required|Alpha',
 		'INV_Ciudad_FechaCreacion' => '',
 		'INV_Ciudad_UsuarioCreacion' => '',

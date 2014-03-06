@@ -4,7 +4,7 @@
 
 <h2><span class="glyphicon glyphicon-cog"></span> Configuración <small>Categoria<small></h2>
 
-<p>{{ link_to_route('Categoria.create', 'Crear Categoria') }}</p>
+<p>{{ link_to_route('Inventario.Categoria.create', 'Crear Categoria') }}</p>
 
 @if ($Categoria->count())
 	<table class="table table-striped table-bordered table-condensed table-responsive">
@@ -38,9 +38,9 @@
 					<td>{{{ ($Categoria->INV_Categoria_Activo ? 'Si' : 'No') }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_HorarioDescuento_ID }}}</td>
-                    <td>{{ link_to_route('Categoria.edit', '', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    <td>{{ link_to_route('Inventario.Categoria.edit', '', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Categoria.destroy', $Categoria->INV_Categoria_ID))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Categoria.destroy', $Categoria->INV_Categoria_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

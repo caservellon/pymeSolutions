@@ -60,10 +60,10 @@ class CategoriaController extends BaseController {
 			$Categoria->INV_Categoria_FechaModificacion = date('Y-m-d H:i:s');
 			$Categoria->INV_Categoria_UsuarioModificacion = Input::get('INV_Categoria_UsuarioModificacion');
 			$Categoria->save();
-			return Redirect::route('Categoria.index');
+			return Redirect::route('Inventario.Categoria.index');
 		}
 
-		return Redirect::route('Categoria.create')
+		return Redirect::route('Inventario.Categoria.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -94,7 +94,7 @@ class CategoriaController extends BaseController {
 
 		if (is_null($Categoria))
 		{
-			return Redirect::route('Categoria.index');
+			return Redirect::route('Inventario.Categoria.index');
 		}
 
 		return View::make('Categoria.edit', compact('Categoria'));
@@ -125,10 +125,10 @@ class CategoriaController extends BaseController {
 			$Categoria->INV_Categoria_UsuarioModificacion = Input::get('INV_Categoria_UsuarioModificacion');
 			$Categoria->update();
 
-			return Redirect::route('Categoria.show', $id);
+			return Redirect::route('Inventario.Categoria.show', $id);
 		}
 
-		return Redirect::route('Categoria.edit', $id)
+		return Redirect::route('Inventario.Categoria.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -144,7 +144,7 @@ class CategoriaController extends BaseController {
 	{
 		$this->Categoria->find($id)->delete();
 
-		return Redirect::route('Categoria.index');
+		return Redirect::route('Inventario.Categoria.index');
 	}
 
 }

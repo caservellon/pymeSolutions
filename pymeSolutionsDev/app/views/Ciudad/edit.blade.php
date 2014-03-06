@@ -3,7 +3,7 @@
 @section('main')
 
 <h2>Editar <small>Ciudad</small></h2>
-{{ Form::model($Ciudad, array('method' => 'PATCH', 'route' => array('Ciudad.update', $Ciudad->INV_Ciudad_ID))) }}
+{{ Form::model($Ciudad, array('method' => 'PATCH', 'route' => array('Inventario.Ciudad.update', $Ciudad->INV_Ciudad_ID))) }}
 	<ul>
         <li>
             {{ Form::label('INV_Ciudad_Codigo', 'Codigo:') }}
@@ -24,7 +24,7 @@
 
         <li>
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Ciudad.show', 'Cancel', $Ciudad->INV_Ciudad_ID, array('class' => 'btn btn-danger')) }}
+            {{ link_to_route('Inventario.Ciudad.show', 'Cancel', $Ciudad->INV_Ciudad_ID, array('class' => 'btn btn-danger')) }}
         </li>
 	</ul>
 {{ Form::close() }}
