@@ -48,8 +48,15 @@ class AtributosController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->Atributo->create($input);
-
+			$Atributo = new Atributo;
+			$Atributo->INV_Atributo_Nombre = Input::get('INV_Atributo_Nombre');
+			$Atributo->INV_Atributo_TipoDato = Input::get('INV_Atributo_TipoDato');
+			$Atributo->INV_Atributo_Activo = Input::get('INV_Atributo_Activo');
+			$Atributo->INV_Atributo_FechaCreacion = date('Y-m-d H:i:s');
+			$Atributo->INV_Atributo_UsuarioCreacion = Input::get('INV_Atributo_UsuarioCreacion');
+			$Atributo->INV_Atributo_FechaModificacion = date('Y-m-d H:i:s');
+			$Atributo->INV_Atributo_UsuarioModificacion = Input::get('INV_Atributo_UsuarioModificacion');
+			$Atributo->save();
 			return Redirect::route('Atributos.index');
 		}
 
@@ -104,7 +111,14 @@ class AtributosController extends BaseController {
 		if ($validation->passes())
 		{
 			$Atributo = $this->Atributo->find($id);
-			$Atributo->update($input);
+			$Atributo->INV_Atributo_ID = $id;
+			$Atributo->INV_Atributo_Codigo = Input::get('INV_Atributo_Codigo');
+			$Atributo->INV_Atributo_Nombre = Input::get('INV_Atributo_Nombre');
+			$Atributo->INV_Atributo_TipoDato = Input::get('INV_Atributo_TipoDato');
+			$Atributo->INV_Atributo_Activo = Input::get('INV_Atributo_Activo');
+			$Atributo->INV_Atributo_FechaModificacion = date('Y-m-d H:i:s');
+			$Atributo->INV_Atributo_UsuarioModificacion = Input::get('INV_Atributo_UsuarioModificacion');
+			$Atributo->update();
 
 			return Redirect::route('Atributos.show', $id);
 		}

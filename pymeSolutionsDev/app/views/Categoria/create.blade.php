@@ -22,26 +22,6 @@
         </li>
 
         <li>
-            {{ Form::label('INV_Categoria_FechaCreacion', 'Fecha Creacion:') }}
-            {{ Form::text('INV_Categoria_FechaCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Categoria_UsuarioCreacion', 'Usuario Creacion:') }}
-            {{ Form::text('INV_Categoria_UsuarioCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Categoria_FechaModificacion', 'Fecha Modificacion:') }}
-            {{ Form::text('INV_Categoria_FechaModificacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Categoria_UsuarioModificacion', 'Usuario Modificacion:') }}
-            {{ Form::text('INV_Categoria_UsuarioModificacion') }}
-        </li>
-
-        <li>
             {{ Form::label('INV_Categoria_IDCategoriaPadre', 'IDCategoriaPadre:') }}
             {{ Form::text('INV_Categoria_IDCategoriaPadre') }}
         </li>
@@ -53,13 +33,14 @@
 
         <li>
             {{ Form::label('INV_Categoria_Activo', 'Activo:') }}
-            {{ Form::checkbox('INV_Categoria_Activo') }}
+            {{ Form::checkbox('INV_Categoria_Activo', 'yes', '1') }}
         </li>
 
         <br/>
 
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ link_to_route('Categoria.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

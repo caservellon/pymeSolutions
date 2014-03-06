@@ -16,34 +16,15 @@
         </li>
 
         <li>
-            {{ Form::label('INV_Ciudad_FechaCreacion', 'Fecha Creacion:') }}
-            {{ Form::text('INV_Ciudad_FechaCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Ciudad_UsuarioCreacion', 'Usuario Creacion:') }}
-            {{ Form::text('INV_Ciudad_UsuarioCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Ciudad_FechaModificacion', 'Fecha Modificacion:') }}
-            {{ Form::text('INV_Ciudad_FechaModificacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Ciudad_UsuarioModificacion', 'Usuario Modificacion:') }}
-            {{ Form::text('INV_Ciudad_UsuarioModificacion') }}
-        </li>
-
-        <li>
             {{ Form::label('INV_Ciudad_Activo', 'Activo:') }}
-            {{ Form::checkbox('INV_Ciudad_Activo') }}
+            {{ Form::checkbox('INV_Ciudad_Activo', 'yes') }}
         </li>
 
         <br/>
 
         <li>
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ link_to_route('Ciudad.show', 'Cancel', $Ciudad->INV_Ciudad_ID, array('class' => 'btn btn-danger')) }}
         </li>
 	</ul>
 {{ Form::close() }}

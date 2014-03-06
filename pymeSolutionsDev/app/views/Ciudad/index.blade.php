@@ -31,7 +31,7 @@
 					<td>{{{ $Ciudad->INV_Ciudad_UsuarioCreacion }}}</td>
 					<td>{{{ $Ciudad->INV_Ciudad_FechaModificacion }}}</td>
 					<td>{{{ $Ciudad->INV_Ciudad_UsuarioModificacion }}}</td>
-					<td>{{{ $Ciudad->INV_Ciudad_Activo }}}</td>
+					<td>{{{ ($Ciudad->INV_Ciudad_Activo ? 'Si' : 'No') }}}</td>
                     <td>{{ link_to_route('Ciudad.edit', '', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Ciudad.destroy', $Ciudad->INV_Ciudad_ID))) }}

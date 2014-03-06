@@ -11,12 +11,12 @@ class Ciudad extends Eloquent {
 
 	public static $rules = array(
 		//'INV_Ciudad_ID' => 'required',
-		//'INV_Ciudad_Codigo' => 'required',
-		'INV_Ciudad_Nombre' => 'required',
-		'INV_Ciudad_FechaCreacion' => 'required',
-		'INV_Ciudad_UsuarioCreacion' => 'required',
-		'INV_Ciudad_FechaModificacion' => 'required',
-		'INV_Ciudad_UsuarioModificacion' => 'required',
+		'INV_Ciudad_Codigo' => 'alpha_num',
+		'INV_Ciudad_Nombre' => 'required|Alpha',
+		'INV_Ciudad_FechaCreacion' => '',
+		'INV_Ciudad_UsuarioCreacion' => '',
+		'INV_Ciudad_FechaModificacion' => '',
+		'INV_Ciudad_UsuarioModificacion' => '',
 		//'INV_Ciudad_Activo' => 'required'
 	);
 }

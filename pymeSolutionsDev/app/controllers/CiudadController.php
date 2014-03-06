@@ -48,8 +48,15 @@ class CiudadController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->Ciudad->create($input);
-
+			$Ciudad = new Ciudad;
+			$Ciudad->INV_Ciudad_Codigo = Input::get('INV_Ciudad_Codigo');
+			$Ciudad->INV_Ciudad_Nombre = Input::get('INV_Ciudad_Nombre');
+			$Ciudad->INV_Ciudad_Activo = Input::get('INV_Ciudad_Activo');
+			$Ciudad->INV_Ciudad_FechaCreacion = date('Y-m-d H:i:s');
+			$Ciudad->INV_Ciudad_UsuarioCreacion = Input::get('INV_Ciudad_UsuarioCreacion');
+			$Ciudad->INV_Ciudad_FechaModificacion = date('Y-m-d H:i:s');
+			$Ciudad->INV_Ciudad_UsuarioModificacion = Input::get('INV_Ciudad_UsuarioModificacion');
+			$Ciudad->save();
 			return Redirect::route('Ciudad.index');
 		}
 
@@ -104,7 +111,13 @@ class CiudadController extends BaseController {
 		if ($validation->passes())
 		{
 			$Ciudad = $this->Ciudad->find($id);
-			$Ciudad->update($input);
+			$Ciudad->INV_Ciudad_ID = $id;
+			$Ciudad->INV_Ciudad_Codigo = Input::get('INV_Ciudad_Codigo');
+			$Ciudad->INV_Ciudad_Nombre = Input::get('INV_Ciudad_Nombre');
+			$Ciudad->INV_Ciudad_Activo = Input::get('INV_Ciudad_Activo');
+			$Ciudad->INV_Ciudad_FechaModificacion = date('Y-m-d H:i:s');
+			$Ciudad->INV_Ciudad_UsuarioModificacion = Input::get('INV_Ciudad_UsuarioModificacion');
+			$Ciudad->update();
 
 			return Redirect::route('Ciudad.show', $id);
 		}

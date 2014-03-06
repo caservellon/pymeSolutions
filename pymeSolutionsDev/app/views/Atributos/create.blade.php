@@ -22,34 +22,15 @@
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_FechaCreacion', 'Fecha Creacion:') }}
-            {{ Form::text('INV_Atributo_FechaCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Atributo_UsuarioCreacion', 'Usuario Creacion:') }}
-            {{ Form::text('INV_Atributo_UsuarioCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Atributo_FechaModificacion', 'Fecha Modificacion:') }}
-            {{ Form::text('INV_Atributo_FechaModificacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_Atributo_UsuarioModificacion', 'UsuarioModificacion:') }}
-            {{ Form::text('INV_Atributo_UsuarioModificacion') }}
-        </li>
-
-        <li>
             {{ Form::label('INV_Atributo_Activo', 'Activo:') }}
-            {{ Form::checkbox('INV_Atributo_Activo') }}
+            {{ Form::checkbox('INV_Atributo_Activo', 'yes', '1') }}
         </li>
 
         <br />
 
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ link_to_route('Atributos.index', 'Cancel', '', array('class' => 'btn btn-danger')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

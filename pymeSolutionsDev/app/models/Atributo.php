@@ -9,13 +9,13 @@ class Atributo extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		//'INV_Atributo_Codigo' => 'required',
-		'INV_Atributo_Nombre' => 'required',
+		'INV_Atributo_Codigo' => 'alpha_num',
+		'INV_Atributo_Nombre' => 'required|Alpha',
 		'INV_Atributo_TipoDato' => 'required',
-		'INV_Atributo_FechaCreacion' => 'required',
-		'INV_Atributo_UsuarioCreacion' => 'required',
-		'INV_Atributo_FechaModificacion' => 'required',
-		'INV_Atributo_UsuarioModificacion' => 'required',
+		'INV_Atributo_FechaCreacion' => '',
+		'INV_Atributo_UsuarioCreacion' => '',
+		'INV_Atributo_FechaModificacion' => '',
+		'INV_Atributo_UsuarioModificacion' => '',
 		//'INV_Atributo_Activo' => 'required'
 	);
 }

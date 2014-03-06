@@ -48,8 +48,15 @@ class UnidadMedidasController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->UnidadMedida->create($input);
-
+			$UnidadMedida = new UnidadMedida;
+			$UnidadMedida->INV_UnidadMedida_Nombre = Input::get('INV_UnidadMedida_Nombre');
+			$UnidadMedida->INV_UnidadMedida_Descripcion = Input::get('INV_UnidadMedida_Descripcion');
+			$UnidadMedida->INV_UnidadMedida_Activo = Input::get('INV_UnidadMedida_Activo');
+			$UnidadMedida->INV_UnidadMedida_FechaCreacion = date('Y-m-d H:i:s');
+			$UnidadMedida->INV_UnidadMedida_UsuarioCreacion = Input::get('INV_UnidadMedida_UsuarioCreacion');
+			$UnidadMedida->INV_UnidadMedida_FechaModificacion = date('Y-m-d H:i:s');
+			$UnidadMedida->INV_UnidadMedida_UsuarioModificacion = Input::get('INV_UnidadMedida_UsuarioModificacion');
+			$UnidadMedida->save();
 			return Redirect::route('UnidadMedidas.index');
 		}
 
@@ -104,7 +111,13 @@ class UnidadMedidasController extends BaseController {
 		if ($validation->passes())
 		{
 			$UnidadMedida = $this->UnidadMedida->find($id);
-			$UnidadMedida->update($input);
+			$UnidadMedida->INV_UnidadMedida_ID = $id;
+			$UnidadMedida->INV_UnidadMedida_Nombre = Input::get('INV_UnidadMedida_Nombre');
+			$UnidadMedida->INV_UnidadMedida_Descripcion = Input::get('INV_UnidadMedida_Descripcion');
+			$UnidadMedida->INV_UnidadMedida_Activo = Input::get('INV_UnidadMedida_Activo');
+			$UnidadMedida->INV_UnidadMedida_FechaModificacion = date('Y-m-d H:i:s');
+			$UnidadMedida->INV_UnidadMedida_UsuarioModificacion = Input::get('INV_UnidadMedida_UsuarioModificacion');
+			$UnidadMedida->update();
 
 			return Redirect::route('UnidadMedidas.show', $id);
 		}

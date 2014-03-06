@@ -17,35 +17,15 @@
         </li>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_FechaCreacion', 'Fecha Creacion:') }}
-            {{ Form::text('INV_UnidadMedida_FechaCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_UnidadMedida_UsuarioCreacion', 'Usuario Creacion:') }}
-            {{ Form::text('INV_UnidadMedida_UsuarioCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_UnidadMedida_FechaModificacion', 'Fecha Modificacion:') }}
-            {{ Form::text('INV_UnidadMedida_FechaModificacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_UnidadMedida_UsuarioModificacion', 'Usuario Modificacion:') }}
-            {{ Form::text('INV_UnidadMedida_UsuarioModificacion') }}
-        </li>
-
-        <li>
             {{ Form::label('INV_UnidadMedida_Activo', 'Activo:') }}
-            {{ Form::checkbox('INV_UnidadMedida_Activo') }}
+            {{ Form::checkbox('INV_UnidadMedida_Activo', 'yes') }}
         </li>
 
         <br/>
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('UnidadMedidas.show', 'Cancel', $UnidadMedida->INV_UnidadMedida_ID, array('class' => 'btn')) }}
+			{{ link_to_route('UnidadMedidas.show', 'Cancel', $UnidadMedida->INV_UnidadMedida_ID, array('class' => 'btn btn-danger')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

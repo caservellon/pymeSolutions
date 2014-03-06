@@ -32,7 +32,7 @@
 					<td>{{{ $Atributo->INV_Atributo_UsuarioCreacion }}}</td>
 					<td>{{{ $Atributo->INV_Atributo_FechaModificacion }}}</td>
 					<td>{{{ $Atributo->INV_Atributo_UsuarioModificacion }}}</td>
-					<td>{{{ $Atributo->INV_Atributo_Activo }}}</td>
+					<td>{{{ ($Atributo->INV_Atributo_Activo ? 'Si' : 'No') }}}</td>
                     <td>{{ link_to_route('Atributos.edit', 'Edit', array($Atributo->INV_Atributo_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Atributos.destroy', $Atributo->INV_Atributo_ID))) }}

@@ -29,7 +29,7 @@
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioCreacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_FechaModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioModificacion }}}</td>
-					<td>{{{ $UnidadMedida->INV_UnidadMedida_Activo }}}</td>
+					<td>{{{ ($UnidadMedida->INV_UnidadMedida_Activo ? 'Si' : 'No') }}}</td>
                     <td>{{ link_to_route('UnidadMedidas.edit', 'Edit', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('UnidadMedidas.destroy', $UnidadMedida->INV_UnidadMedida_ID))) }}
