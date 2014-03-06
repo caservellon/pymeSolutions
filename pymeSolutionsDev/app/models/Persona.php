@@ -10,13 +10,13 @@ class Persona extends Eloquent {
 
 	public static $rules = array(
 		'CRM_Personas_codigo' => 'required',
-		'CRM_Personas_Nombres' => 'required',
-		'CRM_Personas_Apellidos' => 'required',
-		'CRM_Personas_Direccion' => 'required',
-		'CRM_Personas_Email' => 'required',
-		'CRM_Personas_Celular' => 'required',
-		'CRM_Personas_Fijo' => 'required',
-		'CRM_Personas_Descuento' => 'required',
+		'CRM_Personas_Nombres' => 'Required|Min:3|Max:80|Alpha',
+		'CRM_Personas_Apellidos' => 'Required|Min:3|Max:80|Alpha',
+		'CRM_Personas_Direccion' => 'Required|Min:3|Max:255|AlphaNum',
+		'CRM_Personas_Email' => 'Required|Between:3,64|Email|Unique:users',
+		'CRM_Personas_Celular' => 'Required|Min:7|Max:8|Integer',
+		'CRM_Personas_Fijo' => 'Required|Min:7|Max:8|Integer',
+		'CRM_Personas_Descuento' => 'required|Integer',
 		'CRM_Personas_Foto' => 'required'
 	);
 }
