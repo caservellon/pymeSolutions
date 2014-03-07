@@ -37,8 +37,11 @@ class CatalogoContablesController extends BaseController {
 	{
 		$clasi = ClasificacionCuenta::all()->lists('CON_ClasificacionCuenta_Nombre','CON_ClasificacionCuenta_ID');
     	$selected = array();
-    	$esta = array('1' => 'Habiltado' ,'0' => 'Deshabiltado' );
-		return View::make('CatalogoContables.create',compact('clasi', 'selected'));
+    	$esta =array('1' => 'Habiltado','0' => 'Deshabiltado' );
+    	$selected2 = array();
+    	$naturaleza  = array('0' => 'Deudor','1' => 'Habilitado' );
+    	$selected3 = array();
+		return View::make('CatalogoContables.create',compact('clasi', 'selected','esta','selected2','naturaleza','selected3'));
 	}
 
 	/**
@@ -91,9 +94,14 @@ class CatalogoContablesController extends BaseController {
 		{
 			return Redirect::action('CatalogoContablesController@index');
 		}
-		$clasi =array('Habiltado' => 1,'Deshabiltado' => 0 );
+		$clasi = ClasificacionCuenta::all()->lists('CON_ClasificacionCuenta_Nombre','CON_ClasificacionCuenta_ID');
+    	$selected = array();
+    	$esta =array('1' => 'Habiltado','0' => 'Deshabiltado' );
+    	$selected2 = array();
+    	$naturaleza  = array('0' => 'Deudor','1' => 'Habilitado' );
+    	$selected3 = array();
 
-		return View::make('CatalogoContables.edit', compact('CatalogoContable','clasi'));
+		return View::make('CatalogoContables.edit', compact('CatalogoContable','clasi','selected','esta','selected2','naturaleza','selected3'));
 	}
 
 	/**
@@ -104,22 +112,52 @@ class CatalogoContablesController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, CatalogoContable::$rules);
+		//	$id=$array['id'];
+		
+		
+			$input = array_except(Input::all(), '_method');
+			$validation = Validator::make($input, CatalogoContable::$rules);
 
-		if ($validation->passes())
-		{
-			$CatalogoContable = $this->CatalogoContable->find($id);
-			$CatalogoContable->update($input);
+			if ($validation->passes())
+			{
+				$CatalogoContable = $this->CatalogoContable->find($id);
+				$CatalogoContable->update($input);
 
-			//return Redirect::route('CatalogoContables.show', $id);
-			return Redirect::action('CatalogoContablesController@show', $id);
-		}
+				//return Redirect::route('CatalogoContables.show', $id);
+				return Redirect::action('CatalogoContablesController@show', $id);
+			}
+	
+			
+		
 
 		return Redirect::action('CatalogoContablesController@edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
+	}
+
+	public function cambiarestado($id,$estado)
+	{
+		//	$id=$array['id'];
+		if($estado==0 || $estado==1){
+			$CatalogoContable = $this->CatalogoContable->find($id);
+			$CatalogoContable->CON_CatalogoContable_Estado=$estado;
+			$CatalogoContable->update();
+			
+			$CatalogoContable = $this->CatalogoContable->find($id);
+			$CatalogoContable->update($input);
+
+				//return Redirect::route('CatalogoContables.show', $id);
+				//return Redirect::action('CatalogoContablesController@index', $id);
+			
+		}
+			
+		
+
+		/*return Redirect::action('CatalogoContablesController@edit', $id)
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');*/
 	}
 
 	public function destroy($id)

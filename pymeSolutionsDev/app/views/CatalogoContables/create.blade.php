@@ -30,12 +30,12 @@
 
         <li>
             {{ Form::label('CON_CatalogoContable_NaturalezaSaldo', 'Naturaleza Saldo:') }}
-            {{ Form::checkbox('CON_CatalogoContable_NaturalezaSaldo') }}
+            {{ Form::select('CON_CatalogoContable_NaturalezaSaldo', $naturaleza, $selected3) }}
         </li>
 
         <li>
             {{ Form::label('CON_CatalogoContable_Estado', 'Estado:') }}
-            {{ Form::checkbox('CON_CatalogoContable_Estado') }}
+            {{ Form::select('CON_CatalogoContable_Estado',$esta,$selected2) }}
         </li>
 
         <li>

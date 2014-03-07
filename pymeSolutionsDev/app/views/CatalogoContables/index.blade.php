@@ -33,9 +33,9 @@
 					<td>Deudor</td>
 					@endif
 					@if ($CatalogoContable->CON_CatalogoContable_Estado == 1)
-					<td><input type="checkbox" checked></td>
+					<td ><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" checked></td>
 					@else 
-					<td><input type="checkbox" ></td>
+					<td><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" ></td>
 					@endif
 					<td>{{{ $CatalogoContable->CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID }}}</td>
                     <td><a class="btn btn-success" href="{{ URL::to('catalogo-contable/'.$CatalogoContable->CON_CatalogoContable_ID.'/edit') }}">Edit</a>
@@ -49,5 +49,17 @@
 @else
 	No hay Cuentas en el Catalogo Contable
 @endif
+<script type="text/javascript">
+	$('input[type=checkbox]').on('click', function() {
+  var id = $(this).attr('id');
+  var value=0;
+  if($(this).attr('checked')=='checked'){
+  	value=1;
+  }
+  $.post("{{URL::to('catalogo-contable/cambiarestado')}}", {id: id,estado:value});
+});
 
+
+
+</script>
 @stop

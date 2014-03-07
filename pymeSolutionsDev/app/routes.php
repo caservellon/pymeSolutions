@@ -20,3 +20,6 @@ Route::resource('unidad-monetaria', 'UnidadMonetariaController');
 Route::resource('param-periodo', 'ParamPeriodoContableController');
 Route::resource('clasificacion-cuentas','ClasificacionCuentaController');
 Route::resource('catalogo-contable', 'CatalogoContablesController');
+
+
+Route::get('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));

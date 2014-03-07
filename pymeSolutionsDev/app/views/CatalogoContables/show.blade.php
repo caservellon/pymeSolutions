@@ -24,8 +24,16 @@
 					<td>{{{ $CatalogoContable->CON_CatalogoContable_Codigo }}}</td>
 					<td>{{{ $CatalogoContable->CON_CatalogoContable_Nombre }}}</td>
 					<td>{{{ $CatalogoContable->CON_CatalogoContable_UsuarioCreacion }}}</td>
-					<td>{{{ $CatalogoContable->CON_CatalgoContable_NaturalezaSaldo }}}</td>
-					<td>{{{ $CatalogoContable->CON_CatalogoContable_Estado }}}</td>
+					@if ($CatalogoContable->CON_CatalogoContable_NaturalezaSaldo == 1)
+					<td>Acreedor</td>
+					@else
+					<td>Deudor</td>
+					@endif
+					@if ($CatalogoContable->CON_CatalogoContable_Estado == 1)
+					<td ><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" checked></td>
+					@else 
+					<td><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" ></td>
+					@endif
 					<td>{{{ $CatalogoContable->CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID }}}</td>
 		</tr>
 	</tbody>

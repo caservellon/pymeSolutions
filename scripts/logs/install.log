@@ -256,3 +256,91 @@ Populating Contabilidad
 Populating Ventas 
 Process ended at  2014/03/06 01:30:30
 ------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/06 23:24:54
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/06 23:24:55
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/06 17:49:20
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1317 (70100) at line 73: Query execution was interrupted
+Ctrl-C -- sending "KILL QUERY 52" to server ...
+Ctrl-C -- query aborted.
+ERROR 1452 (23000) at line 13: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/06 17:49:44
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/06 17:49:47
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Ctrl-C -- sending "KILL QUERY 64" to server ...
+Ctrl-C -- query aborted.
+Creating Ventas 
+Ctrl-C -- sending "KILL QUERY 66" to server ...
+Ctrl-C -- query aborted.
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/06 17:50:11
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/06 17:50:23
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/06 17:50:48
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/06 23:52:13
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/06 23:52:14
+------------------------END----------------------------

@@ -22,7 +22,7 @@
 
         <li>
             {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre:') }}
-            {{ Form::text('CON_CatalogoContable_Nombre') }}
+            {{ Form::text('CON_CatalogoContable_Nombre' ) }}
         </li>
 
         <li>
@@ -32,18 +32,18 @@
 
         <li>
             {{ Form::label('CON_CatalogoContable_NaturalezaSaldo', 'Naturaleza Saldo:') }}
-            {{ Form::checkbox('CON_CatalogoContable_NaturalezaSaldo') }}
+            {{ Form::select('CON_CatalogoContable_NaturalezaSaldo', $naturaleza, $selected3) }}
         </li>
 
         <li>
             {{ Form::label('CON_CatalogoContable_Estado', 'Estado:') }}
-            {{ Form::checkbox('CON_CatalogoContable_Estado') }}
+            {{ Form::select('CON_CatalogoContable_Estado',$esta,$selected2) }}
         </li>
 
 
         <li>
             {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion Cuenta:') }}
-            {{ Form::input('number', 'CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID') }}
+            {{ Form::select('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', $clasi, $selected) }}
         </li>
 
         <li>
