@@ -1,6 +1,12 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<div class="page-header clearfix">
+      <h3 class="pull-left">Configuracion &gt; <small>editar Parametrizar Cotizacion</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('Compras/Cotizacions/parametrizar') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>atras</a>
+      </div>
+</div>
     <div class="row"> 
         
         <div class="col-md-3 col-md-offset-1">
@@ -34,7 +40,8 @@
           </div>
             @if($editar->count())
             
-                <table class="table table-striped table-bordered">
+                <div class="table-responsive">
+                <table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Id</th>
@@ -58,14 +65,16 @@
 					<td>{{{ $editars->GEN_CampoLocal_Requerido }}}</td>
 					<td>{{{ $editars->GEN_CampoLocal_ParametroBusqueda }}}</td>
 					<td>{{{ $editars->GEN_CampoLocal_Activo }}}</td>
-					<td>{{ link_to_route('Cotizacions.edit', 'Editar', array($editars->GEN_CampoLocal_IdCampoLocal), array('class' => 'btn btn-info')) }}</td>
+					<td>{{ link_to_route('Compras.Cotizacions.edit', 'Editar', array($editars->GEN_CampoLocal_IdCampoLocal), array('class' => 'btn btn-info')) }}</td>
 
         
                                 </tr>
                 @endforeach
-            @endif
-            {{ Form::close() }} 
-    
+                
+            
+                </tbody> 
+             </table>
+          </div>
    
                 
 
@@ -78,7 +87,6 @@
 
 
 
-</body>
-</html>
+@endif
 
 @stop

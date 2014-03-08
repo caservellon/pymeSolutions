@@ -27,7 +27,7 @@ class CotizacionsController extends BaseController {
 	}
         
         public function parametrizar(){
-            $parametrizar = CampoLocal::all();
+            $parametrizar = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get();
             return View::make('Cotizacions.parametrizar', compact('parametrizar'));
         }
         
@@ -37,7 +37,7 @@ class CotizacionsController extends BaseController {
 
 		if (is_null($editar))
 		{
-			return Redirect::route('parametrizar');
+			return Redirect::route('Compras.parametrizar');
 		}
 
 		return View::make('Cotizacions.editarParametrizar', compact('editar'));
@@ -52,6 +52,12 @@ class CotizacionsController extends BaseController {
 	{
 		return View::make('Cotizacions.create');
 	}
+        
+        public function mensaje()
+	{
+                $date = Mensaje::find(1);
+		return View::make('Cotizacions.mensaje', compact('date'));
+	}
 
 	/**
 	 * Store a newly created resource in storage.
@@ -59,9 +65,11 @@ class CotizacionsController extends BaseController {
 	 * @return Response
 	 */
         public function campoLocal(){
+                $campo = CampoLocal::all();
+                $suma=$campo->count()+1;
                 $campoLocal = new CampoLocal();
                 $input = Input::all();
-                $campoLocal->GEN_CampoLocal_Codigo='COM_COT_0000003';
+                $campoLocal->GEN_CampoLocal_Codigo='COM_COT_'.$suma;
                 $validation = Validator::make($input, CampoLocal::$rules);
                 $campoLocal->GEN_CampoLocal_Nombre=Input::get('GEN_CampoLocal_Nombre');
              
@@ -93,56 +101,15 @@ class CotizacionsController extends BaseController {
                         return Redirect::route('parametrizar');
 		
                 }
-                
+                $mensaje= Mensaje::find(2);
 		return Redirect::route('parametrizar')
 			->withInput()
 			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+			->with('message', $mensaje->GEN_Mensajes_Mensaje);
                 
         }
         
-        public function actualizar($id)
-	{
-                return $id;
-		$input = Input::except('_method');
-		$validation = Validator::make($input, CampoLocal::$rules);
-
-		if ($validation->passes())
-		{
-			$Cotizacion = CampoLocal::find($id);
-                        $Cotizacion->GEN_CampoLocal_IdCampoLocal= $id;
-                        $Cotizacion->GEN_CampoLocal_Nombre=Input::get('GEN_CampoLocal_Nombre');
-                        $Cotizacion->GEN_CampoLocal_Tipo=Input::get('GEN_CampoLocal_Tipo');
-                         if(Input::has('GEN_CampoLocal_Requerido')){
-                            $Cotizacion->GEN_CampoLocal_Requerido=1;
-                        }else{
-                            $Cotizacion->GEN_CampoLocal_Requerido=0;
-                        }
-                        if(Input::has('GEN_CampoLocal_ParametroBusqueda')){
-                            $Cotizacion->GEN_CampoLocal_ParametroBusqueda=1;
-                        }else{
-                            $Cotizacion->GEN_CampoLocal_ParametroBusqueda=0;
-                        }
-                        if(Input::has('GEN_CampoLocal_Activo')){
-                            $Cotizacion->GEN_CampoLocal_Activo=1;
-                        }else{
-                            $Cotizacion->GEN_CampoLocal_Activo=0;
-                        }
-                            $Cotizacion->update();
-
-			return Redirect::route('parametrizar');
-		}
-
-		return Redirect::route('parametrizar', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
-		
-			
-                        
-		
-	
-	}
+        
         
 	public function store()
 	{
@@ -189,7 +156,7 @@ class CotizacionsController extends BaseController {
 
 		if (is_null($Cotizacion))
 		{
-			return Redirect::route('editarParametrizar');
+			return Redirect::route('Compras.editarParametrizar');
 		}
 
 		return View::make('Cotizacions.edit', compact('Cotizacion'));
@@ -211,7 +178,7 @@ class CotizacionsController extends BaseController {
 			$Cotizacion = CampoLocal::find($id);
                         $Cotizacion->GEN_CampoLocal_IdCampoLocal= $id;
                         $Cotizacion->GEN_CampoLocal_Nombre=Input::get('GEN_CampoLocal_Nombre');
-                        $Cotizacion->GEN_CampoLocal_Tipo=Input::get('GEN_CampoLocal_Tipo');
+                        $Cotizacion->GEN_CampoLocal_Tipo=$Cotizacion->GEN_CampoLocal_Tipo;
                          if(Input::has('GEN_CampoLocal_Requerido')){
                             $Cotizacion->GEN_CampoLocal_Requerido=1;
                         }else{
@@ -229,13 +196,13 @@ class CotizacionsController extends BaseController {
                         }
                             $Cotizacion->update();
 
-			return Redirect::route('parametrizar');
+			return Redirect::route('mensaje');
 		}
-
+                $mensaje= Mensaje::find(2);
 		return Redirect::route('Cotizacions.edit', $id)
 			->withInput()
 			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+			->with('message', $mensaje->GEN_Mensajes_Mensaje);
 	}
 
 	/**
