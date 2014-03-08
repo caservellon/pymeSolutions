@@ -50,10 +50,10 @@ class FormaPagosController extends BaseController {
 		{
 			$this->FormaPago->create($input);
 
-			return Redirect::route('FormaPagos.index');
+			return Redirect::route('Ventas.FormaPagos.index');
 		}
 
-		return Redirect::route('FormaPagos.create')
+		return Redirect::route('Ventas.FormaPagos.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class FormaPagosController extends BaseController {
 
 		if (is_null($FormaPago))
 		{
-			return Redirect::route('FormaPagos.index');
+			return Redirect::route('Ventas.FormaPagos.index');
 		}
 
 		return View::make('FormaPagos.edit', compact('FormaPago'));
@@ -106,10 +106,10 @@ class FormaPagosController extends BaseController {
 			$FormaPago = $this->FormaPago->find($id);
 			$FormaPago->update($input);
 
-			return Redirect::route('FormaPagos.show', $id);
+			return Redirect::route('Ventas.FormaPagos.show', $id);
 		}
 
-		return Redirect::route('FormaPagos.edit', $id)
+		return Redirect::route('Ventas.FormaPagos.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class FormaPagosController extends BaseController {
 	{
 		$this->FormaPago->find($id)->delete();
 
-		return Redirect::route('FormaPagos.index');
+		return Redirect::route('Ventas.FormaPagos.index');
 	}
 
 }

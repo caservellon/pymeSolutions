@@ -50,10 +50,10 @@ class PeriodoCierreDeCajasController extends BaseController {
 		{
 			$this->PeriodoCierreDeCaja->create($input);
 
-			return Redirect::route('PeriodoCierreDeCajas.index');
+			return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
 		}
 
-		return Redirect::route('PeriodoCierreDeCajas.create')
+		return Redirect::route('Ventas.PeriodoCierreDeCajas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class PeriodoCierreDeCajasController extends BaseController {
 
 		if (is_null($PeriodoCierreDeCaja))
 		{
-			return Redirect::route('PeriodoCierreDeCajas.index');
+			return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
 		}
 
 		return View::make('PeriodoCierreDeCajas.edit', compact('PeriodoCierreDeCaja'));
@@ -106,10 +106,10 @@ class PeriodoCierreDeCajasController extends BaseController {
 			$PeriodoCierreDeCaja = $this->PeriodoCierreDeCaja->find($id);
 			$PeriodoCierreDeCaja->update($input);
 
-			return Redirect::route('PeriodoCierreDeCajas.show', $id);
+			return Redirect::route('Ventas.PeriodoCierreDeCajas.show', $id);
 		}
 
-		return Redirect::route('PeriodoCierreDeCajas.edit', $id)
+		return Redirect::route('Ventas.PeriodoCierreDeCajas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class PeriodoCierreDeCajasController extends BaseController {
 	{
 		$this->PeriodoCierreDeCaja->find($id)->delete();
 
-		return Redirect::route('PeriodoCierreDeCajas.index');
+		return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
 	}
 
 }

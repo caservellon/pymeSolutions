@@ -51,10 +51,10 @@ class CajasController extends BaseController {
 		
 			$this->Caja->create($input);
 
-			return Redirect::route('Cajas.index');
+			return Redirect::route('Ventas.Cajas.index');
 		}
 
-		return Redirect::route('Cajas.create')
+		return Redirect::route('Ventas.Cajas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -85,7 +85,7 @@ class CajasController extends BaseController {
 
 		if (is_null($Caja))
 		{
-			return Redirect::route('Cajas.index');
+			return Redirect::route('Ventas.Cajas.index');
 		}
 
 		return View::make('Cajas.edit', compact('Caja'));
@@ -107,10 +107,10 @@ class CajasController extends BaseController {
 			$Caja = $this->Caja->find($id);
 			$Caja->update($input);
 
-			return Redirect::route('Cajas.show', $id);
+			return Redirect::route('Ventas.Cajas.show', $id);
 		}
 
-		return Redirect::route('Cajas.edit', $id)
+		return Redirect::route('Ventas.Cajas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -126,7 +126,7 @@ class CajasController extends BaseController {
 	{
 		$this->Caja->find($id)->delete();
 
-		return Redirect::route('Cajas.index');
+		return Redirect::route('Ventas.Cajas.index');
 	}
 
 }

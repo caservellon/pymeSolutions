@@ -50,10 +50,10 @@ class EstadoBonosController extends BaseController {
 		{
 			$this->EstadoBono->create($input);
 
-			return Redirect::route('EstadoBonos.index');
+			return Redirect::route('Ventas.EstadoBonos.index');
 		}
 
-		return Redirect::route('EstadoBonos.create')
+		return Redirect::route('Ventas.EstadoBonos.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class EstadoBonosController extends BaseController {
 
 		if (is_null($EstadoBono))
 		{
-			return Redirect::route('EstadoBonos.index');
+			return Redirect::route('Ventas.EstadoBonos.index');
 		}
 
 		return View::make('EstadoBonos.edit', compact('EstadoBono'));
@@ -106,10 +106,10 @@ class EstadoBonosController extends BaseController {
 			$EstadoBono = $this->EstadoBono->find($id);
 			$EstadoBono->update($input);
 
-			return Redirect::route('EstadoBonos.show', $id);
+			return Redirect::route('Ventas.EstadoBonos.show', $id);
 		}
 
-		return Redirect::route('EstadoBonos.edit', $id)
+		return Redirect::route('Ventas.EstadoBonos.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class EstadoBonosController extends BaseController {
 	{
 		$this->EstadoBono->find($id)->delete();
 
-		return Redirect::route('EstadoBonos.index');
+		return Redirect::route('Ventas.EstadoBonos.index');
 	}
 
 }

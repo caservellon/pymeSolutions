@@ -50,10 +50,10 @@ class BonoDeComprasController extends BaseController {
 		{
 			$this->BonoDeCompra->create($input);
 
-			return Redirect::route('BonoDeCompras.index');
+			return Redirect::route('Ventas.BonoDeCompras.index');
 		}
 
-		return Redirect::route('BonoDeCompras.create')
+		return Redirect::route('Ventas.BonoDeCompras.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class BonoDeComprasController extends BaseController {
 
 		if (is_null($BonoDeCompra))
 		{
-			return Redirect::route('BonoDeCompras.index');
+			return Redirect::route('Ventas.BonoDeCompras.index');
 		}
 
 		return View::make('BonoDeCompras.edit', compact('BonoDeCompra'));
@@ -106,10 +106,10 @@ class BonoDeComprasController extends BaseController {
 			$BonoDeCompra = $this->BonoDeCompra->find($id);
 			$BonoDeCompra->update($input);
 
-			return Redirect::route('BonoDeCompras.show', $id);
+			return Redirect::route('Ventas.BonoDeCompras.show', $id);
 		}
 
-		return Redirect::route('BonoDeCompras.edit', $id)
+		return Redirect::route('Ventas.BonoDeCompras.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class BonoDeComprasController extends BaseController {
 	{
 		$this->BonoDeCompra->find($id)->delete();
 
-		return Redirect::route('BonoDeCompras.index');
+		return Redirect::route('Ventas.BonoDeCompras.index');
 	}
 
 }

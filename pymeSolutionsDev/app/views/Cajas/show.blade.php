@@ -31,8 +31,8 @@
 </div>
 
 <div class="form-group">
-		{{ link_to_route('Cajas.edit', 'Edit', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}
-	    {{ Form::open(array('method' => 'DELETE', 'route' => array('Cajas.destroy', $Caja->VEN_Caja_id))) }}
+		{{ link_to_route('Ventas.Cajas.edit', 'Edit', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}
+	    {{ Form::open(array('method' => 'DELETE', 'route' => array('Ventas.Cajas.destroy', $Caja->VEN_Caja_id))) }}
 	        	{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
 	    	{{ Form::close() }}
 </div>

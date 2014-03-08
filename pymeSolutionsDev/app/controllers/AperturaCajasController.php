@@ -50,10 +50,10 @@ class AperturaCajasController extends BaseController {
 		{
 			$this->AperturaCaja->create($input);
 
-			return Redirect::route('AperturaCajas.index');
+			return Redirect::route('Ventas.AperturaCajas.index');
 		}
 
-		return Redirect::route('AperturaCajas.create')
+		return Redirect::route('Ventas.AperturaCajas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class AperturaCajasController extends BaseController {
 
 		if (is_null($AperturaCaja))
 		{
-			return Redirect::route('AperturaCajas.index');
+			return Redirect::route('Ventas.AperturaCajas.index');
 		}
 
 		return View::make('AperturaCajas.edit', compact('AperturaCaja'));
@@ -106,10 +106,10 @@ class AperturaCajasController extends BaseController {
 			$AperturaCaja = $this->AperturaCaja->find($id);
 			$AperturaCaja->update($input);
 
-			return Redirect::route('AperturaCajas.show', $id);
+			return Redirect::route('Ventas.AperturaCajas.show', $id);
 		}
 
-		return Redirect::route('AperturaCajas.edit', $id)
+		return Redirect::route('Ventas.AperturaCajas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class AperturaCajasController extends BaseController {
 	{
 		$this->AperturaCaja->find($id)->delete();
 
-		return Redirect::route('AperturaCajas.index');
+		return Redirect::route('Ventas.AperturaCajas.index');
 	}
 
 }

@@ -50,10 +50,10 @@ class DetalleDeVentaController extends BaseController {
 		{
 			$this->DetalleDeVenta->create($input);
 
-			return Redirect::route('DetalleDeVenta.index');
+			return Redirect::route('Ventas.DetalleDeVenta.index');
 		}
 
-		return Redirect::route('DetalleDeVenta.create')
+		return Redirect::route('Ventas.DetalleDeVenta.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class DetalleDeVentaController extends BaseController {
 
 		if (is_null($DetalleDeVenta))
 		{
-			return Redirect::route('DetalleDeVenta.index');
+			return Redirect::route('Ventas.DetalleDeVenta.index');
 		}
 
 		return View::make('DetalleDeVenta.edit', compact('DetalleDeVenta'));
@@ -106,10 +106,10 @@ class DetalleDeVentaController extends BaseController {
 			$DetalleDeVenta = $this->DetalleDeVenta->find($id);
 			$DetalleDeVenta->update($input);
 
-			return Redirect::route('DetalleDeVenta.show', $id);
+			return Redirect::route('Ventas.DetalleDeVenta.show', $id);
 		}
 
-		return Redirect::route('DetalleDeVenta.edit', $id)
+		return Redirect::route('Ventas.DetalleDeVenta.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class DetalleDeVentaController extends BaseController {
 	{
 		$this->DetalleDeVenta->find($id)->delete();
 
-		return Redirect::route('DetalleDeVenta.index');
+		return Redirect::route('Ventas.DetalleDeVenta.index');
 	}
 
 }
