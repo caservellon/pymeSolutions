@@ -50,10 +50,10 @@ class CierreCajasController extends BaseController {
 		{
 			$this->CierreCaja->create($input);
 
-			return Redirect::route('CierreCajas.index');
+			return Redirect::route('Ventas.CierreCajas.index');
 		}
 
-		return Redirect::route('CierreCajas.create')
+		return Redirect::route('Ventas.CierreCajas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class CierreCajasController extends BaseController {
 
 		if (is_null($CierreCaja))
 		{
-			return Redirect::route('CierreCajas.index');
+			return Redirect::route('Ventas.CierreCajas.index');
 		}
 
 		return View::make('CierreCajas.edit', compact('CierreCaja'));
@@ -106,10 +106,10 @@ class CierreCajasController extends BaseController {
 			$CierreCaja = $this->CierreCaja->find($id);
 			$CierreCaja->update($input);
 
-			return Redirect::route('CierreCajas.show', $id);
+			return Redirect::route('Ventas.CierreCajas.show', $id);
 		}
 
-		return Redirect::route('CierreCajas.edit', $id)
+		return Redirect::route('Ventas.CierreCajas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class CierreCajasController extends BaseController {
 	{
 		$this->CierreCaja->find($id)->delete();
 
-		return Redirect::route('CierreCajas.index');
+		return Redirect::route('Ventas.CierreCajas.index');
 	}
 
 }

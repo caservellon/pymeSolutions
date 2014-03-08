@@ -16,26 +16,28 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+Route::group(array('prefix' => 'Ventas'), function(){
 
-Route::resource('AperturaCajas', 'AperturacajasController');
+	Route::resource('AperturaCajas', 'AperturacajasController');
 
-Route::resource('Ventas', 'VentasController');
+	Route::resource('Ventas', 'VentasController');
 
-Route::resource('DetalleDeVenta', 'DetalleDeVentaController');
+	Route::resource('DetalleDeVenta', 'DetalleDeVentaController');
 
-Route::resource('FormaPagos', 'FormaPagosController');
+	Route::resource('FormaPagos', 'FormaPagosController');
 
-Route::resource('EstadoBonos', 'EstadobonosController');
+	Route::resource('EstadoBonos', 'EstadobonosController');
 
-Route::resource('BonoDeCompras', 'BonodecomprasController');
+	Route::resource('BonoDeCompras', 'BonodecomprasController');
 
-Route::resource('Devoluciones', 'DevolucionesController');
+	Route::resource('Devoluciones', 'DevolucionesController');
 
-Route::resource('DetalleDevoluciones', 'DetalleDevolucionesController');
+	Route::resource('DetalleDevoluciones', 'DetalleDevolucionesController');
 
-Route::resource('Cajas', 'CajasController');
+	Route::resource('Cajas', 'CajasController');
 
-Route::resource('CierreCajas', 'CierreCajasController');
+	Route::resource('CierreCajas', 'CierreCajasController');
 
-Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
+	Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
 
+});

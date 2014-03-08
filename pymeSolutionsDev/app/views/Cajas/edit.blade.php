@@ -8,7 +8,7 @@
       </div>
 </div>
 
-{{ Form::model($Caja, array('method' => 'PATCH', 'route' => array('Cajas.update', $Caja->VEN_Caja_id), 'class' => 'form-horizontal', 'role' => 'form')) }}
+{{ Form::model($Caja, array('method' => 'PATCH', 'route' => array('Ventas.Cajas.update', $Caja->VEN_Caja_id), 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
         {{ Form::label('VEN_Caja_Codigo', 'Código:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
@@ -37,7 +37,7 @@
         <div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Cajas.show', 'Cancel', $Caja->VEN_Caja_id, array('class' => 'btn')) }}
+            {{ link_to_route('Ventas.Cajas.show', 'Cancel', $Caja->VEN_Caja_id, array('class' => 'btn')) }}
       </div>
     </div>
 

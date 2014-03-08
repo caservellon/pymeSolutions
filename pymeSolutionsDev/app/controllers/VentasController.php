@@ -50,10 +50,10 @@ class VentasController extends BaseController {
 		{
 			$this->Venta->create($input);
 
-			return Redirect::route('Ventas.index');
+			return Redirect::route('Ventas.Ventas.index');
 		}
 
-		return Redirect::route('Ventas.create')
+		return Redirect::route('Ventas.Ventas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class VentasController extends BaseController {
 
 		if (is_null($Venta))
 		{
-			return Redirect::route('Ventas.index');
+			return Redirect::route('Ventas.Ventas.index');
 		}
 
 		return View::make('Ventas.edit', compact('Venta'));
@@ -106,10 +106,10 @@ class VentasController extends BaseController {
 			$Venta = $this->Venta->find($id);
 			$Venta->update($input);
 
-			return Redirect::route('Ventas.show', $id);
+			return Redirect::route('Ventas.Ventas.show', $id);
 		}
 
-		return Redirect::route('Ventas.edit', $id)
+		return Redirect::route('Ventas.Ventas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class VentasController extends BaseController {
 	{
 		$this->Venta->find($id)->delete();
 
-		return Redirect::route('Ventas.index');
+		return Redirect::route('Ventas.Ventas.index');
 	}
 
 }

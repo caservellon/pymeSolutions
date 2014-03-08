@@ -50,10 +50,10 @@ class DevolucionesController extends BaseController {
 		{
 			$this->Devolucion->create($input);
 
-			return Redirect::route('Devoluciones.index');
+			return Redirect::route('Ventas.Devoluciones.index');
 		}
 
-		return Redirect::route('Devoluciones.create')
+		return Redirect::route('Ventas.Devoluciones.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class DevolucionesController extends BaseController {
 
 		if (is_null($Devolucion))
 		{
-			return Redirect::route('Devoluciones.index');
+			return Redirect::route('Ventas.Devoluciones.index');
 		}
 
 		return View::make('Devoluciones.edit', compact('Devolucion'));
@@ -106,10 +106,10 @@ class DevolucionesController extends BaseController {
 			$Devolucion = $this->Devolucion->find($id);
 			$Devolucion->update($input);
 
-			return Redirect::route('Devoluciones.show', $id);
+			return Redirect::route('Ventas.Devoluciones.show', $id);
 		}
 
-		return Redirect::route('Devoluciones.edit', $id)
+		return Redirect::route('Ventas.Devoluciones.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class DevolucionesController extends BaseController {
 	{
 		$this->Devolucion->find($id)->delete();
 
-		return Redirect::route('Devoluciones.index');
+		return Redirect::route('Ventas.Devoluciones.index');
 	}
 
 }
