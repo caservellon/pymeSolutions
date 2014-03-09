@@ -45,6 +45,7 @@
       {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>
     </div>
+
 	
 {{ Form::close() }}
 
