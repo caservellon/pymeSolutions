@@ -18,7 +18,7 @@ Route::get('/', function()
 
 Route::resource('Personas', 'PersonasController');
 
-Route::resource('ValorCampoLocalcrms', 'ValorCampoLocalCRMsController');
+Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
 
 Route::resource('CampoLocals', 'CampoLocalsController');
 
