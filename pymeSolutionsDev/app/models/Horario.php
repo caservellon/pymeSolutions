@@ -11,7 +11,7 @@ class Horario extends Eloquent {
 
 	public static $rules = array(
 		'INV_Horario_ID' => 'required',
-		'INV_Horario_Nombre' => 'required',
+		'INV_Horario_Nombre' => 'required|Alpha|Between:1,128',
 		'INV_Horario_Tipo' => 'required',
 		'INV_Horario_FechaInicio' => 'required',
 		'INV_Horario_FechaFinal' => 'required',

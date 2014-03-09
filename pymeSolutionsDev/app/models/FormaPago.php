@@ -10,14 +10,14 @@ class FormaPago extends Eloquent {
 
 	public static $rules = array(
 		'INV_FormaPago_ID' => 'required',
-		'INV_FormaPago_Nombre' => 'required',
+		'INV_FormaPago_Nombre' => 'required|Alpha|Between:1,128',
 		'INV_FormaPago_Efectivo' => 'required',
 		'INV_FormaPago_Credito' => 'required',
-		'INV_FormaPago_DiasCredito' => 'required',
+		'INV_FormaPago_DiasCredito' => '',
 		'INV_FormaPago_FechaCreacion' => 'required',
 		'INV_FormaPago_UsuarioCreacion' => 'required',
-		'INV_FormaPago_FechaModificacion' => 'required',
-		'INV_FormaPago_UsuarioModificacion' => 'required',
+		'INV_FormaPago_FechaModificacion' => '',
+		'INV_FormaPago_UsuarioModificacion' => '',
 		'INV_FormaPago_Activo' => 'required'
 	);
 }
