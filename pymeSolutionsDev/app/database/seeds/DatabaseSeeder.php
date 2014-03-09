@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('ProveedorsTableSeeder');
 		$this->call('ProductosTableSeeder');
 		$this->call('HorariosTableSeeder');
+		$this->call('FormapagosTableSeeder');
 	}
 
 }

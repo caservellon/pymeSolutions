@@ -32,8 +32,8 @@ Route::group(array('prefix' => 'Inventario'), function()
 	Route::resource('Productos', 'ProductosController');
 
 	Route::resource('Horarios', 'HorariosController');
+
+	Route::resource('FormaPagos', 'FormaPagosController');
+
 });
-
-
-
 
