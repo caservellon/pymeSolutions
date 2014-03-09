@@ -10,7 +10,7 @@ class Producto extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'INV_Producto_ID' => 'required',
+		//'INV_Producto_ID' => 'required',
 		'INV_Producto_Codigo' => 'required',
 		'INV_Producto_Nombre' => 'required|Alpha|Between:1,128',
 		'INV_Producto_Descripcion' => 'required|Alpha|Between:1,512',
@@ -28,10 +28,10 @@ class Producto extends Eloquent {
 		'INV_Producto_ValorCodigoBarras' => 'required',
 		'INV_Producto_ValorDescuento' => 'required',
 		'INV_Producto_PorcentajeDescuento' => 'required',
-		//'INV_Producto_FechaCreacion' => 'required',
-		//'INV_Producto_UsuarioCreacion' => 'required',
-		//'INV_Producto_FechaModificacion' => 'required',
-		//'INV_Producto_UsuarioModificacion' => 'required',
+		'INV_Producto_FechaCreacion' => '',
+		'INV_Producto_UsuarioCreacion' => '',
+		'INV_Producto_FechaModificacion' => '',
+		'INV_Producto_UsuarioModificacion' => '',
 		'INV_Producto_Activo' => 'required',
 		//'INV_Categoria_ID' => 'required',
 		//'INV_Categoria_IDCategoriaPadre' => 'required',
