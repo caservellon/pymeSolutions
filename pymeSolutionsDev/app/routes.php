@@ -19,15 +19,21 @@ Route::get('/', function()
 Route::group(array('prefix' => 'Inventario'), function()
 {
 
-Route::resource('Ciudad', 'CiudadController');
+	Route::resource('Ciudad', 'CiudadController');
 
-Route::resource('UnidadMedidas', 'UnidadMedidasController');
+	Route::resource('UnidadMedidas', 'UnidadMedidasController');
 
-Route::resource('Categoria', 'CategoriaController');
+	Route::resource('Categoria', 'CategoriaController');
 
-Route::resource('Atributos', 'AtributosController');
+	Route::resource('Atributos', 'AtributosController');
 
-Route::resource('Proveedor', 'ProveedorController');
+	Route::resource('Proveedor', 'ProveedorController');
 
+	Route::resource('Productos', 'ProductosController');
+
+	Route::resource('Horarios', 'HorariosController');
 });
+
+
+
 
