@@ -14,15 +14,11 @@ return array(
     */
 
     "password" => "La contraseña debe tener al menos seis caracteres y conincidir con la validación.",
-    "password" => "Passwords must be at least six characters and match the confirmation.",
 
     "user" => "No se encuentra ningún usuario con esa dirección de correo.",
-    "user" => "We can't find a user with that e-mail address.",
 
     "token" => "Este token para reiniciar la contraseña es inválido.",
-    "token" => "This password reset token is invalid.",
 
     "sent" => "¡Recordatorio de contraseña enviado!",
-    "sent" => "Password reminder sent!",
 
 );
