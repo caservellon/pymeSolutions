@@ -43,13 +43,22 @@ class CampoLocalsController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, CampoLocal::$rules);
-
-		if ($validation->passes())
+		$validation = true;
+		$Campo = new CampoLocal;
+		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
+		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
+		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
+		$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
+		if (Input::get('GEN_CampoLocal_Nombre') == "") {
+			$validation = false;
+		} else {
+			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
+			$Codigo = "CRM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
+			$Campo->GEN_CampoLocal_Codigo = $Codigo;
+		}
+		if ($validation)
 		{
-			$this->CampoLocal->create($input);
-
+			$Campo->save();
 			return Redirect::route('CampoLocals.index');
 		}
 
