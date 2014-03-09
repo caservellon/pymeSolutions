@@ -27,4 +27,7 @@ Route::resource('Categoria', 'CategoriaController');
 
 Route::resource('Atributos', 'AtributosController');
 
+Route::resource('Proveedor', 'ProveedorController');
+
 });
+

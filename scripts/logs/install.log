@@ -1,0 +1,23 @@
+------------------------START--------------------------
+Process started at  2014/03/09 02:35:26
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1217 (23000) at line 185: Cannot delete or update a parent row: a foreign key constraint fails
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+ERROR 1146 (42S02) at line 2: Table 'pymeERP.COM_EstadoOrdenCompra' doesn't exist
+ERROR 1146 (42S02) at line 1: Table 'pymeERP.COM_OrdenCompra_TransicionEstado' doesn't exist
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/09 02:35:28
+------------------------END----------------------------

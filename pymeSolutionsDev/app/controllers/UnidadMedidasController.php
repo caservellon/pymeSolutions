@@ -57,10 +57,10 @@ class UnidadMedidasController extends BaseController {
 			$UnidadMedida->INV_UnidadMedida_FechaModificacion = date('Y-m-d H:i:s');
 			$UnidadMedida->INV_UnidadMedida_UsuarioModificacion = Input::get('INV_UnidadMedida_UsuarioModificacion');
 			$UnidadMedida->save();
-			return Redirect::route('UnidadMedidas.index');
+			return Redirect::route('Inventario.UnidadMedidas.index');
 		}
 
-		return Redirect::route('UnidadMedidas.create')
+		return Redirect::route('Inventario.UnidadMedidas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -91,7 +91,7 @@ class UnidadMedidasController extends BaseController {
 
 		if (is_null($UnidadMedida))
 		{
-			return Redirect::route('UnidadMedidas.index');
+			return Redirect::route('Inventario.UnidadMedidas.index');
 		}
 
 		return View::make('UnidadMedidas.edit', compact('UnidadMedida'));
@@ -119,10 +119,10 @@ class UnidadMedidasController extends BaseController {
 			$UnidadMedida->INV_UnidadMedida_UsuarioModificacion = Input::get('INV_UnidadMedida_UsuarioModificacion');
 			$UnidadMedida->update();
 
-			return Redirect::route('UnidadMedidas.show', $id);
+			return Redirect::route('Inventario.UnidadMedidas.show', $id);
 		}
 
-		return Redirect::route('UnidadMedidas.edit', $id)
+		return Redirect::route('Inventario.UnidadMedidas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -138,7 +138,7 @@ class UnidadMedidasController extends BaseController {
 	{
 		$this->UnidadMedida->find($id)->delete();
 
-		return Redirect::route('UnidadMedidas.index');
+		return Redirect::route('Inventario.UnidadMedidas.index');
 	}
 
 }
