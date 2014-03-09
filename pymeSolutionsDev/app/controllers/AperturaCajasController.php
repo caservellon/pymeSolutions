@@ -15,15 +15,38 @@ class AperturaCajasController extends BaseController {
 	}
 
 	/**
+	 * Apertura de Caja.
+	 *
+	 * @return Response
+	 */
+	public function abrir($id)
+	{
+		$Caja = Caja::find($id);
+		$Caja->VEN_Caja_Estado = 0;
+		$Caja->save();
+
+		$AperturaActual = new AperturaCaja;
+		$AperturaActual->VEN_Caja_VEN_Caja_id = $id;
+		$AperturaActual->VEN_AperturaCaja_TimeStamp = date("Y-m-d H:i:s");
+		$AperturaActual->VEN_FormaPago_Gerente = "Gerente Temporal";
+		$AperturaActual->VEN_FormaPago_Cajero = "Cajero Temporal";
+		$AperturaActual->save();
+
+		return Redirect::route('Ventas.AperturaCajas.index');
+	}
+
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
 	public function index()
 	{
+		$CajasDisponibles = Caja::all();
 		$AperturaCajas = $this->AperturaCaja->all();
 
-		return View::make('AperturaCajas.index', compact('AperturaCajas'));
+		return View::make('AperturaCajas.index', compact('CajasDisponibles'));
 	}
 
 	/**

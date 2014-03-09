@@ -28,6 +28,12 @@
       </div>
     </div>
     <div class="form-group">
+        {{ Form::label('VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id', 'Periodo de Cierre:', array('class' => 'col-md-2 control-label')) }}
+        <div class="col-md-5">
+          {{ Form::select('VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id', $periodos,$Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id,array('class' => 'col-md-4 form-control')) }}
+        </div>
+      </div>
+    <div class="form-group">
       {{ Form::label('VEN_Caja_SaldoInicial', 'Saldo Inicial:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::text('VEN_Caja_SaldoInicial', $Caja->VEN_Caja_SaldoInicial, array('class' => 'form-control', 'id' => 'VEN_Caja_SaldoInicial' )) }}

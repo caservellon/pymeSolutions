@@ -2,38 +2,53 @@
 
 @section('main')
 
-<h1>All AperturaCajas</h1>
+<br>
 
-<p>{{ link_to_route('AperturaCajas.create', 'Add new AperturaCaja') }}</p>
+<h1>Cajas disponibles para Apertura</h1>
 
-@if ($AperturaCajas->count())
-	<table class="table table-striped table-bordered">
-		<thead>
-			<tr>
-				<th>VEN_AperturaCaja_id</th>
-				<th>VEN_AperturaCaja_Codigo</th>
-				<th>VEN_Caja_VEN_Caja_id</th>
-			</tr>
-		</thead>
+<br>
 
-		<tbody>
-			@foreach ($AperturaCajas as $AperturaCaja)
+@if ($CajasDisponibles->count())
+	
+	<div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
 				<tr>
-					<td>{{{ $AperturaCaja->VEN_AperturaCaja_id }}}</td>
-					<td>{{{ $AperturaCaja->VEN_AperturaCaja_Codigo }}}</td>
-					<td>{{{ $AperturaCaja->VEN_Caja_VEN_Caja_id }}}</td>
-                    <td>{{ link_to_route('AperturaCajas.edit', 'Edit', array($AperturaCaja->VEN_AperturaCaja_id), array('class' => 'btn btn-info')) }}</td>
-                    <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('AperturaCajas.destroy', $AperturaCaja->VEN_AperturaCaja_id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                    </td>
+					<th>#</th>
+					<th>Código</th>
+					<th>Número de Caja</th>
+					<th>Estado de Caja</th>
+					<th>Periodo de Cierre</th>
+					<th>Saldo Inicial</th>
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
+			</thead>
+            <tbody>
+            	@foreach ($CajasDisponibles as $Caja)
+                <tr>
+					<td>{{{ $Caja->VEN_Caja_id }}}</td>
+					<td>{{{ $Caja->VEN_Caja_Codigo }}}</td>
+					<td>{{{ $Caja->VEN_Caja_Numero }}}</td>
+					@if ($Caja->VEN_Caja_Estado == 1)
+						<td>Lista</td>
+					@else
+						<td>Abierta</td>
+					@endif
+					<td>{{ PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_id', $Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id)->first()->VEN_PeriodoCierreDeCaja_Codigo }}</td>
+					<td>{{{ $Caja->VEN_Caja_SaldoInicial }}}</td>
+					@if ($Caja->VEN_Caja_Estado == 1)
+                    	<td>{{ link_to_route('Ventas.AperturaCajas.abrir', 'Abrir Caja', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}</td>
+                    @else
+                    	<td><button type="button" class="btn btn-danger" disabled="disabled">Caja Abierta</button></td>
+                    @endif
+				</tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
 @else
-	There are no AperturaCajas
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay cajas disponibles :(
+    </div>
 @endif
 
 @stop

@@ -33,7 +33,8 @@ class CajasController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('Cajas.create');
+		$periodos = PeriodoCierreDeCaja::lists('VEN_PeriodoCierreDeCaja_Codigo', 'VEN_PeriodoCierreDeCaja_id');
+		return View::make('Cajas.create', compact('periodos'));
 	}
 
 	/**
@@ -82,13 +83,14 @@ class CajasController extends BaseController {
 	public function edit($id)
 	{
 		$Caja = $this->Caja->find($id);
+		$periodos = PeriodoCierreDeCaja::lists('VEN_PeriodoCierreDeCaja_Codigo', 'VEN_PeriodoCierreDeCaja_id');
 
 		if (is_null($Caja))
 		{
 			return Redirect::route('Ventas.Cajas.index');
 		}
 
-		return View::make('Cajas.edit', compact('Caja'));
+		return View::make('Cajas.edit', compact('Caja', 'periodos'));
 	}
 
 	/**

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DescuentoEspecial` (
   `VEN_DescuentoEspecial_FechaFinal` DATETIME NULL,
   `VEN_DescuentoEspecial_Precedencia` INT NULL,
   `VEN_DescuentoEspecial_Estado` INT NULL,
+  `VEN_DescuentoEspecial_TimeStamp` DATETIME NULL,
   PRIMARY KEY (`VEN_DescuentoEspecial_id`))
 ENGINE = InnoDB;
 
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_PeriodoCierreDeCaja` (
   `VEN_PeriodoCierreDeCaja_ValorHoras` INT NULL,
   `VEN_PeriodoCierreDeCaja_Estado` INT NULL,
   `VEN_PeriodoCierreDeCaja_HoraPartida` TIME NULL,
+  `VEN_PeriodoCierreDeCaja_TimeStamp` DATETIME NULL,
   PRIMARY KEY (`VEN_PeriodoCierreDeCaja_id`))
 ENGINE = InnoDB;
 
@@ -40,7 +42,7 @@ DROP TABLE IF EXISTS `pymeERP`.`VEN_FormaPago` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_FormaPago` (
   `VEN_FormaPago_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_FormaPago_Descripcion` VARCHAR(45) NULL,
-  `VEN_FormaPago_Codigo` VARCHAR(45) NULL,
+  `VEN_FormaPago_TimeStamp` DATETIME NULL,
   PRIMARY KEY (`VEN_FormaPago_id`))
 ENGINE = InnoDB;
 
@@ -56,7 +58,15 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Caja` (
   `VEN_Caja_Numero` INT NULL,
   `VEN_Caja_Estado` INT NULL,
   `VEN_Caja_SaldoInicial` DECIMAL(10,2) NULL,
-  PRIMARY KEY (`VEN_Caja_id`))
+  `VEN_Caja_TimeStamp` DATETIME NULL,
+  `VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id` INT NULL,
+  PRIMARY KEY (`VEN_Caja_id`),
+  INDEX `fk_VEN_Caja_VEN_PeriodoCierreDeCaja1_idx` (`VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id` ASC),
+  CONSTRAINT `fk_VEN_Caja_VEN_PeriodoCierreDeCaja1`
+    FOREIGN KEY (`VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id`)
+    REFERENCES `pymeERP`.`VEN_PeriodoCierreDeCaja` (`VEN_PeriodoCierreDeCaja_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -74,6 +84,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Venta` (
   `VEN_Venta_Subtotal` DECIMAL(10,2) NULL,
   `VEN_Venta_Total` DECIMAL(10,2) NULL,
   `VEN_Venta_TotalCambio` DECIMAL(10,2) NULL,
+  `VEN_Venta_TimeStamp` DATETIME NULL,
   `VEN_FormaPago_VEN_FormaPago_id` INT NOT NULL,
   `VEN_Caja_VEN_Caja_id` INT NOT NULL,
   PRIMARY KEY (`VEN_Venta_id`, `VEN_FormaPago_VEN_FormaPago_id`, `VEN_Caja_VEN_Caja_id`),
@@ -102,6 +113,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDeVenta` (
   `VEN_DetalleDeVenta_CantidadVendida` INT NULL,
   `VEN_DetalleDeVenta_PrecioVenta` DECIMAL(10,2) NULL,
   `VEN_Venta_VEN_Venta_id` INT NOT NULL,
+  `VEN_DetalleDeVenta_TimeStamp` DATETIME NULL,
   PRIMARY KEY (`VEN_DetalleDeVenta_id`, `VEN_Venta_VEN_Venta_id`),
   INDEX `fk_VEN_DetalleDeVenta_VEN_Venta1_idx` (`VEN_Venta_VEN_Venta_id` ASC),
   CONSTRAINT `fk_VEN_DetalleDeVenta_VEN_Venta1`
@@ -119,7 +131,9 @@ DROP TABLE IF EXISTS `pymeERP`.`VEN_AperturaCaja` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_AperturaCaja` (
   `VEN_AperturaCaja_id` INT NOT NULL AUTO_INCREMENT,
-  `VEN_AperturaCaja_Codigo` VARCHAR(45) NULL,
+  `VEN_AperturaCaja_TimeStamp` DATETIME NULL,
+  `VEN_FormaPago_Gerente` VARCHAR(45) NULL,
+  `VEN_FormaPago_Cajero` VARCHAR(45) NULL,
   `VEN_Caja_VEN_Caja_id` INT NOT NULL,
   PRIMARY KEY (`VEN_AperturaCaja_id`, `VEN_Caja_VEN_Caja_id`),
   INDEX `fk_VEN_AperturaCaja_VEN_Caja1_idx` (`VEN_Caja_VEN_Caja_id` ASC),
@@ -141,6 +155,9 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_CierreCaja` (
   `VEN_CierreCaja_TotalVentas` DECIMAL(10,2) NULL,
   `VEN_CierreCaja_SaldoInicial` DECIMAL(10,2) NULL,
   `VEN_CierreCaja_SaldoFinal` DECIMAL(10,2) NULL,
+  `VEN_CierreCaja_TimeStamp` DATETIME NULL,
+  `VEN_FormaPago_Gerente` VARCHAR(45) NULL,
+  `VEN_FormaPago_Cajero` VARCHAR(45) NULL,
   `VEN_Caja_VEN_Caja_id` INT NOT NULL,
   `VEN_AperturaCaja_VEN_AperturaCaja_id` INT NOT NULL,
   `VEN_AperturaCaja_VEN_Caja_VEN_Caja_id` INT NOT NULL,
@@ -169,6 +186,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Devolucion` (
   `VEN_Devolucion_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_Devolucion_Codigo` VARCHAR(45) NULL,
   `VEN_Devolucion_Monto` DECIMAL(10,2) NULL,
+  `VEN_Devolucion_TimeStamp` DATETIME NULL,
   PRIMARY KEY (`VEN_Devolucion_id`))
 ENGINE = InnoDB;
 
@@ -181,6 +199,7 @@ DROP TABLE IF EXISTS `pymeERP`.`VEN_DetalleDevolucion` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDevolucion` (
   `VEN_DetalleDevolucion_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_DetalleDevolucion_Cantidad` DOUBLE NULL,
+  `VEN_DetalleDevolucion_TimeStamp` DATETIME NULL,
   `VEN_Devolucion_VEN_Devolucion_id` INT NOT NULL,
   PRIMARY KEY (`VEN_DetalleDevolucion_id`, `VEN_Devolucion_VEN_Devolucion_id`),
   INDEX `fk_VEN_DetalleDevolucion_VEN_Devolucion1_idx` (`VEN_Devolucion_VEN_Devolucion_id` ASC),
@@ -202,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_EstadoBono` (
   `VEN_EstadoBono_Codigo` VARCHAR(45) NULL,
   `VEN_EstadoBono_Nombre` VARCHAR(45) NULL,
   `VEN_EstadoBono_Descripcion` VARCHAR(45) NULL,
+  `VEN_EstadoBono_TimeStamp` DATETIME NULL,
   PRIMARY KEY (`VEN_EstadoBono_id`))
 ENGINE = InnoDB;
 
@@ -215,6 +235,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_BonoDeCompra` (
   `VEN_BonoDeCompra_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_BonoDeCompra_Numero` VARCHAR(45) NULL,
   `VEN_BonoDeCompra_Valor` DECIMAL(10,2) NULL,
+  `VEN_BonoDeCompra_TimeStamp` DATETIME NULL,
   `VEN_EstadoBono_VEN_EstadoBono_id` INT NOT NULL,
   `VEN_Devolucion_VEN_Devolucion_id` INT NOT NULL,
   PRIMARY KEY (`VEN_BonoDeCompra_id`, `VEN_EstadoBono_VEN_EstadoBono_id`, `VEN_Devolucion_VEN_Devolucion_id`),
@@ -255,4 +276,3 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DescuentoEspecial_has_VEN_Venta` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-

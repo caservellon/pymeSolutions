@@ -20,6 +20,7 @@
 					<th>Código</th>
 					<th>Número de Caja</th>
 					<th>Estado de Caja</th>
+					<th>Periodo de Cierre</th>
 					<th>Saldo Inicial</th>
 				</tr>
 			</thead>
@@ -34,7 +35,7 @@
 					@else
 						<td>Desactivada</td>
 					@endif
-					
+					<td>{{ PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_id', $Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id)->first()->VEN_PeriodoCierreDeCaja_Codigo }}</td>
 					<td>{{{ $Caja->VEN_Caja_SaldoInicial }}}</td>
                     <td>{{ link_to_route('Ventas.Cajas.edit', 'Edit', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}</td>
                     <td>

@@ -18,7 +18,13 @@ Route::get('/', function()
 
 Route::group(array('prefix' => 'Ventas'), function(){
 
+	Route::get('/', function()
+	{
+		return 'AQUI LUIS';
+	});
+
 	Route::resource('AperturaCajas', 'AperturacajasController');
+	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturacajasController@abrir'));
 
 	Route::resource('Ventas', 'VentasController');
 
@@ -39,5 +45,6 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::resource('CierreCajas', 'CierreCajasController');
 
 	Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
+
 
 });
