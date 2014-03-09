@@ -3,15 +3,15 @@
 class CampoLocalListaController extends BaseController {
 
 	/**
-	 * CampoLocalListum Repository
+	 * CampoLocalLista Repository
 	 *
-	 * @var CampoLocalListum
+	 * @var CampoLocalLista
 	 */
-	protected $CampoLocalListum;
+	protected $CampoLocalLista;
 
-	public function __construct(CampoLocalListum $CampoLocalListum)
+	public function __construct(CampoLocalLista $CampoLocalLista)
 	{
-		$this->CampoLocalListum = $CampoLocalListum;
+		$this->CampoLocalLista = $CampoLocalLista;
 	}
 
 	/**
@@ -21,7 +21,7 @@ class CampoLocalListaController extends BaseController {
 	 */
 	public function index()
 	{
-		$CampoLocalLista = $this->CampoLocalListum->all();
+		$CampoLocalLista = $this->CampoLocalLista->all();
 
 		return View::make('CampoLocalLista.index', compact('CampoLocalLista'));
 	}
@@ -44,11 +44,11 @@ class CampoLocalListaController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, CampoLocalListum::$rules);
+		$validation = Validator::make($input, CampoLocalLista::$rules);
 
 		if ($validation->passes())
 		{
-			$this->CampoLocalListum->create($input);
+			$this->CampoLocalLista->create($input);
 
 			return Redirect::route('CampoLocalLista.index');
 		}
@@ -67,9 +67,9 @@ class CampoLocalListaController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$CampoLocalListum = $this->CampoLocalListum->findOrFail($id);
+		$CampoLocalLista = $this->CampoLocalLista->findOrFail($id);
 
-		return View::make('CampoLocalLista.show', compact('CampoLocalListum'));
+		return View::make('CampoLocalLista.show', compact('CampoLocalLista'));
 	}
 
 	/**
@@ -80,14 +80,14 @@ class CampoLocalListaController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$CampoLocalListum = $this->CampoLocalListum->find($id);
+		$CampoLocalLista = $this->CampoLocalLista->find($id);
 
-		if (is_null($CampoLocalListum))
+		if (is_null($CampoLocalLista))
 		{
 			return Redirect::route('CampoLocalLista.index');
 		}
 
-		return View::make('CampoLocalLista.edit', compact('CampoLocalListum'));
+		return View::make('CampoLocalLista.edit', compact('CampoLocalLista'));
 	}
 
 	/**
@@ -99,12 +99,12 @@ class CampoLocalListaController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, CampoLocalListum::$rules);
+		$validation = Validator::make($input, CampoLocalLista::$rules);
 
 		if ($validation->passes())
 		{
-			$CampoLocalListum = $this->CampoLocalListum->find($id);
-			$CampoLocalListum->update($input);
+			$CampoLocalLista = $this->CampoLocalLista->find($id);
+			$CampoLocalLista->update($input);
 
 			return Redirect::route('CampoLocalLista.show', $id);
 		}
@@ -123,7 +123,7 @@ class CampoLocalListaController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->CampoLocalListum->find($id)->delete();
+		$this->CampoLocalLista->find($id)->delete();
 
 		return Redirect::route('CampoLocalLista.index');
 	}

@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Create CampoLocalListum</h1>
+<h1>Create CampoLocalLista</h1>
 
 {{ Form::open(array('route' => 'CampoLocalLista.store')) }}
 	<ul>

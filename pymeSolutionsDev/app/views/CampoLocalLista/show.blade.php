@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Show CampoLocalListum</h1>
+<h1>Show CampoLocalLista</h1>
 
 <p>{{ link_to_route('CampoLocalLista.index', 'Return to all CampoLocalLista') }}</p>
 
@@ -17,12 +17,12 @@
 
 	<tbody>
 		<tr>
-			<td>{{{ $CampoLocalListum->GEN_CampoLocalLista_ID }}}</td>
-					<td>{{{ $CampoLocalListum->GEN_CampoLocalLista_Valor }}}</td>
-					<td>{{{ $CampoLocalListum->GEN_CampoLocal_GEN_CampoLocal_ID }}}</td>
-                    <td>{{ link_to_route('CampoLocalLista.edit', 'Edit', array($CampoLocalListum->id), array('class' => 'btn btn-info')) }}</td>
+			<td>{{{ $CampoLocalLista->GEN_CampoLocalLista_ID }}}</td>
+					<td>{{{ $CampoLocalLista->GEN_CampoLocalLista_Valor }}}</td>
+					<td>{{{ $CampoLocalLista->GEN_CampoLocal_GEN_CampoLocal_ID }}}</td>
+                    <td>{{ link_to_route('CampoLocalLista.edit', 'Edit', array($CampoLocalLista->id), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('CampoLocalLista.destroy', $CampoLocalListum->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('CampoLocalLista.destroy', $CampoLocalLista->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

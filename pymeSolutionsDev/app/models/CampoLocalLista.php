@@ -1,6 +1,6 @@
 <?php
 
-class CampoLocalListum extends Eloquent {
+class CampoLocalLista extends Eloquent {
 	protected $guarded = array();
 
 	public static $rules = array(

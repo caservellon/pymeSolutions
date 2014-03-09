@@ -18,8 +18,8 @@ Route::get('/', function()
 
 Route::resource('Personas', 'PersonasController');
 
-Route::resource('valorcampolocalcrms', 'ValorcampolocalcrmsController');
+Route::resource('ValorCampoLocalcrms', 'ValorCampoLocalCRMsController');
 
-Route::resource('campolocals', 'CampolocalsController');
+Route::resource('CampoLocals', 'CampoLocalsController');
 
-Route::resource('campolocallista', 'CampolocallistaController');
+Route::resource('CampoLocalLista', 'CampoLocalListaController');
