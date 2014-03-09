@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS `pymeERP` DEFAULT CHARACTER SET utf8 ;
+USE `pymeERP` ;
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`INV_Horario`
@@ -243,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Proveedor` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-COMMENT = ' /* comment truncated */ /* /* comment truncated */ /*INV_Ci /* comment truncated */ /*udad_INV_Ciudad_ID*/*/*/';
+COMMENT = ' /* comment truncated */ /* /* comment truncated */ /*INV_Ci /* comment truncated */ /* /* comment truncated */ /*udad_INV_Ciudad_ID*/*/*/*/';
 
 
 -- -----------------------------------------------------
@@ -272,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Producto_Proveedor` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-COMMENT = ' /* comment truncated */ /* /* comment truncated */ /*INV_Pr /* comment truncated */ /*oveedor_INV_Proveedor_ID*/*/*/';
+COMMENT = ' /* comment truncated */ /* /* comment truncated */ /*INV_Pr /* comment truncated */ /* /* comment truncated */ /*oveedor_INV_Proveedor_ID*/*/*/*/';
 
 
 -- -----------------------------------------------------
@@ -373,23 +375,25 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`INV_Producto_CampoLocal` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Producto_CampoLocal` (
-  `INV_Producto_CampoLocal_ProveedorID` INT NOT NULL AUTO_INCREMENT,
-  `INV_Producto_CampoLocal_IDCampoLocal` INT NOT NULL,
+  `INV_Producto_CampoLocal_IDCampoLocal` INT NOT NULL AUTO_INCREMENT,
   `INV_Producto_CampoLocal_Valor` VARCHAR(2048) NULL DEFAULT NULL,
   `INV_Producto_CampoLocal_FechaCreacion` DATETIME NULL DEFAULT NULL,
   `INV_Producto_CampoLocal_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Producto_CampoLocal_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_Producto_CampoLocal_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_Producto_ID` INT NOT NULL,
-  `INV_Categoria_ID` INT NOT NULL,
-  `INV_Producto_INV_Categoria_IDCategoriaPadre` INT NOT NULL,
-  `INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID` INT NOT NULL,
-  `INV_Producto_INV_Horario_INV_Horario_ID` INT NOT NULL,
-  PRIMARY KEY (`INV_Producto_CampoLocal_ProveedorID`, `INV_Producto_CampoLocal_IDCampoLocal`, `INV_Producto_ID`, `INV_Categoria_ID`, `INV_Producto_INV_Categoria_IDCategoriaPadre`, `INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID`, `INV_Producto_INV_Horario_INV_Horario_ID`),
-  INDEX `fk_INV_Producto_CampoLocal_INV_Producto1_idx` (`INV_Producto_ID` ASC, `INV_Categoria_ID` ASC, `INV_Producto_INV_Categoria_IDCategoriaPadre` ASC, `INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID` ASC, `INV_Producto_INV_Horario_INV_Horario_ID` ASC),
+  `INV_Producto_ID` INT NULL,
+  `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
+  PRIMARY KEY (`INV_Producto_CampoLocal_IDCampoLocal`, `INV_Producto_ID`),
+  INDEX `fk_INV_Producto_CampoLocal_INV_Producto1_idx` (`INV_Producto_ID` ASC),
+  INDEX `fk_INV_Producto_CampoLocal_GEN_CampoLocal1_idx` (`GEN_CampoLocal_GEN_CampoLocal_ID` ASC),
   CONSTRAINT `fk_INV_Producto_CampoLocal_INV_Producto1`
-    FOREIGN KEY (`INV_Producto_ID` , `INV_Categoria_ID` , `INV_Producto_INV_Categoria_IDCategoriaPadre` , `INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID` , `INV_Producto_INV_Horario_INV_Horario_ID`)
-    REFERENCES `pymeERP`.`INV_Producto` (`INV_Producto_ID` , `INV_Categoria_ID` , `INV_Categoria_IDCategoriaPadre` , `INV_UnidadMedida_ID` , `INV_HorarioBloqueo_ID`)
+    FOREIGN KEY (`INV_Producto_ID`)
+    REFERENCES `pymeERP`.`INV_Producto` (`INV_Producto_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_INV_Producto_CampoLocal_GEN_CampoLocal1`
+    FOREIGN KEY (`GEN_CampoLocal_GEN_CampoLocal_ID`)
+    REFERENCES `pymeERP`.`GEN_CampoLocal` (`GEN_CampoLocal_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -478,4 +482,5 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_DetalleMovimiento` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
 
