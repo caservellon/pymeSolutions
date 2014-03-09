@@ -3,6 +3,11 @@
 class CampoLocal extends Eloquent {
 	protected $guarded = array();
 
+	protected $table = 'GEN_CampoLocal';
+	protected $primaryKey = 'GEN_CampoLocal_ID';
+
+	public $timestamps = false;
+
 	public static $rules = array(
 		'GEN_CampoLocal_ID' => 'required',
 		'GEN_CampoLocal_Codigo' => 'required',

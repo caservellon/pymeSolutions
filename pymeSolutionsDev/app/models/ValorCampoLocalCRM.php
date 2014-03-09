@@ -3,6 +3,11 @@
 class ValorCampoLocalCRM extends Eloquent {
 	protected $guarded = array();
 
+	protected $table = 'CRM_ValorCampoLocal';
+	protected $primaryKey = 'CRM_ValorCampoLocal_ID';
+
+	public $timestamps = false;
+
 	public static $rules = array(
 		'CRM_ValorCampoLocal_ID' => 'required',
 		'CRM_ValorCampoLocal_Valor' => 'required',
