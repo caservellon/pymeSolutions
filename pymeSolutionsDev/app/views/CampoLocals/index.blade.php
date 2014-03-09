@@ -30,9 +30,9 @@
 					<td>{{{ $CampoLocal->GEN_CampoLocal_Tipo }}}</td>
 					<td>{{{ $CampoLocal->GEN_CampoLocal_Requerido }}}</td>
 					<td>{{{ $CampoLocal->GEN_CampoLocal_ParametroBusqueda }}}</td>
-                    <td>{{ link_to_route('CampoLocals.edit', 'Edit', array($CampoLocal->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('CampoLocals.edit', 'Edit', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('CampoLocals.destroy', $CampoLocal->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

@@ -5,13 +5,13 @@
 DROP TABLE IF EXISTS `pymeERP`.`GEN_CampoLocal` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocal` (
-  `GEN_CampoLocal_ID` INT NOT NULL,
+  `GEN_CampoLocal_ID` INT NOT NULL AUTO_INCREMENT,
   `GEN_CampoLocal_Codigo` VARCHAR(16) NOT NULL,
-  `GEN_CampoLocal_Activo` BIT NOT NULL,
+  `GEN_CampoLocal_Activo` TINYINT(1) NOT NULL,
   `GEN_CampoLocal_Nombre` VARCHAR(256) NOT NULL,
   `GEN_CampoLocal_Tipo` VARCHAR(45) NOT NULL,
-  `GEN_CampoLocal_Requerido` BIT NOT NULL,
-  `GEN_CampoLocal_ParametroBusqueda` BIT NOT NULL,
+  `GEN_CampoLocal_Requerido` TINYINT(1) NOT NULL,
+  `GEN_CampoLocal_ParametroBusqueda` TINYINT(1) NOT NULL,
   `GEN_Usuario_idUsuarioCreo` INT NOT NULL,
   `Usuario_idUsuarioModifico` INT NULL DEFAULT NULL,
   PRIMARY KEY (`GEN_CampoLocal_ID`),
@@ -62,7 +62,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`GEN_CampoLocalLista` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocalLista` (
-  `GEN_CampoLocalLista_ID` INT NOT NULL,
+  `GEN_CampoLocalLista_ID` INT NOT NULL AUTO_INCREMENT,
   `GEN_CampoLocalLista_Valor` VARCHAR(45) NULL,
   `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
   PRIMARY KEY (`GEN_CampoLocalLista_ID`),
