@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Categoria` (
   `INV_Categoria_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Categoria_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_Categoria_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_Categoria_Activo` BIT NULL DEFAULT NULL,
+  `INV_Categoria_Activo` INT NULL DEFAULT NULL,
   `INV_Categoria_IDCategoriaPadre` INT NOT NULL,
   `INV_Categoria_HorarioDescuento_ID` INT NOT NULL,
   PRIMARY KEY (`INV_Categoria_ID`, `INV_Categoria_IDCategoriaPadre`, `INV_Categoria_HorarioDescuento_ID`),
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_UnidadMedida` (
   `INV_UnidadMedida_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_UnidadMedida_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_UnidadMedida_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_UnidadMedida_Activo` BIT NULL DEFAULT NULL,
+  `INV_UnidadMedida_Activo` INT NULL DEFAULT NULL,
   PRIMARY KEY (`INV_UnidadMedida_ID`))
 ENGINE = InnoDB;
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Producto` (
   `INV_Producto_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Producto_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_Producto_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_Producto_Activo` BIT NULL DEFAULT NULL,
+  `INV_Producto_Activo` INT NULL DEFAULT NULL,
   `INV_Categoria_ID` INT NOT NULL,
   `INV_Categoria_IDCategoriaPadre` INT NOT NULL,
   `INV_UnidadMedida_ID` INT NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Atributo` (
   `INV_Atributo_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Atributo_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_Atributo_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_Atributo_Activo` BIT NULL DEFAULT NULL,
+  `INV_Atributo_Activo` INT NULL DEFAULT NULL,
   PRIMARY KEY (`INV_Atributo_ID`))
 ENGINE = InnoDB;
 
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Ciudad` (
   `INV_Ciudad_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Ciudad_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_Ciudad_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_Ciudad_Activo` BIT NULL DEFAULT NULL,
+  `INV_Ciudad_Activo` INT NULL DEFAULT NULL,
   PRIMARY KEY (`INV_Ciudad_ID`))
 ENGINE = InnoDB;
 
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Proveedor` (
   `INV_Proveedor_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Proveedor_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_Proveedor_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_Proveedor_Activo` BIT NULL DEFAULT NULL,
+  `INV_Proveedor_Activo` INT NULL DEFAULT NULL,
   `INV_Ciudad_ID` INT NOT NULL,
   PRIMARY KEY (`INV_Proveedor_ID`, `INV_Ciudad_ID`),
   INDEX `fk_INV_Proveedor_INV_Ciudad1_idx` (`INV_Ciudad_ID` ASC),
@@ -283,14 +283,14 @@ DROP TABLE IF EXISTS `pymeERP`.`INV_FormaPago` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_FormaPago` (
   `INV_FormaPago_ID` INT NOT NULL AUTO_INCREMENT,
   `INV_FormaPago_Nombre` VARCHAR(128) NULL DEFAULT NULL,
-  `INV_FormaPago_Efectivo` BIT NULL DEFAULT NULL,
-  `INV_FormaPago_Credito` BIT NULL DEFAULT NULL,
+  `INV_FormaPago_Efectivo` INT NULL DEFAULT NULL,
+  `INV_FormaPago_Credito` INT NULL DEFAULT NULL,
   `INV_FormaPago_DiasCredito` INT(10) NULL DEFAULT NULL,
   `INV_FormaPago_FechaCreacion` DATETIME NULL DEFAULT NULL,
   `INV_FormaPago_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_FormaPago_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_FormaPago_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_FormaPago_Activo` BIT NULL DEFAULT NULL,
+  `INV_FormaPago_Activo` INT NULL DEFAULT NULL,
   PRIMARY KEY (`INV_FormaPago_ID`))
 ENGINE = InnoDB;
 
@@ -410,7 +410,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_MotivoMovimiento` (
   `INV_MotivoMovimiento_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_MotivoMovimiento_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_MotivoMovimiento_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_MotivoMovimiento_Activo` BIT NULL DEFAULT NULL,
+  `INV_MotivoMovimiento_Activo` INT NULL DEFAULT NULL,
   PRIMARY KEY (`INV_MotivoMovimiento_ID`))
 ENGINE = InnoDB;
 

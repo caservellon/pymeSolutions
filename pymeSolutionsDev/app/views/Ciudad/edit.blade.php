@@ -11,7 +11,7 @@
         </li>
 
         <li>
-            {{ Form::label('INV_Ciudad_Nombre', 'Nombre:') }}
+            {{ Form::label('INV_Ciudad_Nombre', 'Nombre: *') }}
             {{ Form::text('INV_Ciudad_Nombre') }}
         </li>
 

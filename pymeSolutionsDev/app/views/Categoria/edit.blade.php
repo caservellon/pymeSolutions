@@ -12,22 +12,22 @@
         </li>
 
         <li>
-            {{ Form::label('INV_Categoria_Nombre', 'Nombre:') }}
+            {{ Form::label('INV_Categoria_Nombre', 'Nombre: *') }}
             {{ Form::text('INV_Categoria_Nombre') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Categoria_Descripcion', 'Descripcion:') }}
+            {{ Form::label('INV_Categoria_Descripcion', 'Descripcion: *') }}
             {{ Form::text('INV_Categoria_Descripcion') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Categoria_IDCategoriaPadre', 'IDCategoriaPadre:') }}
+            {{ Form::label('INV_Categoria_IDCategoriaPadre', 'IDCategoriaPadre: *') }}
             {{ Form::text('INV_Categoria_IDCategoriaPadre') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Categoria_HorarioDescuento_ID', 'HorarioDescuento ID:') }}
+            {{ Form::label('INV_Categoria_HorarioDescuento_ID', 'HorarioDescuento ID: *') }}
             {{ Form::text('INV_Categoria_HorarioDescuento_ID') }}
         </li>
 

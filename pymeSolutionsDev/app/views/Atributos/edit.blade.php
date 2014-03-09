@@ -11,12 +11,12 @@
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_Nombre', 'Nombre:') }}
+            {{ Form::label('INV_Atributo_Nombre', 'Nombre: *') }}
             {{ Form::text('INV_Atributo_Nombre') }}
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_TipoDato', 'Tipo Dato:') }}
+            {{ Form::label('INV_Atributo_TipoDato', 'Tipo Dato: *') }}
             {{ Form::text('INV_Atributo_TipoDato') }}
         </li>
 

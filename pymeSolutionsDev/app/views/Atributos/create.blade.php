@@ -12,13 +12,14 @@
         </li>
 
         <li>
-            {{ Form::label('INV_Atributo_Nombre', 'Nombre:') }}
+            {{ Form::label('INV_Atributo_Nombre', 'Nombre: *') }}
             {{ Form::text('INV_Atributo_Nombre') }}
         </li>
 
+
         <li>
-            {{ Form::label('INV_Atributo_TipoDato', 'Tipo Dato:') }}
-            {{ Form::text('INV_Atributo_TipoDato') }}
+            {{ Form::label('INV_Atributo_TipoDato', 'Tipo Dato: *') }}
+            {{ Form::select('INV_Atributo_TipoDato', array('Numerico' => 'Numerico', 'Decimal' => 'Decimal', 'Texto' => 'Texto' ), 'Numerico', array('class' => 'col-md-4 form-control')) }}
         </li>
 
         <li>

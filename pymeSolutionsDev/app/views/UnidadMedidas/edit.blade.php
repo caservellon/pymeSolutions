@@ -7,7 +7,7 @@
 	<ul>
 
         <li>
-            {{ Form::label('INV_UnidadMedida_Nombre', 'Nombre:') }}
+            {{ Form::label('INV_UnidadMedida_Nombre', 'Nombre: *') }}
             {{ Form::text('INV_UnidadMedida_Nombre') }}
         </li>
 
