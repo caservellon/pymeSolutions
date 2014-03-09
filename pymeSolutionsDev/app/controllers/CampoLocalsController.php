@@ -21,9 +21,10 @@ class CampoLocalsController extends BaseController {
 	 */
 	public function index()
 	{
-		$CampoLocals = $this->CampoLocal->all();
-
-		return View::make('CampoLocals.index', compact('CampoLocals'));
+		$CampoPersonas = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE', 'CRM_PS%');
+		$CampoEmpresas = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','CRM_EP%');
+		$CampoPersonasEmpresas = array('0' => $CampoPersonas, '1' => $CampoEmpresas);
+		return View::make('CampoLocals.index', compact('CampoPersonasEmpresas'));
 	}
 
 	/**
