@@ -29,5 +29,8 @@ Route::resource('Atributos', 'AtributosController');
 
 Route::resource('Productos', 'ProductosController');
 
+Route::resource('Horarios', 'HorariosController');
 });
+
+
 
