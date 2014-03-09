@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UnidadmedidasTableSeeder');
 		$this->call('CategoriaTableSeeder');
 		$this->call('AtributosTableSeeder');
+		$this->call('ProductosTableSeeder');
 	}
 
 }
