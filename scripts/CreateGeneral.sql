@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS `pymeERP` DEFAULT CHARACTER SET utf8 ;
+USE `pymeERP` ;
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`GEN_CampoLocal`
@@ -5,7 +7,7 @@
 DROP TABLE IF EXISTS `pymeERP`.`GEN_CampoLocal` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocal` (
-  `GEN_CampoLocal_IdCampoLocal` INT NOT NULL,
+  `GEN_CampoLocal_ID` INT NOT NULL,
   `GEN_CampoLocal_Codigo` VARCHAR(16) NOT NULL,
   `GEN_CampoLocal_Activo` BIT NOT NULL,
   `GEN_CampoLocal_Nombre` VARCHAR(256) NOT NULL,
@@ -14,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocal` (
   `GEN_CampoLocal_ParametroBusqueda` BIT NOT NULL,
   `GEN_Usuario_idUsuarioCreo` INT NOT NULL,
   `Usuario_idUsuarioModifico` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`GEN_CampoLocal_IdCampoLocal`),
+  PRIMARY KEY (`GEN_CampoLocal_ID`),
   UNIQUE INDEX `COM_CampoLocal_Codigo_UNIQUE` (`GEN_CampoLocal_Codigo` ASC))
 ENGINE = InnoDB;
 
@@ -51,6 +53,25 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_Notificaciones` (
   CONSTRAINT `fk_GEN_Notificaciones_GEN_Mensajes1`
     FOREIGN KEY (`GEN_Notificaciones_GEN_idMensajes`)
     REFERENCES `pymeERP`.`GEN_Mensajes` (`GEN_Mensaje_idMensajes`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`GEN_CampoLocalLista`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`GEN_CampoLocalLista` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocalLista` (
+  `GEN_CampoLocalLista_ID` INT NOT NULL,
+  `GEN_CampoLocalLista_Valor` VARCHAR(45) NULL,
+  `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
+  PRIMARY KEY (`GEN_CampoLocalLista_ID`),
+  INDEX `fk_GEN_CampoLocalLista_GEN_CampoLocal1_idx` (`GEN_CampoLocal_GEN_CampoLocal_ID` ASC),
+  CONSTRAINT `fk_GEN_CampoLocalLista_GEN_CampoLocal1`
+    FOREIGN KEY (`GEN_CampoLocal_GEN_CampoLocal_ID`)
+    REFERENCES `pymeERP`.`GEN_CampoLocal` (`GEN_CampoLocal_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
