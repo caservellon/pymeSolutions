@@ -1,17 +1,11 @@
-@extends('layouts.layout')
+@extends('layouts.scaffold')
 
 @section('main')
 
 
-<h1>Edit Clasificacion de Cuenta</h1>
+<h1>Editar Periodo contable</h1>
 
-@if ($errors->any())
-<div class="bs-callout bs-callout-danger error">
-    <ul >
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-    </div>
-@endif
+@include('_messages.errors')
 
 {{ Form::model($ClasificacionPeriodo, array('action' => array('ParamPeriodoContableController@update', $ClasificacionPeriodo->CON_ClasificacionPeriodo_ID), 'method' => 'PUT')) }}
 

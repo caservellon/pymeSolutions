@@ -17,7 +17,7 @@
     <!-- Custom styles for this template -->
     <?php //HTML::style('justified-nav.css'); ?>
     <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/justified-nav.css">
-    <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/docs.min.css">
+    
     
     <script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
   <script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>

@@ -41,7 +41,8 @@ class ParamPeriodoContableController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, ClasificacionPeriodo::$rules);
+		
+		$validation = Validator::make($input, ClasificacionPeriodo::$rules,ClasificacionPeriodo::$messages,ClasificacionPeriodo::$atributos);
 		if ($validation->fails())
 		{
 			return Redirect::action('ParamPeriodoContableController@create')
@@ -52,20 +53,24 @@ class ParamPeriodoContableController extends BaseController {
 			$ClasificacionPeriodo = new ClasificacionPeriodo;
 			$ClasificacionPeriodo->CON_ClasificacionPeriodo_Nombre = Input::get('CON_ClasificacionPeriodo_Nombre');
 			$ClasificacionPeriodo->CON_ClasificacionPeriodo_CatidadDias= Input::get('CON_ClasificacionPeriodo_CatidadDias');
-			$ClasificacionPeriodo->save();
-			//$this->ClasificacionPeriodo->create($input);
+			if($this->ClasificacionPeriodo->create($input)){
+			
 			$PeriodoContable = new PeriodoContable;
 			$PeriodoContable->CON_PeriodoContable_FechaInicio = Input::get('CON_PeriodoContable_FechaInicio');
-			$PeriodoContable->CON_PeriodoContable_FechaFinal = Input::get('CON_PeriodoContable_FechaFinal');
+			$PeriodoContable->CON_PeriodoContable_FechaFinal = $this->getFinalDate($PeriodoContable->CON_PeriodoContable_FechaInicio,$ClasificacionPeriodo->CON_ClasificacionPeriodo_CatidadDias);
 			$PeriodoContable->CON_PeriodoContable_Nombre = Input::get('CON_ClasificacionPeriodo_Nombre');
 			$PeriodoContable->CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID= $ClasificacionPeriodo->CON_ClasificacionPeriodo_ID;
-			$PeriodoContable->save();
+			
+			$PeriodoContable->create($input);
+			}
 			return Redirect::action('ParamPeriodoContableController@index');
 		}
 
 		
 	}
-
+	private function getFinalDate($fechaInicio,$dias){
+		return date("Y-m-d", strtotime($fechaInicio." +".$dias." day"));
+	}
 	/**
 	 * Display the specified resource.
 	 *
