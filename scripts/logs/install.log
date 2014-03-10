@@ -132,3 +132,362 @@ ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key co
 Populating Ventas 
 Process ended at  2014/03/01 00:37:35
 ------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:34:24
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1217 (23000) at line 185: Cannot delete or update a parent row: a foreign key constraint fails
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+ERROR 1146 (42S02) at line 2: Table 'pymeERP.COM_EstadoOrdenCompra' doesn't exist
+ERROR 1146 (42S02) at line 1: Table 'pymeERP.COM_OrdenCompra_TransicionEstado' doesn't exist
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:34:24
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:35:55
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1217 (23000) at line 185: Cannot delete or update a parent row: a foreign key constraint fails
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+ERROR 1146 (42S02) at line 2: Table 'pymeERP.COM_EstadoOrdenCompra' doesn't exist
+ERROR 1146 (42S02) at line 1: Table 'pymeERP.COM_OrdenCompra_TransicionEstado' doesn't exist
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:35:55
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:39:44
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1005 (HY000) at line 265: Can't create table 'pymeERP.COM_ValorCampoLocal' (errno: 150)
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:39:45
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:44:15
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:44:15
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:48:34
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:48:34
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:49:48
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:49:48
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:50:15
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:50:15
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:51:30
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:51:31
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:52:45
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:52:46
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 02:58:52
+***Creating database*** 
+Creating General Tables 
+ERROR 1005 (HY000) at line 64: Can't create table 'pymeERP.GEN_CampoLocalLista' (errno: 150)
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_IdCampoLocal' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 02:58:52
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 03:01:47
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 03:01:47
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 03:04:41
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 03:04:41
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 03:08:21
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 03:08:21
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 03:10:01
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+ERROR 1072 (42000) at line 265: Key column 'GEN_CampoLocal_ID' doesn't exist in table
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 03:10:01
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 03:16:52
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 03:16:52
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 21:10:22
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 21:10:23
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/10 22:07:13
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/10 22:07:13
+------------------------END----------------------------

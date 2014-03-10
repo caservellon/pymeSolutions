@@ -1,12 +1,16 @@
 @extends('layouts.scaffold')
 
 @section('main')
+
 <div class="page-header clearfix">
       <h3 class="pull-left">Configuracion &gt; <small>Parametrizar Cotizacion</small></h3>
+ 
       <div class="pull-right">
         <a href="{{{ URL::to('Configuracion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>atras</a>
       </div>
 </div>
+
+
     
     <div class="row"> 
         
@@ -52,7 +56,12 @@
              <div class="row">
                  <h4>Crear Campos Locales</h4>
              </div>
-
+             <!--@inlcude('_menssages.errors')-->
+             @if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
+	</ul>
+@endif
              {{ Form::open(array('route' => 'campoLocal', 'class' => "in-line" , 'role' => 'form' )) }}
             <div class="row">
                 

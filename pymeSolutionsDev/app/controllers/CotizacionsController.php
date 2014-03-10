@@ -95,9 +95,12 @@ class CotizacionsController extends BaseController {
 		if ($validation->passes())
 		{
                         
-                        
-			
-                       $campoLocal->save();
+                       
+                        if(Input::get('GEN_CampoLocal_Tipo')=='ListaValor'){
+                            $campoLocal->save();
+                            return View::make('ListaValor', compact('suma'));
+                        }
+                            $campoLocal->save();
                         return Redirect::route('parametrizar');
 		
                 }
@@ -108,8 +111,30 @@ class CotizacionsController extends BaseController {
 			->with('message', $mensaje->GEN_Mensajes_Mensaje);
                 
         }
-        
-        
+//        public function listavista($suma){
+//            return View::make('ListaValor', compact('suma'));
+//        }
+        public function lista(){
+            
+            $listas = new CampoLocalLista();
+            $input = Input::all();
+            $validation = Validator::make($input, CampoLocalLista::$rules);
+            $suma = Input::get('suma');
+            $listas->GEN_CampoLocal_GEN_CampoLocal_ID=$suma;
+            $listas->GEN_CampoLocalLista_Valor= Input::get('GEN_CampoLocalLista_Valor');
+
+            if ($validation->passes()){
+                
+                $listas->save();
+                return View::make('ListaValor', compact('suma'));
+            }
+            $mensaje= Mensaje::find(2);
+		return Redirect::route('parametrizar')
+			->withInput()
+			->withErrors($validation)
+			->with('message', $mensaje->GEN_Mensajes_Mensaje);
+            
+        }
         
 	public function store()
 	{
@@ -176,7 +201,7 @@ class CotizacionsController extends BaseController {
 		if ($validation->passes())
 		{
 			$Cotizacion = CampoLocal::find($id);
-                        $Cotizacion->GEN_CampoLocal_IdCampoLocal= $id;
+                        $Cotizacion->GEN_CampoLocal_ID= $id;
                         $Cotizacion->GEN_CampoLocal_Nombre=Input::get('GEN_CampoLocal_Nombre');
                         $Cotizacion->GEN_CampoLocal_Tipo=$Cotizacion->GEN_CampoLocal_Tipo;
                          if(Input::has('GEN_CampoLocal_Requerido')){
@@ -199,7 +224,7 @@ class CotizacionsController extends BaseController {
 			return Redirect::route('mensaje');
 		}
                 $mensaje= Mensaje::find(2);
-		return Redirect::route('Cotizacions.edit', $id)
+		return Redirect::route('Compras.Cotizacions.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', $mensaje->GEN_Mensajes_Mensaje);

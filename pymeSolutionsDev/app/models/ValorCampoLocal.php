@@ -17,6 +17,6 @@ class ValorCampoLocal extends Eloquent {
 	);
         
         public function campolocal(){
-            return $this->hasone('CampoLocal', 'GEN_CampoLocal_IdCampoLocal');
+            return $this->hasMany('CampoLocal', 'GEN_CampoLocal_ID');
         }
 }

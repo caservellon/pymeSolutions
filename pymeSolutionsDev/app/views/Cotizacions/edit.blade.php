@@ -14,7 +14,12 @@
              <div class="row">
                  <h4>Actualizar Campos Locales</h4>
              </div>
-             {{ Form::model($Cotizacion, array('method' => 'PATCH', 'route' => array('Compras.Cotizacions.update', $Cotizacion->GEN_CampoLocal_IdCampoLocal))) }}
+            @if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
+	</ul>
+@endif
+             {{ Form::model($Cotizacion, array('method' => 'PATCH', 'route' => array('Compras.Cotizacions.update', $Cotizacion->GEN_CampoLocal_ID))) }}
             <div class="row">
                 
                 <div class="col-md-1 col-md-offset-7">{{ Form::submit('Actualizar', array('class' => 'btn btn-default btn-md ')) }}</div>

@@ -58,14 +58,14 @@
 		<tbody>
 			@foreach ($editar as $editars)
 				<tr>
-					<td>{{{ $editars->GEN_CampoLocal_IdCampoLocal }}}</td>
+					<td>{{{ $editars->GEN_CampoLocal_ID }}}</td>
 					<td>{{{ $editars->GEN_CampoLocal_Codigo }}}</td>
 					<td>{{{ $editars->GEN_CampoLocal_Nombre }}}</td>
 					<td>{{{ $editars->GEN_CampoLocal_Tipo }}}</td>
 					<td>{{{ $editars->GEN_CampoLocal_Requerido }}}</td>
 					<td>{{{ $editars->GEN_CampoLocal_ParametroBusqueda }}}</td>
 					<td>{{{ $editars->GEN_CampoLocal_Activo }}}</td>
-					<td>{{ link_to_route('Compras.Cotizacions.edit', 'Editar', array($editars->GEN_CampoLocal_IdCampoLocal), array('class' => 'btn btn-info')) }}</td>
+					<td>{{ link_to_route('Compras.Cotizacions.edit', 'Editar', array($editars->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
 
         
                                 </tr>

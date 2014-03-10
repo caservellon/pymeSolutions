@@ -4,7 +4,7 @@ class CampoLocal extends Eloquent {
 	protected $guarded = array();
         
         protected $table = 'GEN_CampoLocal';
-	protected $primaryKey = 'GEN_CampoLocal_IdCampoLocal';
+	protected $primaryKey = 'GEN_CampoLocal_ID';
 
 	public $timestamps = false;
 
