@@ -2,21 +2,27 @@
 
 @section('main')
 
-<h2><span class="glyphicon glyphicon-cog"></span> Configuración <small>Unidades Medidas</small></h2>
 
-<p>{{ link_to_route('Inventario.UnidadMedidas.create', 'Crear Unidad Medida') }}</p>
+<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Unidades Medidas</small></h2>
+<div class="btn-agregar">
+	<a type="button" href="{{ URL::route('Inventario.UnidadMedidas.create') }}" class="btn btn-default">
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Unidad Medida
+	</a>
+</div>
 
 @if ($UnidadMedidas->count())
-	<table class="table table-striped table-bordered table-condensed table-responsive">
+	
+	<div class="table-responsive">
+      <table class="table table-striped">
 		<thead>
 			<tr>
 				<th>ID</th>
 				<th>Nombre</th>
 				<th>Descripcion</th>
 				<th>Fecha Creacion</th>
-				<th>UsuarioCreacion</th>
-				<th>FechaModificacion</th>
-				<th>UsuarioModificacion</th>
+				<th>Usuario Creacion</th>
+				<th>Fecha Modificacion</th>
+				<th>Usuario Modificacion</th>
 				<th>Activo</th>
 			</tr>
 		</thead>
@@ -31,8 +37,8 @@
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioCreacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_FechaModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioModificacion }}}</td>
-					<td>{{{ ($UnidadMedida->INV_UnidadMedida_Activo ? 'Si' : 'No') }}}</td>
-                    <td>{{ link_to_route('Inventario.UnidadMedidas.edit', '', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+					<td>{{{ ($UnidadMedida->INV_UnidadMedida_Activo ? 'Activa' : 'Desactivada') }}}</td>
+                    <td>{{ link_to_route('Inventario.UnidadMedidas.edit', 'Edit', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.UnidadMedidas.destroy', $UnidadMedida->INV_UnidadMedida_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
@@ -41,9 +47,12 @@
 				</tr>
 			@endforeach
 		</tbody>
-	</table>
+	  </table>
+	</div>
 @else
-	There are no UnidadMedidas
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay unidades de medida disponibles :(
+    </div>
 @endif
 
 @stop

@@ -2,46 +2,53 @@
 
 @section('main')
 
-<h1>Show FormaPago</h1>
+<div class="page-header clearfix">
+      <h3 class="pull-left">Forma de Pago &gt; <small>{{{ $FormaPago->INV_FormaPago_Nombre }}}</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('Inventario/FormaPagos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+      </div>
+</div>
 
-<p>{{ link_to_route('Inventario.FormaPagos.index', 'Return to all FormaPagos') }}</p>
+<div class="form-group">
+        <h4>ID# : {{{ $FormaPago->INV_FormaPago_ID }}}</h4>
+</div>
+<div class="form-group">
+        <h4>Nombre : {{{ $FormaPago->INV_FormaPago_Nombre }}}</h4>
+</div>
+<div class="form-group"><h4>Efectivo : 
+	@if($FormaPago->INV_FormaPago_Efectivo == 1)
+        Si
+    @else
+    	No
+    @endif
+    </h4>    
+</div>
+<div class="form-group"><h4>Crédito : 
+	@if($FormaPago->INV_FormaPago_Credito == 1)
+        Si
+    @else
+    	No
+    @endif
+    </h4>    
+</div>
 
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>INV_FormaPago_ID</th>
-				<th>INV_FormaPago_Nombre</th>
-				<th>INV_FormaPago_Efectivo</th>
-				<th>INV_FormaPago_Credito</th>
-				<th>INV_FormaPago_DiasCredito</th>
-				<th>INV_FormaPago_FechaCreacion</th>
-				<th>INV_FormaPago_UsuarioCreacion</th>
-				<th>INV_FormaPago_FechaModificacion</th>
-				<th>INV_FormaPago_UsuarioModificacion</th>
-				<th>INV_FormaPago_Activo</th>
-		</tr>
-	</thead>
+<div class="form-group">
+        <h4>Días Crédito : {{{ $FormaPago->INV_FormaPago_DiasCredito }}}</h4>
+</div>
+<div class="form-group"><h4>Estado : 
+	@if($FormaPago->VEN_FormaPago_Estado == 1)
+        Activada
+    @else
+    	Desactivada
+    @endif
+    </h4>    
+</div>
 
-	<tbody>
-		<tr>
-			<td>{{{ $FormaPago->INV_FormaPago_ID }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_Nombre }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_Efectivo }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_Credito }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_DiasCredito }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_FechaCreacion }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_UsuarioCreacion }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_FechaModificacion }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_UsuarioModificacion }}}</td>
-					<td>{{{ $FormaPago->INV_FormaPago_Activo }}}</td>
-                    <td>{{ link_to_route('Inventario.FormaPagos.edit', 'Edit', array($FormaPago->INV_FormaPago_ID), array('class' => 'btn btn-info')) }}</td>
-                    <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.FormaPagos.destroy', $FormaPago->INV_FormaPago_ID))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                    </td>
-		</tr>
-	</tbody>
-</table>
+<div class="form-group">
+		{{ link_to_route('Inventario.FormaPagos.edit', 'Edit', array($FormaPago->VEN_FormaPago_ID), array('class' => 'btn btn-info')) }}
+	    {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.FormaPagos.destroy', $FormaPago->VEN_FormaPago_ID))) }}
+	        	{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+	    	{{ Form::close() }}
+</div>
 
 @stop

@@ -1,65 +1,54 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<div class="page-header clearfix">
+      <h3 class="pull-left">Forma Pago &gt; <small>Nueva Forma de Pago</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('Inventario/FormaPagos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+      </div>
+</div>
 
-<h1>Create FormaPago</h1>
 
-{{ Form::open(array('route' => 'Inventario.FormaPagos.store')) }}
-	<ul>
-        <li>
-            {{ Form::label('INV_FormaPago_ID', 'INV_FormaPago_ID:') }}
-            {{ Form::text('INV_FormaPago_ID') }}
-        </li>
 
-        <li>
-            {{ Form::label('INV_FormaPago_Nombre', 'INV_FormaPago_Nombre:') }}
-            {{ Form::text('INV_FormaPago_Nombre') }}
-        </li>
+{{ Form::open(array('route' => 'Inventario.FormaPagos.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
+	<div class="form-group">
+        {{ Form::label('INV_FormaPago_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
+        <div class="col-md-4">
+            {{ Form::text('INV_FormaPago_Nombre', null, array('class' => 'form-control', 'id' => 'INV_FormaPago_Nombre', 'placeholder'=>'name')) }}
+        </div>
+    </div>
+    <div class="form-group">
+      {{ Form::label('INV_FormaPago_Efectivo', 'Pago en Efectivo: ', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::checkbox('INV_FormaPago_Efectivo', 'yes', '1', array('class' => 'col-md-4 control-label')) }}
+      </div>
+    </div>
+    <div class="form-group">
+      {{ Form::label('INV_FormaPago_Credito', 'Pago en Crédito: ', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::checkbox('INV_FormaPago_Credito', 'yes', '1', array('class' => 'col-md-4 control-label')) }}
+      </div>
+    </div>
+    <div class="form-group">
+      {{ Form::label('INV_FormaPago_DiasCredito', 'Días Crédito:', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::text('INV_FormaPago_DiasCredito',null, array('class' => 'form-control', 'id' => 'INV_FormaPago_DiasCredito', 'placeholder' => '#' )) }}
+      </div>
+    </div>
+    <div class="form-group">
+      {{ Form::label('INV_FormaPago_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::checkbox('INV_FormaPago_Activo', 'yes', '1', array('class' => 'col-md-4 control-label')) }}
+      </div>
+    </div>
+    {{ Form::hidden('INV_FormaPago_FechaCreacion', date('Y-m-d H:i:s')) }}
+    {{ Form::hidden('INV_FormaPago_FechaModificacion', date('Y-m-d H:i:s')) }}
+    <div class="form-group">
+      <div class="col-md-5">
+            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+      </div>
+    </div>
 
-        <li>
-            {{ Form::label('INV_FormaPago_Efectivo', 'INV_FormaPago_Efectivo:') }}
-            {{ Form::text('INV_FormaPago_Efectivo') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_FormaPago_Credito', 'INV_FormaPago_Credito:') }}
-            {{ Form::text('INV_FormaPago_Credito') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_FormaPago_DiasCredito', 'INV_FormaPago_DiasCredito:') }}
-            {{ Form::text('INV_FormaPago_DiasCredito') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_FormaPago_FechaCreacion', 'INV_FormaPago_FechaCreacion:') }}
-            {{ Form::text('INV_FormaPago_FechaCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_FormaPago_UsuarioCreacion', 'INV_FormaPago_UsuarioCreacion:') }}
-            {{ Form::text('INV_FormaPago_UsuarioCreacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_FormaPago_FechaModificacion', 'INV_FormaPago_FechaModificacion:') }}
-            {{ Form::text('INV_FormaPago_FechaModificacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_FormaPago_UsuarioModificacion', 'INV_FormaPago_UsuarioModificacion:') }}
-            {{ Form::text('INV_FormaPago_UsuarioModificacion') }}
-        </li>
-
-        <li>
-            {{ Form::label('INV_FormaPago_Activo', 'INV_FormaPago_Activo:') }}
-            {{ Form::text('INV_FormaPago_Activo') }}
-        </li>
-
-		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-		</li>
-	</ul>
 {{ Form::close() }}
 
 @if ($errors->any())

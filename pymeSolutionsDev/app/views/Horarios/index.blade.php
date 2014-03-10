@@ -2,26 +2,31 @@
 
 @section('main')
 
-<h1>All Horarios</h1>
 
-<p>{{ link_to_route('Inventario.Horarios.create', 'Add new Horario') }}</p>
+<h2 class="sub-header">Horarios</h2>
+<div class="btn-agregar">
+	<a type="button" href="{{ URL::route('Inventario.Horarios.create') }}" class="btn btn-default">
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Horario
+	</a>
+</div>
 
 @if ($Horarios->count())
-	<table class="table table-striped table-bordered">
+
+	<div class="table-responsive">
+      <table class="table table-striped">
 		<thead>
 			<tr>
-				<th>INV_Horario_ID</th>
-				<th>INV_Horario_Nombre</th>
-				<th>INV_Horario_Tipo</th>
-				<th>INV_Horario_FechaInicio</th>
-				<th>INV_Horario_FechaFinal</th>
-				<th>INV_Horario_FechaCreacion</th>
-				<th>INV_Horario_UsuarioCreacion</th>
-				<th>INV_Horario_FechaModificacion</th>
-				<th>INV_Horario_UsuarioModificacion</th>
+				<th>#</th>
+				<th>Nombre</th>
+				<th>Tipo</th>
+				<th>Fecha Inicio</th>
+				<th>Fecha Final</th>
+				<th>Fecha Creacion</th>
+				<th>Usuario Creacion</th>
+				<th>Fecha Modificacion</th>
+				<th>Usuario Modificacion</th>
 			</tr>
 		</thead>
-
 		<tbody>
 			@foreach ($Horarios as $Horario)
 				<tr>
@@ -43,9 +48,12 @@
 				</tr>
 			@endforeach
 		</tbody>
-	</table>
+	  </table>
+	</div>
 @else
-	There are no Horarios
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay horarios disponibles :(
+    </div>
 @endif
 
 @stop

@@ -50,10 +50,10 @@ class HorariosController extends BaseController {
 		{
 			$this->Horario->create($input);
 
-			return Redirect::route('Horarios.index');
+			return Redirect::route('Inventario.Horarios.index');
 		}
 
-		return Redirect::route('Horarios.create')
+		return Redirect::route('Inventario.Horarios.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -84,7 +84,7 @@ class HorariosController extends BaseController {
 
 		if (is_null($Horario))
 		{
-			return Redirect::route('Horarios.index');
+			return Redirect::route('Inventario.Horarios.index');
 		}
 
 		return View::make('Horarios.edit', compact('Horario'));
@@ -106,10 +106,10 @@ class HorariosController extends BaseController {
 			$Horario = $this->Horario->find($id);
 			$Horario->update($input);
 
-			return Redirect::route('Horarios.show', $id);
+			return Redirect::route('Inventario.Horarios.show', $id);
 		}
 
-		return Redirect::route('Horarios.edit', $id)
+		return Redirect::route('Inventario.Horarios.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +125,7 @@ class HorariosController extends BaseController {
 	{
 		$this->Horario->find($id)->delete();
 
-		return Redirect::route('Horarios.index');
+		return Redirect::route('Inventario.Horarios.index');
 	}
 
 }

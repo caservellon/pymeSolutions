@@ -2,30 +2,36 @@
 
 @section('main')
 
-<h1>All Proveedor</h1>
 
-<p>{{ link_to_route('Inventario.Proveedor.create', 'Add new Proveedor') }}</p>
+<h2 class="sub-header">Proveedores</h2>
+<div class="btn-agregar">
+	<a type="button" href="{{ URL::route('Inventario.Proveedor.create') }}" class="btn btn-default">
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Proveedor
+	</a>
+</div>
 
 @if ($Proveedor->count())
-	<table class="table table-striped table-bordered">
+	
+	<div class="table-responsive">
+      <table class="table table-striped">
 		<thead>
 			<tr>
-				<th>INV_Proveedor_ID</th>
-				<th>INV_Proveedor_Codigo</th>
-				<th>INV_Proveedor_Nombre</th>
-				<th>INV_Proveedor_Direccion</th>
-				<th>INV_Proveedor_Telefono</th>
-				<th>INV_Proveedor_Email</th>
-				<th>INV_Proveedor_PaginaWeb</th>
-				<th>INV_Proveedor_RepresentanteVentas</th>
-				<th>INV_Proveedor_TelefonoRepresentanteVentas</th>
-				<th>INV_Proveedor_Comentarios</th>
-				<th>INV_Proveedor_RutaImagen</th>
-				<th>INV_Proveedor_FechaCreacion</th>
-				<th>INV_Proveedor_UsuarioCreacion</th>
-				<th>INV_Proveedor_FechaModificacion</th>
-				<th>INV_Proveedor_UsuarioModificacion</th>
-				<th>INV_Proveedor_Activo</th>
+				<th>ID</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Direccion</th>
+				<th>Telefono</th>
+				<th>Email</th>
+				<th>Pagina Web</th>
+				<th>Representante Ventas</th>
+				<th>Telefono Representante Ventas</th>
+				<th>Comentarios</th>
+				<th>Ruta Imagen</th>
+				<th>Fecha Creacion</th>
+				<th>Usuario Creacion</th>
+				<th>Fecha Modificacion</th>
+				<th>Usuario Modificacion</th>
+				<th>Activo</th>
 			</tr>
 		</thead>
 
@@ -47,7 +53,7 @@
 					<td>{{{ $Proveedor->INV_Proveedor_UsuarioCreacion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_FechaModificacion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_UsuarioModificacion }}}</td>
-					<td>{{{ $Proveedor->INV_Proveedor_Activo }}}</td>
+					<td>{{{ $Proveedor->INV_Proveedor_Activo ? 'Activa' : 'Desactivada' }}}</td>
                     <td>{{ link_to_route('Inventario.Proveedor.edit', 'Edit', array($Proveedor->INV_Proveedor_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Proveedor.destroy', $Proveedor->INV_Proveedor_ID))) }}
@@ -57,9 +63,12 @@
 				</tr>
 			@endforeach
 		</tbody>
-	</table>
+	  </table>
+	</div>
 @else
-	There are no Proveedor
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay proveedores disponibles :(
+    </div>
 @endif
 
 @stop

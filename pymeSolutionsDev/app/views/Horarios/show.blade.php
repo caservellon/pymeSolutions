@@ -1,45 +1,34 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<div class="page-header clearfix">
+      <h3 class="pull-left">Horario &gt; <small>{{{ $Horario->INV_Horario_Nombre }}}</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('Inventario/Horarios') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+      </div>
+</div>
 
-<h1>Show Horario</h1>
+<div class="form-group">
+        <h4>ID# : {{{ $Horario->INV_Horario_ID }}}</h4>
+</div>
+<div class="form-group">
+        <h4>Nombre : {{{ $Horario->INV_Horario_Nombre }}}</h4>
+</div>
+<div class="form-group">
+        <h4>Tipo : {{{ $Horario->INV_Horario_Tipo }}}</h4>
+</div>
+<div class="form-group">
+        <h4>Fecha de Inicio : {{{ $Horario->INV_Horario_FechaInicio }}}</h4>
+</div>
+<div class="form-group">
+        <h4>Fecha Final : {{{ $Horario->INV_Horario_FechaFinal }}}</h4>
+</div>
 
-<p>{{ link_to_route('Inventario.Horarios.index', 'Return to all Horarios') }}</p>
-
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>INV_Horario_ID</th>
-				<th>INV_Horario_Nombre</th>
-				<th>INV_Horario_Tipo</th>
-				<th>INV_Horario_FechaInicio</th>
-				<th>INV_Horario_FechaFinal</th>
-				<th>INV_Horario_FechaCreacion</th>
-				<th>INV_Horario_UsuarioCreacion</th>
-				<th>INV_Horario_FechaModificacion</th>
-				<th>INV_Horario_UsuarioModificacion</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<tr>
-			<td>{{{ $Horario->INV_Horario_ID }}}</td>
-					<td>{{{ $Horario->INV_Horario_Nombre }}}</td>
-					<td>{{{ $Horario->INV_Horario_Tipo }}}</td>
-					<td>{{{ $Horario->INV_Horario_FechaInicio }}}</td>
-					<td>{{{ $Horario->INV_Horario_FechaFinal }}}</td>
-					<td>{{{ $Horario->INV_Horario_FechaCreacion }}}</td>
-					<td>{{{ $Horario->INV_Horario_UsuarioCreacion }}}</td>
-					<td>{{{ $Horario->INV_Horario_FechaModificacion }}}</td>
-					<td>{{{ $Horario->INV_Horario_UsuarioModificacion }}}</td>
-                    <td>{{ link_to_route('Inventario.Horarios.edit', 'Edit', array($Horario->id), array('class' => 'btn btn-info')) }}</td>
-                    <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Horarios.destroy', $Horario->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                    </td>
-		</tr>
-	</tbody>
-</table>
+<div class="form-group">
+		{{ link_to_route('Inventario.Horarios.edit', 'Edit', array($Horario->INV_Horario_ID), array('class' => 'btn btn-info')) }}
+	    {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Horarios.destroy', $Horario->INV_Horario_ID))) }}
+	        	{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+	    	{{ Form::close() }}
+</div>
 
 @stop

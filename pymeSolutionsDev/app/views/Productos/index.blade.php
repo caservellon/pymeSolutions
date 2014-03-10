@@ -2,41 +2,47 @@
 
 @section('main')
 
-<h1>All Productos</h1>
 
-<p>{{ link_to_route('Inventario.Productos.create', 'Add new Producto') }}</p>
+<h2 class="sub-header">Productos</h2>
+<div class="btn-agregar">
+	<a type="button" href="{{ URL::route('Inventario.Productos.create') }}" class="btn btn-default">
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Producto
+	</a>
+</div>
 
 @if ($Productos->count())
-	<table class="table table-striped table-bordered">
+	
+	<div class="table-responsive">
+      <table class="table table-striped">
 		<thead>
 			<tr>
-				<th>INV_Producto_ID</th>
-				<th>INV_Producto_Codigo</th>
-				<th>INV_Producto_Nombre</th>
-				<th>INV_Producto_Descripcion</th>
-				<th>INV_Producto_PrecioVenta</th>
-				<th>INV_Producto_MargenGanancia</th>
-				<th>INV_Producto_PrecioCosto</th>
-				<th>INV_Producto_Cantidad</th>
-				<th>INV_Producto_Impuesto1</th>
-				<th>INV_Producto_Impuesto2</th>
-				<th>INV_Producto_RutaImagen</th>
-				<th>INV_Producto_Comentarios</th>
-				<th>INV_Producto_PuntoReorden</th>
-				<th>INV_Producto_NivelReposicion</th>
-				<th>INV_Producto_TipoCodigoBarras</th>
-				<th>INV_Producto_ValorCodigoBarras</th>
-				<th>INV_Producto_ValorDescuento</th>
-				<th>INV_Producto_PorcentajeDescuento</th>
-				<th>INV_Producto_FechaCreacion</th>
-				<th>INV_Producto_UsuarioCreacion</th>
-				<th>INV_Producto_FechaModificacion</th>
-				<th>INV_Producto_UsuarioModificacion</th>
-				<th>INV_Producto_Activo</th>
-				<th>INV_Categoria_ID</th>
-				<th>INV_Categoria_IDCategoriaPadre</th>
-				<th>INV_UnidadMedida_ID</th>
-				<th>INV_HorarioBloqueo_ID</th>
+				<th>ID</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Descripcion</th>
+				<th>Precio Venta</th>
+				<th>Margen Ganancia</th>
+				<th>Precio Costo</th>
+				<th>Cantidad</th>
+				<th>Impuesto 1</th>
+				<th>Impuesto 2</th>
+				<th>Ruta Imagen</th>
+				<th>Comentarios</th>
+				<th>Punto Reorden</th>
+				<th>Nivel Reposicion</th>
+				<th>Tipo Codigo Barras</th>
+				<th>Valor Codigo Barras</th>
+				<th>Valor Descuento</th>
+				<th>Porcentaje Descuento</th>
+				<th>Fecha Creacion</th>
+				<th>Usuario Creacion</th>
+				<th>Fecha Modificacion</th>
+				<th>Usuario Modificacion</th>
+				<th>Activo</th>
+				<th>Categoria ID</th>
+				<th>ID Categoria Padre</th>
+				<th>UnidadMedida ID</th>
+				<th>Horario Bloqueo ID</th>
 			</tr>
 		</thead>
 
@@ -65,7 +71,7 @@
 					<td>{{{ $Producto->INV_Producto_UsuarioCreacion }}}</td>
 					<td>{{{ $Producto->INV_Producto_FechaModificacion }}}</td>
 					<td>{{{ $Producto->INV_Producto_UsuarioModificacion }}}</td>
-					<td>{{{ $Producto->INV_Producto_Activo }}}</td>
+					<td>{{{ $Producto->INV_Producto_Activo ? 'Activa' : 'Desactivada' }}}</td>
 					<td>{{{ $Producto->INV_Categoria_ID }}}</td>
 					<td>{{{ $Producto->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Producto->INV_UnidadMedida_ID }}}</td>
@@ -79,9 +85,12 @@
 				</tr>
 			@endforeach
 		</tbody>
-	</table>
+	  </table>
+	</div>
 @else
-	There are no Productos
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay productos disponibles :(
+    </div>
 @endif
 
 @stop

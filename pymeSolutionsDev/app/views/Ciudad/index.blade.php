@@ -2,15 +2,21 @@
 
 @section('main')
 
-<h2><span class="glyphicon glyphicon-cog"></span> Configuración <small>Ciudad</small></h2>
 
-<p>{{ link_to_route('Inventario.Ciudad.create', 'Crear Ciudad') }}</p>
+<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Ciudad</small></h2>
+<div class="btn-agregar">
+	<a type="button" href="{{ URL::route('Inventario.Ciudad.create') }}" class="btn btn-default">
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Ciudad
+	</a>
+</div>
 
 @if ($Ciudad->count())
-	<table class="table table-striped table-bordered table-condensed table-responsive">
-		<thead>
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+		  <thead>
 			<tr>
-				<th>ID</th>
+				<th>#</th>
 				<th>Codigo</th>
 				<th>Nombre</th>
 				<th>Fecha Creacion</th>
@@ -19,9 +25,8 @@
 				<th>Usuario Modificacion</th>
 				<th>Activo</th>
 			</tr>
-		</thead>
-
-		<tbody>
+		  </thead>
+		  <tbody>
 			@foreach ($Ciudad as $Ciudad)
 				<tr>
 					<td>{{{ $Ciudad->INV_Ciudad_ID }}}</td>
@@ -31,8 +36,8 @@
 					<td>{{{ $Ciudad->INV_Ciudad_UsuarioCreacion }}}</td>
 					<td>{{{ $Ciudad->INV_Ciudad_FechaModificacion }}}</td>
 					<td>{{{ $Ciudad->INV_Ciudad_UsuarioModificacion }}}</td>
-					<td>{{{ ($Ciudad->INV_Ciudad_Activo ? 'Si' : 'No') }}}</td>
-                    <td>{{ link_to_route('Inventario.Ciudad.edit', '', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+					<td>{{{ ($Ciudad->INV_Ciudad_Activo ? 'Activa' : 'Desactivada') }}}</td>
+                    <td>{{ link_to_route('Inventario.Ciudad.edit', 'Edit', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Ciudad.destroy', $Ciudad->INV_Ciudad_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
@@ -40,10 +45,13 @@
                     </td>
 				</tr>
 			@endforeach
-		</tbody>
-	</table>
+		  </tbody>
+		</table>
+	</div>
 @else
-	There are no Ciudad
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay ciudades disponibles :(
+    </div>
 @endif
 
 @stop
