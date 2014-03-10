@@ -20,6 +20,7 @@ Route::resource('contabilidad/configuracion/unidadmonetaria', 'UnidadMonetariaCo
 Route::resource('contabilidad/configuracion/periodocontable', 'ParamPeriodoContableController');
 Route::resource('clasificacion-cuentas','ClasificacionCuentaController');
 Route::resource('catalogo-contable', 'CatalogoContablesController');
+Route::resource('contabilidad/motivotransaccion', 'MotivoTransaccionsController');
 Route::resource('librodiarios', 'LibroDiarioController');
 
 
@@ -31,3 +32,8 @@ Route::get('contabilidad/configuracion/periodocontable',array('as'=>'periodocont
 Route::get('contabilidad/configuracion/catalogocuentas',array('uses' => 'CatalogoContablesController@index'));
 Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index'));
 Route::post('contabilidad/librodiario', array('uses'=>'LibroDiarioController@index'));
+Route::get('contabilidad/motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
+
+
+Route::resource('detalleasientos', 'DetalleAsientosController');
+Route::resource('cuentamotivos', 'CuentaMotivosController');
