@@ -13,7 +13,7 @@
 			<strong>Nombre:</strong> {{ $ClasificacionPeriodo->CON_ClasificacionPeriodo_Nombre}}<br>
 			<strong>Cantidad de Dias:</strong> {{ $ClasificacionPeriodo->CON_ClasificacionPeriodo_CatidadDias}}<br>
 		</p>
-		<a class="btn btn-primary" href="{{ URL::to('param-periodo/'.$ClasificacionPeriodo->CON_ClasificacionPeriodo_ID.'/edit') }}">Edit</a>
+		<a class="btn btn-primary" href="{{ URL::to('contabilidad/configuracion/periodocontable/'.$ClasificacionPeriodo->CON_ClasificacionPeriodo_ID.'/edit') }}">Editar</a>
 	</div>
 @endif
 @stop

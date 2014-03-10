@@ -28,7 +28,7 @@ class ClasificacionPeriodo extends Eloquent {
 
 	public function CON_PeriodoContable()
     {
-        return $this->hasMany('CON_PeriodoContables');
+        return $this->hasMany('PeriodoContable');
     }
 
 }

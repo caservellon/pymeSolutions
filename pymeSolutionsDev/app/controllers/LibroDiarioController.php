@@ -23,7 +23,7 @@ class LibroDiarioController extends BaseController {
 	{
 		$LibroDiarios = $this->LibroDiario->all();
 
-		return View::make('LibroDiarios.index', compact('LibroDiarios'));
+		return View::make('LibroDiario.index', compact('LibroDiarios'));
 	}
 
 	/**

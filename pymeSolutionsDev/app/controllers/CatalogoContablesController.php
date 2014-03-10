@@ -162,6 +162,13 @@ class CatalogoContablesController extends BaseController {
 			->with('message', 'There were validation errors.');*/
 	}
 
+	public function update(){		
+		
+
+
+
+	}
+
 	public function destroy($id)
 	{
 		$input = array_except(Input::all(), '_method');

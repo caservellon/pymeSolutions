@@ -9,7 +9,7 @@
 @include('_messages.errors')
 
 
-{{ Form::open(array('url' => 'param-periodo')) }}
+{{ Form::open(array('route' => 'periodocontable')) }}
 	  
 
         <div class="form-group">
@@ -19,7 +19,7 @@
 
         <div class="form-group">
             {{ Form::label('CON_ClasificacionPeriodo_CatidadDias', 'Cantidad de dias:') }}
-            {{ Form::text('CON_ClasificacionPeriodo_CatidadDias','',array('maxlength'=>'3','placeholder'=>'###')) }}
+            {{ Form::select('CON_ClasificacionPeriodo_CatidadDias',$CantidadDias,'',array('class'=>'form-control')) }}
         </div>
         <div class="form-group">
          {{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que inicia:') }} 
@@ -51,23 +51,8 @@
             return date.valueOf() < now.valueOf() ? 'disabled' : '';
           }
         }).on('changeDate', function(ev) {
-          /*if (ev.date.valueOf() > checkout.date.valueOf()) {
-            var newDate = new Date(ev.date)
-            newDate.setDate(newDate.getDate() + 1);
-            checkout.setValue(newDate);
-          }*/
           checkin.hide();
-          //$('#dpd2')[0].focus();
         }).data('datepicker');
-        /*
-        var checkout = $('#dpd2').datepicker({
-          format: 'yyyy-mm-dd',
-          onRender: function(date) {
-            return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
-          }
-        }).on('changeDate', function(ev) {
-          checkout.hide();
-        }).data('datepicker');*/
         
   });
 </script>
