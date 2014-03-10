@@ -5,15 +5,9 @@
 
 <h1>Create Unidad Monetaria</h1>
 
-@if ($errors->any())
-<div class="bs-callout bs-callout-danger error">
-    <ul >
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-    </div>
-@endif
+@include('_messages.errors')
 
-{{ Form::open(array('url' => 'unidad-monetaria')) }}
+{{ Form::open(array('url' => 'contabilidad/configuracion/unidadmonetaria')) }}
 
         <div class="form-group">
             {{ Form::label('CON_UnidadMonetaria_Nombre', 'Nombre:') }}

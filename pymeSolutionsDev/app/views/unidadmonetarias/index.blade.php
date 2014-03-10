@@ -4,7 +4,7 @@
 
 <h1 align="center">Unidades Monetarias</h1>
 
-<a class="btn btn-primary" href="{{ URL::to('unidad-monetaria/create') }}">Crear Nuevo</a>
+<a class="btn btn-primary" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/create') }}">Crear Nuevo</a>
 
 @if (isset($unidadmonetarias) && $unidadmonetarias->count())
 
@@ -26,8 +26,8 @@
 					<td>{{{ $unidad->CON_UnidadMonetaria_Nombre }}}</td>
 					<td>{{{ $unidad->CON_UnidadMonetaria_TasaConversion }}}</td>
 					<td>{{{ $unidad->CON_UnidadMonetaria_Observacion }}}</td>
-					<td><a class="btn btn-success" href="{{ URL::to('unidad-monetaria/'.$unidad->CON_UnidadMonetaria_ID.'/edit') }}">Edit</a>
-					<a class="btn btn-primary" href="{{ URL::to('unidad-monetaria/'.$unidad->CON_UnidadMonetaria_ID) }}">Show</a></td>
+					<td><a class="btn btn-success" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/'.$unidad->CON_UnidadMonetaria_ID.'/edit') }}">Editar</a>
+					<a class="btn btn-primary" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/'.$unidad->CON_UnidadMonetaria_ID) }}">Mostrar</a></td>
 				</tr>
 				@endforeach
 		</tbody>

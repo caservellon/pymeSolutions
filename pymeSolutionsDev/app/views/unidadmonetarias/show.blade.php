@@ -14,7 +14,7 @@
 			<strong>Tasa:</strong> {{ $monetaryUnity->CON_UnidadMonetaria_TasaConversion}}<br>
 			<strong>Observacion:</strong> {{ $monetaryUnity->CON_UnidadMonetaria_Observacion}}<br>
 		</p>
-		<a class="btn btn-primary" href="{{ URL::to('unidad-monetaria/'.$monetaryUnity->CON_UnidadMonetaria_ID.'/edit') }}">Edit</a>
+		<a class="btn btn-primary" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/'.$monetaryUnity->CON_UnidadMonetaria_ID.'/edit') }}">Editar</a>
 	</div>
 @endif
 @stop

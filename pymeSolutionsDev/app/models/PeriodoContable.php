@@ -6,7 +6,12 @@ class PeriodoContable extends Eloquent {
 	public $timestamps = false;
 	protected $table ='CON_PeriodoContable';
 	protected $primaryKey='CON_PeriodoContable_ID';
-	protected $fillable = array('CON_PeriodoContable_Nombre','CON_PeriodoContable_FechaInicio','CON_PeriodoContable_FechaFinal');
+	protected $fillable = array(
+		'CON_PeriodoContable_Nombre',
+		'CON_PeriodoContable_FechaInicio',
+		'CON_PeriodoContable_FechaFinal',
+		'CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID'
+		);
 	public static $rules = array(
 			//'CON_PeriodoContable_ID' => 'required|integer',
 			'CON_PeriodoContable_Nombre' => 'required|max:45|alpha',
@@ -15,8 +20,8 @@ class PeriodoContable extends Eloquent {
 
 		);
 
-	public function CON_DetalleAsiento()
+	public function CON_ClasificacionPeriodo()
     {
-        return $this->hasMany('CON_DetalleAsiento');
+        return $this->belongsTo('ClasificacionPeriodo');
     }
 }

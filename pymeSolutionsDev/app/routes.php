@@ -16,8 +16,8 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::resource('unidad-monetaria', 'UnidadMonetariaController');
-Route::resource('param-periodo', 'ParamPeriodoContableController');
+Route::resource('contabilidad/configuracion/unidadmonetaria', 'UnidadMonetariaController');
+Route::resource('contabilidad/configuracion/periodocontable', 'ParamPeriodoContableController');
 Route::resource('clasificacion-cuentas','ClasificacionCuentaController');
 Route::resource('catalogo-contable', 'CatalogoContablesController');
 Route::resource('librodiarios', 'LibroDiarioController');
@@ -27,6 +27,6 @@ Route::get('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesCo
 Route::get('contabilidad',array('uses' => 'ContabilidadController@index'));
 Route::get('contabilidad/configuracion',array('uses' => 'ContabilidadController@config'));
 Route::get('contabilidad/configuracion/unidadmonetaria',array('uses' => 'UnidadMonetariaController@index'));
-Route::get('contabilidad/configuracion/periodocontable',array('uses' => 'ParamPeriodoContableController@index'));
+Route::get('contabilidad/configuracion/periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
 Route::get('contabilidad/configuracion/catalogocuentas',array('uses' => 'CatalogoContablesController@index'));
 Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index', ));

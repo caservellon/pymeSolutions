@@ -3,15 +3,16 @@
 @section('main')
 
 <h1 align="center">Configuracion Periodo Contable</h1>
+<div>
+<a class="btn btn-primary" href="{{ URL::to('contabilidad/configuracion/periodocontable/create') }}">Crear Nuevo</a>
 
-<a class="btn btn-primary" href="{{ URL::to('param-periodo/create') }}">Crear Nuevo</a>
 <table class="table table-bordered tables-striped">
 			<thead>
 				<tr>
 					<th>ID</th>
 					<th>Nombre</th>
 					<th>Cantidad dias</th>
-					<th>Action</th>
+					<th>Accion</th>
 				</tr>
 			</thead>
 
@@ -22,10 +23,11 @@
 			<td>{{ $Clasificacion->CON_ClasificacionPeriodo_ID  }}</td>
 			<td>{{ $Clasificacion->CON_ClasificacionPeriodo_Nombre  }}</td>
 			<td>{{ $Clasificacion->CON_ClasificacionPeriodo_CatidadDias  }}</td>
-			<td><a class="btn btn-success" href="{{ URL::to('param-periodo/'.$Clasificacion->CON_ClasificacionPeriodo_ID.'/edit') }}">Edit</a>
-					<a class="btn btn-primary" href="{{ URL::to('param-periodo/'.$Clasificacion->CON_ClasificacionPeriodo_ID) }}">Show</a></td>
+			<td><a class="btn btn-success" href="{{ URL::to('contabilidad/configuracion/periodocontable/'.$Clasificacion->CON_ClasificacionPeriodo_ID.'/edit') }}">Editar</a>
+					<a class="btn btn-primary" href="{{ URL::to('contabilidad/configuracion/periodocontable/'.$Clasificacion->CON_ClasificacionPeriodo_ID) }}">Mostrar</a></td>
 		</tr>
 	@endforeach	
 	</tbody>
 </table>
+</div>
 @stop

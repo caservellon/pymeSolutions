@@ -5,13 +5,7 @@
 
 <h1>Edit Unidad Monetaria</h1>
 
-@if ($errors->any())
-<div class="bs-callout bs-callout-danger error">
-    <ul >
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-    </div>
-@endif
+@include('_messages.errors')
 
 {{ Form::model($UnidadMonetaria, array('action' => array('UnidadMonetariaController@update', $UnidadMonetaria->CON_UnidadMonetaria_ID), 'method' => 'PUT')) }}
 	
