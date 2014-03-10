@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.scaffold')
 
 @section('main')
 
@@ -15,10 +15,10 @@
 
 	<ul>
         
-        <li>
+        <!--<li>
             {{ Form::label('CON_CatalogoContable_Codigo', 'Codigo:') }}
             {{ Form::text('CON_CatalogoContable_Codigo') }}
-        </li>
+        </li> -->
 
         <li>
             {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre:') }}

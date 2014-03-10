@@ -30,3 +30,7 @@ Route::get('contabilidad/configuracion/unidadmonetaria',array('uses' => 'UnidadM
 Route::get('contabilidad/configuracion/periodocontable',array('uses' => 'ParamPeriodoContableController@index'));
 Route::get('contabilidad/configuracion/catalogocuentas',array('uses' => 'CatalogoContablesController@index'));
 Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index', ));
+Route::get('contabilidad/configuracion/subcuentas',array ('uses' => 'SubcuentaController@index'));
+
+
+Route::resource('subcuenta', 'SubcuentaController');

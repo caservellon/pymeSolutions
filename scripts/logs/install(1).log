@@ -1,0 +1,294 @@
+------------------------START--------------------------
+Process started at  2014/03/03 21:56:39
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1005 (HY000) at line 154: Can't create table 'pymeERP.CON_DetalleAsiento' (errno: 121)
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1062 (23000) at line 11: Duplicate entry '1' for key 'CON_CatalogoContable_Codigo_UNIQUE'
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1452 (23000) at line 6: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`CON_CuentaMotivo`, CONSTRAINT `CON_CatalogoContable_ID` FOREIGN KEY (`CON_CatalogoContable_ID`) REFERENCES `CON_CatalogoContable` (`CON_CatalogoContable_ID`) ON DELETE NO ACTION ON )
+Populating Ventas 
+Process ended at  2014/03/03 21:56:40
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 14:29:13
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 14:29:14
+------------------------END----------------------------
+------------------------START--------------------------
+<<<<<<< HEAD
+Process started at  2014/03/04 21:40:35
+=======
+Process started at  2014/03/04 20:08:22
+>>>>>>> 9e7d4a3935446516389696c8ec3979177916bd06
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+<<<<<<< HEAD
+Process ended at  2014/03/04 21:40:35
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 21:52:44
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 21:52:45
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 22:32:02
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 22:32:03
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 22:34:16
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 22:34:16
+=======
+Process ended at  2014/03/04 20:08:23
+>>>>>>> 9e7d4a3935446516389696c8ec3979177916bd06
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 23:05:22
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 23:05:23
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 23:10:35
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 23:10:36
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 23:41:16
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 23:41:16
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/04 23:58:30
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/04 23:58:30
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/05 00:08:03
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/05 00:08:04
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/05 23:36:59
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1064 (42000) at line 68: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ENGINE = InnoDB' at line 8
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_ClasificacionCuenta' doesn't exist
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_CatalogoContable' doesn't exist
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_Subcuenta' doesn't exist
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.CON_CuentaMotivo' doesn't exist
+Populating Ventas 
+Process ended at  2014/03/05 23:36:59
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/05 23:45:43
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1064 (42000) at line 242: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ENGINE = InnoDB' at line 8
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/05 23:45:44
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/05 23:46:25
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/05 23:46:25
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/06 01:30:30
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/06 01:30:30
+------------------------END----------------------------
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+------------------------END----------------------------
+
+ERROR 1062 (23000) at line 5: Duplicate entry '1' for key 'PRIMARY'
+
+------------------------END----------------------------
+------------------------END----------------------------
