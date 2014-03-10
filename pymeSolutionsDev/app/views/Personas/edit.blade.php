@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Persona &gt; <small>Editar Persona</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 

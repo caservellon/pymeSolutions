@@ -2,40 +2,45 @@
 
 @section('main')
 
-<h1>Show CampoLocal</h1>
 
-<p>{{ link_to_route('CampoLocals.index', 'Return to all CampoLocals') }}</p>
+<div class="page-header clearfix">
+      <h3 class="pull-left">Campo Local &gt; <small>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('CampoLocals') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+      </div>
+</div>
 
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>GEN_CampoLocal_ID</th>
-				<th>GEN_CampoLocal_Codigo</th>
-				<th>GEN_CampoLocal_Activo</th>
-				<th>GEN_CampoLocal_Nombre</th>
-				<th>GEN_CampoLocal_Tipo</th>
-				<th>GEN_CampoLocal_Requerido</th>
-				<th>GEN_CampoLocal_ParametroBusqueda</th>
-		</tr>
-	</thead>
 
-	<tbody>
-		<tr>
-			<td>{{{ $CampoLocal->GEN_CampoLocal_ID }}}</td>
-					<td>{{{ $CampoLocal->GEN_CampoLocal_Codigo }}}</td>
-					<td>{{{ $CampoLocal->GEN_CampoLocal_Activo }}}</td>
-					<td>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</td>
-					<td>{{{ $CampoLocal->GEN_CampoLocal_Tipo }}}</td>
-					<td>{{{ $CampoLocal->GEN_CampoLocal_Requerido }}}</td>
-					<td>{{{ $CampoLocal->GEN_CampoLocal_ParametroBusqueda }}}</td>
-                    <td>{{ link_to_route('CampoLocals.edit', 'Edit', array($CampoLocal->id), array('class' => 'btn btn-info')) }}</td>
-                    <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('CampoLocals.destroy', $CampoLocal->id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                    </td>
-		</tr>
-	</tbody>
-</table>
+<div class="form-group">
+        <h4>ID# : {{{ $CampoLocal->GEN_CampoLocal_ID }}}</h4>
+</div>
+<div class="form-group">
+        <h4>Nombre del Campo : {{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</h4>
+</div>
+<div class="form-group">
+        <h4>Código del Campo : {{{ $CampoLocal->GEN_CampoLocal_Codigo }}}</h4>
+</div>
+<div class="form-group"><h4>Estado : 
+	@if($CampoLocal->GEN_CampoLocal_Activo == 1)
+        Activado
+    @else
+    	Desactivado
+    @endif
+    </h4>    
+</div>
+<div class="form-group">
+        <h4>Tipo de Campo : {{{ $CampoLocal->GEN_CampoLocal_Tipo }}}</h4>
+</div>
+<div class="form-group">
+        <h4>GEN_CampoLocal_Requerido GEN_CampoLocal_ParametroBusqueda Tipo de Campo : {{{ $CampoLocal->GEN_CampoLocal_Tipo }}}</h4>
+</div>
+
+<div class="form-group">
+		{{ link_to_route('CampoLocals.edit', 'Edit', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}
+	    {{ Form::open(array('method' => 'DELETE', 'route' => array('CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
+	        	{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+	    	{{ Form::close() }}
+</div>
+
 
 @stop

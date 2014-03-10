@@ -2,14 +2,10 @@
 
 @section('main')
 
-<h1>Mostrar Persona</h1>
-
-<p>{{ link_to_route('Personas.index', 'Return to all Personas') }}</p>
-
 <div class="page-header clearfix">
       <h3 class="pull-left">Persona &gt; <small>{{{ $Persona->CRM_Personas_ID }}}</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 

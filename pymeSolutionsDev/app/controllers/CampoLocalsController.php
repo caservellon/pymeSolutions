@@ -99,8 +99,9 @@ class CampoLocalsController extends BaseController {
 		{
 			return Redirect::route('CampoLocals.index');
 		}
-
-		return View::make('CampoLocals.edit', compact('CampoLocal'));
+		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'CRM_EP', 6) == 0? 'EP':'PS';
+		
+		return View::make('CampoLocals.edit', array('CampoLocal' => $CampoLocal, 'tipoDePerfil' => $tipoDePerfil));
 	}
 
 	/**
@@ -111,14 +112,24 @@ class CampoLocalsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, CampoLocal::$rules);
+		
 
-		if ($validation->passes())
+		$validation = true;
+		$Campo = new CampoLocal;
+		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
+		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
+		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
+		$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
+		if (Input::get('GEN_CampoLocal_Nombre') == "") {
+			$validation = false;
+		} else {
+			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
+			$Codigo = "CRM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
+			$Campo->GEN_CampoLocal_Codigo = $Codigo;
+		}
+		if ($validation)
 		{
-			$CampoLocal = $this->CampoLocal->find($id);
-			$CampoLocal->update($input);
-
+			$Campo->save();
 			return Redirect::route('CampoLocals.show', $id);
 		}
 
