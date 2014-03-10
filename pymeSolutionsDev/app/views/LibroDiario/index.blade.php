@@ -10,7 +10,7 @@
       <div class="well table form-inline">
             <label>Fecha Inicio:</label> <input type="text" class="span2 form-control" value="" id="dpd1">
             <label>Fecha Final:</label> <input type="text" class="span2 form-control" value="" id="dpd2">
-            <button type="Submmit" class="btn btn-success">Cargar</button>
+            <button id='charge' type="Submmit" class="btn btn-success">Cargar</button>
       </div>
 
 @if ($LibroDiarios->count())
@@ -69,7 +69,12 @@
 	</script>
 	<script type="text/javascript">
 
-	$.post('contabilidad/librodiario');
+		$(document).ready($('#charge').on('click',function()
+			{
+				$.post('librodiario',{id:1});
+
+
+			}));
 	</script>
 
 @stop

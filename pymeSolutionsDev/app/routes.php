@@ -29,4 +29,5 @@ Route::get('contabilidad/configuracion',array('uses' => 'ContabilidadController@
 Route::get('contabilidad/configuracion/unidadmonetaria',array('uses' => 'UnidadMonetariaController@index'));
 Route::get('contabilidad/configuracion/periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
 Route::get('contabilidad/configuracion/catalogocuentas',array('uses' => 'CatalogoContablesController@index'));
-Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index', ));
+Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index'));
+Route::post('contabilidad/librodiario', array('uses'=>'LibroDiarioController@index'));
