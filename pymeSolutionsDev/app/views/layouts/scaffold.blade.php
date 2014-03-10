@@ -37,9 +37,30 @@
       <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Inventario</a></li>
-              <li><a href="#">Categorias</a></li>
-              <li><a href="#">Atributos</a></li>
+              <li>
+                {{ link_to_route('Inventario.Productos.index', 'Productos')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.Atributos.index', 'Atributos')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.Proveedor.index', 'Proveedores')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.Categoria.index', 'Categorías')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.Ciudad.index', 'Ciudades')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.UnidadMedidas.index', 'Unidades de Medida')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.Horarios.index', 'Horarios')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
+              </li>
               <li class="divider"></li>
               <li><a href="#">Configuración</a></li>
             </ul>
