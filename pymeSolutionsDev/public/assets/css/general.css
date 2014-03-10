@@ -5,3 +5,7 @@ div.btn-agregar {
 .control-label {
 	font-weight: bold;
 }
+
+td,th {
+	text-align: center;
+}
