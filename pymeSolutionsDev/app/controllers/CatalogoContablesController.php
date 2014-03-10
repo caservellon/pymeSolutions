@@ -22,10 +22,12 @@ class CatalogoContablesController extends BaseController {
 	public function index()
 	{
 		$Catalogo = $this->CatalogoContable->all();
+		$clasi = ClasificacionCuenta::all();
 
-		return View::make('CatalogoContables.index')
+		return View::make('CatalogoContables.index',compact('clasi'))
 			->with('Catalogo',$Catalogo)
-			->with('CatalogoContable',$Catalogo);
+			->with('CatalogoContable',$Catalogo)
+			->with('clasi',$clasi);
 	}
 
 	/**
@@ -98,7 +100,7 @@ class CatalogoContablesController extends BaseController {
     	$selected = array();
     	$esta =array('1' => 'Habiltado','0' => 'Deshabiltado' );
     	$selected2 = array();
-    	$naturaleza  = array('0' => 'Deudor','1' => 'Habilitado' );
+    	$naturaleza  = array('0' => 'Deudor','1' => 'Acreedor' );
     	$selected3 = array();
 
 		return View::make('CatalogoContables.edit', compact('CatalogoContable','clasi','selected','esta','selected2','naturaleza','selected3'));
@@ -158,6 +160,13 @@ class CatalogoContablesController extends BaseController {
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');*/
+	}
+
+	public function update(){		
+		
+
+
+
 	}
 
 	public function destroy($id)

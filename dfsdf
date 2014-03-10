@@ -1,0 +1,80 @@
+commit 1f9c79fe8441ce4e4a02e9b5571242438d9c9310
+Author: Luis Robles Coulter <roblescoulter@gmail.com>
+Date:   Sun Mar 2 08:33:08 2014 -0600
+
+    Modifications to vagrantfile
+
+commit 299e4b3ae14e578d26283d4ce5d7a756741bb915
+Author: Luis Robles Coulter <roblescoulter@gmail.com>
+Date:   Sun Mar 2 08:30:43 2014 -0600
+
+    Modifications to gitignore file
+
+commit ea245847e2f10a9b17b45e848de894a68c1590cd
+Author: Martin Pastora <muko09@unitec.edu>
+Date:   Sat Mar 1 12:23:35 2014 -0600
+
+    Update README.md
+
+commit 80f053c50aecae492b35b97928b0bc0083925a82
+Author: Martin Pastora <muko09@unitec.edu>
+Date:   Sat Mar 1 12:11:18 2014 -0600
+
+    Update README.md
+
+commit 02f6d419624b7c7cfc0a83daac3737c5c98b79e5
+Merge: 3dec24a aaac147
+Author: Jorge Caballero <jorge@2build.it>
+Date:   Sat Mar 1 10:52:29 2014 -0600
+
+    Merge branch 'master' of github.com:jorgeacaballero/pymeSolutions
+
+commit 3dec24a1f5c0f069c0b4d25920caea1704673f2a
+Author: Jorge Caballero <jorge@2build.it>
+Date:   Sat Mar 1 10:52:08 2014 -0600
+
+    Modified the Gitignore
+
+commit aaac1474a0c0b95503c412054d4cb94f6ebfbdbf
+Author: Jorge Caballero <jorgecaballero@unitec.edu>
+Date:   Fri Feb 28 22:56:33 2014 -0600
+
+    Update README.md
+    
+    Added the db script instructions.
+
+commit 95753fa465cdaec019e9d3015665e040e2f67278
+Author: Jorge Caballero <jorge@2build.it>
+Date:   Fri Feb 28 21:37:49 2014 -0600
+
+    Modified README
+
+commit b960ce398d3e5e8fb0a22be7fb2e63e2c84899fa
+Author: Jorge Caballero <jorge@2build.it>
+Date:   Fri Feb 28 20:33:29 2014 -0600
+
+    Changed the Vagrant box name
+
+commit 4d4ef86857b75a2d0a17ad887fc0f2a6db084d0f
+Author: Jorge Caballero <jorge@2build.it>
+Date:   Fri Feb 28 20:31:00 2014 -0600
+
+    Ambiente listo
+
+commit 4764d505e4b928421438533079d0a7ffca1e42af
+Author: Jorge Caballero <jorge@2build.it>
+Date:   Mon Feb 24 19:26:29 2014 -0600
+
+    Added the Gitignore file
+
+commit 7c8df2d2c00bebeed3e73c4d82672f626d5dfd7e
+Author: Jorge Caballero <jorge@2build.it>
+Date:   Mon Feb 24 19:15:09 2014 -0600
+
+    First Commit
+
+commit b20877c5303279bc5a4a092b7f52b2c3362ae9ca
+Author: Jorge Caballero <jorge@2build.it>
+Date:   Mon Feb 24 19:00:09 2014 -0600
+
+    first commit
