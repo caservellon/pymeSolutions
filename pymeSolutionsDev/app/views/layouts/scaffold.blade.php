@@ -1,10 +1,15 @@
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>pymeSolutions</title>
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/css/bootstrap.min.css">
+
+  <script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
+  <script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
+
 </head>
 <body style="margin-top: 50px">
   <header>
@@ -61,23 +66,24 @@
               <li>
                 {{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
               </li>
+              <li><a href="#">Inventario</a></li>
+              <li><a href="#">Categorias</a></li>
+              <li><a href="#">Atributos</a></li>
               <li class="divider"></li>
               <li><a href="#">Configuración</a></li>
             </ul>
           </li>
 
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contabilidad <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Crear Asientos de Ajuste</a></li>
-              <li><a href="#">Estado de Resultados</a></li>
-              <li><a href="#">Balande General</a></li>
+
+            <a href="contabilidad" class="dropdown-toggle" data-toggle="dropdown">Contabilidad <b class="caret"></b></a>
               <li><a href="#">Libro Diario</a></li>
+              <li><a href="{{URL::to('contabilidad/librodiario')}}">Libro Diario</a></li>
               <li><a href="#">ROI</a></li>
               <li><a href="#">Punto de Equilibrio</a></li>
               <li><a href="#">Flujo de Caja</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li><a href="{{ URL::to('contabilidad/configuracion/') }}">Configuración</a></li>
             </ul>
           </li>
 
@@ -117,4 +123,8 @@
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
+
+  <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
+
 </html>
