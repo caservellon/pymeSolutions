@@ -6,14 +6,14 @@
 
 @include('_messages.errors')
 
-{{ Form::open(array('url' => 'catalogo-contable')) }}
+{{ Form::open(array('url' => 'contabilidad/configuracion/catalogocuentas')) }}
 
             {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion Cuenta:') }}
             {{ Form::select('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', $clasi, $selected,array('id'=> 'prueba2')) }}
      
             {{ Form::label('CON_CatalogoContable_Codigo', 'Codigo:') }}
             {{ Form::text('CON_CatalogoContable_Codigo','',array('maxlength'=>'10','id' => 'prueba')) }}
-   
+
             {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre:') }}
             {{ Form::text('CON_CatalogoContable_Nombre','',array('maxlength'=>'100')) }}
   
@@ -29,6 +29,13 @@
 			{{ Form::submit('Crear', array('class' => 'btn btn-info')) }}
 
 {{ Form::close() }}
+<script type="text/javascript">
+$('#prueba2').on('change', function(){
+var asd = $('#prueba2').val();
+$('#prueba').attr("value",asd);
+});
+</script>
+
 
 <script type="text/javascript">
     $(document).ready(function(){

@@ -19,7 +19,7 @@ Route::get('/', function()
 Route::resource('contabilidad/configuracion/unidadmonetaria', 'UnidadMonetariaController');
 Route::resource('contabilidad/configuracion/periodocontable', 'ParamPeriodoContableController');
 Route::resource('clasificacion-cuentas','ClasificacionCuentaController');
-Route::resource('catalogo-contable', 'CatalogoContablesController');
+Route::resource('contabilidad/configuracion/catalogocuentas', 'CatalogoContablesController');
 Route::resource('contabilidad/motivotransaccion', 'MotivoTransaccionsController');
 Route::resource('librodiarios', 'LibroDiarioController');
 
