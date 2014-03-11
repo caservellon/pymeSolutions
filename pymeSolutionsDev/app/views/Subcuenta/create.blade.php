@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Create Subcuentum</h1>
+<h1>Crear Subcuenta</h1>
 
 
 {{ Form::open(array('url' => 'subcuenta')) }}

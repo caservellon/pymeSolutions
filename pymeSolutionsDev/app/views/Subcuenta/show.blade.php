@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Show Subcuentum</h1>
+<h1>Subcuenta</h1>
 
 <p>{{ link_to_route('Subcuenta.index', 'Return to all Subcuenta') }}</p>
 

@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Edit Subcuentum</h1>
+<h1>Editar Cuenta</h1>
 {{ Form::model($Subcuentum, array('action' => array('SubcuentaController@update',$Subcuentum->CON_Subcuenta_ID), 'method' => 'PUT')) }}
 
 	<ul>

@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Create CatalogoContables</h1>
+<h1>Crear Cuenta</h1>
 
 @if ($errors->any())
 <div class="bs-callout bs-callout-danger error">
@@ -11,7 +11,7 @@
     </ul>
     </div>
 @endif
-{{ Form::open(array('url' => 'catalogo-contable')) }}
+{{ Form::open(array('url' => 'contabilidad/configuracion/catalogocuentas')) }}
 	<ul>
          <li>
             {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion Cuenta:') }}
@@ -20,7 +20,7 @@
 
         <li>
             {{ Form::label('CON_CatalogoContable_Codigo', 'Codigo:') }}
-            {{ Form::text('CON_CatalogoContable_Codigo','',array('maxlength'=>'10',"disabled",'id' => 'prueba')) }}
+            {{ Form::text('CON_CatalogoContable_Codigo','1',array('maxlength'=>'10',"disabled",'id' => 'prueba')) }}
         </li>
 
         <li>
@@ -48,6 +48,13 @@
 		</li>
 	</ul>
 {{ Form::close() }}
+<script type="text/javascript">
+$('#prueba2').on('change', function(){
+var asd = $('#prueba2').val();
+$('#prueba').attr("value",asd);
+});
+</script>
+
 
 
 @stop

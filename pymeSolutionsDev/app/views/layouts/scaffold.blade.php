@@ -49,17 +49,17 @@
           </li>
 
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contabilidad <b class="caret"></b></a>
+            <a href="contabilidad" class="dropdown-toggle" data-toggle="dropdown">Contabilidad <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="#">Crear Asientos de Ajuste</a></li>
               <li><a href="#">Estado de Resultados</a></li>
               <li><a href="#">Balande General</a></li>
-              <li><a href="#">Libro Diario</a></li>
+              <li><a href="{{URL::to('contabilidad/librodiario')}}">Libro Diario</a></li>
               <li><a href="#">ROI</a></li>
               <li><a href="#">Punto de Equilibrio</a></li>
               <li><a href="#">Flujo de Caja</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li><a href="{{ URL::to('contabilidad/configuracion/') }}">Configuración</a></li>
             </ul>
           </li>
 

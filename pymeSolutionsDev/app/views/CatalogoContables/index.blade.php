@@ -5,7 +5,7 @@
 <h1 align="center">Catalogo Contable</h1>
 
 @if (isset($clasi) && $clasi->count())
-<a class="btn btn-success" href="{{ URL::to('catalogo-contable/create') }}"> Crear Nuevo</a>
+<a class="btn btn-success" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/create') }}"> Crear Nuevo</a>
 @foreach ($clasi as $unidad)
 				<tr>
 					<h3>{{{ $unidad->CON_ClasificacionCuenta_Nombre }}}</h3>
@@ -89,11 +89,5 @@ function copyText()
 
 
 </script>
-<script type="text/javascript">
-	function updatecampos(){
-		@foreach ($Catalogo as $CatalogoContable)
-			$this->update($CatalogoContable->CON_CatalogoContable_ID);
-		@endforeach
-	}
-</script>
+
 @stop
