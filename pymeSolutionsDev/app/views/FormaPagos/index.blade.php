@@ -45,17 +45,20 @@
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.FormaPagos.destroy', $FormaPago->INV_FormaPago_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+
                         {{ Form::close() }}
                     </td>
 				</tr>
 			@endforeach
 		</tbody>
+
 	  </table>
 	</div>
 @else
 	<div class="alert alert-danger">
       <strong>Oh no!</strong> No hay formas de pago disponibles :(
     </div>
+
 @endif
 
 @stop

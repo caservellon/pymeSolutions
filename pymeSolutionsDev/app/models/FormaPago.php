@@ -19,5 +19,6 @@ class FormaPago extends Eloquent {
 		'INV_FormaPago_FechaModificacion' => '',
 		'INV_FormaPago_UsuarioModificacion' => '',
 		'INV_FormaPago_Activo' => 'required'
+
 	);
 }

@@ -15,6 +15,7 @@ Route::get('/', function(){
 	return View::make('hello');
 
 
+
 });
 
 Route::group(array('prefix' => 'Inventario'), function()
@@ -130,3 +131,40 @@ Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
 Route::resource('CampoLocals', 'CampoLocalsController');
 
 Route::resource('CampoLocalLista', 'CampoLocalListaController');
+
+
+Route::group(array('prefix' => 'Ventas'), function(){
+
+	Route::get('/', function()
+	{
+		return View::make('Menus.ventas');
+	});
+
+	Route::resource('AperturaCajas', 'AperturacajasController');
+	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturacajasController@abrir'));
+
+	Route::resource('Ventas', 'VentasController');
+
+	Route::resource('Descuentos', 'DescuentosController');
+
+	Route::resource('DetalleDeVenta', 'DetalleDeVentaController');
+
+	Route::resource('FormaPagos', 'FormaPagosController');
+
+	Route::resource('EstadoBonos', 'EstadobonosController');
+
+	Route::resource('BonoDeCompras', 'BonodecomprasController');
+
+	Route::resource('Devoluciones', 'DevolucionesController');
+
+	Route::resource('DetalleDevoluciones', 'DetalleDevolucionesController');
+
+	Route::resource('Cajas', 'CajasController');
+
+	Route::resource('CierreCajas', 'CierreCajasController');
+
+	Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
+
+
+});
+

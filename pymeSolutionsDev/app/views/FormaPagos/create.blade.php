@@ -1,6 +1,7 @@
 @extends('layouts.scaffold')
 
 @section('main')
+
 <div class="page-header clearfix">
       <h3 class="pull-left">Forma Pago &gt; <small>Nueva Forma de Pago</small></h3>
       <div class="pull-right">
@@ -48,6 +49,7 @@
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>
     </div>
+
 
 {{ Form::close() }}
 

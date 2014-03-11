@@ -54,6 +54,7 @@ class FormaPagosController extends BaseController {
 		}
 
 		return Redirect::route('Inventario.FormaPagos.create')
+
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -85,6 +86,7 @@ class FormaPagosController extends BaseController {
 		if (is_null($FormaPago))
 		{
 			return Redirect::route('Inventario.FormaPagos.index');
+
 		}
 
 		return View::make('FormaPagos.edit', compact('FormaPago'));
@@ -98,7 +100,9 @@ class FormaPagosController extends BaseController {
 	 */
 	public function update($id)
 	{
+
 		$input = Input::except('_method');
+
 		$validation = Validator::make($input, FormaPago::$rules);
 
 		if ($validation->passes())
@@ -110,6 +114,7 @@ class FormaPagosController extends BaseController {
 		}
 
 		return Redirect::route('Inventario.FormaPagos.edit', $id)
+
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -132,6 +137,7 @@ class FormaPagosController extends BaseController {
 	{
 		
 		return 'usuario';
+
 	}
 
 }
