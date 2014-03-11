@@ -141,4 +141,10 @@ class UnidadMedidasController extends BaseController {
 		return Redirect::route('Inventario.UnidadMedidas.index');
 	}
 
+	public function returnUser()
+	{
+		
+		return 'usuario';
+	}
+
 }

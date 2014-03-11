@@ -128,4 +128,10 @@ class HorariosController extends BaseController {
 		return Redirect::route('Inventario.Horarios.index');
 	}
 
+	public function returnUser()
+	{
+		
+		return 'usuario';
+	}
+
 }

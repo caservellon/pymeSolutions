@@ -141,4 +141,10 @@ class CiudadController extends BaseController {
 		return Redirect::route('Inventario.Ciudad.index');
 	}
 
+	public function returnUser()
+	{
+		
+		return 'usuario';
+	}
+
 }

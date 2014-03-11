@@ -128,4 +128,10 @@ class FormaPagosController extends BaseController {
 		return Redirect::route('Inventario.FormaPagos.index');
 	}
 
+	public function returnUser()
+	{
+		
+		return 'usuario';
+	}
+
 }

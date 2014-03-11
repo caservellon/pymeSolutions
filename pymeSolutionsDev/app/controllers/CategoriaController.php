@@ -147,4 +147,10 @@ class CategoriaController extends BaseController {
 		return Redirect::route('Inventario.Categoria.index');
 	}
 
+	public function returnUser()
+	{
+		
+		return 'usuario';
+	}
+
 }

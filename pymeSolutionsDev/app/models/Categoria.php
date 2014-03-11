@@ -11,8 +11,8 @@ class Categoria extends Eloquent {
 	public static $rules = array(
 		//'INV_Categoria_ID' => 'required',
 		//'INV_Categoria_Codigo' => 'required',
-		'INV_Categoria_Nombre' => 'required|alpha|Between:1,128',
-		'INV_Categoria_Descripcion' => 'required|Between:1,256',
+		'INV_Categoria_Nombre' => 'required|regex:/^[a-z A-Z]?/|Between:1,128',
+		'INV_Categoria_Descripcion' => 'required|Between:1,256|regex:/^[a-z A-Z]?/|',
 		'INV_Categoria_FechaCreacion' => '',
 		'INV_Categoria_UsuarioCreacion' => '',
 		'INV_Categoria_FechaModificacion' => '',

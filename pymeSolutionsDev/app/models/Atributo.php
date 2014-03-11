@@ -10,7 +10,7 @@ class Atributo extends Eloquent {
 
 	public static $rules = array(
 		//'INV_Atributo_Codigo' => 'required',
-		'INV_Atributo_Nombre' => 'required|Alpha|Between:1,128',
+		'INV_Atributo_Nombre' => 'required|regex:/^[a-z A-Z]?/|Between:1,128',
 		'INV_Atributo_TipoDato' => 'required|Alpha|Between:1,64',
 		'INV_Atributo_FechaCreacion' => '',
 		'INV_Atributo_UsuarioCreacion' => '',

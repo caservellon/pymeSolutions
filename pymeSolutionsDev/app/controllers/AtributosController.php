@@ -142,4 +142,10 @@ class AtributosController extends BaseController {
 		return Redirect::route('Inventario.Atributos.index');
 	}
 
+	public function returnUser()
+	{
+		
+		return 'usuario';
+	}
+
 }

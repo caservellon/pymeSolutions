@@ -128,4 +128,10 @@ class ProveedorController extends BaseController {
 		return Redirect::route('Inventario.Proveedor.index');
 	}
 
+	public function returnUser()
+	{
+		
+		return 'usuario';
+	}
+
 }

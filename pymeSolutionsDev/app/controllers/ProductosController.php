@@ -128,4 +128,10 @@ class ProductosController extends BaseController {
 		return Redirect::route('Inventario.Productos.index');
 	}
 
+	public function returnUser()
+	{
+		
+		return 'usuario';
+	}
+
 }
