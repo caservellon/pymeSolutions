@@ -14,6 +14,7 @@
 Route::get('/', function(){
 	return View::make('hello');
 
+
 });    
 //crea un nuevo estado de orden de compras
 Route::get('/Compras/Configuracion/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
@@ -61,4 +62,37 @@ Route::post('Cotizacions/campoLocal', array('as'=>'campoLocal', 'uses'=> 'Cotiza
 Route::get('Cotizacions/editarParametrizar', array('as'=>'editarParametrizar', 'uses'=>'CotizacionsController@editarParametrizar'));
 Route::get('Cotizacions/actualizar', array('as'=>'actualizar', 'uses'=>'CotizacionsController@actualizar'));
 Route::resource('Cotizacions', 'CotizacionsController');
+
+
+
+
+Route::resource('contabilidad/configuracion/unidadmonetaria', 'UnidadMonetariaController');
+Route::resource('contabilidad/configuracion/periodocontable', 'ParamPeriodoContableController');
+Route::resource('clasificacion-cuentas','ClasificacionCuentaController');
+Route::resource('contabilidad/configuracion/catalogocuentas', 'CatalogoContablesController');
+Route::resource('contabilidad/motivotransaccion', 'MotivoTransaccionsController');
+Route::resource('librodiarios', 'LibroDiarioController');
+
+
+Route::get('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
+Route::get('contabilidad',array('uses' => 'ContabilidadController@index'));
+Route::get('contabilidad/configuracion',array('uses' => 'ContabilidadController@config'));
+Route::get('contabilidad/configuracion/unidadmonetaria',array('uses' => 'UnidadMonetariaController@index'));
+Route::get('contabilidad/configuracion/periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
+Route::get('contabilidad/configuracion/catalogocuentas',array('uses' => 'CatalogoContablesController@index'));
+
+Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index', ));
+Route::get('contabilidad/configuracion/subcuentas',array ('uses' => 'SubcuentaController@index'));
+
+
+Route::resource('subcuenta', 'SubcuentaController');
+Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index'));
+Route::post('contabilidad/librodiario', array('uses'=>'LibroDiarioController@index'));
+Route::get('contabilidad/motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
+
+
+Route::resource('detalleasientos', 'DetalleAsientosController');
+Route::resource('cuentamotivos', 'CuentaMotivosController');
+Route::resource('contabilidad/asientocontable','AsientosController');
+Route::get('contabilidad/crear/asientocontable',array('uses'=>'AsientosController@create'));
 
