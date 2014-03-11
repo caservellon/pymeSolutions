@@ -1,7 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-## CREATED BY SERGIO DIAZ & JORGE CABALLERO
 
 VAGRANTFILE_API_VERSION = "2"
 

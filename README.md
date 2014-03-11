@@ -25,7 +25,7 @@ vagrant ssh
 
 ...
 
-vagrant@precise32:~$ cd /vagrant/pymeSolutions/
+vagrant@precise32:~$ cd /vagrant/pymeSolutionsDev/
 vagrant@precise32:/vagrant/pymeSolutions$ composer install
 
 ```
@@ -38,8 +38,8 @@ Inside the vagrant machine, go to the `scripts` folder and add the +x permission
 
 ```bash
 
-vagrant@precise32:~$ cd /vagrant/pymeSolutions/scripts
-vagrant@precise32:/vagrant/pymeSolutions/scripts$ chmod +x ./run.sh
+vagrant@precise32:~$ cd /vagrant/scripts
+vagrant@precise32:/vagrant/scripts$ chmod +x ./run.sh
 
 ```
 
