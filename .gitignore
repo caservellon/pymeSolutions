@@ -1,13 +1,6 @@
 .DS_Store
 *.bak
-<<<<<<< HEAD
-<<<<<<< HEAD
 /pymeSolutionsDev/nbproject/private/
-=======
 .vagrant/machines/default/virtualbox/*
-
->>>>>>> master
-=======
 .vagrant/
 scripts/logs/install.log
->>>>>>> ventas
