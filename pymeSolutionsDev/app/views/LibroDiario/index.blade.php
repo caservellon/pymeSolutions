@@ -4,8 +4,7 @@
 
 <h1>Libro Diario</h1>
 @if($PeriodoContable->count())
-<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
-<script src="<?php public_path(); ?>/datepicker/js/bootstrap-datepicker.js"></script>
+
 
 
       <div class="well table form-inline">
@@ -18,6 +17,14 @@
 	@include('LibroDiario.table')
 
 </div>
+
+@else
+	No hay periodos contables
+@endif
+@stop
+@section('contabilidad_scripts')
+	<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
+	<script src="<?php public_path(); ?>/datepicker/js/bootstrap-datepicker.js"></script>
 	<script type="text/javascript">
 		var firstTemp = "{{strstr($PeriodoContable->CON_PeriodoContable_FechaInicio,' ',true)}}";
 		firstTemp=firstTemp.split('-');
@@ -48,17 +55,14 @@
 	</script>
 	<script type="text/javascript">
 
-		$(document).ready($('#charge').on('click',function()
-			{
+		$(document).ready($('#charge').on('click',function(){
 
 				$.post('librodiario',{date1:$('#dpd1').val(),date2:$('#dpd2').val()}).then(function(data){
-					$("#LibroDiario").html(data);
+					$('#LibroDiario').html(data);
 				});
-
-
-			}));
+			})
+				
+		);
 	</script>
-@else
-	No hay periodos contables
-@endif
-@stop
+
+	@stop

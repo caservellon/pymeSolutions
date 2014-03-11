@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ClasificacionPeriodo` (
   `CON_ClasificacionPeriodo_CatidadDias` INT NOT NULL,
   `CON_ClasificacionPeriodo_FechaCreacion` DATETIME NOT NULL,
   `CON_ClasificacionPeriodo_FechaModificacion` DATETIME NOT NULL,
-  PRIMARY KEY (`CON_ClasificacionPeriodo_ID`)
+  PRIMARY KEY (`CON_ClasificacionPeriodo_ID`))
 ENGINE = InnoDB;
 
 

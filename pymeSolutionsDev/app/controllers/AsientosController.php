@@ -31,6 +31,25 @@ class AsientosController extends BaseController {
 	 *
 	 * @return Response
 	 */
+	public function cargarcuentas(){
+
+		if(Request::ajax()){
+			$CuentaMotivo= CuentaMotivo::where('CON_MotivoTransaccion_ID','=',Input::get('id'))->get();
+			$Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
+			$Debe=$Debe->CON_CatalogoContable_Nombre;
+			$Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
+			$Haber=$Haber->CON_CatalogoContable_Nombre; 
+			return json_encode(array($Debe,$Haber));
+			//return $CuentaMotivo[0]->CON_CatalogoContable_ID;
+		}
+	}
+
+	public function crearmotivo(){
+		if(Request::ajax()){
+			return View::make('MotivoTransaccion.create');
+		}
+	}
+
 	public function store()
 	{
 		//

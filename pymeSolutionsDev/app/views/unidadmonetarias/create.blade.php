@@ -26,14 +26,18 @@
         </div>
 
 		<div class="form-group">
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+			{{ Form::submit('Crear', array('class' => 'btn btn-info')) }}
 		</div>
 	
 {{ Form::close() }}
 
 
-<script type="text/javascript">
-	$(document).ready(function(){
+
+@stop
+
+@section('contabilidad_scripts')
+    <script type="text/javascript">
+    $(document).ready(function(){
 
         $("input").addClass("form-control");
 

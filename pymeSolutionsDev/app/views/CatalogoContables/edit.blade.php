@@ -34,6 +34,11 @@
 {{ Form::close() }}
 
 
+
+@stop
+
+@section('contabilidad_scripts')
+
 <script type="text/javascript">
     
    $(document).ready( $("#CON_CatalogoContable_Estado").click(function(){

@@ -1,8 +1,6 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
-<script src="<?php public_path(); ?>/datepicker/js/bootstrap-datepicker.js"></script>
 
 <h1>Crear Clasificacion Periodo</h1>
 
@@ -32,11 +30,16 @@
 {{ Form::close() }}
 
 
+
+@stop
+
+@section('contabilidad_scripts')
+
+<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
+<script src="<?php public_path(); ?>/datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-
+  $(document).ready(function(){
         $("input").addClass("form-control");
-
     });
 
 </script>

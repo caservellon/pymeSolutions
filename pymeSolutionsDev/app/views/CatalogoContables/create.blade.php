@@ -29,7 +29,11 @@
 			{{ Form::submit('Crear', array('class' => 'btn btn-info')) }}
 
 {{ Form::close() }}
-<script type="text/javascript">
+
+@stop
+
+@section('contabilidad_scripts')
+    <script type="text/javascript">
 $('#prueba2').on('change', function(){
 var asd = $('#prueba2').val();
 $('#prueba').attr("value",asd);

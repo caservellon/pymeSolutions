@@ -1,8 +1,7 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
-<script src="<?php public_path(); ?>/datepicker/js/bootstrap-datepicker.js"></script>
+
 
 <h1>Editar Periodo contable</h1>
 
@@ -31,10 +30,20 @@
 {{ Form::close() }}
 
 
-<script type="text/javascript">
-	$(document).ready($("input").addClass("form-control"));
 
+@stop
+
+@section('contabilidad_scripts')
+
+<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
+<script src="<?php public_path(); ?>/datepicker/js/bootstrap-datepicker.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+        $("input").addClass("form-control");
+    });
 </script>
+
 <script type="text/javascript">
   $(document).ready(function() {
       var nowTemp = new Date();
@@ -51,4 +60,6 @@
         
   });
 </script>
+
+
 @stop

@@ -96,7 +96,6 @@ Route::resource('contabilidad/configuracion/periodocontable', 'ParamPeriodoConta
 Route::resource('clasificacion-cuentas','ClasificacionCuentaController');
 Route::resource('contabilidad/configuracion/catalogocuentas', 'CatalogoContablesController');
 Route::resource('contabilidad/motivotransaccion', 'MotivoTransaccionsController');
-Route::resource('librodiarios', 'LibroDiarioController');
 
 
 Route::get('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
@@ -106,7 +105,6 @@ Route::get('contabilidad/configuracion/unidadmonetaria',array('uses' => 'UnidadM
 Route::get('contabilidad/configuracion/periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
 Route::get('contabilidad/configuracion/catalogocuentas',array('uses' => 'CatalogoContablesController@index'));
 
-Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index', ));
 Route::get('contabilidad/configuracion/subcuentas',array ('uses' => 'SubcuentaController@index'));
 
 
@@ -118,8 +116,10 @@ Route::get('contabilidad/motivotransaccion',array('uses' => 'MotivoTransaccionsC
 
 Route::resource('detalleasientos', 'DetalleAsientosController');
 Route::resource('cuentamotivos', 'CuentaMotivosController');
+Route::post('contabilidad/crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
 Route::resource('contabilidad/asientocontable','AsientosController');
 Route::get('contabilidad/crear/asientocontable',array('uses'=>'AsientosController@create'));
+Route::post('contabilidad/crear/asientocontable/cargar/cuentas',array('as'=>'cargarcuentas', 'uses'=>'AsientosController@cargarcuentas'));
 
 
 //crm

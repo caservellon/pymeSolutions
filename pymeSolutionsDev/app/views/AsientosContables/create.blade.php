@@ -6,12 +6,12 @@
 
 @include('_messages.errors')
 
-<button class="btn btn-success form-group" data-toggle="modal" data-target="#myModal">
+<button id="crearmotivo" class="btn btn-success form-group" data-toggle="modal" data-target="#CrearMotivo">
   Agregar Motivo
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="CrearMotivo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -22,7 +22,7 @@
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary">Crear</button>
       </div>
     </div>
@@ -38,7 +38,7 @@
 
 	<div class='form-group'>
     	{{ Form::label('CON_MotivoTransaccion_ID', 'MotivoTransaccion:') }}
-        {{ Form::select('CON_MotivoTransaccion_ID',$Motivos,array(),array('class'=>'form-control')) }}
+      {{ Form::select('CON_MotivoTransaccion_ID',$Motivos,array(),array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
     <label>Debe</label>
@@ -61,15 +61,30 @@
 		
 	
 {{ Form::close() }}
-<script type="text/javascript">
+
+
+@stop
+@section('contabilidad_scripts')
+  <script type="text/javascript">
+
+
+
   $(document).ready(function(){
+        $('input').addClass('form-control');
 
-        $("input").addClass("form-control");
+        $('#CON_MotivoTransaccion_ID').on('click',function(){
+         $.post('{{{URL::route("cargarcuentas")}}}',{id:$("#CON_MotivoTransaccion_ID").val()}).success(function(data){
+            data = JSON.parse(data);
+            $("#debe").val(""+data[0]);
+            $('#haber').val("\t"+data[1]);
+          });
+         $('#crearmotivo').on('click',function(){
+            $.post('{{{URL::route("crearmotivo")}}}',{id:'t'}).success(function(data){});
+         });
 
+        });
     });
-
 </script>
-
 @stop
 
 
