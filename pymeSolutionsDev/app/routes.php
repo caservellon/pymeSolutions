@@ -18,7 +18,7 @@ Route::get('/', function(){
 Route::get('/Compras/Parametrizar/SolicitudCotizacion', array(
 	'as' => 'ParametrizarSolicitudCotizacion',
 	function(){
-		return View::make('COM_SolicitudCotizacion.SolicitudCotizacion');
+		return View::make('COM_SolicitudCotizacion.ParametrizarSolicitudCotizacion');
 	}
 ));
 
