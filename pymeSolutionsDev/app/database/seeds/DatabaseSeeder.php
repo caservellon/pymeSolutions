@@ -12,6 +12,9 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		// $this->call('UserTableSeeder');
+<<<<<<< HEAD
+		$this->call('CotizacionsTableSeeder');
+=======
 		$this->call('LibrodiariosTableSeeder');
 
 		$this->call('SubcuentaTableSeeder');
@@ -19,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('MotivotransaccionsTableSeeder');
 		$this->call('CuentamotivosTableSeeder');
 
+>>>>>>> origin
 	}
 
 }

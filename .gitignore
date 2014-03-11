@@ -1,4 +1,8 @@
 .DS_Store
 *.bak
+<<<<<<< HEAD
+/pymeSolutionsDev/nbproject/private/
+=======
 .vagrant/machines/default/virtualbox/*
 
+>>>>>>> master
