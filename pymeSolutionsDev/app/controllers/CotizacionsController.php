@@ -100,8 +100,9 @@ class CotizacionsController extends BaseController {
                             $campoLocal->save();
                             return View::make('ListaValor', compact('suma'));
                         }
-                            $campoLocal->save();
-                        return Redirect::route('parametrizar');
+                        $date = Mensaje::find(1);
+                        $campoLocal->save();
+                        return Redirect::route('mensaje', compact('date'));
 		
                 }
                 $mensaje= Mensaje::find(2);

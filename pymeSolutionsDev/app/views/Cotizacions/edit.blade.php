@@ -25,6 +25,7 @@
                 <div class="col-md-1 col-md-offset-7">{{ Form::submit('Actualizar', array('class' => 'btn btn-default btn-md ')) }}</div>
             </div>
              
+             
                  <div class="form-group">
                      {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre') }}
                      {{ Form::text('GEN_CampoLocal_Nombre') }}

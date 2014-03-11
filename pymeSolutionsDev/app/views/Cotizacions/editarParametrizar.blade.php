@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Configuracion &gt; <small>editar Parametrizar Cotizacion</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Compras/Cotizacions/parametrizar') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>atras</a>
+        <a href="{{{ URL::to('Compras') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>atras</a>
       </div>
 </div>
     <div class="row"> 

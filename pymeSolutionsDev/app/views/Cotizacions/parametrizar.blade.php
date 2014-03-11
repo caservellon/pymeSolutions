@@ -6,7 +6,7 @@
       <h3 class="pull-left">Configuracion &gt; <small>Parametrizar Cotizacion</small></h3>
  
       <div class="pull-right">
-        <a href="{{{ URL::to('Configuracion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>atras</a>
+        <a href="{{{ URL::to('Compras') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>atras</a>
       </div>
 </div>
 
@@ -37,31 +37,45 @@
          </div>
         <br>
     </div>
-    <div class="col-md-4 col-md-offset-1">
+    
         <div class="row">
-        <h4>Campos Locales</h4>
+        
         @if($parametrizar->count())
-            @foreach($parametrizar as $campolocal)
-                <label>{{$campolocal->GEN_CampoLocal_Nombre}}</label>
+            
+            <div class="col-md-3 col-md-offset-1">
+                <h4>Campos Locales</h4>
+                @foreach($parametrizar as $campolocal)
+                    <h5>{{$campolocal->GEN_CampoLocal_Nombre}}</h5>
+                @endforeach
+            </div>
                 
+        <div class="col-md-3 col-md-offset-1">
+            <h4 style="visibility: hidden">.</h4>
+            @foreach($parametrizar as $campolocal)
                 @if($campolocal->GEN_CampoLocal_Activo==1)
+                
                     <h5 class="is-hidden">Activo</h5>
                 @else
                     <h5 class="is-hidden">Inactivo</h5>
                 @endif 
-        @endforeach
+            @endforeach
+        </div>
+                
         @endif
         </div>
-    </div>    
-             <div class="row">
+<div class="col-md-3 col-md-offset-1">
+    <div class="row">
                  <h4>Crear Campos Locales</h4>
-             </div>
-             <!--@inlcude('_menssages.errors')-->
-             @if ($errors->any())
+    </div>
+    @if ($errors->any())
 	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
+		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
 	</ul>
-@endif
+ @endif
+</div>
+             
+             <!--@inlcude('_menssages.errors')-->
+             
              {{ Form::open(array('route' => 'campoLocal', 'class' => "form-horizontal" , 'role' => 'form' )) }}
             <div class="row">
                 
