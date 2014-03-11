@@ -21,11 +21,11 @@ class AperturaCajasController extends BaseController {
 	 */
 	public function abrir($id)
 	{
-
 		$Caja = Caja::find($id);
 		$Periodo = PeriodoCierreDeCaja::find($Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id);
-		//return (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) >= time())?1:2;
-		if (time() <= strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida)) {
+		//return $Periodo->VEN_PeriodoCierreDeCaja_HoraPartida ." " .strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) .
+		//	" " . time(). " -> " . (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) > time());
+		if (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) > time()) {
 
 			$Caja->VEN_Caja_Estado = 0;
 			$Caja->save();
@@ -36,11 +36,12 @@ class AperturaCajasController extends BaseController {
 			$AperturaActual->VEN_FormaPago_Gerente = "Gerente Temporal";
 			$AperturaActual->VEN_FormaPago_Cajero = "Cajero Temporal";
 			$AperturaActual->save();
+
 			return Redirect::route('Ventas.AperturaCajas.index');
 
 		} else {
 			return Redirect::route('Ventas.AperturaCajas.index')->withInput()
-			->withErrors("La caja no se puede abrir.")->with('message', 'La caja no se puede abrir.');;
+			->withErrors("La caja no se puede abrir. El periodo de tiempo no es el correcto.")->with('message', 'La caja no se puede abrir.');;
 		}
 		
 

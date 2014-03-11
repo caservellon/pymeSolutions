@@ -106,7 +106,7 @@ class DescuentosController extends BaseController {
 			$Descuento = $this->Descuento->find($id);
 			$Descuento->update($input);
 
-			return Redirect::route('Ventas.Descuentos.show', $id);
+			return Redirect::route('Ventas.Descuentos.index');
 		}
 
 		return Redirect::route('Ventas.Descuentos.edit', $id)

@@ -106,7 +106,7 @@ class PeriodoCierreDeCajasController extends BaseController {
 			$PeriodoCierreDeCaja = $this->PeriodoCierreDeCaja->find($id);
 			$PeriodoCierreDeCaja->update($input);
 
-			return Redirect::route('Ventas.PeriodoCierreDeCajas.show', $id);
+			return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
 		}
 
 		return Redirect::route('Ventas.PeriodoCierreDeCajas.edit', $id)
