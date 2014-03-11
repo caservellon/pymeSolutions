@@ -3,6 +3,8 @@
 @section('main')
 
 <h1>Edit Subcuentum</h1>
+
+@include('_messages.errors')
 {{ Form::model($Subcuentum, array('action' => array('SubcuentaController@update',$Subcuentum->CON_Subcuenta_ID), 'method' => 'PUT')) }}
 
 	<ul>
@@ -42,11 +44,5 @@
 		</li>
 	</ul>
 {{ Form::close() }}
-
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

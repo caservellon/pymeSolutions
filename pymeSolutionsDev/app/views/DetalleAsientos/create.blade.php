@@ -4,6 +4,8 @@
 
 <h1>Create DetalleAsiento</h1>
 
+@include('_messages.errors')
+
 {{ Form::open(array('url' => 'detalleasientos')) }}
 	<ul>
         <li>
@@ -27,10 +29,5 @@
 	</ul>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

@@ -39,9 +39,9 @@ class CatalogoContablesController extends BaseController {
 	{
 		$clasi = ClasificacionCuenta::all()->lists('CON_ClasificacionCuenta_Nombre','CON_ClasificacionCuenta_ID');
     	$selected = array();
-    	$esta =array('1' => 'Habiltado','0' => 'Deshabiltado' );
+    	$esta =array('1' => 'Activo','0' => 'Inactivo' );
     	$selected2 = array();
-    	$naturaleza  = array('0' => 'Deudor','1' => 'Habilitado' );
+    	$naturaleza  = array('0' => 'Deudor','1' => 'Acreedor' );
     	$selected3 = array();
 		return View::make('CatalogoContables.create',compact('clasi', 'selected','esta','selected2','naturaleza','selected3'));
 	}
@@ -98,7 +98,7 @@ class CatalogoContablesController extends BaseController {
 		}
 		$clasi = ClasificacionCuenta::all()->lists('CON_ClasificacionCuenta_Nombre','CON_ClasificacionCuenta_ID');
     	$selected = array();
-    	$esta =array('1' => 'Habiltado','0' => 'Deshabiltado' );
+    	$esta =array('1' => 'Activo','0' => 'Inactivo' );
     	$selected2 = array();
     	$naturaleza  = array('0' => 'Deudor','1' => 'Acreedor' );
     	$selected3 = array();
@@ -162,12 +162,6 @@ class CatalogoContablesController extends BaseController {
 			->with('message', 'There were validation errors.');*/
 	}
 
-	public function update(){		
-		
-
-
-
-	}
 
 	public function destroy($id)
 	{

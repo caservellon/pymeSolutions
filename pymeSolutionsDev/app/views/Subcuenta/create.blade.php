@@ -2,39 +2,40 @@
 
 @section('main')
 
-<h1>Create Subcuentum</h1>
+<h1>Crear Subcuenta</h1>
 
+@include('_messages.errors')
 
 {{ Form::open(array('url' => 'subcuenta')) }}
-	<ul>
-    
-
-        <li>
-            {{ Form::label('CON_Subcuenta_Codigo', 'CON_Subcuenta_Codigo:') }}
-            {{ Form::text('CON_Subcuenta_Codigo') }}
-        </li>
-
-        <li>
-            {{ Form::label('CON_Subcuenta_Nombre', 'CON_Subcuenta_Nombre:') }}
-            {{ Form::text('CON_Subcuenta_Nombre') }}
-        </li>
-
-        <li>
-            {{ Form::label('CON_CatalogoContable_ID', 'CON_CatalogoContable_ID:') }}
+	
+        <div class="form-group">
+            {{ Form::label('CON_CatalogoContable_ID', 'Subcuenta de:') }}
             {{ Form::select('CON_CatalogoContable_ID', $Catalogo, $selected) }}
-        </li>
+        </div>      
+            {{ Form::label('CON_Subcuenta_Codigo', 'Codigo:') }}
+            {{ Form::text('CON_Subcuenta_Codigo') }}
+        <div class="form-group">
+            {{ Form::label('CON_Subcuenta_Nombre', 'Nombre:') }}
+            {{ Form::text('CON_Subcuenta_Nombre') }}
+        </div>
 
-		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-		</li>
-	</ul>
+            <div class="form-group">
+    
+			{{ Form::submit('Submit', array('class' => 'btn btn-info form-control')) }}
+	       </div>
+	
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+    });
+
+</script>
 
 @stop
 

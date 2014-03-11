@@ -2,52 +2,41 @@
 
 @section('main')
 
-<h1>Create CatalogoContables</h1>
+<h1>Crear nueva cuenta</h1>
 
-@if ($errors->any())
-<div class="bs-callout bs-callout-danger error">
-    <ul >
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-    </div>
-@endif
+@include('_messages.errors')
+
 {{ Form::open(array('url' => 'catalogo-contable')) }}
-	<ul>
-         <li>
+
             {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion Cuenta:') }}
             {{ Form::select('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', $clasi, $selected,array('id'=> 'prueba2')) }}
-        </li>
-
-        <li>
+     
             {{ Form::label('CON_CatalogoContable_Codigo', 'Codigo:') }}
-            {{ Form::text('CON_CatalogoContable_Codigo','',array('maxlength'=>'10',"disabled",'id' => 'prueba')) }}
-        </li>
-
-        <li>
+            {{ Form::text('CON_CatalogoContable_Codigo','',array('maxlength'=>'10','id' => 'prueba')) }}
+   
             {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre:') }}
             {{ Form::text('CON_CatalogoContable_Nombre','',array('maxlength'=>'100')) }}
-        </li>
+  
 
-        <li>
-            {{ Form::label('CON_CatalogoContable_UsuarioCreacion', 'Usuario Creacion:') }}
-            {{ Form::text('CON_CatalogoContable_UsuarioCreacion','Admin',array("disabled")) }}
-        </li>
+             {{ Form::hidden('CON_CatalogoContable_UsuarioCreacion','Admin') }}
 
-        <li>,
             {{ Form::label('CON_CatalogoContable_NaturalezaSaldo', 'Naturaleza Saldo:') }}
             {{ Form::select('CON_CatalogoContable_NaturalezaSaldo', $naturaleza, $selected3) }}
-        </li>
-
-        <li>
+  <div class="form-group">
             {{ Form::label('CON_CatalogoContable_Estado', 'Estado:') }}
             {{ Form::select('CON_CatalogoContable_Estado',$esta,$selected2) }}
-        </li>
+      </div>
+			{{ Form::submit('Crear', array('class' => 'btn btn-info')) }}
 
-		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-		</li>
-	</ul>
 {{ Form::close() }}
 
+<script type="text/javascript">
+    $(document).ready(function(){
 
+        $("input").addClass("form-control");
+        $("select").addClass("form-control");
+
+    });
+
+</script>
 @stop

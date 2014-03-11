@@ -7,7 +7,7 @@ class MotivoTransaccion extends Eloquent {
 	protected $primaryKey = 'CON_MotivoTransaccion_ID';
 
 	public static $rules = array(
-		'CON_MotivoTransaccion_Codigo' => 'required',
+		'CON_MotivoTransaccion_Codigo' => 'required|unique:CON_MotivoTransaccion,CON_MotivoTransaccion_Codigo',
 		'CON_MotivoTransaccion_Descripcion' => 'required'
 	);
 }

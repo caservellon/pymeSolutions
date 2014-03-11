@@ -19,11 +19,20 @@ class LibroDiarioController extends BaseController {
 	 *
 	 * @return Response
 	 */
+	
 	public function index()
 	{
-		$LibroDiarios = $this->LibroDiario->all();
-
-		return View::make('LibroDiario.index', compact('LibroDiarios'));
+		$LibroDiario = $this->LibroDiario->all();
+		if(Request::Ajax()){
+			return View::make('LibroDiario.table')
+				->with('LibroDiario',$LibroDiario);
+		}else{
+			
+			$PeriodoContable = PeriodoContable::first();
+			return View::make('LibroDiario.index')
+				->with('PeriodoContable',$PeriodoContable)
+				->with('LibroDiario',$LibroDiario);
+		}
 	}
 
 	/**

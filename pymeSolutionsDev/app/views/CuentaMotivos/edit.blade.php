@@ -3,6 +3,8 @@
 @section('main')
 
 <h1>Edit CuentaMotivo</h1>
+
+@include('_messages.errors')
 {{ Form::model($CuentaMotivo, array('method' => 'PATCH', 'route' => array('CuentaMotivos.update', $CuentaMotivo->id))) }}
 	<ul>
         <li>
@@ -26,11 +28,5 @@
 		</li>
 	</ul>
 {{ Form::close() }}
-
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

@@ -43,3 +43,5 @@ Route::get('contabilidad/motivotransaccion',array('uses' => 'MotivoTransaccionsC
 
 Route::resource('detalleasientos', 'DetalleAsientosController');
 Route::resource('cuentamotivos', 'CuentaMotivosController');
+Route::resource('contabilidad/asientocontable','AsientosController');
+Route::get('contabilidad/crear/asientocontable',array('uses'=>'AsientosController@create'));

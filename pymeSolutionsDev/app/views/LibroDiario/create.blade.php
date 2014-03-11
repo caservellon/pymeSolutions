@@ -4,7 +4,7 @@
 
 <h1>Create LibroDiario</h1>
 
-{{ Form::open(array('route' => 'LibroDiarios.store')) }}
+{{ Form::open(array('route' => 'AsientosContables.store')) }}
 	<ul>
         <li>
             {{ Form::label('CON_LibroDiario_Observacion', 'CON_LibroDiario_Observacion:') }}

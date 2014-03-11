@@ -1,5 +1,4 @@
-@extends('layouts.layout')
-
+@extends('layouts.scaffold')
 @section('main')
 
 <h1 align="center">Clasificacion Cuentas</h1>
