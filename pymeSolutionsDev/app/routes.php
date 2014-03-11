@@ -13,6 +13,7 @@
 
 Route::get('/', function(){
 	return View::make('hello');
+<<<<<<< HEAD
 });    
 //crea un nuevo estado de orden de compras
 Route::get('/Compras/Configuracion/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
@@ -37,3 +38,28 @@ Route::get('/Compras/Configuracion/TransicionEstado/Lista', array('as'=>'ListaTr
 
 Route::resource('COMEstadoOrdenCompras', 'COMEstadoOrdenCompraController');
 Route::resource('COMTransicionEstado', 'COMTransicionEstadoController');
+=======
+});
+Route::group(array('prefix' => 'Compras'), function(){
+    
+    Route::get('Cotizacions/parametrizar', array('as'=>'parametrizar', 'uses'=> 'CotizacionsController@parametrizar'));
+    Route::get('Cotizacions/mensaje', array('as'=>'mensaje', 'uses'=> 'CotizacionsController@mensaje'));
+    Route::post('Cotizacions/parametrizar/ListaValor', array('as'=>'listavalor', 'uses'=> 'CotizacionsController@lista'));
+    //Route::get('Cotizacions/parametrizar/ListaValor', array('as'=>'listavalorview', 'uses'=> 'CotizacionsController@listavista'));
+//Route::get('parametrizar', 'CotizacionsController@parametrizar');
+    Route::post('Cotizacions/campoLocal', array('as'=>'campoLocal', 'uses'=> 'CotizacionsController@campoLocal'));
+//index de editar parametrizar
+    Route::get('Cotizacions/editarParametrizar', array('as'=>'editarParametrizar', 'uses'=>'CotizacionsController@editarParametrizar'));
+    Route::get('Cotizacions/actualizar', array('as'=>'actualizar', 'uses'=>'CotizacionsController@actualizar'));
+    Route::resource('Cotizacions', 'CotizacionsController');
+});
+//Route::get('Cotizacions/parametrizar', array('as'=>'parametrizar', 'uses'=> 'CotizacionsController@parametrizar'));
+//Route::get('Cotizacions/mensaje', array('as'=>'mensaje', 'uses'=> 'CotizacionsController@mensaje'));
+////Route::get('parametrizar', 'CotizacionsController@parametrizar');
+//Route::post('Cotizacions/campoLocal', array('as'=>'campoLocal', 'uses'=> 'CotizacionsController@campoLocal'));
+////index de editar parametrizar
+//Route::get('Cotizacions/editarParametrizar', array('as'=>'editarParametrizar', 'uses'=>'CotizacionsController@editarParametrizar'));
+//Route::get('Cotizacions/actualizar', array('as'=>'actualizar', 'uses'=>'CotizacionsController@actualizar'));
+//Route::resource('Cotizacions', 'CotizacionsController');
+
+>>>>>>> compras
