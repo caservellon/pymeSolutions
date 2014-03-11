@@ -1,17 +1,17 @@
 <?php
 
-class CajasController extends BaseController {
+class DescuentosController extends BaseController {
 
 	/**
-	 * Caja Repository
+	 * Descuento Repository
 	 *
-	 * @var Caja
+	 * @var Descuento
 	 */
-	protected $Caja;
+	protected $Descuento;
 
-	public function __construct(Caja $Caja)
+	public function __construct(Descuento $Descuento)
 	{
-		$this->Caja = $Caja;
+		$this->Descuento = $Descuento;
 	}
 
 	/**
@@ -21,9 +21,9 @@ class CajasController extends BaseController {
 	 */
 	public function index()
 	{
-		$Cajas = $this->Caja->all();
-		//return $Cajas;
-		return View::make('Cajas.index', compact('Cajas'));
+		$Descuentos = $this->Descuento->all();
+
+		return View::make('Descuentos.index', compact('Descuentos'));
 	}
 
 	/**
@@ -33,8 +33,7 @@ class CajasController extends BaseController {
 	 */
 	public function create()
 	{
-		$periodos = PeriodoCierreDeCaja::lists('VEN_PeriodoCierreDeCaja_Codigo', 'VEN_PeriodoCierreDeCaja_id');
-		return View::make('Cajas.create', compact('periodos'));
+		return View::make('Descuentos.create');
 	}
 
 	/**
@@ -45,17 +44,16 @@ class CajasController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, Caja::$rules);
+		$validation = Validator::make($input, Descuento::$rules);
 
 		if ($validation->passes())
 		{
-		
-			$this->Caja->create($input);
+			$this->Descuento->create($input);
 
-			return Redirect::route('Ventas.Cajas.index');
+			return Redirect::route('Ventas.Descuentos.index');
 		}
 
-		return Redirect::route('Ventas.Cajas.create')
+		return Redirect::route('Ventas.Descuentos.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -69,9 +67,9 @@ class CajasController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$Caja = $this->Caja->findOrFail($id);
+		$Descuento = $this->Descuento->findOrFail($id);
 
-		return View::make('Cajas.show', compact('Caja'));
+		return View::make('Descuentos.show', compact('Descuento'));
 	}
 
 	/**
@@ -82,15 +80,14 @@ class CajasController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$Caja = $this->Caja->find($id);
-		$periodos = PeriodoCierreDeCaja::lists('VEN_PeriodoCierreDeCaja_Codigo', 'VEN_PeriodoCierreDeCaja_id');
+		$Descuento = $this->Descuento->find($id);
 
-		if (is_null($Caja))
+		if (is_null($Descuento))
 		{
-			return Redirect::route('Ventas.Cajas.index');
+			return Redirect::route('Ventas.Descuentos.index');
 		}
 
-		return View::make('Cajas.edit', compact('Caja', 'periodos'));
+		return View::make('Descuentos.edit', compact('Descuento'));
 	}
 
 	/**
@@ -102,17 +99,17 @@ class CajasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Caja::$rules);
+		$validation = Validator::make($input, Descuento::$rules);
 
 		if ($validation->passes())
 		{
-			$Caja = $this->Caja->find($id);
-			$Caja->update($input);
+			$Descuento = $this->Descuento->find($id);
+			$Descuento->update($input);
 
-			return Redirect::route('Ventas.Cajas.index');
+			return Redirect::route('Ventas.Descuentos.show', $id);
 		}
 
-		return Redirect::route('Ventas.Cajas.edit', $id)
+		return Redirect::route('Ventas.Descuentos.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -126,9 +123,9 @@ class CajasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Caja->find($id)->delete();
+		$this->Descuento->find($id)->delete();
 
-		return Redirect::route('Ventas.Cajas.index');
+		return Redirect::route('Ventas.Descuentos.index');
 	}
 
 }
