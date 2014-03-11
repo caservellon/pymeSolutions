@@ -14,6 +14,7 @@
 Route::get('/', function(){
 	return View::make('hello');
 
+
 });
 
 Route::group(array('prefix' => 'Inventario'), function()
@@ -37,6 +38,8 @@ Route::group(array('prefix' => 'Inventario'), function()
 
 });
    
+
+
 //crea un nuevo estado de orden de compras
 Route::get('/Compras/Configuracion/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
 Route::post('/Compras/Configuracion/EstadoOrden/Nuevo',array('as'=>'AlmacenaEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@AlmacenaEstadoOrden'));
@@ -68,9 +71,9 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::get('Cotizacions/mensaje', array('as'=>'mensaje', 'uses'=> 'CotizacionsController@mensaje'));
     Route::post('Cotizacions/parametrizar/ListaValor', array('as'=>'listavalor', 'uses'=> 'CotizacionsController@lista'));
     Route::get('Cotizacions/parametrizar/ListaValor', array('as'=>'listavalorview', 'uses'=> 'CotizacionsController@listavista'));
-Route::get('parametrizar', 'CotizacionsController@parametrizar');
+	Route::get('parametrizar', 'CotizacionsController@parametrizar');
     Route::post('Cotizacions/campoLocal', array('as'=>'campoLocal', 'uses'=> 'CotizacionsController@campoLocal'));
-//index de editar parametrizar
+	//index de editar parametrizar
     Route::get('Cotizacions/editarParametrizar', array('as'=>'editarParametrizar', 'uses'=>'CotizacionsController@editarParametrizar'));
     Route::get('Cotizacions/actualizar', array('as'=>'actualizar', 'uses'=>'CotizacionsController@actualizar'));
     Route::resource('Cotizacions', 'CotizacionsController');
@@ -118,3 +121,12 @@ Route::resource('contabilidad/asientocontable','AsientosController');
 Route::get('contabilidad/crear/asientocontable',array('uses'=>'AsientosController@create'));
 
 
+//crm
+
+Route::resource('Personas', 'PersonasController');
+
+Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
+
+Route::resource('CampoLocals', 'CampoLocalsController');
+
+Route::resource('CampoLocalLista', 'CampoLocalListaController');

@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder {
 
 		// $this->call('UserTableSeeder');
 
+
 		$this->call('CiudadsTableSeeder');
 		$this->call('UnidadmedidasTableSeeder');
 		$this->call('CategoriaTableSeeder');
@@ -22,14 +23,18 @@ class DatabaseSeeder extends Seeder {
 		$this->call('HorariosTableSeeder');
 		$this->call('FormapagosTableSeeder');
 
+
 		$this->call('CotizacionsTableSeeder');
 
 		$this->call('LibrodiariosTableSeeder');
-
 		$this->call('SubcuentaTableSeeder');
 		$this->call('DetalleasientosTableSeeder');
 		$this->call('MotivotransaccionsTableSeeder');
 		$this->call('CuentamotivosTableSeeder');
+		$this->call('PersonasTableSeeder');
+		$this->call('ValorcampolocalcrmsTableSeeder');
+		$this->call('CampolocalsTableSeeder');
+		$this->call('CampolocallistaTableSeeder');
 
 	}
 
