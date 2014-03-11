@@ -1,4 +1,18 @@
 -- -----------------------------------------------------
+-- Table `pymeERP`.`CRM_TipoDocumento`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`CRM_TipoDocumento` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_TipoDocumento` (
+  `CRM_TipoDocumento_ID` INT NOT NULL,
+  `CRM_TipoDocumento_Codigo` VARCHAR(45) NULL,
+  `CRM_TipoDocumento_Nombre` VARCHAR(45) NULL,
+  `CRM_TipoDocumento_Validacion` VARCHAR(50) NULL,
+  PRIMARY KEY (`CRM_TipoDocumento_ID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `pymeERP`.`CRM_Personas`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pymeERP`.`CRM_Personas` ;
@@ -14,7 +28,14 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Personas` (
   `CRM_Personas_Fijo` VARCHAR(45) NULL,
   `CRM_Personas_Descuento` DOUBLE NULL,
   `CRM_Personas_Foto` BLOB NULL,
-  PRIMARY KEY (`CRM_Personas_ID`))
+  `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
+  PRIMARY KEY (`CRM_Personas_ID`),
+  INDEX `fk_CRM_Personas_CRM_TipoDocumento1_idx` (`CRM_TipoDocumento_CRM_TipoDocumento_ID` ASC),
+  CONSTRAINT `fk_CRM_Personas_CRM_TipoDocumento1`
+    FOREIGN KEY (`CRM_TipoDocumento_CRM_TipoDocumento_ID`)
+    REFERENCES `pymeERP`.`CRM_TipoDocumento` (`CRM_TipoDocumento_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -31,11 +52,18 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Empresas` (
   `CRM_Empresas_Logo` BLOB NULL,
   `CRM_Empresas_Descuento` DOUBLE NULL,
   `CRM_Personas_CRM_Personas_ID` INT NULL,
+  `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
   PRIMARY KEY (`CRM_Empresas_ID`),
   INDEX `fk_CRM_Empresas_CRM_Personas1_idx` (`CRM_Personas_CRM_Personas_ID` ASC),
+  INDEX `fk_CRM_Empresas_CRM_TipoDocumento1_idx` (`CRM_TipoDocumento_CRM_TipoDocumento_ID` ASC),
   CONSTRAINT `fk_CRM_Empresas_CRM_Personas1`
     FOREIGN KEY (`CRM_Personas_CRM_Personas_ID`)
     REFERENCES `pymeERP`.`CRM_Personas` (`CRM_Personas_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CRM_Empresas_CRM_TipoDocumento1`
+    FOREIGN KEY (`CRM_TipoDocumento_CRM_TipoDocumento_ID`)
+    REFERENCES `pymeERP`.`CRM_TipoDocumento` (`CRM_TipoDocumento_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -57,14 +85,36 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pymeERP`.`CRM_TipoDocumento`
+-- Table `pymeERP`.`CRM_ValorCampoLocal`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `pymeERP`.`CRM_TipoDocumento` ;
+DROP TABLE IF EXISTS `pymeERP`.`CRM_ValorCampoLocal` ;
 
-CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_TipoDocumento` (
-  `CRM_TipoDocumento_ID` INT NOT NULL,
-  `CRM_TipoDocumento_Codigo` VARCHAR(45) NULL,
-  `CRM_TipoDocumento_Nombre` VARCHAR(45) NULL,
-  PRIMARY KEY (`CRM_TipoDocumento_ID`))
+CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_ValorCampoLocal` (
+  `CRM_ValorCampoLocal_ID` INT NOT NULL AUTO_INCREMENT,
+  `CRM_ValorCampoLocal_Valor` VARCHAR(45) NULL,
+  `CRM_ValorCampoLocal_Creacion` VARCHAR(45) NULL,
+  `CRM_ValorCampoLocal_Modificacion` VARCHAR(45) NULL,
+  `CRM_ValorCampoLocal_Usuario` VARCHAR(45) NULL,
+  `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
+  `CRM_Empresas_CRM_Empresas_ID` INT NULL,
+  `CRM_Personas_CRM_Personas_ID` INT NULL,
+  PRIMARY KEY (`CRM_ValorCampoLocal_ID`),
+  INDEX `fk_CRM_ValorCampoLocal_GEN_CampoLocal1_idx` (`GEN_CampoLocal_GEN_CampoLocal_ID` ASC),
+  INDEX `fk_CRM_ValorCampoLocal_CRM_Empresas1_idx` (`CRM_Empresas_CRM_Empresas_ID` ASC),
+  INDEX `fk_CRM_ValorCampoLocal_CRM_Personas1_idx` (`CRM_Personas_CRM_Personas_ID` ASC),
+  CONSTRAINT `fk_CRM_ValorCampoLocal_GEN_CampoLocal1`
+    FOREIGN KEY (`GEN_CampoLocal_GEN_CampoLocal_ID`)
+    REFERENCES `pymeERP`.`GEN_CampoLocal` (`GEN_CampoLocal_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CRM_ValorCampoLocal_CRM_Empresas1`
+    FOREIGN KEY (`CRM_Empresas_CRM_Empresas_ID`)
+    REFERENCES `pymeERP`.`CRM_Empresas` (`CRM_Empresas_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CRM_ValorCampoLocal_CRM_Personas1`
+    FOREIGN KEY (`CRM_Personas_CRM_Personas_ID`)
+    REFERENCES `pymeERP`.`CRM_Personas` (`CRM_Personas_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-

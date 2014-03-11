@@ -1,3 +1,12 @@
 div.btn-agregar {
 	padding-bottom: 10px;
 }
+
+.control-label {
+	font-weight: bold;
+}
+
+td,th {
+	text-align: center;
+}
+
