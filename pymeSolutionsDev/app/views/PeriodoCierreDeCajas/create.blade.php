@@ -9,7 +9,7 @@
 </div>
 
 
-{{ Form::open(array('route' => 'PeriodoCierreDeCajas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
+{{ Form::open(array('route' => 'Ventas.PeriodoCierreDeCajas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 
 
     <div class="form-group">

@@ -4,10 +4,10 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Periodo de Cierre &gt; <small>Editar Periodo de Cierre de Cajas</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('PeriodoCierreDeCajas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Ventas/PeriodoCierreDeCajas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
-{{ Form::model($PeriodoCierreDeCaja, array('method' => 'PATCH', 'route' => array('PeriodoCierreDeCajas.update', $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_id),'class' => 'form-horizontal', 'role' => 'form')) }}
+{{ Form::model($PeriodoCierreDeCaja, array('method' => 'PATCH', 'route' => array('Ventas.PeriodoCierreDeCajas.update', $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_id),'class' => 'form-horizontal', 'role' => 'form')) }}
 
 
     <div class="form-group">

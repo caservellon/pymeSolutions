@@ -21,18 +21,29 @@ class AperturaCajasController extends BaseController {
 	 */
 	public function abrir($id)
 	{
+
 		$Caja = Caja::find($id);
-		$Caja->VEN_Caja_Estado = 0;
-		$Caja->save();
+		$Periodo = PeriodoCierreDeCaja::find($Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id);
+		//return (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) >= time())?1:2;
+		if (time() <= strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida)) {
 
-		$AperturaActual = new AperturaCaja;
-		$AperturaActual->VEN_Caja_VEN_Caja_id = $id;
-		$AperturaActual->VEN_AperturaCaja_TimeStamp = date("Y-m-d H:i:s");
-		$AperturaActual->VEN_FormaPago_Gerente = "Gerente Temporal";
-		$AperturaActual->VEN_FormaPago_Cajero = "Cajero Temporal";
-		$AperturaActual->save();
+			$Caja->VEN_Caja_Estado = 0;
+			$Caja->save();
 
-		return Redirect::route('Ventas.AperturaCajas.index');
+			$AperturaActual = new AperturaCaja;
+			$AperturaActual->VEN_Caja_VEN_Caja_id = $id;
+			$AperturaActual->VEN_AperturaCaja_TimeStamp = date("Y-m-d H:i:s");
+			$AperturaActual->VEN_FormaPago_Gerente = "Gerente Temporal";
+			$AperturaActual->VEN_FormaPago_Cajero = "Cajero Temporal";
+			$AperturaActual->save();
+			return Redirect::route('Ventas.AperturaCajas.index');
+
+		} else {
+			return Redirect::route('Ventas.AperturaCajas.index')->withInput()
+			->withErrors("La caja no se puede abrir.")->with('message', 'La caja no se puede abrir.');;
+		}
+		
+
 	}
 
 

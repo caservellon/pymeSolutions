@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('CierrecajasTableSeeder');
 		$this->call('PeriodocierredecajasTableSeeder');
 
+		$this->call('DescuentosTableSeeder');
 	}
 
 }

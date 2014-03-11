@@ -25,7 +25,7 @@
                     <td>{{ link_to_route('FormaPagos.edit', 'Edit', array($FormaPago->VEN_FormaPago_id), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('FormaPagos.destroy', $FormaPago->VEN_FormaPago_id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

@@ -4,7 +4,7 @@
 
 <h1>Show PeriodoCierreDeCaja</h1>
 
-<p>{{ link_to_route('PeriodoCierreDeCajas.index', 'Return to all PeriodoCierreDeCajas') }}</p>
+<p>{{ link_to_route('Ventas.PeriodoCierreDeCajas.index', 'Return to all PeriodoCierreDeCajas') }}</p>
 
 <table class="table table-striped table-bordered">
 	<thead>
@@ -24,9 +24,9 @@
 					<td>{{{ $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_ValorHoras }}}</td>
 					<td>{{{ $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_Estado }}}</td>
 					<td>{{{ $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_HoraPartida }}}</td>
-                    <td>{{ link_to_route('PeriodoCierreDeCajas.edit', 'Edit', array($PeriodoCierreDeCaja->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Ventas.PeriodoCierreDeCajas.edit', 'Edit', array($PeriodoCierreDeCaja->id), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('PeriodoCierreDeCajas.destroy', $PeriodoCierreDeCaja->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Ventas.PeriodoCierreDeCajas.destroy', $PeriodoCierreDeCaja->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

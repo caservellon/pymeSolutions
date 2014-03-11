@@ -37,10 +37,10 @@
 					@endif
 					<td>{{ PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_id', $Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id)->first()->VEN_PeriodoCierreDeCaja_Codigo }}</td>
 					<td>{{{ $Caja->VEN_Caja_SaldoInicial }}}</td>
-                    <td>{{ link_to_route('Ventas.Cajas.edit', 'Edit', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Ventas.Cajas.edit', 'Editar', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Ventas.Cajas.destroy', $Caja->VEN_Caja_id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

@@ -4,7 +4,7 @@
 
 <h2 class="sub-header">Listado de Periodo de Cierres</h2>
 <div class="btn-agregar">
-	<a type="button" href="{{ URL::route('PeriodoCierreDeCajas.create') }}" class="btn btn-default">
+	<a type="button" href="{{ URL::route('Ventas.PeriodoCierreDeCajas.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-time"></span> Agregar Periodo
 	</a>
 </div>
@@ -34,11 +34,11 @@
 						<td>Desactivada</td>
 					@endif
 					
-                    <td>{{ link_to_route('PeriodoCierreDeCajas.edit', 'Edit', array($PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_id ), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Ventas.PeriodoCierreDeCajas.edit', 'Editar', array($PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_id ), array('class' => 'btn btn-info')) }}</td>
                     <td>
 
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('PeriodoCierreDeCajas.destroy', $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_id))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Ventas.PeriodoCierreDeCajas.destroy', $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_id))) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

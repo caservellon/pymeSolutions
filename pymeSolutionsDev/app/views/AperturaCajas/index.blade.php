@@ -2,11 +2,19 @@
 
 @section('main')
 
+
 <br>
 
 <h1>Cajas disponibles para Apertura</h1>
 
 <br>
+
+@if ($errors->any())
+	<div class="alert alert-danger">
+      {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+    </div>
+@endif
+
 
 @if ($CajasDisponibles->count())
 	

@@ -20,13 +20,15 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 	Route::get('/', function()
 	{
-		return 'AQUI LUIS';
+		return View::make('Menus.ventas');
 	});
 
 	Route::resource('AperturaCajas', 'AperturacajasController');
 	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturacajasController@abrir'));
 
 	Route::resource('Ventas', 'VentasController');
+
+	Route::resource('Descuentos', 'DescuentosController');
 
 	Route::resource('DetalleDeVenta', 'DetalleDeVentaController');
 

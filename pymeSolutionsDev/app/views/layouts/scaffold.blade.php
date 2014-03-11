@@ -19,7 +19,7 @@
 	            <li><a href="#">Gestión de Caja</a></li>
 	            <li><a href="#">Devoluciones</a></li>
 	            <li class="divider"></li>
-	            <li><a href="#">Configuración</a></li>
+	            <li><a href="/Ventas">Configuración</a></li>
 	          </ul>
 	        </li>
 
