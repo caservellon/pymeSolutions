@@ -62,7 +62,7 @@
 		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 	</ul>
 @endif
-             {{ Form::open(array('route' => 'campoLocal', 'class' => "in-line" , 'role' => 'form' )) }}
+             {{ Form::open(array('route' => 'campoLocal', 'class' => "form-horizontal" , 'role' => 'form' )) }}
             <div class="row">
                 
                 <div class="col-md-1 col-md-offset-7">{{ Form::submit('Guardar', array('class' => 'btn btn-default btn-md')) }}</div>
@@ -77,12 +77,12 @@
                  <div class="form-group">
                      
                      {{ Form::label('GEN_CampoLocal_Tipo', 'Tipo', array('class' => 'col-md-2 control-label')) }}
-                     <div class="col-md-4">
+                     <div class="col-md-5">
                         {{ Form::select('GEN_CampoLocal_Tipo', array('Numerico'=>'Numerico', 'Texto'=>'Texto', 'Float'=>'Float', 'ListaValor'=>'Lista de Valor'), '1',array('class' => 'col-md-4 control-label'));}}
                      </div>
                  </div>
                  <div class="form-group">
-                     <div class="col-md-4">
+                     <div class="col-md-5">
                          {{ Form::checkbox('GEN_CampoLocal_Requerido') }}
                      </div>
                      
@@ -91,7 +91,7 @@
             
                  </div>
                  <div class="form-group">
-                     <div class="col-md-4">
+                     <div class="col-md-5">
                          {{ Form::checkbox('GEN_CampoLocal_ParametroBusqueda') }}
                      </div>
                          
@@ -99,9 +99,9 @@
                      {{ Form::label('GEN_CampoLocal_ParametroBusqueda', 'Parametro de Busqueda', array('class' => 'col-md-2 control-label')) }}
                      <!--{{ Form::select('GEN_CampoLocal_ParametroBusqueda', array('1' => 'Activado', '0' => 'Desactivado')) }}-->
                  </div>
-                 <div class="col-md-4">
-                     <div class="">
-                         {{ Form::checkbox('GEN_CampoLocal_Activo') }}
+                 <div class="form-group">
+                     <div class="col-md-5">
+                         {{ Form::checkbox('GEN_CampoLocal_Activo','1',true) }}
                      </div>
                      
                      {{ Form::label('GEN_CampoLocal_Activo', 'Activo', array('class' => 'col-md-2 control-label')) }}
