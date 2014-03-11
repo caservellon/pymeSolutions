@@ -33,7 +33,7 @@
               <li><a href="#">Cotizaciones</a></li>
               <li><a href="#">Ordenes de Compras</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li><a href="/Compras">Configuración</a></li>
             </ul>
           </li>
 
