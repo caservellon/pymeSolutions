@@ -23,15 +23,32 @@ class LibroDiarioController extends BaseController {
 	public function index()
 	{
 		$LibroDiario = $this->LibroDiario->all();
+		$Asientos=array();
+		foreach ($LibroDiario as $Asiento) {
+			$Cuentas=CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
+			$Debe= CatalogoContable::find($Cuentas[0]->CON_CatalogoContable_ID);
+			$Debe=$Debe->CON_CatalogoContable_Nombre;
+			$Haber = CatalogoContable::find($Cuentas[1]->CON_CatalogoContable_ID);
+			$Haber=$Haber->CON_CatalogoContable_Nombre; 
+			$Asientos[$Asiento->CON_LibroDiario_ID][0]=array(
+				'no'=> $Asiento->CON_LibroDiario_ID,
+				'fecha'=> $Asiento->CON_LibroDiario_FechaCreacion,
+				'cuenta'=>$Debe,
+				'observacion'=>$Asiento->CON_LibroDiario_Observacion,
+				'monto'=>$Asiento->CON_LibroDiario_Monto);
+			$Asientos[$Asiento->CON_LibroDiario_ID][1]=array(
+				'cuenta'=>"\t".$Haber,
+				'monto'=> $Asiento->CON_LibroDiario_Monto);
+		}
 		if(Request::Ajax()){
 			return View::make('LibroDiario.table')
 				->with('LibroDiario',$LibroDiario);
 		}else{
 			
-			$PeriodoContable = PeriodoContable::first();
+			$PeriodoContable = PeriodoContable::orderBy('CON_PeriodoContable_FechaInicio')->first();
 			return View::make('LibroDiario.index')
 				->with('PeriodoContable',$PeriodoContable)
-				->with('LibroDiario',$LibroDiario);
+				->with('LibroDiario',$Asientos);
 		}
 	}
 
@@ -52,20 +69,7 @@ class LibroDiarioController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, LibroDiario::$rules);
-
-		if ($validation->passes())
-		{
-			$this->LibroDiario->create($input);
-
-			return Redirect::route('LibroDiarios.index');
-		}
-
-		return Redirect::route('LibroDiarios.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		
 	}
 
 	/**

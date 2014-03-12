@@ -134,36 +134,16 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_LibroDiario` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_LibroDiario` (
   `CON_LibroDiario_ID` INT NOT NULL AUTO_INCREMENT,
-  `CON_LibroDiario_Observacion` VARCHAR(255) NULL,
+  `CON_LibroDiario_Observacion` VARCHAR(255) NULL DEFAULT NULL,
   `CON_LibroDiario_FechaCreacion` DATETIME NOT NULL,
   `CON_LibroDiario_FechaModificacion` DATETIME NOT NULL,
-  PRIMARY KEY (`CON_LibroDiario_ID`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pymeERP`.`CON_DetalleAsiento`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pymeERP`.`CON_DetalleAsiento` ;
-
-CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_DetalleAsiento` (
-  `CON_DetalleAsiento_ID` INT NOT NULL AUTO_INCREMENT,
   `CON_DetalleAsiento_Monto` FLOAT NOT NULL,
-  `CON_DetalleAsiento_FechaCreacion` DATETIME NOT NULL,
-  `CON_DetalleAsiento_FechaModificacion` DATETIME NOT NULL,
   `CON_MotivoTransaccion_ID` INT NOT NULL,
-  `CON_LibroDiario_ID` INT NOT NULL,
-  PRIMARY KEY (`CON_DetalleAsiento_ID`),
-  INDEX `CON_MotivoTransaccion_ID_idx` (`CON_MotivoTransaccion_ID` ASC),
-  INDEX `CON_LibroDiario_ID_idx` (`CON_LibroDiario_ID` ASC),
-  CONSTRAINT `fk_CON_MotivoTransaccion_ID`
+  PRIMARY KEY (`CON_LibroDiario_ID`),
+  INDEX `fk_CON_LibroDiario_CON_MotivoTransaccion1_idx` (`CON_MotivoTransaccion_ID` ASC),
+  CONSTRAINT `fk_CON_LibroDiario_CON_MotivoTransaccion1`
     FOREIGN KEY (`CON_MotivoTransaccion_ID`)
     REFERENCES `pymeERP`.`CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_CON_LibroDiario_ID`
-    FOREIGN KEY (`CON_LibroDiario_ID`)
-    REFERENCES `pymeERP`.`CON_LibroDiario` (`CON_LibroDiario_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

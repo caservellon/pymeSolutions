@@ -8,6 +8,13 @@ class AsientosController extends BaseController {
 	 * @return Response
 	 */
 
+	protected $LibroDiario;
+
+	public function __construct(LibroDiario $LibroDiario)
+	{
+		$this->LibroDiario = $LibroDiario;
+	}
+
 	public function index()
 	{
 		$Asientos = LibroDiario::all();
@@ -55,7 +62,22 @@ class AsientosController extends BaseController {
 
 	public function store()
 	{
-		//
+		$input = Input::all();
+		$validation = Validator::make($input, LibroDiario::$rules);
+
+		if ($validation->passes())
+		{
+			$input['CON_LibroDiario_FechaCreacion']= date('Y-m-d');
+			$input['CON_LibroDiario_FechaModificacion'] =date('Y-m-d');
+			$this->LibroDiario->create($input);
+
+			return Redirect::action('LibroDiarioController@index');
+		}
+
+		return Redirect::action('AsientosController@create')
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
 	}
 
 	/**

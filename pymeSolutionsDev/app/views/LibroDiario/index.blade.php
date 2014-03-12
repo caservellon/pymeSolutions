@@ -2,11 +2,9 @@
 
 @section('main')
 
-<h1>Libro Diario</h1>
-@if($PeriodoContable->count()>1)
 
-
-
+@if($PeriodoContable!=null && $PeriodoContable->count())
+	<h1>Libro Diario</h1>
       <div class="well table form-inline">
             <label>Fecha Inicio:</label> <input type="text" class="span2 form-control" value="" id="dpd1">
             <label>Fecha Final:</label> <input type="text" class="span2 form-control" value="" id="dpd2">
@@ -18,10 +16,7 @@
 
 </div>
 
-@else
-	No hay periodos contables
-	<a href="{{{URL::to('periodocontable')}}}">Crear Nuevo Periodo</a>
-@endif
+
 @stop
 @section('contabilidad_scripts')
 	<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
@@ -67,3 +62,10 @@
 	</script>
 
 	@stop
+	@else
+	<div align="center" class="well container col-md-8 col-md-offset-2">
+	
+	<h3>No hay periodos contables</h3>
+	<a class='btn btn-info btn-lg' href="{{{URL::route('periodocontable')}}}">Crear Nuevo Periodo</a>
+	</div>	
+@endif

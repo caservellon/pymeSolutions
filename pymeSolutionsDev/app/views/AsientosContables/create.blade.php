@@ -38,7 +38,7 @@
 
 	<div class='form-group'>
     	{{ Form::label('CON_MotivoTransaccion_ID', 'MotivoTransaccion:') }}
-      {{ Form::select('CON_MotivoTransaccion_ID',$Motivos,array(),array('class'=>'form-control')) }}
+      {{ Form::select('CON_MotivoTransaccion_ID',$Motivos,'',array('class'=>'form-control')) }}
     </div>
     <div class="form-group">
     <label>Debe</label>
@@ -47,8 +47,8 @@
     	<input id="haber" type="text" disabled="">
     </div> 
     <div class="form-group">
-      {{ Form::label('CON_DetalleAsiento_Monto', 'Importe:') }}
-      {{ Form::input('number', 'CON_DetalleAsiento_Monto') }}
+      {{ Form::label('CON_LibroDiario_Monto', 'Importe:') }}
+      {{ Form::input('text', 'CON_LibroDiario_Monto','',array('placeholder'=>'.##')) }}
 
     </div> 
 	<div class='form-group'>    
@@ -82,7 +82,6 @@
               $('#div_crearmotivo').html(data);
             });
          });
-
 
     });
 </script>
