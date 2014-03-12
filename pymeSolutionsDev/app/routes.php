@@ -123,14 +123,19 @@ Route::get('contabilidad/crear/asientocontable',array('uses'=>'AsientosControlle
 
 
 //crm
+Route::group(array('prefix' => 'CRM'), function(){
+	Route::get('/',function(){
+		return View::make('Menus.crm');
+	});
+	Route::resource('Personas', 'PersonasController');
 
-Route::resource('Personas', 'PersonasController');
+	Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
 
-Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
+	Route::resource('CampoLocals', 'CampoLocalsController');
 
-Route::resource('CampoLocals', 'CampoLocalsController');
+	Route::resource('CampoLocalLista', 'CampoLocalListaController');
+});
 
-Route::resource('CampoLocalLista', 'CampoLocalListaController');
 
 
 Route::group(array('prefix' => 'Ventas'), function(){
