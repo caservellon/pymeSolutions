@@ -1,11 +1,7 @@
 
 
 
-@if(Request::ajax())
-	<p><strong>Is ajax request </strong> </p>
-@endif
-
-@if ($LibroDiario!=null)
+@if ($LibroDiario!=array())
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>

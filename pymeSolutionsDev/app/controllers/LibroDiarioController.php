@@ -22,7 +22,24 @@ class LibroDiarioController extends BaseController {
 	
 	public function index()
 	{
-		$LibroDiario = $this->LibroDiario->all();
+		
+		if(Request::Ajax()){
+			$LibroDiario = $this->LibroDiario->where('CON_LibroDiario_FechaCreacion','>=',Input::get('date1')
+				,'and','CON_LibroDiario_FechaCreacion','<=',Input::get('date2'))->get();
+			$Asientos=$this->getAsientos($LibroDiario);
+			return View::make('LibroDiario.table')
+				->with('LibroDiario',$Asientos);
+		}else{
+			$LibroDiario = $this->LibroDiario->all();
+			$Asientos=$this->getAsientos($LibroDiario);
+			$PeriodoContable = PeriodoContable::orderBy('CON_PeriodoContable_FechaInicio')->first();
+			return View::make('LibroDiario.index')
+				->with('PeriodoContable',$PeriodoContable)
+				->with('LibroDiario',$Asientos);
+		}
+	}
+
+	protected function getAsientos($LibroDiario){
 		$Asientos=array();
 		foreach ($LibroDiario as $Asiento) {
 			$Cuentas=CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
@@ -40,16 +57,7 @@ class LibroDiarioController extends BaseController {
 				'cuenta'=>"\t".$Haber,
 				'monto'=> $Asiento->CON_LibroDiario_Monto);
 		}
-		if(Request::Ajax()){
-			return View::make('LibroDiario.table')
-				->with('LibroDiario',$LibroDiario);
-		}else{
-			
-			$PeriodoContable = PeriodoContable::orderBy('CON_PeriodoContable_FechaInicio')->first();
-			return View::make('LibroDiario.index')
-				->with('PeriodoContable',$PeriodoContable)
-				->with('LibroDiario',$Asientos);
-		}
+		return $Asientos;
 	}
 
 	/**
