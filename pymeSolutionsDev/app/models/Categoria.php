@@ -18,7 +18,7 @@ class Categoria extends Eloquent {
 		'INV_Categoria_FechaModificacion' => '',
 		'INV_Categoria_UsuarioModificacion' => '',
 		'INV_Categoria_Activo' => '',
-		'INV_Categoria_IDCategoriaPadre' => 'required|Integer',
+		'INV_Categoria_IDCategoriaPadre' => 'Integer',
 		'INV_Categoria_HorarioDescuento_ID' => 'required|Integer'
 	);
 }
