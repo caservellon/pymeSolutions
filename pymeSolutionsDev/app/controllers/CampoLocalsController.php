@@ -21,7 +21,7 @@ class CampoLocalsController extends BaseController {
 	 */
 	public function index()
 	{
-		$CampoPersonas = $this->CampoLocal->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get();
+		$CampoPersonas = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get();
 		$CampoEmpresas = $this->CampoLocal->where('GEN_CampoLocal_Codigo','LIKE','CRM_EP%')->get();
 		$CampoLocal = $this->CampoLocal->all();
 		return View::make('CampoLocals.index', array(
@@ -115,7 +115,7 @@ class CampoLocalsController extends BaseController {
 		
 
 		$validation = true;
-		$Campo = new CampoLocal;
+		$Campo = CampoLocal::find($id);
 		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
@@ -130,7 +130,7 @@ class CampoLocalsController extends BaseController {
 		if ($validation)
 		{
 			$Campo->save();
-			return Redirect::route('CampoLocals.show', $id);
+			return Redirect::route('CampoLocals.index');
 		}
 
 		return Redirect::route('CampoLocals.edit', $id)
@@ -147,8 +147,10 @@ class CampoLocalsController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->CampoLocal->find($id)->delete();
-
+		$CampoLocal = CampoLocal::find($id);
+		$CampoLocal->GEN_CampoLocal_Activo = 0;
+		$CampoLocal->save();
+		
 		return Redirect::route('CampoLocals.index');
 	}
 
