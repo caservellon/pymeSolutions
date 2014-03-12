@@ -89,37 +89,51 @@ Route::get('Cotizacions/actualizar', array('as'=>'actualizar', 'uses'=>'Cotizaci
 Route::resource('Cotizacions', 'CotizacionsController');
 
 
+Route::group(array('prefix' => 'contabilidad'),function(){
+			Route::get('/',function ()
+			{
+				return View::make('Menus.contabilidad');
+			});
+			
+			Route::resource('clasificacioncuentas','ClasificacionCuentaController');
+			Route::resource('motivotransaccion', 'MotivoTransaccionsController');
+			Route::resource('detalleasientos', 'DetalleAsientosController');
+			Route::resource('cuentamotivos', 'CuentaMotivosController');
+			Route::resource('subcuenta', 'SubcuentaController');
+			Route::resource('asientocontable','AsientosController');
+
+			Route::get('librodiario',array('uses' => 'LibroDiarioController@index'));
+			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
+			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
+			
+			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
+			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));			
+			Route::post('crear/asientocontable/cargar/cuentas',array('as'=>'cargarcuentas', 'uses'=>'AsientosController@cargarcuentas'));
 
 
-Route::resource('contabilidad/configuracion/unidadmonetaria', 'UnidadMonetariaController');
-Route::resource('contabilidad/configuracion/periodocontable', 'ParamPeriodoContableController');
-Route::resource('clasificacion-cuentas','ClasificacionCuentaController');
-Route::resource('contabilidad/configuracion/catalogocuentas', 'CatalogoContablesController');
-Route::resource('contabilidad/motivotransaccion', 'MotivoTransaccionsController');
+	});
+Route::group(array('prefix'=>'contabilidad/configuracion'),function ($value='')
+{
+	Route::get('/',function(){
+				return View::make('Menus.config_contabilidad');
+	});
+	Route::resource('unidadmonetaria', 'UnidadMonetariaController');
+	Route::resource('periodocontable', 'ParamPeriodoContableController');
+	Route::resource('catalogocuentas', 'CatalogoContablesController');
+
+	Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
+	Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
+	Route::get('subcuentas',array ('as'=>'subcuentas', 'uses' => 'SubcuentaController@index'));
+	//Route::post('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
+});
 
 
-Route::get('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
-Route::get('contabilidad',array('uses' => 'ContabilidadController@index'));
-Route::get('contabilidad/configuracion',array('uses' => 'ContabilidadController@config'));
-Route::get('contabilidad/configuracion/unidadmonetaria',array('uses' => 'UnidadMonetariaController@index'));
-Route::get('contabilidad/configuracion/periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
-Route::get('contabilidad/configuracion/catalogocuentas',array('uses' => 'CatalogoContablesController@index'));
-
-Route::get('contabilidad/configuracion/subcuentas',array ('uses' => 'SubcuentaController@index'));
 
 
-Route::resource('subcuenta', 'SubcuentaController');
-Route::get('contabilidad/librodiario',array('uses' => 'LibroDiarioController@index'));
-Route::post('contabilidad/librodiario', array('uses'=>'LibroDiarioController@index'));
-Route::get('contabilidad/motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
 
 
-Route::resource('detalleasientos', 'DetalleAsientosController');
-Route::resource('cuentamotivos', 'CuentaMotivosController');
-Route::post('contabilidad/crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
-Route::resource('contabilidad/asientocontable','AsientosController');
-Route::get('contabilidad/crear/asientocontable',array('uses'=>'AsientosController@create'));
-Route::post('contabilidad/crear/asientocontable/cargar/cuentas',array('as'=>'cargarcuentas', 'uses'=>'AsientosController@cargarcuentas'));
+
+
 
 
 //crm

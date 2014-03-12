@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Libro Diario</h1>
-@if($PeriodoContable->count())
+@if($PeriodoContable->count()>1)
 
 
 
@@ -20,6 +20,7 @@
 
 @else
 	No hay periodos contables
+	<a href="{{{URL::to('periodocontable')}}}">Crear Nuevo Periodo</a>
 @endif
 @stop
 @section('contabilidad_scripts')
