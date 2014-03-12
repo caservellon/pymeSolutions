@@ -18,7 +18,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">Agregar Motivo</h4>
       </div>
-      <div class="modal-body">
+      <div id="div_crearmotivo" class="modal-body">
         ...
       </div>
       <div class="modal-footer">
@@ -67,22 +67,23 @@
 @section('contabilidad_scripts')
   <script type="text/javascript">
 
-
-
   $(document).ready(function(){
         $('input').addClass('form-control');
 
         $('#CON_MotivoTransaccion_ID').on('click',function(){
          $.post('{{{URL::route("cargarcuentas")}}}',{id:$("#CON_MotivoTransaccion_ID").val()}).success(function(data){
-            data = JSON.parse(data);
-            $("#debe").val(""+data[0]);
-            $('#haber').val("\t"+data[1]);
+            $("#debe").val(""+data.v1);
+            $('#haber').val("\t"+data.v2);
           });
+        });
          $('#crearmotivo').on('click',function(){
-            $.post('{{{URL::route("crearmotivo")}}}',{id:'t'}).success(function(data){});
+            $.post('{{{URL::route("crearmotivo")}}}',{}).success(function(data){
+
+              $('#div_crearmotivo').html(data);
+            });
          });
 
-        });
+
     });
 </script>
 @stop

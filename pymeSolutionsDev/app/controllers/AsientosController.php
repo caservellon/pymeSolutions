@@ -39,8 +39,11 @@ class AsientosController extends BaseController {
 			$Debe=$Debe->CON_CatalogoContable_Nombre;
 			$Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
 			$Haber=$Haber->CON_CatalogoContable_Nombre; 
-			return json_encode(array($Debe,$Haber));
-			//return $CuentaMotivo[0]->CON_CatalogoContable_ID;
+			//return json_encode(array($Debe,$Haber));
+			return Response::json(array(
+				'v1'=> $Debe,
+				'v2'=> $Haber
+				));
 		}
 	}
 

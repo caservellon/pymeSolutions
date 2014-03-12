@@ -60,10 +60,10 @@ class CatalogoContablesController extends BaseController {
 		{
 			$this->CatalogoContable->create($input);
 
-			return Redirect::route('catalogo-contable.index');
+			return Redirect::action('CatalogoContablesController@index');
 		}
 
-		return Redirect::route('catalogo-contable.create')
+		return Redirect::action('CatalogoContablesController@create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
