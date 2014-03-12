@@ -31,7 +31,7 @@
             <div class="form-group">
             {{ Form::label('COM_EstadoOrdenCompra_Activo', 'Activo:') }}
             <div class="col-md-0">
-            {{ Form::checkbox('COM_EstadoOrdenCompra_Activo') }}
+            {{ Form::checkbox('COM_EstadoOrdenCompra_Activo','1',true) }}
             </div>
             </div>
                     <div class="form-group">

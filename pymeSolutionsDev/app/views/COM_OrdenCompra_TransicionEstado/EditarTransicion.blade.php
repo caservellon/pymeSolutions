@@ -48,7 +48,7 @@
                 {{ Form::textarea('COM_OrdenCompra_TransicionEstado_Observacion') }}
             </td>
             <td>
-		{{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+		{{ Form::submit('Compras.Actualizar', array('class' => 'btn btn-info')) }}
             </td>
              </tbody>
              </table>

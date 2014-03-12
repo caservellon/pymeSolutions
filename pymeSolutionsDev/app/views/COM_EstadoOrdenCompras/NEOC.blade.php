@@ -49,7 +49,7 @@
 
             <li>
                 {{ Form::label('COM_EstadoOrdenCompra_Activo', 'Activo:') }}
-                {{ Form::checkbox('COM_EstadoOrdenCompra_Activo') }}
+                {{ Form::checkbox('COM_EstadoOrdenCompra_Activo','1',true) }}
             </li>
             <li>
 		{{ Form::submit('Crear', array('class' => 'btn btn-info')) }}

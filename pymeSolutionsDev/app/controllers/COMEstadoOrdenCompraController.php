@@ -33,7 +33,7 @@ class COMEstadoOrdenCompraController extends BaseController
     }
     public function index()
     {
-        $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::paginate();
+        $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstadoOrdenCompra', '>', 5)->paginate();
          return View::make('COM_EstadoOrdenCompras.LEOC')->with('data1', $COM_EstadoOrdenCompra);
     }
 
