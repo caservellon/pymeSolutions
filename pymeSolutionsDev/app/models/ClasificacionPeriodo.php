@@ -10,7 +10,7 @@ class ClasificacionPeriodo extends Eloquent {
 
 	public static $rules = array(
 			//'CON_ClasificacionPeriodo_ID' => 'required|integer',
-			'CON_ClasificacionPeriodo_Nombre' => 'required|max:45|alpha',
+			'CON_ClasificacionPeriodo_Nombre' => 'required|max:45|alpha_spaces',
 			'CON_ClasificacionPeriodo_CatidadDias' => 'required|integer|max:366',
 			'CON_PeriodoContable_FechaInicio' => 'required|date_format:Y-m-d'
 

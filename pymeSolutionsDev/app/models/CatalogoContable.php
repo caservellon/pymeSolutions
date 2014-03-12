@@ -15,7 +15,7 @@ class CatalogoContable extends Eloquent {
 	public static $rules = array(
 		//'CON_CatalogoContable_ID' => 'required',
 		'CON_CatalogoContable_Codigo' => 'required|numeric',
-		'CON_CatalogoContable_Nombre' => 'required|max:45|alpha',
+		'CON_CatalogoContable_Nombre' => 'required|max:45|alpha_spaces',
 		'CON_CatalogoContable_UsuarioCreacion' => 'required',
 		'CON_CatalogoContable_NaturalezaSaldo' => 'required',
 		'CON_CatalogoContable_Estado' => 'required',

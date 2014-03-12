@@ -112,7 +112,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 
 
 	});
-Route::group(array('prefix'=>'contabilidad/configuracion'),function ($value='')
+Route::group(array('prefix'=>'contabilidad/configuracion'),function ()
 {
 	Route::get('/',function(){
 				return View::make('Menus.config_contabilidad');
