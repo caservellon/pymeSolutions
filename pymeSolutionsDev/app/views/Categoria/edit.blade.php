@@ -29,7 +29,7 @@
     <div class="form-group">
       {{ Form::label('INV_Categoria_IDCategoriaPadre', 'ID Categoría Padre: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Categoria_IDCategoriaPadre',$Categoria->INV_Categoria_IDCategoriaPadre, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_Categoria_IDCategoriaPadre', $tipos, $Categoria->INV_Categoria_IDCategoriaPadre, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
