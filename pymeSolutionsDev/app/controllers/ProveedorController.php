@@ -33,7 +33,8 @@ class ProveedorController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('Proveedor.create');
+		$ciudades = Ciudad::all()->lists('INV_Ciudad_Nombre', 'INV_Ciudad_ID');
+		return View::make('Proveedor.create', compact('ciudades'));
 	}
 
 	/**
@@ -81,13 +82,13 @@ class ProveedorController extends BaseController {
 	public function edit($id)
 	{
 		$Proveedor = $this->Proveedor->find($id);
-
+		$ciudades = Ciudad::all()->lists('INV_Ciudad_Nombre', 'INV_Ciudad_ID');
 		if (is_null($Proveedor))
 		{
-			return Redirect::route('Inventario.Proveedor.index');
+			return Redirect::route('Inventario.Proveedor.index', compact('ciudades'));
 		}
 
-		return View::make('Proveedor.edit', compact('Proveedor'));
+		return View::make('Proveedor.edit', compact('Proveedor', 'ciudades'));
 	}
 
 	/**

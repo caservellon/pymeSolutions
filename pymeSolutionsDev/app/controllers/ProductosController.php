@@ -33,7 +33,11 @@ class ProductosController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('Productos.create');
+		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+      	$combobox = $tipos;
+      	$unidad = UnidadMedida::all()->lists('INV_UnidadMedida_Nombre', 'INV_UnidadMedida_ID');
+      	$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
+		return View::make('Productos.create', compact('combobox', 'horarios', 'unidad'));
 	}
 
 	/**
@@ -81,13 +85,17 @@ class ProductosController extends BaseController {
 	public function edit($id)
 	{
 		$Producto = $this->Producto->find($id);
-
+		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+      	$combobox = $tipos;
+      	$unidad = UnidadMedida::all()->lists('INV_UnidadMedida_Nombre', 'INV_UnidadMedida_ID');
+      	$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
+		
 		if (is_null($Producto))
 		{
-			return Redirect::route('Inventario.Productos.index');
+			return Redirect::route('Inventario.Productos.index', compact('combobox', 'horarios', 'unidad'));
 		}
 
-		return View::make('Productos.edit', compact('Producto'));
+		return View::make('Productos.edit', compact('Producto', 'combobox', 'horarios', 'unidad'));
 	}
 
 	/**

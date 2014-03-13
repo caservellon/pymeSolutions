@@ -74,7 +74,7 @@
     <div class="form-group">
       {{ Form::label('INV_Ciudad_ID', 'Ciudad ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Ciudad_ID',null, array('class' => 'form-control', 'id' => 'INV_Ciudad_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_Ciudad_ID', $ciudades, null, array('class' => 'form-control', 'id' => 'INV_Ciudad_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
