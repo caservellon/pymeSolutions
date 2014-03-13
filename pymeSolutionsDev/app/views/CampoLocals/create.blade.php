@@ -10,7 +10,7 @@
 </div>
 
 
-{{ Form::open(array('route' => 'CampoLocals.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
+{{ Form::open(array('route' => 'CRM.CampoLocals.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">

@@ -63,10 +63,10 @@ class CampoLocalsController extends BaseController {
 		if ($validation)
 		{
 			$Campo->save();
-			return Redirect::route('CampoLocals.index');
+			return Redirect::route('CRM.CampoLocals.index');
 		}
 
-		return Redirect::route('CampoLocals.create')
+		return Redirect::route('CRM.CampoLocals.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -97,7 +97,7 @@ class CampoLocalsController extends BaseController {
 
 		if (is_null($CampoLocal))
 		{
-			return Redirect::route('CampoLocals.index');
+			return Redirect::route('CRM.CampoLocals.index');
 		}
 		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'CRM_EP', 6) == 0? 'EP':'PS';
 		
@@ -130,10 +130,10 @@ class CampoLocalsController extends BaseController {
 		if ($validation)
 		{
 			$Campo->save();
-			return Redirect::route('CampoLocals.index');
+			return Redirect::route('CRM.CampoLocals.index');
 		}
 
-		return Redirect::route('CampoLocals.edit', $id)
+		return Redirect::route('CRM.CampoLocals.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -151,7 +151,7 @@ class CampoLocalsController extends BaseController {
 		$CampoLocal->GEN_CampoLocal_Activo = 0;
 		$CampoLocal->save();
 		
-		return Redirect::route('CampoLocals.index');
+		return Redirect::route('CRM.CampoLocals.index');
 	}
 
 }

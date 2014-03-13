@@ -8,7 +8,7 @@
       </div>
 </div>
 
-{{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('CampoLocals.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
+{{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('CRM.CampoLocals.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
@@ -55,7 +55,7 @@
     <div class="form-group">
       <div class="col-md-5 ">
             {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('CampoLocals.show', 'Cancel', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
+            {{ link_to_route('CRM.CampoLocals.show', 'Cancel', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
       </div>
     </div>
 
