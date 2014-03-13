@@ -21,6 +21,7 @@ class COMEstadoOrdenCompraController extends BaseController
                $estadoOrden= new COM_EstadoOrdenCompra;
                $estadoOrden->COM_EstadoOrdenCompra_Nombre=Input::get('COM_EstadoOrdenCompra_Nombre');
                $estadoOrden->COM_EstadoOrdenCompra_Observacion=Input::get('COM_EstadoOrdenCompra_Observacion');
+               $estadoOrden->COM_EstadoOrdenCompra_Activo=Input::get('COM_EstadoOrdenCompra_Activo');
                 if(Input::has('COM_EstadoOrdenCompra_Activo')){
                      $estadoOrden->COM_EstadoOrdenCompra_Activo=1;
                 }else{

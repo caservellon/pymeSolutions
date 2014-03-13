@@ -1,7 +1,7 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<h2 class="sub-header"></h2>
+<h2 class="sub-header">Editar Estado Orden Compra</h2>
 <div class="btn-agregar">
 	<a type="button" href="" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Configuración <small>>Parametrizar>Estados Orden de Compra</small>

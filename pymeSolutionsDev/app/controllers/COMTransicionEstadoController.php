@@ -16,7 +16,7 @@ class COMTransicionEstadoController extends BaseController {
         public function NuevaTransicionEstado()
         {
             $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::find(Input::get('id'));
-            $Eanterior=COM_EstadoOrdenCompra::lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
+            $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
 
 		if (is_null($COM_EstadoOrdenCompra))
 		{
@@ -31,14 +31,33 @@ class COMTransicionEstadoController extends BaseController {
             $input=Input::all();
             $validacion=Validator::make($input,  COMOrdenCompraTransicionEstado::$reglas);
             if($validacion->passes()){
-               $model=new COMOrdenCompraTransicionEstado; 
-                $model->COM_OrdenCompra_TransicionEstado_EstadoPrevio=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPrevio');
-                $model->COM_OrdenCompra_TransicionEstado_EstadoPosterior=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPosterior');
-                $model->COM_OrdenCompra_TransicionEstado_EstadoActual=Input::get('COM_OrdenCompra_TransicionEstado_EstadoActual');
-                $model->COM_OrdenCompra_TransicionEstado_Observacion=Input::get('COM_OrdenCompra_TransicionEstado_Observacion');
-                $model->save();
-                return 'Transicion Creada';
-            }
+                $model1= COMOrdenCompraTransicionEstado::all();
+                foreach ($model1 as $value) {
+                    if($value->COM_OrdenCompra_TransicionEstado_EstadoPrevio==Input::get('COM_OrdenCompra_TransicionEstado_EstadoPrevio') && $value->COM_OrdenCompra_TransicionEstado_EstadoActual==Input::get('COM_OrdenCompra_TransicionEstado_EstadoActual') && $value->COM_OrdenCompra_TransicionEstado_EstadoPosterior==Input::get('COM_OrdenCompra_TransicionEstado_EstadoPosterior')){
+                        $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
+                        $COM_OrdenCompra_TransicionEstado= COMOrdenCompraTransicionEstado::find($value->COM_OrdenCompra_TransicionEstado_Id);
+                        $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::find($COM_OrdenCompra_TransicionEstado->COM_OrdenCompra_TransicionEstado_EstadoActual);
+                        return View::make('COM_OrdenCompra_TransicionEstado.EditarTransicionMensaje',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra ,'Eanterior'=>$Eanterior,'COM_OrdenCompra_TransicionEstado'=>$COM_OrdenCompra_TransicionEstado,'mensaje'=>'Esta transicion ya fue creada, puede o no modificarla'));
+	
+                        //return 'esta transision ya hasido creada';
+                    }
+                    }
+                    $model=new COMOrdenCompraTransicionEstado;
+                        $model->COM_OrdenCompra_TransicionEstado_EstadoPrevio=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPrevio');
+                        $model->COM_OrdenCompra_TransicionEstado_EstadoPosterior=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPosterior');
+                        $model->COM_OrdenCompra_TransicionEstado_EstadoActual=Input::get('COM_OrdenCompra_TransicionEstado_EstadoActual');
+                        $model->COM_OrdenCompra_TransicionEstado_Observacion=Input::get('COM_OrdenCompra_TransicionEstado_Observacion');
+                        if(Input::has('COM_OrdenCompra_TransicionEstado_Activo')){
+                            $model->COM_OrdenCompra_TransicionEstado_Activo=1;
+                        }else{
+                            $model->COM_OrdenCompra_TransicionEstado_Activo=0;
+                        }
+                        //$model->save();
+                        return 'Transicion Creada';
+                }
+                    
+                
+            
             $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
             $COM_EstadoOrdenCompra=COM_EstadoOrdenCompra::find(Input::get('COM_OrdenCompra_TransicionEstado_EstadoActual'));
             return View::make('COM_OrdenCompra_TransicionEstado.NuevaTransicionEstado',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra ,'Eanterior'=>$Eanterior,'Esiguiente'=>$Eanterior))->withErrors($validacion);
@@ -49,32 +68,41 @@ class COMTransicionEstadoController extends BaseController {
             $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
             $COM_OrdenCompra_TransicionEstado= COMOrdenCompraTransicionEstado::find(Input::get('id'));
             $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::find($COM_OrdenCompra_TransicionEstado->COM_OrdenCompra_TransicionEstado_EstadoActual);
-            if (is_null($COM_EstadoOrdenCompra )|| is_null($COM_OrdenCompra_TransicionEstado))
-		{
-			return Redirect::action('ListaTransiciones');
-		}
             return View::make('COM_OrdenCompra_TransicionEstado.EditarTransicion',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra ,'Eanterior'=>$Eanterior,'COM_OrdenCompra_TransicionEstado'=>$COM_OrdenCompra_TransicionEstado));
 	}
 
 	public function ActualizarTransicion()
 	{
             $input=Input::all();
-            $validacion=Validator::make($input,  COMOrdenCompraTransicionEstado::$reglas);
+            $validacion=Validator::make($input, COMOrdenCompraTransicionEstado::$reglas);
             if($validacion->passes()){
                 $model= COMOrdenCompraTransicionEstado::find(Input::get('COM_OrdenCompra_TransicionEstado_Id'));
                 $model->COM_OrdenCompra_TransicionEstado_EstadoPrevio=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPrevio');
                 $model->COM_OrdenCompra_TransicionEstado_EstadoPosterior=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPosterior');
                 $model->COM_OrdenCompra_TransicionEstado_Observacion=Input::get('COM_OrdenCompra_TransicionEstado_Observacion');
+                 if(Input::has('COM_OrdenCompra_TransicionEstado_Activo')){
+                     $estadoOrden->COM_OrdenCompra_TransicionEstado_Activo=1;
+                }else{
+                     $estadoOrden->COM_OrdenCompra_TransicionEstado_Activo=0;
+                }
                 $model->update();
                 return 'Datos Actualizados';
             }
             $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
-            $COM_OrdenCompra_TransicionEstado= COMOrdenCompraTransicionEstado::find(Input::get('id'));
-            $COM_Estado = COM_EstadoOrdenCompra::find($COM_OrdenCompra_TransicionEstado->COM_OrdenCompra_TransicionEstado_EstadoActual);
-            $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::find($COM_OrdenCompra_TransicionEstado->COM_OrdenCompra_TransicionEstado_EstadoActual);
-            return View::make('COM_OrdenCompra_TransicionEstado.EditarTransicion',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra ,'Eanterior'=>$Eanterior,'COM_OrdenCompra_TransicionEstado'=>$COM_OrdenCompra_TransicionEstado))->withErrors($validacion);
+            $COM_OrdenCompra_TransicionEstado= COMOrdenCompraTransicionEstado::find(Input::get('COM_OrdenCompra_TransicionEstado_Id'));
+            $COM_EstadoOrdenCompra=COM_EstadoOrdenCompra::find($COM_OrdenCompra_TransicionEstado->COM_OrdenCompra_TransicionEstado_EstadoActual);
+            return View::make('COM_OrdenCompra_TransicionEstado.EditarTransicion',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra,'Eanterior'=>$Eanterior,'COM_OrdenCompra_TransicionEstado'=>$COM_OrdenCompra_TransicionEstado))->withErrors($validacion);
+            
 	}
-
-	
+        public function noRepetido($anterior,$actual,$siguiente){
+            $model1= COMOrdenCompraTransicionEstado::all();
+            foreach ($model1 as $value) {
+                if($value->COM_OrdenCompra_TransicionEstado_EstadoPrevio==$anterior && $value->COM_OrdenCompra_TransicionEstado_EstadoActual==$actual && $value->COM_OrdenCompra_TransicionEstado_EstadoPosterior==$siguiente){
+                    echo $value->COM_OrdenCompra_TransicionEstado_Id;
+                    return false;
+                }
+            }   
+            return true;
+        }
 }
 ?>
