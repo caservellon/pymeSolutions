@@ -9,3 +9,21 @@ ERROR 1146 (42S02) at line 5: Table 'pymeERP.VEN_FormaPago' doesn't exist
 ERROR 1146 (42S02) at line 5: Table 'pymeERP.VEN_PeriodoCierreDeCaja' doesn't exist
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+------------------------START--------------------------
+Process started at  2014/03/12 23:54:10
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+Process ended at  2014/03/12 23:54:11
+------------------------END----------------------------
