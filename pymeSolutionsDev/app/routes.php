@@ -109,7 +109,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
 			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));			
 			Route::post('crear/asientocontable/cargar/cuentas',array('as'=>'cargarcuentas', 'uses'=>'AsientosController@cargarcuentas'));
-
+			Route::post('creando/motivotransaccion',array('as'=>'creandomotivo','uses'=>'AsientosController@creandomotivo'));
 
 	});
 Route::group(array('prefix'=>'contabilidad/configuracion'),function ()

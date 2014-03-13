@@ -3,6 +3,13 @@
 @section('main')
 
 <h1>Editar Motivo Transaccion</h1>
+
+@if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
+	</ul>
+@endif
+
 {{ Form::model($MotivoTransaccion, array('method' => 'PATCH', 'url' => array('contabilidad/motivotransaccion', $MotivoTransaccion->id))) }}
 	<ul>
         <li>
@@ -20,11 +27,5 @@
 		</li>
 	</ul>
 {{ Form::close() }}
-
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

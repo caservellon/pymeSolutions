@@ -60,6 +60,49 @@ class AsientosController extends BaseController {
 		}
 	}
 
+	public function creandomotivo(){
+
+		if(Request::ajax()){
+			$input=Input::all();
+			$rules = array(
+	            'CON_MotivoTransaccion_Codigo' => 'required|unique:CON_MotivoTransaccion,CON_MotivoTransaccion_Codigo',
+	            'CON_MotivoTransaccion_Descripcion' => 'required|alpha_spaces',
+	            'CON_CatalogoContable_Debe' => 'required',
+	            'CON_CatalogoContable_Haber' => 'required'
+	        );
+			$validation= Validator::make($input,$rules);
+
+			if ($validation->passes()) {
+				$MotivoTransaccion = new MotivoTransaccion;
+				$MotivoTransaccion->CON_MotivoTransaccion_Codigo = Input::get('CON_MotivoTransaccion_Codigo');
+				$MotivoTransaccion->CON_MotivoTransaccion_Descripcion = Input::get('CON_MotivoTransaccion_Descripcion');
+				if($MotivoTransaccion->save()){
+					$CuentaMotivo = new CuentaMotivo;
+					$CuentaMotivo->CON_MotivoTransaccion_ID = $MotivoTransaccion->CON_MotivoTransaccion_ID;
+					$CuentaMotivo->CON_CatalogoContable_ID	=	Input::get('CON_CatalogoContable_Debe');
+					$CuentaMotivo->CON_CuentaMotivo_DebeHaber = 0;
+					if($CuentaMotivo->save()){
+						$CuentaMotivos = new CuentaMotivo;
+						$CuentaMotivos->CON_MotivoTransaccion_ID = $MotivoTransaccion->CON_MotivoTransaccion_ID;
+						$CuentaMotivos->CON_CatalogoContable_ID	=	Input::get('CON_CatalogoContable_Haber');
+						$CuentaMotivos->CON_CuentaMotivo_DebeHaber = 1;
+						$CuentaMotivos->save();
+					}
+				}
+			}else{
+				//$errors=$validation;
+				return Response::json(array('success'=>false,
+					'html'=> Redirect::to('AsientosController@crearmotivo')
+							->withInput()
+							->withErrors($validation)
+							->with('message', 'There were validation errors.')
+
+							));
+				 
+			}
+		}
+	}
+
 	public function store()
 	{
 		$input = Input::all();
