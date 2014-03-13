@@ -27,20 +27,15 @@ class CotizacionsController extends BaseController {
 	}
         
         public function parametrizar(){
-            $parametrizar = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get();
-            return View::make('Cotizacions.parametrizar', compact('parametrizar'));
+            
+            return View::make('Cotizacions.parametrizar');
         }
         
-        public function editarParametrizar(){
+        public function indexCampoLocal(){
             
-                $editar = CampoLocal::all();
+                $editar = CampoLocal::where('GEN_CampoLocal_Codigo', 'LIKE', 'COM_COT%')->get();
 
-		if (is_null($editar))
-		{
-			return Redirect::route('Compras.parametrizar');
-		}
-
-		return View::make('Cotizacions.editarParametrizar', compact('editar'));
+		return View::make('Cotizacions.indexCampoLocal', compact('editar'));
         }
 
         /**
@@ -70,6 +65,7 @@ class CotizacionsController extends BaseController {
                 $campoLocal = new CampoLocal();
                 $input = Input::all();
                 $campoLocal->GEN_CampoLocal_Codigo='COM_COT_'.$suma;
+                $campoLocal->GEN_Usuario_idUsuarioCreo=1;
                 $validation = Validator::make($input, CampoLocal::$rules);
                 $campoLocal->GEN_CampoLocal_Nombre=Input::get('GEN_CampoLocal_Nombre');
              
@@ -96,7 +92,7 @@ class CotizacionsController extends BaseController {
 		{
                         
                        
-                        if(Input::get('GEN_CampoLocal_Tipo')=='ListaValor'){
+                        if(Input::get('GEN_CampoLocal_Tipo')=='LIST'){
                             $campoLocal->save();
                             return View::make('ListaValor', compact('suma'));
                         }
@@ -130,12 +126,14 @@ class CotizacionsController extends BaseController {
                 return View::make('ListaValor', compact('suma'));
             }
             $mensaje= Mensaje::find(2);
-		return Redirect::route('parametrizar')
+            return View::make('listavalor', compact('suma'))
 			->withInput()
 			->withErrors($validation)
 			->with('message', $mensaje->GEN_Mensajes_Mensaje);
             
         }
+        
+        
         
 	public function store()
 	{
@@ -182,7 +180,7 @@ class CotizacionsController extends BaseController {
 
 		if (is_null($Cotizacion))
 		{
-			return Redirect::route('Compras.editarParametrizar');
+			return Redirect::route('Compras.indexCampoLocal');
 		}
 
 		return View::make('Cotizacions.edit', compact('Cotizacion'));
@@ -202,9 +200,12 @@ class CotizacionsController extends BaseController {
 		if ($validation->passes())
 		{
 			$Cotizacion = CampoLocal::find($id);
+                        $suma=$id;
                         $Cotizacion->GEN_CampoLocal_ID= $id;
+                        
                         $Cotizacion->GEN_CampoLocal_Nombre=Input::get('GEN_CampoLocal_Nombre');
                         $Cotizacion->GEN_CampoLocal_Tipo=$Cotizacion->GEN_CampoLocal_Tipo;
+                        $Cotizacion->Usuario_idUsuarioModifico=2;
                          if(Input::has('GEN_CampoLocal_Requerido')){
                             $Cotizacion->GEN_CampoLocal_Requerido=1;
                         }else{
@@ -221,6 +222,9 @@ class CotizacionsController extends BaseController {
                             $Cotizacion->GEN_CampoLocal_Activo=0;
                         }
                             $Cotizacion->update();
+                            if($Cotizacion->GEN_CampoLocal_Tipo == 'LIST'){
+                                return View::make('Listavalor', compact('suma'));
+                            }
 
 			return Redirect::route('mensaje');
 		}

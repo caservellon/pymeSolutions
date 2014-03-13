@@ -5,7 +5,7 @@
 <br>
 <br>
 <br>
-<a href="{{{ URL::to('Compras') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>Aceptar</a>
+<a href="{{{ URL::to('Compras/Configuracion/Cotizacion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-ok"></span></a>
 
 <div>
     
