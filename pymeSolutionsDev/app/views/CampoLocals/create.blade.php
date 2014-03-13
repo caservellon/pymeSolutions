@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Campo Local &gt; <small>Nuevo Campo Local</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('CampoLocals') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('CRM.CampoLocals') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
