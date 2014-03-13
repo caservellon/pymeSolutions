@@ -2,28 +2,28 @@
 
 @section('main')
 
-<h1>All MotivoTransaccions</h1>
-
-<a class="btn btn-primary" href="{{ URL::to('contabilidad/motivotransaccion/create') }}">Crear Nuevo</a>
+<h2 class="sub-header"><span class="glyphicon glyphicon-usd"></span> Contabilidad <small>Motivo de Transaccion</small></h2>
 
 @if ($MotivoTransaccions->count())
-	<table class="table table-striped table-bordered">
-		<thead>
-			<tr>
-				<th>CON_MotivoTransaccion_Codigo</th>
-				<th>CON_MotivoTransaccion_Descripcion</th>
-			</tr>
-		</thead>
-
-		<tbody>
-			@foreach ($MotivoTransaccions as $MotivoTransaccion)
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<td>{{{ $MotivoTransaccion->CON_MotivoTransaccion_Codigo }}}</td>
-					<td>{{{ $MotivoTransaccion->CON_MotivoTransaccion_Descripcion }}}</td>
+					<th>Codigo de la Transaccion</th>
+					<th> Nombre y Descripcion de la Transaccion</th>
 				</tr>
-			@endforeach
-		</tbody>
-	</table>
+			</thead>
+
+			<tbody>
+				@foreach ($MotivoTransaccions as $MotivoTransaccion)
+					<tr>
+						<td>{{{ $MotivoTransaccion->CON_MotivoTransaccion_Codigo }}}</td>
+						<td>{{{ $MotivoTransaccion->CON_MotivoTransaccion_Descripcion }}}</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
 @else
 	There are no MotivoTransaccions
 @endif
