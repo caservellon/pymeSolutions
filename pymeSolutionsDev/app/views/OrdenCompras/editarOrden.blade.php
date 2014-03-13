@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Campo Local &gt; <small>Editar Campo Local</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Compras/Configuracion/Cotizacion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('Compras/Configuracion/OrdenCompra') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 @if ($errors->any())
@@ -13,14 +13,14 @@
 	</ul>
             
 @endif
-             {{ Form::model($Cotizacion, array('method' => 'PATCH', 'route' => array('Compras.Cotizacions.update', $Cotizacion->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
+             {{ Form::model($OrdenCompra, array('method' => 'PATCH', 'route' => array('actualizar', 'id'=>$OrdenCompra->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
             
              
              
                  <div class="form-group">
                      {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre', array('class' => 'col-md-2 control-label')) }}
                      <div class="col-md-4">
-                         {{ Form::text('GEN_CampoLocal_Nombre', $Cotizacion->GEN_Campo_Local_Nombre ,array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre', 'placeholder'=>'Nombre')) }}
+                         {{ Form::text('GEN_CampoLocal_Nombre', $OrdenCompra->GEN_Campo_Local_Nombre ,array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre', 'placeholder'=>'Nombre')) }}
                      </div>
                      
                  </div>

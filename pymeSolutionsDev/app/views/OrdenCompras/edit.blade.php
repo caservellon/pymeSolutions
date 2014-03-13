@@ -4,16 +4,16 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Campo Local &gt; <small>Editar Campo Local</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Compras/Configuracion/Cotizacion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('Compras/Configuracion/OrdenCompra') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 @if ($errors->any())
 	<ul>
-		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
+		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 	</ul>
             
 @endif
-             {{ Form::model($Cotizacion, array('method' => 'PATCH', 'route' => array('Compras.Cotizacions.update', $Cotizacion->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
+             {{ Form::model($OrdenCompra, array('method' => 'PATCH', 'route' => array('Compras.OrdenCompras.update', $OrdenCompras->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
             
              
              
