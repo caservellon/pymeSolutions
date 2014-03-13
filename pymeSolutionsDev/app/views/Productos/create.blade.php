@@ -122,25 +122,25 @@
     <div class="form-group">
       {{ Form::label('INV_Categoria_ID', 'Categoria ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Categoria_ID',null, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_Categoria_ID',$combobox, null, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Categoria_IDCategoriaPadre', 'Categoria Padre ID:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Categoria_IDCategoriaPadre',null, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_Categoria_IDCategoriaPadre', $combobox, null, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_UnidadMedida_ID', 'Unidad de Medida ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_UnidadMedida_ID',null, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_UnidadMedida_ID', $unidad, null, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_HorarioBloqueo_ID', 'Horario de Bloqueo ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_HorarioBloqueo_ID',null, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_HorarioBloqueo_ID', $horarios,null, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     

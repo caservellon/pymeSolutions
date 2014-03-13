@@ -33,7 +33,10 @@ class CategoriaController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('Categoria.create');
+		$temp = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+		$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
+		$tipos = array(0 => "Seleccione ... ") + $temp;
+		return View::make('Categoria.create', compact('tipos', 'horarios'));
 	}
 
 	/**
@@ -45,7 +48,7 @@ class CategoriaController extends BaseController {
 	{
 		$input = Input::all();
 		$validation = Validator::make($input, Categoria::$rules);
-
+		$id = Categoria::all()->count() + 1;
 		if ($validation->passes())
 		{
 			$Categoria = new Categoria;
@@ -54,7 +57,10 @@ class CategoriaController extends BaseController {
 			$Categoria->INV_Categoria_Descripcion = Input::get('INV_Categoria_Descripcion');
 			$Categoria->INV_Categoria_HorarioDescuento_ID = Input::get('INV_Categoria_HorarioDescuento_ID');
 			$Categoria->INV_Categoria_Activo = Input::get('INV_Categoria_Activo');
-			$Categoria->INV_Categoria_IDCategoriaPadre = Input::get('INV_Categoria_IDCategoriaPadre');
+			if($Categoria->INV_Categoria_IDCategoriaPadre == 0)
+				$Categoria->INV_Categoria_IDCategoriaPadre = $id;
+			else
+				$Categoria->INV_Categoria_IDCategoriaPadre = Input::get('INV_Categoria_IDCategoriaPadre');
 			$Categoria->INV_Categoria_FechaCreacion = date('Y-m-d H:i:s');
 			$Categoria->INV_Categoria_UsuarioCreacion = Input::get('INV_Categoria_UsuarioCreacion');
 			$Categoria->INV_Categoria_FechaModificacion = date('Y-m-d H:i:s');
@@ -91,13 +97,13 @@ class CategoriaController extends BaseController {
 	public function edit($id)
 	{
 		$Categoria = $this->Categoria->find($id);
-
+		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
 		if (is_null($Categoria))
 		{
-			return Redirect::route('Inventario.Categoria.index');
+			return Redirect::route('Inventario.Categoria.index', compact('tipos'));
 		}
 
-		return View::make('Categoria.edit', compact('Categoria'));
+		return View::make('Categoria.edit', compact('Categoria', 'tipos'));
 	}
 
 	/**
