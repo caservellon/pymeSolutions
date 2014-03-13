@@ -35,7 +35,7 @@
     <div class="form-group">
       {{ Form::label('INV_Categoria_HorarioDescuento_ID', 'Horario Descuento ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Categoria_HorarioDescuento_ID',$Categoria->INV_Categoria_HorarioDescuento_ID, array('class' => 'form-control', 'id' => 'INV_Categoria_HorarioDescuento_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_Categoria_HorarioDescuento_ID', $horarios, $Categoria->INV_Categoria_HorarioDescuento_ID, array('class' => 'form-control', 'id' => 'INV_Categoria_HorarioDescuento_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
