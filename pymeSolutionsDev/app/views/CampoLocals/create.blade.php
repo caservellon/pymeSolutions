@@ -14,7 +14,7 @@
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
-            {{ Form::text('GEN_CampoLocal_Nombre', null, array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre', 'placeholder'=>'CAJ-00001')) }}
+            {{ Form::text('GEN_CampoLocal_Nombre', null, array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre')) }}
         </div>
     </div>
 
@@ -25,11 +25,21 @@
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="campo-local-tipo form-group">
       {{ Form::label('GEN_CampoLocal_Tipo', 'Tipo de Campo:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::select('GEN_CampoLocal_Tipo', array('TXT' => 'Texto', 'INT' => 'Entero', 'FLOAT' => 'Decimal', 'LIST' => 'Lista de Valores', 'CHKBOX' => 'Selección Multiple', 'RADIOBTN' => 'Selección Única'),'TXT',array('class' => 'col-md-4 form-control')) }}
       </div>
+    </div>
+    <div style="display:none;" class="value-list form-group">
+      <input type="text" class="value-input form-control" placeholder="Valor">
+      <button class="add-value btn btn-default">Agregar</button>
+      <ul class="list-group">
+        <li class="list-group-item">
+        <span class="badge">14</span>
+        Cras justo odio
+        </li>
+      </ul>
     </div>
 
     <div class="form-group">
