@@ -1,31 +1,45 @@
 
-<h1 class='col-md-6'>Motivo ></h1>
-<p>Crear</p>
-@include('_messages.errors')
 
-{{ Form::open(array('route' => 'creandomotivo','class'=>'motivos')) }}
-    {{ Form::label('CON_MotivoTransaccion_Codigo', 'Codigo de la Transaccion:') }}
+<div class='errors'>
+	
+
+</div>
+
+{{ Form::open(array('route' => 'creandomotivo','class'=>'motivos form-horizontal')) }}
+<div class="form-group">
+    {{ Form::label('CON_MotivoTransaccion_Codigo', 'Codigo de la Transaccion:*') }}
+     <div class='col-md-3'>
     {{ Form::text('CON_MotivoTransaccion_Codigo') }}
-
-    {{ Form::label('CON_MotivoTransaccion_Descripcion', 'Descripcion de la Transaccion:') }}
+    </div>
+</div>
+<div class="form-group">
+    {{ Form::label('CON_MotivoTransaccion_Descripcion', 'Descripcion de la Transaccion:*') }}
+     <div class='col-md-8'>
     {{ Form::text('CON_MotivoTransaccion_Descripcion') }}
-
-	<h2> Cuentas Afectadas por la Transaccion </h2>>
-
+    </div>
+</div>
+<div class="form-group">
     {{ Form::label('CON_CatalogoContable_ID', 'Cuenta Debe del Motivo:') }}
+     <div class='col-md-5'>
     {{ Form::text('CON_CatalogoContable_Debe') }}
-
+    </div>
+</div>
+<div class="form-group">
     {{ Form::label('CON_CatalogoContable_ID', 'Cuenta Haber del Motivo:') }}
+     <div class='col-md-5'>
     {{ Form::text('CON_CatalogoContable_Haber') }}
-
-    {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-
+    </div>
+</div>
+     <div class='col-md-5'>
+    {{ Form::submit('Agregar Motivo', array('class' => 'btn btn-success')) }}
+    </div>
+<br>
 {{ Form::close() }}
 
 
 	<script type="text/javascript">
 	$('input').addClass('form-control');
-
+	$("label").addClass('col-md-4 control-label pull-left');
 	var form=$('.motivos');
 	form.submit(function(e){
 		e.preventDefault();
@@ -35,13 +49,13 @@
 			data:form.serialize(),
 			success:function(data){
 				//$('.errors_form').html('');
-				if (!data.success == false) {
-					//$('#thismodal').html(data.html);
-					console.log(data.html);
+				console.log(data);
+				if (data.success == false) {
+					$('.errors').html(data.html);
+					
 				}
 				else{
-					$('html').html(data);
-					//$('html').attr('lang','en');
+					location.reload();	
 				}
 			}
 		});

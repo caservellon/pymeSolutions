@@ -3,7 +3,7 @@
 @section('main')
 
 <h1 align="center">Configuracion Contabilidad</h1>
-<a class="btn btn-danger" href="{{URL::previous()}}">Atras</a>
+<a class="btn btn-danger" href="{{URL::to('contabilidad')}}">Atras</a>
 <br>
 <div class='jumbotron' align="center" style="border:3px solid #white; background:white;">
 	<a class='btn btn-lg' href="{{URL::to('contabilidad/configuracion/catalogocuentas')}}">

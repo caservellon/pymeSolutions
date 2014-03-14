@@ -105,6 +105,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::get('librodiario',array('uses' => 'LibroDiarioController@index'));
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
+			Route::get('creando/motivotransaccion',array('uses'=>'AsientosController@creandomotivo'));
 			
 			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
 			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));			

@@ -89,18 +89,18 @@ class AsientosController extends BaseController {
 						$CuentaMotivos->save();
 					}
 				}
+				//$Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+				//return Response::json(array('html'=>Form::select('CON_MotivoTransaccion_ID',$Motivos,'',array('class'=>'form-control')))); 
 			}else{
-				//$errors=$validation;
-				return Response::json(array('success'=>false,
-					'html'=> Redirect::to('AsientosController@crearmotivo')
-							->withInput()
-							->withErrors($validation)
-							->with('message', 'There were validation errors.')
-
-							));
+				$errors = $validation->errors();
+							return Response::json(array('success'=>false,
+									'html'=> View::make('_messages.errors',array('errors'=>$errors))->render()
+								));
+							
 				 
 			}
 		}
+		
 	}
 
 	public function store()

@@ -2,7 +2,6 @@
 
 @section('main')
 
-
 @if($PeriodoContable!=null && $PeriodoContable->count())
 	<h1>Libro Diario</h1>
       <div class="well table form-inline">
