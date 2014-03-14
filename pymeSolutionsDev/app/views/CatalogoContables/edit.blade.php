@@ -6,31 +6,35 @@
 
 @include('_messages.errors')
 
-{{ Form::model($CatalogoContable, array('action' => array('CatalogoContablesController@update', $CatalogoContable->CON_CatalogoContable_ID), 'method' => 'PUT')) }}            
+{{ Form::model($CatalogoContable, array('class'=>'form-horizontal','action' => array('CatalogoContablesController@update', $CatalogoContable->CON_CatalogoContable_ID), 'method' => 'PUT')) }}            
             
         
-            {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion Cuenta:') }}
-            {{ Form::select('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', $clasi, $selected) }}
+           
+            {{ Form::hidden('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID') }}
 
-            {{ Form::label('CON_CatalogoContable_Codigo', 'Codigo:') }}
-            {{ Form::text('CON_CatalogoContable_Codigo') }}
+            
+            {{ Form::hidden('CON_CatalogoContable_Codigo') }}
 
+<div class="form-group">
             {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre:') }}
+            <div class="col-md-3">
             {{ Form::text('CON_CatalogoContable_Nombre' ) }}
+</div>
+</div>
+            
+            {{ Form::hidden('CON_CatalogoContable_UsuarioCreacion') }}
 
-            {{ Form::label('CON_CatalogoContable_UsuarioCreacion', 'Usuario Creacion:') }}
-            {{ Form::text('CON_CatalogoContable_UsuarioCreacion') }}
-
-            {{ Form::label('CON_CatalogoContable_NaturalezaSaldo', 'Naturaleza Saldo:') }}
-            {{ Form::select('CON_CatalogoContable_NaturalezaSaldo', $naturaleza, $selected3) }}
-
+            {{ Form::hidden('CON_CatalogoContable_NaturalezaSaldo') }}
+            {{ Form::hidden('CON_CatalogoContable_CodigoSubcuenta')}}
             
 <div class="form-group">
             {{ Form::label('CON_CatalogoContable_Estado', 'Estado:') }}
+            <div class="col-md-3">
             {{ Form::select('CON_CatalogoContable_Estado',$esta,$selected2) }}
-</div>
-            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
-    
+</div></div>
+<div class="col-md-5">
+            {{ Form::submit('Realizar Cambios en la cuenta', array('class' => 'btn btn-success')) }}
+    </div>
 {{ Form::close() }}
 
 
@@ -55,7 +59,7 @@
 
         $("input").addClass("form-control");
         $("select").addClass("form-control");
-
+        $("label").addClass("control-label pull-left col-md-3");
     });
 
 </script>

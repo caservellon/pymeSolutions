@@ -23,6 +23,7 @@ class CreateCatalogoContablesTable extends Migration {
 			$table->datetime('CON_CatalogoContable_FechaCreacion');
 			$table->datetime('CON_CatalogoContable_FechaModificacion');
 			$table->integer('CON_ClasificacionCuenta_ID');
+			$table->string('CON_CatalogoContable_CodigoSubcuenta')
 			$table->timestamps();
 		});
 	}
