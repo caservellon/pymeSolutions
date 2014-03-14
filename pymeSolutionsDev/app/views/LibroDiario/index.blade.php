@@ -2,12 +2,18 @@
 
 @section('main')
 
+<div class="page-header clearfix">
+      <h3 class="pull-left">LibroDiario &gt; <small>Ver Asientos</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('contabilidad') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+      </div>
+</div>
 @if($PeriodoContable!=null && $PeriodoContable->count())
-	<h1>Libro Diario</h1>
+	
       <div class="well table form-inline">
             <label>Fecha Inicio:</label> <input type="text" class="span2 form-control" value="" id="dpd1">
             <label>Fecha Final:</label> <input type="text" class="span2 form-control" value="" id="dpd2">
-            <button id='charge' type="Submmit" class="btn btn-success">Cargar</button>
+            <button id='charge' type="Submmit" class="btn btn-success">Filtrar</button>
       </div>
       <p class="result"></p>
 <div id="LibroDiario">
