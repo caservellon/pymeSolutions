@@ -1,7 +1,7 @@
 <?php
 
 class COM_SolicitudCotizacion extends Eloquent {
-	protected $table = 'COM_SolicitudCotizacion'
-	public $timestamps = false;
-	public static $reglas = array();
+	protected $Tabla = 'COM_SolicitudCotizacion';
+	public $Timestamps = false;
+	public static $Reglas = array();
 }

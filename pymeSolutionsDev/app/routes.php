@@ -55,13 +55,31 @@ Route::group(array('prefix' => 'Compras'), function(){
 	
 	Route::get('/Parametrizar/SolicitudCotizacion', array(
 		'as' => 'ParametrizarSolicitudCotizacion',
-		function(){
-			return View::make('COM_SolicitudCotizacion.ParametrizarSolicitudCotizacion');
-		}
+		'uses' => 'SolicitudCotizacionController@VistaParametrizarSolicitudCotizacion'
 	));
-
-	Route::post('/Parametrizar/SolicitudCotizacion', 'SolicitudCotizacionController@NuevoCampoLocal');
+	Route::get('/Parametrizar/SolicitudCotizacion/CrearCampoLocal', array(
+		'as' => 'ParametrizarSolicitudCotizacionCrearCampoLocal',
+		'uses' => 'SolicitudCotizacionController@VistaParametrizarSolicitudCotizacionCrearCampoLocal'
+	));
+	Route::get('/Parametrizar/SolicitudCotizacion/CrearCampoLocal/Mensaje', array(
+		'as'=>'ParametrizarSolicitudCotizacionCrearCampoLocalMensaje',
+		'uses'=> 'SolicitudCotizacionController@Mensaje'
+	));
 	
+	Route::post('/Parametrizar/SolicitudCotizacion', 'SolicitudCotizacionController@CrearCampoLocal');
+	Route::post('/Parametrizar/SolicitudCotizacion/ListaValor', array(
+		'as' => 'ListaValor',
+		'uses'=> 'SolicitudCotizacionController@Lista'
+	));
+	
+	Route::get('/Parametrizar/SolicitudCotizacion/EditarCampoLocal', array(
+		'as' => 'ParametrizarSolicitudCotizacionEditarCampoLocal',
+		'uses' => 'SolicitudCotizacionController@Editar'
+	));
+	Route::patch('/Parametrizar/SolicitudCotizacion/EditarCampoLocal', array(
+		'as' => 'ParametrizarSolicitudCotizacionActualizarCampoLocal',
+		'uses' => 'SolicitudCotizacionController@EditarCampoLocal'
+	));
 	
 	
 	
