@@ -35,9 +35,22 @@ class ProductosController extends BaseController {
 	{
 		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
       	$combobox = $tipos;
+
+      	$padres = DB::table('INV_Categoria')->lists('INV_Categoria_ID', 'INV_Categoria_Nombre');
+      	$hijos = DB::table('INV_Categoria')->lists('INV_Categoria_IDCategoriaPadre', 'INV_Categoria_Nombre');
+
+      	$jpadres = json_encode($padres);
+      	$jhijos = json_encode($hijos);
+
+      	//$results = DB::select('select * from users where id = ?', array(1));
+
+      	$idPadre = Input::get('INV_Categoria_IDCategoriaPadre');
+
+      	//$query = DB::table('INV_Categoria')->where('INV_Categoria_IDCategoriaPadre', '3')->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+      	//$combobox2 = $query;
       	$unidad = UnidadMedida::all()->lists('INV_UnidadMedida_Nombre', 'INV_UnidadMedida_ID');
       	$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		return View::make('Productos.create', compact('combobox', 'horarios', 'unidad'));
+		return View::make('Productos.create', compact('combobox', 'horarios', 'unidad', 'jpadres' ,'jhijos'));
 	}
 
 	/**

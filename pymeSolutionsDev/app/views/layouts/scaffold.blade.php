@@ -5,8 +5,10 @@
   <title>pymeSolutions</title>
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
   <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/css/bootstrap.min.css">
-
-
+  <script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
+  <script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
+    <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
 
 </head>
 <body style="margin-top: 50px">
@@ -119,10 +121,5 @@
   <div class="container col-md-8 col-md-offset-2">
     @yield('main')
   </div>
-  <script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
-  <script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
 </body>
-
-  <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
 </html>

@@ -1,0 +1,8 @@
+ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`INV_Categoria`, CONSTRAINT `fk_INV_Categoria_INV_Categoria` FOREIGN KEY (`INV_Categoria_IDCategoriaPadre`) REFERENCES `INV_Categoria` (`INV_Categoria_ID`) ON DELETE NO ACTION ON UPD)
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`INV_Categoria`, CONSTRAINT `fk_INV_Categoria_INV_Categoria` FOREIGN KEY (`INV_Categoria_IDCategoriaPadre`) REFERENCES `INV_Categoria` (`INV_Categoria_ID`) ON DELETE NO ACTION ON UPD)
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`INV_Categoria`, CONSTRAINT `fk_INV_Categoria_INV_Categoria` FOREIGN KEY (`INV_Categoria_IDCategoriaPadre`) REFERENCES `INV_Categoria` (`INV_Categoria_ID`) ON DELETE NO ACTION ON UPD)
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
