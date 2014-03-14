@@ -29,7 +29,9 @@ class AsientosController extends BaseController {
 	public function create()
 	{
 	   $Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+      
        return View::make('AsientosContables.create')
+       		
        		->with('Motivos',$Motivos);
 	}
 
@@ -56,7 +58,9 @@ class AsientosController extends BaseController {
 
 	public function crearmotivo(){
 		if(Request::ajax()){
-			return View::make('MotivoTransaccion.create');
+			 $Cuentas  = CatalogoContable::all()->lists('CON_CatalogoContable_Nombre','CON_CatalogoContable_ID');
+			return View::make('MotivoTransaccion.create')
+			->with('Cuentas',$Cuentas);
 		}
 	}
 

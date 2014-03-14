@@ -21,13 +21,13 @@
 <div class="form-group">
     {{ Form::label('CON_CatalogoContable_ID', 'Cuenta Debe del Motivo:') }}
      <div class='col-md-5'>
-    {{ Form::text('CON_CatalogoContable_Debe') }}
+    {{ Form::select('CON_CatalogoContable_Debe',$Cuentas,array()) }}
     </div>
 </div>
 <div class="form-group">
     {{ Form::label('CON_CatalogoContable_ID', 'Cuenta Haber del Motivo:') }}
      <div class='col-md-5'>
-    {{ Form::text('CON_CatalogoContable_Haber') }}
+    {{ Form::select('CON_CatalogoContable_Haber',$Cuentas,array()) }}
     </div>
 </div>
      <div class='col-md-5'>
@@ -39,6 +39,7 @@
 
 	<script type="text/javascript">
 	$('input').addClass('form-control');
+	$('select').addClass('form-control');
 	$("label").addClass('col-md-4 control-label pull-left');
 	var form=$('.motivos');
 	form.submit(function(e){
