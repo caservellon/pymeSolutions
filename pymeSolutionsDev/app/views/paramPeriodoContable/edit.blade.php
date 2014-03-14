@@ -20,20 +20,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            {{ Form::label('CON_ClasificacionPeriodo_CatidadDias', 'Cantidad Dias:*') }}
-            <div class="col-md-2">
-            {{ Form::select('CON_ClasificacionPeriodo_CatidadDias',$CantidadDias,'',array('class'=>'form-control')) }}
-            </div>
-        </div>
-
-         <div class="form-group">
-         {{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que inicia:*') }} 
-          <div class="col-md-3">
-          {{ Form::text('CON_PeriodoContable_FechaInicio',$ClasificacionPeriodo->CON_PeriodoContable_FechaInicio,
-              array('type'=>'text','class'=>'span2','value'=>'','id'=>'dpd1','placeholder'=>'yyyy-mm-dd')) }}
-          </div>
-        </div>
 		<div class="col-md-5">
 			{{ Form::submit('Realizar Cambios del Periodo Contable', array('class' => 'btn btn-success')) }}
         </div>

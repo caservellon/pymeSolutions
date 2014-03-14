@@ -120,18 +120,25 @@ class ParamPeriodoContableController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, ClasificacionPeriodo::$rules);
+		$rules = array(
+			//'CON_ClasificacionPeriodo_ID' => 'required|integer',
+
+			'CON_ClasificacionPeriodo_Nombre' => 'required|max:45|alpha_spaces',
+
+
+		);
+		$validation = Validator::make($input, $rules);
 
 		if ($validation->passes())
 		{
 			$ClasificacionPeriodo = $this->ClasificacionPeriodo->find($id);
-			$input['CON_ClasificacionPeriodo_CatidadDias'] = $this->CantidadDias[Input::get('CON_ClasificacionPeriodo_CatidadDias')];
+			//$input['CON_ClasificacionPeriodo_CatidadDias'] = $this->CantidadDias[Input::get('CON_ClasificacionPeriodo_CatidadDias')];
 			if($ClasificacionPeriodo->update($input))
 			{
-				$PeriodoContable = PeriodoContable::where('CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID','=',$id)->get();
-				$PeriodoContable =$PeriodoContable[0];
-				$PeriodoContable->update($input);
-				return Redirect::action('ParamPeriodoContableController@show', $id);
+				//$PeriodoContable = PeriodoContable::where('CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID','=',$id)->get();
+				//$PeriodoContable =$PeriodoContable[0];
+				//$PeriodoContable->update($input);
+				return Redirect::action('ParamPeriodoContableController@index', $id);
 			}
 		}
 
