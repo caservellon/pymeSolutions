@@ -5,7 +5,7 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<th>No.</th>
+				<th>No. Asiento</th>
 				<th>Fecha</th>
 				<th>Detalle Cuenta</th>
 				<th>Debe</th>
