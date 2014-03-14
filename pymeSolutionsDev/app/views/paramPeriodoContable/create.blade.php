@@ -16,21 +16,21 @@
 	  
 
         <div class="form-group">
-            {{ Form::label('CON_ClasificacionPeriodo_Nombre', 'Nombre del Periodo:') }}
+            {{ Form::label('CON_ClasificacionPeriodo_Nombre', 'Nombre del Periodo:*') }}
             <div class="col-md-5 ">
               {{ Form::text('CON_ClasificacionPeriodo_Nombre','',array('maxlength'=>'45')) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CON_ClasificacionPeriodo_CatidadDias', 'Cantidad de Dias del Periodo:') }}
+            {{ Form::label('CON_ClasificacionPeriodo_CatidadDias', 'Cantidad de Dias del Periodo:*') }}
             <div class="col-md-2">
             {{ Form::select('CON_ClasificacionPeriodo_CatidadDias',$CantidadDias) }}
             </div>
         </div>
 
         <div class="form-group">
-         {{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que Inicia el Periodo Contable:') }}
+         {{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que Inicia el Periodo Contable:*') }}
          <div class="col-md-4"> 
          {{ Form::input('text', 'CON_PeriodoContable_FechaInicio','',array('value'=>'','id'=>'dpd1','placeholder'=>'yyyy-mm-dd')) }}
           </div>
