@@ -35,11 +35,9 @@
       <input type="text" class="value-input form-control" placeholder="Valor">
       <button class="add-value btn btn-default">Agregar</button>
       <ul class="list-group">
-        <li class="list-group-item">
-        <span class="badge">14</span>
-        Cras justo odio
-        </li>
+        
       </ul>
+      {{ Form::hidden('value-list-array', null, array('class' => 'value-list-array'))}}
     </div>
 
     <div class="form-group">

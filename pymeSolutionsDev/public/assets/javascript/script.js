@@ -13,11 +13,23 @@ $(document).ready(function () {
 		
 	});
 
-	$(".add-value").click(function() {
-		if ($(".value-input").val() === "") {
-			alert("hola");
-		} else {
-			alert("neles");
+	$(".add-value").click(function(ev) {
+		var input = $('.value-input');
+		if (input.val() === "" || input.val().indexOf(';') !== -1) {
+			input.val('');
+			input.focus();
+			return false;
 		}
+
+		$("ul.list-group").append("<li class=\"list-group-item\">" + input.val() + "</li>");
+		input.val('');
+		input.focus();
+
+		var values = $('.list-group li').map(function(i, el) {
+			return $(el).text();
+		}).toArray().join(';');
+
+		$('.value-list-array').val(values);
+		ev.preventDefault();
 	});
 });

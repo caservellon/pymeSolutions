@@ -60,9 +60,16 @@ class CampoLocalsController extends BaseController {
 			$Codigo = "CRM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
 			$Campo->GEN_CampoLocal_Codigo = $Codigo;
 		}
-		if ($validation)
-		{
-			$Campo->save();
+		if ($validation) {
+
+			if($Campo->save()){
+				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
+					$oneList = Input::get('value-list-array');
+					$valueList = explode(";", $oneList);
+					return $valueList;
+
+				}
+			}
 			return Redirect::route('CRM.CampoLocals.index');
 		}
 
@@ -72,12 +79,7 @@ class CampoLocalsController extends BaseController {
 			->with('message', 'There were validation errors.');
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function show($id)
 	{
 		$CampoLocal = $this->CampoLocal->findOrFail($id);
