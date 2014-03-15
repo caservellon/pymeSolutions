@@ -35,7 +35,7 @@
       <label class="col-md-2 control-label">Agregar elementos:</label>
       <div class="col-md-5">
         <input type="text" class="value-input form-control" placeholder="Valor">
-        <button class="add-value btn btn-default">Agregar</button>
+        <button class="add-value btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
         <ul class="list-group">
       </div>
         
