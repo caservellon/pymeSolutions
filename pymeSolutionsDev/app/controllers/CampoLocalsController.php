@@ -66,8 +66,16 @@ class CampoLocalsController extends BaseController {
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
 					$oneList = Input::get('value-list-array');
 					$valueList = explode(";", $oneList);
-					return $valueList;
-
+					$i = 0;
+					foreach ($valueList as $value ) {
+						$ListItem = new CampoLocalLista;
+						$ListItem->GEN_CampoLocalLista_ID = $i;
+						$ListItem->GEN_CampoLocalLista_Valor = $value;
+						$ListItem->GEN_CampoLocal_GEN_CampoLocal_ID = $Campo->GEN_CampoLocal_ID;
+						$i = $i +1;
+						$ListItem->save();
+					}
+					
 				}
 			}
 			return Redirect::route('CRM.CampoLocals.index');

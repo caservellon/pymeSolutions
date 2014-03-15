@@ -81,6 +81,13 @@
             </div>
         </div> 
 
+        <div class="form-group">
+            {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::text('CRM_TipoDocumento_CRM_TipoDocumento_ID',null, array('class' => 'form-control', 'id' => 'CRM_TipoDocumento_CRM_TipoDocumento_ID', 'placeholder' => '#' )) }}
+            </div>
+        </div> 
+
 		<div class="col-md-5">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>

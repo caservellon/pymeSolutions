@@ -40,28 +40,28 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('CRM_Personas_Celular', 'Nombres', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_Personas_Celular', 'Celular', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
                 {{ Form::text('CRM_Personas_Celular',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Celular', 'placeholder' => '95472014' )) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CRM_Personas_Fijo', 'Nombres', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_Personas_Fijo', 'Teléfono', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
                 {{ Form::text('CRM_Personas_Fijo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Fijo', 'placeholder' => '22289452' )) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CRM_Personas_Descuento', 'Nombres', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_Personas_Descuento', 'Descuento', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
                 {{ Form::text('CRM_Personas_Descuento',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Descuento', 'placeholder' => '##.##' )) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CRM_Personas_Foto', 'Nombres', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_Personas_Foto', 'Foto', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
                 {{ Form::text('CRM_Personas_Foto',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Foto', 'placeholder' => '#' )) }}
             </div>

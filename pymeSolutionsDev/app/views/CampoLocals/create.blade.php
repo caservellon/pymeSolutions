@@ -32,9 +32,12 @@
       </div>
     </div>
     <div style="display:none;" class="value-list form-group">
-      <input type="text" class="value-input form-control" placeholder="Valor">
-      <button class="add-value btn btn-default">Agregar</button>
-      <ul class="list-group">
+      <label class="col-md-2 control-label">Agregar elementos:</label>
+      <div class="col-md-5">
+        <input type="text" class="value-input form-control" placeholder="Valor">
+        <button class="add-value btn btn-default">Agregar</button>
+        <ul class="list-group">
+      </div>
         
       </ul>
       {{ Form::hidden('value-list-array', null, array('class' => 'value-list-array'))}}

@@ -122,12 +122,12 @@ Route::resource('contabilidad/asientocontable','AsientosController');
 Route::get('contabilidad/crear/asientocontable',array('uses'=>'AsientosController@create'));
 
 
+	Route::resource('Personas', 'PersonasController');
 //crm
 Route::group(array('prefix' => 'CRM'), function(){
 	Route::get('/',function(){
 		return View::make('Menus.crm');
 	});
-	Route::resource('Personas', 'PersonasController');
 
 	Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
 
