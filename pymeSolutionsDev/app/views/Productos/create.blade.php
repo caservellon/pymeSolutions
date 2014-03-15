@@ -120,15 +120,15 @@
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('INV_Categoria_ID', 'Categoria ID: *', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::select('INV_Categoria_ID',$combobox, null, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
-      </div>
-    </div>
-    <div class="form-group">
       {{ Form::label('INV_Categoria_IDCategoriaPadre', 'Categoria Padre ID:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::select('INV_Categoria_IDCategoriaPadre', $combobox, null, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
+      </div>
+    </div>
+    <div class="form-group">
+      {{ Form::label('INV_Categoria_ID', 'Categoria ID: *', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::select('INV_Categoria_ID', array(), null, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
@@ -152,6 +152,37 @@
       </div>
     </div>
 {{ Form::close() }}
+
+<script type="text/javascript">
+//  $(function() {
+    var padres = JSON.parse('{{$jpadres}}');
+    var hijos = JSON.parse('{{$jhijos}}');
+
+    $('#INV_Categoria_IDCategoriaPadre').on('change', function() {
+      var el = $(this);
+      var i = el.val();
+
+      var f = $.map(hijos, function(index, hijo) {
+        var r = null;
+        if (index == i) {
+          r = {name: hijo, i: index};
+        }
+
+        return r;
+      });
+
+      $('#INV_Categoria_ID').empty();
+      $.each(f, function(i, hijo) {
+        $('#INV_Categoria_ID').append($('<option>', {
+          value: hijo.i,
+          text: hijo.name
+        }));  
+      });
+      
+
+    });
+//  });
+</script>
 
 @if ($errors->any())
 	<ul>

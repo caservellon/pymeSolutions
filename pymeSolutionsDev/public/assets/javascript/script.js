@@ -1,5 +1,6 @@
 $(document).ready(function () {
-	$("a.local-field-btn").on("click",function(){
-		
+	$('INV_Categoria_IDCategoriaPadre').on('change', function() {
+		var el = $(this);
+		console.log(1)
 	});
 });
