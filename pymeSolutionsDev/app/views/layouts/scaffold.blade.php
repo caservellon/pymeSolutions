@@ -8,7 +8,7 @@
 
 
 </head>
-<body style="margin-top: 50px">
+<body>
   <header>
   <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
     <a class="navbar-brand" href="#">pymeERP</a>

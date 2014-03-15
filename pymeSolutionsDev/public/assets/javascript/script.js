@@ -21,7 +21,7 @@ $(document).ready(function () {
 			return false;
 		}
 
-		$("ul.list-group").append("<li class=\"list-group-item\">" + input.val() + "</li>");
+		$("ul.list-group").append("<li class=\"list-group-item\">" + input.val() + "<button class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-minus\"></span></button></li>");
 		input.val('');
 		input.focus();
 
@@ -30,6 +30,12 @@ $(document).ready(function () {
 		}).toArray().join(';');
 
 		$('.value-list-array').val(values);
+		ev.preventDefault();
+	});
+
+	$("li.list-group-item button").click(function(ev) {
+		console.log(this);
+		//$(this).parent().remove();
 		ev.preventDefault();
 	});
 });
