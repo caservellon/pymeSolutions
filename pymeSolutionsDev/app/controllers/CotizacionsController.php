@@ -126,7 +126,7 @@ class CotizacionsController extends BaseController {
                 return View::make('ListaValor', compact('suma'));
             }
             $mensaje= Mensaje::find(2);
-            return View::make('listavalor', compact('suma'))
+            return View::make('ListaValor', compact('suma'))
 			->withInput()
 			->withErrors($validation)
 			->with('message', $mensaje->GEN_Mensajes_Mensaje);

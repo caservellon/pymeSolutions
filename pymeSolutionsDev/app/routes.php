@@ -77,10 +77,10 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::get('Configuracion/OrdenCompra/parametrizar', array('as'=>'parametrizarOrden', 'uses'=> 'OrdenComprasController@parametrizar'));
     Route::get('Configuracion/Cotizacion/mensaje', array('as'=>'mensaje', 'uses'=> 'CotizacionsController@mensaje'));
     Route::get('Configuracion/OrdenCompra/mensaje', array('as'=>'mensajeOrden', 'uses'=> 'OrdenComprasController@mensaje'));
-    //Route::post('Cotizacions/editarlista', array('as'=>'editarlista', 'uses'=> 'CotizacionsController@editarlista'));
+    Route::get('Configuracion/OrdenCompra/parametrizar/ListaValor', array('as'=>'editarlista', 'uses'=> 'OrdenComprasController@listavista'));
     Route::post('Configuracion/Cotizacion/parametrizar/ListaValor', array('as'=>'listavalor', 'uses'=> 'CotizacionsController@lista'));
     Route::post('Configuracion/OrdenCompra/parametrizar/ListaValor', array('as'=>'listavalorOrden', 'uses'=> 'OrdenComprasController@lista'));
-    //Route::get('Cotizacions/parametrizar/ListaValor', array('as'=>'listavalorview', 'uses'=> 'CotizacionsController@listavista'));
+    //Route::get('Configuracion/OrdenCompra/parametrizar/ListaValor', array('as'=>'listavalorview', 'uses'=> 'CotizacionsController@listavista'));
 	//Route::get('parametrizar', 'CotizacionsController@parametrizar');
     Route::post('Configuracion/Cotizacion/campoLocal', array('as'=>'campoLocal', 'uses'=> 'CotizacionsController@campoLocal'));
     Route::post('Configuracion/OrdenCompra/campoLocal', array('as'=>'campoLocalOrden', 'uses'=> 'OrdenComprasController@campoLocal'));

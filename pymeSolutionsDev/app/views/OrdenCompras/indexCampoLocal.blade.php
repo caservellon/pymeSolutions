@@ -2,6 +2,9 @@
 
 @section('main')
 <h2 class="sub-header">Listado de Campos Locales</h2>
+<div class="pull-right">
+        <a href="{{{ URL::to('Compras') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+      </div>
 <div class="btn-agregar">
 	<a type="button" href="{{ URL::route('parametrizarOrden') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Campo Local
@@ -52,7 +55,7 @@
 						@else
 							<td>Inactivo</td>
 						@endif	
-					<td>{{ link_to_route('editar', 'Editar', array('id'=>$editars->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
+					<td>{{ link_to_route('editarlista', 'Editar', array('id'=>$editars->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
 
         
                                 </tr>
@@ -75,5 +78,9 @@
 
 
 @endif
-
+@if(!$editar->count())
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay campos locales disponibles :(
+    </div>
+@endif
 @stop

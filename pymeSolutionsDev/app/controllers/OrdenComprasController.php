@@ -99,9 +99,10 @@ class OrdenComprasController extends BaseController {
 			->with('message', $mensaje->GEN_Mensajes_Mensaje);
                 
         }
-//        public function listavista($suma){
-//            return View::make('ListaValor', compact('suma'));
-//        }
+       public function listavista(){
+           $suma=Input::get('id');
+            return View::make('ListaValor', compact('suma'));
+       }
         public function lista(){
             
             $listas = new CampoLocalLista();
@@ -114,10 +115,10 @@ class OrdenComprasController extends BaseController {
             if ($validation->passes()){
                 
                 $listas->save();
-                return View::make('ListaValor', compact('suma'));
+                return Redirect::route('editarlista', compact('suma'));
             }
             $mensaje= Mensaje::find(2);
-            return View::make('listavalor', compact('suma'))
+            return View::make('editarlista', compact('suma'))
 			->withInput()
 			->withErrors($validation)
 			->with('message', $mensaje->GEN_Mensajes_Mensaje);
