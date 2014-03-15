@@ -33,9 +33,9 @@ $(document).ready(function () {
 		ev.preventDefault();
 	});
 
-	$("li.list-group-item button").click(function(ev) {
-		console.log(this);
-		//$(this).parent().remove();
+	$(".list-group").on('click', '.list-group-item button', function(ev) {
+		//console.log(this);
+		$(this).parent().remove();
 		ev.preventDefault();
 	});
 });
