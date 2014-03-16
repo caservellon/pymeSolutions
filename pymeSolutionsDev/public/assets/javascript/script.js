@@ -18,29 +18,31 @@ $(document).ready(function () {
 
 		var data = {};
 
-		data.productos = $('.pro-list tr').map(function(i, producto) {
+		data.productos = [];
+
+		$('.pro-list tr').each(function(i, producto) {
 		    var td = $(producto).find('td');
 		    var codigo = td.eq(1).text();
 		    var cantidad = td.eq(4).text();
 		    
-		    return {
+		    data.productos.push({
 		        codigo: codigo,
 		        cantidad: cantidad
-		    };
+		    });
 		});
 
-		data.descuentos = $('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
+		data.descuentos = [];
+		
+		$('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
 		    var id = $(descuento).find('td:eq(1)').text();
-		    return id;
+		    data.descuentos.push(id);
 		});
 
-		data.pagos = 
+		//TODO data.pagos = 
 
 		console.log(data);
 
-		$.post("/Ventas/Ventas/", {
-			'data': data
-		}).success(function(data){
+		$.post("/Ventas/Ventas/", data).success(function(data){
 
 		});
 	});
