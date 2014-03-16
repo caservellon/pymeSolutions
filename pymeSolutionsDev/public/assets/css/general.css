@@ -33,3 +33,7 @@ td,th {
     min-width: 180px;
     height: 3em;
 }
+
+.highlight { 
+    background: #ED9C28;
+}

@@ -25,7 +25,7 @@
 				</tr>
 			</thead>
             <tbody>
-            	@foreach ($Cajas as $Caja)
+            	@foreach ($Productos as $Producto)
                 <tr>
 					<td>{{{ $Caja->VEN_Caja_id }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Codigo }}}</td>

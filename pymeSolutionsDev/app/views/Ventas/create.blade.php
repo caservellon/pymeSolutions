@@ -11,7 +11,7 @@
 
 <div class="row">    
 <div class="col-md-8">
-    <table class="table table-striped">
+    <table class="table" id="pro-list-table" data-editable="true">
         <thead>
             <tr>
                 <th>#</th>
@@ -22,30 +22,30 @@
                 <th>Total</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="pro-list">
             <tr>
-                <th>1</th>
-                <th>FAS-02</th>
-                <th>Libra de Limones</th>
-                <th>Lps. 4.50</th>
-                <th>12.5</th>
-                <th>Lps. 56.25</th>
+                <td>1</td>
+                <td>FAS-02</td>
+                <td>Libra de Limones</td>
+                <td>Lps. 4.50</td>
+                <td>12.5</td>
+                <td>Lps. 56.25</td>
             </tr>
             <tr>
-                <th>2</th>
-                <th>FAS-33</th>
-                <th>Libra de Tomate</th>
-                <th>Lps. 4.50</th>
-                <th>12.5</th>
-                <th>Lps. 56.25</th>
+                <td>2</td>
+                <td>FAS-33</td>
+                <td>Libra de Tomate</td>
+                <td>Lps. 4.50</td>
+                <td>12.5</td>
+                <td>Lps. 56.25</td>
             </tr>
             <tr>
-                <th>3</th>
-                <th>FAS-43</th>
-                <th>Libra de Cebolla</th>
-                <th>Lps. 4.50</th>
-                <th>12.5</th>
-                <th>Lps. 56.25</th>
+                <td>3</td>
+                <td>FAS-43</td>
+                <td>Libra de Cebolla</td>
+                <td>Lps. 4.50</td>
+                <td>12.5</td>
+                <td>Lps. 56.25</td>
             </tr>
         </tbody>
     </table>
@@ -58,25 +58,64 @@
             <span class="bold-span">ISV: </span> <span class="isv ventas-valores">Lps. 0.00</span>
         </div>
         <div>
-            <span class="bold-span">Total: </span> <span class="total ventas-valores">Lps. 0.00</span>
+            <span class="bold-span">Total: </span> <span class="grand-total ventas-valores">Lps. 0.00</span>
         </div>
     </div>
 </div>
 <div class="col-md-4">
     <div class="opciones-cajas">
         <h4>Opciones de Caja</h4>
-        <button type="button" class="btn btn-success">Agregar Producto</button>
-        <button type="button" class="btn btn-info">Editar Producto</button>
-        <button type="button" class="btn btn-warning">Eliminar Producto</button>
-        <button type="button" class="btn btn-danger">Cancelar Ventas</button>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarProducto">Agregar Producto</button>
+        <button type="button" class="btn btn-info editar-prod">Editar Producto</button>
+        <button type="button" class="btn btn-warning eliminar-prod">Eliminar Producto</button>
+        <button type="button" class="btn btn-danger cancel-venta">Cancelar Ventas</button>
         <br>
-        <button type="button" class="btn btn-primary">Finalizar Compra</button>
-        <button type="button" class="btn btn-default">Guardar Compra</button>
+        <button type="button" class="btn btn-primary fin-compra">Finalizar Compra</button>
+        <button type="button" class="btn btn-default guardar-compra">Guardar Compra</button>
     </div>
 </div>
 </div>
 
-
+<!-- Modal de Agregar Producto -->
+<div class="modal fade" id="agregarProducto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Producto</h4>
+      </div>
+      <div class="modal-body">
+        <form class="busqueda-producto form-inline">
+            <span>Producto: </span><input type="text" class="form-control"> <button type="button" class="btn btn-default">Buscar</button>
+            <table class="table" id="productos-venta">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Precio Unitario</th>
+                    </tr>
+                </thead>
+                <tbody class="pro-search">
+                    @foreach ($Productos as $Producto)
+                    <tr>
+                        <td>{{{ $Producto->INV_Producto_ID }}}</td>
+                        <td>{{{ $Producto->INV_Producto_Codigo }}}</td>
+                        <td>{{{ $Producto->INV_Producto_Nombre }}}</td>
+                        <td class='precio'>{{{ $Producto->INV_Producto_PrecioVenta }}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary agregar-producto">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
 @stop
 
 
