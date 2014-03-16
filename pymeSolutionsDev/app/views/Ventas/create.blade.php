@@ -11,7 +11,7 @@
 
 <div class="row">    
 <div class="col-md-8">
-    <table class="table" id="pro-list-table" data-editable="true">
+    <table class="table selectable" id="pro-list-table" data-editable="true">
         <thead>
             <tr>
                 <th>#</th>
@@ -26,7 +26,7 @@
             
         </tbody>
     </table>
-    
+    <hr>
     <div class="venta-info">
         <div>
             <span class="bold-span">Sub Total: </span> <span class="sub-total ventas-valores">Lps. 0.00</span>
@@ -51,7 +51,7 @@
         <button type="button" class="btn btn-warning eliminar-prod">Eliminar Producto</button>
         <button type="button" class="btn btn-danger cancel-venta">Cancelar Ventas</button>
         <br>
-        <button type="button" class="btn btn-default fin-compra">Finalizar Compra</button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarPago">Agregar Pago</button>
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarDescuento">Agregar Descuento</button>
         <button type="button" class="btn btn-default guardar-compra">Guardar Compra</button>
     </div>
@@ -69,7 +69,7 @@
       <div class="modal-body">
         <form class="busqueda-producto form-inline">
             <span>Producto: </span><input type="text" class="form-control"> <button type="button" class="btn btn-default">Buscar</button>
-            <table class="table" id="productos-venta">
+            <table class="table selectable" id="productos-venta">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -112,6 +112,7 @@
             <table class="table" id="descuento-venta">
                 <thead>
                     <tr>
+                        <th>Selección</th>
                         <th>#</th>
                         <th>Código</th>
                         <th>Nombre</th>
@@ -121,6 +122,7 @@
                 <tbody class="descuento-add">
                     @foreach ($Descuentos as $Descuento)
                     <tr>
+                        <td><input type="checkbox" class="descuento_{{$Descuento->VEN_DescuentoEspecial_id}}"></td>
                         <td>{{{ $Descuento->VEN_DescuentoEspecial_id }}}</td>
                         <td>{{{ $Descuento->VEN_DescuentoEspecial_Codigo }}}</td>
                         <td>{{{ $Descuento->VEN_DescuentoEspecial_Nombre }}}</td>
@@ -130,6 +132,25 @@
                 </tbody>
             </table>
         </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary agregar-descuento">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Agregar Pago -->
+<div class="modal fade" id="agregarPago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Agregar Pago</h4>
+      </div>
+      <div class="modal-body">
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

@@ -13,8 +13,40 @@ $(document).ready(function () {
 		});
 	});
 
+	//Mandar todo pa-tras
+	$('.guardar-compra').on('click',function(){
+
+		var data = {};
+
+		data.productos = $('.pro-list tr').map(function(i, producto) {
+		    var td = $(producto).find('td');
+		    var codigo = td.eq(1).text();
+		    var cantidad = td.eq(4).text();
+		    
+		    return {
+		        codigo: codigo,
+		        cantidad: cantidad
+		    };
+		});
+
+		data.descuentos = $('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
+		    var id = $(descuento).find('td:eq(1)').text();
+		    return id;
+		});
+
+		data.pagos = 
+
+		console.log(data);
+
+		$.post("/Ventas/Ventas/", {
+			'data': data
+		}).success(function(data){
+
+		});
+	});
+
 	//Seleccionador
-	$('.table').on('click', 'tbody tr', function(event) {
+	$('.selectable').on('click', 'tbody tr', function(event) {
     	$(this).addClass('highlight').siblings().removeClass('highlight');
 	});
 
