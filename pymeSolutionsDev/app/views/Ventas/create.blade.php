@@ -27,25 +27,25 @@
                 <td>1</td>
                 <td>FAS-02</td>
                 <td>Libra de Limones</td>
-                <td>Lps. 4.50</td>
-                <td>12.5</td>
-                <td>Lps. 56.25</td>
+                <td class="precio">Lps. 4.50</td>
+                <td class="cantidad">12.5</td>
+                <td class="total-art">Lps. 56.25</td>
             </tr>
             <tr>
                 <td>2</td>
                 <td>FAS-33</td>
                 <td>Libra de Tomate</td>
-                <td>Lps. 4.50</td>
-                <td>12.5</td>
-                <td>Lps. 56.25</td>
+                <td class="precio">Lps. 4.50</td>
+                <td class="cantidad">12.5</td>
+                <td class="total-art">Lps. 56.25</td>
             </tr>
             <tr>
                 <td>3</td>
                 <td>FAS-43</td>
                 <td>Libra de Cebolla</td>
-                <td>Lps. 4.50</td>
-                <td>12.5</td>
-                <td>Lps. 56.25</td>
+                <td class="precio">Lps. 4.50</td>
+                <td class="cantidad">12.5</td>
+                <td class="total-art">Lps. 56.25</td>
             </tr>
         </tbody>
     </table>
@@ -66,11 +66,12 @@
     <div class="opciones-cajas">
         <h4>Opciones de Caja</h4>
         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarProducto">Agregar Producto</button>
-        <button type="button" class="btn btn-info editar-prod">Editar Producto</button>
+        <button type="button" class="btn btn-info editar-prod">Editar Cantidad</button>
         <button type="button" class="btn btn-warning eliminar-prod">Eliminar Producto</button>
         <button type="button" class="btn btn-danger cancel-venta">Cancelar Ventas</button>
         <br>
         <button type="button" class="btn btn-primary fin-compra">Finalizar Compra</button>
+        <button type="button" class="btn btn-primary add-descuento">Agregar Descuento</button>
         <button type="button" class="btn btn-default guardar-compra">Guardar Compra</button>
     </div>
 </div>

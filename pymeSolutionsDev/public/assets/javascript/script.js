@@ -4,7 +4,7 @@ $(document).ready(function () {
 
 	//Busqueda por AJAX
 	$('.agregar-producto').on('click',function(){
-		$.post("/Inventario/Productos/search", {
+		$.post("/Inventario/Productos/", {
 			"searchTerm" : $('.agregar-producto').val()
 		}).success(function(data){
 			var new_tbody = document.createElement('tbody');
@@ -29,13 +29,31 @@ $(document).ready(function () {
 	$('.eliminar-prod').on('click',function(){
 		$("tbody.pro-list tr.highlight").remove();
 		actualizarTotales();
+	}); 
+
+	//Editar cantidad de Productos
+	$('.editar-prod').on('click', function(){
+		var content = $("tbody.pro-list tr.highlight").find('.cantidad').text();
+		$("tbody.pro-list tr.highlight").find('.cantidad').text('');
+		$("tbody.pro-list tr.highlight").find('.cantidad').append($('<input>', {
+			'class': 'edit-cant',
+			'value': content
+		}));
+		$("tbody.pro-list tr.highlight").find('.edit-cant').focus();
+	});
+
+	$('.table').on('blur', '.edit-cant', function(){
+		var content = $("tbody.pro-list tr.highlight").find('.edit-cant').val();
+		$("tbody.pro-list tr.highlight").find('.cantidad').text(content);
+		var newTotal = content * (($("tbody.pro-list tr.highlight").find('.precio').text()).substring(5));
+		$("tbody.pro-list tr.highlight").find('.total-art').text("Lps. " + newTotal);
+		actualizarTotales();
 	});
 	
 	//Agregar producto
 	$('.agregar-producto').on('click',function(){
 		var row = $("tbody.pro-search tr.highlight").clone();
 		var precioTd = row.find('.precio');
-		console.log(precioTd)
 		var precio = precioTd.text()
 		precioTd.text('Lps. ' + precio);
 		row.append($('<td>', {
@@ -44,7 +62,7 @@ $(document).ready(function () {
 		}));
 
 		row.append($('<td>', {
-			'class': 'total',
+			'class': 'total-art',
 			'text': 'Lps. ' + precio
 		}));
 

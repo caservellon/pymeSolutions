@@ -35,5 +35,9 @@ td,th {
 }
 
 .highlight { 
-    background: #ED9C28;
+    background: #39B3D7;
+}
+
+.edit-cant{
+	max-width: 4em;
 }
