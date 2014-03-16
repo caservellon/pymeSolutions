@@ -33,8 +33,9 @@ class VentasController extends BaseController {
 	 */
 	public function create()
 	{
+		$Descuentos = Descuento::all();
 		$Productos = Producto::all();
-		return View::make('Ventas.create', compact('Productos'));
+		return View::make('Ventas.create', compact('Productos', 'Descuentos'));
 	}
 
 	/**

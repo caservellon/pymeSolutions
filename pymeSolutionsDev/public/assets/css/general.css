@@ -12,7 +12,13 @@ td,th {
 
 .venta-info {
 	float: right;
-	width: 12em;
+	width: 16em;
+}
+
+.venta-info hr {
+	margin: 0;
+	padding-bottom: 3px;
+	padding-top: 3px;
 }
 
 .bold-span {

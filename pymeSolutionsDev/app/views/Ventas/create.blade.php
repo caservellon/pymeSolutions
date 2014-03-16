@@ -23,30 +23,7 @@
             </tr>
         </thead>
         <tbody class="pro-list">
-            <tr>
-                <td>1</td>
-                <td>FAS-02</td>
-                <td>Libra de Limones</td>
-                <td class="precio">Lps. 4.50</td>
-                <td class="cantidad">12.5</td>
-                <td class="total-art">Lps. 56.25</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>FAS-33</td>
-                <td>Libra de Tomate</td>
-                <td class="precio">Lps. 4.50</td>
-                <td class="cantidad">12.5</td>
-                <td class="total-art">Lps. 56.25</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>FAS-43</td>
-                <td>Libra de Cebolla</td>
-                <td class="precio">Lps. 4.50</td>
-                <td class="cantidad">12.5</td>
-                <td class="total-art">Lps. 56.25</td>
-            </tr>
+            
         </tbody>
     </table>
     
@@ -55,8 +32,12 @@
             <span class="bold-span">Sub Total: </span> <span class="sub-total ventas-valores">Lps. 0.00</span>
         </div>
         <div>
-            <span class="bold-span">ISV: </span> <span class="isv ventas-valores">Lps. 0.00</span>
+            <span class="bold-span">Descuento: </span> <span class="sub-total ventas-valores">Lps. 0.00</span>
         </div>
+        <div>
+            <span class="bold-span">ISV: </span> <span class="descuento ventas-valores">Lps. 0.00</span>
+        </div>
+        <hr>
         <div>
             <span class="bold-span">Total: </span> <span class="grand-total ventas-valores">Lps. 0.00</span>
         </div>
@@ -70,8 +51,8 @@
         <button type="button" class="btn btn-warning eliminar-prod">Eliminar Producto</button>
         <button type="button" class="btn btn-danger cancel-venta">Cancelar Ventas</button>
         <br>
-        <button type="button" class="btn btn-primary fin-compra">Finalizar Compra</button>
-        <button type="button" class="btn btn-primary add-descuento">Agregar Descuento</button>
+        <button type="button" class="btn btn-default fin-compra">Finalizar Compra</button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarDescuento">Agregar Descuento</button>
         <button type="button" class="btn btn-default guardar-compra">Guardar Compra</button>
     </div>
 </div>
@@ -113,6 +94,46 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary agregar-producto">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Agregar Descuento -->
+<div class="modal fade" id="agregarDescuento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Agregar Descuento</h4>
+      </div>
+      <div class="modal-body">
+        <form class="busqueda-descuento form-inline">
+            <table class="table" id="descuento-venta">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody class="descuento-add">
+                    @foreach ($Descuentos as $Descuento)
+                    <tr>
+                        <td>{{{ $Descuento->VEN_DescuentoEspecial_id }}}</td>
+                        <td>{{{ $Descuento->VEN_DescuentoEspecial_Codigo }}}</td>
+                        <td>{{{ $Descuento->VEN_DescuentoEspecial_Nombre }}}</td>
+                        <td>{{{ $Descuento->VEN_DescuentoEspecial_Valor }}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary agregar-descuento">Agregar</button>
       </div>
     </div>
   </div>
