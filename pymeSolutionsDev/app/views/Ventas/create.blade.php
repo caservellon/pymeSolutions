@@ -2,71 +2,80 @@
 
 @section('main')
 
-<h1>Create Venta</h1>
+<div class="page-header clearfix">
+    <h3 class="pull-left">Caja &gt; <small>Nueva Venta</small></h3>
+    <div class="pull-right">
+        <a href="{{{ URL::to('Ventas/Ventas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+    </div>
+</div>
 
-{{ Form::open(array('route' => 'Ventas.store')) }}
-	<ul>
-        <li>
-            {{ Form::label('VEN_Venta_id', 'VEN_Venta_id:') }}
-            {{ Form::text('VEN_Venta_id') }}
-        </li>
+<div class="row">    
+<div class="col-md-8">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>1</th>
+                <th>FAS-02</th>
+                <th>Libra de Limones</th>
+                <th>Lps. 4.50</th>
+                <th>12.5</th>
+                <th>Lps. 56.25</th>
+            </tr>
+            <tr>
+                <th>2</th>
+                <th>FAS-33</th>
+                <th>Libra de Tomate</th>
+                <th>Lps. 4.50</th>
+                <th>12.5</th>
+                <th>Lps. 56.25</th>
+            </tr>
+            <tr>
+                <th>3</th>
+                <th>FAS-43</th>
+                <th>Libra de Cebolla</th>
+                <th>Lps. 4.50</th>
+                <th>12.5</th>
+                <th>Lps. 56.25</th>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="venta-info">
+        <div>
+            <span class="bold-span">Sub Total: </span> <span class="sub-total ventas-valores">Lps. 0.00</span>
+        </div>
+        <div>
+            <span class="bold-span">ISV: </span> <span class="isv ventas-valores">Lps. 0.00</span>
+        </div>
+        <div>
+            <span class="bold-span">Total: </span> <span class="total ventas-valores">Lps. 0.00</span>
+        </div>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="opciones-cajas">
+        <h4>Opciones de Caja</h4>
+        <button type="button" class="btn btn-success">Agregar Producto</button>
+        <button type="button" class="btn btn-info">Editar Producto</button>
+        <button type="button" class="btn btn-warning">Eliminar Producto</button>
+        <button type="button" class="btn btn-danger">Cancelar Ventas</button>
+        <br>
+        <button type="button" class="btn btn-primary">Finalizar Compra</button>
+        <button type="button" class="btn btn-default">Guardar Compra</button>
+    </div>
+</div>
+</div>
 
-        <li>
-            {{ Form::label('VEN_Venta_Codigo', 'VEN_Venta_Codigo:') }}
-            {{ Form::text('VEN_Venta_Codigo') }}
-        </li>
-
-        <li>
-            {{ Form::label('VEN_Venta_DescuentoCliente', 'VEN_Venta_DescuentoCliente:') }}
-            {{ Form::text('VEN_Venta_DescuentoCliente') }}
-        </li>
-
-        <li>
-            {{ Form::label('VEN_Venta_TotalDescuentoProductos', 'VEN_Venta_TotalDescuentoProductos:') }}
-            {{ Form::text('VEN_Venta_TotalDescuentoProductos') }}
-        </li>
-
-        <li>
-            {{ Form::label('VEN_Venta_ISV', 'VEN_Venta_ISV:') }}
-            {{ Form::text('VEN_Venta_ISV') }}
-        </li>
-
-        <li>
-            {{ Form::label('VEN_Venta_Subtotal', 'VEN_Venta_Subtotal:') }}
-            {{ Form::text('VEN_Venta_Subtotal') }}
-        </li>
-
-        <li>
-            {{ Form::label('VEN_Venta_Total', 'VEN_Venta_Total:') }}
-            {{ Form::text('VEN_Venta_Total') }}
-        </li>
-
-        <li>
-            {{ Form::label('VEN_Venta_TotalCambio', 'VEN_Venta_TotalCambio:') }}
-            {{ Form::text('VEN_Venta_TotalCambio') }}
-        </li>
-
-        <li>
-            {{ Form::label('VEN_FormaPago_VEN_FormaPago_id', 'VEN_FormaPago_VEN_FormaPago_id:') }}
-            {{ Form::text('VEN_FormaPago_VEN_FormaPago_id') }}
-        </li>
-
-        <li>
-            {{ Form::label('VEN_Caja_VEN_Caja_id', 'VEN_Caja_VEN_Caja_id:') }}
-            {{ Form::text('VEN_Caja_VEN_Caja_id') }}
-        </li>
-
-		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-		</li>
-	</ul>
-{{ Form::close() }}
-
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop
 

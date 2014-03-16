@@ -10,4 +10,26 @@ td,th {
 	text-align: center;
 }
 
+.venta-info {
+	float: right;
+	width: 12em;
+}
 
+.bold-span {
+	font-weight: bold;
+}
+
+.ventas-valores {
+	float: right;
+}
+
+.opciones-cajas {
+    text-align: center;
+}
+
+.opciones-cajas button {
+    display: block;
+    margin: 1em auto;
+    min-width: 180px;
+    height: 3em;
+}
