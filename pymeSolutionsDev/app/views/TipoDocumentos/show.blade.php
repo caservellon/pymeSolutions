@@ -9,10 +9,9 @@
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
-			<th>CRM_TipoDocumento_ID</th>
-				<th>CRM_TipoDocumento_Codigo</th>
-				<th>CRM_TipoDocumento_Nombre</th>
-				<th>CRM_TipoDocumento_Validacion</th>
+			<th>Código</th>
+			<th>Nombre</th>
+			<th>Validación</th>
 		</tr>
 	</thead>
 

@@ -2,34 +2,43 @@
 
 @section('main')
 
-<h1>Edit TipoDocumento</h1>
-{{ Form::model($TipoDocumento, array('method' => 'PATCH', 'route' => array('TipoDocumentos.update', $TipoDocumento->id))) }}
-	<ul>
-        <li>
-            {{ Form::label('CRM_TipoDocumento_ID', 'CRM_TipoDocumento_ID:') }}
-            {{ Form::text('CRM_TipoDocumento_ID') }}
-        </li>
+<div class="page-header clearfix">
+      <h3 class="pull-left">Tipo de Documento &gt; <small>Editar Tipo</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('CRM/TipoDocumentos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+      </div>
+</div>
 
-        <li>
-            {{ Form::label('CRM_TipoDocumento_Codigo', 'CRM_TipoDocumento_Codigo:') }}
-            {{ Form::text('CRM_TipoDocumento_Codigo') }}
-        </li>
+{{ Form::model($TipoDocumento, array('method' => 'PATCH', 'route' => array('CRM.TipoDocumentos.update', $TipoDocumento->CRM_TipoDocumento_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
+	<div>
+        <div class="form-group">
+            {{ Form::label('CRM_TipoDocumento_Codigo', 'Validación:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-4">
+                {{ Form::text('CRM_TipoDocumento_Codigo',$TipoDocumento->CRM_TipoDocumento_Codigo, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Codigo', 'placeholder' => 'PASS' ))}}
+            </div>
+        </div>
 
-        <li>
-            {{ Form::label('CRM_TipoDocumento_Nombre', 'CRM_TipoDocumento_Nombre:') }}
-            {{ Form::text('CRM_TipoDocumento_Nombre') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_TipoDocumento_Nombre', 'Nombre:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-4">
+                {{ Form::text('CRM_TipoDocumento_Nombre',$TipoDocumento->CRM_TipoDocumento_Nombre, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Nombre', 'placeholder' => 'Pasaporte' )) }}
+            </div>
+        </div>
 
-        <li>
-            {{ Form::label('CRM_TipoDocumento_Validacion', 'CRM_TipoDocumento_Validacion:') }}
-            {{ Form::text('CRM_TipoDocumento_Validacion') }}
-        </li>
+        <div class="form-group">
+            {{ Form::label('CRM_TipoDocumento_Validacion', 'Validación:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-4">
+                {{ Form::text('CRM_TipoDocumento_Validacion',$TipoDocumento->CRM_TipoDocumento_Validacion, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Validacion', 'placeholder' => 'XXX-XXX-L' ))}}
+            </div>
+        </div>
 
-		<li>
-			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('TipoDocumentos.show', 'Cancel', $TipoDocumento->id, array('class' => 'btn')) }}
-		</li>
-	</ul>
+
+    </div>
+    <div class="form-group">
+      <div class="col-md-5">
+      {{ Form::submit('Enviar', array('class' => 'btn btn-info')) }}
+      </div>
+    </div>
 {{ Form::close() }}
 
 @if ($errors->any())
