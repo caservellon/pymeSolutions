@@ -68,9 +68,13 @@ class VentasController extends BaseController {
 	 */
 	public function guardar(){
 
-		$productos = Input::get('productos');
-		$descuentos = Input::get('descuentos');
-		$pagos = Input::get('');
+		if (Request::ajax())
+		{
+			$productos = Input::get('productos');
+			$descuentos = Input::get('descuentos');
+			$pagos = Input::get('');
+		}
+		
 
 		return Redirect::route('Ventas.Ventas.index');
 	}

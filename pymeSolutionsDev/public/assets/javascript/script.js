@@ -38,9 +38,12 @@ $(document).ready(function () {
 		    data.descuentos.push(id);
 		});
 
-		data.pagos = [];
+		data.abono = [];
 
-		$('')
+		data.isv = [];
+
+		data.saldo = [];
+
 
 		console.log(data);
 
@@ -173,4 +176,3 @@ $(document).ready(function () {
 	}
 
 });
-
