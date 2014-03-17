@@ -43,19 +43,29 @@ class TipoDocumentosController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, TipoDocumento::$rules);
-
-		if ($validation->passes())
-		{
-			$this->TipoDocumento->create($input);
-
-			return Redirect::route('TipoDocumentos.index');
+		$validation = true;
+		$tipoDoc = new TipoDocumento;
+		$nombre = Input::get('CRM_TipoDocumento_Nombre');
+		if($nombre == "" || $nombre == null){
+			$tipoDoc->CRM_TipoDocumento_Nombre = $nombre;
+		} else {
+			$validation = false;
 		}
-
-		return Redirect::route('TipoDocumentos.create')
+		$validacion = Input::get('CRM_TipoDocumento_Validacion');
+		if($validacion == "" || $validacion == null){
+			$tipoDoc->CRM_TipoDocumento_Validacion = $validacion;
+		} else {
+			$validation = false;
+		}
+		if($validation){
+			$codigo = "CRM_" . $nombre;
+			$tipoDoc->CRM_TipoDocumento_Codigo = $codigo;
+			$tipoDoc->save();
+			return Redirect::route('CRM.TipoDocumentos.index');
+		}
+		return $tipoDoc;
+		return Redirect::route('CRM.TipoDocumentos.create')
 			->withInput()
-			->withErrors($validation)
 			->with('message', 'There were validation errors.');
 	}
 

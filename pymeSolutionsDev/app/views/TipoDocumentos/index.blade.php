@@ -5,7 +5,7 @@
 <h2 class="sub-header">Listado de Tipos de Documento</h2>
 <div class="btn-agregar">
 	<a type="button" href="{{ URL::route('CRM.TipoDocumentos.create') }}" class="btn btn-default">
-	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Tipo de Documento
+	  <span class="glyphicon glyphicon-list-alt"></span> Agregar Tipo de Documento
 	</a>
 </div>
 
