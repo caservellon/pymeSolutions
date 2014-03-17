@@ -37,6 +37,12 @@ Route::group(array('prefix' => 'Inventario'), function()
 
 	Route::resource('FormaPagos', 'FormaPagosController');
 
+	Route::resource('MovimientoInventario', 'MovimientoinventariosController');
+
+	Route::resource('DetalleMovimiento', 'DetallemovimientosController');
+
+	Route::get('DetalleMovimiento/Agregar/{id}', array('as' => 'Inventario.DetalleMovimiento.Agregar', 'uses' =>'DetallemovimientosController@agregar'));
+
 });
    
 
@@ -167,4 +173,3 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 
 });
-
