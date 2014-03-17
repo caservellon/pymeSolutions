@@ -27,8 +27,9 @@ class PersonasController extends BaseController {
 	}
 
 	public function create() {
-		$tipoDocumento = 
-		return View::make('Personas.create');
+		$tipoDocumento = TipoDocumento::all();
+		
+		return View::make('Personas.create', compact('tipoDocumento'));
 	}
 
 	/**

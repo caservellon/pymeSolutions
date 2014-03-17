@@ -10,8 +10,15 @@
 </div>
 
 {{ Form::open(array('route' => 'CRM.Personas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
-	<div class="form-group">
+    <div class="form-group">
         
+
+        <div class="form-group">
+            {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID',$tipoDocumento, array('class' => 'form-control', 'id' => 'CRM_TipoDocumento_CRM_TipoDocumento_ID', 'placeholder' => '#' )) }}
+            </div>
+        </div> 
 
         <div class="form-group">
             {{ Form::label('CRM_Personas_codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
@@ -76,12 +83,6 @@
             </div>
         </div> 
 
-        <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
-            <div class="col-md-5">
-                {{ Form::text('CRM_TipoDocumento_CRM_TipoDocumento_ID',null, array('class' => 'form-control', 'id' => 'CRM_TipoDocumento_CRM_TipoDocumento_ID', 'placeholder' => '#' )) }}
-            </div>
-        </div> 
 
 		<div class="col-md-5">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
