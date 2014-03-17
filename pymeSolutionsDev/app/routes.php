@@ -129,6 +129,8 @@ Route::group(array('prefix' => 'CRM'), function(){
 
 	Route::resource('Personas', 'PersonasController');
 
+	Route::resource('TipoDocumentos', 'TipoDocumentosController');
+
 	Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
 
 	Route::resource('CampoLocals', 'CRMCampoLocalsController');

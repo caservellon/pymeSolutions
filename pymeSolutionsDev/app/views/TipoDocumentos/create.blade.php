@@ -1,10 +1,14 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<div class="page-header clearfix">
+      <h3 class="pull-left">Tipo de Documento &gt; <small>Nuevo Tipo de Documento</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('CRM/TipoDocumentos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+      </div>
+</div>
 
-<h1>Create TipoDocumento</h1>
-
-{{ Form::open(array('route' => 'TipoDocumentos.store')) }}
+{{ Form::open(array('route' => 'CRM.TipoDocumentos.store')) }}
 	<ul>
         <li>
             {{ Form::label('CRM_TipoDocumento_ID', 'CRM_TipoDocumento_ID:') }}
