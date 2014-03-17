@@ -34,8 +34,12 @@ $(document).ready(function () {
 	});
 
 	$(".list-group").on('click', '.list-group-item button', function(ev) {
-		//console.log(this);
 		$(this).parent().remove();
+		var values = $('.list-group li').map(function(i, el) {
+			return $(el).text();
+		}).toArray().join(';');
+
+		$('.value-list-array').val(values);
 		ev.preventDefault();
 	});
 });

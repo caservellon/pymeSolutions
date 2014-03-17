@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Campo Local &gt; <small>Nuevo Campo Local</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('CRM.CampoLocals') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="/CRM/CampoLocals" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
@@ -31,15 +31,20 @@
         {{ Form::select('GEN_CampoLocal_Tipo', array('TXT' => 'Texto', 'INT' => 'Entero', 'FLOAT' => 'Decimal', 'LIST' => 'Lista de Valores', 'CHKBOX' => 'Selección Multiple', 'RADIOBTN' => 'Selección Única'),'TXT',array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
+
     <div style="display:none;" class="value-list form-group">
       <label class="col-md-2 control-label">Agregar elementos:</label>
       <div class="col-md-5">
-        <input type="text" class="value-input form-control" placeholder="Valor">
-        <button class="add-value btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+        <div class="input-group">
+          <input type="text" class="value-input form-control">
+          <span class="input-group-btn">
+            <button class="add-value btn btn-success" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+          </span>
+        </div>
         <ul class="list-group">
-      </div>
         
       </ul>
+      </div>
       {{ Form::hidden('value-list-array', null, array('class' => 'value-list-array'))}}
     </div>
 

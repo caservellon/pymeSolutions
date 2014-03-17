@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>pymeSolutions</title>
-  <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
   <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
 
 
 </head>
 <body>
   <header>
   <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-    <a class="navbar-brand" href="#">pymeERP</a>
+    <a class="navbar-brand" href="#">pyme Solutions</a>
 
     <ul class="nav navbar-nav navbar-left">
       <li class="dropdown">
