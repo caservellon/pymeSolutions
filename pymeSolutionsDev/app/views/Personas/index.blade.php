@@ -4,7 +4,7 @@
 
 <h2 class="sub-header">Listado de Personas</h2>
 <div class="btn-agregar">
-	<a type="button" href="{{ URL::route('Personas.create') }}" class="btn btn-default">
+	<a type="button" href="{{ URL::route('CRM.Personas.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-user"></span> Agregar Persona
 	</a>
 </div>

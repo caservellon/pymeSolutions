@@ -95,7 +95,7 @@
               <li><a href="#">Documentos</a></li>
               <li><a href="#">Oportunidades de Negocios</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li><a href="/CRM">Configuración</a></li>
             </ul>
           </li>
 

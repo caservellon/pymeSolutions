@@ -1,6 +1,6 @@
 <?php
 
-class CampoLocalsController extends BaseController {
+class CRMCampoLocalsController extends BaseController {
 
 	protected $CampoLocal;
 	public function __construct(CampoLocal $CampoLocal)
@@ -8,11 +8,10 @@ class CampoLocalsController extends BaseController {
 		$this->CampoLocal = $CampoLocal;
 	}
 
-	public function index()
-	{
+	public function index(){
 		$CampoPersonas = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get();
 		$CampoEmpresas = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_EP%')->get();
-		return View::make('CampoLocals.index', array(
+		return View::make('CRMCampoLocals.index', array(
 			'CampoPersonas' => $CampoPersonas,
 			'CampoEmpresas' => $CampoEmpresas
 			));
@@ -20,7 +19,7 @@ class CampoLocalsController extends BaseController {
 
 	public function create()
 	{
-		return View::make('CampoLocals.create');
+		return View::make('CRMCampoLocals.create');
 	}
 
 	public function store()
@@ -39,7 +38,6 @@ class CampoLocalsController extends BaseController {
 			$Campo->GEN_CampoLocal_Codigo = $Codigo;
 		}
 		if ($validation) {
-
 			if($Campo->save()){
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
 					$oneList = Input::get('value-list-array');
@@ -66,7 +64,7 @@ class CampoLocalsController extends BaseController {
 	{
 		$CampoLocal = $this->CampoLocal->findOrFail($id);
 
-		return View::make('CampoLocals.show', compact('CampoLocal'));
+		return View::make('CRMCampoLocals.show', compact('CampoLocal'));
 	}
 
 	public function edit($id)
@@ -88,7 +86,7 @@ class CampoLocalsController extends BaseController {
 
 			$stringConcat = rtrim($stringConcat,";");
 		}
-		return View::make('CampoLocals.edit', array('stringConcat'=> $stringConcat,'CampoLocal' => $CampoLocal, 'tipoDePerfil' => $tipoDePerfil, 'CampoLocalLista'=> $CampoLocalLista));
+		return View::make('CRMCampoLocals.edit', array('stringConcat'=> $stringConcat,'CampoLocal' => $CampoLocal, 'tipoDePerfil' => $tipoDePerfil, 'CampoLocalLista'=> $CampoLocalLista));
 	}
 
 	public function update($id){
@@ -105,8 +103,7 @@ class CampoLocalsController extends BaseController {
 			$validation = false;
 		} else {
 			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
-			$Codigo = "CRM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
-			$Campo->GEN_CampoLocal_Codigo = $Codigo;
+			
 		}
 		if ($validation){
 			if($Campo->save()){

@@ -9,7 +9,7 @@
       </div>
 </div>
 
-{{ Form::model($Persona, array('method' => 'PATCH', 'route' => array('Personas.update', $Persona->CRM_Personas_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
+{{ Form::model($Persona, array('method' => 'PATCH', 'route' => array('CRM.Personas.update', $Persona->CRM_Personas_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
         <div class="form-group">
             {{ Form::label('CRM_Personas_Nombres', 'Nombres', array('class' => 'col-md-2 control-label')) }}

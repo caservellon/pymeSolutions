@@ -26,13 +26,8 @@ class PersonasController extends BaseController {
 		return View::make('Personas.index', compact('Personas'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+	public function create() {
+		$tipoDocumento = 
 		return View::make('Personas.create');
 	}
 
@@ -41,8 +36,7 @@ class PersonasController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store(){
 		$input = Input::all();
 		$validation = Validator::make($input, Persona::$rules);
 
@@ -50,10 +44,10 @@ class PersonasController extends BaseController {
 		{
 			$this->Persona->create($input);
 
-			return Redirect::route('Personas.index');
+			return Redirect::route('CRM.Personas.index');
 		}
 
-		return Redirect::route('Personas.create')
+		return Redirect::route('CRM.Personas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
