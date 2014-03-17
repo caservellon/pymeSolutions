@@ -32,14 +32,21 @@
             <span class="bold-span">Sub Total: </span> <span class="sub-total ventas-valores">Lps. 0.00</span>
         </div>
         <div>
-            <span class="bold-span">Descuento: </span> <span class="sub-total ventas-valores">Lps. 0.00</span>
+            <span class="bold-span">Descuento: </span> <span class="descuento ventas-valores">Lps. 0.00</span>
         </div>
         <div>
-            <span class="bold-span">ISV: </span> <span class="descuento ventas-valores">Lps. 0.00</span>
+            <span class="bold-span">ISV: </span> <span class="isv ventas-valores">Lps. 0.00</span>
         </div>
         <hr>
         <div>
             <span class="bold-span">Total: </span> <span class="grand-total ventas-valores">Lps. 0.00</span>
+        </div>
+        <hr>
+        <div>
+            <span class="bold-span">Abonado: </span> <span class="abonado-info ventas-valores">Lps. 0.00</span>
+        </div>
+        <div>
+            <span class="bold-span">Saldo: </span> <span class="saldo-info ventas-valores">Lps. 0.00</span>
         </div>
     </div>
 </div>
@@ -53,7 +60,7 @@
         <br>
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarPago">Agregar Pago</button>
         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarDescuento">Agregar Descuento</button>
-        <button type="button" class="btn btn-default guardar-compra">Guardar Compra</button>
+        <button type="button" class="btn btn-default guardar-compra">Finalizar Compra</button>
     </div>
 </div>
 </div>
@@ -150,11 +157,31 @@
         <h4 class="modal-title" id="myModalLabel">Agregar Pago</h4>
       </div>
       <div class="modal-body">
-        
+            <div class="row">
+              <div class="col-md-8">
+                <table class="table pagos-tabla" id="pagos-tabla">
+                    <thead>
+                        <tr>
+                            <th>Metodo Pago</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody class="pagos-list">
+                        
+                    </tbody>
+                </table>
+              </div>
+              <div class="col-md-4">
+                <span>Cantidad: </span><input type="text" class="ammount-pago">
+                <br>
+                <span>Metodo de Pago: Efectivo</span>
+                <br>
+                <button class="btn btn-success add-pago-modal-bt">Agregar</button>
+              </div>
+            </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary agregar-descuento">Agregar</button>
       </div>
     </div>
   </div>

@@ -32,17 +32,19 @@ $(document).ready(function () {
 		});
 
 		data.descuentos = [];
-		
+
 		$('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
 		    var id = $(descuento).find('td:eq(1)').text();
 		    data.descuentos.push(id);
 		});
 
-		//TODO data.pagos = 
+		data.pagos = [];
+
+		$('')
 
 		console.log(data);
 
-		$.post("/Ventas/Ventas/", data).success(function(data){
+		$.post("/Ventas/Ventas/guardar", data).success(function(data){
 
 		});
 	});
@@ -111,6 +113,46 @@ $(document).ready(function () {
 		actualizarTotales();
 	});
 
+	//Agregar Pago
+	$('.add-pago-modal-bt').on('click',function(){
+		var pago = $('.ammount-pago').val();
+		pago = parseFloat(pago);
+		pago = 'Lps. ' + pago;
+		$('.pagos-list').append('<tr><td>Efectivo</td><td>'+pago+'</td></tr>');
+
+		actualizarPagos();
+	});
+
+	//Setear Descuentos
+	$('.agregar-descuento').on('click',function(){
+		$('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
+		    var cantidad = $(descuento).find('td:eq(4)').text();
+		    cantidad = cantidad/100;
+		    var subtotal = $('.sub-total').text();
+		    subtotal = parseFloat(subtotal.substring(5));
+		    var descuento = subtotal*cantidad;
+		    $('.descuento').text("Lps. " + descuento);
+		});
+		$('#agregarDescuento').modal('hide');
+	});
+
+	//Actualiza los totales
+	function actualizarPagos(){
+		var table = document.getElementById('pagos-tabla');
+		var pagos = 0;
+		var rowLength = table.rows.length;
+
+		for(var i=1; i<rowLength; i+=1){
+			var row = table.rows[i];
+			var subtotaltext = (row.cells[1]).innerText;
+			pagos += (parseFloat(subtotaltext.substring(5)));
+		}
+
+		$('.abonado-info').text("Lps. " + pagos.toFixed(2));
+		var saldo = $('.grand-total').text();
+		$('.saldo-info').text("Lps. " + (parseFloat(saldo.substring(5)) - pagos).toFixed(2));
+	}
+
 	//Actualiza los totales 
 	function actualizarTotales(){
 		var table = document.getElementById('pro-list-table');
@@ -123,9 +165,11 @@ $(document).ready(function () {
 			subtotal += (parseFloat(subtotaltext.substring(5)));
 		}
 
+		
 		$('.sub-total').text("Lps. " + subtotal.toFixed(2));
 		$('.isv').text("Lps. " + (subtotal * 0.15).toFixed(2));
 		$('.grand-total').text("Lps. " + (subtotal * (1.15)).toFixed(2));
+		actualizarPagos();
 	}
 
 });

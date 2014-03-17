@@ -62,6 +62,20 @@ class VentasController extends BaseController {
 	}
 
 	/**
+	 * Store a newly created resource in storage. Via AJAX
+	 *
+	 * @return Response
+	 */
+	public function guardar(){
+
+		$productos = Input::get('productos');
+		$descuentos = Input::get('descuentos');
+		$pagos = Input::get('');
+
+		return Redirect::route('Ventas.Ventas.index');
+	}
+
+	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
