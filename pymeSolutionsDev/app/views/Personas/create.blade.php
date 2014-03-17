@@ -11,7 +11,12 @@
 
 {{ Form::open(array('route' => 'CRM.Personas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
-        
+        <div class="campo-local-tipo form-group">
+          {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:', array('class' => 'col-md-2 control-label')) }}
+          <div class="col-md-5">
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
+          </div>
+        </div> 
 
         <div class="form-group">
             {{ Form::label('CRM_Personas_codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
@@ -65,27 +70,20 @@
         <div class="form-group">
             {{ Form::label('CRM_Personas_Descuento', 'Descuento:', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
-                {{ Form::text('CRM_Personas_Descuento',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Descuento', 'placeholder' => '##.##' )) }}
+                {{ Form::text('CRM_Personas_Descuento',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Descuento', 'placeholder' => '##' )) }}
             </div>
         </div> 
 
         <div class="form-group">
-            {{ Form::label('CRM_Personas_Foto', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_Personas_Foto', 'Foto:', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
-                {{ Form::text('CRM_Personas_Foto',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Foto', 'placeholder' => '#' )) }}
-            </div>
-        </div> 
-
-        <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
-            <div class="col-md-5">
-                {{ Form::text('CRM_TipoDocumento_CRM_TipoDocumento_ID',null, array('class' => 'form-control', 'id' => 'CRM_TipoDocumento_CRM_TipoDocumento_ID', 'placeholder' => '#' )) }}
+                {{ Form::text('CRM_Personas_Foto',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Foto', 'placeholder' => 'url' )) }}
             </div>
         </div> 
 
 		<div class="col-md-5">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-      </div>
+        </div>
 	</div>
 {{ Form::close() }}
 

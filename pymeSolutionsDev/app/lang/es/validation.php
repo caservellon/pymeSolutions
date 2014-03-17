@@ -94,5 +94,6 @@ return array(
     */
 
     'attributes' => array(),
+    "alpha_spaces" => "El :attribute puede contener sólo letras y espacios.",
 
 );
