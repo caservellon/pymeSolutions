@@ -13,7 +13,7 @@ class Empresa extends Eloquent {
 		'CRM_Empresas_Nombre' => 'required|Min:3|Max:80|alpha_spaces',
 		'CRM_Empresas_Direccion' => 'required|Min:3|Max:255|alphanumdotspaces',
 		'CRM_Empresas_Logo' => '',
-		'CRM_Empresas_Descuento' => 'required|integer',
+		'CRM_Empresas_Descuento' => 'required|Numeric|between:0,100|Regex:/[0-9]{1,2}(\.[0-9]{1,2})$/',
 		'CRM_Personas_CRM_Personas_ID' => 'required'
 	);
 }

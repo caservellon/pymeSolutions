@@ -80,6 +80,18 @@
                 {{ Form::text('CRM_Personas_Foto',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Foto', 'placeholder' => 'url' )) }}
             </div>
         </div> 
+        
+        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get() as $campo)
+            <div class="form-group">
+                {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+                @if ($campo->GEN_CampoLocal_Requerido)
+                    <label>Requerido</label>
+                @endif
+                <div class="col-md-5">
+                    {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                </div>
+            </div> 
+        @endforeach
 
 		<div class="col-md-5">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
