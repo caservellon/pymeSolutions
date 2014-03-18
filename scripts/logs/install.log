@@ -16,3 +16,21 @@ Populating Ventas
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
 Process ended at  2014/03/17 07:00:27
 ------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/17 18:47:06
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating CRM 
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+Process ended at  2014/03/17 18:47:07
+------------------------END----------------------------
