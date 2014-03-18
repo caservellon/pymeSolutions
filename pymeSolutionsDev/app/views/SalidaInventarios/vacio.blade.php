@@ -3,7 +3,7 @@
 @section('main')
 
 
-<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Entrada de Inventario<small></h2>
+<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Salida de Inventario<small></h2>
 <div class="btn-agregar">
 	
 </div>

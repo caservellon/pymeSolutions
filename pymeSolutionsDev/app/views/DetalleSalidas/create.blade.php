@@ -26,7 +26,7 @@
                     <td>{{{ $result->INV_DetalleMovimiento_PrecioVenta }}}</td>
                     <td>{{{ $result->INV_DetalleMovimiento_PrecioCosto }}}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.DetalleMovimiento.destroy', $result->INV_DetalleMovimiento_ID))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.DetalleSalida.destroy', $result->INV_DetalleMovimiento_ID))) }}
                             {{ Form::submit('Quitar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
@@ -36,8 +36,8 @@
     </table>
 </div>
 
-<h3 class="sub-header">Seleccione los Productos a Incluir en la Entrada de Inventario</h3>
-{{ Form::open(array('route' => 'Inventario.DetalleMovimiento.search', 'class' => "form-horizontal" , 'role' => 'form')) }}
+<h3 class="sub-header">Seleccione los Productos a Incluir en la Salida de Inventario</h3>
+{{ Form::open(array('route' => 'Inventario.DetalleSalida.search', 'class' => "form-horizontal" , 'role' => 'form')) }}
 <div class="form-group">
     {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
 <div class="col-md-6">
@@ -71,7 +71,7 @@
                     <td>{{{ $Producto->INV_Producto_Cantidad }}}</td>
                     <td>{{{ $Producto->INV_Producto_PrecioVenta }}}</td>
                     <td>{{{ $Producto->INV_Producto_PrecioCosto }}}</td>
-                    <td>{{ link_to_route('Inventario.DetalleMovimiento.Agregar', 'Agregar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.DetalleSalida.Agregar', 'Agregar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>
                 </tr>
                 
             @endforeach
@@ -84,7 +84,7 @@
             @if ($results != null)
                 {{ link_to_route('Inventario.MovimientoInventario.Detalles', 'Terminar', $id, array('class' => 'btn btn-info')) }}
             @else
-                {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.MovimientoInventario.destroy', $id))) }}
+                {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.SalidaInventario.destroy', $id))) }}
                     {{ Form::submit('Cancelar', array('class' => 'btn btn-danger')) }}
                 {{ Form::close() }}
                 <!--{{ link_to_route('Inventario.MovimientoInventario.destroy', 'Cancelar', $id, array('class' => 'btn btn-danger')) }} -->
@@ -94,9 +94,10 @@
 
 
 @if ($errors->any())
-	<ul>
+	<div class="" style="margin-top:50px;"><ul>
 		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
 	</ul>
+    </div>
 @endif
 
 @stop

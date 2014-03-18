@@ -3,14 +3,14 @@
 @section('main')
 
 <div class="page-header clearfix">
-      <h3 class="pull-left">Entrada Inventario &gt; <small>Nueva Entrada</small></h3>
+      <h3 class="pull-left">Salida Inventario &gt; <small>Nueva Salida</small></h3>
       <div class="pull-right">
         <a href="{{{ URL::to('Inventario/MovimientoInventario') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 
 
-{{ Form::open(array('route' => 'Inventario.MovimientoInventario.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
+{{ Form::open(array('route' => 'Inventario.SalidaInventario.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	  <div class="form-group">
         {{ Form::label('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 'Motivo Movimiento: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">

@@ -407,7 +407,6 @@ DROP TABLE IF EXISTS `pymeERP`.`INV_MotivoMovimiento` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_MotivoMovimiento` (
   `INV_MotivoMovimiento_ID` INT NOT NULL AUTO_INCREMENT,
   `INV_MotivoMovimiento_Nombre` VARCHAR(128) NULL DEFAULT NULL,
-  `INV_MotivoMovimiento_IDTransaccion` INT NULL DEFAULT NULL,
   `INV_MotivoMovimiento_TipoMovimiento` INT NULL DEFAULT NULL,
   `INV_MotivoMovimiento_Observaciones` VARCHAR(512) NULL DEFAULT NULL,
   `INV_MotivoMovimiento_FechaCreacion` DATETIME NULL DEFAULT NULL,

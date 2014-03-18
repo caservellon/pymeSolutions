@@ -2,25 +2,17 @@
 
 @section('main')
 
-<div class="page-header clearfix">
-      <h3 class="pull-left">Movimiento Inventario &gt; <small>Detalles</small></h3>
-</div>
-<div class="form-horizontal" role="form">
 <div class="form-group">
     <h4>Fecha</h4>
-    <div class="col-md-6">
+    <div class="col-md-5">
         {{{ $Movimiento->INV_Movimiento_FechaCreacion }}}
     </div>
 </div>
 <div class="form-group">
     <h4>Motivo</h4>
     <div class="col-md-5">
-        {{{ $Motivo }}}
-    </div>
-</div>
-<div class="form-group">
-    <h4>Observaciones</h4>
-    <div class="col-md-8">
+        {{{ $Motivo->INV_MotivoMovimiento_Nombre }}}
+        <br>
         {{{ $Movimiento->INV_Movimiento_Observaciones }}}
     </div>
 </div>
@@ -51,10 +43,7 @@
             @endforeach
         </tbody>
     </table>
-    
+    <div class="form-group">
+        {{ link_to_route('Inventario.MovimientoInventario.index', 'Aceptar', null, array('class' => 'btn btn-info')) }}
+    </div>
 </div>
-</div>
-<div class="form-group">
-    {{ link_to_route('Inventario.MovimientoInventario.index', 'Aceptar', null, array('class' => 'btn btn-info')) }}
-</div>
-@stop

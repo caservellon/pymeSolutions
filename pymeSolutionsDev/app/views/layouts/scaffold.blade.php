@@ -66,6 +66,12 @@
               <li>
                 {{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
               </li>
+              <li>
+                {{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.MotivoMovimiento.index', 'Motivo Movimiento Inventario')}}
+              </li>
               <li><a href="#">Inventario</a></li>
               <li><a href="#">Categorias</a></li>
               <li><a href="#">Atributos</a></li>

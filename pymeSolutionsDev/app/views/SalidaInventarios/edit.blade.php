@@ -2,9 +2,8 @@
 
 @section('main')
 
-<h1>Create MovimientoInventario</h1>
-
-{{ Form::open(array('route' => 'Inventario.MovimientoInventario.storeSalida')) }}
+<h1>Edit MovimientoInventario</h1>
+{{ Form::model($MovimientoInventario, array('method' => 'PATCH', 'route' => array('Inventario.MovimientoInventario.update', $MovimientoInventario->id))) }}
 	<ul>
         <li>
             {{ Form::label('INV_Movimiento_ID', 'INV_Movimiento_ID:') }}
@@ -57,7 +56,8 @@
         </li>
 
 		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
+			{{ link_to_route('Inventario.MovimientoInventario.show', 'Cancel', $MovimientoInventario->id, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}
@@ -69,5 +69,3 @@
 @endif
 
 @stop
-
-

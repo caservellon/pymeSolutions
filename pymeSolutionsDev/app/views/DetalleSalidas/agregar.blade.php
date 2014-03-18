@@ -2,10 +2,10 @@
 
 @section('main')
 <div class="page-header clearfix">
-      <h3 class="pull-left">Detalle Movimiento &gt; <small>Agregar</small></h3>
+      <h3 class="pull-left">Detalle Salida &gt; <small>Agregar</small></h3>
 </div>
 
-{{ Form::open(array('route' => 'Inventario.DetalleMovimiento.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
+{{ Form::open(array('route' => 'Inventario.DetalleSalida.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
     <div class="form-group">
     {{ Form::label('INV_Producto_ID', 'ID:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
@@ -46,7 +46,7 @@
     <div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Inventario.DetalleMovimiento.create', 'Cancel', null, array('class' => 'btn btn-danger')) }}
+            {{ link_to_route('Inventario.DetalleSalida.create', 'Cancel', null, array('class' => 'btn btn-danger')) }}
       </div>
     </div>
 {{ Form::close() }}

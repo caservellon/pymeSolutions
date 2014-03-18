@@ -1,6 +1,6 @@
 <?php
 
-class MovimientoInventariosController extends BaseController {
+class SalidaInventariosController extends BaseController {
 
 	/**
 	 * MovimientoInventario Repository
@@ -21,10 +21,7 @@ class MovimientoInventariosController extends BaseController {
 	 */
 	public function index()
 	{
-		$MovimientoInventarios = $this->MovimientoInventario->all();
-		$Motivos = MotivoMovimiento::all();
-
-		return View::make('MovimientoInventarios.index', compact('MovimientoInventarios', 'Motivos'));
+		return Redirect::route('Inventario.MovimientoInventario.index');
 	}
 
 	/**
@@ -35,15 +32,15 @@ class MovimientoInventariosController extends BaseController {
 	public function create()
 	{
 		$Productos = Producto::all();
-		$temp = MotivoMovimiento::where('INV_MotivoMovimiento_TipoMovimiento', '=', '0')->get();
+		$temp = MotivoMovimiento::where('INV_MotivoMovimiento_TipoMovimiento', '=', '1')->get();
 		$Motivos = $temp->lists('INV_MotivoMovimiento_Nombre', 'INV_MotivoMovimiento_ID');
 		
 		if ($Productos->count() > 0 & $temp->count() > 0) {
 			$Agregados = Proveedor::all();
-			return View::make('MovimientoInventarios.create', compact('Productos', 'Motivos'));
-			//return View::make('MovimientoInventarios.create', compact('Productos', 'Agregados'));
+			return View::make('SalidaInventarios.create', compact('Productos', 'Motivos'));
+			//return View::make('SalidaInventarios.create', compact('Productos', 'Agregados'));
 		}
-		return View::make('MovimientoInventarios.vacio');
+		return View::make('SalidaInventarios.vacio');
 	}
 
 	/**
@@ -60,10 +57,10 @@ class MovimientoInventariosController extends BaseController {
 		{
 			$this->MovimientoInventario->create($input);
 
-			return Redirect::route('Inventario.DetalleMovimiento.create');
+			return Redirect::route('Inventario.DetalleSalida.create');
 		}
 		$Productos = Producto::all();
-		return Redirect::route('Inventario.MovimientoInventario.create', compact('Productos'))
+		return Redirect::route('Inventario.SalidaInventario.create', compact('Productos'))
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -79,7 +76,7 @@ class MovimientoInventariosController extends BaseController {
 	{
 		$MovimientoInventario = $this->MovimientoInventario->findOrFail($id);
 
-		return View::make('MovimientoInventarios.show', compact('MovimientoInventario'));
+		return View::make('SalidaInventarios.show', compact('MovimientoInventario'));
 	}
 
 	/**
@@ -94,10 +91,10 @@ class MovimientoInventariosController extends BaseController {
 
 		if (is_null($MovimientoInventario))
 		{
-			return Redirect::route('Inventario.MovimientoInventario.index');
+			return Redirect::route('Inventario.SalidaInventario.index');
 		}
 
-		return View::make('MovimientoInventarios.edit', compact('MovimientoInventario'));
+		return View::make('SalidaInventarios.edit', compact('MovimientoInventario'));
 	}
 
 	/**
@@ -116,10 +113,10 @@ class MovimientoInventariosController extends BaseController {
 			$MovimientoInventario = $this->MovimientoInventario->find($id);
 			$MovimientoInventario->update($input);
 
-			return Redirect::route('Inventario.MovimientoInventario.show', $id);
+			return Redirect::route('Inventario.SalidaInventario.show', $id);
 		}
 
-		return Redirect::route('Inventario.MovimientoInventario.edit', $id)
+		return Redirect::route('Inventario.SalidaInventario.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -135,20 +132,7 @@ class MovimientoInventariosController extends BaseController {
 	{
 		$this->MovimientoInventario->find($id)->delete();
 
-		return Redirect::route('Inventario.MovimientoInventario.index');
-	}
-
-
-	public function detalles($id){
-		//$Movimiento = DB::select('select * from INV_Movimiento where INV_Movimiento_ID = ?', array($id));
-		$Movimiento = MovimientoInventario::find($id);
-		$Detalles = DB::select('select * from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
-		$temp = DB::select('select INV_MotivoMovimiento_Nombre from INV_MotivoMovimiento where INV_MotivoMovimiento_ID = (select INV_MotivoMovimiento_INV_MotivoMovimiento_ID from INV_Movimiento where INV_Movimiento_ID = ?)', array($id));
-		foreach ($temp as $key) {
-			$Motivo = $key->INV_MotivoMovimiento_Nombre;
-		}
-		//return $Motivo;
-		return View::make('MovimientoInventarios.terminar', compact('Movimiento', 'Detalles', 'Motivo'));
+		return Redirect::route('Inventario.SalidaInventario.index');
 	}
 
 }

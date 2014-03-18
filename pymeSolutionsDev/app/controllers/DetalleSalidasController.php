@@ -1,6 +1,6 @@
 <?php
 
-class DetalleMovimientosController extends BaseController {
+class DetalleSalidasController extends BaseController {
 
 	/**
 	 * DetalleMovimiento Repository
@@ -23,7 +23,7 @@ class DetalleMovimientosController extends BaseController {
 	{
 		$DetalleMovimientos = $this->DetalleMovimiento->all();
 
-		return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
+		return View::make('DetalleSalidas.index', compact('DetalleMovimientos'));
 	}
 
 	/**
@@ -52,7 +52,7 @@ class DetalleMovimientosController extends BaseController {
 		//return $idProductos;
 		$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array($id));
 		//$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(0));
-		return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id', 'results'));
+		return View::make('DetalleSalidas.create', compact('Productos', 'Motivo', 'id', 'results'));
 	}
 
 	/**
@@ -64,22 +64,28 @@ class DetalleMovimientosController extends BaseController {
 	{
 		$input = Input::all();
 		$validation = Validator::make($input, DetalleMovimiento::$rules);
-
+		
 		if ($validation->passes())
 		{
-			$Producto = Producto::find(Input::get('INV_DetalleMovimiento_IDProducto'));
 			
+			$Producto = Producto::find(Input::get('INV_DetalleMovimiento_IDProducto'));
+			if ($Producto->INV_Producto_Cantidad < Input::get('INV_DetalleMovimiento_CantidadProducto')) {
+				return Redirect::route('Inventario.DetalleSalida.create')
+					->withInput()
+					->withErrors('Ingrese una cantidad menor')
+					->with('message', 'Cantidad muy Grande');
+			}
 			//Calcular Precio de Costo
 			//$Producto->INV_Producto_PrecioCosto = Input::get('INV_DetalleMovimiento_PrecioCosto');
 			
-			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + Input::get('INV_DetalleMovimiento_CantidadProducto');
+			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad - Input::get('INV_DetalleMovimiento_CantidadProducto');
 			$Producto->save();
 			$this->DetalleMovimiento->create($input);
-			//return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id'));
-			return Redirect::route('Inventario.DetalleMovimiento.create');
+			//return View::make('DetalleSalidas.create', compact('Productos', 'Motivo', 'id'));
+			return Redirect::route('Inventario.DetalleSalida.create');
 		}
-
-		return Redirect::route('Inventario.DetalleMovimiento.create')
+		//return 'no';
+		return Redirect::route('Inventario.DetalleSalida.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -95,7 +101,7 @@ class DetalleMovimientosController extends BaseController {
 	{
 		$DetalleMovimiento = $this->DetalleMovimiento->findOrFail($id);
 
-		return View::make('DetalleMovimientos.show', compact('DetalleMovimiento'));
+		return View::make('DetalleSalidas.show', compact('DetalleMovimiento'));
 	}
 
 	/**
@@ -110,10 +116,10 @@ class DetalleMovimientosController extends BaseController {
 
 		if (is_null($DetalleMovimiento))
 		{
-			return Redirect::route('Inventario.DetalleMovimiento.index');
+			return Redirect::route('Inventario.DetalleSalida.index');
 		}
 
-		return View::make('DetalleMovimientos.edit', compact('DetalleMovimiento'));
+		return View::make('DetalleSalidas.edit', compact('DetalleMovimiento'));
 	}
 
 	/**
@@ -132,10 +138,10 @@ class DetalleMovimientosController extends BaseController {
 			$DetalleMovimiento = $this->DetalleMovimiento->find($id);
 			$DetalleMovimiento->update($input);
 
-			return Redirect::route('Inventario.DetalleMovimiento.show', $id);
+			return Redirect::route('Inventario.DetalleSalida.show', $id);
 		}
 
-		return Redirect::route('Inventario.DetalleMovimiento.edit', $id)
+		return Redirect::route('Inventario.DetalleSalida.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -151,7 +157,7 @@ class DetalleMovimientosController extends BaseController {
 	{
 		$this->DetalleMovimiento->find($id)->delete();
 
-		return Redirect::route('Inventario.DetalleMovimiento.index');
+		return Redirect::route('Inventario.DetalleSalida.index');
 	}
 
 
@@ -168,7 +174,7 @@ class DetalleMovimientosController extends BaseController {
 
 		$Producto = Producto::find($id);
 		
-		return View::make('DetalleMovimientos.agregar', compact('Producto', 'Motivo'));
+		return View::make('DetalleSalidas.agregar', compact('Producto', 'Motivo'));
 	}
 
 
@@ -194,7 +200,7 @@ class DetalleMovimientosController extends BaseController {
 		//$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(0));
 		//$Productos = Producto::where('INV_Producto_ID', '=', Input::get('search'))->orWhere('INV_Producto_Codigo', '=', Input::get('search'))->orWhere('INV_Producto_Nombre', '=', Input::get('search'))->get();
 		//return DB::select('select * from INV_Producto where INV_Producto_Nombre = ? and INV_Producto_ID = ?',array(Input::get('search'), Input::get('search')));
-		return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id', 'results'));
+		return View::make('DetalleSalidas.create', compact('Productos', 'Motivo', 'id', 'results'));
 	}
 
 }

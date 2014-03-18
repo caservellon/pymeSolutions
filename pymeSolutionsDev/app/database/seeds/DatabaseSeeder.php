@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('MovimientoinventariosTableSeeder');
 		$this->call('DetallemovimientosTableSeeder');
+		$this->call('MotivomovimientosTableSeeder');
 	}
 
 }
