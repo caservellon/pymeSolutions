@@ -14,5 +14,11 @@ Validator::extend('alphanum_spaces', function($attribute, $value, $parameters)
 {
     return preg_match('/^([-a-z0-9_-áéíóúûü-\s])+$/i', $value);
     
+});
+
+Validator::extend('alphanumdotspaces', function($attribute, $value, $parameters)
+{
+    return preg_match('/^([.-a-z0-9_-áéíóúûü-\s])+$/i', $value);
+    
 });  
 ?>

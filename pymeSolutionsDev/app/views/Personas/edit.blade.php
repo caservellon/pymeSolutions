@@ -12,7 +12,7 @@
 {{ Form::model($Persona, array('method' => 'PATCH', 'route' => array('CRM.Personas.update', $Persona->CRM_Personas_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
         <div class="form-group">
-            {{ Form::label('CRM_Personas_codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::hidden('CRM_Personas_codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
                 {{ Form::hidden('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => '###' )) }}
             </div>

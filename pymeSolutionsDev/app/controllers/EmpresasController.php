@@ -50,10 +50,10 @@ class EmpresasController extends BaseController {
 		{
 			$this->Empresa->create($input);
 
-			return Redirect::route('CRM.Empresas.index');
+			return Redirect::route('Empresas.index');
 		}
 
-		return Redirect::route('CRM.Empresas.create')
+		return Redirect::route('Empresas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -106,7 +106,7 @@ class EmpresasController extends BaseController {
 			$Empresa = $this->Empresa->find($id);
 			$Empresa->update($input);
 
-			return Redirect::route('Empresas.show', $id);
+			return Redirect::route('Empresas.index', $id);
 		}
 
 		return Redirect::route('Empresas.edit', $id)

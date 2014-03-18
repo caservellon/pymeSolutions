@@ -16,16 +16,17 @@
 </div>
 
 @if ($Empresas->count())
-	<table class="table table-striped table-bordered">
+	<div class="table-responsive">
+	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<th>CRM_Empresas_ID</th>
-				<th>CRM_Empresas_Codigo</th>
-				<th>CRM_Empresas_Nombre</th>
-				<th>CRM_Empresas_Direccion</th>
-				<th>CRM_Empresas_Logo</th>
-				<th>CRM_Empresas_Descuento</th>
-				<th>CRM_Personas_CRM_Personas_ID</th>
+				<th>ID</th>
+				<th>Codigo</th>
+				<th>Nombre</th>
+				<th>Direccion</th>
+				<th>Logo</th>
+				<th>Descuento</th>
+				<th>Contacto</th>
 			</tr>
 		</thead>
 
@@ -36,12 +37,12 @@
 					<td>{{{ $Empresa->CRM_Empresas_Codigo }}}</td>
 					<td>{{{ $Empresa->CRM_Empresas_Nombre }}}</td>
 					<td>{{{ $Empresa->CRM_Empresas_Direccion }}}</td>
-					<td>{{{ $Empresa->CRM_Empresas_Logo }}}</td>
+					<td><img src="{{{ $Empresa->CRM_Empresas_Logo }}}"></td>
 					<td>{{{ $Empresa->CRM_Empresas_Descuento }}}</td>
-					<td>{{{ $Empresa->CRM_Personas_CRM_Personas_ID }}}</td>
-                    <td>{{ link_to_route('Empresas.edit', 'Edit', array($Empresa->id), array('class' => 'btn btn-info')) }}</td>
+					<td>{{{ $name = DB::table('CRM_Personas')->where('CRM_Personas_ID', $Empresa->CRM_Personas_CRM_Personas_ID)->pluck('CRM_Personas_Nombres') }}}</td>
+                    <td>{{ link_to_route('Empresas.edit', 'Edit', array($Empresa->CRM_Empresas_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Empresas.destroy', $Empresa->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Empresas.destroy', $Empresa->CRM_Empresas_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
@@ -49,6 +50,7 @@
 			@endforeach
 		</tbody>
 	</table>
+	</div>
 @else
 	<div class="alert alert-danger">
      	<strong>Oh no!</strong> No hay empresas disponibles :(

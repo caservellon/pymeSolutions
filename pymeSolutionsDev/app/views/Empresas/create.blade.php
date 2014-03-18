@@ -11,6 +11,13 @@
 
 {{ Form::open(array('route' => 'Empresas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
+        <div class="campo-local-tipo form-group">
+          {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:', array('class' => 'col-md-2 control-label')) }}
+          <div class="col-md-5">
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
+          </div>
+        </div> 
+        
         <div class="form-group">
             {{ Form::label('CRM_Empresas_Codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
@@ -46,12 +53,6 @@
             </div>
         </div>
         
-        <div class="form-group">
-            {{ Form::label('CRM_Personas_CRM_Personas_ID', 'Persona:', array('class' => 'col-md-2 control-label')) }}
-            <div class="col-md-5">
-                {{ Form::text('CRM_Personas_CRM_Personas_ID',null, array('class' => 'form-control', 'id' => 'CRM_Personas_CRM_Personas_ID', 'placeholder' => '#' )) }}
-            </div>
-        </div>
         <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_Personas_CRM_Personas_ID', 'Personas: ', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">

@@ -9,12 +9,19 @@
       </div>
 </div>
 
-{{ Form::model($Empresa, array('method' => 'PATCH', 'route' => array('Empresas.update', $Empresa->id))) }}
+{{ Form::model($Empresa, array('method' => 'PATCH', 'route' => array('Empresas.update', $Empresa->CRM_Empresas_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
         <div class="form-group">
             {{ Form::label('CRM_Empresas_Nombre', 'Nombre de Empresa:', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
                 {{ Form::text('CRM_Empresas_Nombre',null, array('class' => 'form-control', 'id' => 'CRM_Empresas_Nombre', 'placeholder' => 'FICOHSA' )) }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ Form::hidden('CRM_Empresas_Codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::hidden('CRM_Empresas_Codigo',null, array('class' => 'form-control', 'id' => 'CRM_Empresas_Codigo', 'placeholder' => 'EMP-###' )) }}
             </div>
         </div>
 
