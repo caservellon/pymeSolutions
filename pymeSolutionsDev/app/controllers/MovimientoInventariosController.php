@@ -163,4 +163,13 @@ class MovimientoInventariosController extends BaseController {
 			->with('message', 'There were validation errors.');
 	}
 
+
+	public function terminar($id){
+		$Movimiento = DB::select('select * from INV_Movimiento where INV_Movimiento_ID = ?', array($id));
+		$Detalles = DB::select('select * from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
+		$Motivo = DB::select('select INV_MotivoMovimiento_Nombre from INV_MotivoMovimiento where INV_MotivoMovimiento_ID = (select INV_MotivoMovimiento_INV_MotivoMovimiento_ID from INV_Movimiento where INV_Movimiento_ID = ?)', array($id));
+		//return $Movimiento;
+		return View::make('MovimientoInventarios.terminar', compact('Movimiento', 'Detalles', 'Motivo'));
+	}
+
 }

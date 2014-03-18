@@ -50,9 +50,9 @@
 					<td>{{{ $DetalleMovimiento->INV_Producto_INV_Categoria_ID }}}</td>
 					<td>{{{ $DetalleMovimiento->INV_Producto_INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $DetalleMovimiento->INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID }}}</td>
-                    <td>{{ link_to_route('Inventario.DetalleMovimiento.edit', 'Edit', array($DetalleMovimiento->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.DetalleMovimiento.edit', 'Edit', array($DetalleMovimiento->INV_DetalleMovimiento_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.DetalleMovimiento.destroy', $DetalleMovimiento->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.DetalleMovimiento.destroy', $DetalleMovimiento->INV_DetalleMovimiento_ID))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

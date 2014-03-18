@@ -11,7 +11,13 @@
 
 
 {{ Form::open(array('route' => 'Inventario.MovimientoInventario.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
-	<div class="form-group">
+	  <div class="form-group">
+        {{ Form::label('INV_Movimiento_ID', 'ID Movimiento:', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-4">
+        {{ Form::text('INV_Movimiento_ID',null, array('class' => 'form-control', 'id' => 'INV_Movimiento_ID', 'placeholder' => '#' )) }}
+      </div>
+    </div>
+    <div class="form-group">
       {{ Form::label('INV_Movimiento_Numero', 'Numero:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
         {{ Form::text('INV_Movimiento_Numero',null, array('class' => 'form-control', 'id' => 'INV_Movimiento_Numero', 'placeholder' => '#' )) }}
