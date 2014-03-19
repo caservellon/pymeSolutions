@@ -5,12 +5,19 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Persona &gt; <small>Editar Persona</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('CRM/Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
 {{ Form::model($Persona, array('method' => 'PATCH', 'route' => array('CRM.Personas.update', $Persona->CRM_Personas_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
+        <div class="form-group">
+            {{ Form::hidden('CRM_Personas_codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
+            <div class="col-md-5">
+                {{ Form::hidden('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => '###' )) }}
+            </div>
+        </div>
+        
         <div class="form-group">
             {{ Form::label('CRM_Personas_Nombres', 'Nombres', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
@@ -70,7 +77,7 @@
         <div class="form-group">
             <div class="col-md-5">
                 {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-                {{ link_to_route('Personas.show', 'Cancel', $Persona->CRM_Personas_ID, array('class' => 'btn')) }}
+                {{ link_to_route('CRM.Personas.show', 'Cancel', $Persona->CRM_Personas_ID, array('class' => 'btn')) }}
             </div>
         </div>
 	</div>

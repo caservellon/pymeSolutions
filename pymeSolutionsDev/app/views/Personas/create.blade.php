@@ -10,14 +10,12 @@
 </div>
 
 {{ Form::open(array('route' => 'CRM.Personas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
-    <div class="form-group">
-        
-
-        <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
-            <div class="col-md-5">
-                {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID',$tipoDocumento, array('class' => 'form-control', 'id' => 'CRM_TipoDocumento_CRM_TipoDocumento_ID', 'placeholder' => '#' )) }}
-            </div>
+	<div class="form-group">
+        <div class="campo-local-tipo form-group">
+          {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:', array('class' => 'col-md-2 control-label')) }}
+          <div class="col-md-5">
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
+          </div>
         </div> 
 
         <div class="form-group">
@@ -72,21 +70,32 @@
         <div class="form-group">
             {{ Form::label('CRM_Personas_Descuento', 'Descuento:', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
-                {{ Form::text('CRM_Personas_Descuento',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Descuento', 'placeholder' => '##.##' )) }}
+                {{ Form::text('CRM_Personas_Descuento',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Descuento', 'placeholder' => '##' )) }}
             </div>
         </div> 
 
         <div class="form-group">
-            {{ Form::label('CRM_Personas_Foto', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_Personas_Foto', 'Foto:', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
-                {{ Form::text('CRM_Personas_Foto',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Foto', 'placeholder' => '#' )) }}
+                {{ Form::text('CRM_Personas_Foto',null, array('class' => 'form-control', 'id' => 'CRM_Personas_Foto', 'placeholder' => 'url' )) }}
             </div>
         </div> 
-
+        
+        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get() as $campo)
+            <div class="form-group">
+                {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+                @if ($campo->GEN_CampoLocal_Requerido)
+                    <label>Requerido</label>
+                @endif
+                <div class="col-md-5">
+                    {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                </div>
+            </div> 
+        @endforeach
 
 		<div class="col-md-5">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-      </div>
+        </div>
 	</div>
 {{ Form::close() }}
 

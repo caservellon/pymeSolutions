@@ -64,7 +64,7 @@ class PersonasController extends BaseController {
 	{
 		$Persona = $this->Persona->findOrFail($id);
 
-		return View::make('Personas.show', compact('Persona'));
+		return View::make('CRM.Personas.show', compact('Persona'));
 	}
 
 	/**
@@ -79,7 +79,7 @@ class PersonasController extends BaseController {
 
 		if (is_null($Persona))
 		{
-			return Redirect::route('Personas.index');
+			return Redirect::route('CRM.Personas.index');
 		}
 
 		return View::make('Personas.edit', compact('Persona'));
@@ -101,10 +101,10 @@ class PersonasController extends BaseController {
 			$Persona = $this->Persona->find($id);
 			$Persona->update($input);
 
-			return Redirect::route('Personas.show', $id);
+			return Redirect::route('CRM.Personas.index', $id);
 		}
 
-		return Redirect::route('Personas.edit', $id)
+		return Redirect::route('CRM.Personas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -120,7 +120,7 @@ class PersonasController extends BaseController {
 	{
 		$this->Persona->find($id)->delete();
 
-		return Redirect::route('Personas.index');
+		return Redirect::route('CRM.Personas.index');
 	}
 
 }
