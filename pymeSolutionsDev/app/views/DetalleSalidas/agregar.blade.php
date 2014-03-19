@@ -35,6 +35,7 @@
     {{ Form::hidden('INV_DetalleMovimiento_CodigoProducto', $Producto->INV_Producto_Codigo) }}
     {{ Form::hidden('INV_DetalleMovimiento_NombreProducto', $Producto->INV_Producto_Nombre) }}
     {{ Form::hidden('INV_DetalleMovimiento_PrecioVenta', $Producto->INV_Producto_PrecioVenta) }}
+    {{ Form::hidden('INV_DetalleMovimiento_PrecioCosto', $Producto->INV_Producto_PrecioCosto) }}
     {{ Form::hidden('INV_DetalleMovimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
     {{ Form::hidden('INV_DetalleMovimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
     {{ Form::hidden('INV_Movimiento_ID', $Motivo->INV_Movimiento_ID) }}

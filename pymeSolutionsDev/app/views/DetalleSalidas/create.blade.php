@@ -11,6 +11,8 @@
                 <th>ID</th>
                 <th>Codigo</th>
                 <th>Producto</th>
+                <th>Categoría</th>
+                <th>Categoría Padre</th>
                 <th>Cantidad</th>
                 <th>Precio Venta</th>
                 <th>Precio Costo</th>
@@ -22,14 +24,11 @@
                     <td>{{{ $result->INV_DetalleMovimiento_IDProducto }}}</td>
                     <td>{{{ $result->INV_DetalleMovimiento_CodigoProducto }}}</td>
                     <td>{{{ $result->INV_DetalleMovimiento_NombreProducto }}}</td>
+                    <td>{{{ $Categorias[$result->INV_Producto_INV_Categoria_ID - 1]->INV_Categoria_Nombre }}}</td>
+                    <td>{{{ $Categorias[$result->INV_Producto_INV_Categoria_IDCategoriaPadre - 1]->INV_Categoria_Nombre }}}</td>
                     <td>{{{ $result->INV_DetalleMovimiento_CantidadProducto }}}</td>
                     <td>{{{ $result->INV_DetalleMovimiento_PrecioVenta }}}</td>
                     <td>{{{ $result->INV_DetalleMovimiento_PrecioCosto }}}</td>
-                    <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.DetalleSalida.destroy', $result->INV_DetalleMovimiento_ID))) }}
-                            {{ Form::submit('Quitar', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
-                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -41,7 +40,7 @@
 <div class="form-group">
     {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
 <div class="col-md-6">
-    {{ Form::text('search', null, array('class' => 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, codigo..')) }}
+    {{ Form::text('search', null, array('class' => 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, codigo, categoria..')) }}
 </div>
 <div class="col-md-2">
     {{ Form::submit('Buscar', array('class' => 'btn btn-info')) }}
@@ -55,6 +54,8 @@
                 <th>ID</th>
                 <th>Codigo</th>
                 <th>Producto</th>
+                <th>Categoría</th>
+                <th>Categoría Padre</th>
                 <th>Cantidad</th>
                 <th>Precio Venta</th>
                 <th>Precio Costo</th>
@@ -68,6 +69,8 @@
                     <td>{{{ $Producto->INV_Producto_ID }}}</td>
                     <td>{{{ $Producto->INV_Producto_Codigo }}}</td>
                     <td>{{{ $Producto->INV_Producto_Nombre }}}</td>
+                    <td>{{{ $Categorias[$Producto->INV_Categoria_ID - 1]->INV_Categoria_Nombre }}}</td>
+                    <td>{{{ $Categorias[$Producto->INV_Categoria_IDCategoriaPadre - 1]->INV_Categoria_Nombre }}}</td>
                     <td>{{{ $Producto->INV_Producto_Cantidad }}}</td>
                     <td>{{{ $Producto->INV_Producto_PrecioVenta }}}</td>
                     <td>{{{ $Producto->INV_Producto_PrecioCosto }}}</td>

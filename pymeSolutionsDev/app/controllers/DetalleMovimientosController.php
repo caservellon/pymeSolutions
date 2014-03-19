@@ -47,12 +47,13 @@ class DetalleMovimientosController extends BaseController {
 		//return $Motivo;
 		$results = DB::select('select * from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
 		//$results = DB::select('select * from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array(0));
+		$Categorias = Categoria::all();
 		//$idProductos = DB::select('select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array(0));
 		$idProductos = DB::select('select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
 		//return $idProductos;
 		$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array($id));
 		//$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(0));
-		return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id', 'results'));
+		return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id', 'results', 'Categorias'));
 	}
 
 	/**
@@ -68,10 +69,11 @@ class DetalleMovimientosController extends BaseController {
 		if ($validation->passes())
 		{
 			$Producto = Producto::find(Input::get('INV_DetalleMovimiento_IDProducto'));
-			
+			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + (Input::get('INV_DetalleMovimiento_PrecioCosto') * Input::get('INV_DetalleMovimiento_CantidadProducto')))/(Input::get('INV_DetalleMovimiento_CantidadProducto') + $Producto->INV_Producto_Cantidad);
 			//Calcular Precio de Costo
-			//$Producto->INV_Producto_PrecioCosto = Input::get('INV_DetalleMovimiento_PrecioCosto');
-			
+			$input['INV_DetalleMovimiento_PrecioCosto'] = $Costo;
+			//$Producto->INV_Producto_PrecioCosto = $Costo;
+			//return $input;
 			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + Input::get('INV_DetalleMovimiento_CantidadProducto');
 			$Producto->save();
 			$this->DetalleMovimiento->create($input);
@@ -185,16 +187,17 @@ class DetalleMovimientosController extends BaseController {
 		$results = DB::select('select * from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
 		//$results = DB::select('select * from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array(0));
 		//$idProductos = DB::select('select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array(0));
-		$idProductos = DB::select('select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
+		//$idProductos = DB::select('select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
 		//return $idProductos;
+		$Categorias = Categoria::all();
 		if(Input::get('search')=='')
-			$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(0));
+			$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array($id));
 		else 
-			$Productos = DB::select('select * from INV_Producto where (INV_Producto_Nombre = ? or INV_Producto_Codigo = ?) and INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(Input::get('search'), Input::get('search'), $id));
+			$Productos = DB::select('select * from INV_Producto where (INV_Producto_Nombre = ? or INV_Producto_Codigo = ? or INV_Categoria_ID in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre = ?) or INV_Categoria_IDCategoriaPadre in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre = ?)) and INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(Input::get('search'), Input::get('search'), Input::get('search'), Input::get('search'), $id));
 		//$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(0));
 		//$Productos = Producto::where('INV_Producto_ID', '=', Input::get('search'))->orWhere('INV_Producto_Codigo', '=', Input::get('search'))->orWhere('INV_Producto_Nombre', '=', Input::get('search'))->get();
 		//return DB::select('select * from INV_Producto where INV_Producto_Nombre = ? and INV_Producto_ID = ?',array(Input::get('search'), Input::get('search')));
-		return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id', 'results'));
+		return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id', 'results', 'Categorias'));
 	}
 
 }

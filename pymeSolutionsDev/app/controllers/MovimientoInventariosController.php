@@ -21,10 +21,7 @@ class MovimientoInventariosController extends BaseController {
 	 */
 	public function index()
 	{
-		$MovimientoInventarios = $this->MovimientoInventario->all();
-		$Motivos = MotivoMovimiento::all();
-
-		return View::make('MovimientoInventarios.index', compact('MovimientoInventarios', 'Motivos'));
+		return View::make('MovimientoInventarios.index');
 	}
 
 	/**
@@ -149,6 +146,19 @@ class MovimientoInventariosController extends BaseController {
 		}
 		//return $Motivo;
 		return View::make('MovimientoInventarios.terminar', compact('Movimiento', 'Detalles', 'Motivo'));
+	}
+
+
+	public function entradas(){
+		$MovimientoInventarios = DB::select('select * from INV_Movimiento where INV_MotivoMovimiento_INV_MotivoMovimiento_ID not in (select INV_MotivoMovimiento_ID from INV_MotivoMovimiento where INV_MotivoMovimiento_TipoMovimiento = 1)');
+		$Motivos = MotivoMovimiento::all();
+		return View::make('MovimientoInventarios.entradas', compact('Motivos', 'MovimientoInventarios'));
+	}
+
+	public function salidas(){
+		$MovimientoInventarios = DB::select('select * from INV_Movimiento where INV_MotivoMovimiento_INV_MotivoMovimiento_ID not in (select INV_MotivoMovimiento_ID from INV_MotivoMovimiento where INV_MotivoMovimiento_TipoMovimiento = 0)');
+		$Motivos = MotivoMovimiento::all();
+		return View::make('MovimientoInventarios.salidas', compact('Motivos', 'MovimientoInventarios'));
 	}
 
 }

@@ -33,8 +33,8 @@
         {{ Form::checkbox('INV_MotivoMovimiento_Activo', '1', '1', array('class' => 'col-md-4 control-label')) }}
       </div>
     </div>
-    {{ Form::hidden('INV_Categoria_FechaCreacion', date('Y-m-d H:i:s')) }}
-    {{ Form::hidden('INV_Categoria_FechaModificacion', date('Y-m-d H:i:s')) }}
+    {{ Form::hidden('INV_MotivoMovimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
+    {{ Form::hidden('INV_MotivoMovimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
 	<div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
