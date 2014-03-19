@@ -85,10 +85,21 @@
             <div class="form-group">
                 {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
                 @if ($campo->GEN_CampoLocal_Requerido)
-                    <label>Requerido</label>
+                    <label>*</label>
                 @endif
                 <div class="col-md-5">
-                    {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                    @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                        {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
+                        {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}
+                    @endif
                 </div>
             </div> 
         @endforeach
