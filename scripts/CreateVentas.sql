@@ -35,19 +35,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `pymeERP`.`VEN_FormaPago`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pymeERP`.`VEN_FormaPago` ;
-
-CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_FormaPago` (
-  `VEN_FormaPago_id` INT NOT NULL AUTO_INCREMENT,
-  `VEN_FormaPago_Descripcion` VARCHAR(45) NULL,
-  `VEN_FormaPago_TimeStamp` DATETIME NULL,
-  PRIMARY KEY (`VEN_FormaPago_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `pymeERP`.`VEN_Caja`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pymeERP`.`VEN_Caja` ;
@@ -85,16 +72,9 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Venta` (
   `VEN_Venta_Total` DECIMAL(10,2) NULL,
   `VEN_Venta_TotalCambio` DECIMAL(10,2) NULL,
   `VEN_Venta_TimeStamp` DATETIME NULL,
-  `VEN_FormaPago_VEN_FormaPago_id` INT NOT NULL,
   `VEN_Caja_VEN_Caja_id` INT NOT NULL,
-  PRIMARY KEY (`VEN_Venta_id`, `VEN_FormaPago_VEN_FormaPago_id`, `VEN_Caja_VEN_Caja_id`),
-  INDEX `fk_VEN_Venta_VEN_FormaPago1_idx` (`VEN_FormaPago_VEN_FormaPago_id` ASC),
+  PRIMARY KEY (`VEN_Venta_id`, `VEN_Caja_VEN_Caja_id`),
   INDEX `fk_VEN_Venta_VEN_Caja1_idx` (`VEN_Caja_VEN_Caja_id` ASC),
-  CONSTRAINT `fk_VEN_Venta_VEN_FormaPago1`
-    FOREIGN KEY (`VEN_FormaPago_VEN_FormaPago_id`)
-    REFERENCES `pymeERP`.`VEN_FormaPago` (`VEN_FormaPago_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_VEN_Venta_VEN_Caja1`
     FOREIGN KEY (`VEN_Caja_VEN_Caja_id`)
     REFERENCES `pymeERP`.`VEN_Caja` (`VEN_Caja_id`)
@@ -111,6 +91,8 @@ DROP TABLE IF EXISTS `pymeERP`.`VEN_DetalleDeVenta` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDeVenta` (
   `VEN_DetalleDeVenta_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_DetalleDeVenta_CantidadVendida` INT NULL,
+  `VEN_DetalleDeVenta_Codigo` VARCHAR(16) NULL,
+  `VEN_DetalleDeVenta_Nombre` VARCHAR(128) NULL,
   `VEN_DetalleDeVenta_PrecioVenta` DECIMAL(10,2) NULL,
   `VEN_Venta_VEN_Venta_id` INT NOT NULL,
   `VEN_DetalleDeVenta_TimeStamp` DATETIME NULL,
@@ -121,6 +103,19 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDeVenta` (
     REFERENCES `pymeERP`.`VEN_Venta` (`VEN_Venta_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`VEN_FormaPago`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`VEN_FormaPago` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_FormaPago` (
+  `VEN_FormaPago_id` INT NOT NULL AUTO_INCREMENT,
+  `VEN_FormaPago_Descripcion` VARCHAR(45) NULL,
+  `VEN_FormaPago_TimeStamp` DATETIME NULL,
+  PRIMARY KEY (`VEN_FormaPago_id`))
 ENGINE = InnoDB;
 
 
@@ -187,7 +182,15 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Devolucion` (
   `VEN_Devolucion_Codigo` VARCHAR(45) NULL,
   `VEN_Devolucion_Monto` DECIMAL(10,2) NULL,
   `VEN_Devolucion_TimeStamp` DATETIME NULL,
-  PRIMARY KEY (`VEN_Devolucion_id`))
+  `VEN_Venta_VEN_Venta_id` INT NOT NULL,
+  `VEN_Venta_VEN_Caja_VEN_Caja_id` INT NOT NULL,
+  PRIMARY KEY (`VEN_Devolucion_id`),
+  INDEX `fk_VEN_Devolucion_VEN_Venta1_idx` (`VEN_Venta_VEN_Venta_id` ASC, `VEN_Venta_VEN_Caja_VEN_Caja_id` ASC),
+  CONSTRAINT `fk_VEN_Devolucion_VEN_Venta1`
+    FOREIGN KEY (`VEN_Venta_VEN_Venta_id` , `VEN_Venta_VEN_Caja_VEN_Caja_id`)
+    REFERENCES `pymeERP`.`VEN_Venta` (`VEN_Venta_id` , `VEN_Caja_VEN_Caja_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -273,6 +276,33 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DescuentoEspecial_has_VEN_Venta` (
   CONSTRAINT `fk_VEN_DescuentoEspecial_has_VEN_Venta_VEN_Venta1`
     FOREIGN KEY (`VEN_Venta_VEN_Venta_id`)
     REFERENCES `pymeERP`.`VEN_Venta` (`VEN_Venta_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`VEN_Pago`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`VEN_Pago` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Pago` (
+  `VEN_Pago_ID` INT NOT NULL,
+  `VEN_Pago_Cantidad` VARCHAR(45) NULL,
+  `VEN_Venta_VEN_Venta_id` INT NOT NULL,
+  `VEN_Venta_VEN_Caja_VEN_Caja_id` INT NOT NULL,
+  `VEN_FormaPago_VEN_FormaPago_id` INT NOT NULL,
+  PRIMARY KEY (`VEN_Pago_ID`),
+  INDEX `fk_VEN_Pago_VEN_Venta1_idx` (`VEN_Venta_VEN_Venta_id` ASC, `VEN_Venta_VEN_Caja_VEN_Caja_id` ASC),
+  INDEX `fk_VEN_Pago_VEN_FormaPago1_idx` (`VEN_FormaPago_VEN_FormaPago_id` ASC),
+  CONSTRAINT `fk_VEN_Pago_VEN_Venta1`
+    FOREIGN KEY (`VEN_Venta_VEN_Venta_id` , `VEN_Venta_VEN_Caja_VEN_Caja_id`)
+    REFERENCES `pymeERP`.`VEN_Venta` (`VEN_Venta_id` , `VEN_Caja_VEN_Caja_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_VEN_Pago_VEN_FormaPago1`
+    FOREIGN KEY (`VEN_FormaPago_VEN_FormaPago_id`)
+    REFERENCES `pymeERP`.`VEN_FormaPago` (`VEN_FormaPago_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
