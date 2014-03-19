@@ -166,6 +166,12 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 	Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
 
+	Route::resource('Pagos', 'PagosController');
+
+	Route::resource('FormaPagoVenta', 'FormaPagoVentaController');
 
 });
+
+
+
 

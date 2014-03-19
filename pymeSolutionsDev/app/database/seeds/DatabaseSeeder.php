@@ -50,6 +50,8 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('DescuentosTableSeeder');
 
+		$this->call('PagosTableSeeder');
+		$this->call('FormapagoventaTableSeeder');
 	}
 
 }
