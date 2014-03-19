@@ -1,4 +1,3 @@
-
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CRM_TipoDocumento`
 -- -----------------------------------------------------
@@ -9,6 +8,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_TipoDocumento` (
   `CRM_TipoDocumento_Codigo` VARCHAR(45) NULL,
   `CRM_TipoDocumento_Nombre` VARCHAR(45) NULL,
   `CRM_TipoDocumento_Validacion` VARCHAR(50) NULL,
+  `CRM_TipoDocumento_Eliminados` DATETIME NULL,
+  `CRM_TipoDocumento_Flag` TINYINT(1) NULL,
   PRIMARY KEY (`CRM_TipoDocumento_ID`))
 ENGINE = InnoDB;
 
@@ -29,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Personas` (
   `CRM_Personas_Fijo` VARCHAR(45) NULL,
   `CRM_Personas_Descuento` DOUBLE NULL,
   `CRM_Personas_Foto` BLOB NULL,
+  `CRM_Personas_Eliminado` DATETIME NULL,
   `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
   PRIMARY KEY (`CRM_Personas_ID`),
   INDEX `fk_CRM_Personas_CRM_TipoDocumento1_idx` (`CRM_TipoDocumento_CRM_TipoDocumento_ID` ASC),
@@ -54,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Empresas` (
   `CRM_Empresas_Descuento` DOUBLE NULL,
   `CRM_Personas_CRM_Personas_ID` INT NULL,
   `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
+  `CRM_Empresas_Eliminados` DATETIME NULL,
   PRIMARY KEY (`CRM_Empresas_ID`),
   INDEX `fk_CRM_Empresas_CRM_Personas1_idx` (`CRM_Personas_CRM_Personas_ID` ASC),
   INDEX `fk_CRM_Empresas_CRM_TipoDocumento1_idx` (`CRM_TipoDocumento_CRM_TipoDocumento_ID` ASC),
@@ -119,3 +122,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_ValorCampoLocal` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
