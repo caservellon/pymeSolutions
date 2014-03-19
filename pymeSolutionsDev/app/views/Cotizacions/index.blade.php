@@ -4,7 +4,7 @@
 
 <h1>All Cotizacions</h1>
 <h1>Hola</h1>
-<p>{{ link_to_route('Cotizacions.create', 'Add new Cotizacion') }}</p>
+<p>{{ link_to_route('Compras.Cotizacions.create', 'Add new Cotizacion') }}</p>
 
 @if ($Cotizacions->count())
 	<table class="table table-striped table-bordered">

@@ -4,7 +4,7 @@
 
 <h1>All OrdenCompras</h1>
 
-<p>{{ link_to_route('OrdenCompras.create', 'Add new OrdenCompra') }}</p>
+<p>{{ link_to_route('Compras.OrdenCompras.create', 'Add new OrdenCompra') }}</p>
 
 @if ($OrdenCompras->count())
 	<table class="table table-striped table-bordered">

@@ -73,6 +73,15 @@ Route::group(array('prefix' => 'Compras'), function(){
 		return View::make('Menus.compras');
 	});
         
+        Route::get('/SolicitudCotizacion', function()
+	{
+		return View::make('Menus.SolicitudCotizacion');
+	});
+        
+        Route::get('/SolicitudCotizacion/Crear', function()
+	{
+		return View::make('SolicitudCotizacions.crearindex');
+	});
     Route::get('Configuracion/Cotizacion/parametrizar', array('as'=>'parametrizar', 'uses'=> 'CotizacionsController@parametrizar'));
     Route::get('Configuracion/OrdenCompra/parametrizar', array('as'=>'parametrizarOrden', 'uses'=> 'OrdenComprasController@parametrizar'));
     Route::get('Configuracion/Cotizacion/mensaje', array('as'=>'mensaje', 'uses'=> 'CotizacionsController@mensaje'));
@@ -92,6 +101,11 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::patch('Configuracion/OrdenCompra/actualizar', array('as'=>'actualizar', 'uses'=>'OrdenComprasController@actualizar'));
     Route::resource('Cotizacions', 'CotizacionsController');
     Route::resource('OrdenCompras', 'OrdencomprasController');
+    Route::get('SolicitudCotizacion/Crear/CualquierProducto', array('as'=>'cualquierProducto', 'uses'=> 'SolicitudCotizacionsController@vistacrear'));
+    Route::get('SolicitudCotizacion/Crear/Reorden', array('as'=>'reOrden', 'uses'=> 'SolicitudCotizacionsController@vistaReorden'));
+    Route::get('SolicitudCotizacion/Crear/MostrarDetalle', array('as'=>'detalle', 'uses'=> 'SolicitudCotizacionsController@detalle'));
+    Route::post('SolicitudCotizacion/Crear/detalleCualquierProducto', array('as'=>'seleccion', 'uses'=> 'SolicitudCotizacionsController@mostrarProveedor'));
+    Route::resource('SolicitudCotizacions', 'SolicitudCotizacionsController');
     
     //crea un nuevo estado de orden de compras
 Route::get('Configuracion/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
@@ -199,6 +213,8 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 
 });
+
+
 
 
 

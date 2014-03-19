@@ -29,7 +29,7 @@
       <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Solicitudes de Cotización</a></li>
+              <li><a href="/Compras/SolicitudCotizacion">Solicitudes de Cotización</a></li>
               <li><a href="#">Cotizaciones</a></li>
               <li><a href="#">Ordenes de Compras</a></li>
               <li class="divider"></li>

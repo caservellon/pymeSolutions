@@ -148,7 +148,7 @@ class CotizacionsController extends BaseController {
 			return Redirect::route('Cotizacions.index');
 		}
 
-		return Redirect::route('Cotizacions.create')
+		return Redirect::route('Compras.Cotizacions.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
