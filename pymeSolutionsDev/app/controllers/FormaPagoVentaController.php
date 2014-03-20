@@ -3,15 +3,15 @@
 class FormaPagoVentaController extends BaseController {
 
 	/**
-	 * FormaPagoVentum Repository
+	 * FormaPagoVentas Repository
 	 *
-	 * @var FormaPagoVentum
+	 * @var FormaPagoVentas
 	 */
-	protected $FormaPagoVentum;
+	protected $FormaPagoVentas;
 
-	public function __construct(FormaPagoVentum $FormaPagoVentum)
+	public function __construct(FormaPagoVentas $FormaPagoVentas)
 	{
-		$this->FormaPagoVentum = $FormaPagoVentum;
+		$this->FormaPagoVentas = $FormaPagoVentas;
 	}
 
 	/**
@@ -21,7 +21,7 @@ class FormaPagoVentaController extends BaseController {
 	 */
 	public function index()
 	{
-		$FormaPagoVenta = $this->FormaPagoVentum->all();
+		$FormaPagoVenta = $this->FormaPagoVentas->all();
 
 		return View::make('FormaPagoVenta.index', compact('FormaPagoVenta'));
 	}
@@ -44,16 +44,16 @@ class FormaPagoVentaController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, FormaPagoVentum::$rules);
+		$validation = Validator::make($input, FormaPagoVentas::$rules);
 
 		if ($validation->passes())
 		{
-			$this->FormaPagoVentum->create($input);
+			$this->FormaPagoVentas->create($input);
 
-			return Redirect::route('FormaPagoVenta.index');
+			return Redirect::route('Ventas.FormaPagoVenta.index');
 		}
 
-		return Redirect::route('FormaPagoVenta.create')
+		return Redirect::route('Ventas.FormaPagoVenta.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -67,9 +67,9 @@ class FormaPagoVentaController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$FormaPagoVentum = $this->FormaPagoVentum->findOrFail($id);
+		$FormaPagoVentas = $this->FormaPagoVentas->findOrFail($id);
 
-		return View::make('FormaPagoVenta.show', compact('FormaPagoVentum'));
+		return View::make('FormaPagoVenta.show', compact('FormaPagoVentas'));
 	}
 
 	/**
@@ -80,14 +80,14 @@ class FormaPagoVentaController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$FormaPagoVentum = $this->FormaPagoVentum->find($id);
+		$FormaPagoVentas = $this->FormaPagoVentas->find($id);
 
-		if (is_null($FormaPagoVentum))
+		if (is_null($FormaPagoVentas))
 		{
-			return Redirect::route('FormaPagoVenta.index');
+			return Redirect::route('Ventas.FormaPagoVenta.index');
 		}
 
-		return View::make('FormaPagoVenta.edit', compact('FormaPagoVentum'));
+		return View::make('FormaPagoVenta.edit', compact('FormaPagoVentas'));
 	}
 
 	/**
@@ -99,17 +99,17 @@ class FormaPagoVentaController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, FormaPagoVentum::$rules);
+		$validation = Validator::make($input, FormaPagoVentas::$rules);
 
 		if ($validation->passes())
 		{
-			$FormaPagoVentum = $this->FormaPagoVentum->find($id);
-			$FormaPagoVentum->update($input);
+			$FormaPagoVentas = $this->FormaPagoVentas->find($id);
+			$FormaPagoVentas->update($input);
 
-			return Redirect::route('FormaPagoVenta.show', $id);
+			return Redirect::route('Ventas.FormaPagoVenta.show', $id);
 		}
 
-		return Redirect::route('FormaPagoVenta.edit', $id)
+		return Redirect::route('Ventas.FormaPagoVenta.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -123,9 +123,9 @@ class FormaPagoVentaController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->FormaPagoVentum->find($id)->delete();
+		$this->FormaPagoVentas->find($id)->delete();
 
-		return Redirect::route('FormaPagoVenta.index');
+		return Redirect::route('Ventas.FormaPagoVenta.index');
 	}
 
 }

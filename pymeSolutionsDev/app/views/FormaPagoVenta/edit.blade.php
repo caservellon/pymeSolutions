@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit FormaPagoVentum</h1>
-{{ Form::model($FormaPagoVentum, array('method' => 'PATCH', 'route' => array('FormaPagoVenta.update', $FormaPagoVentum->id))) }}
+{{ Form::model($FormaPagoVentas, array('method' => 'PATCH', 'route' => array('Ventas.FormaPagoVenta.update', $FormaPagoVentum->VEN_FormaPago_id))) }}
 	<ul>
         <li>
             {{ Form::label('VEN_FormaPago_id', 'VEN_FormaPago_id:') }}
@@ -22,7 +22,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('FormaPagoVenta.show', 'Cancel', $FormaPagoVentum->id, array('class' => 'btn')) }}
+			{{ link_to_route('FormaPagoVenta.FormaPagoVenta.show', 'Cancel', $FormaPagoVentum->VEN_FormaPago_id, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

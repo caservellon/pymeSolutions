@@ -4,7 +4,7 @@
 
 <h1>Create FormaPagoVentum</h1>
 
-{{ Form::open(array('route' => 'FormaPagoVenta.store')) }}
+{{ Form::open(array('route' => 'Ventas.FormaPagoVenta.store')) }}
 	<ul>
         <li>
             {{ Form::label('VEN_FormaPago_id', 'VEN_FormaPago_id:') }}

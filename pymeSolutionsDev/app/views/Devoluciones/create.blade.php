@@ -4,7 +4,7 @@
 
 <h1>Create Devolucion</h1>
 
-{{ Form::open(array('route' => 'Devoluciones.store')) }}
+{{ Form::open(array('route' => 'Ventas.Devoluciones.store')) }}
 	<ul>
         <li>
             {{ Form::label('VEN_Devolucion_id', 'VEN_Devolucion_id:') }}

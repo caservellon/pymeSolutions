@@ -21,9 +21,9 @@ class DevolucionesController extends BaseController {
 	 */
 	public function index()
 	{
-		$Devolucions = $this->Devolucion->all();
+		$Devoluciones = $this->Devolucion->all();
 
-		return View::make('Devoluciones.index', compact('Devolucions'));
+		return View::make('Devoluciones.index', compact('Devoluciones'));
 	}
 
 	/**

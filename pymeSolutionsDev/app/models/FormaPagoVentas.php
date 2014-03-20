@@ -1,7 +1,13 @@
 <?php
 
-class FormaPagoVentum extends Eloquent {
+class FormaPagoVentas extends Eloquent {
 	protected $guarded = array();
+
+
+	protected $table = 'VEN_FormaPago';
+	protected $primaryKey = 'VEN_FormaPago_id';
+
+	public $timestamps = false;
 
 	public static $rules = array(
 		'VEN_FormaPago_id' => 'required',
