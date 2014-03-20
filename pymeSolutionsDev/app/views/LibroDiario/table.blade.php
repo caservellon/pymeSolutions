@@ -46,12 +46,4 @@
 @endif
 
 
-	<script type="text/javascript">
-	if (document.readyState=="complete"){
-	$('button').on('click',function(){
-
-		$.post('{{{URL::route("revertirasiento")}}}',{id:$.this().attr('id')});
-		console.log('itworks');
-	});
-}
-	</script>
+	

@@ -70,19 +70,23 @@ class LibroDiarioController extends BaseController {
 		return View::make('LibroDiarios.create');
 	}
 
-	Public function reversion($id){
-	 	$motivo = MotivoTransaccion::find(LibroDiario::find($id)->CON_MotivoTransaccion_ID);
-		if(isset($motivo) && $motivo->count()){
+	Public function reversion(){
+	 	$id = Input::get('id');
+	 	$diario = LibroDiario::find($id);
+	 	if(!is_null($diario)){
 			$libro = new LibroDiario;
-			$libro->CON_LibroDiario_Monto = LibroDiario::find($id)->CON_LibroDiario_Monto;
-			$libro->CON_MotivoTransaccion_ID = $motivo->CON_MotivoTransaccion_ID;
+			$libro->CON_LibroDiario_Monto = $diario->CON_LibroDiario_Monto;
+			$libro->CON_MotivoTransaccion_ID = $diario->CON_MotivoTransaccion_ID;
 			$libro->CON_LibroDiario_Observacion = "Es una reversion del Asiento No." . $id;
 			$libro->CON_LibroDiario_FechaCreacion = date('Y-m-d');
-			$libro->CON_LibroDiario_FechaModificion = date('Y-m-d');
+			$libro->CON_LibroDiario_FechaModificacion = date('Y-m-d');
 			$libro->save();
-			return Redirect::action('LibroDiarioController@index');
+			return Response::json(array('success'=>true));
+			//return Redirect::to('contabilidad/librodiario');
 		}else{
-			return Route::resource('contabilidad');
+			//return Redirect::action('LibroDiarioController@index');
+			return Response::json(array('success'=>false));
+		
 		}
 	}
 

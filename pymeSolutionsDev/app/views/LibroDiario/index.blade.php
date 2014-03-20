@@ -55,15 +55,30 @@
 		}).data('datepicker');
 	</script>
 	<script type="text/javascript">
+	
+		$(document).ready(function(){
 
-		$(document).ready($('#charge').on('click',function(){
+			$('#charge').on('click',function(){
 
-				$.post('librodiario',{date1:$('#dpd1').val(),date2:$('#dpd2').val()}).then(function(data){
-					$('#LibroDiario').html(data);
+				$.post('librodiario',{date1:$('#dpd1').val(),date2:$('#dpd2').val()}).then(
+					function(data){
+						$('#LibroDiario').html(data);
+					});
+			});
+			$('.revertir').on('click',function(e){
+				console.log('fuck');
+			
+				$.post('{{{URL::route("revertirasiento")}}}',{id:e.toElement.id}).success(function(data){
+					console.log(data.id);
+					console.log(data);
+					if(data.success){
+						location.reload();
+					}
+
 				});
-			})
-				
-		);
+				console.log('itworks');	
+			});
+		});
 	</script>
 
 	@stop
