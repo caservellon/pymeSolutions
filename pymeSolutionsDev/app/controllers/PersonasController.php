@@ -41,9 +41,24 @@ class PersonasController extends BaseController {
 		$input = Input::all();
 		$validation = Validator::make($input, Persona::$rules);
 
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->get();
+
+		foreach ($campos as $campo) {
+			if (Input::get($campo->GEN_CampoLocal_Codigo)) {
+				DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				//return Redirect::route('Empresas.index');
+			} elseif ($campo->GEN_CampoLocal_Requerido) {
+				return Redirect::route('CRM.Personas.create')
+					->withInput()
+					->withErrors($validation)
+					->with('message', 'Algunos campos requeridos no han sido completados.');
+			}
+		}
+
 		if ($validation->passes())
 		{
-			$this->Persona->create($input);
+			
+			$this->Persona->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->lists('GEN_CampoLocal_Codigo')));
 
 			return Redirect::route('CRM.Personas.index');
 		}

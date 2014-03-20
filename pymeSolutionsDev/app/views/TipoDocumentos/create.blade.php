@@ -31,6 +31,15 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="col-md-5 col-md-offset-2">
+                
+                <label class="checkbox-inline control-label">
+                    {{ Form::checkbox('CRM_TipoDocumento_Flag', '1') }}
+                    Empresa
+                </label>
+            </div>
+        </div>
 
     </div>
     <div class="form-group">

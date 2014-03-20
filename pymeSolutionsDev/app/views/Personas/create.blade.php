@@ -14,7 +14,7 @@
         <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">
-            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->whereNull('CRM_TipoDocumento_Flag')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
           </div>
         </div> 
 
@@ -82,7 +82,7 @@
         </div> 
         
         @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get() as $campo)
-            <div class="form-group">
+            <div class="campo-local-tipo form-group">
                 {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
                 @if ($campo->GEN_CampoLocal_Requerido)
                     <label>*</label>

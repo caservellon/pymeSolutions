@@ -14,7 +14,7 @@
         <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">
-            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->where('CRM_TipoDocumento_Flag','1')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
           </div>
         </div> 
         
