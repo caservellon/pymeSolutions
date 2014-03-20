@@ -26,7 +26,10 @@
 	                  	<td></td>
 	                  	<td>{{{ $Libro[0]['observacion'] }}}</td>
 	                  	<td>
+	                  	@if ($Libro[0]['reversion']==1 || $Libro[0]['revertido']==1)
+	                  		@else
 	                  		<button class="btn btn-primary revertir" id="{{{$Libro[0]['no']}}}">Revertir</button>
+	                  	@endif
 	                  	</td>
 					</tr>
 					<tr>

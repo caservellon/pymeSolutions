@@ -45,7 +45,7 @@ class LibroDiarioController extends BaseController {
 		//	$Cuentas=CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
 			
 			$CuentaMotivo= CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
-			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==0){
+			if (($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==0 XOR $Asiento->CON_LibroDiario_AsientoReversion==1)){
 
 			   $Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
 			   $Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
@@ -63,7 +63,9 @@ class LibroDiarioController extends BaseController {
 				'fecha'=> $Asiento->CON_LibroDiario_FechaCreacion,
 				'cuenta'=>$Debe,
 				'observacion'=>$Asiento->CON_LibroDiario_Observacion,
-				'monto'=>$Asiento->CON_LibroDiario_Monto);
+				'monto'=>$Asiento->CON_LibroDiario_Monto,
+				'reversion'=>$Asiento->CON_LibroDiario_AsientoReversion,
+				'revertido'=>$Asiento->CON_LibroDiario_Revertido);
 			$Asientos[$Asiento->CON_LibroDiario_ID][1]=array(
 				'cuenta'=>"\t".$Haber,
 				'monto'=> $Asiento->CON_LibroDiario_Monto);
@@ -84,14 +86,17 @@ class LibroDiarioController extends BaseController {
 	Public function reversion(){
 	 	$id = Input::get('id');
 	 	$diario = LibroDiario::find($id);
-	 	if(!is_null($diario)){
+	 	if((!is_null($diario) && $diario->CON_LibroDiario_AsientoReversion == 0) && ($diario->CON_LibroDiario_Revertido == 0)){
 			$libro = new LibroDiario;
 			$libro->CON_LibroDiario_Monto = $diario->CON_LibroDiario_Monto;
 			$libro->CON_MotivoTransaccion_ID = $diario->CON_MotivoTransaccion_ID;
 			$libro->CON_LibroDiario_Observacion = "Es una reversion del Asiento No." . $id;
 			$libro->CON_LibroDiario_FechaCreacion = date('Y-m-d');
 			$libro->CON_LibroDiario_FechaModificacion = date('Y-m-d');
+			$libro->CON_LibroDiario_AsientoReversion = 1;
 			$libro->save();
+			$diario->CON_LibroDiario_Revertido=1;
+			$diario->save();
 			return Response::json(array('success'=>true));
 			//return Redirect::to('contabilidad/librodiario');
 		}else{

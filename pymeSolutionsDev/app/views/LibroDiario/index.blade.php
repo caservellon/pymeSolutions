@@ -66,7 +66,6 @@
 					});
 			});
 			$('.revertir').on('click',function(e){
-				console.log('fuck');
 			
 				$.post('{{{URL::route("revertirasiento")}}}',{id:e.toElement.id}).success(function(data){
 					console.log(data.id);
