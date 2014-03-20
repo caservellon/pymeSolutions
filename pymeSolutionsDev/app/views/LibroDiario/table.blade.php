@@ -16,6 +16,7 @@
 		</thead>
 
 		<tbody>
+
 				@foreach ($LibroDiario as $Libro)
 					<tr>	
 						<td>{{{$Libro[0]['no']}}}</td>
@@ -33,12 +34,11 @@
 						<td></td>
 						<td>{{{$Libro[1]['cuenta']}}}</td>
 						<td></td>
-						<td>{{{$Libro[0]['monto']}}}</td>
+						<td>{{{$Libro[1]['monto']}}}</td>
 						<td></td>
 						<td></td>
 					</tr>
 				@endforeach
-		
 		</tbody>
 	</table>
 @else

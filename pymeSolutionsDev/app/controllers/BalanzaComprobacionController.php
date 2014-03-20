@@ -1,6 +1,6 @@
 <?php
 
-class AsientosController extends BaseController {
+class BalanzaComprobacionController extends BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -8,17 +8,18 @@ class AsientosController extends BaseController {
 	 * @return Response
 	 */
 
-	protected $LibroDiario;
+	protected $BalanzaComprobacion;
 
-	public function __construct(LibroDiario $LibroDiario)
+	public function __construct(BalanzaComprobacion $BalanzaComprobacion)
 	{
-		$this->LibroDiario = $LibroDiario;
+		$this->BalanzaComprobacion = $BalanzaComprobacion;
 	}
 
 	public function index()
 	{
-		$Asientos = LibroDiario::all();
-        return Redirect::action('AsientosController@create');
+		$Cuentas= BalanzaComprobacion::all();
+		return View::make('BalanzaComprobacion.index')
+			->with('Cuentas',$Cuentas);
     }
 
 	/**
@@ -28,11 +29,9 @@ class AsientosController extends BaseController {
 	 */
 	public function create()
 	{
-	   $Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+	  	
+       
       
-       return View::make('AsientosContables.create')
-       		
-       		->with('Motivos',$Motivos);
 	}
 
 	/**
@@ -44,15 +43,9 @@ class AsientosController extends BaseController {
 
 		if(Request::ajax()){
 			$CuentaMotivo= CuentaMotivo::where('CON_MotivoTransaccion_ID','=',Input::get('id'))->get();
-			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==0){
-			   $Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
-				$Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
-			}
-			else{
-				$Haber = CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
-				$Debe = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
-			}
+			$Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
 			$Debe=$Debe->CON_CatalogoContable_Nombre;
+			$Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
 			$Haber=$Haber->CON_CatalogoContable_Nombre; 
 			//return json_encode(array($Debe,$Haber));
 			return Response::json(array(
@@ -116,18 +109,18 @@ class AsientosController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, LibroDiario::$rules);
+		$validation = Validator::make($input, BalanzaComprobacion::$rules);
 
 		if ($validation->passes())
 		{
-			$input['CON_LibroDiario_FechaCreacion']= date('Y-m-d');
-			$input['CON_LibroDiario_FechaModificacion'] =date('Y-m-d');
-			$this->LibroDiario->create($input);
+			$input['CON_BalanzaComprobacion_FechaCreacion']= date('Y-m-d');
+			$input['CON_BalanzaComprobacion_FechaModificacion'] =date('Y-m-d');
+			$this->BalanzaComprobacion->create($input);
 
-			return Redirect::action('LibroDiarioController@index');
+			return Redirect::action('BalanzaComprobacionController@index');
 		}
 
-		return Redirect::action('AsientosController@create')
+		return Redirect::action('BalanzaComprobacionController@create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -141,7 +134,7 @@ class AsientosController extends BaseController {
 	 */
 	public function show($id)
 	{
-        return View::make('Asientos.show');
+        return View::make('BalanzaComprobacion.show');
 	}
 
 	/**
@@ -152,7 +145,7 @@ class AsientosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-        return View::make('Asientos.edit');
+        return View::make('BalanzaComprobacion.edit');
 	}
 
 	/**

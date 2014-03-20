@@ -102,13 +102,14 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('subcuenta', 'SubcuentaController');
 			Route::resource('asientocontable','AsientosController');
 			Route::resource('librodiario','LibroDiarioController');
+			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 
 			Route::get('librodiario',array('uses' => 'LibroDiarioController@index'));
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
 			Route::get('creando/motivotransaccion',array('uses'=>'AsientosController@creandomotivo'));
+
 			Route::post('librodiario/revertirasiento',array('as'=>'revertirasiento', 'uses' => 'LibroDiarioController@reversion'));
-			
 			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
 			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));			
 			Route::post('crear/asientocontable/cargar/cuentas',array('as'=>'cargarcuentas', 'uses'=>'AsientosController@cargarcuentas'));
