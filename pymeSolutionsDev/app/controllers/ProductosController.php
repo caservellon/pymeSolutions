@@ -155,4 +155,11 @@ class ProductosController extends BaseController {
 		return 'usuario';
 	}
 
+	public function search(){
+		$input = Input::get("searchTerm");
+		$query = DB::select('select INV_Producto_ValorCodigoBarras, INV_Producto_Nombre, INV_Producto_PrecioVenta FROM INV_Producto');
+		$result = $query;
+		return $result
+	}
+
 }
