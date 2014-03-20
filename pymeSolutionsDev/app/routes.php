@@ -101,7 +101,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('cuentamotivos', 'CuentaMotivosController');
 			Route::resource('subcuenta', 'SubcuentaController');
 			Route::resource('asientocontable','AsientosController');
-
+			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::get('librodiario',array('uses' => 'LibroDiarioController@index'));
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));

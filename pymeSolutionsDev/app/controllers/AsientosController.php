@@ -44,9 +44,15 @@ class AsientosController extends BaseController {
 
 		if(Request::ajax()){
 			$CuentaMotivo= CuentaMotivo::where('CON_MotivoTransaccion_ID','=',Input::get('id'))->get();
-			$Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
+			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==0){
+			   $Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
+				$Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
+			}
+			else{
+				$Haber = CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
+				$Debe = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
+			}
 			$Debe=$Debe->CON_CatalogoContable_Nombre;
-			$Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
 			$Haber=$Haber->CON_CatalogoContable_Nombre; 
 			//return json_encode(array($Debe,$Haber));
 			return Response::json(array(

@@ -29,7 +29,7 @@
 					<td></td>
 					<td>{{{$Libro[1]['cuenta']}}}</td>
 					<td></td>
-					<td>{{{$Libro[0]['monto']}}}</td>
+					<td>{{{$Libro[1]['monto']}}}</td>
 					<td></td>
 				</tr>
 			@endforeach

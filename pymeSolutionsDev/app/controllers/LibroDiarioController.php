@@ -42,11 +42,22 @@ class LibroDiarioController extends BaseController {
 	protected function getAsientos($LibroDiario){
 		$Asientos=array();
 		foreach ($LibroDiario as $Asiento) {
-			$Cuentas=CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
-			$Debe= CatalogoContable::find($Cuentas[0]->CON_CatalogoContable_ID);
+		//	$Cuentas=CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
+			
+			$CuentaMotivo= CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
+			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==0){
+
+			   $Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
+			   $Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
+			}
+			else{
+				$Haber = CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
+				$Debe = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
+			}
+
 			$Debe=$Debe->CON_CatalogoContable_Nombre;
-			$Haber = CatalogoContable::find($Cuentas[1]->CON_CatalogoContable_ID);
 			$Haber=$Haber->CON_CatalogoContable_Nombre; 
+
 			$Asientos[$Asiento->CON_LibroDiario_ID][0]=array(
 				'no'=> $Asiento->CON_LibroDiario_ID,
 				'fecha'=> $Asiento->CON_LibroDiario_FechaCreacion,
