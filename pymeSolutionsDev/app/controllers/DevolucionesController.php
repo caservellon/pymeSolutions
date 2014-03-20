@@ -37,6 +37,35 @@ class DevolucionesController extends BaseController {
 	}
 
 	/**
+	 * Chequea si hay deisponibilidad, si existen en inventario restarlo, mostrar que hay que entregar. Sino, generar bono de compra
+	 *
+	 * @return Response
+	 */
+	public function process()
+	{
+		if (Request::ajax())
+		{
+			$Input = Input::all();
+			$cantidadBono = 0;
+			$Return = array();
+
+			foreach ($Input['data'] as $prod) {
+				
+				$Producto = Producto::where('INV_Producto_Codigo', $prod['codigo'])->get();
+				if ($Producto->INV_Producto_Cantidad == 0) {
+					$cantidadBono += ($Producto->INV_Producto_PrecioVenta * $prod['codigo']);
+					array_push($Return, [$prod['codigo'] => "Se genero bono de compra."]);
+				} else {
+					$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad - $prod['cantidad'];
+					array_push($Return, [$prod['codigo'] => "Hay existencia de Inventario."]);
+				}
+			}
+
+		    return json_encode($Return);
+		}
+	}
+
+	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response

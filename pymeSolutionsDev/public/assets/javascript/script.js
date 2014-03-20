@@ -1,5 +1,61 @@
 $(document).ready(function () {
 
+
+	// ---------------- Devoluciones ------------------------------
+
+	// POST busca factura y devuelve items
+	$('.no-fact-accept').on('click',function(){
+		var new_tbody = document.createElement('tbody');
+		$('#detalle-factura > tbody').html(new_tbody);
+		$.post('/Ventas/Ventas/searchInvoice' ,{
+			'searchTerm' : $('.no-factura').val()
+		}).success(function(data){
+			 $.each(data, function(index, value){
+			 	console.log(value);
+				$('#detalle-factura > tbody:last').append('<tr><td><input type="checkbox" class="check"></td><td class="codigo">'+value["VEN_DetalleDeVenta_Codigo"]+'</td><td>'+value["VEN_DetalleDeVenta_Nombre"]+'</td><td>'+value["VEN_DetalleDeVenta_PrecioVenta"]+'</td><td><input type="number" class="quantity" min="1" max="'+value["VEN_DetalleDeVenta_CantidadVendida"]+'" > / '+value["VEN_DetalleDeVenta_CantidadVendida"]+'</td><td>'+(value["VEN_DetalleDeVenta_CantidadVendida"] * value["VEN_DetalleDeVenta_PrecioVenta"])+'</td></tr>');		
+			 });
+		}).fail(function(data){
+			alert('No se encontro esa factura');
+		});
+	});
+
+	// POST get selected and quantity
+	$('.crear-devolucion').on('click', function(){
+		devolver = [];
+		//input:checked
+		$('.productos-dev input:checked').parents('tr').map(function(i, producto) {
+		    var td = $(producto).find('td');
+		    var codigo = td.eq(1).text();
+		    var cantidad = td.eq(4).find('.quantity').val();
+		    
+		    devolver.push({
+		        codigo: codigo,
+		        cantidad: cantidad
+		    });
+		});
+		
+		$.post('/Ventas/Devoluciones/process', {
+			'data' : devolver
+		}).success(function(data){
+			console.log(data);
+			$('#resultadoDevolucion').modal('show');
+		});
+	});
+
+	// POST busca si hay articulos
+	$('#detalle-factura').on('click','button', function(){
+		var stock = $(this).closest("tr").find(".codigo").text();
+		$.post('/Ventas/Ventas/checkStock', {
+			'codigo' : stock
+		}).success(function(data){
+			console.log(data);
+
+		});
+	});
+
+
+	// ---------------- Caja de Venta - POS ------------------------------
+
 	actualizarTotales();
 
 	//Busqueda por AJAX
@@ -174,5 +230,7 @@ $(document).ready(function () {
 		$('.grand-total').text("Lps. " + (subtotal * (1.15)).toFixed(2));
 		actualizarPagos();
 	}
+
+
 
 });

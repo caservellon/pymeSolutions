@@ -85,6 +85,62 @@ class VentasController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+	public function searchInvoice()
+	{
+		if (Request::ajax())
+		{
+			$Input = Input::all();
+
+			$Venta = Venta::find($Input['searchTerm']);
+			$DetalleVenta = DetalleDeVenta::where('VEN_Venta_VEN_Venta_id', $Venta->VEN_Venta_id)->get();
+
+		    return $DetalleVenta;
+		}
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function searchSaleInfo()
+	{
+		if (Request::ajax())
+		{
+			$Input = Input::all();
+
+			$Venta = Venta::find($Input['searchTerm']);
+
+		    return $Venta;
+		}
+	}
+
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function checkStock()
+	{
+		if (Request::ajax())
+		{
+			$Input = Input::all();
+
+			$Producto = Producto::where('INV_Producto_Codigo', $Input['codigo'])->get();
+
+		    return $Producto;
+		}
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
 	public function show($id)
 	{
 		$Venta = $this->Venta->findOrFail($id);

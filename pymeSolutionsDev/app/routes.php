@@ -145,6 +145,8 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 	Route::resource('Ventas', 'VentasController');
 	Route::post('Ventas/guardar', array('as' => 'Ventas.Ventas.guardar','uses' => 'VentasController@guardar'));
+	Route::post('Ventas/searchInvoice', array('as' => 'Ventas.Ventas.searchInvoice', 'uses' => 'VentasController@searchInvoice'));
+	Route::post('Ventas/checkStock', array('as' => 'Ventas.Ventas.checkStock', 'uses' => 'VentasController@checkStock'));
 
 	Route::resource('Descuentos', 'DescuentosController');
 
@@ -157,6 +159,7 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::resource('BonoDeCompras', 'BonodecomprasController');
 
 	Route::resource('Devoluciones', 'DevolucionesController');
+	Route::post('Devoluciones/process', array('as' => 'Ventas.Devoluciones.process', 'uses' => 'DevolucionesController@process'));
 
 	Route::resource('DetalleDevoluciones', 'DetalleDevolucionesController');
 
