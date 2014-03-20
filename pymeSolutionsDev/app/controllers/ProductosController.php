@@ -60,15 +60,39 @@ class ProductosController extends BaseController {
 	 */
 	public function store()
 	{
+
 		$input = Input::all();
 		$validation = Validator::make($input, Producto::$rules);
-
 		if ($validation->passes())
 		{
-			$this->Producto->create($input);
-
+			$productoTemporal = $this->Producto->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->lists('GEN_CampoLocal_Codigo')));
+			if($productoTemporal){
+				$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->get();
+ 				foreach ($campos as $campo) {
+ 					$iniput =Input::get($campo->GEN_CampoLocal_Codigo);
+ 					if ($iniput) {
+ 						$valorCampo = new ProductoCampoLocal;
+ 						$valorCampo->INV_Producto_CampoLocal_Valor = $iniput;
+ 						$valorCampo->INV_Producto_ID = $productoTemporal->INV_Producto_ID;
+ 						$valorCampo->GEN_CampoLocal_GEN_CampoLocal_ID = $campo->GEN_CampoLocal_ID;
+ 						$valorCampo->save();
+ 						//DB::table('INV_Producto_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+ 						//return Redirect::route('Empresas.index');
+ 					} elseif ($campo->GEN_CampoLocal_Requerido) {
+ 						return Redirect::route('Inventario.Producto.create')
+ 							->withInput()
+ 							->withErrors($validation)
+ 							->with('message', 'Algunos campos requeridos no han sido completados.');
+ 					}
+ 				}
+			}
 			return Redirect::route('Inventario.Productos.index');
 		}
+
+		
+ 		
+
+		
 
 		return Redirect::route('Inventario.Productos.create')
 			->withInput()
@@ -155,11 +179,12 @@ class ProductosController extends BaseController {
 		return 'usuario';
 	}
 
-	public function search(){
+	public function search()
+	{
 		$input = Input::get("searchTerm");
 		$query = DB::select('select INV_Producto_ValorCodigoBarras, INV_Producto_Nombre, INV_Producto_PrecioVenta FROM INV_Producto');
 		$result = $query;
-		return $result
+		return $result;
 	}
 
 }

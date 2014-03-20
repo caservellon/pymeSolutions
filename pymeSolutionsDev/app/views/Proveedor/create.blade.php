@@ -85,6 +85,24 @@
     </div>
     {{ Form::hidden('INV_Proveedor_FechaCreacion', date('Y-m-d H:i:s')) }}
     {{ Form::hidden('INV_Proveedor_FechaModificacion', date('Y-m-d H:i:s')) }}
+
+    <div class="page-header clearfix">
+      <h3 class="pull-left">Proveedor &gt; <small>Campos Locales</small></h3>
+    </div>
+        
+        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRV%')->get() as $campo)
+            <div class="form-group">
+                {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+                @if ($campo->GEN_CampoLocal_Requerido)
+                    <label>Requerido</label>
+                @endif
+                <div class="col-md-5">
+                    {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                </div>
+            </div> 
+        @endforeach
+
+
     <div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}

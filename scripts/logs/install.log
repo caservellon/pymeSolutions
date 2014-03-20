@@ -1,8 +1,118 @@
-ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`INV_Categoria`, CONSTRAINT `fk_INV_Categoria_INV_Categoria` FOREIGN KEY (`INV_Categoria_IDCategoriaPadre`) REFERENCES `INV_Categoria` (`INV_Categoria_ID`) ON DELETE NO ACTION ON UPD)
+------------------------START--------------------------
+Process started at  2014/03/20 20:21:23
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+ERROR 1064 (42000) at line 220: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DROP TABLE IF EXISTS `pymeERP`.`INV_Producto_Proveedor`' at line 32
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating CRM 
+Populating Compras 
+Populating Inventario 
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.INV_FormaPago' doesn't exist
+Populating Contabilidad 
+Populating Ventas 
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
-ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`INV_Categoria`, CONSTRAINT `fk_INV_Categoria_INV_Categoria` FOREIGN KEY (`INV_Categoria_IDCategoriaPadre`) REFERENCES `INV_Categoria` (`INV_Categoria_ID`) ON DELETE NO ACTION ON UPD)
+Process ended at  2014/03/20 20:21:24
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/20 20:26:34
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+ERROR 1064 (42000) at line 220: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*/',
+  `INV_Reporte_Numero` DECIMAL(19,0) NULL DEFAULT NULL,
+  `INV_Reporte_Enca' at line 27
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating CRM 
+Populating Compras 
+Populating Inventario 
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.INV_FormaPago' doesn't exist
+Populating Contabilidad 
+Populating Ventas 
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
-ERROR 1452 (23000) at line 5: Cannot add or update a child row: a foreign key constraint fails (`pymeERP`.`INV_Categoria`, CONSTRAINT `fk_INV_Categoria_INV_Categoria` FOREIGN KEY (`INV_Categoria_IDCategoriaPadre`) REFERENCES `INV_Categoria` (`INV_Categoria_ID`) ON DELETE NO ACTION ON UPD)
+Process ended at  2014/03/20 20:26:34
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/20 20:27:05
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating CRM 
+Populating Compras 
+Populating Inventario 
+ERROR 1146 (42S02) at line 5: Table 'pymeERP.INV_FormaPago' doesn't exist
+Populating Contabilidad 
+Populating Ventas 
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+Process ended at  2014/03/20 20:27:05
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/20 20:32:38
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+ERROR 1064 (42000) at line 358: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '
+  `INV_Reporte_Numero` DECIMAL(19,0) NULL DEFAULT NULL,
+  `INV_Reporte_Encabeza' at line 2
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating CRM 
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+Process ended at  2014/03/20 20:32:39
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/20 20:39:28
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating CRM 
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+Process ended at  2014/03/20 20:39:28
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/03/20 20:43:57
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating CRM 
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+Process ended at  2014/03/20 20:43:58
+------------------------END----------------------------

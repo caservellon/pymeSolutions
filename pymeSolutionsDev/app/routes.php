@@ -20,6 +20,10 @@ Route::get('/', function(){
 
 Route::group(array('prefix' => 'Inventario'), function()
 {
+	Route::get('/', function()
+	{
+		return View::make('Menus.inventario');
+	});
 
 	Route::resource('Ciudad', 'CiudadController');
 
@@ -36,6 +40,8 @@ Route::group(array('prefix' => 'Inventario'), function()
 	Route::resource('Horarios', 'HorariosController');
 
 	Route::resource('FormaPagos', 'FormaPagosController');
+
+	Route::resource('CampoLocals', 'CampoLocalsController');
 
 });
    
@@ -122,15 +128,20 @@ Route::resource('contabilidad/asientocontable','AsientosController');
 Route::get('contabilidad/crear/asientocontable',array('uses'=>'AsientosController@create'));
 
 
+	Route::resource('Personas', 'PersonasController');
 //crm
+Route::group(array('prefix' => 'CRM'), function(){
+	Route::get('/',function(){
+		return View::make('Menus.crm');
+	});
 
-Route::resource('Personas', 'PersonasController');
+	Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
 
-Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
+	Route::resource('CampoLocals', 'CampoLocalsController');
 
-Route::resource('CampoLocals', 'CampoLocalsController');
+	Route::resource('CampoLocalLista', 'CampoLocalListaController');
+});
 
-Route::resource('CampoLocalLista', 'CampoLocalListaController');
 
 
 Route::group(array('prefix' => 'Ventas'), function(){
@@ -168,3 +179,8 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 });
 
+
+
+Route::resource('productocampolocals', 'ProductocampolocalsController');
+
+Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
