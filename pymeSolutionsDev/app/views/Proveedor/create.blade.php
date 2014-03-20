@@ -77,10 +77,18 @@
         {{ Form::select('INV_Ciudad_ID', $ciudades, null, array('class' => 'form-control', 'id' => 'INV_Ciudad_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
+
+    <div class="form-group">
+      {{ Form::label('INV_Producto_Nombre', 'Productos: *', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::select('INV_Producto_Nombre', $productos, null, array('class' => 'form-control', 'id' => 'INV_Producto_ID', 'placeholder' => '#' )) }}
+      </div>
+    </div> 
+
     <div class="form-group">
       {{ Form::label('INV_Proveedor_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::checkbox('INV_Proveedor_Activo', '1', '1', array('class' => 'col-md-4 control-label')) }}
+        {{ Form::checkbox('INV_Proveedor_Activo', '1', '1',  array('class' => 'col-md-4 control-label')) }}
       </div>
     </div>
     {{ Form::hidden('INV_Proveedor_FechaCreacion', date('Y-m-d H:i:s')) }}

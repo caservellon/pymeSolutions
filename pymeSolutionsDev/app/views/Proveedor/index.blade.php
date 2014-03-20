@@ -8,7 +8,14 @@
 	<a type="button" href="{{ URL::route('Inventario.Proveedor.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Proveedor
 	</a>
+	 <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
 </div>
+
+{{ Form::open(array('route' => 'Proveedor.search_index')) }}
+{{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+{{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
+{{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
+{{ Form::close() }}
 
 @if ($Proveedor->count())
 	
@@ -19,6 +26,8 @@
 				<th>ID</th>
 				<th>Codigo</th>
 				<th>Nombre</th>
+				<th>Producto</th>
+				<th>Ciudad</th>
 				<th>Direccion</th>
 				<th>Telefono</th>
 				<th>Email</th>
@@ -41,6 +50,8 @@
 					<td>{{{ $Proveedor->INV_Proveedor_ID }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Codigo }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Nombre }}}</td>
+					<td>{{{ Producto::find(DB::table('INV_Producto_Proveedor')->where('INV_Proveedor_ID', '=', $Proveedor->INV_Proveedor_ID)->first()->INV_Producto_ID)->INV_Producto_Nombre }}} </td>
+					<td>{{{ Ciudad::find($Proveedor->INV_Ciudad_ID)->INV_Ciudad_Nombre }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Direccion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Telefono }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Email }}}</td>
