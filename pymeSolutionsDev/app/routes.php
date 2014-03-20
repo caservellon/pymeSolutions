@@ -48,6 +48,7 @@ Route::group(array('prefix' => 'Compras'), function(){
     //crea un nuevo estado de orden de compras
     Route::get('/', function()
 	{
+          
 		return View::make('Menus.compras');
 	});
 Route::get('Configuracion/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
@@ -68,7 +69,28 @@ Route::get('Configuracion/TransicionEstado/Editar',array('as'=>'EditarTransicion
 Route::patch('Configuracion/TransicionEstado/Editar',array('as'=>'ActualizarTransicion','uses'=>'COMTransicionEstadoController@ActualizarTransicion'));
 Route::get('Configuracion/TransicionEstado/Lista', array('as'=>'ListaTransicion','uses'=>'COMTransicionEstadoController@ListaTransiciones'));
 
+//Crea orden Compra sin Cotizacion
+Route::get('OrdenCompra/sinCotizacion/ListaProductos', array('as'=>'IniOrdComSNCot','uses'=>'OrdenComprasController@OrdenComprasnCotizacion'));
+Route::post('OrdenCompra/sinCotizacion/Detalle', array('as'=>'OrdenSinCotizacion','uses'=>'OrdenComprasController@FormOrdenComprasnCotizacion'));
+Route::post('OrdenCompra/sinCotizacion/Guardar', array('as'=>'GuardaOCsnCot','uses'=>'OrdenComprasController@guardarOCsnCOT'));
 
+//crea oden de compra con cotizacion
+Route::get('OrdenCompra/conCotizacion/ListaCotizaciones', array('as'=>'IniOrdComCnCot','uses'=>'OrdenComprasController@OrdenCompracnCotizacion'));
+Route::get('OrdenCompra/conCotizacion/Detalle', array('as'=>'ComCot','uses'=>'OrdenComprasController@FormOrdenCompracnCotizacion'));
+
+//autorizaciones de orden de Compra
+Route::get('OrdenCompra/Autorizacion/ListaOrdenes', array('as'=>'AutOrdCom','uses'=>'OrdenComprasController@ListaOrdenCompra'));
+Route::get('OrdenCompra/Autorizacion/Autorizar', array('as'=>'AutOrdComForm','uses'=>'OrdenComprasController@AutorizandoOrdenCompra'));
+Route::get('OrdenCompra/Autorizacion/Autorizado', array('as'=>'AutorizarOrdCom','uses'=>'OrdenComprasController@AutorizarOrden'));
+Route::get('OrdenCompra/Autorizacion/Cancelado', array('as'=>'CancelaOrdCom','uses'=>'OrdenComprasController@cancelarOrden'));
+//Administrar Ordenes de Compra
+Route::get('OrdenCompra/Autorizacion/ListarOrdenes', array('as'=>'AutOrdCom','uses'=>'OrdenComprasController@ListarOrdenCompra'));
+Route::get('OrdenCompra/Autorizacion/Administrar', array('as'=>'AdministraOrCOm','uses'=>'OrdenComprasController@AdministraDetalles'));
+Route::post('OrdenCompra/Autorizacion/Administrada', array('as'=>'cambioAdministracio','uses'=>'OrdenComprasController@AndministrarOC'));
+
+//Historial de Ordenes de Compra
+Route::get('OrdenCompra/Historial/ListarOrdenes', array('as'=>'ListaOrdenes','uses'=>'OrdenComprasController@HistorialOrdenes'));
+Route::get('OrdenCompra/Historial/Orden', array('as'=>'HistorialOrden','uses'=>'OrdenComprasController@HistorialOrden'));
 
 Route::resource('COMEstadoOrdenCompras', 'COMEstadoOrdenCompraController');
 Route::resource('COMTransicionEstado', 'COMTransicionEstadoController');
@@ -83,6 +105,7 @@ Route::resource('COMTransicionEstado', 'COMTransicionEstadoController');
     Route::get('Cotizacions/editarParametrizar', array('as'=>'editarParametrizar', 'uses'=>'CotizacionsController@editarParametrizar'));
     Route::get('Cotizacions/actualizar', array('as'=>'actualizar', 'uses'=>'CotizacionsController@actualizar'));
     Route::resource('Cotizacions', 'CotizacionsController');
+     Route::resource('OrdenCompras', 'OrdencomprasController');
 });
 
 

@@ -66,7 +66,21 @@ App::down(function()
 {
 	return Response::make("Be right back!", 503);
 });
-
+/*
+|--------------------------------------------------------------------------
+| Custom Form Macros
+|--------------------------------------------------------------------------
+|
+*/
+ 
+Form::macro('custom', function($type, $name, $value = null, $options = array()) {
+    $value = ((is_null($value) or $value == '')) ? Input::old($name) : $value;
+    $input =  '<input type="'. $type .'" name="' . $name . '" value="' . $value . '"';
+    foreach ($options as $key => $value) {
+        $input .= ' ' . $key . '="' . $value . '"';
+    }
+    return $input.'>';
+});
 /*
 |--------------------------------------------------------------------------
 | Require The Filters File
@@ -77,6 +91,7 @@ App::down(function()
 | definitions instead of putting them all in the main routes file.
 |
 */
+
 
 require app_path().'/filters.php';
 require app_path().'/validators.php';

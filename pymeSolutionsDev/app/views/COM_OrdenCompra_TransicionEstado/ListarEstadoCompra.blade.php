@@ -30,6 +30,11 @@
           <td>{{{ COM_EstadoOrdenCompra::find($nombre->COM_OrdenCompra_TransicionEstado_EstadoActual)->COM_EstadoOrdenCompra_Nombre}}}</td>
           <td>{{{ COM_EstadoOrdenCompra::find($nombre->COM_OrdenCompra_TransicionEstado_EstadoPosterior)->COM_EstadoOrdenCompra_Nombre}}}</td>
           <td>{{{ $nombre->COM_OrdenCompra_TransicionEstado_Observacion}}}</td>
+          @if($nombre->COM_OrdenCompra_TransicionEstado_Activo==1)
+                <td>Activo</td>
+                @else
+                <td>Inactivo</td>
+                @endif 
                
                 <td><a href="{{ route('EditarTransicion', array('id'=>$nombre->COM_OrdenCompra_TransicionEstado_Id)) }}" class="btn btn-info">Editar</a></td>
          @endforeach

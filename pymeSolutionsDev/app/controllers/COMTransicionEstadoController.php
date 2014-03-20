@@ -52,7 +52,7 @@ class COMTransicionEstadoController extends BaseController {
                         }else{
                             $model->COM_OrdenCompra_TransicionEstado_Activo=0;
                         }
-                        //$model->save();
+                        $model->save();
                         return 'Transicion Creada';
                 }
                     
@@ -81,9 +81,9 @@ class COMTransicionEstadoController extends BaseController {
                 $model->COM_OrdenCompra_TransicionEstado_EstadoPosterior=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPosterior');
                 $model->COM_OrdenCompra_TransicionEstado_Observacion=Input::get('COM_OrdenCompra_TransicionEstado_Observacion');
                  if(Input::has('COM_OrdenCompra_TransicionEstado_Activo')){
-                     $estadoOrden->COM_OrdenCompra_TransicionEstado_Activo=1;
+                     $model->COM_OrdenCompra_TransicionEstado_Activo=1;
                 }else{
-                     $estadoOrden->COM_OrdenCompra_TransicionEstado_Activo=0;
+                     $model->COM_OrdenCompra_TransicionEstado_Activo=0;
                 }
                 $model->update();
                 return 'Datos Actualizados';
