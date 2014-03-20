@@ -28,4 +28,9 @@ class Proveedor extends Eloquent {
 		//'INV_Ciudad_ID' => 'required'
 		
 	);
+
+	public function productos (){
+
+		return $this->belongsToMany('Producto');
+	}	
 }

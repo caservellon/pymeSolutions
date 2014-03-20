@@ -14,9 +14,8 @@
 Route::get('/', function(){
 	return View::make('hello');
 
-
-
 });
+
 
 Route::group(array('prefix' => 'Inventario'), function()
 {
@@ -36,6 +35,8 @@ Route::group(array('prefix' => 'Inventario'), function()
 	Route::resource('Horarios', 'HorariosController');
 
 	Route::resource('FormaPagos', 'FormaPagosController');
+
+	Route::post('Proveedor/search_index', array('as' => 'Proveedor.search_index', 'uses' =>'ProveedorController@search_index'));
 
 });
    
