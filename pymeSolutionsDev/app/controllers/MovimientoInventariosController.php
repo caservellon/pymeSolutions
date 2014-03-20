@@ -32,7 +32,7 @@ class MovimientoInventariosController extends BaseController {
 	public function create()
 	{
 		$Productos = Producto::all();
-		$temp = MotivoMovimiento::where('INV_MotivoMovimiento_TipoMovimiento', '=', '0')->get();
+		$temp = MotivoMovimiento::where('INV_MotivoMovimiento_TipoMovimiento', '=', '0')->where('INV_MotivoMovimiento_Activo', '=', '1')->get();
 		$Motivos = $temp->lists('INV_MotivoMovimiento_Nombre', 'INV_MotivoMovimiento_ID');
 		
 		if ($Productos->count() > 0 & $temp->count() > 0) {
