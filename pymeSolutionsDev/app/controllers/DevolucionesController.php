@@ -51,7 +51,7 @@ class DevolucionesController extends BaseController {
 
 			foreach ($Input['data'] as $prod) {
 				
-				$Producto = Producto::where('INV_Producto_Codigo', $prod['codigo'])->get();
+				$Producto = Producto::where('INV_Producto_Codigo', $prod['codigo'])->get()->first();
 				if ($Producto->INV_Producto_Cantidad == 0) {
 					$cantidadBono += ($Producto->INV_Producto_PrecioVenta * $prod['codigo']);
 					array_push($Return, [$prod['codigo'] => "Se genero bono de compra."]);
@@ -60,6 +60,19 @@ class DevolucionesController extends BaseController {
 					array_push($Return, [$prod['codigo'] => "Hay existencia de Inventario."]);
 				}
 			}
+
+			if ($cantidadBono != 0) {
+				$BonoDeCompra = new BonoDeCompra;
+				$BonoDeCompra->VEN_BonoDeCompra_Numero = rand(1000000, 9999990);
+				$BonoDeCompra->VEN_BonoDeCompra_Valor = $cantidadBono;
+				$BonoDeCompra->VEN_BonoDeCompra_TimeStamp = date("Y-m-d H:i:s");
+				$BonoDeCompra->VEN_EstadoBono_VEN_EstadoBono_id = 1;
+				//$BonoDeCompra->save();
+
+				array_push($Return, ['BonoCompraCantidad' => $cantidadBono]);
+				array_push($Return, ['BonoCompraCodigo' => $BonoDeCompra->VEN_BonoDeCompra_Numero]);
+			}
+			
 
 		    return json_encode($Return);
 		}

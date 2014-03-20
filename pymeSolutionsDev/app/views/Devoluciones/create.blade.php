@@ -36,7 +36,17 @@
         <h4 class="modal-title" id="myModalLabel">Confirmación de Devolución</h4>
       </div>
       <div class="modal-body">
-        
+        <table class="table" id="detalle-devolucion">
+            <thead>
+                <tr>
+                    <th>Codigo Producto</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
