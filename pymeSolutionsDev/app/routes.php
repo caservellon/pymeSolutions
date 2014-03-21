@@ -143,6 +143,8 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::resource('AperturaCajas', 'AperturacajasController');
 	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturacajasController@abrir'));
 
+	Route::get('Listar', array('as' => 'Ventas.Listar','uses' => 'VentasController@Listar'));
+	
 	Route::resource('Ventas', 'VentasController');
 	Route::post('Ventas/guardar', array('as' => 'Ventas.Ventas.guardar','uses' => 'VentasController@guardar'));
 	Route::post('Ventas/searchInvoice', array('as' => 'Ventas.Ventas.searchInvoice', 'uses' => 'VentasController@searchInvoice'));

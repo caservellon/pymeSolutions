@@ -79,6 +79,17 @@ class VentasController extends BaseController {
 		return Redirect::route('Ventas.Ventas.index');
 	}
 
+	public function Listar() {
+		$Ventas = DB::table('VEN_Venta')->get();
+
+		if ($Ventas) {
+			return View::make('Ventas.lista')->with('Ventas', $Ventas);
+		}
+
+		return Redirect::route('Ventas.create');
+	
+	}
+
 	/**
 	 * Display the specified resource.
 	 *
