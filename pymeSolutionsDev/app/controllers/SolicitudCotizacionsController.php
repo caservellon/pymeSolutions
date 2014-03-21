@@ -23,18 +23,18 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function index()
 	{
-		$SolicitudCotizacions = SolicitudCotizacion::all();
+		$SolicitudCotizacions = SolicitudCotizacion::paginate();
 
 		return View::make('SolicitudCotizacions.index', compact('SolicitudCotizacions'));
 	}
         
         public function vistacrear(){
-            $cualquierProducto = Producto::all();
+            $cualquierProducto = Producto::where('INV_Producto_Activo', '=', 1)->get();
             return View::make('SolicitudCotizacions.cualquierProducto', compact('cualquierProducto'));
         }
         
         public function vistaReorden(){
-            $reOrden = Producto::all();
+            $reOrden = Producto::where('INV_Producto_Activo', '=', 1)->get();
             return View::make('SolicitudCotizacions.reOrden', compact('reOrden'));
         }
         

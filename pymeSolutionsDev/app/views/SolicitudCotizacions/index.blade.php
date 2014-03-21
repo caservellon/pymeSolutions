@@ -36,7 +36,9 @@
                                         <?php $proveedor= Proveedor::find($editars->Proveedor_idProveedor) ?>
 					<td><a>{{{ $proveedor->INV_Proveedor_Nombre }}}</a></td>
 					<td>{{{ $editars->COM_SolicitudCotizacion_FechaEmision }}}</td>
-					<td>{{{ $editars->COM_Usuario_idUsuarioCreo }}}</td>
+					@if($editars->COM_Usuario_idUsuarioCreo==1)
+                                           <td>Juan</td>
+                                           @endif
 					@if($editars->COM_SolicitudCotizacion_Recibido == 1)
 							<td>Recibido</td>
 						@else
@@ -49,7 +51,7 @@
 							<td>Inactivo</td>
 						@endif	
 					<td>{{ link_to_route('Compras.SolicitudCotizacions.edit', 'Editar', array($editars->COM_SolicitudCotizacion_IdSolicitudCotizacion), array('class' => 'btn btn-info')) }}</td>
-                                        <td>{{ link_to_route('detalle', 'Detalle', array('prov'=>$editars->Proveedor_idProveedor, 'solCot'=> $editars->COM_SolicitudCotizacion_IdSolicitudCotizacion), array('class' => 'btn btn-info')) }}</td>
+                                        <td>{{ link_to_route('detalle', 'Detalle', array('prov'=>$editars->Proveedor_idProveedor, 'solCot'=> $editars->COM_SolicitudCotizacion_IdSolicitudCotizacion), array('class' => 'btn btn-success')) }}</td>
 
         
                                 </tr>
@@ -68,10 +70,12 @@
 
 
 
-
+            
 
 
 @endif
-
+<div>
+                <h6>{{$SolicitudCotizacions->links()}}</h6>
+            </div>
 
 @stop

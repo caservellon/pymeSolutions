@@ -24,8 +24,9 @@
             <h5><?php echo $proveedores->INV_Proveedor_Telefono ?></h5>
              </div>
             </div>
+
                 <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				
