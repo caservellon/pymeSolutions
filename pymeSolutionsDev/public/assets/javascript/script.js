@@ -22,7 +22,6 @@ $(document).ready(function () {
 	// POST get selected and quantity
 	$('.crear-devolucion').on('click', function(){
 		devolver = [];
-		//input:checked
 		$('.productos-dev input:checked').parents('tr').map(function(i, producto) {
 		    var td = $(producto).find('td');
 		    var codigo = td.eq(1).text();
@@ -39,6 +38,12 @@ $(document).ready(function () {
 		}).success(function(data){
 			console.log(data);
 			$('#resultadoDevolucion').modal('show');
+			$.each(data, function(key, value){
+				//if ($.isNumeric(index)) {
+					$('#detalle-devolucion > tbody:last').append('<tr><td>'+key+'</td><td>'+value+'</td></tr>');		
+				//};
+			}, 'json');
+			
 		});
 	});
 
