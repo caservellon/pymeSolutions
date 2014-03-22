@@ -15,7 +15,7 @@
       <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="/Ventas/Ventas">Gestión de Ventas</a></li>
+              <li><a href="/Ventas/Ventas/create">Gestión de Ventas</a></li>
               <li><a href="/Ventas/Cajas">Gestión de Caja</a></li>
               <li><a href="/Ventas/Devoluciones/create">Devoluciones</a></li>
               <li class="divider"></li>

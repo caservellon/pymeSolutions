@@ -11,7 +11,6 @@ $(document).ready(function () {
 			'searchTerm' : $('.no-factura').val()
 		}).success(function(data){
 			 $.each(data, function(index, value){
-			 	console.log(value);
 				$('#detalle-factura > tbody:last').append('<tr><td><input type="checkbox" class="check"></td><td class="codigo">'+value["VEN_DetalleDeVenta_Codigo"]+'</td><td>'+value["VEN_DetalleDeVenta_Nombre"]+'</td><td>'+value["VEN_DetalleDeVenta_PrecioVenta"]+'</td><td><input type="number" class="quantity" min="1" max="'+value["VEN_DetalleDeVenta_CantidadVendida"]+'" > / '+value["VEN_DetalleDeVenta_CantidadVendida"]+'</td><td>'+(value["VEN_DetalleDeVenta_CantidadVendida"] * value["VEN_DetalleDeVenta_PrecioVenta"])+'</td></tr>');		
 			 });
 		}).fail(function(data){
@@ -36,13 +35,23 @@ $(document).ready(function () {
 		$.post('/Ventas/Devoluciones/process', {
 			'data' : devolver
 		}).success(function(data){
-			console.log(data);
 			$('#resultadoDevolucion').modal('show');
+			
 			$.each(data, function(key, value){
-				//if ($.isNumeric(index)) {
-					$('#detalle-devolucion > tbody:last').append('<tr><td>'+key+'</td><td>'+value+'</td></tr>');		
-				//};
-			}, 'json');
+				$.each(value, function(keyin, valuein){
+					if ($.isNumeric(keyin)) {
+						$('#detalle-devolucion > tbody:last').append('<tr><td>'+keyin+'</td><td>'+valuein+'</td></tr>');
+					} else {
+						if (keyin == "BonoCompraCantidad") {
+							$('.cantidad-bc').text('Lps. ' + valuein);
+						}
+						if (keyin == "BonoCompraCodigo") {
+							$('.codigo-bc').text(valuein);
+						};
+					}
+
+				});
+			});
 			
 		});
 	});
@@ -61,7 +70,10 @@ $(document).ready(function () {
 
 	// ---------------- Caja de Venta - POS ------------------------------
 
-	actualizarTotales();
+	if($('#pro-list-table').length){
+        actualizarTotales();
+    }
+	
 
 	//Busqueda por AJAX
 	$('.agregar-producto').on('click',function(){

@@ -47,3 +47,32 @@ td,th {
 .edit-cant{
 	max-width: 4em;
 }
+
+.busqueda-cliente button {
+	margin-left: 10px;
+}
+
+.busqueda-cliente input {
+	padding-right: 35%;
+}
+
+.busqueda-cliente {
+	margin-bottom: 4%;
+	margin-top: 4%;	
+}
+
+.factura-info {
+	margin-bottom: 4%;
+	margin-top: 4%;
+}
+.factura-info label {
+	margin-right: 2%;
+}
+
+.factura-info input {
+	padding: 4px 0px 4px 0px;
+}
+
+.bono-compra label {
+	margin-right: 2%;
+}

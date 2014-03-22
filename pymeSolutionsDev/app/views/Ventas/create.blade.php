@@ -5,12 +5,18 @@
 <div class="page-header clearfix">
     <h3 class="pull-left">Caja &gt; <small>Nueva Venta</small></h3>
     <div class="pull-right">
-        <a href="{{{ URL::to('Ventas/Ventas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Ventas/Ventas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
     </div>
 </div>
 
-<div class="row">    
+<form class="form-inline busqueda-cliente">
+        <span>Cliente: </span><input type="text" placeholder="Cliente Único"><button class="btn btn-info">Buscar</button>
+</form>
+
+<div class="row">  
+
 <div class="col-md-8">
+    
     <table class="table selectable" id="pro-list-table" data-editable="true">
         <thead>
             <tr>

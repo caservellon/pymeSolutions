@@ -61,20 +61,23 @@ class DevolucionesController extends BaseController {
 				}
 			}
 
+			$Devolucion = new Devolucion;
+			
+
 			if ($cantidadBono != 0) {
 				$BonoDeCompra = new BonoDeCompra;
 				$BonoDeCompra->VEN_BonoDeCompra_Numero = rand(1000000, 9999990);
 				$BonoDeCompra->VEN_BonoDeCompra_Valor = $cantidadBono;
 				$BonoDeCompra->VEN_BonoDeCompra_TimeStamp = date("Y-m-d H:i:s");
 				$BonoDeCompra->VEN_EstadoBono_VEN_EstadoBono_id = 1;
-				//$BonoDeCompra->save();
+				$BonoDeCompra->save();
 
 				array_push($Return, ['BonoCompraCantidad' => $cantidadBono]);
 				array_push($Return, ['BonoCompraCodigo' => $BonoDeCompra->VEN_BonoDeCompra_Numero]);
 			}
 			
 
-		    return json_encode($Return);
+		    return $Return;
 		}
 	}
 

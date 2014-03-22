@@ -13,9 +13,6 @@ mysql -u "root" "-proot" "pymeERP" < "CreateGeneral.sql" >> ./logs/install.log 2
 echo "Creating Inventario " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateInventario.sql" >> ./logs/install.log 2>&1
 
-echo "Creating Ventas " >> ./logs/install.log
-mysql -u "root" "-proot" "pymeERP" < "CreateVentas.sql" >> ./logs/install.log 2>&1
-
 echo "Creating Compras " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateCompras.sql" >> ./logs/install.log 2>&1
 
@@ -24,6 +21,9 @@ mysql -u "root" "-proot" "pymeERP" < "CreateContabilidad.sql" >> ./logs/install.
 
 echo "Creating CRM " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateCRM.sql" >> ./logs/install.log 2>&1
+
+echo "Creating Ventas " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "CreateVentas.sql" >> ./logs/install.log 2>&1
 
 
 echo "***Populating tables***" >> ./logs/install.log
