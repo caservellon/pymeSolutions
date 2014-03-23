@@ -107,7 +107,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDeVenta` (
   `VEN_DetalleDeVenta_id` INT NOT NULL AUTO_INCREMENT,
   `VEN_DetalleDeVenta_CantidadVendida` INT NULL,
   `VEN_DetalleDeVenta_Codigo` VARCHAR(16) NULL,
-  `VEN_DetalleDeVenta_Nombre` VARCHAR(128) NULL,
   `VEN_DetalleDeVenta_PrecioVenta` DECIMAL(10,2) NULL,
   `VEN_Venta_VEN_Venta_id` INT NOT NULL,
   `VEN_DetalleDeVenta_TimeStamp` DATETIME NULL,
@@ -199,12 +198,11 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Devolucion` (
   `VEN_Devolucion_Monto` DECIMAL(10,2) NULL,
   `VEN_Devolucion_TimeStamp` DATETIME NULL,
   `VEN_Venta_VEN_Venta_id` INT NOT NULL,
-  `VEN_Venta_VEN_Caja_VEN_Caja_id` INT NOT NULL,
   PRIMARY KEY (`VEN_Devolucion_id`),
-  INDEX `fk_VEN_Devolucion_VEN_Venta1_idx` (`VEN_Venta_VEN_Venta_id` ASC, `VEN_Venta_VEN_Caja_VEN_Caja_id` ASC),
+  INDEX `fk_VEN_Devolucion_VEN_Venta1_idx` (`VEN_Venta_VEN_Venta_id` ASC),
   CONSTRAINT `fk_VEN_Devolucion_VEN_Venta1`
-    FOREIGN KEY (`VEN_Venta_VEN_Venta_id` , `VEN_Venta_VEN_Caja_VEN_Caja_id`)
-    REFERENCES `pymeERP`.`VEN_Venta` (`VEN_Venta_id` , `VEN_Caja_VEN_Caja_id`)
+    FOREIGN KEY (`VEN_Venta_VEN_Venta_id`)
+    REFERENCES `pymeERP`.`VEN_Venta` (`VEN_Venta_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -221,7 +219,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDevolucion` (
   `VEN_DetalleDevolucion_Cantidad` DOUBLE NULL,
   `VEN_DetalleDevolucion_TimeStamp` DATETIME NULL,
   `VEN_Devolucion_VEN_Devolucion_id` INT NOT NULL,
-  PRIMARY KEY (`VEN_DetalleDevolucion_id`, `VEN_Devolucion_VEN_Devolucion_id`),
+  PRIMARY KEY (`VEN_DetalleDevolucion_id`),
   INDEX `fk_VEN_DetalleDevolucion_VEN_Devolucion1_idx` (`VEN_Devolucion_VEN_Devolucion_id` ASC),
   CONSTRAINT `fk_VEN_DetalleDevolucion_VEN_Devolucion1`
     FOREIGN KEY (`VEN_Devolucion_VEN_Devolucion_id`)

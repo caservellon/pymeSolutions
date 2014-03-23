@@ -49,7 +49,7 @@ class DevolucionesController extends BaseController {
 			$cantidadBono = 0;
 			$Return = array();
 			$totalDevolucion = 0;
-			$DevolucionCode = randomCode();
+			$DevolucionCode = $this->randomCode();
 
 			foreach ($Input['data'] as $prod) {
 				
@@ -70,6 +70,10 @@ class DevolucionesController extends BaseController {
 			$Devolucion->VEN_Devolucion_Monto = $totalDevolucion;
 			$Devolucion->VEN_Devolucion_Codigo = $DevolucionCode;
 			$Devolucion->save();
+
+			foreach ($Input['data'] as $prod) {
+				
+			}
 
 			if ($cantidadBono != 0) {
 				$BonoDeCompra = new BonoDeCompra;
@@ -181,7 +185,7 @@ class DevolucionesController extends BaseController {
 		return Redirect::route('Ventas.Devoluciones.index');
 	}
 
-	function randomCode() {
+	public function randomCode() {
     $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
     $pass = array(); //remember to declare $pass as an array
     $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
