@@ -33,7 +33,8 @@ $(document).ready(function () {
 		});
 		
 		$.post('/Ventas/Devoluciones/process', {
-			'data' : devolver
+			'data' : devolver,
+			'no-factura' : $('.no-factura').val()
 		}).success(function(data){
 			$('#resultadoDevolucion').modal('show');
 			
@@ -111,17 +112,31 @@ $(document).ready(function () {
 		    data.descuentos.push(id);
 		});
 
-		data.abono = [];
+		data.abonos = [];
+		
+		$('.pagos-list').find('tr').each(function(i, abono){
+			console.log("dafsdafdfS", abono);
+			data.abonos.push({
+				metodo: $(abono).find('td:eq(0)').text(),
+				monto: $(abono).find('td:eq(1)').text()
+			});
+		});
 
-		data.isv = [];
+		data.isv = $('.isv').text();
 
-		data.saldo = [];
+		data.saldo = $('.saldo-info').text();
 
+		data.tipocliente = '1';
+
+		data.cliente = $('.cliente').val();
+
+		data.caja = '1';
 
 		console.log(data);
 
 		$.post("/Ventas/Ventas/guardar", data).success(function(data){
-
+			console.log(data);
+			window.print();
 		});
 	});
 
@@ -247,7 +262,5 @@ $(document).ready(function () {
 		$('.grand-total').text("Lps. " + (subtotal * (1.15)).toFixed(2));
 		actualizarPagos();
 	}
-
-
 
 });

@@ -10,7 +10,7 @@
 </div>
 
 <form class="form-inline busqueda-cliente">
-        <span>Cliente: </span><input type="text" placeholder="Cliente Único"><button class="btn btn-info">Buscar</button>
+        <span>Cliente: </span><input type="text" placeholder="Cliente Único" class="cliente"><button class="btn btn-info">Buscar</button>
 </form>
 
 <div class="row">  

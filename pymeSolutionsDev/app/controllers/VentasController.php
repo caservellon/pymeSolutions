@@ -69,16 +69,51 @@ class VentasController extends BaseController {
 	 * @return Response
 	 */
 	public function guardar(){
-
+		$numFact = 0;
+		$return = array();
 		if (Request::ajax())
 		{
 			$productos = Input::get('productos');
 			$descuentos = Input::get('descuentos');
-			$pagos = Input::get('');
-		}
-		
+			$abonos = Input::get('abonos');
+			$saldo = Input::get('saldo');
+			$isv = Input::get('isv');
+			$caja = Input::get('caja');
 
-		return Redirect::route('Ventas.Ventas.index');
+			$venta = new Venta;
+			$venta->VEN_Caja_VEN_Caja_id = (float) $caja;
+			$venta->VEN_Venta_TotalCambio = (float) $saldo;
+			$venta->VEN_Venta_ISV = (float) $isv;
+			$venta->save();
+			array_push($return, ['numFact' => $venta->VEN_Venta_id]);
+
+			foreach ($productos as $p) {
+				$DetalleVenta = new DetalleDeVenta;
+				$DetalleVenta->VEN_DetalleDeVenta_CantidadVendida = $p['cantidad'];
+				$DetalleVenta->VEN_DetalleDeVenta_Codigo = $p['codigo'];
+				$DetalleVenta->VEN_DetalleDeVenta_PrecioVenta = Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioVenta;
+				$DetalleVenta->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
+				$DetalleVenta->save();
+			}
+
+			foreach ($descuentos as $d) {
+				
+
+			}
+
+			foreach ($abonos as $a) {
+				$pago = new Pagos;
+				$pago->VEN_Pago_Cantidad = (float) $a['monto'];
+				$pago->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
+				$pago->VEN_Venta_VEN_Caja_VEN_Caja_id = $caja;
+				$pago->VEN_FormaPago_VEN_FormaPago_id = FormaPagos::where('VEN_FormaPago_Codigo',$a['metodo'])-firstOrFail()->VEN_FormaPago_id;
+				$pago->save();
+			}
+			
+			return $return;
+
+		}
+	
 	}
 
 	public function Listar() {

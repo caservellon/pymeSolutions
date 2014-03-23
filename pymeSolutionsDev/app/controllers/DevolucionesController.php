@@ -48,21 +48,28 @@ class DevolucionesController extends BaseController {
 			$Input = Input::all();
 			$cantidadBono = 0;
 			$Return = array();
+			$totalDevolucion = 0;
+			$DevolucionCode = randomCode();
 
 			foreach ($Input['data'] as $prod) {
 				
 				$Producto = Producto::where('INV_Producto_Codigo', $prod['codigo'])->get()->first();
 				if ($Producto->INV_Producto_Cantidad == 0) {
-					$cantidadBono += ($Producto->INV_Producto_PrecioVenta * $prod['codigo']);
+					$cantidadBono += ($Producto->INV_Producto_PrecioVenta * $prod['cantidad']);
+					$totalDevolucion += ($Producto->INV_Producto_PrecioVenta * $prod['cantidad']);
 					array_push($Return, [$prod['codigo'] => "Se genero bono de compra."]);
 				} else {
 					$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad - $prod['cantidad'];
 					array_push($Return, [$prod['codigo'] => "Hay existencia de Inventario."]);
+					$totalDevolucion += ($Producto->INV_Producto_PrecioVenta * $prod['cantidad']);
 				}
 			}
 
 			$Devolucion = new Devolucion;
-			
+			$Devolucion->VEN_Venta_VEN_Venta_id = $Input['no-factura'];
+			$Devolucion->VEN_Devolucion_Monto = $totalDevolucion;
+			$Devolucion->VEN_Devolucion_Codigo = $DevolucionCode;
+			$Devolucion->save();
 
 			if ($cantidadBono != 0) {
 				$BonoDeCompra = new BonoDeCompra;
@@ -70,6 +77,7 @@ class DevolucionesController extends BaseController {
 				$BonoDeCompra->VEN_BonoDeCompra_Valor = $cantidadBono;
 				$BonoDeCompra->VEN_BonoDeCompra_TimeStamp = date("Y-m-d H:i:s");
 				$BonoDeCompra->VEN_EstadoBono_VEN_EstadoBono_id = 1;
+				$BonoDeCompra->VEN_Devolucion_VEN_Devolucion_id = Devolucion::where('VEN_Devolucion_Codigo',$DevolucionCode)->firstOrFail()->VEN_Devolucion_id;
 				$BonoDeCompra->save();
 
 				array_push($Return, ['BonoCompraCantidad' => $cantidadBono]);
@@ -172,5 +180,16 @@ class DevolucionesController extends BaseController {
 
 		return Redirect::route('Ventas.Devoluciones.index');
 	}
+
+	function randomCode() {
+    $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+    $pass = array(); //remember to declare $pass as an array
+    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+    for ($i = 0; $i < 8; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass); //turn the array into a string
+}
 
 }
