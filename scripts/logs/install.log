@@ -1,0 +1,16 @@
+------------------------START--------------------------
+Process started at  2014/03/24 11:35:04
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+Creating Ventas 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+Process ended at  2014/03/24 11:35:05
+------------------------END----------------------------

@@ -123,7 +123,40 @@ class VentasController extends BaseController {
 			return View::make('Ventas.lista')->with('Ventas', $Ventas);
 		}
 
-		return Redirect::route('Ventas.create');
+		return Redirect::route('Ventas.Ventas.create');
+	
+	}
+
+	public function ListarOne($id) {
+		$Venta = DB::table('VEN_DetalleDeVenta')->where('VEN_Venta_VEN_Venta_id',$id)->get();
+
+		if ($Venta) {
+			return View::make('Ventas.ListarOne')->with('Venta', $Venta);
+		}
+
+		return Redirect::route('Ventas.Ventas.create');
+	
+	}
+
+	public function Devs() {
+		$Devs = DB::table('VEN_Devolucion')->get();
+
+		if ($Devs) {
+			return View::make('Ventas.devs')->with('Devs', $Devs);
+		}
+
+		return Redirect::route('Ventas.Ventas.create');
+	
+	}
+
+	public function DevsOne($id) {
+		$Dev = DB::table('VEN_DetalleDevolucion')->where('VEN_Devolucion_VEN_Devolucion_id',$id)->get();
+
+		if ($Dev) {
+			return View::make('Ventas.DevsOne')->with('Dev', $Dev);
+		}
+
+		return Redirect::route('Ventas.Ventas.create');
 	
 	}
 

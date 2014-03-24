@@ -144,6 +144,10 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturacajasController@abrir'));
 
 	Route::get('Listar', array('as' => 'Ventas.Listar','uses' => 'VentasController@Listar'));
+	Route::get('Listar/{id}', array('as' => 'Ventas.ListarOne', 'uses' => 'VentasController@ListarOne'));
+
+	Route::get('Devs', array('as' => 'Ventas.Devs','uses' => 'VentasController@Devs'));
+	Route::get('Devs/{id}', array('as' => 'Ventas.DevsOne', 'uses' => 'VentasController@DevsOne'));
 	
 	Route::resource('Ventas', 'VentasController');
 	Route::post('Ventas/guardar', array('as' => 'Ventas.Ventas.guardar','uses' => 'VentasController@guardar'));
