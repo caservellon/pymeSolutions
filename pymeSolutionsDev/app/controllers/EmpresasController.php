@@ -1,17 +1,17 @@
 <?php
 
-class PersonasController extends BaseController {
+class EmpresasController extends BaseController {
 
 	/**
-	 * Persona Repository
+	 * Empresa Repository
 	 *
-	 * @var Persona
+	 * @var Empresa
 	 */
-	protected $Persona;
+	protected $Empresa;
 
-	public function __construct(Persona $Persona)
+	public function __construct(Empresa $Empresa)
 	{
-		$this->Persona = $Persona;
+		$this->Empresa = $Empresa;
 	}
 
 	/**
@@ -21,15 +21,19 @@ class PersonasController extends BaseController {
 	 */
 	public function index()
 	{
-		$Personas = $this->Persona->all();
+		$Empresas = $this->Empresa->all();
 
-		return View::make('Personas.index', compact('Personas'));
+		return View::make('Empresas.index', compact('Empresas'));
 	}
 
-	public function create() {
-		$tipoDocumento = TipoDocumento::all();
-		
-		return View::make('Personas.create', compact('tipoDocumento'));
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return View::make('Empresas.create');
 	}
 
 	/**
@@ -37,11 +41,12 @@ class PersonasController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store(){
+	public function store()
+	{
 		$input = Input::all();
-		$validation = Validator::make($input, Persona::$rules);
+		$validation = Validator::make($input, Empresa::$rules);
 
-		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->get();
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->get();
 
 		foreach ($campos as $campo) {
 			if (Input::get($campo->GEN_CampoLocal_Codigo)) {
@@ -57,13 +62,12 @@ class PersonasController extends BaseController {
 
 		if ($validation->passes())
 		{
-			
-			$this->Persona->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->lists('GEN_CampoLocal_Codigo')));
+			$this->Empresa->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->lists('GEN_CampoLocal_Codigo')));
 
-			return Redirect::route('CRM.Personas.index');
+			return Redirect::route('Empresas.index');
 		}
 
-		return Redirect::route('CRM.Personas.create')
+		return Redirect::route('Empresas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -77,9 +81,9 @@ class PersonasController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$Persona = $this->Persona->findOrFail($id);
+		$Empresa = $this->Empresa->findOrFail($id);
 
-		return View::make('CRM.Personas.show', compact('Persona'));
+		return View::make('Empresas.show', compact('Empresa'));
 	}
 
 	/**
@@ -90,14 +94,14 @@ class PersonasController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$Persona = $this->Persona->find($id);
+		$Empresa = $this->Empresa->find($id);
 
-		if (is_null($Persona))
+		if (is_null($Empresa))
 		{
-			return Redirect::route('CRM.Personas.index');
+			return Redirect::route('Empresas.index');
 		}
 
-		return View::make('Personas.edit', compact('Persona'));
+		return View::make('Empresas.edit', compact('Empresa'));
 	}
 
 	/**
@@ -109,17 +113,17 @@ class PersonasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Persona::$rules);
+		$validation = Validator::make($input, Empresa::$rules);
 
 		if ($validation->passes())
 		{
-			$Persona = $this->Persona->find($id);
-			$Persona->update($input);
+			$Empresa = $this->Empresa->find($id);
+			$Empresa->update($input);
 
-			return Redirect::route('CRM.Personas.index', $id);
+			return Redirect::route('Empresas.index', $id);
 		}
 
-		return Redirect::route('CRM.Personas.edit', $id)
+		return Redirect::route('Empresas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -133,9 +137,9 @@ class PersonasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Persona->find($id)->delete();
+		$this->Empresa->find($id)->delete();
 
-		return Redirect::route('CRM.Personas.index');
+		return Redirect::route('Empresas.index');
 	}
 
 }

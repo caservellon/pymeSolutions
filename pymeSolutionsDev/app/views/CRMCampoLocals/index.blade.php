@@ -4,7 +4,7 @@
 
 <h2 class="sub-header">Listado de Campos Locales</h2>
 <div class="btn-agregar">
-	<a type="button" href="{{ URL::route('CampoLocals.create') }}" class="btn btn-default">
+	<a type="button" href="{{ URL::route('CRM.CampoLocals.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Campo Local
 	</a>
 </div>
@@ -47,10 +47,10 @@
 						@else
 							<td></td>
 						@endif		
-						<td>{{ link_to_route('CampoLocals.edit', 'Edit', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
+						<td>{{ link_to_route('CRM.CampoLocals.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
 						<td>
-							{{ Form::open(array('method' => 'DELETE', 'route' => array('CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
-								{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+							{{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
+								{{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
 							{{ Form::close() }}
 						</td>
 					</tr>
@@ -79,10 +79,25 @@
 			<tbody>
 				@foreach ($CampoEmpresas as $CampoLocal)
 					<tr>
-					
 					<td>{{{ $CampoLocal->GEN_CampoLocal_Codigo }}}</td>
 					<td>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</td>
-					<td>{{{ $CampoLocal->GEN_CampoLocal_Tipo }}}</td>
+					<td>
+					@if($CampoLocal->GEN_CampoLocal_Tipo == 'INT')
+						Entero
+					@elseif($CampoLocal->GEN_CampoLocal_Tipo == 'FLOAT')
+						Decimal
+					@elseif($CampoLocal->GEN_CampoLocal_Tipo == 'LIST')
+						Lista de Valores
+					@elseif($CampoLocal->GEN_CampoLocal_Tipo == 'CHKBOX')
+						Selección Multiple
+					@elseif($CampoLocal->GEN_CampoLocal_Tipo == 'RADIOBTN')
+						Selección Única
+					@else 
+						Texto
+					@endif 
+
+					</td>
+					
 					@if($CampoLocal->GEN_CampoLocal_Activo == 1)
 						<td>Activo</td>
 					@else
@@ -99,10 +114,10 @@
 					@else
 						<td></td>
 					@endif		
-					<td>{{ link_to_route('CampoLocals.edit', 'Edit', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
+					<td>{{ link_to_route('CRM.CampoLocals.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
 					<td>
-						{{ Form::open(array('method' => 'DELETE', 'route' => array('CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
-							{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+						{{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
+							{{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
 						{{ Form::close() }}
 					</td>
 				</tr>

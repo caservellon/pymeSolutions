@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Caja &gt; <small>Nueva Caja</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Ventas/Cajas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Ventas/Cajas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
@@ -12,7 +12,7 @@
               
 {{ Form::open(array('route' => 'Ventas.Cajas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
     <div>
-    <h4>Campos por defecto</h4>
+    
       <div class="form-group">
           {{ Form::label('VEN_Caja_Codigo', 'Código:',array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-4">

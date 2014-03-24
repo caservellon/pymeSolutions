@@ -3,13 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>pymeSolutions</title>
-  <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
   <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
+
 </head>
-<body style="margin-top: 50px">
+<body>
   <header>
   <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-    <a class="navbar-brand" href="#">pymeERP</a>
+    <a class="navbar-brand" href="#">pyme Solutions</a>
 
     <ul class="nav navbar-nav navbar-left">
       <li class="dropdown">
@@ -93,7 +95,7 @@
               <li><a href="#">Documentos</a></li>
               <li><a href="#">Oportunidades de Negocios</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li><a href="/CRM">Configuración</a></li>
             </ul>
           </li>
 
