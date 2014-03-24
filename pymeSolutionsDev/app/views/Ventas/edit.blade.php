@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Venta</h1>
-{{ Form::model($Venta, array('method' => 'PATCH', 'route' => array('Ventas.update', $Venta->id))) }}
+{{ Form::model($Venta, array('method' => 'PATCH', 'route' => array('Ventas.Ventas.update', $Venta->VEN_Venta_id))) }}
 	<ul>
         <li>
             {{ Form::label('VEN_Venta_id', 'VEN_Venta_id:') }}
@@ -57,7 +57,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('Ventas.show', 'Cancel', $Venta->VEN_Venta_id, array('class' => 'btn')) }}
+			{{ link_to_route('Ventas.Ventas.show', 'Cancel', $Venta->VEN_Venta_id, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

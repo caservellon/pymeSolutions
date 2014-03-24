@@ -149,7 +149,16 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::resource('AperturaCajas', 'AperturacajasController');
 	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturacajasController@abrir'));
 
+	Route::get('Listar', array('as' => 'Ventas.Listar','uses' => 'VentasController@Listar'));
+	Route::get('Listar/{id}', array('as' => 'Ventas.ListarOne', 'uses' => 'VentasController@ListarOne'));
+
+	Route::get('Devs', array('as' => 'Ventas.Devs','uses' => 'VentasController@Devs'));
+	Route::get('Devs/{id}', array('as' => 'Ventas.DevsOne', 'uses' => 'VentasController@DevsOne'));
+	
 	Route::resource('Ventas', 'VentasController');
+	Route::post('Ventas/guardar', array('as' => 'Ventas.Ventas.guardar','uses' => 'VentasController@guardar'));
+	Route::post('Ventas/searchInvoice', array('as' => 'Ventas.Ventas.searchInvoice', 'uses' => 'VentasController@searchInvoice'));
+	Route::post('Ventas/checkStock', array('as' => 'Ventas.Ventas.checkStock', 'uses' => 'VentasController@checkStock'));
 
 	Route::resource('Descuentos', 'DescuentosController');
 
@@ -162,6 +171,7 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::resource('BonoDeCompras', 'BonodecomprasController');
 
 	Route::resource('Devoluciones', 'DevolucionesController');
+	Route::post('Devoluciones/process', array('as' => 'Ventas.Devoluciones.process', 'uses' => 'DevolucionesController@process'));
 
 	Route::resource('DetalleDevoluciones', 'DetalleDevolucionesController');
 
@@ -171,11 +181,16 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 	Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
 
+	Route::resource('Pagos', 'PagosController');
+
+	Route::resource('FormaPagoVenta', 'FormaPagoVentaController');
 
 });
+
 
 
 
 Route::resource('tipodocumentos', 'TipodocumentosController');
 
 Route::resource('Empresas', 'EmpresasController');
+

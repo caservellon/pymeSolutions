@@ -4,7 +4,7 @@
 
 <h1>Show Ventas</h1>
 
-<p>{{ link_to_route('Ventas.index', 'Return to all Venta') }}</p>
+<p>{{ link_to_route('Ventas.Ventas.index', 'Return to all Venta') }}</p>
 
 <table class="table table-striped table-bordered">
 	<thead>
@@ -34,9 +34,9 @@
 					<td>{{{ $Ventas->VEN_Venta_TotalCambio }}}</td>
 					<td>{{{ $Ventas->VEN_FormaPago_VEN_FormaPago_id }}}</td>
 					<td>{{{ $Ventas->VEN_Caja_VEN_Caja_id }}}</td>
-                    <td>{{ link_to_route('Ventas.edit', 'Edit', array($Ventas->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Ventas.Ventas.edit', 'Edit', array($Ventas->id), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Ventas.destroy', $Ventas->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Ventas.Ventas.destroy', $Ventas->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
