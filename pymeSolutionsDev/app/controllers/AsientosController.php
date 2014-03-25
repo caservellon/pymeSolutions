@@ -64,7 +64,8 @@ class AsientosController extends BaseController {
 
 	public function crearmotivo(){
 		if(Request::ajax()){
-			 $Cuentas  = CatalogoContable::all()->lists('CON_CatalogoContable_Nombre','CON_CatalogoContable_ID');
+			$habilitadas = CatalogoContable::where('CON_CatalogoContable_Estado','=',1)->get();
+			$Cuentas  = $habilitadas->lists('CON_CatalogoContable_Nombre','CON_CatalogoContable_ID');
 			return View::make('MotivoTransaccion.create')
 			->with('Cuentas',$Cuentas);
 		}
