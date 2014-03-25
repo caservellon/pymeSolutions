@@ -2,7 +2,7 @@
 
 @section('main')
 <div class="page-header clearfix">
-      <h3 class="pull-left">Historiales Orden de Compra <small></small></h3>
+      <h3 class="pull-left">Generar Orden de pago <small></small></h3>
       <div class="pull-right">
         <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
@@ -54,7 +54,7 @@
                                         } ?>
                                         
                             @endforeach
-                            <td><a href="{{ route('HistorialOrden', array('id'=>$or->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Historial</a></td>
+                            <td><a href="{{ route('DetallePago', array('id'=>$or->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">generar pago</a></td>
                         </tr> 
                      @endforeach
               </tbody>

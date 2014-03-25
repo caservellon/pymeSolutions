@@ -323,35 +323,28 @@ class OrdenComprasController extends BaseController {
             return View::make('OrdenCompras.OrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$productos));
         }
         public function guardarOCsnCOT(){
-                $input=Input::all();
-                $contador=0;
+             $input=Input::all();
+             $contador=0;
+             
+             //guardo la Orden de Compra
              $OrdenCompras=  new OrdenCompra();
              $OrdenCompras->COM_OrdenCompra_Codigo=rand(0,1000000);
              $OrdenCompras->COM_OrdenCompra_FechaEmision= date('Y/m/d H:i:s');
              $OrdenCompras->COM_OrdenCompra_FechaEntrega=  Input::get('COM_OrdenCompra_FechaEntrega');
-             if(Input::has('COM_OrdenCompra_FechaEmision')){
-                 $OrdenCompras->COM_OrdenCompra_Activo=1;
+             if(Input::has('COM_OrdenCompra_Activo')){
+                    $OrdenCompras->COM_OrdenCompra_Activo=1;
              }else{
-             $OrdenCompras->COM_OrdenCompra_Activo=0;
+                    $OrdenCompras->COM_OrdenCompra_Activo=0;
              }
              $OrdenCompras->COM_OrdenCompra_FechaCreacion=date('Y/m/d H:i:s');
              $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
              $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
-             
+             $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
              $OrdenCompras->save();
-             
-             
              $compras=  OrdenCompra::all();
              $ultimo= $compras->Count();
-             $historial=new HistorialEstadoOrdenCompra();
-                      $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
-                      $historial->COM_TransicionEstado_Activo=1;
-                      $historial->COM_OrdenCompra_IdOrdenCompra=$ultimo;
-                      $historial->COM_OrdenCompra_TransicionEstado_Id=1;
-                      $historial->COM_Usuario_idUsuarioCreo=1;
-                      $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
-                      $historial->COM_TransicionEstado_Observacion='Esta es la transicion por definicion';
-                      $historial->save();
+             
+             //guardo los detalles
               foreach ($input as $form){
                   if(Input::has('COM_DetalleOrdenCompra_Cantidad'.$contador)>0){
                   $detalle=new COMDetalleOrdenCompra();
@@ -366,6 +359,19 @@ class OrdenComprasController extends BaseController {
                   }
                   $contador++;
               }
+              
+              //guardo el Historial
+                      $historial=new HistorialEstadoOrdenCompra();
+                      $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
+                      $historial->COM_TransicionEstado_Activo=1;
+                      $historial->COM_OrdenCompra_IdOrdenCompra=$ultimo;
+                      //$historial->COM_OrdenCompra_TransicionEstado_Id=1;
+                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
+                      $historial->COM_TransicionEstado_Observacion='Esta es la transicion creada al inicio';
+                      $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
+                      $historial->COM_EstadoOrdenCompra_IdEstAct=3;
+                      $historial->save();
             return 'los datos ya estan aqui';
         }
         
@@ -374,13 +380,95 @@ class OrdenComprasController extends BaseController {
         
         //funciones hechas para crear una orden de Compra Con Cotizacion
         public function OrdenCompracnCotizacion(){
+            
             return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion');
         }
-         public function CompararCotizaciones(){
+         public function ComparaCotizaciones(){
+             $contador=0;
+             $cotizaciones=array();
+             $input=Input::all();
+             
+                foreach ($input as $in){
+                    if(Input::has('comparar'.$contador)){
+                        $cotizaciones[]=Input::get('id_cotizacion'.$contador);
+                    }
+                    $contador++;
+                }
+                if(sizeof($cotizaciones)>1){
+                    
+                    return View::make('OrdenCompras.CompararCotizaciones',array('cotizaciones'=>$cotizaciones ));
+                }else{
+                    return 'no se puede comparar cotizaciones';
+                }
+             
             return View::make('OrdenCompras.CompararCotizaciones');
         }
         public function FormOrdenCompracnCotizacion(){
-            return View::make('OrdenCompras.OrdenCompraPrCotForm');
+            $cotizacion= Cotizacion::find(Input::get('id'));
+            $detalles= DB::table('COM_Detalle_Cotizacion')->select('COM_DetalleCotizacion_IdDetalleCotizacion','COM_DetalleCotizacion_Codigo',
+                                        'COM_DetalleCotizacion_Cantidad','COM_DetalleCotizacion_PrecioUnitario','COM_Cotizacion_IdCotizacion','COM_Producto_Id_Producto',
+                                        'COM_Usuario_idUsuarioCreo','Usuario_idUsuarioModifico')->where('COM_Cotizacion_IdCotizacion','=',$cotizacion->COM_Cotizacion_IdCotizacion)->get();
+            $productos=array();
+            foreach ($detalles as $detalle){
+                $productos[]=$detalle->COM_Producto_Id_Producto;
+            }
+            $proveedor= $cotizacion->COM_Proveedor_idProveedor;
+            echo $cotizacion->COM_Proveedor_idProveedor;
+            return View::make('OrdenCompras.CotOrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$productos,'id_cot'=>Input::get('id')));
+        }
+
+         public function guardarOCcnCOT(){
+             $input=Input::all();
+             $contador=0;
+             
+             //guardo la Orden de Compra
+             $OrdenCompras=  new OrdenCompra();
+             $OrdenCompras->COM_OrdenCompra_Codigo=rand(0,1000000);
+             $OrdenCompras->COM_OrdenCompra_FechaEmision= date('Y/m/d H:i:s');
+             $OrdenCompras->COM_OrdenCompra_FechaEntrega=  Input::get('COM_OrdenCompra_FechaEntrega');
+             if(Input::has('COM_OrdenCompra_Activo')){
+                    $OrdenCompras->COM_OrdenCompra_Activo=1;
+             }else{
+                    $OrdenCompras->COM_OrdenCompra_Activo=0;
+             }
+             $OrdenCompras->COM_OrdenCompra_FechaCreacion=date('Y/m/d H:i:s');
+             $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
+             $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
+             $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
+             $OrdenCompras->COM_Cotizacion_IdCotizacion=Input::get('Id_Cot');
+             $OrdenCompras->save();
+             $compras=  OrdenCompra::all();
+             $ultimo= $compras->Count();
+             
+             //guardo los detalles
+              foreach ($input as $form){
+                  if(Input::has('COM_DetalleOrdenCompra_Cantidad'.$contador)>0){
+                  $detalle=new COMDetalleOrdenCompra();
+                  $detalle->COM_DetalleOrdenCompra_Cantidad=Input::get('COM_DetalleOrdenCompra_Cantidad'.$contador);
+                  $detalle->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('COM_DetalleOrdenCompra_PrecioUnitario'.$contador);
+                  $detalle->COM_OrdenCompra_idOrdenCompra=$ultimo;
+                  $detalle->COM_Producto_idProducto=Input::get('COM_Producto_idProducto'.$contador);
+                  $detalle->COM_Usuario_idUsuarioCreo=1;
+                  $detalle->COM_DetalleOrdenCompra_Codigo=rand(0,1000000);
+                  $detalle->save();
+                  
+                  }
+                  $contador++;
+              }
+              
+              //guardo el Historial
+                      $historial=new HistorialEstadoOrdenCompra();
+                      $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
+                      $historial->COM_TransicionEstado_Activo=1;
+                      $historial->COM_OrdenCompra_IdOrdenCompra=$ultimo;
+                      //$historial->COM_OrdenCompra_TransicionEstado_Id=1;
+                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
+                      $historial->COM_TransicionEstado_Observacion='Esta es la transicion creada al inicio';
+                      $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
+                      $historial->COM_EstadoOrdenCompra_IdEstAct=3;
+                      $historial->save();
+            return 'los datos ya estan aqui';
         }
         
         //funciones hechas para autorizar ordenes de compra
@@ -405,25 +493,26 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
              foreach($trans as $tran){
                   if($tran->COM_OrdenCompra_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
-                      $tratra= HistorialEstadoOrdenCompra::find($tran->COM_OrdenCompra_TransicionEstado_Id);
-                      $tratra->COM_TransicionEstado_Activo=0;
-                      $tratra->update();
+                      //$tratra= HistorialEstadoOrdenCompra::find($tran->COM_EstadoOrdenCompra_Id);
+                      $tran->COM_TransicionEstado_Activo=0;
+                      $tran->update();
                       $historial=new HistorialEstadoOrdenCompra();
                       $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_OrdenCompra_IdOrdenCompra=$id;
-                      $historial->COM_OrdenCompra_TransicionEstado_Id=3;
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
                       $historial->COM_TransicionEstado_Observacion='Esta transicion fue Autorizada';
+                      $historial->COM_EstadoOrdenCompra_IdEstAnt=$tran->COM_EstadoOrdenCompra_IdEstAct;
+                      $historial->COM_EstadoOrdenCompra_IdEstAct=4;
                       $historial->save();
-                      $ordenPago=  new COMOrdenPago();
+                      /*$ordenPago=  new COMOrdenPago();
                       $ordenPago->COM_OrdenPago_Codigo=rand(0,1000000);
                       $ordenPago->COM_OrdenCompra_idOrdenCompra=$id;
                       $ordenPago->COM_OrdenPago_Activo=1;
                       $ordenPago->COM_Usuario_idUsuarioCreo=1;
                       $ordenPago->COM_OrdenPago_FechaCreo=date('Y/m/d');
-                      $ordenPago->save();
+                      $ordenPago->save();*/
                       
                       
                       
@@ -444,10 +533,11 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_OrdenCompra_IdOrdenCompra=$id;
-                      $historial->COM_OrdenCompra_TransicionEstado_Id=1;
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
                       $historial->COM_TransicionEstado_Observacion='Esta transicion fue Cancelada';
+                      $historial->COM_EstadoOrdenCompra_IdEstAnt=$tratra->COM_EstadoOrdenCompra_IdEstAct;
+                      $historial->COM_EstadoOrdenCompra_IdEstAct=7;
                       $historial->save();
                       $or->COM_OrdenCompra_Activo=0;
                       $or->update();
@@ -467,73 +557,50 @@ class OrdenComprasController extends BaseController {
              $id=Input::get('id');
              $ordenCompra= OrdenCompra::find($id);
              $Detalles=  COMDetalleOrdenCompra::where('COM_OrdenCompra_idOrdenCompra','=',$id)->get();
-             $proveedor=$ordenCompra->COM_Proveedor_IdProveedor; 
+             $proveedor=$ordenCompra->COM_Proveedor_IdProveedor;
              $trans= HistorialEstadoOrdenCompra::where('COM_OrdenCompra_IdOrdenCompra','=',$id)->get();
-             $idea=Input::get('id_ea');
-             echo $idea;
              
-             
-             $transiciones=  COMOrdenCompraTransicionEstado::where('COM_OrdenCompra_TransicionEstado_EstadoActual','=',$idea)->get();
-            return View::make('OrdenCompras.AdministrarOrdenCompraDetalles',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans,'transiciones'=>$transiciones,'actual'=>$idea));
-        
+            return View::make('OrdenCompras.AdministrarOrdenCompraDetalles',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
         }
         public function AndministrarOC(){
+            
             $input= Input::all();
             $eact=Input::get('id_actual');
             $eant=Input::get('COM_TransicionEstado_EstadoPrevio');
             $esig=Input::get('COM_TransicionEstado_EstadoPosterior');
-            
-            $id_tt=0;
+            $id_historial=Input::get('id_historial');
             $id=Input::get('id_oc');
+            $observacion=Input::get('COM_TransicionEstado_Observacion');
             
+            //busco y actualizo el estado de del historial de Orden de Compra
+            $historial_actual=  HistorialEstadoOrdenCompra::find($id_historial);
+            $historial_actual->COM_TransicionEstado_Activo=0;
+            $historial_actual->save();
+            // en esta seccion creo el nuevo historial y lo agrego segun el caso
             if(Input::get('queHacer')=='TransitarAntes'){
-                
-                $actual= HistorialEstadoOrdenCompra::find(Input::get('id_historial'));
-                $transiciones= COMOrdenCompraTransicionEstado::where('COM_OrdenCompra_TransicionEstado_EstadoActual','=' ,$eant)->get();
-                foreach ($transiciones as $tran){
-                    if($tran->COM_OrdenCompra_TransicionEstado_EstadoPosterior==$eact){
-                        $id_tt=$tran->COM_OrdenCompra_TransicionEstado_Id;
-                    }else{
-                        $id_tt=1;
-                    }
-                }
-                        $historial=new HistorialEstadoOrdenCompra();
+                $historial=new HistorialEstadoOrdenCompra();
                       $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_OrdenCompra_IdOrdenCompra=$id;
-                      $historial->COM_OrdenCompra_TransicionEstado_Id=$id_tt;
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
-                      $historial->COM_TransicionEstado_Observacion=Input::get('COM_TransicionEstado_Observacion');
+                      $historial->COM_TransicionEstado_Observacion='Esta transicion fue Cancelada';
+                      $historial->COM_EstadoOrdenCompra_IdEstAnt=$eact;
+                      $historial->COM_EstadoOrdenCompra_IdEstAct=$eant;
                       $historial->save();
-                      $actual->COM_TransicionEstado_Activo=0;
-                      $actual->update();
             }else{
-                
-                $actual= HistorialEstadoOrdenCompra::find(Input::get('id_historial'));
-                $transiciones= COMOrdenCompraTransicionEstado::where('COM_OrdenCompra_TransicionEstado_EstadoActual','=' ,$esig)->get();
-                foreach ($transiciones as $tran){
-                    if($tran->COM_OrdenCompra_TransicionEstado_EstadoPrevio==$eact){
-                        $id_tt=$tran->COM_OrdenCompra_TransicionEstado_Id;
-                        
-                    }
-                    else{
-                        $id_tt=2;
-                    }
-                }
-                        $historial=new HistorialEstadoOrdenCompra();
+                $historial=new HistorialEstadoOrdenCompra();
                       $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_OrdenCompra_IdOrdenCompra=$id;
-                      $historial->COM_OrdenCompra_TransicionEstado_Id=$id_tt;
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
-                      $historial->COM_TransicionEstado_Observacion=Input::get('COM_TransicionEstado_Observacion');
+                      $historial->COM_TransicionEstado_Observacion='Esta transicion fue Cancelada';
+                      $historial->COM_EstadoOrdenCompra_IdEstAnt=$eact;
+                      $historial->COM_EstadoOrdenCompra_IdEstAct=$esig;
                       $historial->save();
-                      $actual->COM_TransicionEstado_Activo=0;
-                      $actual->update();
-                
             }
+          
             return 'Orden de Compra Administrada';
         }
          public function HistorialOrdenes(){
@@ -547,7 +614,33 @@ class OrdenComprasController extends BaseController {
             return View::make('OrdenCompras.HistorialOrden',array('historial'=>$trans));
         
         }
-               
+        //genero pago de orden compra
+         public function generarpagoLC(){
+            
+            return View::make('OrdenCompras.ListaOrdenCompraPago');
+        }
+        public function DetallePago(){
+                       $input=Input::all();
+             $id=Input::get('id');
+             $ordenCompra= OrdenCompra::find($id);
+             $Detalles=  COMDetalleOrdenCompra::where('COM_OrdenCompra_idOrdenCompra','=',$id)->get();
+             $proveedor=$ordenCompra->COM_Proveedor_IdProveedor;
+             $trans= HistorialEstadoOrdenCompra::where('COM_OrdenCompra_IdOrdenCompra','=',$id)->get();
+             
+            return View::make('OrdenCompras.detallePago',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
+
+        }
+        public function GuardaPago(){
+            $input = Input::all();
+            $nuevopago=  new COMOrdenPago();
+            $nuevopago->COM_OrdenPago_Codigo=rand(0,1000000);
+            $nuevopago->COM_OrdenCompra_idOrdenCompra= Input::get('id_ordenCompra');
+            $nuevopago->COM_OrdenPago_Activo=1;
+            $nuevopago->COM_Usuario_idUsuarioCreo=1;
+            $nuevopago->COM_OrdenPago_FechaCreo= date('Y/m/d');
+            $nuevopago->save();
+            return 'Orden de pago Generado';
+        }
         
  }
 ?>

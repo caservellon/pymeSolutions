@@ -77,28 +77,22 @@
         {{$ordenCompra->COM_OrdenCompra_FechaEntrega}}
         <br>
         <label>Forma de Pago</label>
-         <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
-                $form=array();
-                $id=array();
-                foreach ($formapago as $forma){
-                       $id[]=$forma->INV_FormaPago_ID;
-                 }
-                 $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+         <?php 
                  
-                 
+           $forma= FormaPago::find($ordenCompra->COM_OrdenCompra_FormaPago);
          ?>
-         {{ Form::select('formapago',$m) }}
+        {{$forma->INV_FormaPago_Nombre}}
+         
          
     </div>
     <div class="col-md-4">
         <label>Direccion de Entrega*:</label>
         <br>
-         {{Form::radio('COM_OrdenCompra_Direccion','uno',true)}}Colonia America
-         <br>
-         {{Form::radio('COM_OrdenCompra_Direccion','uno',false)}}Colonia Carrizal
+         Colonia America
     </div>
     <div class="col-md-4" style="text-align: right">
-        <label>Total:  23432.45</label>
+        <label>Total :</label>
+        <label>{{$ordenCompra->COM_OrdenCompra_Total}}</label>
     </div>
 </div>
 <div class="row" >
@@ -131,12 +125,11 @@
                       
                       <tr>
                         <td>{{ $product->COM_TransicionEstado_Codigo}}</td>
-                        @if($product->COM_TransicionEstado_Activo)
-                        <td>Actual</td>
-                        @else
-                        <td>Pasada</td>
+                        @if($product->COM_TransicionEstado_Activo=1)
+                            <?php $id_activo=$product->COM_EstadoOrdenCompra_IdEstAct; ?>
                         @endif
-                        <?php $estado= COM_EstadoOrdenCompra::find($product->COM_OrdenCompra_TransicionEstado_Id);
+                        <?php $estado= COM_EstadoOrdenCompra::find($product->COM_EstadoOrdenCompra_IdEstAct);
+                            
                         ?>
                         <td>{{ $estado->COM_EstadoOrdenCompra_Nombre}}</td>
                         <td>{{ $product->COM_TransicionEstado_Observacion}}</td>
@@ -151,15 +144,19 @@
                       </div>
     <?php       $ante=array();
                 $sig=array();
-                
+                $transiciones=  COMOrdenCompraTransicionEstado::where('COM_OrdenCompra_TransicionEstado_EstadoActual','=',$id_activo)->where('COM_OrdenCompra_TransicionEstado_Activo','=','1')->get();
                foreach ($transiciones as $transicion){
-                  $ante[]=$transicion->COM_OrdenCompra_TransicionEstado_EstadoPrevio;
-                  $sig[]=$transicion->COM_OrdenCompra_TransicionEstado_EstadoPosterior;
+                   if($transicion->COM_OrdenCompra_TransicionEstado_EstadoPrevio > 2){
+                        $ante[]=$transicion->COM_OrdenCompra_TransicionEstado_EstadoPrevio;
+                   }
+                   if($transicion->COM_OrdenCompra_TransicionEstado_EstadoPosterior > 2){
+                        $sig[]=$transicion->COM_OrdenCompra_TransicionEstado_EstadoPosterior;
+                   }
                }
                
                $anterior=  COM_EstadoOrdenCompra::find($ante)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
                $siguiente= COM_EstadoOrdenCompra::find($sig)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
-               $actual1= COM_EstadoOrdenCompra::find($actual);
+               $actual1= COM_EstadoOrdenCompra::find($id_activo);
                
                
     ?>
@@ -171,22 +168,25 @@
                  {{Form::open(array('route'=>'cambioAdministracio'))}}
                  <h4>Accion a Realizar</h4>
                  <div class="form-group" >
-                     {{Form::radio('queHacer','TransitarAntes',true)}}<span>Regresar Transision Anterior  </span>
-                     
+                     @if(sizeof($ante) > 0)
+                     {{Form::radio('queHacer','TransitarAntes',true,array('style'=>''))}}<span>Regresar Transision Anterior  </span>
+                     @endif
                  </div>
                  <div class="form-group">
                         {{Form::radio('queHacer','TransitarDespues',true)}}<span>Avanzar Transision Siguiente  </span>
                  </div>
+                 @if(sizeof($ante) > 0)
                   <div class="form-group">
                  <label>Estado Anterior :</label>
                         {{ Form::select('COM_TransicionEstado_EstadoPrevio' ,$anterior,array('class'=>'form-control')) }}
                   </div>
+                 @endif
                   <div class="form-group">
                         
                         <label>Estado Actual :</label>
                         <span> {{$actual1->COM_EstadoOrdenCompra_Nombre}}</span>
                         {{Form::text('id_oc',$ordenCompra->COM_OrdenCompra_IdOrdenCompra,array('style'=>'display:none'))}}
-                        {{Form::text('id_actual',$actual,array('style'=>'display:none'))}}
+                        {{Form::text('id_actual',$id_activo,array('style'=>'display:none'))}}
                         {{Form::text('id_historial',$id_t,array('style'=>'display:none'))}}
                   </div>
                          <div class="form-group">

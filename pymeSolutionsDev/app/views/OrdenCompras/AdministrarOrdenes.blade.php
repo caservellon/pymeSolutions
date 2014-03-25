@@ -2,7 +2,7 @@
 
 @section('main')
 <div class="page-header clearfix">
-      <h3 class="pull-left">Autorizar Orden de Compra por Cotizacion<small></small></h3>
+      <h3 class="pull-left">Administrar Ordenes de Compra por Cotizacion<small></small></h3>
       <div class="pull-right">
         <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
@@ -10,17 +10,7 @@
 <div class="row">
    
     <div class=" col-lg-12">
-			<div  class="col-md-9" >
-                          
-                                 <div class="col-xs-5 col-sm-6 col-md-12">
-                                    <input type="Text"  style="width: 550px">
-                                </div>
-                                
-			</div>
-			<div class="col-md-3">
-				<input type="button" value="Buscar" id="bpderecho" class="btn btn-default btn-block col-md-6" >  
-				<input type="button" value="Seleccionar" id="bpderecho" class="btn btn-default btn-block col-md-6">
-			</div>
+			
     </div>
     
 	<div class="col-md-9" style="overflow:auto; height: 350px">
@@ -58,13 +48,13 @@
                             //echo var_dump($tran);
                             
                             if($tran->COM_OrdenCompra_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
-                                        $tratra= COMOrdenCompraTransicionEstado::find($tran->COM_OrdenCompra_TransicionEstado_Id);
-                                        $t= COM_EstadoOrdenCompra::find($tratra->COM_OrdenCompra_TransicionEstado_EstadoActual);
+                                        //$tratra= COMOrdenCompraTransicionEstado::find($tran->COM_OrdenCompra_TransicionEstado_Id);
+                                        $t= COM_EstadoOrdenCompra::find($tran->COM_EstadoOrdenCompra_IdEstAct);
                                         ?><td>{{$t->COM_EstadoOrdenCompra_Nombre}}</td><?php
                                         } ?>
                                         
                             @endforeach
-                            <td><a href="{{ route('AdministraOrCOm', array('id'=>$or->COM_OrdenCompra_IdOrdenCompra,'id_ea'=>$tratra->COM_OrdenCompra_TransicionEstado_EstadoActual)) }}" class="btn btn-info">Administrar</a></td>
+                            <td><a href="{{ route('AdministraOrCOm', array('id'=>$or->COM_OrdenCompra_IdOrdenCompra,)) }}" class="btn btn-info">Administrar</a></td>
                         </tr> 
                      @endforeach
               </tbody>

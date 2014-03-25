@@ -27,102 +27,34 @@
     
 	<div class="col-md-9" style="overflow:auto; height: 350px">
             <form action="" method=GET>
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered" >
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cotizacion-00001</th>
-                  <th>Cotizacion-00002</th>
-                  <th>Cotizacion-00003</th>
-                  <th>Cotizacion-00004</th>
-		 
-                </tr>
-              </thead>
-                  <tbody >
-                      <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-                       <tr>
-                           <td>Coca Cola Lata</td>
-                        <td>Lps. 450</td>
-                        <td>lps. 500</td>
-                        <td>lps. 100</td>
-			<td>lps. 600</td>
-			
-                      </tr> 
-              </tbody>
-            </table>
-          </div>
+        
+                
+          <?php $cotizations= Cotizacion::find($cotizaciones);?>
+              @foreach ($cotizations as $cotization)
+              <h4>{{$cotization->COM_Cotizacion_Codigo}}</h4><a href="{{ route('ComCot', array('id'=>$cotization->COM_Cotizacion_IdCotizacion)) }}" class="btn btn-info">Crear Orden de Compara para esta Cotizacion</a>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered" >
+                        <thead>
+                            <tr>
+                                <?php $detalles= DB::table('COM_Detalle_Cotizacion')->select('COM_DetalleCotizacion_IdDetalleCotizacion','COM_DetalleCotizacion_Codigo',
+                                        'COM_DetalleCotizacion_Cantidad','COM_DetalleCotizacion_PrecioUnitario','COM_Cotizacion_IdCotizacion','COM_Producto_Id_Producto',
+                                        'COM_Usuario_idUsuarioCreo','Usuario_idUsuarioModifico')->where('COM_Cotizacion_IdCotizacion','=',$cotization->COM_Cotizacion_IdCotizacion)->get();?>
+                                @foreach($detalles as $detalle)
+                                <?php $producto=  Producto::find($detalle->COM_Producto_Id_Producto);?>
+                                <th>{{$producto->INV_Producto_Nombre}}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr>
+                                @foreach($detalles as $detalle)
+                                <td>{{$detalle->COM_DetalleCotizacion_PrecioUnitario*$detalle->COM_DetalleCotizacion_Cantidad}}</td>
+                                @endforeach
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+                  @endforeach
         </div>
       
 			</form>

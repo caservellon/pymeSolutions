@@ -72,17 +72,26 @@ Route::get('Configuracion/TransicionEstado/Lista', array('as'=>'ListaTransicion'
 //Crea orden Compra sin Cotizacion
 Route::get('OrdenCompra/sinCotizacion/ListaProductos', array('as'=>'IniOrdComSNCot','uses'=>'OrdenComprasController@OrdenComprasnCotizacion'));
 Route::post('OrdenCompra/sinCotizacion/Detalle', array('as'=>'OrdenSinCotizacion','uses'=>'OrdenComprasController@FormOrdenComprasnCotizacion'));
-Route::post('OrdenCompra/sinCotizacion/Guardar', array('as'=>'GuardaOCsnCot','uses'=>'OrdenComprasController@guardarOCsnCOT'));
+Route::post('OrdenCompra/sinCotizacion/Guardar', array('as'=>'GuardaOCcnCot','uses'=>'OrdenComprasController@guardarOCcnCOT'));
+
+//generar pago
+Route::get('OrdenCompra/GenerarPago/ListaCotizaciones', array('as'=>'generarpagoLC','uses'=>'OrdenComprasController@generarpagoLC'));
+Route::get('OrdenCompra/GeneraPago/Detalle', array('as'=>'DetallePago','uses'=>'OrdenComprasController@DetallePago'));
+Route::post('OrdenCompra/GenerarPago/Guardar', array('as'=>'GuardaPago','uses'=>'OrdenComprasController@GuardaPago'));
+
 
 //crea oden de compra con cotizacion
 Route::get('OrdenCompra/conCotizacion/ListaCotizaciones', array('as'=>'IniOrdComCnCot','uses'=>'OrdenComprasController@OrdenCompracnCotizacion'));
+Route::post('OrdenCompra/conCotizacion/CompararCotizaciones', array('as'=>'CompararCotizaciones','uses'=>'OrdenComprasController@ComparaCotizaciones'));
 Route::get('OrdenCompra/conCotizacion/Detalle', array('as'=>'ComCot','uses'=>'OrdenComprasController@FormOrdenCompracnCotizacion'));
+Route::post('OrdenCompra/conCotizacion/Guardar', array('as'=>'GuardaOCsnCot','uses'=>'OrdenComprasController@guardarOCsnCOT'));
 
 //autorizaciones de orden de Compra
 Route::get('OrdenCompra/Autorizacion/ListaOrdenes', array('as'=>'AutOrdCom','uses'=>'OrdenComprasController@ListaOrdenCompra'));
 Route::get('OrdenCompra/Autorizacion/Autorizar', array('as'=>'AutOrdComForm','uses'=>'OrdenComprasController@AutorizandoOrdenCompra'));
 Route::get('OrdenCompra/Autorizacion/Autorizado', array('as'=>'AutorizarOrdCom','uses'=>'OrdenComprasController@AutorizarOrden'));
 Route::get('OrdenCompra/Autorizacion/Cancelado', array('as'=>'CancelaOrdCom','uses'=>'OrdenComprasController@cancelarOrden'));
+
 //Administrar Ordenes de Compra
 Route::get('OrdenCompra/Autorizacion/ListarOrdenes', array('as'=>'AutOrdCom','uses'=>'OrdenComprasController@ListarOrdenCompra'));
 Route::get('OrdenCompra/Autorizacion/Administrar', array('as'=>'AdministraOrCOm','uses'=>'OrdenComprasController@AdministraDetalles'));

@@ -3,7 +3,7 @@
 @section('main')
 <div class="row">
     <div class="page-header clearfix">
-      <h3 class="pull-left">Autorizar Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
+      <h3 class="pull-left">Generar Pago &gt; Orden de Compra&gt;Detalle<small></small></h3>
       <div class="pull-right">
         <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
@@ -76,12 +76,12 @@
         <label>Fecha de Entrega</label>
         {{$ordenCompra->COM_OrdenCompra_FechaEntrega}}
         <br>
-        <label>Forma de Pago :</label>
-         <?php         
-                 $forma=  FormaPago::find($ordenCompra->COM_OrdenCompra_FormaPago);
+        <label>Forma de Pago</label>
+         <?php  $forma= FormaPago::find($ordenCompra->COM_OrdenCompra_FormaPago);
+                 
                  
          ?>
-        <label>{{$forma->INV_FormaPago_Nombre}}</label>
+        {{$forma->INV_FormaPago_Nombre}}
          
          
     </div>
@@ -89,7 +89,6 @@
         <label>Direccion de Entrega*:</label>
         <br>
          Colonia America
-         
     </div>
     <div class="col-md-4" style="text-align: right">
         <label>Total :</label>
@@ -100,12 +99,10 @@
     <div class="col-md-6" >{{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}<label>Activo</label></div>
     <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
 </div>
+{{Form::open(array('route'=>'GuardaPago'))}}
+    {{Form::text('id_ordenCompra',$ordenCompra->COM_OrdenCompra_IdOrdenCompra, array('style' => 'display:none'))}}
+    {{Form::submit('Generar Pago', array('class' => 'btn btn-sm btn-primary'))}}
+{{Form::close()}}
 
-<div class="row">
-    
-    <a href="{{ route('AutorizarOrdCom', array('id'=>$ordenCompra->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Autorizar</a>
-    <a href="{{ route('CancelaOrdCom', array('id'=>$ordenCompra->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Cancelar</a>
-    
-</div>
 
 @stop

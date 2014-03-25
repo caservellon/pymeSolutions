@@ -74,7 +74,7 @@
         {{date('Y/m/d H:i:s')}}
         
         <label>Fecha Entrega</label>
-        {{Form::custom('Date','COM_OrdenCompra_FechaEntrega',date('Y/m/d'),array('format'=>'AAAA/MM/DD','required '=>'required '))}}
+        {{Form::custom('date','COM_OrdenCompra_FechaEntrega','2014/03/17',array('format'=>'AAAA/MM/DD','required '=>'required '))}}
         
         <br>
         <label>Forma de Pago</label>
