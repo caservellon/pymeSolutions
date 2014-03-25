@@ -1,5 +1,5 @@
 /*
--- Query: 
+--- Query: 
 -- Date: 2014-02-27 20:34
 */
 INSERT INTO `CON_Subcuenta` (`CON_Subcuenta_ID`,`CON_Subcuenta_Codigo`,`CON_Subcuenta_Nombre`,`CON_Subcuenta_FechaCreacion`,`CON_Subcuenta_FechaModificacion`,`CON_CatalogoContable_ID`) VALUES (1,'1','Caja',Now(),Now(),1);

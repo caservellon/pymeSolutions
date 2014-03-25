@@ -1,13 +1,18 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<br>
 
-<h1 align="center">CONTABILIDAD</h1>
+<h1 class="alert alert-success " style="max-width:60%;"><i class="glyphicon glyphicon-usd"></i>
+	 Menu Principal Contabilidad</h1>
+<br>
 
-<div class='jumbotron' align="center" style="border:3px solid #white; background:white;">
-	<a class='btn btn-lg' href="{{URL::to('contabilidad/crear/asientocontable')}}"><span class="glyphicon glyphicon-edit"></span><br> Crear Asiento</a>
-	<a class='btn btn-lg' href="{{URL::to('contabilidad/librodiario')}}"><span class="glyphicon glyphicon-book"></span><br> Libro Diario</a>
-	<a class='btn btn-lg' href="{{URL::to('contabilidad/configuracion')}}"><span class="glyphicon glyphicon-cog"></span><br>Configuracion</a>
-
+<div class="well" style="max-width: 400px; margin:10px; //background-color:#7fb87f;">
+	<a href="{{URL::to('contabilidad/crear/asientocontable')}}" class="btn btn-default btn-lg btn-block">
+	<span class="glyphicon glyphicon-edit"></span><br> Crear Asiento</a>
+	<a href="{{URL::to('contabilidad/librodiario')}}" class="btn btn-default btn-lg btn-block">
+	<span class="glyphicon glyphicon-book"></span><br> Libro Diario</a>
+	<a href="{{URL::to('contabilidad/configuracion')}}" class="btn btn-default btn-lg btn-block">
+	<span class="glyphicon glyphicon-cog"></span><br>Configuracion</a>
 </div>
 @stop

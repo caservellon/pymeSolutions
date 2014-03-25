@@ -54,6 +54,8 @@ class ParamPeriodoContableController extends BaseController {
 			$ClasificacionPeriodo = new ClasificacionPeriodo;
 			$ClasificacionPeriodo->CON_ClasificacionPeriodo_Nombre = Input::get('CON_ClasificacionPeriodo_Nombre');
 			$ClasificacionPeriodo->CON_ClasificacionPeriodo_CatidadDias= $this->CantidadDias[Input::get('CON_ClasificacionPeriodo_CatidadDias')];
+			$ClasificacionPeriodo->CON_ClasificacionPeriodo_FechaCreacion=  date('Y-m-d');
+			$ClasificacionPeriodo->CON_ClasificacionPeriodo_FechaModificacion= date('Y-m-d');
 			if($ClasificacionPeriodo->save()){
 			
 			$PeriodoContable = new PeriodoContable;
@@ -61,6 +63,8 @@ class ParamPeriodoContableController extends BaseController {
 			$PeriodoContable->CON_PeriodoContable_FechaFinal = $this->getFinalDate($PeriodoContable->CON_PeriodoContable_FechaInicio,$ClasificacionPeriodo->CON_ClasificacionPeriodo_CatidadDias);
 			$PeriodoContable->CON_PeriodoContable_Nombre = Input::get('CON_ClasificacionPeriodo_Nombre');
 			$PeriodoContable->CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID = $ClasificacionPeriodo->CON_ClasificacionPeriodo_ID;
+			$PeriodoContable->CON_PeriodoContable_FechaCreacion= date('Y-m-d');
+			$PeriodoContable->CON_PeriodoContable_FechaModificacion= date('Y-m-d');
 			$PeriodoContable->save();
 			}
 			return Redirect::action('ParamPeriodoContableController@index');
