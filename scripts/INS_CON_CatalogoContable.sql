@@ -1,5 +1,5 @@
 /*
--- Query: 
+--- Query: 
 -- Date: 2014-02-27 19:09
 */
 INSERT INTO `CON_CatalogoContable` (`CON_CatalogoContable_ID`,`CON_CatalogoContable_Codigo`,`CON_CatalogoContable_Nombre`,`CON_CatalogoContable_UsuarioCreacion`,`CON_CatalogoContable_NaturalezaSaldo`,`CON_CatalogoContable_Estado`,`CON_CatalogoContable_FechaCreacion`,`CON_CatalogoContable_FechaModificacion`,`CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID`) VALUES (1,'1','Efectivo','Admin',0,1,Now(),Now(),1);
