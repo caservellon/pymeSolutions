@@ -8,11 +8,11 @@
 			<a href="{{{ URL::to('/Compras/Parametrizar/SolicitudCotizacion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atrás</a>
 		</div>
 	</div>
-
+	
     @if ($errors->any())
 		<ul>{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}</ul>
 	@endif
-
+	
     
 	{{ Form::open(array('action' => 'SolicitudCotizacionController@CrearCampoLocal', 'class' => "form-horizontal" , 'role' => 'form' )) }}       
 		<div class="form-group">

@@ -4,7 +4,7 @@ class Cotizacion extends Eloquent {
 	protected $guarded = array();
         
         protected $table = 'COM_Cotizacion';
-	protected $primaryKey = 'COM_Cotizacion_Idcotizacion';
+	protected $primaryKey = 'COM_Cotizacion_IdCotizacion';
 
 	public $timestamps = false;
 
