@@ -38,6 +38,13 @@ class CRMCampoLocalsController extends BaseController {
 			$Campo->GEN_CampoLocal_Codigo = $Codigo;
 		}
 		if ($validation) {
+			$index = 0;
+			$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo)->get()->count();
+			while($count > 0){
+				$index = $index + 1;
+				$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo . $index )->get()->count();
+			}
+			$Campo->GEN_CampoLocal_Codigo = $index == 0 ? $Campo->GEN_CampoLocal_Codigo: $Campo->GEN_CampoLocal_Codigo . $index;
 			if($Campo->save()){
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
 					$oneList = Input::get('value-list-array');
