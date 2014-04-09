@@ -1,10 +1,10 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<h2 class="sub-header">Listado de Cajas</h2>
+<h2 class="sub-header">Agregar Nueva Transicion Estado Orden Compra</h2>
 <div class="btn-agregar">
 	<a type="button" href="" class="btn btn-default">
-	  <span class="glyphicon glyphicon-shopping-cart"></span> Configuración <small>>Parametrizar>Estados Orden de Compra</small>
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Configuración <small>>Parametrizar>Transicion de Estados Orden de Compra</small>
 	</a>
 </div>
       
@@ -13,7 +13,8 @@
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>activa</th>
+                  <th>Observacion</th>
+                  <th>Estado</th>
                 </tr>
               </thead>
          </div>
@@ -25,10 +26,11 @@
          <td>{{{ $nombre->COM_EstadoOrdenCompra_Nombre}}}</td>
          <td>{{{ $nombre->COM_EstadoOrdenCompra_Observacion}}}</td>
         
-                @if($nombre->COM_EstadoOrdenCompra_Activo==0)
-                <td>No activo</td>
-                @else
+                @if($nombre->COM_EstadoOrdenCompra_Activo==1)
                 <td>Activo</td>
+                
+                @else
+                <td>Inactivo</td>
                 @endif 
                 <td><a href="{{ route('NuevaTransicion', array('id'=>$nombre->COM_EstadoOrdenCompra_IdEstadoOrdenCompra)) }}" class="btn btn-info">Nueva Transicion</a></td>
          @endforeach

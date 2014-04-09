@@ -11,6 +11,7 @@
     </div>
      <div class="col-md-5 col-md-offset-0" style="width:1000px">
          <h3>Estados Locales</h3>
+         <h3>{{$mensaje}}</h3>
         {{ Form::model($COM_OrdenCompra_TransicionEstado, array('method' => 'PATCH', 'route' => array('ActualizarTransicion'))) }} 
         <ul>
             @foreach($errors->all() as $mensaje)
