@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Proveedor &gt; <small>Nuevo Proveedor</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
@@ -78,12 +78,6 @@
       </div>
     </div>
 
-    <div class="form-group">
-      {{ Form::label('INV_Producto_Nombre', 'Productos: *', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::select('INV_Producto_Nombre', $productos, null, array('class' => 'form-control', 'id' => 'INV_Producto_ID', 'placeholder' => '#' )) }}
-      </div>
-    </div> 
 
     <div class="form-group">
       {{ Form::label('INV_Proveedor_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
@@ -104,16 +98,18 @@
                 @if ($campo->GEN_CampoLocal_Requerido)
                     <label>Requerido</label>
                 @endif
-                <div class="col-md-5">
-                    {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
-                </div>
+                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                    <div class="col-md-5">
+                        {{ Form::text($campo->GEN_CampoLocal_Codigo, null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                    </div>
+                @endif
             </div> 
         @endforeach
 
 
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 

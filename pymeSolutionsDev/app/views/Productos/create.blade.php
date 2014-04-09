@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Producto &gt; <small>Nuevo Producto</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
@@ -158,16 +158,18 @@
                 @if ($campo->GEN_CampoLocal_Requerido)
                     <label>Requerido</label>
                 @endif
-                <div class="col-md-5">
-                    {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
-                </div>
+                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                    <div class="col-md-5">
+                        {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                    </div>
+                @endif
             </div> 
         @endforeach
 
 
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 {{ Form::close() }}

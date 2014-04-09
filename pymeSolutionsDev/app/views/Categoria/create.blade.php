@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Categoria &gt; <small>Nueva Categoria</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Categoria') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Inventario/Categoria') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
@@ -51,7 +51,7 @@
     {{ Form::hidden('INV_Categoria_FechaModificacion', date('Y-m-d H:i:s')) }}
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 

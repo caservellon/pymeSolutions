@@ -8,7 +8,7 @@
 	<a type="button" href="{{ URL::route('Inventario.Proveedor.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Proveedor
 	</a>
-	 <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refresh</a>
+	 <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
 </div>
 
 {{ Form::open(array('route' => 'Proveedor.search_index')) }}
@@ -26,8 +26,7 @@
 				<th>ID</th>
 				<th>Codigo</th>
 				<th>Nombre</th>
-				<th>Producto</th>
-				<th>Ciudad</th>
+
 				<th>Direccion</th>
 				<th>Telefono</th>
 				<th>Email</th>
@@ -50,8 +49,7 @@
 					<td>{{{ $Proveedor->INV_Proveedor_ID }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Codigo }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Nombre }}}</td>
-					<td>{{{ Producto::find(DB::table('INV_Producto_Proveedor')->where('INV_Proveedor_ID', '=', $Proveedor->INV_Proveedor_ID)->first()->INV_Producto_ID)->INV_Producto_Nombre }}} </td>
-					<td>{{{ Ciudad::find($Proveedor->INV_Ciudad_ID)->INV_Ciudad_Nombre }}}</td>
+
 					<td>{{{ $Proveedor->INV_Proveedor_Direccion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Telefono }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Email }}}</td>
@@ -65,10 +63,10 @@
 					<td>{{{ $Proveedor->INV_Proveedor_FechaModificacion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_UsuarioModificacion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Activo ? 'Activa' : 'Desactivada' }}}</td>
-                    <td>{{ link_to_route('Inventario.Proveedor.edit', 'Edit', array($Proveedor->INV_Proveedor_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.Proveedor.edit', 'Editar', array($Proveedor->INV_Proveedor_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Proveedor.destroy', $Proveedor->INV_Proveedor_ID))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

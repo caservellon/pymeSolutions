@@ -89,11 +89,6 @@ class ProductosController extends BaseController {
 			return Redirect::route('Inventario.Productos.index');
 		}
 
-		
- 		
-
-		
-
 		return Redirect::route('Inventario.Productos.create')
 			->withInput()
 			->withErrors($validation)

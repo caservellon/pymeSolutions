@@ -79,8 +79,9 @@ class ProveedorController extends BaseController {
 	public function create()
 	{
 		$ciudades = Ciudad::all()->lists('INV_Ciudad_Nombre', 'INV_Ciudad_ID');
-		$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_ID');
-		return View::make('Proveedor.create', compact('ciudades','productos'));
+		//$valores = CampoLocalLista::all()->lists('GEN_CampoLocalLista_Valor', 'GEN_CampoLocalLista_ID');
+		//$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_ID');
+		return View::make('Proveedor.create', compact('ciudades'));
 	}
 
 	/**
@@ -118,6 +119,10 @@ class ProveedorController extends BaseController {
  				}
 			}
 
+			//$this->Proveedor->create($input);
+			
+			/*
+
 			$Proveedor = new Proveedor;
 			$Proveedor->INV_Proveedor_Codigo = Input::get('INV_Proveedor_Codigo');
 			$Proveedor->INV_Proveedor_Nombre = Input::get('INV_Proveedor_Nombre');
@@ -135,10 +140,14 @@ class ProveedorController extends BaseController {
 			$Proveedor->INV_Proveedor_FechaModificacion = date('Y-m-d H:i:s');
 			$Proveedor->save();
 
+			
+
 			DB::table('INV_Producto_Proveedor')->insert(
     		array('INV_Producto_ID' => Input::get('INV_Producto_Nombre'),
     			   'INV_Proveedor_ID' => DB::table('INV_Proveedor')->count()
 			));
+
+			*/
 			return Redirect::route('Inventario.Proveedor.index');
 		}
 		return Redirect::route('Inventario.Proveedor.create')
