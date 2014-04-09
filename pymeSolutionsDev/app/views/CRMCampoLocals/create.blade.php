@@ -55,7 +55,6 @@
             <label class="checkbox-inline control-label">
                 {{ Form::checkbox('GEN_CampoLocal_Requerido', '1') }}
                 Requerido
-                
             </label>
             <label class="checkbox-inline control-label"> 
                 {{ Form::checkbox('GEN_CampoLocal_ParametroBusqueda', '1') }}
