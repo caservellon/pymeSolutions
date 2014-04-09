@@ -30,11 +30,20 @@
 						
 						<td>{{{ $CampoLocal->GEN_CampoLocal_Codigo }}}</td>
 						<td>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</td>
-						<td>{{{ $CampoLocal->GEN_CampoLocal_Tipo }}}</td>
+						@if($CampoLocal->GEN_CampoLocal_Tipo == "TXT")
+							<td>Texto</td>
+						@elseif($CampoLocal->GEN_CampoLocal_Tipo == "FLOAT") 
+							<td>Decimal</td>
+						@elseif($CampoLocal->GEN_CampoLocal_Tipo == "LIST" )
+							<td>Lista</td>
+						@elseif($CampoLocal->GEN_CampoLocal_Tipo == "INT")
+							<td>Entero</td>
+						@endif
+						
 						@if($CampoLocal->GEN_CampoLocal_Activo == 1)
-							<td>Activo</td>
+							<td><span class="glyphicon glyphicon-ok"></span></td>
 						@else
-							<td>Inactivo</td>
+							<td></td>
 						@endif	
 						
 						@if($CampoLocal->GEN_CampoLocal_Requerido == 1)
@@ -42,11 +51,13 @@
 						@else
 							<td></td>
 						@endif
+
 						@if($CampoLocal->GEN_CampoLocal_ParametroBusqueda == 1)
 							<td><span class="glyphicon glyphicon-ok"></span></td>
 						@else
 							<td></td>
-						@endif		
+						@endif
+
 						<td>{{ link_to_route('CRM.CampoLocals.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
 						<td>
 							{{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
