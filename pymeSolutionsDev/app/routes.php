@@ -82,20 +82,13 @@ Route::group(array('prefix' => 'Compras'), function(){
 	{
 		return View::make('SolicitudCotizacions.crearindex');
 	});
-    Route::get('Configuracion/Cotizacion/parametrizar', array('as'=>'parametrizar', 'uses'=> 'CotizacionsController@parametrizar'));
-    Route::get('Configuracion/OrdenCompra/parametrizar', array('as'=>'parametrizarOrden', 'uses'=> 'OrdenComprasController@parametrizar'));
-    Route::get('Configuracion/Cotizacion/mensaje', array('as'=>'mensaje', 'uses'=> 'CotizacionsController@mensaje'));
-    Route::get('Configuracion/OrdenCompra/mensaje', array('as'=>'mensajeOrden', 'uses'=> 'OrdenComprasController@mensaje'));
-    Route::get('Configuracion/OrdenCompra/parametrizar/ListaValor', array('as'=>'editarlista', 'uses'=> 'OrdenComprasController@listavista'));
-    Route::post('Configuracion/Cotizacion/parametrizar/ListaValor', array('as'=>'listavalor', 'uses'=> 'CotizacionsController@lista'));
-    Route::post('Configuracion/OrdenCompra/parametrizar/ListaValor', array('as'=>'listavalorOrden', 'uses'=> 'OrdenComprasController@lista'));
-    //Route::get('Configuracion/OrdenCompra/parametrizar/ListaValor', array('as'=>'listavalorview', 'uses'=> 'CotizacionsController@listavista'));
-	//Route::get('parametrizar', 'CotizacionsController@parametrizar');
-    Route::post('Configuracion/Cotizacion/campoLocal', array('as'=>'campoLocal', 'uses'=> 'CotizacionsController@campoLocal'));
-    Route::post('Configuracion/OrdenCompra/campoLocal', array('as'=>'campoLocalOrden', 'uses'=> 'OrdenComprasController@campoLocal'));
+        
+        
+    
+   
+    
 	//index de editar parametrizar
-    Route::get('Configuracion/Cotizacion', array('as'=>'indexCampoLocal', 'uses'=>'CotizacionsController@indexCampoLocal'));
-    Route::get('Configuracion/OrdenCompra', array('as'=>'indexCampoLocal', 'uses'=>'OrdenComprasController@indexCampoLocal'));
+   
     
     Route::get('Configuracion/OrdenCompra/editarorden', array('as'=>'editar', 'uses'=>'OrdenComprasController@editar'));
     Route::patch('Configuracion/OrdenCompra/actualizar', array('as'=>'actualizar', 'uses'=>'OrdenComprasController@actualizar'));
@@ -106,6 +99,7 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::get('SolicitudCotizacion/Crear/MostrarDetalle', array('as'=>'detalle', 'uses'=> 'SolicitudCotizacionsController@detalle'));
     Route::post('SolicitudCotizacion/Crear/detalleCualquierProducto', array('as'=>'seleccion', 'uses'=> 'SolicitudCotizacionsController@mostrarProveedor'));
     Route::resource('SolicitudCotizacions', 'SolicitudCotizacionsController');
+    Route::resource('CampoLocal', 'CompraCampoLocalController');
     
     //crea un nuevo estado de orden de compras
 Route::get('Configuracion/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
