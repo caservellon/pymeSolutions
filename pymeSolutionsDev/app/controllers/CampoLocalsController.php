@@ -27,7 +27,7 @@ class CampoLocalsController extends BaseController {
 	{
 		$validation = true;
 		$Campo = new CampoLocal;
-		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
+		$Campo->GEN_CampoLocal_Activo = true;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
@@ -95,7 +95,7 @@ class CampoLocalsController extends BaseController {
 		
 		$validation = true;
 		$Campo = CampoLocal::find($id);
-		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
+		$Campo->GEN_CampoLocal_Activo = true;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		if($Campo->GEN_CampoLocal_Tipo != "LIST"){

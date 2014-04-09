@@ -29,7 +29,7 @@
         @if($CampoLocal->GEN_CampoLocal_Tipo == "LIST") 
         <select class="col-md-4 form-control" id="GEN_CampoLocal_Tipo" name="GEN_CampoLocal_Tipo" disabled><option value="LIST" selected="selected">Lista de Valores</option></select>
         @else
-        {{ Form::select('GEN_CampoLocal_Tipo', array('TXT' => 'Texto', 'INT' => 'Entero', 'FLOAT' => 'Decimal', 'LIST' => 'Lista de Valores', 'CHKBOX' => 'Selección Multiple', 'RADIOBTN' => 'Selección Única'),$CampoLocal->GEN_CampoLocal_Tipo ,array('class' => 'col-md-4 form-control')) }}
+        {{ Form::select('GEN_CampoLocal_Tipo', array('TXT' => 'Texto', 'INT' => 'Entero', 'FLOAT' => 'Decimal', 'LIST' => 'Lista de Valores'),$CampoLocal->GEN_CampoLocal_Tipo ,array('class' => 'col-md-4 form-control')) }}
         @endif
       </div>
     </div>
@@ -58,13 +58,6 @@
           @endif
         </ul>  
         {{ Form::hidden('value-list-array',$stringConcat, array('class' => 'value-list-array'))}}  
-      </div>
-    </div>
-
-    <div class="form-group">
-      {{ Form::label('GEN_CampoLocal_Activo', 'Estado de Campo:', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::select('GEN_CampoLocal_Activo', array('1' => 'Activado', '0' => 'Desactivado'),$CampoLocal->GEN_CampoLocal_Activo ,array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
 
