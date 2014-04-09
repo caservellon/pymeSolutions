@@ -61,12 +61,7 @@
       </div>
     </div>
 
-    <div class="form-group">
-      {{ Form::label('GEN_CampoLocal_Activo', 'Estado de Campo:', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::select('GEN_CampoLocal_Activo', array('1' => 'Activado', '0' => 'Desactivado'),$CampoLocal->GEN_CampoLocal_Activo ,array('class' => 'col-md-4 form-control')) }}
-      </div>
-    </div>
+    
 
     <div class="form-group">
         <div class="col-md-5 col-md-offset-2">
