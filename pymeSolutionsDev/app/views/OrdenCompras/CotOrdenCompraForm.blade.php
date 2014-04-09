@@ -21,7 +21,7 @@
         <h5 >Tel.2234-9000 Fax.2234-9000</h5>
     </div>
 </div>
-{{Form::open(array('route'=>'GuardaOCsnCot'))}}
+{{Form::open(array('route'=>'GuardaOCcnCot'),array('id'=>'formu'))}}
 <div class="row">
     <div class="col-md-4">
         <h4>Para:</h4>
@@ -44,25 +44,46 @@
                   <th>Descripcion</th>
                   <th>Cantidad</th>
 		  <th>Precio Unitario</th>
+                  <th>Total</th>
 		  <th>Unidad</th>
                 </tr>
               </thead>
                   <tbody >
                       <?php $contador=0;
                         $total=0;
+                        $elemento=3;
+                        $totalGeneral=0;
                       ?>
                       @foreach ($productos as $product)
-                      <?php $product1=  Producto::find($productos[$contador])?>
+                      <?php $product1=  Producto::find($productos[$contador]);
+                            $detcot=DB::select('SELECT * FROM COM_Detalle_Cotizacion WHERE  COM_Cotizacion_IdCotizacion = ?', array($id_cot));
+                            $cantidad=null;
+                            $precioUnitario=null;
+                            foreach ($detcot as $det){
+                                if($det->COM_Producto_Id_Producto==$product){
+                                        
+                                        $cantidad=$det->COM_DetalleCotizacion_Cantidad;
+                                        $precioUnitario=$det->COM_DetalleCotizacion_PrecioUnitario;
+                                }
+                            }
+                           
+                            ?>
+                            
                       <tr>
                           {{Form::text('COM_Producto_idProducto'.$contador,$productos[$contador], array('style' => 'display:none'))}}
-                        <td>{{ $product1->INV_Producto_Codigo}}</td>
+                          <td>{{ $product1->INV_Producto_Codigo}}<script></script></td>
                         <td>{{ $product1->INV_Producto_Nombre}}</td>
                         <td>{{ $product1->INV_Producto_Descripcion}}</td>
-                        <td>{{Form::custom('number','COM_DetalleOrdenCompra_Cantidad'.$contador,'45',array('min'=>'1','required '=>'required ','onChange'=>'mostrar(this.value);'))}}</td>
-			<td>{{Form::custom('number','COM_DetalleOrdenCompra_PrecioUnitario'.$contador,$product1->INV_Producto_PrecioCosto,array('min'=>'1','step'=>'0.01','required '=>'required '))}}</td>
-                        <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);?>
+                        <?//esta es la forma para llamar a java script desde laravel?>
+                        
+                        <td>{{$cantidad}}</td>
+                        <td>{{$precioUnitario}}</td>
+                        <td>{{$cantidad*$precioUnitario}}</td>
+                        <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);
+                            $totalGeneral+=$cantidad*$precioUnitario;
+                        ?>
 			<td>{{$medida->INV_UnidadMedida_Nombre}}</td>
-                  <script lenguage="javascript"></script>
+                  
                       </tr> 
                       <?php $contador++; ?>
                       @endforeach
@@ -72,6 +93,7 @@
 </div>
 <div class="row">
     <div class="col-md-4">
+        
         <label>Fecha Emision</label>
         {{date('Y/m/d H:i:s')}}
         
@@ -102,9 +124,11 @@
     </div>
     <div class="col-md-4" style="text-align: right">
         
-        {{Form::text('resultado','5' ,array('onclick'=>'mostrar(5);'))}}
-        <div id="resultado"></div>
-        <label>Total:  23432.45</label>
+        
+        <label>Total: Lps. {{$totalGeneral}}</label>
+        
+        <input type="text" id="total" value="<?echo $totalGeneral;?>" style='display:none'>
+        {{Form::text('totalG',$totalGeneral, array('style' => 'display:none'))}}
     </div>
 </div>
 <div class="row" >

@@ -72,7 +72,7 @@ Route::get('Configuracion/TransicionEstado/Lista', array('as'=>'ListaTransicion'
 //Crea orden Compra sin Cotizacion
 Route::get('OrdenCompra/sinCotizacion/ListaProductos', array('as'=>'IniOrdComSNCot','uses'=>'OrdenComprasController@OrdenComprasnCotizacion'));
 Route::post('OrdenCompra/sinCotizacion/Detalle', array('as'=>'OrdenSinCotizacion','uses'=>'OrdenComprasController@FormOrdenComprasnCotizacion'));
-Route::post('OrdenCompra/sinCotizacion/Guardar', array('as'=>'GuardaOCcnCot','uses'=>'OrdenComprasController@guardarOCcnCOT'));
+Route::post('OrdenCompra/sinCotizacion/Guardar', array('as'=>'GuardaOCsnCot','uses'=>'OrdenComprasController@guardarOCsnCOT'));
 
 //generar pago
 Route::get('OrdenCompra/GenerarPago/ListaCotizaciones', array('as'=>'generarpagoLC','uses'=>'OrdenComprasController@generarpagoLC'));
@@ -84,7 +84,10 @@ Route::post('OrdenCompra/GenerarPago/Guardar', array('as'=>'GuardaPago','uses'=>
 Route::get('OrdenCompra/conCotizacion/ListaCotizaciones', array('as'=>'IniOrdComCnCot','uses'=>'OrdenComprasController@OrdenCompracnCotizacion'));
 Route::post('OrdenCompra/conCotizacion/CompararCotizaciones', array('as'=>'CompararCotizaciones','uses'=>'OrdenComprasController@ComparaCotizaciones'));
 Route::get('OrdenCompra/conCotizacion/Detalle', array('as'=>'ComCot','uses'=>'OrdenComprasController@FormOrdenCompracnCotizacion'));
-Route::post('OrdenCompra/conCotizacion/Guardar', array('as'=>'GuardaOCsnCot','uses'=>'OrdenComprasController@guardarOCsnCOT'));
+Route::post('OrdenCompra/conCotizacion/Guardar', array('as'=>'GuardaOCcnCot','uses'=>'OrdenComprasController@guardarOCcnCOT'));
+Route::get('/hola',  function (){
+    return View::make('OrdenCompras.newOrdenCompra');
+});
 
 //autorizaciones de orden de Compra
 Route::get('OrdenCompra/Autorizacion/ListaOrdenes', array('as'=>'AutOrdCom','uses'=>'OrdenComprasController@ListaOrdenCompra'));

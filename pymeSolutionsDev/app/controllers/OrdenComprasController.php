@@ -340,6 +340,7 @@ class OrdenComprasController extends BaseController {
              $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
              $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
              $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
+             $OrdenCompras->COM_OrdenCompra_Total=Input::get('totalG');
              $OrdenCompras->save();
              $compras=  OrdenCompra::all();
              $ultimo= $compras->Count();
@@ -436,6 +437,7 @@ class OrdenComprasController extends BaseController {
              $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
              $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
              $OrdenCompras->COM_Cotizacion_IdCotizacion=Input::get('Id_Cot');
+             $OrdenCompras->COM_OrdenCompra_Total=Input::get('totalG');
              $OrdenCompras->save();
              $compras=  OrdenCompra::all();
              $ultimo= $compras->Count();

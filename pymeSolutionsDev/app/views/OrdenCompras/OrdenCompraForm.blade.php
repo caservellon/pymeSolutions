@@ -43,12 +43,16 @@
                   <th>Descripcion</th>
                   <th>Cantidad</th>
 		  <th>Precio Unitario</th>
+                  <th>Total</th>
 		  <th>Unidad</th>
                 </tr>
               </thead>
                   <tbody >
                       <?php $contador=0;
                         $total=0;
+                        $elemento=2;
+                        $cantidad=1;
+                        $totalGeneral=0;
                       ?>
                       @foreach ($productos as $product)
                       <?php $product1=  Producto::find($productos[$contador])?>
@@ -57,9 +61,11 @@
                         <td>{{ $product1->INV_Producto_Codigo}}</td>
                         <td>{{ $product1->INV_Producto_Nombre}}</td>
                         <td>{{ $product1->INV_Producto_Descripcion}}</td>
-                        <td>{{Form::custom('number','COM_DetalleOrdenCompra_Cantidad'.$contador,'45',array('min'=>'1','required '=>'required '))}}</td>
-			<td>{{Form::custom('number','COM_DetalleOrdenCompra_PrecioUnitario'.$contador,$product1->INV_Producto_PrecioCosto,array('min'=>'1','step'=>'0.01','required '=>'required '))}}</td>
-                        <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);?>
+                        <td><?$elemento++;?>{{Form::custom('number','COM_DetalleOrdenCompra_Cantidad'.$contador,$cantidad,array('min'=>'1','required '=>'required ','onChange'=>'setearTotalcc(this.form,'.$elemento.')'))}}</td>
+			<td><?$elemento++;?>{{Form::custom('number','COM_DetalleOrdenCompra_PrecioUnitario'.$contador,$product1->INV_Producto_PrecioCosto,array('min'=>'1','step'=>'0.01','required '=>'required ','onChange'=>'setearTotalcp(this.form,'.$elemento.')'))}}</td>
+                        <td><?$elemento+=2;?><input type="number" id="totalproducto<?php echo $contador;?>" value="<?echo $cantidad*$product1->INV_Producto_PrecioCosto;?>" readonly="readonly" style=" border-style: none; background-color: transparent;" ></td>
+                        <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);
+                                $totalGeneral+=$cantidad*$product1->INV_Producto_PrecioCosto?>
 			<td>{{$medida->INV_UnidadMedida_Nombre}}</td>
                       </tr> 
                       <?php $contador++; ?>
@@ -99,7 +105,9 @@
          {{Form::radio('COM_OrdenCompra_Direccion','uno',false)}}Colonia Carrizal
     </div>
     <div class="col-md-4" style="text-align: right">
-        <label>Total:  23432.45</label>
+        <label>Total:</label>
+        <input type="text" id="total" value="<?echo $totalGeneral;?>">
+        {{Form::text('totalG',$totalGeneral, array('style' => 'display:none'))}}
     </div>
 </div>
 <div class="row" >
