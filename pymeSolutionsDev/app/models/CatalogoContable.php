@@ -21,6 +21,7 @@ class CatalogoContable extends Eloquent {
 		'CON_CatalogoContable_Estado' => 'required',
 		//'CON_CatalogoContable_FechaCreacion' => 'required',
 		//'CON_CatalogoContable_FechaModificacion' => 'required',
-		'CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID' => 'required'
+		'CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID' => 'required',
+		'CON_CatalogoContable_CodigoSubcuenta' => 'required'
 	);
 }
