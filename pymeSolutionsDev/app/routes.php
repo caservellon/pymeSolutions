@@ -186,3 +186,6 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 });
 
+
+
+Route::resource('estadoresultados', 'EstadoresultadosController');
