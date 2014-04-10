@@ -1,5 +1,13 @@
 <?php
 
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+
 class OrdenCompra extends Eloquent {
 	protected $guarded = array();
         protected $table = 'COM_OrdenCompra';
