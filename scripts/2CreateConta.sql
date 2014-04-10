@@ -203,7 +203,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`CON_PeriodoContable` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_PeriodoContable` (
-  `CON_PeriodoContable_ID` INT NOT NULL,
+  `CON_PeriodoContable_ID` INT NOT NULL AUTO_INCREMENT,
   `CON_PeriodoContable_FechaInicio` DATETIME NOT NULL,
   `CON_PeriodoContable_FechaFinal` DATETIME NOT NULL,
   `CON_PeriodoContable_Nombre` VARCHAR(50) NOT NULL,
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_PeriodoContable` (
     REFERENCES `pymeERP`.`CON_ClasificacionPeriodo` (`CON_ClasificacionPeriodo_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
 
 
 -- -----------------------------------------------------
