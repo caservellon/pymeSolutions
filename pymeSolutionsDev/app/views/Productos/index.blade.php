@@ -79,12 +79,10 @@
 					<td>{{{ $Producto->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Producto->INV_UnidadMedida_ID }}}</td>
 					<td>{{{ $Producto->INV_HorarioBloqueo_ID }}}</td>
-
 					@foreach($ValoresCampLoc as $VCL)
 						@if($VCL->INV_Producto_ID === $Producto->INV_Producto_ID)
 							{{ $isEmpty = false }}
 							<td>{{{ $VCL->INV_Producto_CampoLocal_Valor }}}</td>
-							
 						@endif
 					@endforeach
 					@if($isEmpty)
