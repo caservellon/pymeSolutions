@@ -28,7 +28,7 @@ class ProductosController extends BaseController {
 			array_push($arrayTemp, $CL->GEN_CampoLocal_ID);
 		}
 		$ValoresCampLoc = ProductoCampoLocal::whereBetween('GEN_CampoLocal_GEN_CampoLocal_ID', $arrayTemp)->get();
-		//var_dump($ValoresCampLoc);
+		
 		return View::make('Productos.index', compact('Productos','CamposLocales', 'ValoresCampLoc'));
 	}
 

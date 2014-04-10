@@ -1,7 +1,7 @@
 @extends('layouts.scaffold')
 
 @section('main')
-
+<?php $isEmpty = true ?>
 
 <h2 class="sub-header">Productos</h2>
 <div class="btn-agregar">
@@ -79,11 +79,17 @@
 					<td>{{{ $Producto->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Producto->INV_UnidadMedida_ID }}}</td>
 					<td>{{{ $Producto->INV_HorarioBloqueo_ID }}}</td>
+
 					@foreach($ValoresCampLoc as $VCL)
 						@if($VCL->INV_Producto_ID === $Producto->INV_Producto_ID)
+							{{ $isEmpty = false }}
 							<td>{{{ $VCL->INV_Producto_CampoLocal_Valor }}}</td>
+							
 						@endif
-					@endforeach	
+					@endforeach
+					@if($isEmpty)
+						<td></td>
+					@endif	
                     <td>{{ link_to_route('Inventario.Productos.edit', 'Editar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Productos.destroy', $Producto->INV_Producto_ID))) }}
