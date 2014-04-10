@@ -13,7 +13,17 @@
 		<th>Haber</th>
 	</thead>
 	<tbody>
-		<td></td>
+		@foreach ($Cuentas as $Cuenta)
+			<tr>
+					<td>{{{ $Cuenta->CON_CatalogoContable_Nombre }}}</td>
+					@if ( $Cuenta->CON_CuentaT_AcreedorDeudor == 0 )
+						<td>{{{ $Cuenta->CON_CuentaT_SaldoFinal }}}</td>
+					@else
+						<td>{{{ $Cuenta->CON_CuentaT_SaldoFinal }}}</td>
+					@endif
+			</tr>
+			
+		@endforeach
 	</tbody>
 </table>
 <a class='btn btn-default pull-right' href="">Generar Balanza Comprobacion Ajustada</a>
