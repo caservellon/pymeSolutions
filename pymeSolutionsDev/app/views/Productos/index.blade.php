@@ -43,6 +43,9 @@
 				<th>ID Categoria Padre</th>
 				<th>UnidadMedida ID</th>
 				<th>Horario Bloqueo ID</th>
+				@foreach($CamposLocales as $CampoLocal)
+						<th>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</th>
+				@endforeach	
 			</tr>
 		</thead>
 
@@ -76,6 +79,11 @@
 					<td>{{{ $Producto->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Producto->INV_UnidadMedida_ID }}}</td>
 					<td>{{{ $Producto->INV_HorarioBloqueo_ID }}}</td>
+					@foreach($ValoresCampLoc as $VCL)
+						@if($VCL->INV_Producto_ID === $Producto->INV_Producto_ID)
+							<td>{{{ $VCL->INV_Producto_CampoLocal_Valor }}}</td>
+						@endif
+					@endforeach	
                     <td>{{ link_to_route('Inventario.Productos.edit', 'Editar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Productos.destroy', $Producto->INV_Producto_ID))) }}

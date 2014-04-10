@@ -22,15 +22,17 @@ class ProductosController extends BaseController {
 	public function index()
 	{
 		$Productos = $this->Producto->all();
-
-		return View::make('Productos.index', compact('Productos'));
+		$CamposLocales = CampoLocal::where("GEN_CampoLocal_Codigo","LIKE","INV_PRD%")->get();
+		$arrayTemp = array();
+		foreach ($CamposLocales as $CL) {
+			array_push($arrayTemp, $CL->GEN_CampoLocal_ID);
+		}
+		$ValoresCampLoc = ProductoCampoLocal::whereBetween('GEN_CampoLocal_GEN_CampoLocal_ID', $arrayTemp)->get();
+		//var_dump($ValoresCampLoc);
+		return View::make('Productos.index', compact('Productos','CamposLocales', 'ValoresCampLoc'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+	
 	public function create()
 	{
 		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
@@ -181,5 +183,4 @@ class ProductosController extends BaseController {
 		$result = $query;
 		return $result;
 	}
-
 }
