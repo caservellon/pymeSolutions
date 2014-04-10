@@ -20,7 +20,7 @@ echo "Creating Compras " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateCompras.sql" >> ./logs/install.log 2>&1
 
 echo "Creating Contabilidad " >> ./logs/install.log
-mysql -u "root" "-proot" "pymeERP" < "2CreateConta.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "CreateContabilidad.sql" >> ./logs/install.log 2>&1
 
 echo "Creating CRM " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateCRM.sql" >> ./logs/install.log 2>&1
