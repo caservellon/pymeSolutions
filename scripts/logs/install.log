@@ -252,3 +252,38 @@ Populating Ventas
 ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
 Process ended at  2014/04/10 03:34:11
 ------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/04/10 03:45:53
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+ERROR 1064 (42000) at line 239: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DROP TABLE IF EXISTS `pymeERP`.`CON_EstadoResultado`' at line 22
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+Process ended at  2014/04/10 03:45:55
+------------------------END----------------------------
+------------------------START--------------------------
+Process started at  2014/04/10 03:47:51
+***Creating database*** 
+Creating General Tables 
+Creating Inventario 
+Creating Ventas 
+Creating Compras 
+Creating Contabilidad 
+Creating CRM 
+***Populating tables***
+Populating Compras 
+Populating Inventario 
+Populating Contabilidad 
+Populating Ventas 
+ERROR 1054 (42S22) at line 5: Unknown column 'VEN_FormaPago_Codigo' in 'field list'
+Process ended at  2014/04/10 03:47:53
+------------------------END----------------------------
