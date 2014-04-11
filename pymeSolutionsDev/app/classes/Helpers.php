@@ -249,5 +249,4 @@ class Helpers {
 			
 			return $query;
 	}
-	
 }

@@ -150,6 +150,10 @@ Route::group(array('prefix' => 'Compras'), function(){
 	));
 	
 	
+	Route::get('/OrdenesCompra/NuevoOrdenCompra', array(
+		'as' => 'OrdenesCompraNuevoOrdenCompra',
+		'uses' => 'OrdenCompraController@VistaNuevaOrdenCompra'
+	));
 	
 	
 	
