@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
 
 </head>
-<body>
+<body style="margin-top: 50px">
   <header>
   <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
     <a class="navbar-brand" href="#">pyme Solutions</a>
