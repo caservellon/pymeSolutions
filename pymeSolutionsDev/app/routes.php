@@ -204,7 +204,6 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::resource('PeriodoCierreDeCajas', 'PeriodoCierreDeCajasController');
 
 
-<<<<<<< HEAD
 });
 
 
@@ -212,6 +211,3 @@ Route::group(array('prefix' => 'Ventas'), function(){
 Route::resource('productocampolocals', 'ProductocampolocalsController');
 
 Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
-=======
-});
->>>>>>> 97-control-de-inventarios-inventario-entrada-de-inventario-registrar
