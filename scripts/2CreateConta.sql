@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_PeriodoContable` (
     REFERENCES `pymeERP`.`CON_ClasificacionPeriodo` (`CON_ClasificacionPeriodo_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------

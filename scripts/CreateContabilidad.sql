@@ -67,7 +67,7 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_ClasificacionCuenta` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ClasificacionCuenta` (
   `CON_ClasificacionCuenta_ID` INT NOT NULL,
-  `CON_ClasificacionCuenta_Nombre` VARCHAR(45) NOT NULL,
+  `CON_ClasificacionCuenta_Nombre` VARCHAR(64) NOT NULL,
   `CON_ClasificacionCuenta_FechaCreacion` DATETIME NOT NULL,
   `CON_ClasificacionCuenta_FechaModificacion` DATETIME NOT NULL,
   `CON_ClasificacionCuenta_Categoria` VARCHAR(1) NOT NULL,
@@ -109,8 +109,8 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_CuentaMotivo` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaMotivo` (
   `CON_CuentaMotivo_ID` INT NOT NULL AUTO_INCREMENT,
   `CON_CuentaMotivo_DebeHaber` TINYINT(1) NOT NULL,
-  `CON_CuentaMotivo_FechaCreacion` DATETIME NOT NULL,
-  `CON_CuentaMotivo_FechaModificacion` DATETIME NOT NULL,
+  `CON_CuentaMotivo_FechaCreacion` DATETIME,
+  `CON_CuentaMotivo_FechaModificacion` DATETIME,
   `CON_MotivoTransaccion_ID` INT NOT NULL,
   `CON_CatalogoContable_ID` INT NOT NULL,
   PRIMARY KEY (`CON_CuentaMotivo_ID`),
