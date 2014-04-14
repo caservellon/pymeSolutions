@@ -17,7 +17,8 @@ class BalanzaComprobacionController extends BaseController {
 
 	public function index()
 	{
-		$Cuentas= BalanzaComprobacion::all();
+		$Periodo = PeriodoContable::first();
+		$Cuentas = DB::statement(DB::raw('CALL CON_BalanzaComprobacion(' . $Periodo->CON_PeriodoContable_ID . ');'));
 		return View::make('BalanzaComprobacion.index')
 			->with('Cuentas',$Cuentas);
     }

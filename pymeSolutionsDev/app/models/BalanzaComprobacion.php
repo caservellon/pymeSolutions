@@ -6,6 +6,6 @@ class BalanzaComprobacion extends Eloquent {
 	protected $primaryKey = 'CON_BalanzaComprobacion_ID';
 	public $timestamps=false;
 	public static $rules = array(
-		'CON_LibroMayor_ID' => 'required|integer'
+		'CON_LibroMayor_ID' => 'required|integer',
 	);
 }
