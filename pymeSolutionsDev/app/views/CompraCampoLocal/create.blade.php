@@ -8,7 +8,11 @@
         <a href="/Compras/CampoLocal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
-
+@if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
+	</ul>
+@endif
 
 {{ Form::open(array('route' => 'Compras.CampoLocal.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
@@ -73,10 +77,6 @@
 
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+
 
 @stop

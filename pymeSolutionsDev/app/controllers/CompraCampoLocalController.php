@@ -26,20 +26,17 @@ class CompraCampoLocalController extends BaseController {
 
 	public function store()
 	{
-		$validation = true;
+		$input = Input::all();
+		$validation = Validator::make($input, CampoLocal::$rules);
 		$Campo = new CampoLocal;
 		$Campo->GEN_CampoLocal_Activo = 1;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
-		if (Input::get('GEN_CampoLocal_Nombre') == "") {
-			$validation = false;
-		} else {
 			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
 			$Codigo = "COM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
 			$Campo->GEN_CampoLocal_Codigo = $Codigo;
-		}
-		if ($validation) {
+		if ($validation->passes()) {
 			$index = 0;
 			$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo)->get()->count();
 			while($count > 0){
