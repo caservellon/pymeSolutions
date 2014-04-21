@@ -130,7 +130,7 @@ $(document).ready(function () {
 
 		data.cliente = $('.cliente').val();
 
-		data.caja = '1';
+		data.caja = '2';
 
 		console.log(data);
 

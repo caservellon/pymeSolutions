@@ -102,11 +102,11 @@ class VentasController extends BaseController {
 			}
 
 			foreach ($abonos as $a) {
-				$pago = new Pagos;
+				$pago = new Pago;
 				$pago->VEN_Pago_Cantidad = (float) $a['monto'];
 				$pago->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
 				$pago->VEN_Venta_VEN_Caja_VEN_Caja_id = $caja;
-				$pago->VEN_FormaPago_VEN_FormaPago_id = FormaPagos::where('VEN_FormaPago_Codigo',$a['metodo'])-firstOrFail()->VEN_FormaPago_id;
+				$pago->VEN_FormaPago_VEN_FormaPago_id = FormaPagoVentas::where('VEN_FormaPago_Descripcion',$a['metodo'])->firstOrFail()->VEN_FormaPago_id;
 				$pago->save();
 			}
 			
