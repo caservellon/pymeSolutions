@@ -2,10 +2,10 @@
 
 @section('main')
 
-<h2 class="sub-header">Listado de Cajas</h2>
+<h2 class="sub-header">Editar Transicion Estado Orden Compra</h2>
 <div class="btn-agregar">
 	<a type="button" href="" class="btn btn-default">
-<div ><h2>Configuración <small>>Parametrizar>Estados Orden de Compra</small></h2></div>	</a>
+<div ><h2>Configuración <small>>Parametrizar>Transicion de Estados Orden de Compra</small></h2></div>	</a>
 </div>
    
     </div>
@@ -35,8 +35,9 @@
                     {{ Form::select('COM_OrdenCompra_TransicionEstado_EstadoPrevio' ,$Eanterior) }} 
                 </td>
                 <td>
-                    {{ Form::label('Estado_Actual',$COM_EstadoOrdenCompra->COM_EstadoOrdenCompra_Nombre) }}
-                    {{ Form::text('COM_OrdenCompra_TransicionEstado_EstadoActual',$COM_EstadoOrdenCompra->COM_EstadoOrdenCompra_IdEstadoOrdenCompra,array('style' => 'display:none')) }}
+                      
+                     {{ Form::label('Estado_Actual',$COM_EstadoOrdenCompra->COM_EstadoOrdenCompra_Nombre) }}
+                     {{ Form::text('COM_OrdenCompra_TransicionEstado_EstadoActual',$COM_EstadoOrdenCompra->COM_EstadoOrdenCompra_IdEstadoOrdenCompra,array('style' => 'display:none')) }}
                 </td>
                 <td>
                     {{ Form::select('COM_OrdenCompra_TransicionEstado_EstadoPosterior',$Eanterior) }}
@@ -46,6 +47,10 @@
               <td>
                  {{ Form::label('observacion', 'Observacion:') }}
                 {{ Form::textarea('COM_OrdenCompra_TransicionEstado_Observacion') }}
+            </td>
+              <td>
+                {{ Form::label('COM_OrdenCompra_TransicionEstado_Activo', 'Activo:') }}
+                {{ Form::checkbox('COM_OrdenCompra_TransicionEstado_Activo','1',true) }}
             </td>
             <td>
 		{{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}

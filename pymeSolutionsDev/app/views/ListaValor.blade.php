@@ -2,16 +2,35 @@
 
 @section('main')
 <div class="page-header clearfix">
-      <h3 class="pull-left">Configuracion &gt; <small>Lista de Valores de Cotizacion</small></h3>
+      <h3 class="pull-left">Configuracion &gt; <small>Crear Lista de Valores de Cotizacion</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Compras/Cotizacions/parametrizar') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>atras</a>
+        <a href="{{{ URL::to('Compras') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span>atras</a>
       </div>
 </div>
+ <?php $listavalor = CampoLocalLista::where('GEN_CampoLocal_GEN_CampoLocal_ID','=',$suma)->get();?>
+<div class="col-md-3 col-md-offset-1">
+        <div class="row">
+        <h4>Lista de Valores</h4>
+        @if($listavalor->count())
+            @foreach($listavalor as $campolocal)
+                <h4>{{$campolocal->GEN_CampoLocalLista_Valor}}</h4>
+               
+        @endforeach
+        @endif
+        </div>
+    </div> 
 
-<div class="col-md-4 col-md-offset-1">
-             
-             
-             {{ Form::open(array('route' => array('listavalor', $suma))) }}
+    
+    @if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
+	</ul>
+     @endif
+
+
+     
+               
+             {{ Form::open(array('class' => "form-horizontal" , 'role' => 'form' , 'route' => array('listavalor', $suma))) }}
              
             <div class="row">
                 
@@ -27,7 +46,7 @@
                      </div>
                  </div>
              {{ Form::close() }}
-</div>
+
     
 
 @stop

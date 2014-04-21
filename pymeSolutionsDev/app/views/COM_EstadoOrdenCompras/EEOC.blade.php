@@ -1,11 +1,11 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<div class="page-header clearfix">
-      <h3 class="pull-left">Configuración <small>>Parametrizar>Estados Orden de Compra</small></h3>
-      <div class="pull-right">
-        <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
-      </div>
+<h2 class="sub-header">Editar Nueva Estado Orden Compra</h2>
+<div class="btn-agregar">
+	<a type="button" href="" class="btn btn-default">
+	  <span class="glyphicon glyphicon-shopping-cart"></span>Configuración <small>>Parametrizar>Estados Orden de Compra</small>
+	</a>
 </div>
     
     <div class="col-md-5 col-md-offset-0"> 
@@ -31,7 +31,7 @@
             <div class="form-group">
             {{ Form::label('COM_EstadoOrdenCompra_Activo', 'Activo:') }}
             <div class="col-md-0">
-            {{ Form::checkbox('COM_EstadoOrdenCompra_Activo') }}
+            {{ Form::checkbox('COM_EstadoOrdenCompra_Activo','1',true) }}
             </div>
             </div>
                     <div class="form-group">
