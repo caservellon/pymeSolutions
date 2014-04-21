@@ -26,7 +26,7 @@ class CRMCampoLocalsController extends BaseController {
 	{
 		$validation = true;
 		$Campo = new CampoLocal;
-		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
+		$Campo->GEN_CampoLocal_Activo = 1;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
@@ -38,6 +38,13 @@ class CRMCampoLocalsController extends BaseController {
 			$Campo->GEN_CampoLocal_Codigo = $Codigo;
 		}
 		if ($validation) {
+			$index = 0;
+			$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo)->get()->count();
+			while($count > 0){
+				$index = $index + 1;
+				$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo . $index )->get()->count();
+			}
+			$Campo->GEN_CampoLocal_Codigo = $index == 0 ? $Campo->GEN_CampoLocal_Codigo: $Campo->GEN_CampoLocal_Codigo . $index;
 			if($Campo->save()){
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
 					$oneList = Input::get('value-list-array');
@@ -93,7 +100,7 @@ class CRMCampoLocalsController extends BaseController {
 		
 		$validation = true;
 		$Campo = CampoLocal::find($id);
-		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
+		$Campo->GEN_CampoLocal_Activo = 1;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		if($Campo->GEN_CampoLocal_Tipo != "LIST"){

@@ -4,7 +4,7 @@
 
 <h1>Show Devolucion</h1>
 
-<p>{{ link_to_route('Devoluciones.index', 'Return to all Devoluciones') }}</p>
+<p>{{ link_to_route('Ventas.Devoluciones.index', 'Return to all Devoluciones') }}</p>
 
 <table class="table table-striped table-bordered">
 	<thead>
@@ -20,9 +20,9 @@
 			<td>{{{ $Devolucion->VEN_Devolucion_id }}}</td>
 					<td>{{{ $Devolucion->VEN_Devolucion_Codigo }}}</td>
 					<td>{{{ $Devolucion->VEN_Devolucion_Monto }}}</td>
-                    <td>{{ link_to_route('Devoluciones.edit', 'Edit', array($Devolucion->id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Ventas.Devoluciones.edit', 'Edit', array($Devolucion->id), array('class' => 'btn btn-info')) }}</td>
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Devoluciones.destroy', $Devolucion->id))) }}
+                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Ventas.Devoluciones.destroy', $Devolucion->id))) }}
                             {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>

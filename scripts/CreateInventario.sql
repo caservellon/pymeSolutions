@@ -338,11 +338,18 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Proveedor_CampoLocal` (
   `INV_Proveedor_CampoLocal_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Proveedor_INV_Proveedor_ID` INT NOT NULL,
   `INV_Proveedor_INV_Ciudad_ID` INT NOT NULL,
+  `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
   PRIMARY KEY (`INV_Proveedor_CampoLocal_ID`, `INV_Proveedor_INV_Proveedor_ID`, `INV_Proveedor_INV_Ciudad_ID`),
   INDEX `fk_INV_Proveedor_CampoLocal_INV_Proveedor1_idx` (`INV_Proveedor_INV_Proveedor_ID` ASC, `INV_Proveedor_INV_Ciudad_ID` ASC),
+  INDEX `fk_INV_Proveedor_CampoLocal_GEN_CampoLocal1_idx` (`GEN_CampoLocal_GEN_CampoLocal_ID` ASC),
   CONSTRAINT `fk_INV_Proveedor_CampoLocal_INV_Proveedor1`
     FOREIGN KEY (`INV_Proveedor_INV_Proveedor_ID` , `INV_Proveedor_INV_Ciudad_ID`)
     REFERENCES `pymeERP`.`INV_Proveedor` (`INV_Proveedor_ID` , `INV_Ciudad_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_INV_Proveedor_CampoLocal_GEN_CampoLocal1`
+    FOREIGN KEY (`GEN_CampoLocal_GEN_CampoLocal_ID`)
+    REFERENCES `pymeERP`.`GEN_CampoLocal` (`GEN_CampoLocal_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -354,7 +361,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`INV_Reporte` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Reporte` (
-  `INV_Reporte_ID` INT NOT NULL AUTO_INCREMENT COMMENT ' /* comment truncated */ /* /* comment truncated */ /*	*/*/',
+  `INV_Reporte_ID` INT NOT NULL AUTO_INCREMENT COMMENT ' /* comment truncated */ /* /* comment truncated */ /*  */*/',
   `INV_Reporte_Numero` DECIMAL(19,0) NULL DEFAULT NULL,
   `INV_Reporte_Encabezado` VARCHAR(512) NULL DEFAULT NULL,
   `INV_Reporte_FechaInicio` DATETIME NULL DEFAULT NULL,
@@ -482,5 +489,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_DetalleMovimiento` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
