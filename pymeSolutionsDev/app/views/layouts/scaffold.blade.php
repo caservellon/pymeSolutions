@@ -5,6 +5,8 @@
   <title>pymeSolutions</title>
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
   <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/css/bootstrap.min.css">
+  {{ HTML::script('/assets/javascript/script.js') }}
+  
 
 
 
@@ -29,9 +31,15 @@
       <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Solicitudes de Cotización</a></li>
+              <li><a href="/Compras/SolicitudCotizacion">Solicitudes de Cotización</a></li>
               <li><a href="#">Cotizaciones</a></li>
-              <li><a href="#">Ordenes de Compras</a></li>
+              <li><a href="#">**Ordenes de Compras</a></li>
+              <li><a href="/Compras/OrdenCompra/sinCotizacion/ListaProductos" >Crear Orden Compra sin Cotizacion</a></li>
+              <li><a href="/Compras/OrdenCompra/conCotizacion/ListaCotizaciones" >Comparar Cotizaciones</a></li>
+              <li><a href="/Compras/OrdenCompra/Autorizacion/ListaOrdenes" > Autorizar Orden Compra</a></li>
+              <li><a href="/Compras/OrdenCompra/Autorizacion/ListarOrdenes" > Administrar Orden Compra</a></li>
+              <li><a href="/Compras/OrdenCompra/GenerarPago/ListaCotizaciones" > generar pago Ordenes de  Compras</a></li>
+              <li><a href="/Compras/OrdenCompra/Historial/ListarOrdenes" > Historial Ordenes de  Compras</a></li>
               <li class="divider"></li>
               <li><a href="/Compras">Configuración</a></li>
             </ul>
