@@ -8,7 +8,8 @@
       </div>
 </div>
 {{ Form::model($Proveedor, array('method' => 'PATCH', 'route' => array('Inventario.Proveedor.update', $Proveedor->INV_Proveedor_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
-	<div class="form-group">
+	{{ Form::hidden('INV_Proveedor_ID') }}
+    <div class="form-group">
         {{ Form::label('INV_Proveedor_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
             {{ Form::text('INV_Proveedor_Codigo', $Proveedor->INV_Proveedor_Codigo, array('class' => 'form-control', 'id' => 'INV_Proveedor_Codigo', 'placeholder'=>'PROV-00001')) }}
@@ -68,12 +69,7 @@
         {{ Form::text('INV_Proveedor_RutaImagen',$Proveedor->INV_Proveedor_RutaImagen, array('class' => 'form-control', 'id' => 'INV_Proveedor_RutaImagen', 'placeholder' => 'Dir' )) }}
       </div>
     </div>
-    <div class="form-group">
-      {{ Form::label('INV_Ciudad_ID', 'Ciudad ID: *', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::select('INV_Ciudad_ID', $ciudades, $Proveedor->INV_Ciudad_ID, array('class' => 'form-control', 'id' => 'INV_Ciudad_ID', 'placeholder' => '#' )) }}
-      </div>
-    </div>
+   
     <div class="form-group">
       {{ Form::label('INV_Proveedor_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
@@ -116,6 +112,7 @@
 
 
 {{ Form::close() }}
+
 
 @if ($errors->any())
 	<ul>

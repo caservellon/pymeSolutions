@@ -8,6 +8,7 @@
       </div>
 </div>
 {{ Form::model($Producto, array('method' => 'PATCH', 'route' => array('Inventario.Productos.update', $Producto->INV_Producto_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
+        {{ Form::hidden('INV_Producto_ID') }}
     <div class="form-group">
       {{ Form::label('INV_Producto_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
@@ -176,7 +177,8 @@
       </div>
     </div>
 {{ Form::close() }}
-
+    
+  
 @if ($errors->any())
     <ul>
         {{ implode('', $errors->all('<li class="error">:message</li>')) }}

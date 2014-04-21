@@ -78,7 +78,6 @@
       </div>
     </div>
 
-
     <div class="form-group">
       {{ Form::label('INV_Proveedor_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">

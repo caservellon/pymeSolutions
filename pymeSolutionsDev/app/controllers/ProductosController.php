@@ -118,6 +118,19 @@ class ProductosController extends BaseController {
 		return View::make('Productos.show', compact('Producto'));
 	}
 
+	public function campolocalsave()
+	{
+		$nombreCampo = Input::get('nombre');
+		$idProducto = Input::get('codigoprod');
+		$valorCampo = Input::get('valor');
+
+		DB::table('INV_Producto_CampoLocal')
+			->where('INV_Producto_ID', $idProducto)
+			->update(array('INV_Producto_CampoLocal_Valor' => $valorCampo));
+
+		return $valorCampo;
+	}
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *

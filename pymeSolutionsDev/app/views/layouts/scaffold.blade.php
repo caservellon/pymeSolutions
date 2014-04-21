@@ -10,7 +10,7 @@
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
 
 </head>
-<body>
+<body style="margin-top: 50px">
   <header>
   <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
     <a class="navbar-brand" href="#">pyme Solutions</a>
@@ -65,6 +65,15 @@
               <li>
                 {{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
               </li>
+              <li>
+                {{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.MotivoMovimiento.index', 'Motivo Movimiento Inventario')}}
+              </li>
+              <li><a href="#">Inventario</a></li>
+              <li><a href="#">Categorias</a></li>
+              <li><a href="#">Atributos</a></li>
               <li class="divider"></li>
               <li>
                  <a href="/Inventario">Configuración</a>

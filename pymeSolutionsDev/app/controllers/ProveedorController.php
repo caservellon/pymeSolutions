@@ -28,39 +28,30 @@ class ProveedorController extends BaseController {
 
 	public function search_index(){
 
- 		/*$Proveedor = Proveedor::where('INV_Proveedor_Nombre', '=', Input::get('search'))
-		->orWhere('INV_Proveedor_Codigo', '=', Input::get('search'))
-		->orWhere('INV_Proveedor_RepresentanteVentas', '=', Input::get('search'))	
-		->get(); 
-
-		if($Proveedor->count() == 0){	
- 		$Proveedor = Proveedor::where('INV_Ciudad_ID', '=', Ciudad::where('INV_Ciudad_Nombre', '=', Input::get('search'))->firstOrFail()->INV_Ciudad_ID)->get();
-		} 
-
-		//$Proveedor = Proveedor::where('INV_Proveedor_ID', '=', DB::table('INV_Producto_Proveedor')->where('INV_Producto_ID', '=',  Producto::where('INV_Producto_Nombre', '=', Input::get('search'))->first()->INV_Producto_ID)->firstOrFail()->INV_Proveedor_ID)->get();
-
-		return View::make('Proveedor.index', compact('Proveedor'));*/
-		
-//---------------------------------------------------------------------------------------------------------------
-		$Proveedor = Proveedor::where('INV_Proveedor_Nombre', '=', Input::get('search'))
+		//Querys de las columnas propias de Proveedor
+		$Proveedor = Proveedor::where('INV_Proveedor_Nombre', '=', Input::get('search')) 
 		->orWhere('INV_Proveedor_Codigo', '=', Input::get('search'))
 		->orWhere('INV_Proveedor_RepresentanteVentas', '=', Input::get('search'))	
 		->get();	
 
+		//Querys de las columnas que tiene relacion con la tabla Proveedor
 		$queryCiudad = DB::select('SELECT INV_Ciudad_ID FROM INV_Ciudad WHERE INV_Ciudad_Nombre = ?', array(Input::get('search')));
 		$queryProducto = DB::select('SELECT INV_Proveedor_ID FROM INV_Producto_Proveedor WHERE INV_Producto_ID = (SELECT INV_Producto_ID FROM INV_Producto WHERE INV_Producto_Nombre = ?)', array(Input::get('search')));
 
-
+		//Se evalua si la Query trae algo
 		if(!empty($queryCiudad)){
 			$temp = array();
+			//En un arreglo 'temp' se capturan los ID de esas columnas que devolvio la Query
 			foreach ($queryCiudad as $qC) {
 				array_push($temp, $qC->INV_Ciudad_ID);
 			}
 			$Proveedor = Proveedor::whereIn('INV_Ciudad_ID', $temp)->get();
 		}
-
+		
+		//Se evalua si la Query trae algo
 		if(!empty($queryProducto)){
 			$temp = array();
+			//En un arreglo 'temp' se capturan los ID de esas columnas que devolvio la Query
 			foreach ($queryProducto as $qP) {
 				array_push($temp, $qP->INV_Proveedor_ID);
 			}
@@ -121,6 +112,7 @@ class ProveedorController extends BaseController {
 
 		if ($validation->passes())
 		{
+
 			$prove = $this->Proveedor->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo')));
 			foreach ($campos as $campo) {
 				DB::table('INV_Proveedor_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Proveedor_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'INV_Proveedor_INV_Proveedor_ID' => $prove->INV_Proveedor_ID, 'INV_Proveedor_INV_Ciudad_ID' => $prove->INV_Ciudad_ID));
@@ -132,6 +124,53 @@ class ProveedorController extends BaseController {
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
+
+	}
+
+	/*public function store_cam(){
+		
+	
+		$input = Input::all();
+		$validation = Validator::make($input, Proveedor::$rules);
+		if ($validation->passes())
+		{
+		 	$proveedorTemporal = $this->Proveedor->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo')));
+			if($proveedorTemporal){
+				$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->get();
+ 				foreach ($campos as $campo) {
+ 					$iniput =Input::get($campo->GEN_CampoLocal_Codigo);
+ 					if ($iniput) {
+ 						$valorCampo = new ProveedorCampoLocal;
+ 						$valorCampo->INV_Proveedor_CampoLocal_Valor = $iniput;
+ 						$valorCampo->INV_Proveedor_INV_Proveedor_ID = $proveedorTemporal->INV_Proveedor_ID;
+ 						$valorCampo->INV_Proveedor_INV_Ciudad_ID = $proveedorTemporal->INV_Ciudad_ID;
+ 						$valorCampo->GEN_CampoLocal_GEN_CampoLocal_ID = $campo->GEN_CampoLocal_ID;
+ 						$valorCampo->save();
+ 					
+ 					} elseif ($campo->GEN_CampoLocal_Requerido) {
+ 						return Redirect::route('Inventario.Proveedor.create')
+ 							->withInput()
+ 							->withErrors($validation)
+ 							->with('message', 'Algunos campos requeridos no han sido completados.');
+ 					}
+ 				}
+			}
+			
+		}
+		
+	}*/
+
+	public function campolocalsave()
+	{
+		$nombreCampo = Input::get('nombre');
+		$idProveedor = Input::get('codigoprod');
+		$valorCampo = Input::get('valor');
+
+		DB::table('INV_Proveedor_CampoLocal')
+			->where('INV_Proveedor_INV_Proveedor_ID', $idProveedor)
+			->update(array('INV_Proveedor_CampoLocal_Valor' => $valorCampo));
+
+		return $valorCampo;
 	}
 
 	/**
