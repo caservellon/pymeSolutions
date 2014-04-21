@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Proveedor &gt; <small>Editar Proveedor</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 {{ Form::model($Proveedor, array('method' => 'PATCH', 'route' => array('Inventario.Proveedor.update', $Proveedor->INV_Proveedor_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
@@ -78,11 +78,31 @@
     </div>
     {{ Form::hidden('INV_Proveedor_FechaModificacion', date('Y-m-d H:i:s')) }}
 
+<<<<<<< HEAD
+=======
+    <div class="page-header clearfix">
+      <h3 class="pull-left">Proveedor &gt; <small>Campos Locales</small></h3>
+    </div>
+        
+        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRV%')->get() as $campo)
+            <div class="form-group">
+                {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+                @if ($campo->GEN_CampoLocal_Requerido)
+                    <label>Requerido</label>
+                @endif
+                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                    <div class="col-md-5">
+                        {{ Form::text($campo->GEN_CampoLocal_Codigo, ProveedorCampoLocal::where('INV_Proveedor_CampoLocal_ID', $campo->GEN_CampoLocal_ID)->first()->INV_Proveedor_CampoLocal_Valor, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                    </div>
+                @endif
+            </div> 
+        @endforeach
+>>>>>>> 775db16d4cbc4bdbea5ae452b10cd3df20cb6eec
 
 
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 

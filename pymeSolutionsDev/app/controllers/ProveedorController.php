@@ -70,8 +70,9 @@ class ProveedorController extends BaseController {
 	public function create()
 	{
 		$ciudades = Ciudad::all()->lists('INV_Ciudad_Nombre', 'INV_Ciudad_ID');
-		$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_ID');
-		return View::make('Proveedor.create', compact('ciudades','productos'));
+		//$valores = CampoLocalLista::all()->lists('GEN_CampoLocalLista_Valor', 'GEN_CampoLocalLista_ID');
+		//$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_ID');
+		return View::make('Proveedor.create', compact('ciudades'));
 	}
 
 	/**
@@ -109,6 +110,39 @@ class ProveedorController extends BaseController {
  					}
  				}
 			}
+<<<<<<< HEAD
+=======
+
+			//$this->Proveedor->create($input);
+			
+			/*
+
+			$Proveedor = new Proveedor;
+			$Proveedor->INV_Proveedor_Codigo = Input::get('INV_Proveedor_Codigo');
+			$Proveedor->INV_Proveedor_Nombre = Input::get('INV_Proveedor_Nombre');
+			$Proveedor->INV_Proveedor_Direccion = Input::get('INV_Proveedor_Direccion');
+			$Proveedor->INV_Proveedor_Telefono = Input::get('INV_Proveedor_Telefono');
+			$Proveedor->INV_Proveedor_Activo = Input::get('INV_Proveedor_Activo');
+			$Proveedor->INV_Proveedor_Email = Input::get('INV_Proveedor_Email');
+			$Proveedor->INV_Proveedor_PaginaWeb = Input::get('INV_Proveedor_PaginaWeb');
+			$Proveedor->INV_Proveedor_RepresentanteVentas = Input::get('INV_Proveedor_RepresentanteVentas');
+			$Proveedor->INV_Proveedor_TelefonoRepresentanteVentas = Input::get('INV_Proveedor_TelefonoRepresentanteVentas');
+			$Proveedor->INV_Proveedor_Comentarios = Input::get('INV_Proveedor_Comentarios');
+			$Proveedor->INV_Proveedor_RutaImagen = Input::get('INV_Proveedor_RutaImagen');
+			$Proveedor->INV_Ciudad_ID = Input::get('INV_Ciudad_ID');
+			$Proveedor->INV_Proveedor_FechaCreacion = date('Y-m-d H:i:s');
+			$Proveedor->INV_Proveedor_FechaModificacion = date('Y-m-d H:i:s');
+			$Proveedor->save();
+
+			
+
+			DB::table('INV_Producto_Proveedor')->insert(
+    		array('INV_Producto_ID' => Input::get('INV_Producto_Nombre'),
+    			   'INV_Proveedor_ID' => DB::table('INV_Proveedor')->count()
+			));
+
+			*/
+>>>>>>> 775db16d4cbc4bdbea5ae452b10cd3df20cb6eec
 			return Redirect::route('Inventario.Proveedor.index');
 		}
 

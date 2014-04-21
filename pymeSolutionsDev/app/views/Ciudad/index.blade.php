@@ -37,10 +37,10 @@
 					<td>{{{ $Ciudad->INV_Ciudad_FechaModificacion }}}</td>
 					<td>{{{ $Ciudad->INV_Ciudad_UsuarioModificacion }}}</td>
 					<td>{{{ ($Ciudad->INV_Ciudad_Activo ? 'Activa' : 'Desactivada') }}}</td>
-                    <td>{{ link_to_route('Inventario.Ciudad.edit', 'Edit', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    <td>{{ link_to_route('Inventario.Ciudad.edit', 'Editar', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Ciudad.destroy', $Ciudad->INV_Ciudad_ID))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

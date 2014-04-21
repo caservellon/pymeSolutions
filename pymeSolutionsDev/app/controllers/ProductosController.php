@@ -22,15 +22,17 @@ class ProductosController extends BaseController {
 	public function index()
 	{
 		$Productos = $this->Producto->all();
-
-		return View::make('Productos.index', compact('Productos'));
+		$CamposLocales = CampoLocal::where("GEN_CampoLocal_Codigo","LIKE","INV_PRD%")->get();
+		$arrayTemp = array();
+		foreach ($CamposLocales as $CL) {
+			array_push($arrayTemp, $CL->GEN_CampoLocal_ID);
+		}
+		$ValoresCampLoc = ProductoCampoLocal::whereBetween('GEN_CampoLocal_GEN_CampoLocal_ID', $arrayTemp)->get();
+		
+		return View::make('Productos.index', compact('Productos','CamposLocales', 'ValoresCampLoc'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+	
 	public function create()
 	{
 		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
@@ -88,7 +90,10 @@ class ProductosController extends BaseController {
 			}
 			return Redirect::route('Inventario.Productos.index');
 		}
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 775db16d4cbc4bdbea5ae452b10cd3df20cb6eec
 
 		return Redirect::route('Inventario.Productos.create')
 			->withInput()
@@ -195,5 +200,4 @@ class ProductosController extends BaseController {
 		$result = $query;
 		return $result;
 	}
-
 }

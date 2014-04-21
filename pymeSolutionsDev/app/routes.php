@@ -46,6 +46,32 @@ Route::group(array('prefix' => 'Inventario'), function()
 	
 	Route::post('Proveedor/search_index', array('as' => 'Proveedor.search_index', 'uses' =>'ProveedorController@search_index'));
 
+	Route::resource('DetalleMovimiento', 'DetallemovimientosController');
+
+	Route::resource('SalidaInventario', 'SalidaInventariosController');
+
+	Route::resource('DetalleSalida', 'DetalleSalidasController');
+
+	Route::get('DetalleMovimiento/Agregar/{id}', array('as' => 'Inventario.DetalleMovimiento.Agregar', 'uses' =>'DetallemovimientosController@agregar'));
+
+	Route::get('DetalleMovimiento/Detalles/{id}', array('as' => 'Inventario.MovimientoInventario.Detalles', 'uses' =>'MovimientoinventariosController@detalles'));
+
+	Route::get('DetalleMovimiento/Terminar/{id}', array('as' => 'Inventario.MovimientoInventario.Terminar', 'uses' =>'MovimientoinventariosController@detalles'));
+
+	Route::post('DetalleMovimiento/search', array('as' => 'Inventario.DetalleMovimiento.search', 'uses' =>'DetallemovimientosController@search'));
+
+	Route::resource('MotivoMovimiento', 'MotivomovimientosController');
+
+	Route::get('MovimientoInventario/Salida', array('as' => 'Inventario.MovimientoInventario.Salida', 'uses' =>'MovimientoinventariosController@salidas'));
+
+	Route::get('MovimientoInventario/Entrada', array('as' => 'Inventario.MovimientoInventario.Entrada', 'uses' =>'MovimientoinventariosController@entradas'));
+
+	Route::get('DetalleSalida/Agregar/{id}', array('as' => 'Inventario.DetalleSalida.Agregar', 'uses' =>'DetalleSalidasController@agregar'));
+
+	Route::resource('MovimientoInventario', 'MovimientoinventariosController');
+
+	Route::post('DetalleSalida/search', array('as' => 'Inventario.DetalleSalida.search', 'uses' =>'DetalleSalidasController@search'));
+
 });
    
 
