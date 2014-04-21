@@ -27,7 +27,7 @@ class CampoLocalsController extends BaseController {
 	{
 		$validation = true;
 		$Campo = new CampoLocal;
-		$Campo->GEN_CampoLocal_Activo = true;
+		$Campo->GEN_CampoLocal_Activo = 1;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
@@ -39,7 +39,13 @@ class CampoLocalsController extends BaseController {
 			$Campo->GEN_CampoLocal_Codigo = $Codigo;
 		}
 		if ($validation) {
-
+			$index = 0;
+			$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo)->get()->count();
+			while($count > 0){
+				$index = $index + 1;
+				$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo . $index )->get()->count();
+			}
+			$Campo->GEN_CampoLocal_Codigo = $index == 0 ? $Campo->GEN_CampoLocal_Codigo: $Campo->GEN_CampoLocal_Codigo . $index;
 			if($Campo->save()){
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
 					$oneList = Input::get('value-list-array');
@@ -50,7 +56,7 @@ class CampoLocalsController extends BaseController {
 						$ListItem->GEN_CampoLocal_GEN_CampoLocal_ID = $Campo->GEN_CampoLocal_ID;
 						$ListItem->save();
 					}
-					
+
 				}
 			}
 			return Redirect::route('Inventario.CampoLocals.index');
@@ -77,7 +83,7 @@ class CampoLocalsController extends BaseController {
 		{
 			return Redirect::route('Inventario.CampoLocals.index');
 		}
-		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'CRM_EP', 6) == 0? 'EP':'PS';
+		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'INV_PRD', 6) == 0? 'PRD':'PRV';
 		$CampoLocalLista = null;
 		$stringConcat = "";
 		if ($CampoLocal->GEN_CampoLocal_Tipo == "LIST") {

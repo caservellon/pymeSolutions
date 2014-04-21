@@ -87,16 +87,23 @@
     </div>
         
         @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRV%')->get() as $campo)
-            <div class="form-group">
+            <div class="campo-local-tipo form-group">
                 {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
                 @if ($campo->GEN_CampoLocal_Requerido)
-                    <label>Requerido</label>
+                    <label>*</label>
                 @endif
-                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-                    <div class="col-md-5">
-                        {{ Form::text($campo->GEN_CampoLocal_Codigo, ProveedorCampoLocal::where('INV_Proveedor_CampoLocal_ID', $campo->GEN_CampoLocal_ID)->first()->INV_Proveedor_CampoLocal_Valor, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
-                    </div>
-                @endif
+                <div class="col-md-5">
+                    @if ($campo->GEN_CampoLocal_Tipo == 'TXT' || $campo->GEN_CampoLocal_Tipo == 'INT' || $campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        @if (DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->count() > 0 )
+                            {{ Form::text($campo->GEN_CampoLocal_Codigo,DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->first()->INV_Proveedor_CampoLocal_Valor, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
+                        @else
+                            {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
+                        @endif
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}
+                    @endif
+                </div>
             </div> 
         @endforeach
 

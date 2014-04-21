@@ -26,7 +26,6 @@
 				<th>ID</th>
 				<th>Codigo</th>
 				<th>Nombre</th>
-
 				<th>Direccion</th>
 				<th>Telefono</th>
 				<th>Email</th>
@@ -49,7 +48,6 @@
 					<td>{{{ $Proveedor->INV_Proveedor_ID }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Codigo }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Nombre }}}</td>
-
 					<td>{{{ $Proveedor->INV_Proveedor_Direccion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Telefono }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Email }}}</td>
@@ -63,6 +61,15 @@
 					<td>{{{ $Proveedor->INV_Proveedor_FechaModificacion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_UsuarioModificacion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Activo ? 'Activa' : 'Desactivada' }}}</td>
+
+					@foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRV%')->get() as $campo)
+					    @if (DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->count() > 0 )
+					    	<td>{{{ DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->first()->INV_Proveedor_CampoLocal_Valor }}}</td>
+					    @else
+					    	<td></td>
+					    @endif
+					@endforeach
+
                     <td>{{ link_to_route('Inventario.Proveedor.edit', 'Editar', array($Proveedor->INV_Proveedor_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Proveedor.destroy', $Proveedor->INV_Proveedor_ID))) }}

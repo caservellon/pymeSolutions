@@ -79,11 +79,12 @@
 					<td>{{{ $Producto->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Producto->INV_UnidadMedida_ID }}}</td>
 					<td>{{{ $Producto->INV_HorarioBloqueo_ID }}}</td>
-					@foreach($ValoresCampLoc as $VCL)
-						@if($VCL->INV_Producto_ID === $Producto->INV_Producto_ID)
-							{{ $isEmpty = false }}
-							<td>{{{ $VCL->INV_Producto_CampoLocal_Valor }}}</td>
-						@endif
+					@foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get() as $campo)
+					    @if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 )
+					    	<td>{{{ DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->first()->INV_Producto_CampoLocal_Valor }}}</td>
+					    @else
+					    	<td></td>
+					    @endif
 					@endforeach
 					@if($isEmpty)
 						<td></td>

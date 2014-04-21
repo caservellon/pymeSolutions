@@ -64,29 +64,37 @@ class ProductosController extends BaseController {
 	{
 
 		$input = Input::all();
-		$validation = Validator::make($input, Producto::$rules);
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->get();
+		$res = Producto::$rules;
+
+		foreach ($campos as $campo) {
+			$val = '';
+			if ($campo->GEN_CampoLocal_Requerido) {
+				$val = $val.'Required|';
+			}
+			switch ($campo->GEN_CampoLocal_Tipo) {
+				case 'TXT':
+					$val = $val.'alpha_spaces|';
+					break;				
+				case 'INT':
+					$val = $val.'Integer|';
+					break;
+				case 'FLOAT':
+					$val = $val.'Numeric|';
+					break;				
+				default:
+					break;
+			}
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+		}
+
+		$validation = Validator::make($input, $res);
+
 		if ($validation->passes())
 		{
-			$productoTemporal = $this->Producto->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->lists('GEN_CampoLocal_Codigo')));
-			if($productoTemporal){
-				$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->get();
- 				foreach ($campos as $campo) {
- 					$iniput =Input::get($campo->GEN_CampoLocal_Codigo);
- 					if ($iniput) {
- 						$valorCampo = new ProductoCampoLocal;
- 						$valorCampo->INV_Producto_CampoLocal_Valor = $iniput;
- 						$valorCampo->INV_Producto_ID = $productoTemporal->INV_Producto_ID;
- 						$valorCampo->GEN_CampoLocal_GEN_CampoLocal_ID = $campo->GEN_CampoLocal_ID;
- 						$valorCampo->save();
- 						//DB::table('INV_Producto_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
- 						//return Redirect::route('Empresas.index');
- 					} elseif ($campo->GEN_CampoLocal_Requerido) {
- 						return Redirect::route('Inventario.Producto.create')
- 							->withInput()
- 							->withErrors($validation)
- 							->with('message', 'Algunos campos requeridos no han sido completados.');
- 					}
- 				}
+			$produ = $this->Producto->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->lists('GEN_CampoLocal_Codigo')));
+			foreach ($campos as $campo) {
+				DB::table('INV_Producto_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'INV_Producto_ID' => $produ->INV_Producto_ID));
 			}
 			return Redirect::route('Inventario.Productos.index');
 		}
@@ -140,15 +148,43 @@ class ProductosController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = Input::except('_method');
-		$validation = Validator::make($input, Producto::$rules);
+		$input = array_except(Input::all(), '_method');
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->get();
+		$res = Producto::$rules;
+
+		foreach ($campos as $campo) {
+			$val = '';
+			if ($campo->GEN_CampoLocal_Requerido) {
+				$val = $val.'Required|';
+			}
+			switch ($campo->GEN_CampoLocal_Tipo) {
+				case 'TXT':
+					$val = $val.'alpha_spaces|';
+					break;				
+				case 'INT':
+					$val = $val.'Integer|';
+					break;
+				case 'FLOAT':
+					$val = $val.'Numeric|';
+					break;				
+				default:
+					break;
+			}
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+		}
+
+		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
 		{
 			$Producto = $this->Producto->find($id);
-			$Producto->update($input);
-
-			return Redirect::route('Inventario.Productos.show', $id);
+			$Producto->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->lists('GEN_CampoLocal_Codigo')));
+			foreach ($campos as $campo) {
+				if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 ) {
+				    DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->update(array('INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				}
+			}
+			return Redirect::route('Inventario.Productos.index', $id);
 		}
 
 		return Redirect::route('Inventario.Productos.edit', $id)

@@ -93,63 +93,41 @@ class ProveedorController extends BaseController {
 	{
 
 		$input = Input::all();
-		$validation = Validator::make($input, Proveedor::$rules);
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->get();
+		$res = Proveedor::$rules;
+
+		foreach ($campos as $campo) {
+			$val = '';
+			if ($campo->GEN_CampoLocal_Requerido) {
+				$val = $val.'Required|';
+			}
+			switch ($campo->GEN_CampoLocal_Tipo) {
+				case 'TXT':
+					$val = $val.'alpha_spaces|';
+					break;				
+				case 'INT':
+					$val = $val.'Integer|';
+					break;
+				case 'FLOAT':
+					$val = $val.'Numeric|';
+					break;				
+				default:
+					break;
+			}
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+		}
+
+		$validation = Validator::make($input, $res);
+
 		if ($validation->passes())
 		{
-			$proveedorTemporal = $this->Proveedor->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo')));
-			if($proveedorTemporal){
-				$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->get();
- 				foreach ($campos as $campo) {
- 					$iniput =Input::get($campo->GEN_CampoLocal_Codigo);
- 					if ($iniput) {
- 						$valorCampo = new ProveedorCampoLocal;
- 						$valorCampo->INV_Proveedor_CampoLocal_Valor = $iniput;
- 						$valorCampo->INV_Proveedor_INV_Proveedor_ID = $proveedorTemporal->INV_Proveedor_ID;
- 						$valorCampo->INV_Proveedor_INV_Ciudad_ID = $proveedorTemporal->INV_Ciudad_ID;
- 						$valorCampo->GEN_CampoLocal_GEN_CampoLocal_ID = $campo->GEN_CampoLocal_ID;
- 						$valorCampo->save();
- 						//DB::table('INV_Producto_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
- 						//return Redirect::route('Empresas.index');
- 					} elseif ($campo->GEN_CampoLocal_Requerido) {
- 						return Redirect::route('Inventario.Proveedor.create')
- 							->withInput()
- 							->withErrors($validation)
- 							->with('message', 'Algunos campos requeridos no han sido completados.');
- 					}
- 				}
+			$prove = $this->Proveedor->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo')));
+			foreach ($campos as $campo) {
+				DB::table('INV_Proveedor_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Proveedor_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'INV_Proveedor_INV_Proveedor_ID' => $prove->INV_Proveedor_ID, 'INV_Proveedor_INV_Ciudad_ID' => $prove->INV_Ciudad_ID));
 			}
-
-			//$this->Proveedor->create($input);
-			
-			/*
-
-			$Proveedor = new Proveedor;
-			$Proveedor->INV_Proveedor_Codigo = Input::get('INV_Proveedor_Codigo');
-			$Proveedor->INV_Proveedor_Nombre = Input::get('INV_Proveedor_Nombre');
-			$Proveedor->INV_Proveedor_Direccion = Input::get('INV_Proveedor_Direccion');
-			$Proveedor->INV_Proveedor_Telefono = Input::get('INV_Proveedor_Telefono');
-			$Proveedor->INV_Proveedor_Activo = Input::get('INV_Proveedor_Activo');
-			$Proveedor->INV_Proveedor_Email = Input::get('INV_Proveedor_Email');
-			$Proveedor->INV_Proveedor_PaginaWeb = Input::get('INV_Proveedor_PaginaWeb');
-			$Proveedor->INV_Proveedor_RepresentanteVentas = Input::get('INV_Proveedor_RepresentanteVentas');
-			$Proveedor->INV_Proveedor_TelefonoRepresentanteVentas = Input::get('INV_Proveedor_TelefonoRepresentanteVentas');
-			$Proveedor->INV_Proveedor_Comentarios = Input::get('INV_Proveedor_Comentarios');
-			$Proveedor->INV_Proveedor_RutaImagen = Input::get('INV_Proveedor_RutaImagen');
-			$Proveedor->INV_Ciudad_ID = Input::get('INV_Ciudad_ID');
-			$Proveedor->INV_Proveedor_FechaCreacion = date('Y-m-d H:i:s');
-			$Proveedor->INV_Proveedor_FechaModificacion = date('Y-m-d H:i:s');
-			$Proveedor->save();
-
-			
-
-			DB::table('INV_Producto_Proveedor')->insert(
-    		array('INV_Producto_ID' => Input::get('INV_Producto_Nombre'),
-    			   'INV_Proveedor_ID' => DB::table('INV_Proveedor')->count()
-			));
-
-			*/
 			return Redirect::route('Inventario.Proveedor.index');
 		}
+
 		return Redirect::route('Inventario.Proveedor.create')
 			->withInput()
 			->withErrors($validation)
@@ -196,16 +174,43 @@ class ProveedorController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = Input::except('_method');
-		$validation = Validator::make($input, Proveedor::$rules);
+		$input = array_except(Input::all(), '_method');
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->get();
+		$res = Proveedor::$rules;
+
+		foreach ($campos as $campo) {
+			$val = '';
+			if ($campo->GEN_CampoLocal_Requerido) {
+				$val = $val.'Required|';
+			}
+			switch ($campo->GEN_CampoLocal_Tipo) {
+				case 'TXT':
+					$val = $val.'alpha_spaces|';
+					break;				
+				case 'INT':
+					$val = $val.'Integer|';
+					break;
+				case 'FLOAT':
+					$val = $val.'Numeric|';
+					break;				
+				default:
+					break;
+			}
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+		}
+
+		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
 		{
 			$Proveedor = $this->Proveedor->find($id);
-			$Proveedor->INV_Proveedor_Activo = Input::get('INV_Proveedor_Activo');
-			$Proveedor->update($input);
-
-			return Redirect::route('Inventario.Proveedor.show', $id);
+			$Proveedor->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo')));
+			foreach ($campos as $campo) {
+				if (DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->count() > 0 ) {
+				    DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->update(array('INV_Proveedor_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				}
+			}
+			return Redirect::route('Inventario.Proveedor.index', $id);
 		}
 
 		return Redirect::route('Inventario.Proveedor.edit', $id)

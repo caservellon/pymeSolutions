@@ -146,22 +146,24 @@
     </div>
 
 
-      @foreach(DB::table('INV_Producto_CampoLocal')->join('GEN_CampoLocal', 'INV_Producto_CampoLocal.GEN_CampoLocal_GEN_CampoLocal_ID', '=', 'GEN_CampoLocal_ID')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get() as $prodcampos)
-      @endforeach
-
-
-        
-        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get() as $campo)
-            <div class="form-group">
+      @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get() as $campo)
+            <div class="campo-local-tipo form-group">
                 {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
                 @if ($campo->GEN_CampoLocal_Requerido)
-                    <label>Requerido</label>
+                    <label>*</label>
                 @endif
-                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-                    <div class="col-md-5">
-                      {{ Form::text($campo->GEN_CampoLocal_Codigo, ProductoCampoLocal::where('GEN_CampoLocal_GEN_CampoLocal_ID', $campo->GEN_CampoLocal_ID)->first()->INV_Producto_CampoLocal_Valor, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
-                    </div>
-                @endif
+                <div class="col-md-5">
+                    @if ($campo->GEN_CampoLocal_Tipo == 'TXT' || $campo->GEN_CampoLocal_Tipo == 'INT' || $campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        @if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 )
+                            {{ Form::text($campo->GEN_CampoLocal_Codigo,DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->first()->INV_Producto_CampoLocal_Valor, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
+                        @else
+                            {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
+                        @endif
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}
+                    @endif
+                </div>
             </div> 
         @endforeach
 
