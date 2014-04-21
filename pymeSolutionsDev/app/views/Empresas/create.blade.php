@@ -9,7 +9,7 @@
       </div>
 </div>
 
-{{ Form::open(array('route' => 'Empresas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
+{{ Form::open(array('route' => 'CRM.Empresas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
         <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:', array('class' => 'col-md-2 control-label')) }}

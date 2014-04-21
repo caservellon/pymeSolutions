@@ -127,6 +127,8 @@ Route::group(array('prefix' => 'CRM'), function(){
 		return View::make('Menus.crm');
 	});
 
+	Route::resource('Empresas', 'EmpresasController');
+	
 	Route::resource('Personas', 'PersonasController');
 
 	Route::resource('TipoDocumentos', 'TipoDocumentosController');
@@ -191,6 +193,3 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 
 Route::resource('tipodocumentos', 'TipodocumentosController');
-
-Route::resource('Empresas', 'EmpresasController');
-
