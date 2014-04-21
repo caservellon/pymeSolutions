@@ -88,10 +88,6 @@ class ProductosController extends BaseController {
 			}
 			return Redirect::route('Inventario.Productos.index');
 		}
-
-		
- 		
-
 		
 
 		return Redirect::route('Inventario.Productos.create')
@@ -111,6 +107,19 @@ class ProductosController extends BaseController {
 		$Producto = $this->Producto->findOrFail($id);
 
 		return View::make('Productos.show', compact('Producto'));
+	}
+
+	public function campolocalsave()
+	{
+		$nombreCampo = Input::get('nombre');
+		$idProducto = Input::get('codigoprod');
+		$valorCampo = Input::get('valor');
+
+		DB::table('INV_Producto_CampoLocal')
+			->where('INV_Producto_ID', $idProducto)
+			->update(array('INV_Producto_CampoLocal_Valor' => $valorCampo));
+
+		return $valorCampo;
 	}
 
 	/**

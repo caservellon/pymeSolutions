@@ -26,8 +26,8 @@
 				<th>ID</th>
 				<th>Codigo</th>
 				<th>Nombre</th>
-				<th>Producto</th>
-				<th>Ciudad</th>
+		
+				<th>Ciudad</th> 
 				<th>Direccion</th>
 				<th>Telefono</th>
 				<th>Email</th>
@@ -50,7 +50,7 @@
 					<td>{{{ $Proveedor->INV_Proveedor_ID }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Codigo }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Nombre }}}</td>
-					<td>{{{ Producto::find(DB::table('INV_Producto_Proveedor')->where('INV_Proveedor_ID', '=', $Proveedor->INV_Proveedor_ID)->first()->INV_Producto_ID)->INV_Producto_Nombre }}} </td>
+					
 					<td>{{{ Ciudad::find($Proveedor->INV_Ciudad_ID)->INV_Ciudad_Nombre }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Direccion }}}</td>
 					<td>{{{ $Proveedor->INV_Proveedor_Telefono }}}</td>

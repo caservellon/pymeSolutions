@@ -8,7 +8,8 @@
       </div>
 </div>
 {{ Form::model($Proveedor, array('method' => 'PATCH', 'route' => array('Inventario.Proveedor.update', $Proveedor->INV_Proveedor_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
-	<div class="form-group">
+	{{ Form::hidden('INV_Proveedor_ID') }}
+    <div class="form-group">
         {{ Form::label('INV_Proveedor_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
             {{ Form::text('INV_Proveedor_Codigo', $Proveedor->INV_Proveedor_Codigo, array('class' => 'form-control', 'id' => 'INV_Proveedor_Codigo', 'placeholder'=>'PROV-00001')) }}
@@ -68,12 +69,7 @@
         {{ Form::text('INV_Proveedor_RutaImagen',$Proveedor->INV_Proveedor_RutaImagen, array('class' => 'form-control', 'id' => 'INV_Proveedor_RutaImagen', 'placeholder' => 'Dir' )) }}
       </div>
     </div>
-    <div class="form-group">
-      {{ Form::label('INV_Ciudad_ID', 'Ciudad ID: *', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::select('INV_Ciudad_ID', $ciudades, $Proveedor->INV_Ciudad_ID, array('class' => 'form-control', 'id' => 'INV_Ciudad_ID', 'placeholder' => '#' )) }}
-      </div>
-    </div>
+   
     <div class="form-group">
       {{ Form::label('INV_Proveedor_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
@@ -81,12 +77,36 @@
       </div>
     </div>
     {{ Form::hidden('INV_Proveedor_FechaModificacion', date('Y-m-d H:i:s')) }}
+
+
+
     <div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>
     </div>
+
+
 {{ Form::close() }}
+
+ <div class="page-header clearfix">
+      <h3 class="pull-left">Proveedor &gt; <small>Campos Locales</small></h3>
+    </div>
+        <div class="campos-locales">
+        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRV%')->get() as $campo)
+            <div class="form-group">
+                {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+                @if ($campo->GEN_CampoLocal_Requerido)
+                    <label>Requerido</label>
+                @endif
+                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                    <div class="col-md-5">
+                        {{ Form::text($campo->GEN_CampoLocal_Codigo, ProveedorCampoLocal::where('INV_Proveedor_CampoLocal_ID', $campo->GEN_CampoLocal_ID)->first()->INV_Proveedor_CampoLocal_Valor, array('class' => 'form-control input-campo-local', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                    </div>
+                @endif
+            </div> 
+        @endforeach
+    </div>
 
 @if ($errors->any())
 	<ul>

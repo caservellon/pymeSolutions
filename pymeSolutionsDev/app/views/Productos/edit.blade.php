@@ -8,6 +8,7 @@
       </div>
 </div>
 {{ Form::model($Producto, array('method' => 'PATCH', 'route' => array('Inventario.Productos.update', $Producto->INV_Producto_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
+        {{ Form::hidden('INV_Producto_ID') }}
     <div class="form-group">
       {{ Form::label('INV_Producto_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
@@ -140,6 +141,7 @@
         {{ Form::select('INV_HorarioBloqueo_ID', $horarios,$Producto->INV_HorarioBloqueo_ID, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
+
     {{ Form::hidden('INV_Producto_FechaModificacion', date('Y-m-d H:i:s')) }}
     <div class="form-group">
       <div class="col-md-5">
@@ -148,7 +150,26 @@
       </div>
     </div>
 {{ Form::close() }}
-
+    
+  <div class="page-header clearfix">
+    <h3 class="pull-left">Producto &gt; <small>Campos Locales</small></h3>
+  </div class="campos-locales">
+      <div>
+      @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get() as $campo)
+          <div class="form-group">
+              {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+              @if ($campo->GEN_CampoLocal_Requerido)
+                  <label>Requerido</label>
+              @endif
+              @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                  <div class="col-md-5">
+                    {{ Form::text($campo->GEN_CampoLocal_Codigo, DB::table('INV_Producto_CampoLocal')->where('INV_Producto_ID', $Producto->INV_Producto_ID)->first()->INV_Producto_CampoLocal_Valor , array('class' => 'form-control input-campo-local', 'id' => $campo->GEN_CampoLocal_Codigo, 'placeholder' => 'url' )) }}
+                  </div>
+              @endif
+          </div> 
+      @endforeach 
+</div>
+  
 @if ($errors->any())
     <ul>
         {{ implode('', $errors->all('<li class="error">:message</li>')) }}

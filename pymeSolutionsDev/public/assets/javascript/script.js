@@ -43,4 +43,27 @@ $(document).ready(function () {
 		$('.value-list-array').val(values);
 		ev.preventDefault();
 	});
+
+	// ------------------------ Campo Local Productos
+
+	$('.input-campo-local').on('blur', function(){
+		$.post('/Inventario/Productos/campolocalsave',{
+			'nombre': $('.input-campo-local').attr('id'),
+			'valor': $('.input-campo-local').val(),
+			'codigoprod': $("input[name=INV_Producto_ID]").val()
+		}).success(function(data){
+			console.log(data);
+		});
+	});
+
+	// ------------------------ Campo Local Proveedor
+	$('.input-campo-local').on('blur', function(){
+		$.post('/Inventario/Proveedor/campolocalsave',{
+			'nombre': $('.input-campo-local').attr('id'),
+			'valor': $('.input-campo-local').val(),
+			'codigoprod': $("input[name=INV_Proveedor_ID]").val()
+		}).success(function(data){
+			console.log(data);
+		});
+	});
 });

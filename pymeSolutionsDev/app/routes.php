@@ -33,8 +33,10 @@ Route::group(array('prefix' => 'Inventario'), function()
 	Route::resource('Atributos', 'AtributosController');
 
 	Route::resource('Proveedor', 'ProveedorController');
-
+	Route::post('/Proveedor/campolocalsave', array('as' => 'Inventario.Proveedor.campolocalsave', 'uses' => 'ProveedorController@campolocalsave'));
+	
 	Route::resource('Productos', 'ProductosController');
+	Route::post('/Productos/campolocalsave', array('as' => 'Inventario.Productos.campolocalsave', 'uses' => 'ProductosController@campolocalsave'));
 
 	Route::resource('Horarios', 'HorariosController');
 
