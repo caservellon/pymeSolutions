@@ -96,7 +96,8 @@ Route::group(array('prefix' => 'Compras'), function(){
 	});
         
         Route::group(array('prefix' => 'Configuracion'), function(){
-		Route::get('/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
+		
+                Route::get('/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
                 Route::post('/EstadoOrden/Nuevo',array('as'=>'AlmacenaEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@AlmacenaEstadoOrden'));
 
                 //edita un estado de orden de compras ya existente
@@ -145,9 +146,9 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::post('OrdenCompra/conCotizacion/CompararCotizaciones', array('as'=>'CompararCotizaciones','uses'=>'OrdenComprasController@ComparaCotizaciones'));
     Route::get('OrdenCompra/conCotizacion/Detalle', array('as'=>'ComCot','uses'=>'OrdenComprasController@FormOrdenCompracnCotizacion'));
     Route::post('OrdenCompra/conCotizacion/Guardar', array('as'=>'GuardaOCcnCot','uses'=>'OrdenComprasController@guardarOCcnCOT'));
-    Route::get('/hola',  function (){
+    /*Route::get('/hola',  function (){
         return View::make('OrdenCompras.newOrdenCompra');
-    });
+    });*/
 
     //autorizaciones de orden de Compra
     Route::get('OrdenCompra/Autorizacion/ListaOrdenes', array('as'=>'AutOrdCom','uses'=>'OrdenComprasController@ListaOrdenCompra'));
