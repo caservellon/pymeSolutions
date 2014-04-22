@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('OrdencomprasTableSeeder');
 		$this->call('SolicitudcotizacionsTableSeeder');
+		$this->call('EstadoresultadosTableSeeder');
 	}
 
 }
