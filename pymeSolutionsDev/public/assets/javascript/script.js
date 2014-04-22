@@ -1,20 +1,5 @@
 $(document).ready(function () {
 
-	$('INV_Categoria_IDCategoriaPadre').on('change', function() {
-		var el = $(this);
-		console.log(1)
-	});
-
-	$("div.campo-local-tipo").change(function() {
-		if($(this).find("select").val() === "LIST"){
-			$("div.value-list").fadeIn();
-		} else {
-			$("div.value-list").fadeOut();
-			$(".value-input").val(""); 
-		}
-		
-	});
-
 
 	// ---------------- Devoluciones ------------------------------
 
@@ -230,6 +215,7 @@ $(document).ready(function () {
 		});
 	});
 });
+
 	//Eliminar producto seleccionado
 	$('.eliminar-prod').on('click',function(){
 		$("tbody.pro-list tr.highlight").remove();
@@ -342,10 +328,9 @@ $(document).ready(function () {
 	}
 
 
-
-	$("a.local-field-btn").on("click",function(){	
-	});
 });
+
+
 
 function setearTotalcc(valor,x){
     
@@ -370,4 +355,5 @@ function setearTotalcp(valor,x){
         valor.elements[valor.length-3].value=document.getElementById("total").value;
       
 			}
+
 

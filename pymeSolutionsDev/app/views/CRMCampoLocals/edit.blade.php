@@ -8,7 +8,7 @@
       </div>
 </div>
 
-{{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('Inventario.CampoLocals.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
+{{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('CRM.CampoLocals.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
@@ -19,7 +19,7 @@
     <div class="form-group">
       {{ Form::label('Tipo_de_Perfil', 'Tipo de perfil:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('Tipo_de_Perfil', array('PRD' => 'Producto', 'PRV' => 'Proveedor'),$tipoDePerfil,array('class' => 'col-md-4 form-control')) }}
+        {{ Form::select('Tipo_de_Perfil', array('PS' => 'Persona', 'EP' => 'Empresa'),$tipoDePerfil,array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
 
@@ -61,6 +61,8 @@
       </div>
     </div>
 
+    
+
     <div class="form-group">
         <div class="col-md-5 col-md-offset-2">
             
@@ -78,8 +80,8 @@
 
     <div class="form-group">
       <div class="col-md-5 ">
-            {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Inventario.CampoLocals.show', 'Cancel', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+            {{ link_to_route('CRM.CampoLocals.show', 'Cancelar', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
       </div>
     </div>
 
@@ -88,9 +90,9 @@
 
 
 @if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
 @endif
 
 @stop

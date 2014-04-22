@@ -1,6 +1,6 @@
 <?php
 
-class CampoLocalsController extends BaseController {
+class CRMCampoLocalsController extends BaseController {
 
 	protected $CampoLocal;
 	public function __construct(CampoLocal $CampoLocal)
@@ -8,11 +8,10 @@ class CampoLocalsController extends BaseController {
 		$this->CampoLocal = $CampoLocal;
 	}
 
-	public function index()
-	{
-		$CampoPersonas = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get();
-		$CampoEmpresas = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRV%')->get();
-		return View::make('CampoLocals.index', array(
+	public function index(){
+		$CampoPersonas = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get();
+		$CampoEmpresas = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_EP%')->get();
+		return View::make('CRMCampoLocals.index', array(
 			'CampoPersonas' => $CampoPersonas,
 			'CampoEmpresas' => $CampoEmpresas
 			));
@@ -20,7 +19,7 @@ class CampoLocalsController extends BaseController {
 
 	public function create()
 	{
-		return View::make('CampoLocals.create');
+		return View::make('CRMCampoLocals.create');
 	}
 
 	public function store()
@@ -35,7 +34,7 @@ class CampoLocalsController extends BaseController {
 			$validation = false;
 		} else {
 			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
-			$Codigo = "INV_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
+			$Codigo = "CRM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
 			$Campo->GEN_CampoLocal_Codigo = $Codigo;
 		}
 		if ($validation) {
@@ -59,10 +58,10 @@ class CampoLocalsController extends BaseController {
 
 				}
 			}
-			return Redirect::route('Inventario.CampoLocals.index');
+			return Redirect::route('CRM.CampoLocals.index');
 		}
 
-		return Redirect::route('Inventario.CampoLocals.create')
+		return Redirect::route('CRM.CampoLocals.create')
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
 	}
@@ -72,7 +71,7 @@ class CampoLocalsController extends BaseController {
 	{
 		$CampoLocal = $this->CampoLocal->findOrFail($id);
 
-		return View::make('CampoLocals.show', compact('CampoLocal'));
+		return View::make('CRMCampoLocals.show', compact('CampoLocal'));
 	}
 
 	public function edit($id)
@@ -81,9 +80,9 @@ class CampoLocalsController extends BaseController {
 
 		if (is_null($CampoLocal))
 		{
-			return Redirect::route('Inventario.CampoLocals.index');
+			return Redirect::route('CRM.CampoLocals.index');
 		}
-		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'INV_PRD', 6) == 0? 'PRD':'PRV';
+		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'CRM_EP', 6) == 0? 'EP':'PS';
 		$CampoLocalLista = null;
 		$stringConcat = "";
 		if ($CampoLocal->GEN_CampoLocal_Tipo == "LIST") {
@@ -94,14 +93,14 @@ class CampoLocalsController extends BaseController {
 
 			$stringConcat = rtrim($stringConcat,";");
 		}
-		return View::make('CampoLocals.edit', array('stringConcat'=> $stringConcat,'CampoLocal' => $CampoLocal, 'tipoDePerfil' => $tipoDePerfil, 'CampoLocalLista'=> $CampoLocalLista));
+		return View::make('CRMCampoLocals.edit', array('stringConcat'=> $stringConcat,'CampoLocal' => $CampoLocal, 'tipoDePerfil' => $tipoDePerfil, 'CampoLocalLista'=> $CampoLocalLista));
 	}
 
 	public function update($id){
-		
+
 		$validation = true;
 		$Campo = CampoLocal::find($id);
-		$Campo->GEN_CampoLocal_Activo = true;
+		$Campo->GEN_CampoLocal_Activo = 1;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		if($Campo->GEN_CampoLocal_Tipo != "LIST"){
@@ -111,7 +110,7 @@ class CampoLocalsController extends BaseController {
 			$validation = false;
 		} else {
 			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
-			
+
 		}
 		if ($validation){
 			if($Campo->save()){
@@ -130,10 +129,10 @@ class CampoLocalsController extends BaseController {
 					}
 				}
 			}
-			return Redirect::route('Inventario.CampoLocals.index');
+			return Redirect::route('CRM.CampoLocals.index');
 		}
 
-		return Redirect::route('Inventario.CampoLocals.edit', $id)
+		return Redirect::route('CRM.CampoLocals.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -144,8 +143,8 @@ class CampoLocalsController extends BaseController {
 		$CampoLocal = CampoLocal::find($id);
 		$CampoLocal->GEN_CampoLocal_Activo = 0;
 		$CampoLocal->save();
-		
-		return Redirect::route('Inventario.CampoLocals.index');
+
+		return Redirect::route('CRM.CampoLocals.index');
 	}
 
 }

@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Devolucion</h1>
-{{ Form::model($Devolucion, array('method' => 'PATCH', 'route' => array('Devoluciones.update', $Devolucion->VEN_Devolucion_id))) }}
+{{ Form::model($Devolucion, array('method' => 'PATCH', 'route' => array('Ventas.Devoluciones.update', $Devolucion->VEN_Devolucion_id))) }}
 	<ul>
         <li>
             {{ Form::label('VEN_Devolucion_id', 'VEN_Devolucion_id:') }}
@@ -22,7 +22,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('Devoluciones.show', 'Cancel', $Devolucion->VEN_Devolucion_id, array('class' => 'btn')) }}
+			{{ link_to_route('Ventas.Devoluciones.show', 'Cancel', $Devolucion->VEN_Devolucion_id, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

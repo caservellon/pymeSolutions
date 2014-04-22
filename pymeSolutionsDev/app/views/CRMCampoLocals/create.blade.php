@@ -10,7 +10,7 @@
 </div>
 
 
-{{ Form::open(array('route' => 'Inventario.CampoLocals.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
+{{ Form::open(array('route' => 'CRM.CampoLocals.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
@@ -21,7 +21,7 @@
     <div class="form-group">
       {{ Form::label('Tipo_de_Perfil', 'Tipo de perfil:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('Tipo_de_Perfil', array('PRD' => 'Producto', 'PRV' => 'Proveedor'),'PRD',array('class' => 'col-md-4 form-control')) }}
+        {{ Form::select('Tipo_de_Perfil', array('PS' => 'Persona', 'EP' => 'Empresa'),'PS',array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
 
@@ -48,13 +48,13 @@
       {{ Form::hidden('value-list-array', null, array('class' => 'value-list-array'))}}
     </div>
 
+
     <div class="form-group">
         <div class="col-md-5 col-md-offset-2">
             
             <label class="checkbox-inline control-label">
                 {{ Form::checkbox('GEN_CampoLocal_Requerido', '1') }}
                 Requerido
-                
             </label>
             <label class="checkbox-inline control-label"> 
                 {{ Form::checkbox('GEN_CampoLocal_ParametroBusqueda', '1') }}
@@ -65,7 +65,7 @@
 
     <div class="form-group">
       <div class="col-md-5 ">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 
@@ -73,11 +73,9 @@
 {{ Form::close() }}
 
 @if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
 @endif
 
 @stop
-
-
