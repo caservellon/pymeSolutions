@@ -45,13 +45,13 @@
                 {{ Form::text('CRM_Empresas_Descuento',null, array('class' => 'form-control', 'id' => 'CRM_Empresas_Descuento', 'placeholder' => '#' )) }}
             </div>
         </div>
-        
-        <div class="form-group">
-            {{ Form::label('CRM_Personas_CRM_Personas_ID', 'Persona:', array('class' => 'col-md-2 control-label')) }}
-            <div class="col-md-5">
-                {{ Form::text('CRM_Personas_CRM_Personas_ID',null, array('class' => 'form-control', 'id' => 'CRM_Personas_CRM_Personas_ID', 'placeholder' => '#' )) }}
-            </div>
-        </div>
+
+        <div class="campo-local-tipo form-group">
+          {{ Form::label('CRM_Personas_CRM_Personas_ID', 'Personas: ', array('class' => 'col-md-2 control-label')) }}
+          <div class="col-md-5">
+            {{ Form::select('CRM_Personas_CRM_Personas_ID', DB::table('CRM_Personas')->lists('CRM_Personas_Nombres','CRM_Personas_ID')) }}
+          </div>
+        </div> 
 
         @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_EP%')->get() as $campo)
             <div class="campo-local-tipo form-group">
