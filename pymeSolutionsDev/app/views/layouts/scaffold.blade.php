@@ -5,10 +5,16 @@
   <title>pymeSolutions</title>
   <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/css/bootstrap.min.css">
 
+  {{ HTML::script('/assets/javascript/script.js') }}
+  
+
+    <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
+
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
 
 </head>
-<body>
+<body style="margin-top: 50px">
   <header>
   <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
     <a class="navbar-brand" href="#">pyme Solutions</a>
@@ -28,11 +34,17 @@
       <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Solicitudes de Cotización</a></li>
+              <li><a href="/Compras/SolicitudCotizacion">Solicitudes de Cotización</a></li>
               <li><a href="#">Cotizaciones</a></li>
-              <li><a href="#">Ordenes de Compras</a></li>
+              <li><a href="#">**Ordenes de Compras</a></li>
+              <li><a href="/Compras/OrdenCompra/sinCotizacion/ListaProductos" >Crear Orden Compra sin Cotizacion</a></li>
+              <li><a href="/Compras/OrdenCompra/conCotizacion/ListaCotizaciones" >Comparar Cotizaciones</a></li>
+              <li><a href="/Compras/OrdenCompra/Autorizacion/ListaOrdenes" > Autorizar Orden Compra</a></li>
+              <li><a href="/Compras/OrdenCompra/Autorizacion/ListarOrdenes" > Administrar Orden Compra</a></li>
+              <li><a href="/Compras/OrdenCompra/GenerarPago/ListaCotizaciones" > generar pago Ordenes de  Compras</a></li>
+              <li><a href="/Compras/OrdenCompra/Historial/ListarOrdenes" > Historial Ordenes de  Compras</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li><a href="/Compras">Configuración</a></li>
             </ul>
           </li>
 
@@ -63,11 +75,19 @@
               <li>
                 {{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
               </li>
+              <li>
+                {{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.MotivoMovimiento.index', 'Motivo Movimiento Inventario')}}
+              </li>
               <li><a href="#">Inventario</a></li>
               <li><a href="#">Categorias</a></li>
               <li><a href="#">Atributos</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li>
+                 <a href="/Inventario">Configuración</a>
+              </li>
             </ul>
           </li>
 
@@ -122,7 +142,10 @@
   <script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
   <script src="/assets/javascript/script.js"></script>
 </body>
-
+  
+</body>
+   
+      @yield('contabilidad_scripts')
   <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
 </html>

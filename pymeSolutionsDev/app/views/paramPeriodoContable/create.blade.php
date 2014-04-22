@@ -1,42 +1,60 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
-<script src="<?php public_path(); ?>/datepicker/js/bootstrap-datepicker.js"></script>
 
-<h1>Crear Clasificacion Periodo</h1>
+<div class="page-header clearfix">
+      <h3 class="pull-left">Periodo Contable &gt; <small>Nuevo Periodo</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('contabilidad/configuracion/periodocontable') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+      </div>
+</div>
 
 @include('_messages.errors')
 
 
-{{ Form::open(array('route' => 'periodocontable')) }}
+{{ Form::open(array('route' => 'periodocontable','class'=>'form-horizontal','role'=>'form')) }}
 	  
 
         <div class="form-group">
-            {{ Form::label('CON_ClasificacionPeriodo_Nombre', 'Nombre:') }}
-            {{ Form::text('CON_ClasificacionPeriodo_Nombre','',array('maxlength'=>'45')) }}
+            {{ Form::label('CON_ClasificacionPeriodo_Nombre', 'Nombre del Periodo:*') }}
+            <div class="col-md-5 ">
+              {{ Form::text('CON_ClasificacionPeriodo_Nombre','',array('maxlength'=>'45')) }}
+            </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CON_ClasificacionPeriodo_CatidadDias', 'Cantidad de dias:') }}
-            {{ Form::select('CON_ClasificacionPeriodo_CatidadDias',$CantidadDias,'',array('class'=>'form-control')) }}
+            {{ Form::label('CON_ClasificacionPeriodo_CatidadDias', 'Cantidad de Dias del Periodo:*') }}
+            <div class="col-md-2">
+            {{ Form::select('CON_ClasificacionPeriodo_CatidadDias',$CantidadDias) }}
+            </div>
         </div>
+
         <div class="form-group">
-         {{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que inicia:') }} 
-         {{ Form::text('CON_PeriodoContable_FechaInicio','',array('type'=>'text','class'=>'span2','value'=>'','id'=>'dpd1','placeholder'=>'yyyy-mm-dd')) }}
+         {{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que Inicia el Periodo Contable:*') }}
+         <div class="col-md-4"> 
+         {{ Form::input('text', 'CON_PeriodoContable_FechaInicio','',array('value'=>'','id'=>'dpd1','placeholder'=>'yyyy-mm-dd')) }}
+          </div>
         </div>
-		<div class="form-group">
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-		</div>
+
+      <div class="col-md-5">
+			{{ Form::submit('Agregar Periodo Contable', array('class' => 'btn btn-success')) }}
+		  </div>
 	
 {{ Form::close() }}
 
 
+
+@stop
+
+@section('contabilidad_scripts')
+
+<link rel="stylesheet" href="<?php public_path(); ?>/datepicker/css/datepicker.css">
+<script src="<?php public_path(); ?>/datepicker/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript">
-	$(document).ready(function(){
-
+  $(document).ready(function(){
         $("input").addClass("form-control");
-
+        $("select").addClass("form-control");
+        $("label").addClass("col-md-4 control-label pull-left");
     });
 
 </script>

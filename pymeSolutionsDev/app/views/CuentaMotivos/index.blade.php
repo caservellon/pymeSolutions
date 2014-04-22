@@ -4,7 +4,7 @@
 
 <h1>All CuentaMotivos</h1>
 
-<a class="btn btn-primary" href="{{ URL::to('cuentamotivos/create') }}">Crear Nuevo</a>
+<a class="btn btn-primary" href="{{ URL::to('contabilidad/cuentamotivos/create') }}">Crear Nuevo</a>
 
 @if ($CuentaMotivos->count())
 	<table class="table table-striped table-bordered">

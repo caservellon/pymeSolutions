@@ -2,32 +2,37 @@
 
 @section('main')
 
-<h1 align="center">Unidades Monetarias</h1>
 
-<a class="btn btn-primary" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/create') }}">Crear Nuevo</a>
+<h2 class='sub-header'><i class="glyphicon glyphicon-cog"></i>Configuracion <small> Unidades Monetarias</small>
+<a class='btn btn-primary pull-right ' href="{{URL::to('contabilidad/configuracion')}}">
+    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+</h2>
 
+<div class="btn-agregar">
+<a class="btn btn-success" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/create') }}">
+<i class="glyphicon glyphicon-plus"></i> Agregar Moneda</a>
+</div>
 @if (isset($unidadmonetarias) && $unidadmonetarias->count())
 
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>Nombre</th>
 				<th>Tasa</th>
 				<th>Observacion</th>
-				<th>Action</th>
+				<th>Acciones</th>
 			</tr>
 
 		</thead>
 		<tbody>
 			@foreach ($unidadmonetarias as $unidad)
 				<tr>
-					<td>{{{ $unidad->CON_UnidadMonetaria_ID }}}</td>
 					<td>{{{ $unidad->CON_UnidadMonetaria_Nombre }}}</td>
 					<td>{{{ $unidad->CON_UnidadMonetaria_TasaConversion }}}</td>
 					<td>{{{ $unidad->CON_UnidadMonetaria_Observacion }}}</td>
-					<td><a class="btn btn-success" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/'.$unidad->CON_UnidadMonetaria_ID.'/edit') }}">Editar</a>
-					<a class="btn btn-primary" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/'.$unidad->CON_UnidadMonetaria_ID) }}">Mostrar</a></td>
+					<td><a class="btn btn-info" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/'.$unidad->CON_UnidadMonetaria_ID.'/edit') }}">
+					<i class="glyphicon glyphicon-pencil"></i>	Editar</a>
+					
 				</tr>
 				@endforeach
 		</tbody>

@@ -25,19 +25,19 @@ $(document).ready(function () {
 		    var td = $(producto).find('td');
 		    var codigo = td.eq(1).text();
 		    var cantidad = td.eq(4).find('.quantity').val();
-		    
+
 		    devolver.push({
 		        codigo: codigo,
 		        cantidad: cantidad
 		    });
 		});
-		
+
 		$.post('/Ventas/Devoluciones/process', {
 			'data' : devolver,
 			'no-factura' : $('.no-factura').val()
 		}).success(function(data){
 			$('#resultadoDevolucion').modal('show');
-			
+
 			$.each(data, function(key, value){
 				$.each(value, function(keyin, valuein){
 					if ($.isNumeric(keyin)) {
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 				});
 			});
-			
+
 		});
 	});
 
@@ -74,7 +74,7 @@ $(document).ready(function () {
 	if($('#pro-list-table').length){
         actualizarTotales();
     }
-	
+
 
 	//Busqueda por AJAX
 	$('.agregar-producto').on('click',function(){
@@ -98,7 +98,7 @@ $(document).ready(function () {
 		    var td = $(producto).find('td');
 		    var codigo = td.eq(1).text();
 		    var cantidad = td.eq(4).text();
-		    
+
 		    data.productos.push({
 		        codigo: codigo,
 		        cantidad: cantidad
@@ -113,7 +113,7 @@ $(document).ready(function () {
 		});
 
 		data.abonos = [];
-		
+
 		$('.pagos-list').find('tr').each(function(i, abono){
 			console.log("dafsdafdfS", abono);
 			data.abonos.push({
@@ -130,7 +130,7 @@ $(document).ready(function () {
 
 		data.cliente = $('.cliente').val();
 
-		data.caja = '2';
+		data.caja = '1';
 
 		console.log(data);
 
@@ -159,7 +159,7 @@ $(document).ready(function () {
 			$("div.value-list").fadeOut();
 			$(".value-input").val(""); 
 		}
-		
+
 	});
 
 	$(".add-value").click(function(ev) {
@@ -192,6 +192,30 @@ $(document).ready(function () {
 		ev.preventDefault();
 	});
 
+	// ------------------------ Campo Local Productos
+
+	$('.input-campo-local').on('blur', function(){
+		$.post('/Inventario/Productos/campolocalsave',{
+			'nombre': $('.input-campo-local').attr('id'),
+			'valor': $('.input-campo-local').val(),
+			'codigoprod': $("input[name=INV_Producto_ID]").val()
+		}).success(function(data){
+			console.log(data);
+		});
+	});
+
+	// ------------------------ Campo Local Proveedor
+	$('.input-campo-local').on('blur', function(){
+		$.post('/Inventario/Proveedor/campolocalsave',{
+			'nombre': $('.input-campo-local').attr('id'),
+			'valor': $('.input-campo-local').val(),
+			'codigoprod': $("input[name=INV_Proveedor_ID]").val()
+		}).success(function(data){
+			console.log(data);
+		});
+	});
+});
+
 	//Eliminar producto seleccionado
 	$('.eliminar-prod').on('click',function(){
 		$("tbody.pro-list tr.highlight").remove();
@@ -216,7 +240,7 @@ $(document).ready(function () {
 		$("tbody.pro-list tr.highlight").find('.total-art').text("Lps. " + newTotal);
 		actualizarTotales();
 	});
-	
+
 	//Agregar producto
 	$('.agregar-producto').on('click',function(){
 		var row = $("tbody.pro-search tr.highlight").clone();
@@ -296,11 +320,40 @@ $(document).ready(function () {
 			subtotal += (parseFloat(subtotaltext.substring(5)));
 		}
 
-		
+
 		$('.sub-total').text("Lps. " + subtotal.toFixed(2));
 		$('.isv').text("Lps. " + (subtotal * 0.15).toFixed(2));
 		$('.grand-total').text("Lps. " + (subtotal * (1.15)).toFixed(2));
 		actualizarPagos();
 	}
 
+
 });
+
+
+
+function setearTotalcc(valor,x){
+    
+        var a= valor.elements[x].value;
+        var b=valor.elements[x+1].value;
+        var c=valor.elements[x+2].value;
+        var total=(a*b);
+        valor.elements[x+2].value=total;
+        document.getElementById("total").value-=c;
+        document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
+        valor.elements[valor.length-3].value=document.getElementById("total").value;
+			}
+function setearTotalcp(valor,x){
+        
+        var a= valor.elements[x-1].value;
+        var b=valor.elements[x].value;
+        var c=valor.elements[x+1].value;
+        var total=(a*b);
+        valor.elements[x+1].value=total;
+        document.getElementById("total").value-=c;
+        document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
+        valor.elements[valor.length-3].value=document.getElementById("total").value;
+      
+			}
+
+

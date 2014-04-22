@@ -27,7 +27,7 @@
 			<tbody>
 				@foreach ($CampoPersonas as $CampoLocal)
 					<tr>
-						
+
 						<td>{{{ $CampoLocal->GEN_CampoLocal_Codigo }}}</td>
 						<td>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</td>
 						@if($CampoLocal->GEN_CampoLocal_Tipo == "TXT")
@@ -39,13 +39,13 @@
 						@elseif($CampoLocal->GEN_CampoLocal_Tipo == "INT")
 							<td>Entero</td>
 						@endif
-						
+
 						@if($CampoLocal->GEN_CampoLocal_Activo == 1)
 							<td><span class="glyphicon glyphicon-ok"></span></td>
 						@else
 							<td></td>
 						@endif	
-						
+
 						@if($CampoLocal->GEN_CampoLocal_Requerido == 1)
 							<td><span class="glyphicon glyphicon-ok"></span></td>
 						@else
@@ -77,7 +77,7 @@
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					
+
 					<th>Código</th>
 					<th>Nombre</th>
 					<th>Tipo de Campo</th>
@@ -108,13 +108,13 @@
 					@endif 
 
 					</td>
-					
+
 					@if($CampoLocal->GEN_CampoLocal_Activo == 1)
 						<td>Activo</td>
 					@else
 						<td>Inactivo</td>
 					@endif	
-					
+
 					@if($CampoLocal->GEN_CampoLocal_Requerido == 1)
 						<td><span class="glyphicon glyphicon-ok"></span></td>
 					@else

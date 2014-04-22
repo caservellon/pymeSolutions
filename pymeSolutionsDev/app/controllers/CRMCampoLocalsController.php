@@ -55,7 +55,7 @@ class CRMCampoLocalsController extends BaseController {
 						$ListItem->GEN_CampoLocal_GEN_CampoLocal_ID = $Campo->GEN_CampoLocal_ID;
 						$ListItem->save();
 					}
-					
+
 				}
 			}
 			return Redirect::route('CRM.CampoLocals.index');
@@ -97,7 +97,7 @@ class CRMCampoLocalsController extends BaseController {
 	}
 
 	public function update($id){
-		
+
 		$validation = true;
 		$Campo = CampoLocal::find($id);
 		$Campo->GEN_CampoLocal_Activo = 1;
@@ -110,7 +110,7 @@ class CRMCampoLocalsController extends BaseController {
 			$validation = false;
 		} else {
 			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
-			
+
 		}
 		if ($validation){
 			if($Campo->save()){
@@ -143,7 +143,7 @@ class CRMCampoLocalsController extends BaseController {
 		$CampoLocal = CampoLocal::find($id);
 		$CampoLocal->GEN_CampoLocal_Activo = 0;
 		$CampoLocal->save();
-		
+
 		return Redirect::route('CRM.CampoLocals.index');
 	}
 
