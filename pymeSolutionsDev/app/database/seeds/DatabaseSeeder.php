@@ -50,11 +50,17 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('DescuentosTableSeeder');
 
+
 		$this->call('ProductocampolocalsTableSeeder');
 		$this->call('ProveedorcampolocalsTableSeeder');
 		$this->call('MovimientoinventariosTableSeeder');
 		$this->call('DetallemovimientosTableSeeder');
 		$this->call('MotivomovimientosTableSeeder');
+
+		$this->call('OrdencomprasTableSeeder');
+		$this->call('SolicitudcotizacionsTableSeeder');
+		$this->call('EstadoresultadosTableSeeder');
+
 	}
 
 }

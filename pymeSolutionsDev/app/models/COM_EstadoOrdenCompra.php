@@ -8,6 +8,7 @@ class COM_EstadoOrdenCompra extends Eloquent {
 
 	 public $timestamps = false;
          public static $reglas= array('COM_EstadoOrdenCompra_Nombre'=>array('alpha_spaces','required','max:45','min:5'),
-                                      'COM_EstadoOrdenCompra_Observacion'=>array('alpha_spaces','required'));
+                                      'COM_EstadoOrdenCompra_Observacion'=>array('alpha_spaces','required')
+                                      );
 }
 ?>

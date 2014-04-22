@@ -42,8 +42,8 @@
                   <th>Nombre</th>
                   <th>Descripcion</th>
                   <th>Cantidad</th>
-		  <th>Precio Unitario</th>
-		  <th>Unidad</th>
+      <th>Precio Unitario</th>
+      <th>Unidad</th>
                 </tr>
               </thead>
                   <tbody >
@@ -58,9 +58,9 @@
                         <td>{{ $product1->INV_Producto_Nombre}}</td>
                         <td>{{ $product1->INV_Producto_Descripcion}}</td>
                         <td>{{ $product->COM_DetalleOrdenCompra_Cantidad}}</td>
-			<td>{{ $product->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
+      <td>{{ $product->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
                         <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);?>
-			<td>{{$medida->INV_UnidadMedida_Nombre}}</td>
+      <td>{{$medida->INV_UnidadMedida_Nombre}}</td>
                       </tr> 
                       <?php $contador++; ?>
                       @endforeach
@@ -76,29 +76,24 @@
         <label>Fecha de Entrega</label>
         {{$ordenCompra->COM_OrdenCompra_FechaEntrega}}
         <br>
-        <label>Forma de Pago</label>
-         <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
-                $form=array();
-                $id=array();
-                foreach ($formapago as $forma){
-                       $id[]=$forma->INV_FormaPago_ID;
-                 }
-                 $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
-                 
+        <label>Forma de Pago :</label>
+         <?php         
+                 $forma=  FormaPago::find($ordenCompra->COM_OrdenCompra_FormaPago);
                  
          ?>
-         {{ Form::select('formapago',$m) }}
+        <label>{{$forma->INV_FormaPago_Nombre}}</label>
+         
          
     </div>
     <div class="col-md-4">
         <label>Direccion de Entrega*:</label>
         <br>
-         {{Form::radio('COM_OrdenCompra_Direccion','uno',true)}}Colonia America
-         <br>
-         {{Form::radio('COM_OrdenCompra_Direccion','uno',false)}}Colonia Carrizal
+         Colonia America
+         
     </div>
     <div class="col-md-4" style="text-align: right">
-        <label>Total:  23432.45</label>
+        <label>Total :</label>
+        <label>{{$ordenCompra->COM_OrdenCompra_Total}}</label>
     </div>
 </div>
 <div class="row" >

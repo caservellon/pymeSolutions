@@ -42,8 +42,8 @@
                   <th>Nombre</th>
                   <th>Descripcion</th>
                   <th>Cantidad</th>
-		  <th>Precio Unitario</th>
-		  <th>Unidad</th>
+      <th>Precio Unitario</th>
+      <th>Unidad</th>
                 </tr>
               </thead>
                   <tbody >
@@ -58,9 +58,9 @@
                         <td>{{ $product1->INV_Producto_Nombre}}</td>
                         <td>{{ $product1->INV_Producto_Descripcion}}</td>
                         <td>{{ $product->COM_DetalleOrdenCompra_Cantidad}}</td>
-			<td>{{ $product->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
+      <td>{{ $product->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
                         <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);?>
-			<td>{{$medida->INV_UnidadMedida_Nombre}}</td>
+      <td>{{$medida->INV_UnidadMedida_Nombre}}</td>
                       </tr> 
                       <?php $contador++; ?>
                       @endforeach
@@ -77,28 +77,22 @@
         {{$ordenCompra->COM_OrdenCompra_FechaEntrega}}
         <br>
         <label>Forma de Pago</label>
-         <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
-                $form=array();
-                $id=array();
-                foreach ($formapago as $forma){
-                       $id[]=$forma->INV_FormaPago_ID;
-                 }
-                 $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+         <?php 
                  
-                 
+           $forma= FormaPago::find($ordenCompra->COM_OrdenCompra_FormaPago);
          ?>
-         {{ Form::select('formapago',$m) }}
+        {{$forma->INV_FormaPago_Nombre}}
+         
          
     </div>
     <div class="col-md-4">
         <label>Direccion de Entrega*:</label>
         <br>
-         {{Form::radio('COM_OrdenCompra_Direccion','uno',true)}}Colonia America
-         <br>
-         {{Form::radio('COM_OrdenCompra_Direccion','uno',false)}}Colonia Carrizal
+         Colonia America
     </div>
     <div class="col-md-4" style="text-align: right">
-        <label>Total:  23432.45</label>
+        <label>Total :</label>
+        <label>{{$ordenCompra->COM_OrdenCompra_Total}}</label>
     </div>
 </div>
 <div class="row" >
@@ -119,8 +113,8 @@
                   <th>Transiciones</th>
                   <th>Observaciones</th>
                   <th>Fecha de Transicion</th>
-		  <th>Usuario</th>
-		  
+      <th>Usuario</th>
+      
                 </tr>
               </thead>
               <tbody >
@@ -141,7 +135,7 @@
                         <td>{{ $product->COM_TransicionEstado_Observacion}}</td>
                         <td>{{ $product->COM_TransicionEstado_FechaCreo}}</td>
                         <?php $id_t= $product->COM_TransicionEstado_Id ; ?>
-			<td>{{ $product->COM_Usuario_idUsuarioCreo}}</td>
+      <td>{{ $product->COM_Usuario_idUsuarioCreo}}</td>
                         
                       </tr> 
                         @endforeach

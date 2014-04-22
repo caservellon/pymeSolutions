@@ -6,29 +6,29 @@
  */
 class OrdenComprasController extends BaseController {
 
-	/**
-	 * OrdenCompra Repository
-	 *
-	 * @var OrdenCompra
-	 */
-	protected $OrdenCompra;
+    /**
+     * OrdenCompra Repository
+     *
+     * @var OrdenCompra
+     */
+    protected $OrdenCompra;
 
-	public function __construct(OrdenCompra $OrdenCompra)
-	{
-		$this->OrdenCompra = $OrdenCompra;
-	}
+    public function __construct(OrdenCompra $OrdenCompra)
+    {
+        $this->OrdenCompra = $OrdenCompra;
+    }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$OrdenCompras = $this->OrdenCompra->all();
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $OrdenCompras = $this->OrdenCompra->all();
 
-		return View::make('OrdenCompras.index', compact('OrdenCompras'));
-	}
+        return View::make('OrdenCompras.index', compact('OrdenCompras'));
+    }
         
         public function parametrizar(){
             
@@ -39,21 +39,21 @@ class OrdenComprasController extends BaseController {
             
                 $editar = CampoLocal::where('GEN_CampoLocal_Codigo', 'LIKE', 'COM_OC%')->get();
 
-		return View::make('OrdenCompras.indexCampoLocal', compact('editar'));
+        return View::make('OrdenCompras.indexCampoLocal', compact('editar'));
         }
         
 
-	
-	public function create()
-	{
-		return View::make('OrdenCompras.create');
-	}
 
-	public function mensaje()
-	{
+    public function create()
+    {
+        return View::make('OrdenCompras.create');
+    }
+
+    public function mensaje()
+    {
                 $date = Mensaje::find(1);
-		return View::make('OrdenCompras.mensaje', compact('date'));
-	}
+        return View::make('OrdenCompras.mensaje', compact('date'));
+    }
         public function campoLocal(){
                 $campo = CampoLocal::all();
                 $suma=$campo->count()+1;
@@ -83,8 +83,8 @@ class OrdenComprasController extends BaseController {
 //                $campoLocal->GEN_CampoLocal_Requerido=Input::get('GEN_CampoLocal_Requerido');
 //                $campoLocal->GEN_CampoLocal_ParametroBusqueda=Input::get('GEN_CampoLocal_ParametroBusqueda');
 //                $campoLocal->GEN_CampoLocal_Activo=Input::get('GEN_CampoLocal_Activo');   
-		if ($validation->passes())
-		{
+        if ($validation->passes())
+        {
                         
                        
                         if(Input::get('GEN_CampoLocal_Tipo')=='LIST'){
@@ -94,13 +94,13 @@ class OrdenComprasController extends BaseController {
                         $date = Mensaje::find(1);
                         $campoLocal->save();
                         return Redirect::route('mensajeOrden', compact('date'));
-		
+
                 }
                 $mensaje= Mensaje::find(2);
-		return Redirect::route('parametrizarOrden')
-			->withInput()
-			->withErrors($validation)
-			->with('message', $mensaje->GEN_Mensajes_Mensaje);
+        return Redirect::route('parametrizarOrden')
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', $mensaje->GEN_Mensajes_Mensaje);
                 
         }
 //        public function listavista($suma){
@@ -122,87 +122,87 @@ class OrdenComprasController extends BaseController {
             }
             $mensaje= Mensaje::find(2);
             return View::make('listavalor', compact('suma'))
-			->withInput()
-			->withErrors($validation)
-			->with('message', $mensaje->GEN_Mensajes_Mensaje);
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', $mensaje->GEN_Mensajes_Mensaje);
             
         }
         
-	public function store()
-	{
-		$input = Input::all();
-		$validation = Validator::make($input, OrdenCompra::$rules);
+    public function store()
+    {
+        $input = Input::all();
+        $validation = Validator::make($input, OrdenCompra::$rules);
 
-		if ($validation->passes())
-		{
-			$this->OrdenCompra->create($input);
+        if ($validation->passes())
+        {
+            $this->OrdenCompra->create($input);
 
-			return Redirect::route('OrdenCompras.index');
-		}
+            return Redirect::route('OrdenCompras.index');
+        }
 
-		return Redirect::route('OrdenCompras.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
-	}
+        return Redirect::route('OrdenCompras.create')
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$OrdenCompra = $this->OrdenCompra->findOrFail($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $OrdenCompra = $this->OrdenCompra->findOrFail($id);
 
-		return View::make('OrdenCompras.show', compact('OrdenCompra'));
-	}
+        return View::make('OrdenCompras.show', compact('OrdenCompra'));
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$OrdenCompra = CampoLocal::find($id);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $OrdenCompra = CampoLocal::find($id);
 
-		if (is_null($OrdenCompra))
-		{
-			return Redirect::route('Compras.indexCampoLocal');
-		}
+        if (is_null($OrdenCompra))
+        {
+            return Redirect::route('Compras.indexCampoLocal');
+        }
 
-		return View::make('OrdenCompras.edit', compact('OrdenCompra'));
-	}
+        return View::make('OrdenCompras.edit', compact('OrdenCompra'));
+    }
         
         public function editar()
-	{
-		$OrdenCompra = CampoLocal::find(Input::get('id'));
+    {
+        $OrdenCompra = CampoLocal::find(Input::get('id'));
 
-		if (is_null($OrdenCompra))
-		{
-			return Redirect::route('indexCampoLocal');
-		}
+        if (is_null($OrdenCompra))
+        {
+            return Redirect::route('indexCampoLocal');
+        }
 
-		return View::make('OrdenCompras.editarOrden', compact('OrdenCompra'));
-	}
+        return View::make('OrdenCompras.editarOrden', compact('OrdenCompra'));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
         public function actualizar()
-	{
-		$input = Input::except('_method');
-		$validation = Validator::make($input, CampoLocal::$rules);
+    {
+        $input = Input::except('_method');
+        $validation = Validator::make($input, CampoLocal::$rules);
 
-		if ($validation->passes())
-		{
-			$OrdenCompra = CampoLocal::find(Input::get('id'));
+        if ($validation->passes())
+        {
+            $OrdenCompra = CampoLocal::find(Input::get('id'));
                         $suma=Input::get('id');
                         $OrdenCompra->GEN_CampoLocal_ID= Input::get('id');
                         
@@ -229,23 +229,23 @@ class OrdenComprasController extends BaseController {
                                 return View::make('Listavalor', compact('suma'));
                             }
 
-			return Redirect::route('mensajeOrden');
-		}
+            return Redirect::route('mensajeOrden');
+        }
                 $mensaje= Mensaje::find(2);
-		return Redirect::route('editar', Input::get('id'))
-			->withInput()
-			->withErrors($validation)
-			->with('message', $mensaje->GEN_Mensajes_Mensaje);
-	}
+        return Redirect::route('editar', Input::get('id'))
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', $mensaje->GEN_Mensajes_Mensaje);
+    }
         
-	public function update($id)
-	{
-		$input = Input::except('_method');
-		$validation = Validator::make($input, CampoLocal::$rules);
+    public function update($id)
+    {
+        $input = Input::except('_method');
+        $validation = Validator::make($input, CampoLocal::$rules);
 
-		if ($validation->passes())
-		{
-			$Cotizacion = CampoLocal::find($id);
+        if ($validation->passes())
+        {
+            $Cotizacion = CampoLocal::find($id);
                         $suma=$id;
                         $Cotizacion->GEN_CampoLocal_ID= $id;
                         
@@ -272,27 +272,27 @@ class OrdenComprasController extends BaseController {
                                 return View::make('Listavalor', compact('suma'));
                             }
 
-			return Redirect::route('mensajeOrden');
-		}
+            return Redirect::route('mensajeOrden');
+        }
                 $mensaje= Mensaje::find(2);
-		return Redirect::route('Compras.OrdenCompras.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', $mensaje->GEN_Mensajes_Mensaje);
-	}
+        return Redirect::route('Compras.OrdenCompras.edit', $id)
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', $mensaje->GEN_Mensajes_Mensaje);
+    }
 
-	/**
-	 * Remove the specified resource from storage.
- 	 *
- 	 * @param  int  $id
- 	 * @return Response
- 	 */
-	public function destroy($id)
-	{
-		$this->OrdenCompra->find($id)->delete();
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $this->OrdenCompra->find($id)->delete();
 
-		return Redirect::route('OrdenCompras.index');
-	}
+        return Redirect::route('OrdenCompras.index');
+    }
         //funciones hechas para crear una orden de compra sin cotizacion
         public function OrdenComprasnCotizacion(){
             $inventario= Producto::all();
@@ -340,6 +340,7 @@ class OrdenComprasController extends BaseController {
              $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
              $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
              $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
+             $OrdenCompras->COM_OrdenCompra_Total=Input::get('totalG');
              $OrdenCompras->save();
              $compras=  OrdenCompra::all();
              $ultimo= $compras->Count();
@@ -404,7 +405,72 @@ class OrdenComprasController extends BaseController {
             return View::make('OrdenCompras.CompararCotizaciones');
         }
         public function FormOrdenCompracnCotizacion(){
-            return View::make('OrdenCompras.OrdenCompraPrCotForm');
+            $cotizacion= Cotizacion::find(Input::get('id'));
+            $detalles= DB::table('COM_Detalle_Cotizacion')->select('COM_DetalleCotizacion_IdDetalleCotizacion','COM_DetalleCotizacion_Codigo',
+                                        'COM_DetalleCotizacion_Cantidad','COM_DetalleCotizacion_PrecioUnitario','COM_Cotizacion_IdCotizacion','COM_Producto_Id_Producto',
+                                        'COM_Usuario_idUsuarioCreo','Usuario_idUsuarioModifico')->where('COM_Cotizacion_IdCotizacion','=',$cotizacion->COM_Cotizacion_IdCotizacion)->get();
+            $productos=array();
+            foreach ($detalles as $detalle){
+                $productos[]=$detalle->COM_Producto_Id_Producto;
+            }
+            $proveedor= $cotizacion->COM_Proveedor_idProveedor;
+            echo $cotizacion->COM_Proveedor_idProveedor;
+            return View::make('OrdenCompras.CotOrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$productos,'id_cot'=>Input::get('id')));
+        }
+
+         public function guardarOCcnCOT(){
+             $input=Input::all();
+             $contador=0;
+             
+             //guardo la Orden de Compra
+             $OrdenCompras=  new OrdenCompra();
+             $OrdenCompras->COM_OrdenCompra_Codigo=rand(0,1000000);
+             $OrdenCompras->COM_OrdenCompra_FechaEmision= date('Y/m/d H:i:s');
+             $OrdenCompras->COM_OrdenCompra_FechaEntrega=  Input::get('COM_OrdenCompra_FechaEntrega');
+             if(Input::has('COM_OrdenCompra_Activo')){
+                    $OrdenCompras->COM_OrdenCompra_Activo=1;
+             }else{
+                    $OrdenCompras->COM_OrdenCompra_Activo=0;
+             }
+             $OrdenCompras->COM_OrdenCompra_FechaCreacion=date('Y/m/d H:i:s');
+             $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
+             $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
+             $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
+             $OrdenCompras->COM_Cotizacion_IdCotizacion=Input::get('Id_Cot');
+             $OrdenCompras->COM_OrdenCompra_Total=Input::get('totalG');
+             $OrdenCompras->save();
+             $compras=  OrdenCompra::all();
+             $ultimo= $compras->Count();
+             
+             //guardo los detalles
+              foreach ($input as $form){
+                  if(Input::has('COM_DetalleOrdenCompra_Cantidad'.$contador)>0){
+                  $detalle=new COMDetalleOrdenCompra();
+                  $detalle->COM_DetalleOrdenCompra_Cantidad=Input::get('COM_DetalleOrdenCompra_Cantidad'.$contador);
+                  $detalle->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('COM_DetalleOrdenCompra_PrecioUnitario'.$contador);
+                  $detalle->COM_OrdenCompra_idOrdenCompra=$ultimo;
+                  $detalle->COM_Producto_idProducto=Input::get('COM_Producto_idProducto'.$contador);
+                  $detalle->COM_Usuario_idUsuarioCreo=1;
+                  $detalle->COM_DetalleOrdenCompra_Codigo=rand(0,1000000);
+                  $detalle->save();
+                  
+                  }
+                  $contador++;
+              }
+              
+              //guardo el Historial
+                      $historial=new HistorialEstadoOrdenCompra();
+                      $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
+                      $historial->COM_TransicionEstado_Activo=1;
+                      $historial->COM_OrdenCompra_IdOrdenCompra=$ultimo;
+                      //$historial->COM_OrdenCompra_TransicionEstado_Id=1;
+                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
+                      $historial->COM_TransicionEstado_Observacion='Esta es la transicion creada al inicio';
+                      $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
+                      $historial->COM_EstadoOrdenCompra_IdEstAct=3;
+                      $historial->save();
+            return 'los datos ya estan aqui';
         }
         
         //funciones hechas para autorizar ordenes de compra
@@ -550,7 +616,33 @@ class OrdenComprasController extends BaseController {
             return View::make('OrdenCompras.HistorialOrden',array('historial'=>$trans));
         
         }
-               
+        //genero pago de orden compra
+         public function generarpagoLC(){
+            
+            return View::make('OrdenCompras.ListaOrdenCompraPago');
+        }
+        public function DetallePago(){
+                       $input=Input::all();
+             $id=Input::get('id');
+             $ordenCompra= OrdenCompra::find($id);
+             $Detalles=  COMDetalleOrdenCompra::where('COM_OrdenCompra_idOrdenCompra','=',$id)->get();
+             $proveedor=$ordenCompra->COM_Proveedor_IdProveedor;
+             $trans= HistorialEstadoOrdenCompra::where('COM_OrdenCompra_IdOrdenCompra','=',$id)->get();
+             
+            return View::make('OrdenCompras.detallePago',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
+
+        }
+        public function GuardaPago(){
+            $input = Input::all();
+            $nuevopago=  new COMOrdenPago();
+            $nuevopago->COM_OrdenPago_Codigo=rand(0,1000000);
+            $nuevopago->COM_OrdenCompra_idOrdenCompra= Input::get('id_ordenCompra');
+            $nuevopago->COM_OrdenPago_Activo=1;
+            $nuevopago->COM_Usuario_idUsuarioCreo=1;
+            $nuevopago->COM_OrdenPago_FechaCreo= date('Y/m/d');
+            $nuevopago->save();
+            return 'Orden de pago Generado';
+        }
         
  }
 ?>
