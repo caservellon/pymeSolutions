@@ -4,10 +4,11 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Producto &gt; <small>Editar Producto</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 {{ Form::model($Producto, array('method' => 'PATCH', 'route' => array('Inventario.Productos.update', $Producto->INV_Producto_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
+        {{ Form::hidden('INV_Producto_ID') }}
     <div class="form-group">
       {{ Form::label('INV_Producto_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
@@ -119,36 +120,65 @@
     <div class="form-group">
       {{ Form::label('INV_Categoria_ID', 'Categoria ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Categoria_ID',$Producto->INV_Producto_Categoria_ID, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_Categoria_ID', $combobox,$Producto->INV_Producto_Categoria_ID, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Categoria_IDCategoriaPadre', 'Categoria Padre ID:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Categoria_IDCategoriaPadre',$Producto->INV_Producto_IDCategoriaPadre, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_Categoria_IDCategoriaPadre', $combobox, $Producto->INV_Producto_IDCategoriaPadre, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_UnidadMedida_ID', 'Unidad de Medida ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_UnidadMedida_ID',$Producto->INV_UnidadMedida_ID, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_UnidadMedida_ID', $unidad,$Producto->INV_UnidadMedida_ID, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_HorarioBloqueo_ID', 'Horario de Bloqueo ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_HorarioBloqueo_ID',$Producto->INV_HorarioBloqueo_ID, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_HorarioBloqueo_ID', $horarios,$Producto->INV_HorarioBloqueo_ID, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
+
+    <div class="page-header clearfix">
+      <h3 class="pull-left">Producto &gt; <small>Campos Locales</small></h3>
+    </div>
+
+
+      @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get() as $campo)
+            <div class="campo-local-tipo form-group">
+                {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+                @if ($campo->GEN_CampoLocal_Requerido)
+                    <label>*</label>
+                @endif
+                <div class="col-md-5">
+                    @if ($campo->GEN_CampoLocal_Tipo == 'TXT' || $campo->GEN_CampoLocal_Tipo == 'INT' || $campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        @if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 )
+                            {{ Form::text($campo->GEN_CampoLocal_Codigo,DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->first()->INV_Producto_CampoLocal_Valor, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
+                        @else
+                            {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
+                        @endif
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}
+                    @endif
+                </div>
+            </div> 
+        @endforeach
+
+
     {{ Form::hidden('INV_Producto_FechaModificacion', date('Y-m-d H:i:s')) }}
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Inventario.Productos.show', 'Cancel', $Producto->INV_Producto_ID, array('class' => 'btn')) }}
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+            {{ link_to_route('Inventario.Productos.show', 'Cancelar', $Producto->INV_Producto_ID, array('class' => 'btn')) }}
       </div>
     </div>
 {{ Form::close() }}
-
+    
+  
 @if ($errors->any())
     <ul>
         {{ implode('', $errors->all('<li class="error">:message</li>')) }}

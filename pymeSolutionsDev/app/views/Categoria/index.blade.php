@@ -42,10 +42,10 @@
 					<td>{{{ ($Categoria->INV_Categoria_Activo ? 'Activa' : 'Desactivada') }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_IDCategoriaPadre }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_HorarioDescuento_ID }}}</td>
-                    <td>{{ link_to_route('Inventario.Categoria.edit', 'Edit', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    <td>{{ link_to_route('Inventario.Categoria.edit', 'Editar', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Categoria.destroy', $Categoria->INV_Categoria_ID))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

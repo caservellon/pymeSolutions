@@ -7,7 +7,6 @@ USE `pymeERP` ;
 DROP TABLE IF EXISTS `pymeERP`.`GEN_CampoLocal` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocal` (
-
   `GEN_CampoLocal_ID` INT NOT NULL AUTO_INCREMENT,
   `GEN_CampoLocal_Codigo` VARCHAR(16) NOT NULL,
   `GEN_CampoLocal_Activo` TINYINT(1) NOT NULL,
@@ -20,7 +19,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocal` (
   PRIMARY KEY (`GEN_CampoLocal_ID`),
   UNIQUE INDEX `COM_CampoLocal_Codigo_UNIQUE` (`GEN_CampoLocal_Codigo` ASC))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`GEN_Mensajes`

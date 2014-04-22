@@ -192,6 +192,30 @@ $(document).ready(function () {
 		ev.preventDefault();
 	});
 
+	// ------------------------ Campo Local Productos
+
+	$('.input-campo-local').on('blur', function(){
+		$.post('/Inventario/Productos/campolocalsave',{
+			'nombre': $('.input-campo-local').attr('id'),
+			'valor': $('.input-campo-local').val(),
+			'codigoprod': $("input[name=INV_Producto_ID]").val()
+		}).success(function(data){
+			console.log(data);
+		});
+	});
+
+	// ------------------------ Campo Local Proveedor
+	$('.input-campo-local').on('blur', function(){
+		$.post('/Inventario/Proveedor/campolocalsave',{
+			'nombre': $('.input-campo-local').attr('id'),
+			'valor': $('.input-campo-local').val(),
+			'codigoprod': $("input[name=INV_Proveedor_ID]").val()
+		}).success(function(data){
+			console.log(data);
+		});
+	});
+});
+
 	//Eliminar producto seleccionado
 	$('.eliminar-prod').on('click',function(){
 		$("tbody.pro-list tr.highlight").remove();
@@ -304,10 +328,9 @@ $(document).ready(function () {
 	}
 
 
-
-	$("a.local-field-btn").on("click",function(){	
-	});
 });
+
+
 
 function setearTotalcc(valor,x){
     
@@ -332,3 +355,5 @@ function setearTotalcp(valor,x){
         valor.elements[valor.length-3].value=document.getElementById("total").value;
       
 			}
+
+

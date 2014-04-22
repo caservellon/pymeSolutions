@@ -42,8 +42,8 @@
                   <th>Nombre</th>
                   <th>Descripcion</th>
                   <th>Cantidad</th>
-		  <th>Precio Unitario</th>
-		  <th>Unidad</th>
+      <th>Precio Unitario</th>
+      <th>Unidad</th>
                 </tr>
               </thead>
                   <tbody >
@@ -58,9 +58,9 @@
                         <td>{{ $product1->INV_Producto_Nombre}}</td>
                         <td>{{ $product1->INV_Producto_Descripcion}}</td>
                         <td>{{ $product->COM_DetalleOrdenCompra_Cantidad}}</td>
-			<td>{{ $product->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
+      <td>{{ $product->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
                         <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);?>
-			<td>{{$medida->INV_UnidadMedida_Nombre}}</td>
+      <td>{{$medida->INV_UnidadMedida_Nombre}}</td>
                       </tr> 
                       <?php $contador++; ?>
                       @endforeach
@@ -113,8 +113,8 @@
                   <th>Transiciones</th>
                   <th>Observaciones</th>
                   <th>Fecha de Transicion</th>
-		  <th>Usuario</th>
-		  
+      <th>Usuario</th>
+      
                 </tr>
               </thead>
               <tbody >
@@ -135,7 +135,7 @@
                         <td>{{ $product->COM_TransicionEstado_Observacion}}</td>
                         <td>{{ $product->COM_TransicionEstado_FechaCreo}}</td>
                         <?php $id_t= $product->COM_TransicionEstado_Id ; ?>
-			<td>{{ $product->COM_Usuario_idUsuarioCreo}}</td>
+      <td>{{ $product->COM_Usuario_idUsuarioCreo}}</td>
                         
                       </tr> 
                         @endforeach

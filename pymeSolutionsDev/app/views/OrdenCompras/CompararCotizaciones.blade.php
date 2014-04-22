@@ -31,11 +31,19 @@
                 
           <?php $cotizations= Cotizacion::find($cotizaciones);?>
               @foreach ($cotizations as $cotization)
+<<<<<<< HEAD
+              <h4>{{$cotization->COM_Cotizacion_Codigo}}</h4>
+=======
               <h4>{{$cotization->COM_Cotizacion_Codigo}}</h4><a href="{{ route('ComCot', array('id'=>$cotization->COM_Cotizacion_IdCotizacion)) }}" class="btn btn-info">Crear Orden de Compara para esta Cotizacion</a>
+>>>>>>> master
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered" >
                         <thead>
                             <tr>
+<<<<<<< HEAD
+                                <th>Producto</th>
+                                <th></th>
+=======
                                 <?php $detalles= DB::table('COM_Detalle_Cotizacion')->select('COM_DetalleCotizacion_IdDetalleCotizacion','COM_DetalleCotizacion_Codigo',
                                         'COM_DetalleCotizacion_Cantidad','COM_DetalleCotizacion_PrecioUnitario','COM_Cotizacion_IdCotizacion','COM_Producto_Id_Producto',
                                         'COM_Usuario_idUsuarioCreo','Usuario_idUsuarioModifico')->where('COM_Cotizacion_IdCotizacion','=',$cotization->COM_Cotizacion_IdCotizacion)->get();?>
@@ -43,13 +51,22 @@
                                 <?php $producto=  Producto::find($detalle->COM_Producto_Id_Producto);?>
                                 <th>{{$producto->INV_Producto_Nombre}}</th>
                                 @endforeach
+>>>>>>> master
                             </tr>
                         </thead>
                         <tbody >
                             <tr>
+<<<<<<< HEAD
+                                <th>Coca Cola Lata</th>
+                                <td>Lps. 450</td>
+                                <td>lps. 500</td>
+                                <td>lps. 100</td>
+                                <td>lps. 600</td>
+=======
                                 @foreach($detalles as $detalle)
                                 <td>{{$detalle->COM_DetalleCotizacion_PrecioUnitario*$detalle->COM_DetalleCotizacion_Cantidad}}</td>
                                 @endforeach
+>>>>>>> master
                             </tr> 
                         </tbody>
                     </table>

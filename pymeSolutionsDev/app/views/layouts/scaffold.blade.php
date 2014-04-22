@@ -3,26 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <title>pymeSolutions</title>
-  <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
   <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/css/bootstrap.min.css">
+
   {{ HTML::script('/assets/javascript/script.js') }}
   
 
+    <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
 
+  <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
 
 </head>
 <body style="margin-top: 50px">
   <header>
   <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-    <a class="navbar-brand" href="#">pymeERP</a>
+    <a class="navbar-brand" href="#">pyme Solutions</a>
 
     <ul class="nav navbar-nav navbar-left">
       <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Gestión de Ventas</a></li>
-              <li><a href="#">Gestión de Caja</a></li>
-              <li><a href="#">Devoluciones</a></li>
+              <li><a href="/Ventas/Ventas/create">Gestión de Ventas</a></li>
+              <li><a href="/Ventas/Cajas">Gestión de Caja</a></li>
+              <li><a href="/Ventas/Devoluciones/create">Devoluciones</a></li>
               <li class="divider"></li>
               <li><a href="/Ventas">Configuración</a></li>
             </ul>
@@ -72,11 +75,19 @@
               <li>
                 {{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
               </li>
+              <li>
+                {{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
+              </li>
+              <li>
+                {{ link_to_route('Inventario.MotivoMovimiento.index', 'Motivo Movimiento Inventario')}}
+              </li>
               <li><a href="#">Inventario</a></li>
               <li><a href="#">Categorias</a></li>
               <li><a href="#">Atributos</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li>
+                 <a href="/Inventario">Configuración</a>
+              </li>
             </ul>
           </li>
 
@@ -104,7 +115,7 @@
               <li><a href="#">Documentos</a></li>
               <li><a href="#">Oportunidades de Negocios</a></li>
               <li class="divider"></li>
-              <li><a href="#">Configuración</a></li>
+              <li><a href="/CRM">Configuración</a></li>
             </ul>
           </li>
 
@@ -127,11 +138,14 @@
   <div class="container col-md-8 col-md-offset-2">
     @yield('main')
   </div>
-  <script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
+   <script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
   <script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/assets/javascript/script.js"></script>
+</body>
   
 </body>
-
+   
+      @yield('contabilidad_scripts')
   <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
 </html>

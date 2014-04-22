@@ -4,7 +4,7 @@
 
 <h2 class="sub-header">Listado de Campos Locales</h2>
 <div class="btn-agregar">
-	<a type="button" href="{{ URL::route('Compras.CampoLocal.create') }}" class="btn btn-default">
+	<a type="button" href="{{ URL::route('Compras.Configuracion.CampoLocal.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Campo Local
 	</a>
 </div>

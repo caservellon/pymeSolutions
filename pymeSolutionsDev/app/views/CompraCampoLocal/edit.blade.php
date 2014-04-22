@@ -8,7 +8,7 @@
       </div>
 </div>
 
-{{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('Compras.CampoLocal.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
+{{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('Compras.Configuracion.CampoLocal.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">

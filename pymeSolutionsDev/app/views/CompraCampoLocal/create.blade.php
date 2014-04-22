@@ -5,12 +5,12 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Campo Local &gt; <small>Nuevo Campo Local</small></h3>
       <div class="pull-right">
-        <a href="/Compras/CampoLocal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="/Compras/Configuracion/CampoLocal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
 
-{{ Form::open(array('route' => 'Compras.CampoLocal.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
+{{ Form::open(array('route' => 'Compras.Configuracion.CampoLocal.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">

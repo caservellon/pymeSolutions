@@ -2,37 +2,68 @@
 
 @section('main')
 
-<h1>Create Devolucion</h1>
+<h1>Registrar Devolución</h1>
 
-{{ Form::open(array('route' => 'Devoluciones.store')) }}
-	<ul>
-        <li>
-            {{ Form::label('VEN_Devolucion_id', 'VEN_Devolucion_id:') }}
-            {{ Form::text('VEN_Devolucion_id') }}
-        </li>
+<div class="factura-info">
+    <label>Ingrese numero de factura: </label><input type="text" class="no-factura"> <button class="no-fact-accept btn btn-success">Ingresar</button>
+</div>
 
-        <li>
-            {{ Form::label('VEN_Devolucion_Codigo', 'VEN_Devolucion_Codigo:') }}
-            {{ Form::text('VEN_Devolucion_Codigo') }}
-        </li>
+<div class="mensaje"></div>
 
-        <li>
-            {{ Form::label('VEN_Devolucion_Monto', 'VEN_Devolucion_Monto:') }}
-            {{ Form::text('VEN_Devolucion_Monto') }}
-        </li>
+<table class="table table-striped" id="detalle-factura">
+    <thead>
+        <tr>
+            <th>Devolver</th>
+            <th>Código</th>
+            <th>Descripción</th>
+            <th>Precio Unitario</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody class="productos-dev">
+        
+    </tbody>
+</table>
 
-		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-		</li>
-	</ul>
-{{ Form::close() }}
+<button class="btn btn-success crear-devolucion">Procesar Devolución</button>
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
-
+<div class="modal fade" id="resultadoDevolucion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Confirmación de Devolución</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped" id="detalle-devolucion">
+            <thead>
+                <tr>
+                    <th>Codigo Producto</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+        <div class="bono-compra">
+            <h4>Bono de Compra Generado</h4>
+            <div>
+                <label>Codigo: </label><span class="codigo-bc"></span>
+            </div>
+            <div>
+                <label>Cantidad: </label><span class="cantidad-bc"></span>    
+            </div>
+            
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 @stop
 
 

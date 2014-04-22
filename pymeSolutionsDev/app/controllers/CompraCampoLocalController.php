@@ -60,10 +60,10 @@ class CompraCampoLocalController extends BaseController {
 
 				}
 			}
-			return Redirect::route('Compras.CampoLocal.index');
+			return Redirect::route('Compras.Configuracion.CampoLocal.index');
 		}
 
-		return Redirect::route('Compras.CampoLocal.create')
+		return Redirect::route('Compras.Configuracion.CampoLocal.create')
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
 	}
@@ -128,10 +128,10 @@ class CompraCampoLocalController extends BaseController {
 					}
 				}
 			}
-			return Redirect::route('Compras.CampoLocal.index');
+			return Redirect::route('Compras.Configuracion.CampoLocal.index');
 		}
 
-		return Redirect::route('Compras.CampoLocal.edit', $id)
+		return Redirect::route('Compras.Configuracion.CampoLocal.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -143,7 +143,7 @@ class CompraCampoLocalController extends BaseController {
 		$CampoLocal->GEN_CampoLocal_Activo = 0;
 		$CampoLocal->save();
 
-		return Redirect::route('Compras.CampoLocal.index');
+		return Redirect::route('Compras.Configuracion.CampoLocal.index');
 	}
 
 }

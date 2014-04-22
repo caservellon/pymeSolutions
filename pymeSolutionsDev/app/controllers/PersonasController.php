@@ -26,14 +26,10 @@ class PersonasController extends BaseController {
 		return View::make('Personas.index', compact('Personas'));
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('Personas.create');
+	public function create() {
+		$tipoDocumento = TipoDocumento::all();
+		
+		return View::make('Personas.create', compact('tipoDocumento'));
 	}
 
 	/**
@@ -41,19 +37,45 @@ class PersonasController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
-	{
+	public function store(){
 		$input = Input::all();
-		$validation = Validator::make($input, Persona::$rules);
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->get();
+		$res = Persona::$rules;
+
+		foreach ($campos as $campo) {
+			$val = '';
+			if ($campo->GEN_CampoLocal_Requerido) {
+				$val = $val.'Required|';
+			}
+			switch ($campo->GEN_CampoLocal_Tipo) {
+				case 'TXT':
+					$val = $val.'alpha_spaces|';
+					break;				
+				case 'INT':
+					$val = $val.'Integer|';
+					break;
+				case 'FLOAT':
+					$val = $val.'Numeric|';
+					break;				
+				default:
+					break;
+			}
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+		}
+
+		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
 		{
-			$this->Persona->create($input);
-
-			return Redirect::route('Personas.index');
+			
+			$personaa = $this->Persona->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->lists('GEN_CampoLocal_Codigo')));
+			foreach ($campos as $campo) {
+				DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'CRM_Personas_CRM_Personas_ID' => $personaa->CRM_Personas_ID));
+			}
+			return Redirect::route('CRM.Personas.index');
 		}
 
-		return Redirect::route('Personas.create')
+		return Redirect::route('CRM.Personas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -69,7 +91,7 @@ class PersonasController extends BaseController {
 	{
 		$Persona = $this->Persona->findOrFail($id);
 
-		return View::make('Personas.show', compact('Persona'));
+		return View::make('CRM.Personas.show', compact('Persona'));
 	}
 
 	/**
@@ -84,7 +106,7 @@ class PersonasController extends BaseController {
 
 		if (is_null($Persona))
 		{
-			return Redirect::route('Personas.index');
+			return Redirect::route('CRM.Personas.index');
 		}
 
 		return View::make('Personas.edit', compact('Persona'));
@@ -99,17 +121,45 @@ class PersonasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Persona::$rules);
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->get();
+		$res = Persona::$rules;
+
+		foreach ($campos as $campo) {
+			$val = '';
+			if ($campo->GEN_CampoLocal_Requerido) {
+				$val = $val.'Required|';
+			}
+			switch ($campo->GEN_CampoLocal_Tipo) {
+				case 'TXT':
+					$val = $val.'alpha_spaces|';
+					break;				
+				case 'INT':
+					$val = $val.'Integer|';
+					break;
+				case 'FLOAT':
+					$val = $val.'Numeric|';
+					break;				
+				default:
+					break;
+			}
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+		}
+
+		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
 		{
 			$Persona = $this->Persona->find($id);
-			$Persona->update($input);
-
-			return Redirect::route('Personas.show', $id);
+			$Persona->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->lists('GEN_CampoLocal_Codigo')));
+			foreach ($campos as $campo) {
+				if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->count() > 0 ) {
+				    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->update(array('CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				}
+			}
+			return Redirect::route('CRM.Personas.index', $id);
 		}
 
-		return Redirect::route('Personas.edit', $id)
+		return Redirect::route('CRM.Personas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -125,7 +175,7 @@ class PersonasController extends BaseController {
 	{
 		$this->Persona->find($id)->delete();
 
-		return Redirect::route('Personas.index');
+		return Redirect::route('CRM.Personas.index');
 	}
 
 }
