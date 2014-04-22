@@ -240,6 +240,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('asientocontable','AsientosController');
 			Route::resource('librodiario','LibroDiarioController');
 			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
+			Route::resource('estadoresultados', 'EstadoresultadosController');
 
 			Route::get('librodiario',array('uses' => 'LibroDiarioController@index'));
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
@@ -252,21 +253,24 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::post('crear/asientocontable/cargar/cuentas',array('as'=>'cargarcuentas', 'uses'=>'AsientosController@cargarcuentas'));
 			Route::post('creando/motivotransaccion',array('as'=>'creandomotivo','uses'=>'AsientosController@creandomotivo'));
 
-	});
-Route::group(array('prefix'=>'contabilidad/configuracion'),function ()
-{
-	Route::get('/',function(){
-				return View::make('Menus.config_contabilidad');
-	});
-	Route::resource('unidadmonetaria', 'UnidadMonetariaController');
-	Route::resource('periodocontable', 'ParamPeriodoContableController');
-	Route::resource('catalogocuentas', 'CatalogoContablesController');
+			Route::group(array('prefix'=>'configuracion'),function ()
+			{
+				Route::get('/',function(){
+							return View::make('Menus.config_contabilidad');
+				});
+				Route::resource('unidadmonetaria', 'UnidadMonetariaController');
+				Route::resource('periodocontable', 'ParamPeriodoContableController');
+				Route::resource('catalogocuentas', 'CatalogoContablesController');
 
-	Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
-	Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
-	Route::get('subcuentas',array ('as'=>'subcuentas', 'uses' => 'SubcuentaController@index'));
-	//Route::post('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
-});
+				Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
+				Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
+				Route::get('subcuentas',array ('as'=>'subcuentas', 'uses' => 'SubcuentaController@index'));
+				//Route::post('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
+			});
+
+
+
+	});
 
 
 
@@ -354,6 +358,6 @@ Route::resource('productocampolocals', 'ProductocampolocalsController');
 
 Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
 
-Route::resource('estadoresultados', 'EstadoresultadosController');
+
 
 
