@@ -14,12 +14,15 @@
 Route::get('/', function(){
 	return View::make('hello');
 
-
-
 });
+
 
 Route::group(array('prefix' => 'Inventario'), function()
 {
+	Route::get('/', function()
+	{
+		return View::make('Menus.inventario');
+	});
 
 	Route::resource('Ciudad', 'CiudadController');
 
@@ -30,12 +33,44 @@ Route::group(array('prefix' => 'Inventario'), function()
 	Route::resource('Atributos', 'AtributosController');
 
 	Route::resource('Proveedor', 'ProveedorController');
-
+	Route::post('/Proveedor/campolocalsave', array('as' => 'Inventario.Proveedor.campolocalsave', 'uses' => 'ProveedorController@campolocalsave'));
+	
 	Route::resource('Productos', 'ProductosController');
+	Route::post('/Productos/campolocalsave', array('as' => 'Inventario.Productos.campolocalsave', 'uses' => 'ProductosController@campolocalsave'));
 
 	Route::resource('Horarios', 'HorariosController');
 
 	Route::resource('FormaPagos', 'FormaPagosController');
+
+	Route::resource('CampoLocals', 'CampoLocalsController');
+	
+	Route::post('Proveedor/search_index', array('as' => 'Proveedor.search_index', 'uses' =>'ProveedorController@search_index'));
+
+	Route::resource('DetalleMovimiento', 'DetallemovimientosController');
+
+	Route::resource('SalidaInventario', 'SalidaInventariosController');
+
+	Route::resource('DetalleSalida', 'DetalleSalidasController');
+
+	Route::get('DetalleMovimiento/Agregar/{id}', array('as' => 'Inventario.DetalleMovimiento.Agregar', 'uses' =>'DetallemovimientosController@agregar'));
+
+	Route::get('DetalleMovimiento/Detalles/{id}', array('as' => 'Inventario.MovimientoInventario.Detalles', 'uses' =>'MovimientoinventariosController@detalles'));
+
+	Route::get('DetalleMovimiento/Terminar/{id}', array('as' => 'Inventario.MovimientoInventario.Terminar', 'uses' =>'MovimientoinventariosController@detalles'));
+
+	Route::post('DetalleMovimiento/search', array('as' => 'Inventario.DetalleMovimiento.search', 'uses' =>'DetallemovimientosController@search'));
+
+	Route::resource('MotivoMovimiento', 'MotivomovimientosController');
+
+	Route::get('MovimientoInventario/Salida', array('as' => 'Inventario.MovimientoInventario.Salida', 'uses' =>'MovimientoinventariosController@salidas'));
+
+	Route::get('MovimientoInventario/Entrada', array('as' => 'Inventario.MovimientoInventario.Entrada', 'uses' =>'MovimientoinventariosController@entradas'));
+
+	Route::get('DetalleSalida/Agregar/{id}', array('as' => 'Inventario.DetalleSalida.Agregar', 'uses' =>'DetalleSalidasController@agregar'));
+
+	Route::resource('MovimientoInventario', 'MovimientoinventariosController');
+
+	Route::post('DetalleSalida/search', array('as' => 'Inventario.DetalleSalida.search', 'uses' =>'DetalleSalidasController@search'));
 
 });
    
@@ -242,15 +277,20 @@ Route::group(array('prefix'=>'contabilidad/configuracion'),function ()
 
 
 
+	Route::resource('Personas', 'PersonasController');
 //crm
+Route::group(array('prefix' => 'CRM'), function(){
+	Route::get('/',function(){
+		return View::make('Menus.crm');
+	});
 
-Route::resource('Personas', 'PersonasController');
+	Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
 
-Route::resource('ValorCampoLocalCRMs', 'ValorCampoLocalCRMsController');
+	Route::resource('CampoLocals', 'CampoLocalsController');
 
-Route::resource('CampoLocals', 'CampoLocalsController');
+	Route::resource('CampoLocalLista', 'CampoLocalListaController');
+});
 
-Route::resource('CampoLocalLista', 'CampoLocalListaController');
 
 
 Route::group(array('prefix' => 'Ventas'), function(){
@@ -290,4 +330,10 @@ Route::group(array('prefix' => 'Ventas'), function(){
 
 
 
+
+Route::resource('productocampolocals', 'ProductocampolocalsController');
+
+Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
+
 Route::resource('estadoresultados', 'EstadoresultadosController');
+

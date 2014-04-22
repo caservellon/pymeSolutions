@@ -1,5 +1,20 @@
 $(document).ready(function () {
 
+	$('INV_Categoria_IDCategoriaPadre').on('change', function() {
+		var el = $(this);
+		console.log(1)
+	});
+
+	$("div.campo-local-tipo").change(function() {
+		if($(this).find("select").val() === "LIST"){
+			$("div.value-list").fadeIn();
+		} else {
+			$("div.value-list").fadeOut();
+			$(".value-input").val(""); 
+		}
+		
+	});
+
 
 	// ---------------- Devoluciones ------------------------------
 
@@ -192,6 +207,29 @@ $(document).ready(function () {
 		ev.preventDefault();
 	});
 
+	// ------------------------ Campo Local Productos
+
+	$('.input-campo-local').on('blur', function(){
+		$.post('/Inventario/Productos/campolocalsave',{
+			'nombre': $('.input-campo-local').attr('id'),
+			'valor': $('.input-campo-local').val(),
+			'codigoprod': $("input[name=INV_Producto_ID]").val()
+		}).success(function(data){
+			console.log(data);
+		});
+	});
+
+	// ------------------------ Campo Local Proveedor
+	$('.input-campo-local').on('blur', function(){
+		$.post('/Inventario/Proveedor/campolocalsave',{
+			'nombre': $('.input-campo-local').attr('id'),
+			'valor': $('.input-campo-local').val(),
+			'codigoprod': $("input[name=INV_Proveedor_ID]").val()
+		}).success(function(data){
+			console.log(data);
+		});
+	});
+});
 	//Eliminar producto seleccionado
 	$('.eliminar-prod').on('click',function(){
 		$("tbody.pro-list tr.highlight").remove();
@@ -332,3 +370,4 @@ function setearTotalcp(valor,x){
         valor.elements[valor.length-3].value=document.getElementById("total").value;
       
 			}
+

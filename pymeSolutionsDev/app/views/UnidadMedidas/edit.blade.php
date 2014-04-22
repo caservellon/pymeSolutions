@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Unidades de Medida &gt; <small>Nueva Unidad de Medida</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Inventario/UnidadMedidas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> regresar</a>
       </div>
 </div>
 {{ Form::model($UnidadMedida, array('method' => 'PATCH', 'route' => array('Inventario.UnidadMedidas.update', $UnidadMedida->INV_UnidadMedida_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
@@ -29,7 +29,7 @@
     {{ Form::hidden('INV_UnidadMedida_FechaModificacion', date('Y-m-d H:i:s')) }}
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 {{ Form::close() }}

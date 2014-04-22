@@ -1,10 +1,11 @@
+
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CRM_TipoDocumento`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pymeERP`.`CRM_TipoDocumento` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_TipoDocumento` (
-  `CRM_TipoDocumento_ID` INT NOT NULL,
+  `CRM_TipoDocumento_ID` INT NOT NULL AUTO_INCREMENT,
   `CRM_TipoDocumento_Codigo` VARCHAR(45) NULL,
   `CRM_TipoDocumento_Nombre` VARCHAR(45) NULL,
   `CRM_TipoDocumento_Validacion` VARCHAR(50) NULL,
@@ -18,7 +19,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`CRM_Personas` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Personas` (
-  `CRM_Personas_ID` INT NOT NULL,
+  `CRM_Personas_ID` INT NOT NULL AUTO_INCREMENT,
   `CRM_Personas_codigo` VARCHAR(45) NULL,
   `CRM_Personas_Nombres` VARCHAR(45) NULL,
   `CRM_Personas_Apellidos` VARCHAR(45) NULL,
@@ -45,7 +46,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`CRM_Empresas` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Empresas` (
-  `CRM_Empresas_ID` INT NOT NULL,
+  `CRM_Empresas_ID` INT NOT NULL AUTO_INCREMENT,
   `CRM_Empresas_Codigo` VARCHAR(45) NULL,
   `CRM_Empresas_Nombre` VARCHAR(45) NULL,
   `CRM_Empresas_Direccion` VARCHAR(45) NULL,
@@ -75,7 +76,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`CRM_Campaign` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Campaign` (
-  `CRM_Campaign_ID` INT NOT NULL,
+  `CRM_Campaign_ID` INT NOT NULL AUTO_INCREMENT,
   `CRM_Campaign_Codigo` VARCHAR(45) NULL,
   `CRM_Campaign_Titulo` VARCHAR(45) NULL,
   `CRM_Campaign_Cuerpo` VARCHAR(45) NULL,
@@ -92,8 +93,8 @@ DROP TABLE IF EXISTS `pymeERP`.`CRM_ValorCampoLocal` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_ValorCampoLocal` (
   `CRM_ValorCampoLocal_ID` INT NOT NULL AUTO_INCREMENT,
   `CRM_ValorCampoLocal_Valor` VARCHAR(45) NULL,
-  `CRM_ValorCampoLocal_Creacion` VARCHAR(45) NULL,
-  `CRM_ValorCampoLocal_Modificacion` VARCHAR(45) NULL,
+  `CRM_ValorCampoLocal_Creacion` DATETIME NULL,
+  `CRM_ValorCampoLocal_Modificacion` DATETIME NULL,
   `CRM_ValorCampoLocal_Usuario` VARCHAR(45) NULL,
   `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
   `CRM_Empresas_CRM_Empresas_ID` INT NULL,

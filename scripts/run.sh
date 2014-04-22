@@ -28,6 +28,9 @@ mysql -u "root" "-proot" "pymeERP" < "CreateCRM.sql" >> ./logs/install.log 2>&1
 
 echo "***Populating tables***" >> ./logs/install.log
 
+echo "Populating CRM " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "INS_CRM_TipoDocumento.sql" >> ./logs/install.log 2>&1
+
 echo "Populating Compras " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_COM_EstadoOrdencompra.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_COM_OrdenCompra_TrasicionEstado.sql" >> ./logs/install.log 2>&1
@@ -39,6 +42,10 @@ mysql -u "root" "-proot" "pymeERP" < "INS_INV_Categoria.sql" >> ./logs/install.l
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Ciudad.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_FormaPago.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_UnidadMedida.sql" >> ./logs/install.log 2>&1
+
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Productos.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Proveedores.sql" >> ./logs/install.log 2>&1
+
 
 echo "Populating Contabilidad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_ClasificacionCuenta.sql" >> ./logs/install.log 2>&1
@@ -57,4 +64,6 @@ mysql -u "root" "-proot" "pymeERP" < "INS_VEN_PeriodoCierreDeCaja.sql" >> ./logs
 
 DATE=$(date +"%Y/%m/%d %H:%M:%S")
 echo "Process ended at " $DATE  >> ./logs/install.log
+
 echo "------------------------END----------------------------" >> ./logs/install.log
+

@@ -6,29 +6,29 @@
  */
 class OrdenComprasController extends BaseController {
 
-	/**
-	 * OrdenCompra Repository
-	 *
-	 * @var OrdenCompra
-	 */
-	protected $OrdenCompra;
+    /**
+     * OrdenCompra Repository
+     *
+     * @var OrdenCompra
+     */
+    protected $OrdenCompra;
 
-	public function __construct(OrdenCompra $OrdenCompra)
-	{
-		$this->OrdenCompra = $OrdenCompra;
-	}
+    public function __construct(OrdenCompra $OrdenCompra)
+    {
+        $this->OrdenCompra = $OrdenCompra;
+    }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$OrdenCompras = $this->OrdenCompra->all();
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        $OrdenCompras = $this->OrdenCompra->all();
 
-		return View::make('OrdenCompras.index', compact('OrdenCompras'));
-	}
+        return View::make('OrdenCompras.index', compact('OrdenCompras'));
+    }
         
         public function parametrizar(){
             
@@ -39,21 +39,21 @@ class OrdenComprasController extends BaseController {
             
                 $editar = CampoLocal::where('GEN_CampoLocal_Codigo', 'LIKE', 'COM_OC%')->get();
 
-		return View::make('OrdenCompras.indexCampoLocal', compact('editar'));
+        return View::make('OrdenCompras.indexCampoLocal', compact('editar'));
         }
         
 
-	
-	public function create()
-	{
-		return View::make('OrdenCompras.create');
-	}
 
-	public function mensaje()
-	{
+    public function create()
+    {
+        return View::make('OrdenCompras.create');
+    }
+
+    public function mensaje()
+    {
                 $date = Mensaje::find(1);
-		return View::make('OrdenCompras.mensaje', compact('date'));
-	}
+        return View::make('OrdenCompras.mensaje', compact('date'));
+    }
         public function campoLocal(){
                 $campo = CampoLocal::all();
                 $suma=$campo->count()+1;
@@ -83,8 +83,8 @@ class OrdenComprasController extends BaseController {
 //                $campoLocal->GEN_CampoLocal_Requerido=Input::get('GEN_CampoLocal_Requerido');
 //                $campoLocal->GEN_CampoLocal_ParametroBusqueda=Input::get('GEN_CampoLocal_ParametroBusqueda');
 //                $campoLocal->GEN_CampoLocal_Activo=Input::get('GEN_CampoLocal_Activo');   
-		if ($validation->passes())
-		{
+        if ($validation->passes())
+        {
                         
                        
                         if(Input::get('GEN_CampoLocal_Tipo')=='LIST'){
@@ -94,13 +94,13 @@ class OrdenComprasController extends BaseController {
                         $date = Mensaje::find(1);
                         $campoLocal->save();
                         return Redirect::route('mensajeOrden', compact('date'));
-		
+
                 }
                 $mensaje= Mensaje::find(2);
-		return Redirect::route('parametrizarOrden')
-			->withInput()
-			->withErrors($validation)
-			->with('message', $mensaje->GEN_Mensajes_Mensaje);
+        return Redirect::route('parametrizarOrden')
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', $mensaje->GEN_Mensajes_Mensaje);
                 
         }
 //        public function listavista($suma){
@@ -122,87 +122,87 @@ class OrdenComprasController extends BaseController {
             }
             $mensaje= Mensaje::find(2);
             return View::make('listavalor', compact('suma'))
-			->withInput()
-			->withErrors($validation)
-			->with('message', $mensaje->GEN_Mensajes_Mensaje);
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', $mensaje->GEN_Mensajes_Mensaje);
             
         }
         
-	public function store()
-	{
-		$input = Input::all();
-		$validation = Validator::make($input, OrdenCompra::$rules);
+    public function store()
+    {
+        $input = Input::all();
+        $validation = Validator::make($input, OrdenCompra::$rules);
 
-		if ($validation->passes())
-		{
-			$this->OrdenCompra->create($input);
+        if ($validation->passes())
+        {
+            $this->OrdenCompra->create($input);
 
-			return Redirect::route('OrdenCompras.index');
-		}
+            return Redirect::route('OrdenCompras.index');
+        }
 
-		return Redirect::route('OrdenCompras.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
-	}
+        return Redirect::route('OrdenCompras.create')
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', 'There were validation errors.');
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$OrdenCompra = $this->OrdenCompra->findOrFail($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        $OrdenCompra = $this->OrdenCompra->findOrFail($id);
 
-		return View::make('OrdenCompras.show', compact('OrdenCompra'));
-	}
+        return View::make('OrdenCompras.show', compact('OrdenCompra'));
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$OrdenCompra = CampoLocal::find($id);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $OrdenCompra = CampoLocal::find($id);
 
-		if (is_null($OrdenCompra))
-		{
-			return Redirect::route('Compras.indexCampoLocal');
-		}
+        if (is_null($OrdenCompra))
+        {
+            return Redirect::route('Compras.indexCampoLocal');
+        }
 
-		return View::make('OrdenCompras.edit', compact('OrdenCompra'));
-	}
+        return View::make('OrdenCompras.edit', compact('OrdenCompra'));
+    }
         
         public function editar()
-	{
-		$OrdenCompra = CampoLocal::find(Input::get('id'));
+    {
+        $OrdenCompra = CampoLocal::find(Input::get('id'));
 
-		if (is_null($OrdenCompra))
-		{
-			return Redirect::route('indexCampoLocal');
-		}
+        if (is_null($OrdenCompra))
+        {
+            return Redirect::route('indexCampoLocal');
+        }
 
-		return View::make('OrdenCompras.editarOrden', compact('OrdenCompra'));
-	}
+        return View::make('OrdenCompras.editarOrden', compact('OrdenCompra'));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
         public function actualizar()
-	{
-		$input = Input::except('_method');
-		$validation = Validator::make($input, CampoLocal::$rules);
+    {
+        $input = Input::except('_method');
+        $validation = Validator::make($input, CampoLocal::$rules);
 
-		if ($validation->passes())
-		{
-			$OrdenCompra = CampoLocal::find(Input::get('id'));
+        if ($validation->passes())
+        {
+            $OrdenCompra = CampoLocal::find(Input::get('id'));
                         $suma=Input::get('id');
                         $OrdenCompra->GEN_CampoLocal_ID= Input::get('id');
                         
@@ -229,23 +229,23 @@ class OrdenComprasController extends BaseController {
                                 return View::make('Listavalor', compact('suma'));
                             }
 
-			return Redirect::route('mensajeOrden');
-		}
+            return Redirect::route('mensajeOrden');
+        }
                 $mensaje= Mensaje::find(2);
-		return Redirect::route('editar', Input::get('id'))
-			->withInput()
-			->withErrors($validation)
-			->with('message', $mensaje->GEN_Mensajes_Mensaje);
-	}
+        return Redirect::route('editar', Input::get('id'))
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', $mensaje->GEN_Mensajes_Mensaje);
+    }
         
-	public function update($id)
-	{
-		$input = Input::except('_method');
-		$validation = Validator::make($input, CampoLocal::$rules);
+    public function update($id)
+    {
+        $input = Input::except('_method');
+        $validation = Validator::make($input, CampoLocal::$rules);
 
-		if ($validation->passes())
-		{
-			$Cotizacion = CampoLocal::find($id);
+        if ($validation->passes())
+        {
+            $Cotizacion = CampoLocal::find($id);
                         $suma=$id;
                         $Cotizacion->GEN_CampoLocal_ID= $id;
                         
@@ -272,27 +272,27 @@ class OrdenComprasController extends BaseController {
                                 return View::make('Listavalor', compact('suma'));
                             }
 
-			return Redirect::route('mensajeOrden');
-		}
+            return Redirect::route('mensajeOrden');
+        }
                 $mensaje= Mensaje::find(2);
-		return Redirect::route('Compras.OrdenCompras.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', $mensaje->GEN_Mensajes_Mensaje);
-	}
+        return Redirect::route('Compras.OrdenCompras.edit', $id)
+            ->withInput()
+            ->withErrors($validation)
+            ->with('message', $mensaje->GEN_Mensajes_Mensaje);
+    }
 
-	/**
-	 * Remove the specified resource from storage.
- 	 *
- 	 * @param  int  $id
- 	 * @return Response
- 	 */
-	public function destroy($id)
-	{
-		$this->OrdenCompra->find($id)->delete();
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $this->OrdenCompra->find($id)->delete();
 
-		return Redirect::route('OrdenCompras.index');
-	}
+        return Redirect::route('OrdenCompras.index');
+    }
         //funciones hechas para crear una orden de compra sin cotizacion
         public function OrdenComprasnCotizacion(){
             $inventario= Producto::all();
