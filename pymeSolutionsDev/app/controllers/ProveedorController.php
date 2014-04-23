@@ -127,39 +127,6 @@ class ProveedorController extends BaseController {
 
 	}
 
-	/*public function store_cam(){
-		
-	
-		$input = Input::all();
-		$validation = Validator::make($input, Proveedor::$rules);
-		if ($validation->passes())
-		{
-		 	$proveedorTemporal = $this->Proveedor->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo')));
-			if($proveedorTemporal){
-				$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->get();
- 				foreach ($campos as $campo) {
- 					$iniput =Input::get($campo->GEN_CampoLocal_Codigo);
- 					if ($iniput) {
- 						$valorCampo = new ProveedorCampoLocal;
- 						$valorCampo->INV_Proveedor_CampoLocal_Valor = $iniput;
- 						$valorCampo->INV_Proveedor_INV_Proveedor_ID = $proveedorTemporal->INV_Proveedor_ID;
- 						$valorCampo->INV_Proveedor_INV_Ciudad_ID = $proveedorTemporal->INV_Ciudad_ID;
- 						$valorCampo->GEN_CampoLocal_GEN_CampoLocal_ID = $campo->GEN_CampoLocal_ID;
- 						$valorCampo->save();
- 					
- 					} elseif ($campo->GEN_CampoLocal_Requerido) {
- 						return Redirect::route('Inventario.Proveedor.create')
- 							->withInput()
- 							->withErrors($validation)
- 							->with('message', 'Algunos campos requeridos no han sido completados.');
- 					}
- 				}
-			}
-			
-		}
-		
-	}*/
-
 	public function campolocalsave()
 	{
 		$nombreCampo = Input::get('nombre');
@@ -266,7 +233,16 @@ class ProveedorController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Proveedor->find($id)->delete();
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'LIKE', 'INV_PRV%')->get();
+ 		$Proveedor = $this->Proveedor->find($id);
+ 
+ 		foreach ($campos as $campo) {
+ 			if (DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->count() > 0 ) {
+ 			    DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->delete();
+ 			}
+ 		}
+ 
+ 		$Proveedor->delete();
 
 		return Redirect::route('Inventario.Proveedor.index');
 	}

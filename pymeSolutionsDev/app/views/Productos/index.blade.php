@@ -43,9 +43,6 @@
 				<th>ID Categoria Padre</th>
 				<th>UnidadMedida ID</th>
 				<th>Horario Bloqueo ID</th>
-				@foreach($CamposLocales as $CampoLocal)
-						<th>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</th>
-				@endforeach	
 			</tr>
 		</thead>
 
