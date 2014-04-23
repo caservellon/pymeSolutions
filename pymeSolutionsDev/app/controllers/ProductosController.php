@@ -27,7 +27,7 @@ class ProductosController extends BaseController {
 		foreach ($CamposLocales as $CL) {
 			array_push($arrayTemp, $CL->GEN_CampoLocal_ID);
 		}
-		$ValoresCampLoc = ProductoCampoLocal::whereBetween('GEN_CampoLocal_GEN_CampoLocal_ID', $arrayTemp)->get();
+		$ValoresCampLoc = ProductoCampoLocal::whereBetween('INV_Producto_CampoLocal_IDCampoLocal', $arrayTemp)->get();
 		
 		return View::make('Productos.index', compact('Productos','CamposLocales', 'ValoresCampLoc'));
 	}

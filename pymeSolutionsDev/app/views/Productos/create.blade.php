@@ -32,19 +32,19 @@
     <div class="form-group">
       {{ Form::label('INV_Producto_PrecioVenta', 'Precio de Venta: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_PrecioVenta',null, array('class' => 'form-control', 'id' => 'INV_Producto_PrecioVenta', 'placeholder' => '#.#' )) }}
+        {{ Form::text('INV_Producto_PrecioVenta',null, array('class' => 'form-control', 'id' => 'INV_Producto_PrecioVenta', 'placeholder' => '#.##' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_MargenGanancia', 'Margen de Ganancia: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_MargenGanancia',null, array('class' => 'form-control', 'id' => 'INV_Producto_MargenGanancia', 'placeholder' => '0.#' )) }}
+        {{ Form::text('INV_Producto_MargenGanancia',null, array('class' => 'form-control', 'id' => 'INV_Producto_MargenGanancia', 'placeholder' => '0.##' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_PrecioCosto', 'Precio de Costo: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_PrecioCosto',null, array('class' => 'form-control', 'id' => 'INV_Producto_PrecioCosto', 'placeholder' => '#.#' )) }}
+        {{ Form::text('INV_Producto_PrecioCosto',null, array('class' => 'form-control', 'id' => 'INV_Producto_PrecioCosto', 'placeholder' => '#.##' )) }}
       </div>
     </div>
     <div class="form-group">
@@ -56,13 +56,13 @@
     <div class="form-group">
       {{ Form::label('INV_Producto_Impuesto1', 'Impuesto 1:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_Impuesto1',null, array('class' => 'form-control', 'id' => 'INV_Producto_Impuesto1', 'placeholder' => '0.#' )) }}
+        {{ Form::text('INV_Producto_Impuesto1',null, array('class' => 'form-control', 'id' => 'INV_Producto_Impuesto1', 'placeholder' => '0.##' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_Impuesto2', 'Impuesto 2:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_Impuesto2',null, array('class' => 'form-control', 'id' => 'INV_Producto_Impuesto2', 'placeholder' => '0.#' )) }}
+        {{ Form::text('INV_Producto_Impuesto2',null, array('class' => 'form-control', 'id' => 'INV_Producto_Impuesto2', 'placeholder' => '0.##' )) }}
       </div>
     </div>
     <div class="form-group">
@@ -104,13 +104,13 @@
     <div class="form-group">
       {{ Form::label('INV_Producto_ValorDescuento', 'Valor de Descuento:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_ValorDescuento',null, array('class' => 'form-control', 'id' => 'INV_Producto_ValorDescuento', 'placeholder' => '#.#' )) }}
+        {{ Form::text('INV_Producto_ValorDescuento',null, array('class' => 'form-control', 'id' => 'INV_Producto_ValorDescuento', 'placeholder' => '#.##' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_PorcentajeDescuento', 'Porcentaje de Descuento:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_PorcentajeDescuento',null, array('class' => 'form-control', 'id' => 'INV_Producto_PorcentajeDescuento', 'placeholder' => '0.#' )) }}
+        {{ Form::text('INV_Producto_PorcentajeDescuento',null, array('class' => 'form-control', 'id' => 'INV_Producto_PorcentajeDescuento', 'placeholder' => '0.##' )) }}
       </div>
     </div>
     <div class="form-group">
