@@ -158,6 +158,8 @@ class EmpresasController extends BaseController {
 			foreach ($campos as $campo) {
 				if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->count() > 0 ) {
 				    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->update(array('CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				} elseif (Input::has($campo->GEN_CampoLocal_Codigo)) {
+					DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'CRM_Empresas_CRM_Empresas_ID' => $Empresa->CRM_Empresas_ID));
 				}
 			}
 			return Redirect::route('CRM.Empresas.index', $id);
@@ -177,7 +179,16 @@ class EmpresasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Empresa->find($id)->delete();
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->get();
+		$Empresa = $this->Empresa->find($id);
+
+		foreach ($campos as $campo) {
+			if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->count() > 0 ) {
+			    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->delete();
+			}
+		}
+
+		$Empresa->delete();
 
 		return Redirect::route('CRM.Empresas.index');
 	}

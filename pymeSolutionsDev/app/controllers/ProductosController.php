@@ -214,7 +214,17 @@ class ProductosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Producto->find($id)->delete();
+		
+ 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'LIKE', 'INV_PRD%')->get();
+ 		$Producto = $this->Producto->find($id);
+ 
+ 		foreach ($campos as $campo) {
+ 			if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 ) {
+ 			    DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->delete();
+ 			}
+ 		}
+ 
+ 		$Producto->delete();
 
 		return Redirect::route('Inventario.Productos.index');
 	}

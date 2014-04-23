@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `pymeERP`.`GEN_CampoLocal` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocal` (
   `GEN_CampoLocal_ID` INT NOT NULL AUTO_INCREMENT,
-  `GEN_CampoLocal_Codigo` VARCHAR(16) NOT NULL,
+  `GEN_CampoLocal_Codigo` VARCHAR(60) NOT NULL,
   `GEN_CampoLocal_Activo` TINYINT(1) NOT NULL,
   `GEN_CampoLocal_Nombre` VARCHAR(256) NOT NULL,
   `GEN_CampoLocal_Tipo` VARCHAR(45) NOT NULL,

@@ -154,6 +154,8 @@ class PersonasController extends BaseController {
 			foreach ($campos as $campo) {
 				if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->count() > 0 ) {
 				    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->update(array('CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				} elseif (Input::has($campo->GEN_CampoLocal_Codigo)) {
+					DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'CRM_Personas_CRM_Personas_ID' => $Persona->CRM_Personas_ID));
 				}
 			}
 			return Redirect::route('CRM.Personas.index', $id);
@@ -172,8 +174,21 @@ class PersonasController extends BaseController {
 	 * @return Response
 	 */
 	public function destroy($id)
-	{
-		$this->Persona->find($id)->delete();
+	{	
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->get();
+		$Persona = $this->Persona->find($id);
+
+		if (DB::table('CRM_Empresas')->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->count() > 0) {
+			return Redirect::route('CRM.Empresas.index');
+		}
+
+		foreach ($campos as $campo) {
+			if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->count() > 0 ) {
+			    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->delete();
+			}
+		}
+
+		$Persona->delete();
 
 		return Redirect::route('CRM.Personas.index');
 	}
