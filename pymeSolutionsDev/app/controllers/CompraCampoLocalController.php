@@ -82,7 +82,7 @@ class CompraCampoLocalController extends BaseController {
 
 		if (is_null($CampoLocal))
 		{
-			return Redirect::route('Compras.CampoLocals.index');
+			return Redirect::route('Compras.Configuracion.CampoLocal.index');
 		}
 		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'COMP_SC', 6) == 0? 'SC':'COT';
 		$CampoLocalLista = null;
