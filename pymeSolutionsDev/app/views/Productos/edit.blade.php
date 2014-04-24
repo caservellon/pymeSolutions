@@ -12,19 +12,19 @@
     <div class="form-group">
       {{ Form::label('INV_Producto_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
-        {{ Form::text('INV_Producto_Codigo', $Producto->INV_Producto_Codigo, array('class' => 'form-control', 'id' => 'INV_Producto_Codigo', 'placeholder'=>'PRO-00001')) }}
+        {{ Form::text('INV_Producto_Codigo', $Producto->INV_Producto_Codigo, array('class' => 'form-control', 'id' => 'INV_Producto_Codigo', 'placeholder'=>'PRO-00001', 'maxlength'=>'16')) }}
       </div>
     </div>
     <div class="form-group">
         {{ Form::label('INV_Producto_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::text('INV_Producto_Nombre', $Producto->INV_Producto_Nombre, array('class' => 'form-control', 'id' => 'INV_Producto_Nombre', 'placeholder'=>'name')) }}
+            {{ Form::text('INV_Producto_Nombre', $Producto->INV_Producto_Nombre, array('class' => 'form-control', 'id' => 'INV_Producto_Nombre', 'placeholder'=>'Nombre', 'maxlength'=>'128')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('INV_Producto_Descripcion', 'Descripción: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::textarea('INV_Producto_Descripcion', $Producto->INV_Producto_Descripcion, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_Producto_Descripcion', 'placeholder'=>'Descripcion')) }}
+            {{ Form::textarea('INV_Producto_Descripcion', $Producto->INV_Producto_Descripcion, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_Producto_Descripcion', 'placeholder'=>'Descripcion', 'maxlength'=>'512')) }}
         </div>
     </div>
     <div class="form-group">
@@ -72,7 +72,7 @@
     <div class="form-group">
         {{ Form::label('INV_Producto_Comentarios', 'Comentarios:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::textarea('INV_Producto_Comentarios', $Producto->INV_Producto_Comentarios, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_Producto_Comentarios', 'placeholder'=>'Comentario')) }}
+            {{ Form::textarea('INV_Producto_Comentarios', $Producto->INV_Producto_Comentarios, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_Producto_Comentarios', 'placeholder'=>'Comentario', 'maxlength'=>'512')) }}
         </div>
     </div>
     <div class="form-group">
