@@ -39,7 +39,7 @@
     {{ Form::hidden('INV_Horario_FechaModificacion', date('Y-m-d H:i:s')) }} 
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 

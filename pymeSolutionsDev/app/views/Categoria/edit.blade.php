@@ -48,7 +48,7 @@
     <div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Inventario.Categoria.show', 'Cancel', $Categoria->INV_Categoria_ID, array('class' => 'btn')) }}
+            {{ link_to_route('Inventario.Categoria.show', 'Cancelar', $Categoria->INV_Categoria_ID, array('class' => 'btn')) }}
       </div>
     </div>
 {{ Form::close() }}

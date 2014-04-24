@@ -11,9 +11,9 @@ class DetalleMovimiento extends Eloquent {
 	public static $rules = array(
 		'INV_DetalleMovimiento_ID' => '',
 		'INV_DetalleMovimiento_IDProducto' => 'required',
-		'INV_DetalleMovimiento_CodigoProducto' => '',
-		'INV_DetalleMovimiento_NombreProducto' => '',
-		'INV_DetalleMovimiento_CantidadProducto' => 'required|Integer|min:1',
+		'INV_DetalleMovimiento_CodigoProducto' => 'max:16',
+		'INV_DetalleMovimiento_NombreProducto' => 'max:128',
+		'INV_DetalleMovimiento_CantidadProducto' => 'required|Integer|min:1|max:9999999999',
 		'INV_DetalleMovimiento_PrecioCosto' => '',
 		'INV_DetalleMovimiento_PrecioVenta' => '',
 		'INV_DetalleMovimiento_FechaCreacion' => '',

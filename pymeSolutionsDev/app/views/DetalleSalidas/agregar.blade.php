@@ -47,7 +47,7 @@
     <div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Inventario.DetalleSalida.create', 'Cancel', null, array('class' => 'btn btn-danger')) }}
+            {{ link_to_route('Inventario.DetalleSalida.create', 'Cancelar', null, array('class' => 'btn btn-danger')) }}
       </div>
     </div>
 {{ Form::close() }}

@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Categoria &gt; <small>Editar Categoria</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/MotivoMovimiento') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Inventario/MotivoMovimiento') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 {{ Form::model($MotivoMovimiento, array('method' => 'PATCH', 'route' => array('Inventario.MotivoMovimiento.update', $MotivoMovimiento->INV_MotivoMovimiento_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
@@ -37,7 +37,7 @@
     {{ Form::hidden('INV_Categoria_FechaModificacion', date('Y-m-d H:i:s')) }}
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 {{ Form::close() }}
