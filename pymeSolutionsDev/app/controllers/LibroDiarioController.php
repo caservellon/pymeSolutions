@@ -24,8 +24,10 @@ class LibroDiarioController extends BaseController {
 	{
 		
 		if(Request::Ajax()){
-			$LibroDiario = $this->LibroDiario->where('CON_LibroDiario_FechaCreacion','>=',Input::get('date1')
-				,'and','CON_LibroDiario_FechaCreacion','<=',Input::get('date2'))->get();
+			$LibroDiario = $this->LibroDiario
+				->where('CON_LibroDiario_FechaCreacion','>=',Input::get('date1'))
+				->where('CON_LibroDiario_FechaCreacion','<=',Input::get('date2'))
+				->get();
 			$Asientos=$this->getAsientos($LibroDiario);
 			return View::make('LibroDiario.table')
 				->with('LibroDiario',$Asientos);

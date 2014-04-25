@@ -3,7 +3,7 @@
 @section('main')
 <br>
 
-<h1 class="alert alert-success " style="max-width:60%;"><i class="glyphicon glyphicon-usd"></i>
+<h1><i class="glyphicon glyphicon-list"></i>
 	 Menu Principal Contabilidad</h1>
 <br>
 

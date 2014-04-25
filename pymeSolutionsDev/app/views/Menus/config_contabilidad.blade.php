@@ -3,7 +3,7 @@
 @section('main')
 
 <br>
-<h1 class="alert alert-success " style="max-width:55%;"><i class="glyphicon glyphicon-cog"></i> Configuracion contabilidad</h1>
+<h1><i class="glyphicon glyphicon-cog"></i> Configuracion contabilidad</h1>
 
 <br>
 
