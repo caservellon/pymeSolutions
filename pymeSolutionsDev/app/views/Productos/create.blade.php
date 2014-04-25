@@ -8,9 +8,23 @@
       </div>
 </div>
 
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+  <br>
+@endif
+
 
 
 {{ Form::open(array('route' => 'Inventario.Productos.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
+
+  <div class="form-group">
+      <div class="col-md-5">
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
+      </div>
+    </div>
+
 	<div class="form-group">
         {{ Form::label('INV_Producto_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
@@ -68,7 +82,7 @@
     <div class="form-group">
       {{ Form::label('INV_Producto_RutaImagen', 'Ruta de Imagen:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_RutaImagen',null, array('class' => 'form-control', 'id' => 'INV_Producto_RutaImagen', 'placeholder' => 'Dir' )) }}
+        {{ Form::text('INV_Producto_RutaImagen',null, array('class' => 'form-control', 'id' => 'INV_Producto_RutaImagen', 'placeholder' => 'Dir', 'maxlength'=>'256')) }}
       </div>
     </div>
     <div class="form-group">
@@ -214,11 +228,7 @@
 //  });
 </script>
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+
 
 @stop
 

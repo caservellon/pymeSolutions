@@ -8,6 +8,11 @@
       </div>
 </div>
 
+@if ($errors->any())
+    <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+    </ul>
+@endif
 
 
 {{ Form::open(array('route' => 'Inventario.Proveedor.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
@@ -123,11 +128,7 @@
 
 {{ Form::close() }}
 
-@if ($errors->any())
-    <ul>
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-@endif
+
 
 @stop
 

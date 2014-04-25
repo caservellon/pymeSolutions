@@ -7,6 +7,13 @@
         <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
+
+@if ($errors->any())
+    <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+    </ul>
+@endif
+
 {{ Form::model($Producto, array('method' => 'PATCH', 'route' => array('Inventario.Productos.update', $Producto->INV_Producto_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
         {{ Form::hidden('INV_Producto_ID') }}
     <div class="form-group">
@@ -179,10 +186,6 @@
 {{ Form::close() }}
     
   
-@if ($errors->any())
-    <ul>
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-@endif
+
 
 @stop
