@@ -178,7 +178,6 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('motivotransaccion', 'MotivoTransaccionsController');
 			Route::resource('detalleasientos', 'DetalleAsientosController');
 			Route::resource('cuentamotivos', 'CuentaMotivosController');
-			Route::resource('subcuenta', 'SubcuentaController');
 			Route::resource('asientocontable','AsientosController');
 			Route::resource('librodiario','LibroDiarioController');
 			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
@@ -200,6 +199,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::get('/',function(){
 							return View::make('Menus.config_contabilidad');
 				});
+				Route::resource('subcuentas', 'SubcuentaController');
 				Route::resource('unidadmonetaria', 'UnidadMonetariaController');
 				Route::resource('periodocontable', 'ParamPeriodoContableController');
 				Route::resource('catalogocuentas', 'CatalogoContablesController');

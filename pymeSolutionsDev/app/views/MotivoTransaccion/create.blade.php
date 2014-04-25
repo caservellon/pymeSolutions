@@ -9,13 +9,13 @@
 <div class="form-group">
     {{ Form::label('CON_MotivoTransaccion_Codigo', 'Codigo de la Transaccion:*') }}
      <div class='col-md-3'>
-    {{ Form::text('CON_MotivoTransaccion_Codigo') }}
+    {{ Form::text('CON_MotivoTransaccion_Codigo','',array('maxlength'=>'6')) }}
     </div>
 </div>
 <div class="form-group">
     {{ Form::label('CON_MotivoTransaccion_Descripcion', 'Descripcion de la Transaccion:*') }}
      <div class='col-md-8'>
-    {{ Form::text('CON_MotivoTransaccion_Descripcion') }}
+    {{ Form::text('CON_MotivoTransaccion_Descripcion','',array('placeholder'=>'Breve Descripcion del Motivo a Crear','maxlength'=>'255')) }}
     </div>
 </div>
 <div class="form-group">
