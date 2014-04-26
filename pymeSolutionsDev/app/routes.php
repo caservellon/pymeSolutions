@@ -104,6 +104,7 @@ Route::group(array('prefix' => 'Compras'), function(){
                 Route::get('/TransicionEstado/Lista', array('as'=>'ListaTransicion','uses'=>'COMTransicionEstadoController@ListaTransiciones'));
                 Route::resource('CampoLocal', 'CompraCampoLocalController'); 
 	});
+        Route::get('mensaje', array('as'=>'mensaje', 'uses'=> 'CotizacionsController@mensaje'));
 
 
         Route::get('SolicitudCotizacion/Crear/CualquierProducto', array('as'=>'cualquierProducto', 'uses'=> 'SolicitudCotizacionsController@vistacrear'));
