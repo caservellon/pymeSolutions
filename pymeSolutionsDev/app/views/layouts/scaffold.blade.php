@@ -5,9 +5,6 @@
   <title>pymeSolutions</title>
   <link rel="stylesheet" href="<?php public_path(); ?>/bootstrap/css/bootstrap.min.css">
 
-  {{ HTML::script('/assets/javascript/script.js') }}
-  
-
     <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
 
@@ -81,9 +78,6 @@
               <li>
                 {{ link_to_route('Inventario.MotivoMovimiento.index', 'Motivo Movimiento Inventario')}}
               </li>
-              <li><a href="#">Inventario</a></li>
-              <li><a href="#">Categorias</a></li>
-              <li><a href="#">Atributos</a></li>
               <li class="divider"></li>
               <li>
                  <a href="/Inventario">Configuración</a>

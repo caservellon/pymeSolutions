@@ -24,53 +24,39 @@ Route::group(array('prefix' => 'Inventario'), function()
 		return View::make('Menus.inventario');
 	});
 
-	Route::resource('Ciudad', 'CiudadController');
+		Route::resource('Ciudad', 'CiudadController');
+		Route::resource('UnidadMedidas', 'UnidadMedidasController');
+		Route::resource('Categoria', 'CategoriaController');
+		Route::resource('Atributos', 'AtributosController');
 
-	Route::resource('UnidadMedidas', 'UnidadMedidasController');
+		Route::resource('Proveedor', 'ProveedorController');
+		Route::post('/Proveedor/campolocalsave', array('as' => 'Inventario.Proveedor.campolocalsave', 'uses' => 'ProveedorController@campolocalsave'));
+		Route::post('Proveedor/search_index', array('as' => 'Proveedor.search_index', 'uses' =>'ProveedorController@search_index'));
 
-	Route::resource('Categoria', 'CategoriaController');
+		Route::resource('Productos', 'ProductosController');
+		Route::post('/Productos/campolocalsave', array('as' => 'Inventario.Productos.campolocalsave', 'uses' => 'ProductosController@campolocalsave'));
 
-	Route::resource('Atributos', 'AtributosController');
+		Route::resource('Horarios', 'HorariosController');
+		Route::resource('FormaPagos', 'FormaPagosController');
+		Route::resource('CampoLocals', 'CampoLocalsController');
+		Route::resource('DetalleMovimiento', 'DetallemovimientosController');
+		Route::resource('SalidaInventario', 'SalidaInventariosController');
+		Route::resource('DetalleSalida', 'DetalleSalidasController');
 
-	Route::resource('Proveedor', 'ProveedorController');
-	Route::post('/Proveedor/campolocalsave', array('as' => 'Inventario.Proveedor.campolocalsave', 'uses' => 'ProveedorController@campolocalsave'));
-	
-	Route::resource('Productos', 'ProductosController');
-	Route::post('/Productos/campolocalsave', array('as' => 'Inventario.Productos.campolocalsave', 'uses' => 'ProductosController@campolocalsave'));
+		Route::get('DetalleMovimiento/Agregar/{id}', array('as' => 'Inventario.DetalleMovimiento.Agregar', 'uses' =>'DetallemovimientosController@agregar'));
+		Route::get('DetalleMovimiento/Detalles/{id}', array('as' => 'Inventario.MovimientoInventario.Detalles', 'uses' =>'MovimientoinventariosController@detalles'));
+		Route::get('DetalleMovimiento/Terminar/{id}', array('as' => 'Inventario.MovimientoInventario.Terminar', 'uses' =>'MovimientoinventariosController@detalles'));
+		Route::post('DetalleMovimiento/search', array('as' => 'Inventario.DetalleMovimiento.search', 'uses' =>'DetallemovimientosController@search'));
 
-	Route::resource('Horarios', 'HorariosController');
+		Route::resource('MotivoMovimiento', 'MotivomovimientosController');
+		Route::get('MovimientoInventario/Salida', array('as' => 'Inventario.MovimientoInventario.Salida', 'uses' =>'MovimientoinventariosController@salidas'));
+		Route::get('MovimientoInventario/Entrada', array('as' => 'Inventario.MovimientoInventario.Entrada', 'uses' =>'MovimientoinventariosController@entradas'));
+		
+		Route::get('DetalleSalida/Agregar/{id}', array('as' => 'Inventario.DetalleSalida.Agregar', 'uses' =>'DetalleSalidasController@agregar'));
 
-	Route::resource('FormaPagos', 'FormaPagosController');
+		Route::resource('MovimientoInventario', 'MovimientoinventariosController');
 
-	Route::resource('CampoLocals', 'CampoLocalsController');
-	
-	Route::post('Proveedor/search_index', array('as' => 'Proveedor.search_index', 'uses' =>'ProveedorController@search_index'));
-
-	Route::resource('DetalleMovimiento', 'DetallemovimientosController');
-
-	Route::resource('SalidaInventario', 'SalidaInventariosController');
-
-	Route::resource('DetalleSalida', 'DetalleSalidasController');
-
-	Route::get('DetalleMovimiento/Agregar/{id}', array('as' => 'Inventario.DetalleMovimiento.Agregar', 'uses' =>'DetallemovimientosController@agregar'));
-
-	Route::get('DetalleMovimiento/Detalles/{id}', array('as' => 'Inventario.MovimientoInventario.Detalles', 'uses' =>'MovimientoinventariosController@detalles'));
-
-	Route::get('DetalleMovimiento/Terminar/{id}', array('as' => 'Inventario.MovimientoInventario.Terminar', 'uses' =>'MovimientoinventariosController@detalles'));
-
-	Route::post('DetalleMovimiento/search', array('as' => 'Inventario.DetalleMovimiento.search', 'uses' =>'DetallemovimientosController@search'));
-
-	Route::resource('MotivoMovimiento', 'MotivomovimientosController');
-
-	Route::get('MovimientoInventario/Salida', array('as' => 'Inventario.MovimientoInventario.Salida', 'uses' =>'MovimientoinventariosController@salidas'));
-
-	Route::get('MovimientoInventario/Entrada', array('as' => 'Inventario.MovimientoInventario.Entrada', 'uses' =>'MovimientoinventariosController@entradas'));
-
-	Route::get('DetalleSalida/Agregar/{id}', array('as' => 'Inventario.DetalleSalida.Agregar', 'uses' =>'DetalleSalidasController@agregar'));
-
-	Route::resource('MovimientoInventario', 'MovimientoinventariosController');
-
-	Route::post('DetalleSalida/search', array('as' => 'Inventario.DetalleSalida.search', 'uses' =>'DetalleSalidasController@search'));
+		Route::post('DetalleSalida/search', array('as' => 'Inventario.DetalleSalida.search', 'uses' =>'DetalleSalidasController@search'));
 
 });
    

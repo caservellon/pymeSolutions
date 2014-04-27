@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function(){
 
 
 	// ---------------- Devoluciones ------------------------------
@@ -73,7 +73,7 @@ $(document).ready(function () {
 
 	if($('#pro-list-table').length){
         actualizarTotales();
-    }
+    };
 
 
 	//Busqueda por AJAX
@@ -159,7 +159,6 @@ $(document).ready(function () {
 			$("div.value-list").fadeOut();
 			$(".value-input").val(""); 
 		}
-
 	});
 
 	$(".add-value").click(function(ev) {
@@ -214,7 +213,6 @@ $(document).ready(function () {
 			console.log(data);
 		});
 	});
-});
 
 	//Eliminar producto seleccionado
 	$('.eliminar-prod').on('click',function(){
@@ -327,33 +325,26 @@ $(document).ready(function () {
 		actualizarPagos();
 	}
 
+	function setearTotalcc(valor,x){
+	    var a= valor.elements[x].value;
+	    var b=valor.elements[x+1].value;
+	    var c=valor.elements[x+2].value;
+	    var total=(a*b);
+	    valor.elements[x+2].value=total;
+	    document.getElementById("total").value-=c;
+	    document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
+	    valor.elements[valor.length-3].value=document.getElementById("total").value;
+	}
+
+	function setearTotalcp(valor,x){
+	    var a= valor.elements[x-1].value;
+	    var b=valor.elements[x].value;
+	    var c=valor.elements[x+1].value;
+	    var total=(a*b);
+	    valor.elements[x+1].value=total;
+	    document.getElementById("total").value-=c;
+	    document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
+	    valor.elements[valor.length-3].value=document.getElementById("total").value;
+	}
 
 });
-
-
-
-function setearTotalcc(valor,x){
-    
-        var a= valor.elements[x].value;
-        var b=valor.elements[x+1].value;
-        var c=valor.elements[x+2].value;
-        var total=(a*b);
-        valor.elements[x+2].value=total;
-        document.getElementById("total").value-=c;
-        document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
-        valor.elements[valor.length-3].value=document.getElementById("total").value;
-			}
-function setearTotalcp(valor,x){
-        
-        var a= valor.elements[x-1].value;
-        var b=valor.elements[x].value;
-        var c=valor.elements[x+1].value;
-        var total=(a*b);
-        valor.elements[x+1].value=total;
-        document.getElementById("total").value-=c;
-        document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
-        valor.elements[valor.length-3].value=document.getElementById("total").value;
-      
-			}
-
-
