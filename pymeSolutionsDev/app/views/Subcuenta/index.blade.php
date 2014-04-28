@@ -7,6 +7,9 @@
     <a type="button" href="{{URL::to('contabilidad/configuracion/subcuentas/create')}}"  class="btn btn-success">
       <span class="glyphicon glyphicon-plus"></span> Agregar Cuenta
     </a>
+    <div class="pull-right">
+        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atrás</a>
+      </div>
 </div>
 
 
