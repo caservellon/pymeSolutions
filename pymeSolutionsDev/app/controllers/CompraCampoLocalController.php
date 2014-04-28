@@ -59,8 +59,9 @@ class CompraCampoLocalController extends BaseController {
 
 				}
 			}
-			 $date = Mensaje::find(1);
-                         return View::make('MensajeCompra', compact('date'));
+                        $ruta = route('Compras.Configuracion.CampoLocal.index');
+			 $mensaje = Mensaje::find(1);
+                         return View::make('MensajeCompra', compact('mensaje', 'ruta'));
 		}
 
 		return Redirect::route('Compras.Configuracion.CampoLocal.create')
@@ -128,7 +129,9 @@ class CompraCampoLocalController extends BaseController {
 					}
 				}
 			}
-			return Redirect::route('Compras.Configuracion.CampoLocal.index');
+                          $ruta = route('Compras.Configuracion.CampoLocal.index');
+                         $mensaje = Mensaje::find(1);
+                         return View::make('MensajeCompra', compact('mensaje', 'ruta'));
 		}
 
 		return Redirect::route('Compras.Configuracion.CampoLocal.edit', $id)

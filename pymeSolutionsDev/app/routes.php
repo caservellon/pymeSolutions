@@ -188,7 +188,8 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
 			Route::get('creando/motivotransaccion',array('uses'=>'AsientosController@creandomotivo'));
-
+			
+			
 			Route::post('librodiario/revertirasiento',array('as'=>'revertirasiento', 'uses' => 'LibroDiarioController@reversion'));
 			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
 			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));			
@@ -213,6 +214,14 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				//Route::post('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
 			});
 
+			Route::group(array('prefix'=>'cierreperiodo'),function(){
+				Route::get('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
+
+				Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
+				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
+				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
+				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
+			});
 
 
 	});

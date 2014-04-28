@@ -42,8 +42,9 @@ class ParamPeriodoContableController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		
-		$validation = Validator::make($input, ClasificacionPeriodo::$rules,ClasificacionPeriodo::$messages,ClasificacionPeriodo::$atributos);
+		$rules=str_replace('?', date('Y-m-d',strtotime("-1 days")), ClasificacionPeriodo::$rules); 
+
+		$validation = Validator::make($input, $rules,ClasificacionPeriodo::$messages,ClasificacionPeriodo::$atributos);
 		if ($validation->fails())
 		{
 			return Redirect::action('ParamPeriodoContableController@create')

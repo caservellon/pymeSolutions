@@ -6,11 +6,13 @@
 <h2>Asiento Contable > <small>Crear</small>
     <a class='btn btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
-    <button id="crearmotivo" class="btn btn-info form-group" data-toggle="modal" data-target="#CrearMotivo">
-     <i class="glyphicon glyphicon-plus"></i> Agregar Motivo
-    </button>
+    
 </div>
 
+@if($PeriodoContable)
+<button id="crearmotivo" class="btn btn-info form-group" data-toggle="modal" data-target="#CrearMotivo">
+     <i class="glyphicon glyphicon-plus"></i> Agregar Motivo
+    </button>
 @include('_messages.errors')
 
 
@@ -101,6 +103,16 @@
 
     });
 </script>
+
+@else
+  <div align="center" class="well container col-md-8 col-md-offset-2">
+  
+  <h3>No hay periodos contables</h3>
+  <a class='btn btn-info btn-lg' href="{{{URL::route('periodocontable')}}}">Crear Nuevo Periodo</a>
+  </div>
+
+@endif
+
 @stop
 
 

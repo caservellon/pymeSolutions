@@ -18,7 +18,7 @@
         <div class="form-group">
             {{ Form::label('CON_ClasificacionPeriodo_Nombre', 'Nombre del Periodo:*') }}
             <div class="col-md-5 ">
-              {{ Form::text('CON_ClasificacionPeriodo_Nombre','',array('maxlength'=>'45')) }}
+              {{ Form::text('CON_ClasificacionPeriodo_Nombre','',array('maxlength'=>'45','required')) }}
             </div>
         </div>
 
@@ -32,7 +32,8 @@
         <div class="form-group">
          {{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que Inicia el Periodo Contable:*') }}
          <div class="col-md-4"> 
-         {{ Form::input('text', 'CON_PeriodoContable_FechaInicio','',array('value'=>'','id'=>'dpd1','placeholder'=>'yyyy-mm-dd','maxlength'=>'10')) }}
+
+         {{ Form::input('text', 'CON_PeriodoContable_FechaInicio','',array('value'=>'','id'=>'dpd1','placeholder'=>'aaaa-mm-dd','required')) }}
           </div>
         </div>
 

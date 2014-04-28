@@ -29,10 +29,12 @@ class AsientosController extends BaseController {
 	public function create()
 	{
 	   $Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
-      
+      	$Periodo=false;
+      	if(ClasificacionPeriodo::all()->count())
+      		$Periodo=true;
        return View::make('AsientosContables.create')
-       		
-       		->with('Motivos',$Motivos);
+       		->with('Motivos',$Motivos)
+       		->with('PeriodoContable',$Periodo);
 	}
 
 	/**

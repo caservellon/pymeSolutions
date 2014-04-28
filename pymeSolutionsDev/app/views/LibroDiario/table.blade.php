@@ -11,7 +11,7 @@
 				<th>Debe</th>
 				<th>Haber</th>
 				<th>Observaciones</th>
-				<th>Reversion de Asiento</th>>
+				<th>Reversion de Asiento</th>
 			</tr>
 		</thead>
 
