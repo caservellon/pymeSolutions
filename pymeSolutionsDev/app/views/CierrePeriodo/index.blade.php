@@ -8,7 +8,8 @@
 		</div>
 
 		<div class="col-sm-2">
-			<a class="btn btn-primary pull-right" href="{{{URL::to('contabilidad')}}}">Atras</a>
+			<a class="btn btn-sm btn-primary pull-right" href="{{{URL::to('contabilidad')}}}">
+			<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 		</div>
 	</div>
 </div>
