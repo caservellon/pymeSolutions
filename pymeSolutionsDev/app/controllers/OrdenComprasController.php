@@ -296,7 +296,7 @@ class OrdenComprasController extends BaseController {
         //funciones hechas para crear una orden de compra sin cotizacion
         public function OrdenComprasnCotizacion(){
             $inventario= Producto::all();
-            return View::make('OrdenCompras.NuevaOrdenCompraSinCotizacion')->with('inventario', $inventario);
+            return View::make('OrdenCompras.NuevaOrdenCompraSinCotizacion',array('inventario'=>$inventario,'proveedor'=> 1));
         }
          public function FormOrdenComprasnCotizacion(){
              $input=Input::all();
@@ -643,6 +643,54 @@ class OrdenComprasController extends BaseController {
             $nuevopago->save();
             return 'Orden de pago Generado';
         }
+
+        //search de mazoni
+
+       public function search_index(){
+
+        $proveedor=1;
+        //Querys de las columnas propias del Producto
+        $productos = Producto::where('INV_Producto_Nombre', 'LIKE', '% '.Input::get('search').' %') 
+        ->orWhere('INV_Producto_Codigo', '=',  Input::get('search'))
+        ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
+        ->orWhere('INV_Producto_Descripcion', 'LIKE',  '% '.Input::get('search').' %')
+        ->get();
+
+         
+
+        //Querys de las columnas que tiene relacion con la tabla Proveedor
+        $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
+        ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
+        ->orWhere('INV_Proveedor_Direccion', 'LIKE', '%'.Input::get('search').' %')
+        ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
+        ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
+        ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
+
+        // reviso si trajo datos para decidir si los proceso         
+        if(!empty($queryPoveedor)){
+            $temp = array();
+            $temp1 = array();
+            //hago la primer revision para saber que productos distribuye ese proveedor
+            foreach ($queryPoveedor as $qP) {
+                array_push($temp, $qP->INV_Proveedor_ID);
+                $proveedor=$qP->INV_Proveedor_ID;
+            }
+            // ahora extraigo esos productos de ese proveedor especifico
+            if (sizeof($temp)>0) {
+                $propro = DB::table('INV_Producto_Proveedor')->wherein('INV_Proveedor_ID',$temp)->get();
+            foreach ($propro as $pro) {
+                array_push($temp1, $pro->INV_Producto_ID);   
+            }
+            //remplazo el arreglo origian con el nuevo de los productos que pertenecen a un proveedor en especial
+            $productos=Producto::wherein('INV_Producto_ID',$temp1)->get();
+            }
+        }
+       
+        $inventario=$productos;
+        //reemplazo de variable a enviar a la vista
+         return View::make('OrdenCompras.NuevaOrdenCompraSinCotizacion', array('inventario' =>$inventario , 'proveedor'=>$proveedor));
+        //return View::make('Proveedor.index', compact('Proveedor'));
+    }
         
  }
 ?>
