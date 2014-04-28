@@ -2,12 +2,11 @@
 
 @section('main')
 
-<h1>Crear Subcuenta</h1>
-
 <div class="page-header clearfix">
       <h3 class="pull-left">Catalogo Contable &gt; <small>Nueva Subcuenta</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atrás</a>
+
+        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
       </div>
 </div>
 
@@ -23,9 +22,11 @@
         </div>
         </div>     
 
+
         
             <div class = "form-group"> 
-            {{ Form::label('CON_Subcuenta_Nombre', 'Nombre*:') }}
+
+            {{ Form::label('CON_Subcuenta_Nombre', 'Nombre:*') }}
             <div class = "col-md-4">
             {{ Form::text('CON_Subcuenta_Nombre') }}
         </div>
@@ -33,7 +34,8 @@
 
             <div class="col-md-4">
     
-			{{ Form::submit('Agregar Subcuenta', array('class' => 'btn btn-info form-control')) }}
+
+			{{ Form::submit('Agregar Sub-Cuenta', array('class' => 'btn btn-success form-control')) }}
 	       </div>
            {{ Form::hidden('CON_Subcuenta_Codigo','99') }}
                      

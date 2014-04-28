@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Catalogo Contable &gt; <small>Nueva Cuenta</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Back</a>
+        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
       </div>
 </div>
 
@@ -22,8 +22,10 @@
 
          {{ Form::hidden('CON_CatalogoContable_Codigo','999') }}
            
+            
+
             <div class="form-group">
-                {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre de la Cuenta*:') }}
+                {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre de la Cuenta:*') }}
             <div class ="col-md-3">
                 {{ Form::text('CON_CatalogoContable_Nombre','',array('maxlength'=>'100')) }}
             </div>
