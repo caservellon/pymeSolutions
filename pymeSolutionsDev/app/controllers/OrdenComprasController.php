@@ -650,10 +650,10 @@ class OrdenComprasController extends BaseController {
 
         $proveedor=1;
         //Querys de las columnas propias del Producto
-        $productos = Producto::where('INV_Producto_Nombre', 'LIKE', '% '.Input::get('search').' %') 
+        $productos = Producto::where('INV_Producto_Nombre', 'LIKE', '%'.Input::get('search').'%') 
         ->orWhere('INV_Producto_Codigo', '=',  Input::get('search'))
         ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
-        ->orWhere('INV_Producto_Descripcion', 'LIKE',  '% '.Input::get('search').' %')
+        ->orWhere('INV_Producto_Descripcion', 'LIKE',  '%'.Input::get('search').'%')
         ->get();
 
          

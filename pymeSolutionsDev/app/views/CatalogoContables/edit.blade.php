@@ -2,7 +2,12 @@
 
 @section('main')
 
-<h1>Editar cuenta</h1>
+<div class="page-header clearfix">
+      <h3 class="pull-left">Catalogo Contable &gt; <small>Editar Cuenta</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+      </div>
+</div>
 
 @include('_messages.errors')
 

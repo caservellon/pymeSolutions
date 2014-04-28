@@ -120,4 +120,17 @@
     
 </div>
 {{Form::close()}}
+<div class="col-md-4">
+    <div class="opciones-cajas">
+        <h4>Opciones de Caja</h4>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarProducto">Agregar Producto</button>
+        <button type="button" class="btn btn-info editar-prod">Editar Cantidad</button>
+        <button type="button" class="btn btn-warning eliminar-prod">Eliminar Producto</button>
+        <button type="button" class="btn btn-danger cancel-venta">Cancelar Ventas</button>
+        <br>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarPago">Agregar Pago</button>
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarDescuento">Agregar Descuento</button>
+        <button type="button" class="btn btn-default guardar-compra">Finalizar Compra</button>
+    </div>
+</div>
 @stop
