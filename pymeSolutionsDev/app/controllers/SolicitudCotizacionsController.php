@@ -24,13 +24,9 @@ class SolicitudCotizacionsController extends BaseController {
 	public function index()
 	{
 		$SolicitudCotizacions = SolicitudCotizacion::paginate();
-                $CamposLocales = CampoLocal::where("GEN_CampoLocal_Codigo","LIKE","COM_SC%")->get();
-                $arrayTemp = array();
-		foreach ($CamposLocales as $CL) {
-			array_push($arrayTemp, $CL->GEN_CampoLocal_ID);
-		}
-		$ValoresCampLoc = ValorCampoLocal::whereBetween('COM_CampoLocal_IdCampoLocal', $arrayTemp)->get();
-		return View::make('SolicitudCotizacions.index', compact('SolicitudCotizacions','CamposLocales', 'ValoresCampLoc'));
+                $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
+                
+		return View::make('SolicitudCotizacions.index', compact('SolicitudCotizacions','CamposLocales'));
 	}
         
         public function vistacrear(){
@@ -84,9 +80,9 @@ class SolicitudCotizacionsController extends BaseController {
 	public function store()
 	{
                 $input = Input::all();
-		$prod=Input::get('prove');
-                $prodfinal= array_unique($prod);
-                $proveedor= array_values($prodfinal);
+		$proveedor=Input::get('prove');
+                $prodfinal= array_unique($proveedor);
+                $prod= array_values($prodfinal);
                 $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
 		$res = SolicitudCotizacion::$rules;
 
@@ -114,7 +110,7 @@ class SolicitudCotizacionsController extends BaseController {
                 $validation = Validator::make($input, $res);
 
 		if($validation->passes()){
-                for($i=0; $i < count($proveedor); $i++){
+                for($i=0; $i < count($prod); $i++){
                     $email=array();
                     $cont = SolicitudCotizacion::all();
                     $detalle=$cont->count()+1;
@@ -127,7 +123,7 @@ class SolicitudCotizacionsController extends BaseController {
                     $solicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d');
                     $solicitudCotizacion->COM_Usuario_idUsuarioCreo=1;
-                    $solicitudCotizacion->Proveedor_idProveedor=$proveedor[$i];
+                    $solicitudCotizacion->Proveedor_idProveedor=$prod[$i];
                     $solicitudCotizacion->save();
                     foreach($campos as $campo){
                         $valorcampolocal = new ValorCampoLocal;
@@ -141,7 +137,7 @@ class SolicitudCotizacionsController extends BaseController {
                     
                     $prov_prod = DB::table('INV_Producto_Proveedor')->get();
                     foreach($prov_prod as $key){
-                        if($proveedor[$i] == $key->INV_Proveedor_ID){
+                        if($prod[$i] == $key->INV_Proveedor_ID){
                             for($j=0; $j < count($cualquierProducto); $j++){
                                 if($cualquierProducto[$j]==$key->INV_Producto_ID){
                                 $detallesolicitud= new DetalleSolicitudCotizacion();
@@ -158,7 +154,7 @@ class SolicitudCotizacionsController extends BaseController {
                     }
                     
                     $email[]=$detalle;
-                    $enviar= Proveedor::find($proveedor[$i]);
+                    $enviar= Proveedor::find($prod[$i]);
                     Mail::send('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
                         $message->subject('Solicitud ');
                             $message->to($enviar->INV_Proveedor_Email);
@@ -169,7 +165,7 @@ class SolicitudCotizacionsController extends BaseController {
                     
                 return Redirect::route('Compras.SolicitudCotizacions.index');
               }
-              return Redirect::route('seleccion')
+              return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'))
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');

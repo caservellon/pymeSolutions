@@ -119,5 +119,6 @@
 	
 	<h3>No hay periodos contables</h3>
 	<a class='btn btn-info btn-lg' href="{{{URL::route('periodocontable')}}}">Crear Nuevo Periodo</a>
-	</div>	
+	</div>
+	@stop	
 @endif

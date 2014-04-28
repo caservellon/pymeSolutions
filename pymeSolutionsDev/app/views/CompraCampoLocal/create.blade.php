@@ -11,10 +11,15 @@
 
 
 {{ Form::open(array('route' => 'Compras.Configuracion.CampoLocal.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
+@if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
+	</ul>
+@endif
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
-            {{ Form::text('GEN_CampoLocal_Nombre', null, array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre')) }}
+            {{ Form::text('GEN_CampoLocal_Nombre', null, array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre', 'maxlength'=>'51')) }}
         </div>
     </div>
 
@@ -73,10 +78,6 @@
 
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+
 
 @stop
