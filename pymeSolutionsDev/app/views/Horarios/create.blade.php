@@ -14,7 +14,7 @@
     <div class="form-group">
         {{ Form::label('INV_Horario_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
-            {{ Form::text('INV_Horario_Nombre', null, array('class' => 'form-control', 'id' => 'INV_Horario_Nombre', 'placeholder'=>'Name')) }}
+            {{ Form::text('INV_Horario_Nombre', null, array('class' => 'form-control', 'id' => 'INV_Horario_Nombre', 'placeholder'=>'Name', 'maxlength'=>'128')) }}
         </div>
     </div>
     <div class="form-group">

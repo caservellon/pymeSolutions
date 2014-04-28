@@ -14,13 +14,13 @@
 	<div class="form-group">
         {{ Form::label('INV_Ciudad_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
-            {{ Form::text('INV_Ciudad_Codigo', null, array('class' => 'form-control', 'id' => 'INV_Ciudad_Codigo', 'placeholder'=>'CIUDAD-00001')) }}
+            {{ Form::text('INV_Ciudad_Codigo', null, array('class' => 'form-control', 'id' => 'INV_Ciudad_Codigo', 'placeholder'=>'CIUDAD-00001', 'maxlength'=>'16')) }}
         </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Ciudad_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Ciudad_Nombre',null, array('class' => 'form-control', 'id' => 'INV_Ciudad_Nombre', 'placeholder' => 'name' )) }}
+        {{ Form::text('INV_Ciudad_Nombre',null, array('class' => 'form-control', 'id' => 'INV_Ciudad_Nombre', 'placeholder' => 'name' , 'maxlength'=>'128')) }}
       </div>
     </div> 
     <div class="form-group">

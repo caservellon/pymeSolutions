@@ -11,19 +11,19 @@
 <div class="form-group">
     {{ Form::label('INV_Categoria_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
-          {{ Form::text('INV_Categoria_Codigo', $Categoria->INV_Categoria_Codigo, array('class' => 'form-control', 'id' => 'INV_Categoria_Codigo', 'placeholder'=>'CAT-00001')) }}
+          {{ Form::text('INV_Categoria_Codigo', $Categoria->INV_Categoria_Codigo, array('class' => 'form-control', 'id' => 'INV_Categoria_Codigo', 'placeholder'=>'CAT-00001', 'maxlength'=>'16')) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Categoria_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Categoria_Nombre',$Categoria->INV_Categoria_Nombre, array('class' => 'form-control', 'id' => 'INV_Categoria_Nombre', 'placeholder' => 'name' )) }}
+        {{ Form::text('INV_Categoria_Nombre',$Categoria->INV_Categoria_Nombre, array('class' => 'form-control', 'id' => 'INV_Categoria_Nombre', 'placeholder' => 'name' , 'maxlength'=>'128')) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Categoria_Descripcion', 'Descripción: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::textarea('INV_Categoria_Descripcion',$Categoria->INV_Categoria_Descripcion, array('class' => 'form-control', 'id' => 'INV_Categoria_Descripcion', 'placeholder' => 'text', 'rows' => '3' )) }}
+        {{ Form::textarea('INV_Categoria_Descripcion',$Categoria->INV_Categoria_Descripcion, array('class' => 'form-control', 'id' => 'INV_Categoria_Descripcion', 'placeholder' => 'text', 'rows' => '3', 'maxlength'=>'256')) }}
       </div>
     </div>
     <div class="form-group">
