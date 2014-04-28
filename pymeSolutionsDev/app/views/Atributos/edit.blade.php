@@ -8,6 +8,12 @@
       </div>
 </div>
 
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
 {{ Form::model($Atributo, array('method' => 'PATCH', 'route' => array('Inventario.Atributos.update', $Atributo->INV_Atributo_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
     <div class="form-group">
         {{ Form::label('INV_Atributo_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
@@ -42,10 +48,6 @@
     </div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+
 
 @stop

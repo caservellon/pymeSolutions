@@ -10,6 +10,13 @@
 </div>
 
 
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
+
 {{ Form::open(array('route' => 'Inventario.CampoLocals.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
@@ -72,11 +79,6 @@
 
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop
 

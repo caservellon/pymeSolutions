@@ -7,17 +7,24 @@
         <a href="{{{ URL::to('Inventario/UnidadMedidas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> regresar</a>
       </div>
 </div>
+
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
 {{ Form::model($UnidadMedida, array('method' => 'PATCH', 'route' => array('Inventario.UnidadMedidas.update', $UnidadMedida->INV_UnidadMedida_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 <div class="form-group">
         {{ Form::label('INV_UnidadMedida_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::text('INV_UnidadMedida_Nombre', $UnidadMedida->INV_UnidadMedida_Nombre, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_Nombre', 'placeholder'=>'name')) }}
+            {{ Form::text('INV_UnidadMedida_Nombre', $UnidadMedida->INV_UnidadMedida_Nombre, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_Nombre', 'placeholder'=>'name', 'maxlength'=>'128')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('INV_UnidadMedida_Descripcion', 'Descripción: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::textarea('INV_UnidadMedida_Descripcion', $UnidadMedida->INV_UnidadMedida_Descripcion, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_UnidadMedida_Descripcion', 'placeholder'=>'Descripcion')) }}
+            {{ Form::textarea('INV_UnidadMedida_Descripcion', $UnidadMedida->INV_UnidadMedida_Descripcion, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_UnidadMedida_Descripcion', 'placeholder'=>'Descripcion', 'maxlength'=>'256')) }}
         </div>
     </div>
     <div class="form-group">
@@ -34,10 +41,5 @@
     </div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

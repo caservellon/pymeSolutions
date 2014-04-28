@@ -7,6 +7,13 @@
         <a href="{{{ URL::to('Inventario/Categoria') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
+
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
 {{ Form::model($Categoria, array('method' => 'PATCH', 'route' => array('Inventario.Categoria.update', $Categoria->INV_Categoria_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 <div class="form-group">
     {{ Form::label('INV_Categoria_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
@@ -53,10 +60,5 @@
     </div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop
