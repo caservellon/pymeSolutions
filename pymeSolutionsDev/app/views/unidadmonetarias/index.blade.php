@@ -2,12 +2,12 @@
 
 @section('main')
 
-
+<div class="page-header">
 <h2 class='sub-header'><i class="glyphicon glyphicon-cog"></i>Configuracion <small> Unidades Monetarias</small>
-<a class='btn btn-primary pull-right ' href="{{URL::to('contabilidad/configuracion')}}">
+<a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad/configuracion')}}">
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 </h2>
-
+</div>
 <div class="btn-agregar">
 <a class="btn btn-success" href="{{ URL::to('contabilidad/configuracion/unidadmonetaria/create') }}">
 <i class="glyphicon glyphicon-plus"></i> Agregar Moneda</a>
