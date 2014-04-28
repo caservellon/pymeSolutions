@@ -2,20 +2,27 @@
 
 @section('main')
 
-<div class="page-header clearfix container" style="padding-top:1%;">
-      <h3 class="pull-left">LibroDiario &gt; <small>Ver Asientos</small></h3>
-      <div class="pull-right">
-        <a href="{{{ URL::to('contabilidad') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
-      </div>
+<div class="page-header" style="padding-top:1%;">
+	<div class="row">
+	<div class="col-sm-10">
+	      <h3 class="pull-lef">LibroDiario &gt; <small>Ver Asientos</small></h3>
+	</div>
+	<div class="col-sm-2">
+	        <a href="{{{ URL::to('contabilidad') }}}" class="btn btn-sm btn-primary">
+	        	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+	</div>
+	</div>
 </div>
+
 @if($PeriodoContable!=null && $PeriodoContable->count())
       <div class="well table form-inline">
             <label><i class="glyphicon glyphicon-calendar"></i> Fecha Inicio:</label>
-            	<input type="text" class="span2 form-control" value="" id="dpd1">
+            	<input type="text" class="span2 form-control" value="" id="dpd1" placeholder="aaaa-mm-dd" readonly>
 
             <label><i class="glyphicon glyphicon-calendar"></i> Fecha Final:</label>
-            	<input type="text" class="span2 form-control" value="" id="dpd2">
+            	<input type="text" class="span2 form-control" value="" id="dpd2" placeholder="aaaa-mm-dd" readonly >
             <button id='charge' type="Submmit" class="btn btn-success">Filtrar</button>
+            <label id="lbl-filtro"></label>
       </div>
       <p class="result"></p>
 <div id="LibroDiario">
@@ -65,14 +72,35 @@
 
 			$('#charge').on('click',function(){
 
-				$.post('librodiario',{date1:$('#dpd1').val(),date2:$('#dpd2').val()}).then(
-					function(data){
-						$('#LibroDiario').html(data);
-					});
+
+				$.ajax({
+					type:'post',
+					url:'librodiario',
+					data:{date1:$('#dpd1').val(),date2:$('#dpd2').val()},
+				success:function(data){
+					//console.log(data.id);
+					//console.log(data);
+					$('#LibroDiario').html(data);
+					$('#lbl-filtro')[0].textContent='Listo';
+				},
+				beforeSend:function(){
+					if($('#dpd1').val()=="" || $('#dpd2').val()==""){
+						$('#lbl-filtro')[0].textContent='Tiene campos sin llenar';
+						return false;
+					}
+					$('#lbl-filtro')[0].textContent='Espere...';
+					return true;
+				},
+				error:function(error){
+					$('#lbl-filtro')[0].textContent='Se produjo un error';
+				}
+				});
 			});
+
 			$('.revertir').on('click',function(e){
 			
-				$.post('{{{URL::route("revertirasiento")}}}',{id:e.toElement.id}).success(function(data){
+				$.post('{{{URL::route("revertirasiento")}}}',{id:e.toElement.id})
+				.success(function(data){
 					//console.log(data.id);
 					//console.log(data);
 					if(data.success){
