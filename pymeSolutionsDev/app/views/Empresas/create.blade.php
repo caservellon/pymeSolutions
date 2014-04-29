@@ -9,12 +9,25 @@
       </div>
 </div>
 
+@if ($errors->any())
+    <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+    </ul>
+@endif
+
 {{ Form::open(array('route' => 'CRM.Empresas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
+
+        <div class="campo-local-tipo form-group">
+            <div class="col-md-5">
+                {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            </div>
+        </div>
+
         <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">
-            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->where('CRM_TipoDocumento_Flag','1')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->where('CRM_TipoDocumento_Flag','1')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID'),null,array('class' => 'col-md-4 form-control')) }}
           </div>
         </div> 
         
@@ -56,7 +69,7 @@
         <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_Personas_CRM_Personas_ID', 'Personas: ', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">
-            {{ Form::select('CRM_Personas_CRM_Personas_ID', DB::table('CRM_Personas')->lists('CRM_Personas_Nombres','CRM_Personas_ID')) }}
+            {{ Form::select('CRM_Personas_CRM_Personas_ID', DB::table('CRM_Personas')->lists('CRM_Personas_Nombres','CRM_Personas_ID'),null,array('class' => 'col-md-4 form-control')) }}
           </div>
         </div> 
         
@@ -77,7 +90,7 @@
                         {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
                     @endif
                     @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}
+                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID'),null,array('class' => 'col-md-4 form-control')) }}
                     @endif
                 </div>
             </div> 
@@ -88,12 +101,6 @@
         </div>
 	</div>
 {{ Form::close() }}
-
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop
 
