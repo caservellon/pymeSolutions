@@ -21,7 +21,9 @@ class CatalogoContablesController extends BaseController {
 	 */
 	public function index()
 	{
-		$Catalogo = $this->CatalogoContable->orderby('CON_CatalogoContable_Codigo')->get();
+		$Catalogo = $this->CatalogoContable	->orderby('CON_CatalogoContable_Codigo')
+											->orderby('CON_CatalogoContable_CodigoSubcuenta')
+											->get();
 		$clasi = ClasificacionCuenta::all();
 
 		return View::make('CatalogoContables.index',compact('clasi'))

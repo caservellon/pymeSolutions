@@ -32,6 +32,7 @@
         <div class="form-group">
          {{ Form::label('CON_PeriodoContable_FechaInicio', 'Fecha que Inicia el Periodo Contable:*') }}
          <div class="col-md-4"> 
+
          {{ Form::input('text', 'CON_PeriodoContable_FechaInicio','',array('value'=>'','id'=>'dpd1','placeholder'=>'aaaa-mm-dd','required')) }}
           </div>
         </div>

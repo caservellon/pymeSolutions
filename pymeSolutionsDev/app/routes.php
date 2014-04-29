@@ -205,6 +205,8 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::resource('unidadmonetaria', 'UnidadMonetariaController');
 				Route::resource('periodocontable', 'ParamPeriodoContableController');
 				Route::resource('catalogocuentas', 'CatalogoContablesController');
+				Route::resource('subcuentas', 'SubcuentaController');
+
 
 				Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
 				Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));

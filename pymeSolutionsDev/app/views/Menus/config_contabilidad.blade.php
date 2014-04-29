@@ -4,7 +4,8 @@
 
 <br>
 <h1><i class="glyphicon glyphicon-cog"></i> Configuracion contabilidad</h1>
-<a class="btn btn-primary pull-right" href="{{URL::to('contabilidad')}}">Atras</a>
+<a class="btn btn-sm btn-primary pull-right" href="{{URL::to('contabilidad')}}">
+<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 <br>
 
 <div class="well"  style="max-width: 400px; margin:10px; background-color:;">

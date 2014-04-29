@@ -14,18 +14,15 @@
 {{ Form::open(array('url' => 'contabilidad/configuracion/catalogocuentas', 'class'=>'form-horizontal')) }}
 
             <div class="form-group">
-            {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion de la Cuenta:') }}
+            {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion de la Cuenta*:') }}
             <div class ="col-md-4">
             {{ Form::select('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', $clasi, $selected,array('id'=> 'prueba2')) }}
             </div>
             </div>
 
-            <div class="form-group">
-                {{ Form::label('CON_CatalogoContable_Codigo', 'Codigo de la Cuenta:*') }}
-            <div class ="col-md-4">
-                {{ Form::text('CON_CatalogoContable_Codigo','',array('maxlength'=>'10','id' => 'prueba')) }}
-            </div>
-            </div>
+         {{ Form::hidden('CON_CatalogoContable_Codigo','999') }}
+           
+            
 
             <div class="form-group">
                 {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre de la Cuenta:*') }}
