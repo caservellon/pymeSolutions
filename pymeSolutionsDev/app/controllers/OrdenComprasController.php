@@ -689,7 +689,7 @@ class OrdenComprasController extends BaseController {
         $inventario=$productos;
         //reemplazo de variable a enviar a la vista
          return View::make('OrdenCompras.NuevaOrdenCompraSinCotizacion', array('inventario' =>$inventario , 'proveedor'=>$proveedor));
-        //return View::make('Proveedor.index', compact('Proveedor'));
+        
     }
         
  }
