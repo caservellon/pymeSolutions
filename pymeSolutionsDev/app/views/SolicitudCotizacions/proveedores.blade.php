@@ -13,7 +13,6 @@
                 
                <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Confirmar', array('class' => 'btn btn-default btn-md')) }}</div>
             </div> 
-<?php $prod = array_unique($proveedor); $prodfinal= array_values($prod)?>
 
         
        
@@ -21,8 +20,8 @@
         
 
             
-            @for($j=0; $j < count($prodfinal); $j++)
-            <?php $proveedores = Proveedor::find($prodfinal[$j]); ?>
+            @for($j=0; $j < count($proveedor); $j++)
+            <?php $proveedores = Proveedor::find($proveedor[$j]); ?>
             <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">

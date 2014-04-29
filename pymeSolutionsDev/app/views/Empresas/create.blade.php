@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Empresa &gt; <small>Crear Empresa</small></h3>
       <div class="pull-right">
-        <a href="/Empresas" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="/CRM/Empresas" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 
