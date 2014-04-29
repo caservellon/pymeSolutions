@@ -24,7 +24,9 @@
 				<th>Usuario</th>
 				<th>Estado</th>
 				@foreach($CamposLocales as $CampoLocal)
+                                                @if($CampoLocal->GEN_CampoLocal_Activo==1)
 						<th>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</th>
+                                                @endif
 				@endforeach
 				<th>Activo</th>
 				

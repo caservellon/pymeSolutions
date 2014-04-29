@@ -80,6 +80,8 @@ class SolicitudCotizacionsController extends BaseController {
 	public function store()
 	{
                 $input = Input::all();
+                $imprimir= array();
+                $correo= array();
 		$proveedor=Input::get('prove');
                 $prodfinal= array_unique($proveedor);
                 $prod= array_values($prodfinal);
@@ -152,18 +154,27 @@ class SolicitudCotizacionsController extends BaseController {
                         
                     
                     }
-                    
+                    $ruta = route('Compras.SolicitudCotizacions.index');
                     $email[]=$detalle;
                     $enviar= Proveedor::find($prod[$i]);
-                    Mail::send('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
+                    if($enviar->INV_Proveedor_Email == NULL){
+                       $imprimir= $prod[$i];
+                    }else{
+                        $correo= $prod[$i];
+                         Mail::send('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
                         $message->subject('Solicitud ');
                             $message->to($enviar->INV_Proveedor_Email);
                     });
+                         
+                    }
+                    
+                    
                }
-                
+                $mensaje = Mensaje::find(3);
+                return View::make('MensajeSolicitud', compact('mensaje', 'ruta', 'imprimir'));
                        
                     
-                return Redirect::route('Compras.SolicitudCotizacions.index');
+                
               }
               return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'))
 			->withInput()
