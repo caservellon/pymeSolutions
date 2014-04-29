@@ -49,7 +49,7 @@ class PersonasController extends BaseController {
 			}
 			switch ($campo->GEN_CampoLocal_Tipo) {
 				case 'TXT':
-					$val = $val.'alpha_spaces|';
+					$val = $val.'alphanumdotspaces|';
 					break;				
 				case 'INT':
 					$val = $val.'Integer|';
