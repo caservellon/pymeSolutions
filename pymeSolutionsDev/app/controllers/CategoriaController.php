@@ -33,9 +33,9 @@ class CategoriaController extends BaseController {
 	 */
 	public function create()
 	{
-		$temp = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+		$temp = Categoria::where('INV_Categoria_IDCategoriaPadre','=','1')->Where('INV_Categoria_Activo', '=', '1')->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
 		$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		$tipos = array(0 => "Seleccione ... ") + $temp;
+		$tipos = $temp;
 		return View::make('Categoria.create', compact('tipos', 'horarios'));
 	}
 
