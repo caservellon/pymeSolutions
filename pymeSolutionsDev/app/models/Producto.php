@@ -20,7 +20,7 @@ class Producto extends Eloquent {
 		'INV_Producto_Cantidad' => 'required|numeric|Between:0,9999999999|min:1',
 		'INV_Producto_Impuesto1' => 'numeric|Between:0,1|min:0.01|regex:/0(\.[0-9]{1,2})?$/',
 		'INV_Producto_Impuesto2' => 'numeric|Between:0,1|min:0.01|regex:/0(\.[0-9]{1,2})?$/',
-		'INV_Producto_RutaImagen' => '|Alpha|Between:1,256',
+		'INV_Producto_RutaImagen' => 'URL',
 		'INV_Producto_Comentarios' => '|regex:/^[a-z A-Z]?/|Between:1,512',
 		'INV_Producto_PuntoReorden' => 'required|numeric|Between:0,9999999999',
 		'INV_Producto_NivelReposicion' => 'required|numeric|min:1|Between:0,9999999999',
