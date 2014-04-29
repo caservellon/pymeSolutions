@@ -347,4 +347,8 @@ $(document).ready(function(){
 	    valor.elements[valor.length-3].value=document.getElementById("total").value;
 	}
 
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 7095b7a12283d1573ed76d4d960d3b54a19eebfb
