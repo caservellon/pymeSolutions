@@ -13,7 +13,7 @@
 </head>
 <body style="margin-top: 50px">
   
-  <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="navbar navbar-fixed-top navbar-inverse" role="navigation" style="text-align:left;">
     <div class="container">
       <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,7 +22,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">pyme Solutions</a>
+              <a class="navbar-brand" href="/">pyme Solutions</a>
       </div>
         
         <div class="navbar-collapse collapse">
@@ -112,11 +112,17 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">CRM <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Clientes</a></li>
-                  <li><a href="#">Empresariales</a></li>
+                  <li>
+                    {{ link_to_route('CRM.Personas.index', 'Clientes')}}
+                  </li>
+                  <li>
+                    {{ link_to_route('CRM.Empresas.index', 'Empresas')}}
+                  </li>
                   <li><a href="#">Proveedores</a></li>
                   <li><a href="#">Campañas</a></li>
-                  <li><a href="#">Documentos</a></li>
+                  <li>
+                    {{ link_to_route('CRM.TipoDocumentos.index', 'Documentos')}}
+                  </li>
                   <li><a href="#">Oportunidades de Negocios</a></li>
                   <li class="divider"></li>
                   <li><a href="/CRM">Configuración</a></li>
