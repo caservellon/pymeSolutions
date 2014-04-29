@@ -160,6 +160,7 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::get('Configuracion/OrdenCompra/editarorden', array('as'=>'editar', 'uses'=>'OrdenComprasController@editar'));
     Route::patch('Configuracion/OrdenCompra/actualizar', array('as'=>'actualizar', 'uses'=>'OrdenComprasController@actualizar'));
     Route::post('search_index', array('as' => 'OrdenCompra.search_index', 'uses' =>'OrdenComprasController@search_index'));
+     Route::post('search_Cotizaciones', array('as' => 'OrdenCompra.search_Cotizaciones', 'uses' =>'OrdenComprasController@search_Cotizaciones'));
     Route::resource('Cotizacions', 'CotizacionsController');
     Route::resource('OrdenCompras', 'OrdencomprasController');
     
