@@ -22,4 +22,9 @@ Validator::extend('alphanumdotspaces', function($attribute, $value, $parameters)
     
 });  
 
+Validator::extend('is_positive', function($attribute, $value, $parameters)
+{
+	return $value > 0;
+});
+
 ?>

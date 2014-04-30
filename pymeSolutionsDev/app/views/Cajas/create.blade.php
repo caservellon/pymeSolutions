@@ -42,7 +42,7 @@
     
     <div class="form-group">
       <div class="col-md-5">
-      {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+        {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 

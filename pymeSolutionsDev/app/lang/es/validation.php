@@ -94,6 +94,7 @@ return array(
     */
 
     'attributes' => array(),
+    "is_positive" => "El :attribute no puede ser un número negativo",
     "alpha_spaces" => "El :attribute puede contener sólo letras y espacios.",
     "alphanum_spaces" => "El :attribute puede contener sólo letras, números y espacios.",
     "alphanumdotspaces" => "El :attribute puede contener sólo letras, números, espacios y puntos.",
