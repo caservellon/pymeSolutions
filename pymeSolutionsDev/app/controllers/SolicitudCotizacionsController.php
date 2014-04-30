@@ -61,7 +61,7 @@ class SolicitudCotizacionsController extends BaseController {
                 $provfinal = array_unique($prov); 
                 $proveedor= array_values($provfinal);
                 
-            return View::make('SolicitudCotizacions.create', compact('cualquierProducto', 'proveedor'));
+            return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'));
             //return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'))->withInput();
 			
         }
@@ -102,7 +102,7 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function store()
 	{
-                $input = Input::all();
+                
                 $imprimir= array();
                 $correo= array();
 		$proveedor=Input::get('prove');
@@ -131,8 +131,10 @@ class SolicitudCotizacionsController extends BaseController {
 					break;
 			}
 			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+//                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
+                        
 		}
-                $validation = Validator::make($input, $res);
+                $validation = Validator::make($res);
 
 		if($validation->passes()){
                 for($i=0; $i < count($proveedor); $i++){
@@ -200,7 +202,7 @@ class SolicitudCotizacionsController extends BaseController {
                     
                 
               }
-              return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'))->withErrors($validation)
+              return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))->withErrors($validation)
 			->with('message', 'There were validation errors.');
 	}
         

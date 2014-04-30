@@ -9,7 +9,13 @@
 </div>
 
 {{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('Compras.Configuracion.CampoLocal.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
-    <div class="form-group">
+  @if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
+	</ul>
+@endif 
+
+<div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
             {{ Form::text('GEN_CampoLocal_Nombre', $CampoLocal->GEN_Campo_Local_Nombre, array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre', 'placeholder'=>'CAJ-00001')) }}
