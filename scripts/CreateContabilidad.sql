@@ -6,10 +6,10 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_UnidadMonetaria` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_UnidadMonetaria` (
   `CON_UnidadMonetaria_ID` INT NOT NULL AUTO_INCREMENT,
   `CON_UnidadMonetaria_Nombre` VARCHAR(45) NOT NULL,
-  `CON_UnidadMonetaria_Observacion` VARCHAR(255) NULL,
-  `CON_UnidadMonetaria_TasaConversion` FLOAT NOT NULL,
-  `CON_UnidadMonetaria_FechaCreacion` DATETIME NOT NULL,
-  `CON_UnidadMonetaria_FechaModificacion` DATETIME NOT NULL,
+  `CON_UnidadMonetaria_Observacion` VARCHAR(255) NULL DEFAULT NULL,
+  `CON_UnidadMonetaria_TasaConversion` DECIMAL(4,2) NOT NULL,
+  `CON_UnidadMonetaria_FechaCreacion` DATETIME NULL,
+  `CON_UnidadMonetaria_FechaModificacion` DATETIME NULL,
   PRIMARY KEY (`CON_UnidadMonetaria_ID`),
   UNIQUE INDEX `CON_UnidadMonetaria_Nombre_UNIQUE` (`CON_UnidadMonetaria_Nombre` ASC))
 ENGINE = InnoDB;
@@ -139,10 +139,10 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_LibroDiario` (
   `CON_LibroDiario_Observacion` VARCHAR(255) NULL DEFAULT NULL,
   `CON_LibroDiario_FechaCreacion` DATETIME NOT NULL,
   `CON_LibroDiario_FechaModificacion` DATETIME NOT NULL,
-  `CON_LibroDiario_Monto` FLOAT NOT NULL,
+  `CON_LibroDiario_Monto` DECIMAL(11,2) NOT NULL,
   `CON_MotivoTransaccion_ID` INT NOT NULL,
   `CON_LibroDiario_AsientoReversion` TINYINT NULL DEFAULT 0,
-  `CON_LibroDiario_Revertido` TINYINT NULL,
+  `CON_LibroDiario_Revertido` TINYINT NULL DEFAULT NULL,
   PRIMARY KEY (`CON_LibroDiario_ID`),
   INDEX `fk_CON_LibroDiario_CON_MotivoTransaccion1_idx` (`CON_MotivoTransaccion_ID` ASC),
   CONSTRAINT `fk_CON_LibroDiario_CON_MotivoTransaccion1`
@@ -532,3 +532,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Pago` (
   `CON_Pago_FechaPagar` DATETIME NOT NULL,
   PRIMARY KEY (`CON_Pago_ID`))
 ENGINE = InnoDB;
+

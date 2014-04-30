@@ -4,7 +4,7 @@
 
 <div class='page-header clearfix'>
 <h2>Unidad Monetaria > <small>Crear</small>
-    <a class='btn btn-primary pull-right ' href="{{URL::route('unidadmonetaria')}}">
+    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::route('unidadmonetaria')}}">
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
 
 </div>
@@ -15,7 +15,7 @@
         <div class="form-group">
             {{ Form::label('CON_UnidadMonetaria_Nombre', 'Nombre:*') }}
             <div class='col-md-5'>
-            {{ Form::text('CON_UnidadMonetaria_Nombre','',array('maxlength'=>'45')) }}
+            {{ Form::text('CON_UnidadMonetaria_Nombre','',array('maxlength'=>'45','placeholder'=>'Nombre de la uindad monetaria')) }}
             </div>
         </div>
 
@@ -30,7 +30,7 @@
         <div class="form-group">
             {{ Form::label('CON_UnidadMonetaria_Observacion', 'Observacion:') }}
             <div class='col-md-8'>
-            {{ Form::text('CON_UnidadMonetaria_Observacion','',array('maxlength'=>'255')) }}
+            {{ Form::text('CON_UnidadMonetaria_Observacion','',array('maxlength'=>'255','placeholder'=>'Breve descripcion Ej: Pais de la moneda')) }}
             </div>
         </div>
 

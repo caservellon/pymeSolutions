@@ -64,7 +64,7 @@
     <div class="form-group">
       {{ Form::label('CON_LibroDiario_Monto', 'Monto del Asiento:*') }}
       <div class='col-md-4'>
-          {{ Form::input('text', 'CON_LibroDiario_Monto','',array('placeholder'=>'## ### ###.##')) }}
+          {{ Form::input('text', 'CON_LibroDiario_Monto','',array('placeholder'=>'### ### ###.##','maxlength'=>'12')) }}
       </div>
     </div> 
 	 <div class='form-group'>    
