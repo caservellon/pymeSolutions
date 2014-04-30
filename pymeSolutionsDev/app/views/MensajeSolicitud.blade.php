@@ -23,6 +23,14 @@
         </div>
     </div>
     <div class='row'>
+        <div class='row'>
+        <div class="col-md-12">
+            <h3 class="is-hidden">
+                {{{ $mensaje2->GEN_Mensajes_Mensaje}}}
+            </h3>
+        </div>
+        
+    </div>
     <div class='row'>
         <div class="col-md-12">
             <?php for($i=0; $i< count($imprimir); $i++){ foreach ($proveedores as $prov){ if($imprimir[$i]==$prov->INV_Proveedor_ID){ ?>
