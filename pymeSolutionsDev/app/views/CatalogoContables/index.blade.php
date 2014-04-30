@@ -49,9 +49,9 @@
 					<td>Deudor</td>
 					@endif
 					@if ($CatalogoContable->CON_CatalogoContable_Estado == 1)
-					<td ><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" checked></td>
+					<td ><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" checked disabled></td>
 					@else 
-					<td><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" ></td>
+					<td><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" disabled></td>
 					@endif
                     <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/'.$CatalogoContable->CON_CatalogoContable_ID.'/edit') }}"> Editar</a>
 

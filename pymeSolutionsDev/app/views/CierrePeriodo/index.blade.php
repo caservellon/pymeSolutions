@@ -86,7 +86,7 @@
 					});
 				},
 				error: function(xhr){
-					console.log(xhr);
+					console.log(xhr.responseText);
 					$('#h4-Mayorizacion').removeClass('alert-info').addClass('alert-danger');
 				}
 			});		
