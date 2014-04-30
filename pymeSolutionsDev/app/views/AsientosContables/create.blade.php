@@ -4,13 +4,15 @@
 
 <div class='page-header clearfix'>
 <h2>Asiento Contable > <small>Crear</small>
-    <a class='btn btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
+    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
-    <button id="crearmotivo" class="btn btn-info form-group" data-toggle="modal" data-target="#CrearMotivo">
-     <i class="glyphicon glyphicon-plus"></i> Agregar Motivo
-    </button>
+    
 </div>
 
+@if($PeriodoContable)
+<button id="crearmotivo" class="btn btn-info form-group" data-toggle="modal" data-target="#CrearMotivo">
+     <i class="glyphicon glyphicon-plus"></i> Agregar Motivo
+    </button>
 @include('_messages.errors')
 
 
@@ -21,7 +23,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class='modal-title' id='myModalLabel'>Motivo de transaccion > <small>Crear</small></h4>
+        <h4 class='modal-title' id='myModalLabel'>Motivo de Transaccion > <small>Crear</small></h4>
 
       </div>
       <div id="div_crearmotivo" class="modal-body">
@@ -60,15 +62,15 @@
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('CON_LibroDiario_Monto', 'Importe:*') }}
+      {{ Form::label('CON_LibroDiario_Monto', 'Monto del Asiento:*') }}
       <div class='col-md-4'>
-          {{ Form::input('text', 'CON_LibroDiario_Monto','',array('placeholder'=>'*.##')) }}
+          {{ Form::input('text', 'CON_LibroDiario_Monto','',array('placeholder'=>'### ### ###.##','maxlength'=>'12')) }}
       </div>
     </div> 
 	 <div class='form-group'>    
             {{ Form::label('CON_LibroDiario_Observacion', 'Observacion:') }}
              <div class='col-md-9'>
-            {{ Form::input('text', 'CON_LibroDiario_Observacion') }}
+            {{ Form::input('text', 'CON_LibroDiario_Observacion','',array('placeholder'=>'Breve Observacion del Asiento','maxlength'=>'255')) }}
             </div>
     </div>
     
@@ -101,6 +103,16 @@
 
     });
 </script>
+
+@else
+  <div align="center" class="well container col-md-8 col-md-offset-2">
+  
+  <h3>No hay periodos contables</h3>
+  <a class='btn btn-info btn-lg' href="{{{URL::route('periodocontable')}}}">Crear Nuevo Periodo</a>
+  </div>
+
+@endif
+
 @stop
 
 

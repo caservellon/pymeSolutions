@@ -82,7 +82,8 @@ Route::group(array('prefix' => 'Compras'), function(){
 	});
         
         Route::group(array('prefix' => 'Configuracion'), function(){
-		Route::get('/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
+		
+                Route::get('/EstadoOrden/Nuevo',array('as'=>'NuevoEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@NuevoEstadoOrden'));
                 Route::post('/EstadoOrden/Nuevo',array('as'=>'AlmacenaEstadoOrdenCompra','uses'=>'COMEstadoOrdenCompraController@AlmacenaEstadoOrden'));
 
                 //edita un estado de orden de compras ya existente
@@ -104,12 +105,14 @@ Route::group(array('prefix' => 'Compras'), function(){
                 Route::get('/TransicionEstado/Lista', array('as'=>'ListaTransicion','uses'=>'COMTransicionEstadoController@ListaTransiciones'));
                 Route::resource('CampoLocal', 'CompraCampoLocalController'); 
 	});
+        Route::get('mensaje', array('as'=>'mensaje', 'uses'=> 'CotizacionsController@mensaje'));
 
 
         Route::get('SolicitudCotizacion/Crear/CualquierProducto', array('as'=>'cualquierProducto', 'uses'=> 'SolicitudCotizacionsController@vistacrear'));
         Route::get('SolicitudCotizacion/Crear/Reorden', array('as'=>'reOrden', 'uses'=> 'SolicitudCotizacionsController@vistaReorden'));
         Route::get('SolicitudCotizacion/Crear/MostrarDetalle', array('as'=>'detalle', 'uses'=> 'SolicitudCotizacionsController@detalle'));
         Route::post('SolicitudCotizacion/Crear/detalleCualquierProducto', array('as'=>'seleccion', 'uses'=> 'SolicitudCotizacionsController@mostrarProveedor'));
+        Route::post('search_index', array('as' => 'search_index', 'uses' =>'SolicitudCotizacionsController@search_index'));
         Route::resource('SolicitudCotizacions', 'SolicitudCotizacionsController');
 //edita una transicion de estado de orden de compras ya existente
 
@@ -131,9 +134,9 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::post('OrdenCompra/conCotizacion/CompararCotizaciones', array('as'=>'CompararCotizaciones','uses'=>'OrdenComprasController@ComparaCotizaciones'));
     Route::get('OrdenCompra/conCotizacion/Detalle', array('as'=>'ComCot','uses'=>'OrdenComprasController@FormOrdenCompracnCotizacion'));
     Route::post('OrdenCompra/conCotizacion/Guardar', array('as'=>'GuardaOCcnCot','uses'=>'OrdenComprasController@guardarOCcnCOT'));
-    Route::get('/hola',  function (){
+    /*Route::get('/hola',  function (){
         return View::make('OrdenCompras.newOrdenCompra');
-    });
+    });*/
 
     //autorizaciones de orden de Compra
     Route::get('OrdenCompra/Autorizacion/ListaOrdenes', array('as'=>'AutOrdCom','uses'=>'OrdenComprasController@ListaOrdenCompra'));
@@ -156,6 +159,7 @@ Route::group(array('prefix' => 'Compras'), function(){
 
     Route::get('Configuracion/OrdenCompra/editarorden', array('as'=>'editar', 'uses'=>'OrdenComprasController@editar'));
     Route::patch('Configuracion/OrdenCompra/actualizar', array('as'=>'actualizar', 'uses'=>'OrdenComprasController@actualizar'));
+    Route::post('search_index', array('as' => 'OrdenCompra.search_index', 'uses' =>'OrdenComprasController@search_index'));
     Route::resource('Cotizacions', 'CotizacionsController');
     Route::resource('OrdenCompras', 'OrdencomprasController');
     
@@ -178,7 +182,6 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('motivotransaccion', 'MotivoTransaccionsController');
 			Route::resource('detalleasientos', 'DetalleAsientosController');
 			Route::resource('cuentamotivos', 'CuentaMotivosController');
-			Route::resource('subcuenta', 'SubcuentaController');
 			Route::resource('asientocontable','AsientosController');
 			Route::resource('librodiario','LibroDiarioController');
 			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
@@ -188,7 +191,8 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
 			Route::get('creando/motivotransaccion',array('uses'=>'AsientosController@creandomotivo'));
-
+			
+			
 			Route::post('librodiario/revertirasiento',array('as'=>'revertirasiento', 'uses' => 'LibroDiarioController@reversion'));
 			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
 			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));			
@@ -200,9 +204,12 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::get('/',function(){
 							return View::make('Menus.config_contabilidad');
 				});
+				Route::resource('subcuentas', 'SubcuentaController');
 				Route::resource('unidadmonetaria', 'UnidadMonetariaController');
 				Route::resource('periodocontable', 'ParamPeriodoContableController');
 				Route::resource('catalogocuentas', 'CatalogoContablesController');
+				Route::resource('subcuentas', 'SubcuentaController');
+
 
 				Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
 				Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
@@ -210,6 +217,14 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				//Route::post('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
 			});
 
+			Route::group(array('prefix'=>'cierreperiodo'),function(){
+				Route::get('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
+
+				Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
+				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
+				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
+				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
+			});
 
 
 	});

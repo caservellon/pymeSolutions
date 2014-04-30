@@ -10,6 +10,6 @@ class SolicitudCotizacion extends Eloquent {
 	public static $rules = array(
 		
 		'COM_SolicitudCotizacion_Codigo' => 'max:16',
-		
+		'COM_SolicitudCotizacion_Cantidad' => 'min:0'
 	);
 }

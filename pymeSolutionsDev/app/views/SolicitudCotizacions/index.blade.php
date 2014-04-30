@@ -8,7 +8,15 @@
 <div class="pull-right">
         <a href="{{{ URL::to('Compras/SolicitudCotizacion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
-          <div class="col-md-4 col-md-offset-1">
+          <div  class="col-md-9" >
+                          
+                                 <div class="col-xs-5 col-sm-6 col-md-12">
+                                    {{ Form::open(array('route' => 'search_index')) }}
+                                    {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+                                    {{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
+                                    {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
+                                    {{ Form::close() }}
+                                </div>
              
              
           </div>
@@ -24,7 +32,9 @@
 				<th>Usuario</th>
 				<th>Estado</th>
 				@foreach($CamposLocales as $CampoLocal)
+                                                @if($CampoLocal->GEN_CampoLocal_Activo==1)
 						<th>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</th>
+                                                @endif
 				@endforeach
 				<th>Activo</th>
 				

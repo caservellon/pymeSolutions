@@ -13,7 +13,7 @@ class ClasificacionPeriodo extends Eloquent {
 
 			'CON_ClasificacionPeriodo_Nombre' => 'required|max:45|alpha_spaces',
 			'CON_ClasificacionPeriodo_CatidadDias' => 'required|integer|max:366',
-			'CON_PeriodoContable_FechaInicio' => 'required|date_format:Y-m-d'
+			'CON_PeriodoContable_FechaInicio' => 'required|date_format:Y-m-d|date|after:?'
 
 
 		);
