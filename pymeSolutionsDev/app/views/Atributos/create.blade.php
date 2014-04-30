@@ -34,9 +34,9 @@
       </div>
     </div> 
     <div class="form-group">
-      {{ Form::label('INV_Atributo_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_Atributo_Activo', 'Estado: ', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::checkbox('INV_Atributo_Activo', '1', '1', array('class' => 'col-md-4 control-label')) }}
+        {{ Form::select('INV_Atributo_Activo', array('1' => 'Activada', '0' => 'Desactivada'),'1',array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
     {{ Form::hidden('INV_Atributo_FechaCreacion', date('Y-m-d H:i:s')) }}

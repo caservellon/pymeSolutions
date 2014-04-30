@@ -94,7 +94,8 @@ class CategoriaController extends BaseController {
 	{
 		$Categoria = $this->Categoria->find($id);
 		$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+		//return $tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+		$tipos = Categoria::where('INV_Categoria_IDCategoriaPadre','=','1')->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
 		if (is_null($Categoria))
 		{
 			return Redirect::route('Inventario.Categoria.index', compact('tipos', 'horarios'));

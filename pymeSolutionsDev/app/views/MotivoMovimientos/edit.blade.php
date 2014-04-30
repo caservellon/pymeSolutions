@@ -3,7 +3,7 @@
 @section('main')
 
 <div class="page-header clearfix">
-      <h3 class="pull-left">Categoria &gt; <small>Editar Categoria</small></h3>
+      <h3 class="pull-left">Motivo Movimiento Inventario &gt; <small>Editar Motivo Movimiento</small></h3>
       <div class="pull-right">
         <a href="{{{ URL::to('Inventario/MotivoMovimiento') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
@@ -31,6 +31,12 @@
       {{ Form::label('INV_MotivoMovimiento_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::checkbox('INV_MotivoMovimiento_Activo', '1', $MotivoMovimiento->INV_MotivoMovimiento_Activo, array('class' => 'col-md-4 control-label')) }}
+      </div>
+    </div>
+    <div class="form-group">
+      {{ Form::label('INV_MotivoMovimiento_Activo', 'Estado: ', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::select('INV_MotivoMovimiento_Activo', array('1' => 'Activada', '0' => 'Desactivada'), $MotivoMovimiento->INV_MotivoMovimiento_Activo, array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
     {{ Form::hidden('INV_Categoria_FechaCreacion', date('Y-m-d H:i:s')) }}
