@@ -61,8 +61,8 @@ class SolicitudCotizacionsController extends BaseController {
                 $provfinal = array_unique($prov); 
                 $proveedor= array_values($provfinal);
                 
-            return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'));
-            //return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'));
+            return View::make('SolicitudCotizacions.create', compact('cualquierProducto', 'proveedor'));
+            //return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'))->withInput();
 			
         }
 
@@ -73,7 +73,26 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('SolicitudCotizacions.create');
+              $cualquierProducto=array();
+            
+                for ($i = 1; $i <=count(Input::all()); $i++) {
+                    if (Input::get('Incluir'.$i)==1){
+                        $cualquierProducto[] = Input::get('id'.$i);
+                    }
+                }
+                $prov=array();
+                for($i=0; $i < count($cualquierProducto); $i++){
+                    $prov_prod = DB::table('INV_Producto_Proveedor')->get();
+                    foreach($prov_prod as $key){
+                        if($cualquierProducto[$i] == $key->INV_Producto_ID){
+                            $prov[]= $key->INV_Proveedor_ID;
+                        }
+                    
+                    }
+                }
+                $provfinal = array_unique($prov); 
+                $proveedor= array_values($provfinal);  
+            return View::make('SolicitudCotizacions.create', compact('cualquierProducto', 'proveedor'));
 	}
 
 	/**
@@ -174,8 +193,9 @@ class SolicitudCotizacionsController extends BaseController {
                     
                     
                }
-                $mensaje = Mensaje::find(3);
-                return View::make('MensajeSolicitud', compact('mensaje', 'ruta', 'imprimir', 'correo'));
+                $mensaje = Mensaje::find(2);
+                $mensaje2 = Mensaje::find(3);
+                return View::make('MensajeSolicitud', compact('mensaje', 'mensaje2' ,'ruta', 'imprimir', 'correo'));
                        
                     
                 
