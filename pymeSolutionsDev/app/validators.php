@@ -25,7 +25,24 @@ Validator::extend('alphanumdotspaces', function($attribute, $value, $parameters)
 {
     return preg_match('/^([.-a-z0-9_-áéíóúûü-\s])+$/i', $value);
     
-});  
+});
+
+Validator::extend('decimal', function($attribute, $value, $parameters)
+{
+	$EsDecimalValido = false;
+	$EsMayorCero = false;
+	
+	if (preg_match('/^\d+(\.\d{1,2})?$/', $value)){
+		$EsDecimalValido = true;
+		
+		if ($value > 0){
+			$EsMayorCero = true;
+		}
+	}
+	
+    return $EsDecimalValido && $EsMayorCero;
+
+});
 
 Validator::extend('is_positive', function($attribute, $value, $parameters)
 {
