@@ -12,10 +12,11 @@
 			<div  class="col-md-9" >
                           
                                  <div class="col-xs-5 col-sm-6 col-md-12">
-                                    <input type="Text"  style="width: 550px">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg" >
-                                        <span class="glyphicon glyphicon-filter"></span>
-                                    </button>
+                                    {{ Form::open(array('route' => 'OrdenCompra.search_index')) }}
+                                    {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+                                    {{ Form::text('search', null, array('class' => 'col-md-4','style'=>'width: 400px', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
+                                    {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' , 'style'=>'margin-left: 5px' )) }}
+                                    {{ Form::close() }}
                                 </div>
                                     
                                 
@@ -24,13 +25,13 @@
                                 {{Form::open(array('route'=>'OrdenSinCotizacion'))}}
                                 <label>Proveedor : </label>
                                 <?php $provedor=  Proveedor::where('INV_Proveedor_Activo','=',1)->lists('INV_Proveedor_Nombre','INV_Proveedor_ID');?>
-                                {{ Form::select('proveedor',$provedor) }}
+                                {{ Form::select('proveedor',$provedor,$proveedor) }}
                                 
                             </div>
                                 
 			</div>
 			<div class="col-md-3">
-                            <input type="button" value="Buscar" class="btn btn-default btn-block col-md-6">
+                            
                             
                                 {{Form::submit('Continuar', array('class' => 'btn btn-default btn-block col-md-6'))}}
                                 

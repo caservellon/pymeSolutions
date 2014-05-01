@@ -7,7 +7,7 @@ class LibroDiario extends Eloquent {
 	public $timestamps=false;
 	public static $rules = array(
 		//'CON_LibroDiario_Observacion' => 'required'
-		'CON_LibroDiario_Monto' => 'required|regex:/^[0-9]+\.[0-9][0-9]$/',
+		'CON_LibroDiario_Monto' => 'required|regex:/^[0-9]{1,9}\.[0-9][0-9]$/',
 		'CON_MotivoTransaccion_ID' => 'required|integer'
 	);
 }

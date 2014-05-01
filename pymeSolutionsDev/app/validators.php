@@ -6,7 +6,12 @@
  */
 Validator::extend('alpha_spaces', function($attribute, $value, $parameters)
 {
-    return preg_match('/^([-a-z_-áéíóúûü-\s])+$/i', $value);
+    return preg_match('/^[\pL\s]+$/u', $value);
+    
+});  
+Validator::extend('Numbre_Decimal', function($attribute, $value, $parameters)
+{
+    return preg_match('/^\d+(\.\d{1,2})?$/', $value);
     
 });  
 
@@ -21,5 +26,10 @@ Validator::extend('alphanumdotspaces', function($attribute, $value, $parameters)
     return preg_match('/^([.-a-z0-9_-áéíóúûü-\s])+$/i', $value);
     
 });  
+
+Validator::extend('is_positive', function($attribute, $value, $parameters)
+{
+	return $value > 0;
+});
 
 ?>

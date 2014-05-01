@@ -1,6 +1,5 @@
 .DS_Store
-*.bak
 /pymeSolutionsDev/nbproject/private/
-.vagrant/machines/default/virtualbox/*
-.vagrant/
+.vagrant/*
 scripts/logs/install.log
+*.bak

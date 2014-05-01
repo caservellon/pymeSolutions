@@ -4,12 +4,18 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Campo Local &gt; <small>Editar Campo Local</small></h3>
       <div class="pull-right">
-        <a href="/Compras/CampoLocal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="/Compras/Configuracion/CampoLocal" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
 {{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('Compras.Configuracion.CampoLocal.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
-    <div class="form-group">
+  @if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
+	</ul>
+@endif 
+
+<div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
             {{ Form::text('GEN_CampoLocal_Nombre', $CampoLocal->GEN_Campo_Local_Nombre, array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre', 'placeholder'=>'CAJ-00001')) }}
@@ -81,7 +87,7 @@
     <div class="form-group">
       <div class="col-md-5 ">
             {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Compras.CampoLocal.show', 'Cancelar', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
+            {{ link_to_route('Compras.Configuracion.CampoLocal.show', 'Cancelar', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
       </div>
     </div>
 

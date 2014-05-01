@@ -2,7 +2,7 @@
 
 
 @if ($LibroDiario!=array())
-	<table class="table table-striped table-bordered">
+	<table class="table table-hover table-striped table-bordered">
 		<thead>
 			<tr>
 				<th>No. Asiento</th>
@@ -11,7 +11,7 @@
 				<th>Debe</th>
 				<th>Haber</th>
 				<th>Observaciones</th>
-				<th>Reversion de Asiento</th>>
+				<th>Reversion de Asiento</th>
 			</tr>
 		</thead>
 
@@ -22,7 +22,7 @@
 						<td>{{{$Libro[0]['no']}}}</td>
 						<td>{{{strstr($Libro[0]['fecha'],' ',true)}}}</td>
 						<td><p class="pull-left">{{{$Libro[0]['cuenta']}}}</p></td>
-						<td>{{{$Libro[0]['monto']}}}</td>
+						<td class="align-right">L. {{{$Libro[0]['monto']}}}</td>
 	                  	<td></td>
 	                  	<td>{{{ $Libro[0]['observacion'] }}}</td>
 	                  	<td>
@@ -37,7 +37,7 @@
 						<td></td>
 						<td>{{{$Libro[1]['cuenta']}}}</td>
 						<td></td>
-						<td>{{{$Libro[1]['monto']}}}</td>
+						<td class="align-right">L. {{{$Libro[1]['monto']}}}</td>
 						<td></td>
 						<td></td>
 					</tr>
