@@ -646,7 +646,7 @@ class OrdenComprasController extends BaseController {
 
         //search de mazoni
 
-       public function search_index(){
+       public function search_Producto(){
 
         $proveedor=1;
         //Querys de las columnas propias del Producto
@@ -655,9 +655,6 @@ class OrdenComprasController extends BaseController {
         ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
         ->orWhere('INV_Producto_Descripcion', 'LIKE',  '%'.Input::get('search').'%')
         ->get();
-
-         
-
         //Querys de las columnas que tiene relacion con la tabla Proveedor
         $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
         ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
@@ -665,7 +662,6 @@ class OrdenComprasController extends BaseController {
         ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
         ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
         ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
-
         // reviso si trajo datos para decidir si los proceso         
         if(!empty($queryPoveedor)){
             $temp = array();
@@ -685,7 +681,6 @@ class OrdenComprasController extends BaseController {
             $productos=Producto::wherein('INV_Producto_ID',$temp1)->get();
             }
         }
-       
         $inventario=$productos;
         //reemplazo de variable a enviar a la vista
          return View::make('OrdenCompras.NuevaOrdenCompraSinCotizacion', array('inventario' =>$inventario , 'proveedor'=>$proveedor));
@@ -702,9 +697,6 @@ class OrdenComprasController extends BaseController {
         ->orWhere('COM_Cotizacion_NumeroCotizacion', '=',  Input::get('search'))
         ->orWhere('COM_SolicitudCotizacion_idSolicitudCotizacion', '=',  Input::get('search'))
         ->get();
-
-         
-
         //Querys de las columnas que tiene relacion con la tabla Proveedor
         $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
         ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
@@ -712,7 +704,6 @@ class OrdenComprasController extends BaseController {
         ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
         ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
         ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
-
         // reviso si trajo datos para decidir si los proceso         
         if(!empty($queryPoveedor)){
             $temp = array();
@@ -733,7 +724,6 @@ class OrdenComprasController extends BaseController {
             //$productos=Producto::wherein('INV_Producto_ID',$temp1)->get();
             }
         }
-       
         //$inventario=$productos;
         //reemplazo de variable a enviar a la vista
         return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion',array('cotizaciones'=> $cotizaciones));

@@ -12,7 +12,7 @@
 			<div  class="col-md-9" >
                           
                                  <div class="col-xs-5 col-sm-6 col-md-12">
-                                    {{ Form::open(array('route' => 'OrdenCompra.search_index')) }}
+                                    {{ Form::open(array('route' => 'OrdenCompra.search_Producto')) }}
                                     {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
                                     {{ Form::text('search', null, array('class' => 'col-md-4','style'=>'width: 400px', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
                                     {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' , 'style'=>'margin-left: 5px' )) }}
