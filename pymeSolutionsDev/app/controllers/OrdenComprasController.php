@@ -317,10 +317,12 @@ class OrdenComprasController extends BaseController {
              }
              if(sizeof($productos)<1){
                  return 'no se puede crear una orden de Compra';
+             }else{
+                $products=Producto::wherein('INV_Producto_ID',$productos)->get();
              }
              
             
-            return View::make('OrdenCompras.OrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$productos));
+            return View::make('OrdenCompras.OrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$products));
         }
         public function guardarOCsnCOT(){
              $input=Input::all();
