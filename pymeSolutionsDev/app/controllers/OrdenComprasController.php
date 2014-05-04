@@ -328,6 +328,8 @@ class OrdenComprasController extends BaseController {
              $input=Input::all();
              $contador=0;
              
+
+             /*
              //guardo la Orden de Compra
              $OrdenCompras=  new OrdenCompra();
              $OrdenCompras->COM_OrdenCompra_Codigo=rand(0,1000000);
@@ -375,7 +377,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
-            return 'los datos ya estan aqui';
+            return 'los datos ya estan aqui';*/
         }
         
         
@@ -497,7 +499,6 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
              foreach($trans as $tran){
                   if($tran->COM_OrdenCompra_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
-                      //$tratra= HistorialEstadoOrdenCompra::find($tran->COM_EstadoOrdenCompra_Id);
                       $tran->COM_TransicionEstado_Activo=0;
                       $tran->update();
                       $historial=new HistorialEstadoOrdenCompra();
@@ -510,17 +511,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=$tran->COM_EstadoOrdenCompra_IdEstAct;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=4;
                       $historial->save();
-                      /*$ordenPago=  new COMOrdenPago();
-                      $ordenPago->COM_OrdenPago_Codigo=rand(0,1000000);
-                      $ordenPago->COM_OrdenCompra_idOrdenCompra=$id;
-                      $ordenPago->COM_OrdenPago_Activo=1;
-                      $ordenPago->COM_Usuario_idUsuarioCreo=1;
-                      $ordenPago->COM_OrdenPago_FechaCreo=date('Y/m/d');
-                      $ordenPago->save();*/
-                      
-                      
-                      
-                                        } 
+                   } 
              }
             return 'ya esta autorizada';
         }
