@@ -5,8 +5,9 @@
   $subTotal=0;
   $totalGeneral=0;
   $contadorDetalle=1;
+
 ?>
-<form action="{{ route('GuardaOCsnCot') }}" method="post" name="fomu">
+{{Form::open(array('route'=>'GuardaOCsnCot','id'=>'Formu'))}}
 	<div class="row">
 		<div class="row">
       <div class="page-header clearfix">
@@ -61,14 +62,26 @@
         <tbody class="pro-list">
            @foreach ($productos as $Producto)
                   
-                    <tr id="{{$contadorDetalle}}" style='cursor: pointer' onclick='muestra(this.id)'>
-                        <td>{{{ $contadorDetalle }}}</td>
+                    <tr id="{{$contadorDetalle}}" style='cursor: pointer;<?if($contadorDetalle==1){echo 'background-color:rgba(0,50,100,0.6)';}?>;' onclick='muestra(this.id)'>
+                        <td>
+                            {{Form::text('producto'.$contadorDetalle,$Producto->INV_Producto_ID, array('style' => 'display:none'))}}
+                            {{{ $contadorDetalle }}}
+                        </td>
+
                         <td>{{{ $Producto->INV_Producto_Codigo }}}</td>
                         <td>{{{ $Producto->INV_Producto_Nombre }}}</td>
-                        <td class='precio'><input type="text" id="{{'precio'.$contadorDetalle}}" value="{{ $Producto->INV_Producto_PrecioCosto }}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); margin-left:80px; max-width:90px;"/></td>
-                        <td><input type="text" id="{{'cantidad'.$contadorDetalle}}" value="{{$Producto->INV_Producto_NivelReposicion}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); margin-left:80px; max-width:90px;"/></td>
-                        <td>{{Form::text('tot'.$contadorDetalle,$proveedor, array('style' => 'display:none'))}}
-                        <input type="text"  id="{{'total'.$contadorDetalle}}" value="{{$Producto->INV_Producto_NivelReposicion*$Producto->INV_Producto_PrecioCosto}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:90px;"></td>
+                        <td class='precio'>
+                            {{Form::text('precio'.$contadorDetalle,$Producto->INV_Producto_PrecioCosto, array('style' => 'display:none'))}}
+                            <input type="text" id="{{'precio'.$contadorDetalle}}" value="{{ $Producto->INV_Producto_PrecioCosto }}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); margin-left:80px; max-width:85px;"/>
+                        </td>
+                        <td>
+                            {{Form::text('cantidad'.$contadorDetalle,$Producto->INV_Producto_NivelReposicion, array('style' => 'display:none'))}}
+                            <input type="text" id="{{'cantidad'.$contadorDetalle}}" value="{{$Producto->INV_Producto_NivelReposicion}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); margin-left:80px; max-width:85px;"/>
+                        </td>
+                        <td>
+                            {{Form::text('total'.$contadorDetalle,$Producto->INV_Producto_NivelReposicion*$Producto->INV_Producto_PrecioCosto, array('style' => 'display:none'))}}
+                            <input type="text"  id="{{'total'.$contadorDetalle}}" value="{{$Producto->INV_Producto_NivelReposicion*$Producto->INV_Producto_PrecioCosto}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:85px;">
+                        </td>
                     </tr>
                     <? 
                       $contadorDetalle++; 
@@ -153,10 +166,10 @@
   </div>
 
 	<div class="row">  
-      <input type="submit" value="Guardar" class="btn btn-sm btn-primary">
+      <input type="submit" value="Guardar" class="btn btn-sm btn-primary" onClik="laravel();">
     </div>
 
-</form>
+{{Form::close()}}
 <div id="miVentana" style="position: fixed; width: 350px; height: 190px; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; border: #333333 3px solid; background-color: #FAFAFA; color: #000000; display:none;">
 <br>
 <br>

@@ -17,12 +17,15 @@ function CambiarCantidad(){
 	}
 	document.getElementById('total'+seleccionado).value=document.getElementById('precio'+seleccionado).value*document.getElementById('Ccantidad').value;
 	document.getElementById('cantidad'+seleccionado).value=document.getElementById('Ccantidad').value;
-	document.getElementById('total2'+seleccionado).value=document.getElementById('precio'+seleccionado).value*document.getElementById('Ccantidad').value;
+	valor=document.forms[0];
+	valor.elements[(seleccionado*7)-2].value=document.getElementById('cantidad'+seleccionado).value;
+	valor.elements[(seleccionado*7)].value=document.getElementById('total'+seleccionado).value;
+	
+	
 
 }
 function mostrarVentana()
 {
-	
     var ventana = document.getElementById('miVentana');
     ventana.style.marginTop = "100px";
     ventana.style.left = ((document.body.clientWidth-350) / 2) +  "px";

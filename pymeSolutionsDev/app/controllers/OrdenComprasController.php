@@ -327,6 +327,7 @@ class OrdenComprasController extends BaseController {
         public function guardarOCsnCOT(){
              $input=Input::all();
              $contador=0;
+             echo var_dump($input);
              
 
              /*
