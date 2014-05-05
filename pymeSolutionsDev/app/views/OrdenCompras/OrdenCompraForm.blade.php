@@ -5,6 +5,7 @@
   $subTotal=0;
   $totalGeneral=0;
   $contadorDetalle=1;
+ 
 
 ?>
 {{Form::open(array('route'=>'GuardaOCsnCot','id'=>'Formu'))}}
@@ -116,10 +117,10 @@
 			<div class="col-md-4">
 				<div class="opciones-cajas">
         
-					<a href="{{ route('DetallePago') }}" ><button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregar-Producto" onClick="alerta()">Agregar Producto</button></a>
+					<!--<a href="{{ route('HistorialOrden', array('id'=>' <script type="text/javascript"> alert("hola") ;</script> '))}}" ><button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregar-Producto" >Agregar Producto</button></a>-->
 					<button type="button" class="btn btn-info editar-prod" onClick="mostrarVentana()" >Editar Cantidad</button>
-					<button type="button" class="btn btn-warning eliminar-prod" onClick="subTotal(5)" >Eliminar Producto</button>
-					<button type="button" class="btn btn-danger cancel-venta" onClick="ocultarVentana()" >Cancelar Ventas</button>
+					<button type="button" class="btn btn-warning eliminar-prod" onClick="<? echo'alert(getSeleccion())';  ?>" >Eliminar Producto</button>
+					<button type="button" class="btn btn-danger cancel-venta" >Cancelar Ventas</button>
        
 				</div>
 			</div>

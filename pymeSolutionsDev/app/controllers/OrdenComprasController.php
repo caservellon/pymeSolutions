@@ -329,7 +329,6 @@ class OrdenComprasController extends BaseController {
              $contador=0;
              echo var_dump($input);
              
-
              /*
              //guardo la Orden de Compra
              $OrdenCompras=  new OrdenCompra();

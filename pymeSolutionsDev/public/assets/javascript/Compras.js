@@ -59,3 +59,6 @@ function total(){
 	document.getElementById('total').value=total.toFixed(2);
 	
 }
+function getSeleccion(){
+	return seleccionado;
+}
