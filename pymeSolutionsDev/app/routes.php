@@ -230,6 +230,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
 				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
 				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
+				Route::post('nuevoperiodo',array('as'=>'con.nuevoperiodo','uses'=>'CierrePeriodoController@nuevoPeriodo'));
 			});
 
 

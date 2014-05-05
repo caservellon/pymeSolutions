@@ -18,9 +18,10 @@
 <h4 id="h4-Balanza" class="alert alert-info"> Balanza Comprobacion </h4>
 <h4 id="h4-Estado" class="alert alert-info"> Estado de Resultados </h4>
 <h4 id="h4-Balance" class="alert alert-info"> Balance General </h4>
+<h4 id="h4-NuevoPeriodo" class="alert alert-info"> Nuevo Periodo </h4>
 <div class="row ">
-	<div class="col-sm-2">
-		<button id="btn-cierre" class="btn btn-lg btn-success">Iniciar Cierre</button>
+	<div id="btn-cierre" class="col-sm-2">
+		<button  class="btn btn-lg btn-success">Iniciar Cierre</button>
 	</div>
 	<div class="col-sm-10">
 		<div class="progress progress-striped active">
@@ -50,7 +51,7 @@
 						$("#bar").attr('style','width:'+ob.barWidth);
 						if(params.length==(n+1)){
 							$('.progress').removeClass('active');
-							//$('#btn-cierre').remove();
+							$('#btn-cierre').remove();
 							return true;
 						}
 						n++;
@@ -66,10 +67,11 @@
 
 		$('#btn-cierre').on('click',function(){
 			array=[
-				{url:"{{{URL::route('con.mayorizar')}}}",h4:"Mayorizacion",barWidth:"25%"},
-				{url:"{{{URL::route('con.balanza')}}}",h4:"Balanza",barWidth:"50%"},
-				{url:"{{{URL::route('con.estado')}}}",h4:"Estado",barWidth:"75%"},
-				{url:"{{{URL::route('con.balance')}}}",h4:"Balance",barWidth:"100%"}
+				{url:"{{{URL::route('con.mayorizar')}}}",h4:"Mayorizacion",barWidth:"30%"},
+				{url:"{{{URL::route('con.balanza')}}}",h4:"Balanza",barWidth:"40%"},
+				{url:"{{{URL::route('con.estado')}}}",h4:"Estado",barWidth:"70%"},
+				{url:"{{{URL::route('con.balance')}}}",h4:"Balance",barWidth:"90%"},
+				{url:"{{{URL::route('con.nuevoperiodo')}}}",h4:"NuevoPeriodo",barWidth:"100%"}
 			];	
 			ajax_calls(array,0);
 

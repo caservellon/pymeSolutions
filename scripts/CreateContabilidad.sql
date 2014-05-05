@@ -930,5 +930,71 @@ Now());
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE `CON_NuevoPeriodo`(IN ID_PeriodoContable INTEGER)
+BEGIN
+
+  DECLARE FechaFinal_Old datetime;
+  DECLARE FechaInicio_New datetime;
+  DECLARE FechaFinal_New datetime;
+  DECLARE ID_ClasificacionPeriodo integer;
+  DECLARE CantidadDias integer;
+
+  DECLARE EXIT HANDLER FOR SQLEXCEPTION,SQLWARNING
+         BEGIN
+            ROLLBACK;
+      SELECT 1;
+         END;
+
+  SELECT PC.CON_PeriodoContable_FechaFinal,PC.CON_ClasificacionPeriodo_ID, CP.CON_ClasificacionPeriodo_CatidadDias
+    INTO  FechaFinal_Old, ID_ClasificacionPeriodo, CantidadDias
+    FROM CON_PeriodoContable as PC
+    INNER JOIN CON_ClasificacionPeriodo as CP
+    ON PC.CON_ClasificacionPeriodo_ID=CP.CON_ClasificacionPeriodo_ID
+    WHERE PC.CON_PeriodoContable_ID=ID_PeriodoContable;
+
+  SET FechaInicio_New= DATE_ADD(FechaFinal_Old, INTERVAL 1 DAY);
+  SET FechaFinal_New=DATE_ADD(FechaInicio_New, INTERVAL CantidadDias DAY);
+
+  START TRANSACTION;
+
+    INSERT INTO `pymeERP`.`CON_PeriodoContable`
+    (
+    `CON_PeriodoContable_FechaInicio`,
+    `CON_PeriodoContable_FechaFinal`,
+    `CON_PeriodoContable_FechaCreacion`,
+    `CON_PeriodoContable_FechaModificacion`,
+    `CON_ClasificacionPeriodo_ID`)
+    VALUES
+    (FechaInicio_New,
+    FechaFinal_New,
+    Now(),
+    Now(),
+    ID_ClasificacionPeriodo);
+
+
+  COMMIT;
+  SELECT 0;
+END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE `CON_BalanzaComprobacion`(IN ID_PeriodoContable integer)
+BEGIN
+  SELECT 
+    CC.CON_CatalogoContable_Nombre,
+    CT.CON_CuentaT_SaldoFinal,
+    CT.CON_CuentaT_AcreedorDeudor
+  from
+    pymeERP.CON_LibroMayor as L
+      INNER JOIN
+    pymeERP.CON_CuentaT as CT ON L.CON_LibroMayor_ID = CT.CON_LibroMayor_ID
+      INNER JOIN
+    pymeERP.CON_CatalogoContable as CC ON CC.CON_CatalogoContable_ID = CT.CON_CatalogoContable_ID
+  WHERE
+    L.CON_PeriodoContable_CON_PeriodoContable_ID = ID_PeriodoContable;
+END$$
+DELIMITER ;
 
 

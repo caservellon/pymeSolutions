@@ -14,7 +14,7 @@ class CierrePeriodoController extends BaseController {
 			if (Cache::has('PeriodosContables')){
 				$periodos=Cache::get('PeriodosContables');
 				$periodo=$periodos[Input::get('periodo')][1];
-				Cache::put('PeriodoContable',$periodo,15); 
+				Cache::put('PeriodoContable',$periodo,30); 
 				Cache::forget('PeriodosContables');	
 				return View::Make('CierrePeriodo.index');
 			}
@@ -30,7 +30,7 @@ class CierrePeriodoController extends BaseController {
 				$periodo=$CP[$i]->PeriodosContables()->orderBy('CON_PeriodoContable_FechaFinal','Desc')->take(1)->get()[0];
 				$final_date=$periodo->CON_PeriodoContable_FechaFinal;
 				if ($final_date>$actual_date){
-					continue;
+					//continue;
 				}
 				$array[$counter][0]=$CP[$i];
 				$array[$counter][1]=$periodo;
@@ -77,6 +77,15 @@ class CierrePeriodoController extends BaseController {
     		return json_encode($result);
     	}
     	return 'error';
+    }
+
+    public function nuevoPeriodo(){
+    	if(Request::ajax()){
+    		$periodo=Cache::get('PeriodoContable');
+    		$result=DB::statement(DB::raw('CALL CON_NuevoPeriodo(?)'),
+    			array($periodo->CON_PeriodoContable_ID));
+    		return json_encode($result);
+    	}
     }
 	
 
