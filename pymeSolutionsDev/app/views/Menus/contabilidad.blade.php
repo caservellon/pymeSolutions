@@ -7,6 +7,8 @@
 	 Menu Principal Contabilidad</h1>
 <br>
 
+<!-- <p>{{Contabilidad::GenerarTransaccion(1,500)}}</p> -->
+
 <div class="well" style="max-width: 400px; margin:10px; //background-color:#7fb87f;">
 	<a href="{{URL::to('contabilidad/crear/asientocontable')}}" class="btn btn-default btn-lg btn-block">
 	<span class="glyphicon glyphicon-edit"></span><br> Crear Asiento</a>
