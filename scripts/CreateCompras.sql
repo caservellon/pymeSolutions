@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_OrdenCompra` (
   `COM_OrdenCompra_Activo` TINYINT(1) NOT NULL,
   `COM_OrdenCompra_Total` DECIMAL(19,4) NOT NULL,
   `COM_OrdenCompra_FechaCreacion` DATETIME NOT NULL,
+  `COM_OrdenCompra_FormaPago` INT NOT NULL,
   `COM_OrdenCompra_FechaModificacion` DATETIME NULL,
   `COM_Cotizacion_IdCotizacion` INT NULL,
   `COM_Usuario_IdUsuarioCreo` INT NOT NULL,
