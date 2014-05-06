@@ -102,14 +102,14 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function store()
 	{
-                
+                $Input=Input::all();
                 $imprimir= array();
                 $correo= array();
 		$proveedor=Input::get('prove');
             
                 $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
 		$res = SolicitudCotizacion::$rules;
-
+                
                 $cualquierProducto=Input::get('cualquiera');
                 
                 foreach ($campos as $campo) {
@@ -134,7 +134,17 @@ class SolicitudCotizacionsController extends BaseController {
 //                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
                         
 		}
-                $validation = Validator::make($res);
+                for ($j=0; $j< count($cualquierProducto); $j++){
+                    
+                        
+                    $temp = $cualquierProducto[$j];
+                    $res=array_merge($res,array('CantidadSolicitar'.$temp => 'Required|Integer|min:1'));
+                }
+                
+                
+                
+                $validation = Validator::make($Input, $res);
+                
 
 		if($validation->passes()){
                 for($i=0; $i < count($proveedor); $i++){
@@ -144,11 +154,11 @@ class SolicitudCotizacionsController extends BaseController {
                     $solicitudCotizacion = new SolicitudCotizacion();
                     
                     $solicitudCotizacion->COM_SolicitudCotizacion_Codigo='COM_SC_'.$detalle;
-                    $solicitudCotizacion->COM_SolicitudCotizacion_FechaEmision= date('Y-m-d');
+                    $solicitudCotizacion->COM_SolicitudCotizacion_FechaEmision= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_SolicitudCotizacion_DireccionEntrega= 'Los Llanos';
                     $solicitudCotizacion->COM_SolicitudCotizacion_Recibido=0;
                     $solicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
-                    $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d');
+                    $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_Usuario_idUsuarioCreo=1;
                     $solicitudCotizacion->Proveedor_idProveedor=$proveedor[$i];
                     $solicitudCotizacion->save();
@@ -158,7 +168,7 @@ class SolicitudCotizacionsController extends BaseController {
                         $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
                         $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
                         $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
-                        $valorcampolocal->save();
+                         $valorcampolocal->save();
                                 
                     }
                     
@@ -168,11 +178,21 @@ class SolicitudCotizacionsController extends BaseController {
                             for($j=0; $j < count($cualquierProducto); $j++){
                                 if($cualquierProducto[$j]==$key->INV_Producto_ID){
                                 $detallesolicitud= new DetalleSolicitudCotizacion();
+                                
+                
+                                
                                 $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$cualquierProducto[$j]);
+                                
                                 $detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
                                 $detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
                                 $detallesolicitud->COM_Usuario_idUsuarioCreo=1;
-                                $detallesolicitud->save();
+                                
+                                
+                                    
+                                   
+                                    $detallesolicitud->save();
+                                
+                                
                                 }
                             }
                         }
@@ -252,22 +272,67 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = Input::except('_method');
-	
+                $input = Input::except('_method');
+                $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
+		$res = SolicitudCotizacion::$rules;
+                
+                foreach ($campos as $campo) {
+			$val = '';
+			if ($campo->GEN_CampoLocal_Requerido) {
+				$val = $val.'Required|';
+			}
+			switch ($campo->GEN_CampoLocal_Tipo) {
+				case 'TXT':
+					$val = $val.'alpha_spaces|';
+					break;				
+				case 'INT':
+					$val = $val.'Integer|';
+					break;
+				case 'FLOAT':
+					$val = $val.'Numeric|';
+					break;				
+				default:
+					break;
+			}
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+//                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
+                        
+		}
+                $validation = Validator::make($input, $res);
+                
 
-		
-			$SolicitudCotizacion = SolicitudCotizacion::find($id);
+		if($validation->passes()){
+                        $SolicitudCotizacion = SolicitudCotizacion::find($id);
                         $SolicitudCotizacion->COM_SolicitudCotizacion_Recibido=Input::get('COM_SolicitudCotizacion_Recibido');
-                        $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d');
+                        $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
                         $SolicitudCotizacion->Usuario_idUsuarioModifico = 2;
                         if(Input::has('COM_SolicitudCotizacion_Activo')){
                             $SolicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
                         }else{
                             $SolicitudCotizacion->COM_SolicitudCotizacion_Activo=0;
                         }
+                        $SolicitudCotizacion->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->lists('GEN_CampoLocal_Codigo')));
+                        foreach ($campos as $campo) {
+				if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$id)->count() > 0 ) {
+				    DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$id)->update(array('COM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				}
+			}
 			$SolicitudCotizacion->update();
 
-			return Redirect::route('Compras.SolicitudCotizacions.index');
+                         $ruta = route('Compras.SolicitudCotizacions.index');
+			 $mensaje = Mensaje::find(1);
+                         return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+                }
+                
+                return Redirect::route('Compras.SolicitudCotizacions.edit', $id)
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
+		
+	
+
+		
+			
 		
 
 		

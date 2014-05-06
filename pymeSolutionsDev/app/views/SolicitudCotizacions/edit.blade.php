@@ -9,7 +9,11 @@
 </div>
 
              {{ Form::model($Solicitud, array('method' => 'PATCH', 'route' => array('Compras.SolicitudCotizacions.update', $Solicitud->COM_SolicitudCotizacion_IdSolicitudCotizacion), 'class' => 'form-horizontal', 'role' => 'form' )) }}
-            
+            @if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
+	</ul>
+@endif   
              
              
                  <div class="form-group">
@@ -23,7 +27,7 @@
                      
                      {{ Form::label('COM_SolicitudCotizacion_Recibido', 'Estado', array('class' => 'col-md-2 control-label')) }}
                      <div class="col-md-5">
-                         {{ Form::select('COM_SolicitudCotizacion_Recibido', array('1' => 'Recibido', '0' => 'En Espera'), '0',array('class' => 'col-md-4 form-control')) }}
+                         {{ Form::select('COM_SolicitudCotizacion_Recibido', array('1' => 'Recibido', '0' => 'En Espera'), $Solicitud->COM_SolicitudCotizacion_Recibido, array('class' => 'col-md-4 form-control')) }}
                      </div>
                      
                      
@@ -37,6 +41,33 @@
                 
              </div>
             </div>
+            <div class="page-header clearfix">
+      <h3 class="pull-left">Solicitud cotizacion &gt; <small>Campos Locales</small></h3>
+    </div>
+        
+        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
+            <div class="campo-local-tipo form-group">
+                {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+                @if ($campo->GEN_CampoLocal_Requerido)
+                    <label>*</label>
+                @endif
+                <div class="col-md-5">
+                    @if ($campo->GEN_CampoLocal_Tipo == 'TXT' || $campo->GEN_CampoLocal_Tipo == 'INT' || $campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        @if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$Solicitud->COM_SolicitudCotizacion_IdSolicitudCotizacion)->count() > 0 )
+                            {{ Form::text($campo->GEN_CampoLocal_Codigo,DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$Solicitud->COM_SolicitudCotizacion_IdSolicitudCotizacion)->first()->COM_ValorCampoLocal_Valor, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
+                        @else
+                            {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
+                        @endif
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}
+                    @endif
+                </div>
+            </div> 
+        @endforeach
+
+
+   
              <div class="row">
                 
                 <div class="col-md-1 col-md-offset-7">{{ Form::submit('Actualizar', array('class' => 'btn btn-default btn-md ')) }}</div>
