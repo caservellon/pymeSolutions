@@ -1,8 +1,13 @@
-function alerta(){
-		alert("hola mundo");
-	}
 var seleccionado = 1;
+var existentes = [];
 	
+function setExistentes(size){
+	var m=size.valueOf();
+	
+	for (j=1; j < parseInt(m); j++) {
+		existentes.push(j);
+   }
+}
 function muestra(valor){
 	if(seleccionado==null){
 		seleccionado=1;
@@ -32,20 +37,26 @@ function mostrarVentana()
 	ventana.style.backgroundColor=' rgba(0,0,0,0.6)';
     ventana.style.display = 'block';
 }
-function ocultarVentana(elementos)
+function ocultarVentana()
 {	
 	CambiarCantidad();
-	subTotal(elementos);
+	subTotal();
 	impuesto();
 	total();
     var ventana = document.getElementById('miVentana');
     ventana.style.display = 'none';
 }
-function subTotal(size){
+function subTotal(){
 	var sum=0;
-	for(var i=1;i<size;i++){
-		sum+=parseFloat(document.getElementById('total'+i).value);
+	for (var i=0;i<existentes.length;i++){
+		var t=existentes[i];
+		alert(existentes[i]);
+		if(t){sum+=parseFloat(document.getElementById('total'+t).value);}
+			
 	}
+	/*for(var i=1;i<size;i++){
+		sum+=parseFloat(document.getElementById('total'+i).value);
+	}*/
 	document.getElementById('subtotal').value=sum;
 	
 }
@@ -62,3 +73,21 @@ function total(){
 function getSeleccion(){
 	return seleccionado;
 }
+
+function eliminar(){
+	var borrar = document.getElementById(seleccionado);
+	var padre = borrar.parentNode;
+	var inx=existentes.indexOf(parseInt(seleccionado));
+	if(inx!=-1){
+		padre.removeChild(borrar);
+		existentes.splice(inx,1);
+		seleccionado=existentes[0];
+		document.getElementById(seleccionado).style.backgroundColor='rgba(0,50,100,0.6)';
+	}
+	alert(existentes);	
+	subTotal();
+	impuesto();
+	total();
+  alert('has Borrado el producot # '+seleccionado);
+}
+

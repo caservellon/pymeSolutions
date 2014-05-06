@@ -1,10 +1,12 @@
 @extends('layouts.scaffold')
 
 @section('main')
+
 <? 
   $subTotal=0;
   $totalGeneral=0;
   $contadorDetalle=1;
+  $productosDetalle= array();
  
 
 ?>
@@ -116,10 +118,10 @@
 
 			<div class="col-md-4">
 				<div class="opciones-cajas">
-        
+
 					<!--<a href="{{ route('HistorialOrden', array('id'=>' <script type="text/javascript"> alert("hola") ;</script> '))}}" ><button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregar-Producto" >Agregar Producto</button></a>-->
 					<button type="button" class="btn btn-info editar-prod" onClick="mostrarVentana()" >Editar Cantidad</button>
-					<button type="button" class="btn btn-warning eliminar-prod" onClick="<? echo'alert(getSeleccion())';  ?>" >Eliminar Producto</button>
+					<button type="button" class="btn btn-warning eliminar-prod" onClick="eliminar();" >Eliminar Producto</button>
 					<button type="button" class="btn btn-danger cancel-venta" >Cancelar Ventas</button>
        
 				</div>
@@ -165,9 +167,9 @@
       </div>
       <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
   </div>
-
+  <script type="text/javascript">setExistentes("<?php echo $contadorDetalle; ?>")</script> 
 	<div class="row">  
-      <input type="submit" value="Guardar" class="btn btn-sm btn-primary" onClik="laravel();">
+      <input type="submit" value="Guardar" class="btn btn-sm btn-primary">
     </div>
 
 {{Form::close()}}
@@ -177,6 +179,6 @@
 <label>Introduzca la nueva Cantidad</label>
 <br>
 <input id="Ccantidad" type="text" value="1" />
-<button type="button" class="btn btn-info cancel-venta" onClick="ocultarVentana({{$contadorDetalle}})" >Cambiar</button>
+<button type="button" class="btn btn-info cancel-venta" onClick="ocultarVentana()" >Cambiar</button>
 </div>
   @stop
