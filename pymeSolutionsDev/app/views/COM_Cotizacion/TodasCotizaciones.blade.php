@@ -19,10 +19,16 @@
 		
 		<ul>
 			@if ($Error == 'Sin Seleccion')
-				<li class="alert alert-danger">Debe seleccionar una cotizacion para ver el detalle</li>
+				<li class="alert alert-danger">Debe seleccionar al menos una cotizacion para ver el detalle</li>
 			@endif
 		</ul>
 	@endif
+	
+	{{ Form::open(array('route' => 'search_index')) }}
+		{{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+		{{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
+		{{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
+	{{ Form::close() }}
 	
 	{{ Form::open(array('route' => 'CotizacionesDetallesCotizacion')) }}
 		<div class="row">
@@ -37,7 +43,6 @@
 				</div>
 				
 				<div class="col-md-3">
-					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
 					{{ Form::submit('Detalle', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Detalle')) }}
 				</div>
 			</div>
