@@ -269,13 +269,6 @@ Route::group(array('prefix' => 'Compras'), function(){
 		'uses' => 'OrdenCompraController@DetallesOrdenCompra'
 	));
 	
-	
-	Route::get('/OrdenesCompra/NuevoOrdenCompra', array(
-		'as' => 'OrdenesCompraNuevoOrdenCompra',
-		'uses' => 'OrdenCompraController@VistaNuevaOrdenCompra'
-	));
-	
-	
 	Route::post('/search_index', array('as' => 'search_index', 'uses' =>'CotizacionController@search_index'));
 	
 });

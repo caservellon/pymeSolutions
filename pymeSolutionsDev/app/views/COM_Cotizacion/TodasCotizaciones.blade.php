@@ -14,6 +14,16 @@
 		</div>
 	</div>
 	
+	@if (Input::has('Error'))
+		<?php $Error = Input::get('Error') ?>
+		
+		<ul>
+			@if ($Error == 'Sin Seleccion')
+				<li class="alert alert-danger">Debe seleccionar una cotizacion para ver el detalle</li>
+			@endif
+		</ul>
+	@endif
+	
 	{{ Form::open(array('route' => 'CotizacionesDetallesCotizacion')) }}
 		<div class="row">
 			<div class=" col-lg-12">

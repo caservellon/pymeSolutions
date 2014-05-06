@@ -14,8 +14,17 @@
 		</div>
 	</div>
 	
-	{{ Form::open(array('route' => 'OrdenesCompraDetallesOrdenCompra')) }}
+	@if (Input::has('Error'))
+		<?php $Error = Input::get('Error') ?>
+		
+		<ul>
+			@if ($Error == 'Sin Seleccion')
+				<li class="alert alert-danger">Debe seleccionar una orden de compra para ver el detalle</li>
+			@endif
+		</ul>
+	@endif
 	
+	{{ Form::open(array('route' => 'OrdenesCompraDetallesOrdenCompra')) }}
 		<div class="row">
 			<div class=" col-lg-12">
 				<div  class="col-md-9" >
@@ -53,8 +62,9 @@
 									<td>{{ $OrdenCompra -> Codigo }}</td>
 									<td>{{ $OrdenCompra -> NombreProveedor }}</td>
 									
-									<?php $EstadoOrdenCompra = Helpers::EstadoActualOrdenCompra($OrdenCompra -> Codigo) ?>
-									<td>{{ $EstadoOrdenCompra[0] -> Nombre }} </td>
+									<?php $EstadoOrdenCompra = Helpers::EstadoActualOrdenCompra($OrdenCompra -> Codigo); ?>
+									
+									<td>{{ $EstadoOrdenCompra[0] -> Nombre }}</td>
 									
 									<td>{{ $OrdenCompra -> FechaEmision }}</td>
 								</tr>

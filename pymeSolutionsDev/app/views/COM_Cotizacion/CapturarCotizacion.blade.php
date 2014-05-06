@@ -13,6 +13,18 @@
 		</div>
 	</div>
 	
+	@if (Input::has('Error'))
+		<?php $Error = Input::get('Error') ?>
+		
+		<ul>
+			@if ($Error == 'Ya Capturada')
+				<li class="alert alert-danger">La cotizacion seleccionada ya ha sido capturada</li>
+			@elseif ($Error == 'Sin Seleccion')
+				<li class="alert alert-danger">Debe seleccionar una cotizacion antes de capturar</li>
+			@endif
+		</ul>
+	@endif
+	
 	{{ Form::open(array('route' => 'search_index')) }}
 		{{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
 		{{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}

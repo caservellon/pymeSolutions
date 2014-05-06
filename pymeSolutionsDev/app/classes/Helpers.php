@@ -231,10 +231,10 @@ class Helpers {
 			-> get();
 			
 			if (count($query) == 0){
-				return False;
+				return false;
 			}
 			
-			return True;
+			return true;
 	}
 	
 	

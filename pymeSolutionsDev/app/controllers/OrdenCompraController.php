@@ -18,17 +18,19 @@ class OrdenCompraController extends BaseController {
 		$input = Input::except(array('_token', 'Detalle'));
 		
 		$OrdenCompraSeleccionada = False;
+		$IndiceActual = 0;
 		
 		if (Input::has('Detalle')){
 			foreach ($input as $Codigo){
-				$CodigoOrdenCompra = $Codigo;
+				$CodigosOrdenCompra[$IndiceActual] = $Codigo;
 				$OrdenCompraSeleccionada = True;
+				$IndiceActual += 1;
 			}
 			
 			if ($OrdenCompraSeleccionada){
-				return Redirect::route('OrdenesCompraDetallesOrdenCompra', array('CodigoOrdenCompra' => $CodigoOrdenCompra));
+				return Redirect::route('OrdenesCompraDetallesOrdenCompra', array('CodigosOrdenCompra' => $CodigosOrdenCompra));
 			}else{
-				return Redirect::route('OrdenesDeCompraTodasOrdenesCompra');
+				return Redirect::route('OrdenesDeCompraTodasOrdenesCompra', array('Error' => 'Sin Seleccion'));
 			}
 			
 		}elseif (Input::has('Buscar')){
