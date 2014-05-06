@@ -533,3 +533,18 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Pago` (
   PRIMARY KEY (`CON_Pago_ID`))
 ENGINE = InnoDB;
 
+DROP TABLE IF EXISTS `pymeERP`.`CON_ConceptoMotivo` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ConceptoMotivo` (
+  `CON_ConceptoMotivo_ID` INT NOT NULL AUTO_INCREMENT,
+  `CON_ConceptoMotivo_Concepto` VARCHAR(45) NOT NULL,
+  `CON_MotivoTransaccion_ID` INT NOT NULL,
+  PRIMARY KEY (`CON_ConceptoMotivo_ID`),
+  INDEX `fk_CON_ConceptoMotivo_CON_MotivoTransaccion1_idx` (`CON_MotivoTransaccion_ID` ASC),
+  CONSTRAINT `fk_CON_ConceptoMotivo_CON_MotivoTransaccion1`
+    FOREIGN KEY (`CON_MotivoTransaccion_ID`)
+    REFERENCES `pymeERP`.`CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+

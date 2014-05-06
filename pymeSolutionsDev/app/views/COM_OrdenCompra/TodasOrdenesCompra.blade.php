@@ -14,6 +14,7 @@
 		</div>
 	</div>
 	
+
 	@if (Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
@@ -31,6 +32,10 @@
 	{{ Form::close() }}
 	
 	{{ Form::open(array('route' => 'OrdenesCompraDetallesOrdenCompra')) }}
+
+	{{ Form::open(array('route' => 'OrdenesCompraDetallesOrdenCompra')) }}
+	
+
 		<div class="row">
 			<div class=" col-lg-12">
 				<div  class="col-md-9" >
@@ -43,6 +48,10 @@
 				</div>
 				
 				<div class="col-md-3">
+
+
+					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
+
 					{{ Form::submit('Detalle', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Detalle')) }}
 				</div>
 			</div>
@@ -67,9 +76,14 @@
 									<td>{{ $OrdenCompra -> Codigo }}</td>
 									<td>{{ $OrdenCompra -> NombreProveedor }}</td>
 									
+
 									<?php $EstadoOrdenCompra = Helpers::EstadoActualOrdenCompra($OrdenCompra -> Codigo); ?>
 									
 									<td>{{ $EstadoOrdenCompra[0] -> Nombre }}</td>
+
+									<?php $EstadoOrdenCompra = Helpers::EstadoActualOrdenCompra($OrdenCompra -> Codigo) ?>
+									<td>{{ $EstadoOrdenCompra[0] -> Nombre }} </td>
+
 									
 									<td>{{ $OrdenCompra -> FechaEmision }}</td>
 								</tr>

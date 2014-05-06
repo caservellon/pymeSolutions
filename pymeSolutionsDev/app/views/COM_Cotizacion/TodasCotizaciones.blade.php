@@ -14,6 +14,7 @@
 		</div>
 	</div>
 	
+
 	@if (Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
@@ -30,6 +31,7 @@
 		{{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
 	{{ Form::close() }}
 	
+
 	{{ Form::open(array('route' => 'CotizacionesDetallesCotizacion')) }}
 		<div class="row">
 			<div class=" col-lg-12">
@@ -43,6 +45,9 @@
 				</div>
 				
 				<div class="col-md-3">
+
+					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
+
 					{{ Form::submit('Detalle', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Detalle')) }}
 				</div>
 			</div>

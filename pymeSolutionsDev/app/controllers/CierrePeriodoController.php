@@ -16,6 +16,7 @@ class CierrePeriodoController extends BaseController {
 
     public function mayorizar(){
     	if (Request::ajax()){
+    		DB::select(DB::Raw('Call CON_Mayorizacion(1,"?");'),array(date("Y-m-d H:i:s")));
     		return ':D';
     	}
     	return ":(";
