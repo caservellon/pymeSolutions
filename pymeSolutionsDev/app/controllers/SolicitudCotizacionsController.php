@@ -135,15 +135,12 @@ class SolicitudCotizacionsController extends BaseController {
                         
 		}
                 for ($j=0; $j< count($cualquierProducto); $j++){
-                    $val1='';
-                    if(Input::get('CantidadSolicitar'.$cualquierProducto[$j]=='')){
-                        $val1 = $val1.'Required|';
-                    } 
                     
                         
-                    
-                    $res=array_merge($res,array('Cantidad' => $val1));
+                    $temp = $cualquierProducto[$j];
+                    $res=array_merge($res,array('CantidadSolicitar'.$temp => 'Required|Integer|min:1'));
                 }
+                
                 
                 
                 $validation = Validator::make($Input, $res);
@@ -157,11 +154,11 @@ class SolicitudCotizacionsController extends BaseController {
                     $solicitudCotizacion = new SolicitudCotizacion();
                     
                     $solicitudCotizacion->COM_SolicitudCotizacion_Codigo='COM_SC_'.$detalle;
-                    $solicitudCotizacion->COM_SolicitudCotizacion_FechaEmision= date('Y-m-d');
+                    $solicitudCotizacion->COM_SolicitudCotizacion_FechaEmision= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_SolicitudCotizacion_DireccionEntrega= 'Los Llanos';
                     $solicitudCotizacion->COM_SolicitudCotizacion_Recibido=0;
                     $solicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
-                    $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d');
+                    $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_Usuario_idUsuarioCreo=1;
                     $solicitudCotizacion->Proveedor_idProveedor=$proveedor[$i];
                     $solicitudCotizacion->save();
@@ -307,7 +304,7 @@ class SolicitudCotizacionsController extends BaseController {
 		if($validation->passes()){
                         $SolicitudCotizacion = SolicitudCotizacion::find($id);
                         $SolicitudCotizacion->COM_SolicitudCotizacion_Recibido=Input::get('COM_SolicitudCotizacion_Recibido');
-                        $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d');
+                        $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
                         $SolicitudCotizacion->Usuario_idUsuarioModifico = 2;
                         if(Input::has('COM_SolicitudCotizacion_Activo')){
                             $SolicitudCotizacion->COM_SolicitudCotizacion_Activo=1;

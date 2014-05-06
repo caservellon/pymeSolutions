@@ -10,6 +10,7 @@
 
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
   <script type="text/javascript" src="/assets/javascript/Compras.js"></script>
+  <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
 
 </head>
 <body style="margin-top: 50px">

@@ -12,6 +12,9 @@ class OrdenComprasController extends BaseController {
      * @var OrdenCompra
      */
     protected $OrdenCompra;
+        //reglas de validacion
+
+
 
     public function __construct(OrdenCompra $OrdenCompra)
     {
@@ -324,12 +327,52 @@ class OrdenComprasController extends BaseController {
             
             return View::make('OrdenCompras.OrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$products));
         }
+        
+//funcion para guardar la orden de compra sin cotizacion
         public function guardarOCsnCOT(){
              $input=Input::all();
              $contador=0;
-             echo var_dump($input);
+             $contador2=0;
+             $proveedor=Input::get('COM_Proveedor_IdProveedor');
+             $productos=array();
              
-             /*
+            
+                                        
+             //obtener los datos del detalle para poder validarlos
+             $detalle = array();
+             $orden= array('COM_OrdenCompra_FechaEntrega'=>  Input::get('COM_OrdenCompra_FechaEntrega'),
+                'COM_Proveedor_IdProveedor' => Input::get('COM_Proveedor_IdProveedor'),
+                'COM_OrdenCompra_FormaPago'=>Input::get('formapago'),
+                'COM_OrdenCompra_Total'=>Input::get('totalGeneral'),'COM_OrdenCompra_Direccion'=>Input::get('COM_OrdenCompra_Direccion'));
+                $validacionorden = Validator::make($detalle , OrdenCompra::$rules );
+                //creando el array con lo productos por si es nesesario regresar data
+             foreach ($input as $form){
+                if(Input::has('producto'.$contador2)){
+                    $productos[]=Input::get('producto'.$contador2);
+                }
+                $contador2++;
+             }
+             //recoriendo arreglo para sacar datos
+             foreach ($input as $form){
+                //metiendo los datos para validacion
+                if(Input::has('producto'.$contador)){
+                    $detalle = array('COM_DetalleOrdenCompra_Cantidad' => Input::get('cantidad'.$contador),'COM_DetalleOrdenCompra_PrecioUnitario' => Input::get('total'.$contador));
+                    $validacionGeneral = array_merge($detalle , $orden);
+               $validacion= Validator::make($validacionGeneral ,COMDetalleOrdenCompra::$rules);
+                    if(!$validacion->passes()){
+                         $products=Producto::wherein('INV_Producto_ID',$productos)->get();
+                        return View::make('OrdenCompras.OrdenCompraForm', array('proveedor' => $proveedor , 'productos' => $products ))->withInput($input)->withErrors($validacion);
+                    }
+                       
+                    
+        
+                   
+                }
+
+                $contador++;
+            }
+
+             
              //guardo la Orden de Compra
              $OrdenCompras=  new OrdenCompra();
              $OrdenCompras->COM_OrdenCompra_Codigo=rand(0,1000000);
@@ -344,7 +387,7 @@ class OrdenComprasController extends BaseController {
              $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
              $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
              $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
-             $OrdenCompras->COM_OrdenCompra_Total=Input::get('totalG');
+             $OrdenCompras->COM_OrdenCompra_Total=Input::get('totalGeneral');
              $OrdenCompras->save();
              $compras=  OrdenCompra::all();
              $ultimo= $compras->Count();
@@ -377,7 +420,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
-            return 'los datos ya estan aqui';*/
+            return 'los datos ya estan aqui';
         }
         
         

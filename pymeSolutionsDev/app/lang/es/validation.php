@@ -47,7 +47,7 @@ return array(
     ),
     "mimes"            => "El :attribute debe ser un archivo de tipo: :values.",
     "min"              => array(
-        "numeric" => "El :attribute debe ser al menos :min.",
+        "numeric" => "El :attribute debe ser mayor o igual a :min.",
         "file"    => "El :attribute debe tener al menos :min kilobytes.",
         "string"  => "El :attribute debe tener al menos :min characters.",
         "array"   => "El :attribute debe tener al menos :min objetos.",
@@ -98,5 +98,7 @@ return array(
     "alpha_spaces" => "El :attribute puede contener sólo letras y espacios.",
     "alphanum_spaces" => "El :attribute puede contener sólo letras, números y espacios.",
     "alphanumdotspaces" => "El :attribute puede contener sólo letras, números, espacios y puntos.",
+    "num_decimal"=>"El :attribute  Debe ser un numero decimal mayor q Cero",
+    
 
 );

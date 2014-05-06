@@ -23,11 +23,33 @@ function CambiarCantidad(){
 	document.getElementById('total'+seleccionado).value=document.getElementById('precio'+seleccionado).value*document.getElementById('Ccantidad').value;
 	document.getElementById('cantidad'+seleccionado).value=document.getElementById('Ccantidad').value;
 	valor=document.forms[0];
-	valor.elements[(seleccionado*7)-2].value=document.getElementById('cantidad'+seleccionado).value;
-	valor.elements[(seleccionado*7)].value=document.getElementById('total'+seleccionado).value;
-	
-	
-
+	var can=encuentraElemento(valor,'cantidad');
+	if(can!=-1){
+		valor.elements[can].value=document.getElementById('cantidad'+seleccionado).value;
+	}
+	var tot=encuentraElemento(valor,'total');
+	if(tot!=-1){
+		valor.elements[(tot)].value=document.getElementById('total'+seleccionado).value;
+	}
+}
+//funcion para encontrar el elemento solicitado
+function encuentraElemento(formulario,nombre){
+var encontrado=0;
+	for(var i=1; i<formulario.length;i++){
+		if(formulario.elements[i].name === nombre+seleccionado){
+			return i;
+		}
+	}
+	return -1;
+}
+function encuentraOtros(formulario,nombre){
+var encontrado=0;
+	for(var i=1; i<formulario.length;i++){
+		if(formulario.elements[i].name === nombre){
+			return i;
+		}
+	}
+	return -1;
 }
 function mostrarVentana()
 {
@@ -50,13 +72,8 @@ function subTotal(){
 	var sum=0;
 	for (var i=0;i<existentes.length;i++){
 		var t=existentes[i];
-		alert(existentes[i]);
 		if(t){sum+=parseFloat(document.getElementById('total'+t).value);}
-			
 	}
-	/*for(var i=1;i<size;i++){
-		sum+=parseFloat(document.getElementById('total'+i).value);
-	}*/
 	document.getElementById('subtotal').value=sum;
 	
 }
@@ -68,7 +85,11 @@ function impuesto(){
 function total(){
 	var total=parseFloat(document.getElementById('subtotal').value)+parseFloat(document.getElementById('isv').value);
 	document.getElementById('total').value=total.toFixed(2);
-	
+	valor=document.forms[0];
+	var toge=encuentraOtros(valor,'totalGeneral');
+	if(toge!=-1){
+		valor.elements[toge].value=total.toFixed(2);
+	}
 }
 function getSeleccion(){
 	return seleccionado;
@@ -83,11 +104,8 @@ function eliminar(){
 		existentes.splice(inx,1);
 		seleccionado=existentes[0];
 		document.getElementById(seleccionado).style.backgroundColor='rgba(0,50,100,0.6)';
-	}
-	alert(existentes);	
+	}	
 	subTotal();
 	impuesto();
 	total();
-  alert('has Borrado el producot # '+seleccionado);
 }
-
