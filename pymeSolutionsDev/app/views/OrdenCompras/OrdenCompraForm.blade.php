@@ -122,7 +122,7 @@
 					<!--<a href="{{ route('HistorialOrden', array('id'=>' <script type="text/javascript"> alert("hola") ;</script> '))}}" ><button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregar-Producto" >Agregar Producto</button></a>-->
 					<button type="button" class="btn btn-info editar-prod" onClick="mostrarVentana()" >Editar Cantidad</button>
 					<button type="button" class="btn btn-warning eliminar-prod" onClick="eliminar();" >Eliminar Producto</button>
-					<button type="button" class="btn btn-danger cancel-venta" >Cancelar Ventas</button>
+					<!--<button type="reset" class="btn btn-danger cancel-venta" onclick="window.history.back()" >Cancelar Cambios</button>-->
        
 				</div>
 			</div>
@@ -166,6 +166,43 @@
       <label>Activo</label>
       </div>
       <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
+  </div>
+  <div class="row" id="campos Locales"> 
+     
+      <?/* usar lo q se ocupa */?>
+
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
+              <th>{{{ $campo->GEN_CampoLocal_Nombre }}}</th>       
+                                            @if ($campo->GEN_CampoLocal_Requerido)
+                                                             
+                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                        <td>*{{  Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'style'=>'max-width:150px')) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
+                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo,'style'=>'max-width:150px')) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo,'style'=>'max-width:150px')) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                       <td>* {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
+                    @endif
+                    @else
+                        @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo,'style'=>'max-width:150px')) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo ,'style'=>'max-width:150px')) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo,'style'=>'max-width:150px')) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                       <td> {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
+                    @endif
+               @endif
+            
+        @endforeach                   
   </div>
   <script type="text/javascript">setExistentes("<?php echo $contadorDetalle; ?>")</script> 
 	<div class="row">  

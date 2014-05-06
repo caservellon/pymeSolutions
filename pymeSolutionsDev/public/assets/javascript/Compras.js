@@ -50,13 +50,8 @@ function subTotal(){
 	var sum=0;
 	for (var i=0;i<existentes.length;i++){
 		var t=existentes[i];
-		alert(existentes[i]);
 		if(t){sum+=parseFloat(document.getElementById('total'+t).value);}
-			
 	}
-	/*for(var i=1;i<size;i++){
-		sum+=parseFloat(document.getElementById('total'+i).value);
-	}*/
 	document.getElementById('subtotal').value=sum;
 	
 }
@@ -83,11 +78,8 @@ function eliminar(){
 		existentes.splice(inx,1);
 		seleccionado=existentes[0];
 		document.getElementById(seleccionado).style.backgroundColor='rgba(0,50,100,0.6)';
-	}
-	alert(existentes);	
+	}	
 	subTotal();
 	impuesto();
 	total();
-  alert('has Borrado el producot # '+seleccionado);
 }
-
