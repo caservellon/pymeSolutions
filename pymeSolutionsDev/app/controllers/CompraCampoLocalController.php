@@ -100,19 +100,17 @@ class CompraCampoLocalController extends BaseController {
 	}
 
 	public function update($id){
-
-		$validation = true;
+                $input = Input::all();
+		$validation = Validator::make($input, CampoLocal::$rules);
 		$Campo = CampoLocal::find($id);
 		$Campo->GEN_CampoLocal_Activo = 1;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
-		if (Input::get('GEN_CampoLocal_Nombre') == "") {
-			$validation = false;
-		} else {
+		
 			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
 
-		}
-		if ($validation){
+		
+		if ($validation->passes()){
 			if($Campo->save()){
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
 					$oneList = Input::get('value-list-array');

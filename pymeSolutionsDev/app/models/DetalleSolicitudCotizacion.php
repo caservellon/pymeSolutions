@@ -9,7 +9,7 @@ class DetalleSolicitudCotizacion extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'cantidad' => 'requerid'
+		
 	);
         
         

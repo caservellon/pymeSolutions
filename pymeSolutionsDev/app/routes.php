@@ -159,7 +159,7 @@ Route::group(array('prefix' => 'Compras'), function(){
 
     Route::get('Configuracion/OrdenCompra/editarorden', array('as'=>'editar', 'uses'=>'OrdenComprasController@editar'));
     Route::patch('Configuracion/OrdenCompra/actualizar', array('as'=>'actualizar', 'uses'=>'OrdenComprasController@actualizar'));
-    Route::post('search_index', array('as' => 'OrdenCompra.search_index', 'uses' =>'OrdenComprasController@search_index'));
+    Route::post('search_Producto', array('as' => 'OrdenCompra.search_Producto', 'uses' =>'OrdenComprasController@search_Producto'));
      Route::post('search_Cotizaciones', array('as' => 'OrdenCompra.search_Cotizaciones', 'uses' =>'OrdenComprasController@search_Cotizaciones'));
     Route::resource('Cotizacions', 'CotizacionsController');
     Route::resource('OrdenCompras', 'OrdencomprasController');
@@ -168,7 +168,109 @@ Route::group(array('prefix' => 'Compras'), function(){
 
     Route::resource('Cotizacions', 'CotizacionsController');
     Route::resource('OrdenCompras', 'OrdencomprasController');
-
+	
+	
+	
+	
+	
+	
+	Route::get('/Parametrizar/SolicitudCotizacion', array(
+		'as' => 'ParametrizarSolicitudCotizacion',
+		'uses' => 'SolicitudCotizacionController@VistaParametrizarSolicitudCotizacion'
+	));
+	Route::get('/Parametrizar/SolicitudCotizacion/CrearCampoLocal', array(
+		'as' => 'ParametrizarSolicitudCotizacionCrearCampoLocal',
+		'uses' => 'SolicitudCotizacionController@VistaParametrizarSolicitudCotizacionCrearCampoLocal'
+	));
+	Route::get('/Parametrizar/SolicitudCotizacion/CrearCampoLocal/Mensaje', array(
+		'as'=>'ParametrizarSolicitudCotizacionCrearCampoLocalMensaje',
+		'uses'=> 'SolicitudCotizacionController@Mensaje'
+	));
+	
+	Route::post('/Parametrizar/SolicitudCotizacion', 'SolicitudCotizacionController@CrearCampoLocal');
+	Route::post('/Parametrizar/SolicitudCotizacion/ListaValor', array(
+		'as' => 'ListaValor',
+		'uses'=> 'SolicitudCotizacionController@Lista'
+	));
+	
+	Route::get('/Parametrizar/SolicitudCotizacion/EditarCampoLocal', array(
+		'as' => 'ParametrizarSolicitudCotizacionEditarCampoLocal',
+		'uses' => 'SolicitudCotizacionController@Editar'
+	));
+	Route::patch('/Parametrizar/SolicitudCotizacion/EditarCampoLocal', array(
+		'as' => 'ParametrizarSolicitudCotizacionActualizarCampoLocal',
+		'uses' => 'SolicitudCotizacionController@EditarCampoLocal'
+	));
+	
+	
+	Route::get('/Cotizaciones/CapturarCotizacion', array(
+		'as' => 'CotizacionesCapturarCotizacion',
+		'uses' => 'CotizacionController@VistaCapturarCotizacion'
+	));
+	Route::post('/Cotizaciones/CapturarCotizacion', array(
+		'as' => 'CotizacionesCapturarCotizacion',
+		'uses' => 'CotizacionController@CapturarCotizacion'
+	));
+	
+	Route::get('/Cotizaciones/CapturarCotizacion/Capturar', array(
+		'as' => 'CotizacionesCapturarCotizacionCapturar',
+		'uses' => 'CotizacionController@VistaCapturarCotizacionCapturar'
+	));
+	Route::post('/Cotizaciones/CapturarCotizacion/Capturar', array(
+		'as' => 'CotizacionesCapturarCotizacionCapturar',
+		'uses' => 'CotizacionController@CapturarCotizacionCapturar'
+	));
+	
+	Route::get('/Cotizaciones/HabilitarInhabilitar', array(
+		'as' => 'CotizacionesHabilitarInhabilitar',
+		'uses' => 'CotizacionController@VistaHabilitarInhabilitar'
+	));
+	Route::post('/Cotizaciones/HabilitarInhabilitar', array(
+		'as' => 'CotizacionesHabilitarInhabilitar',
+		'uses' => 'CotizacionController@HabilitarInhabilitar'
+	));
+	
+	Route::get('/Cotizaciones/CapturarCotizacion/Capturar/MensajeCotizacionCapturada', array(
+		'as' => 'CotizacionesCapturarCotizacionCapturarMensajeCotizacionCapturada',
+		'uses' => 'CotizacionController@VistaCapturarCotizacionCapturarMensajeCotizacionCapturada'
+	));
+	
+	Route::get('/Cotizaciones/HabilitarInhabilitar/MensajeEstadoCotizacionCambiado', array(
+		'as' => 'CotizacionesHabilitarInhabilitarMensajeEstadoCotizacionCambiado',
+		'uses' => 'CotizacionController@VistaHabilitarInhabilitarMensajeEstadoCotizacionCambiado'
+	));
+	
+	Route::get('/Cotizaciones/TodasCotizaciones', array(
+		'as' => 'CotizacionesTodasCotizaciones',
+		'uses' => 'CotizacionController@VistaTodasCotizaciones'
+	));
+	
+	Route::get('/Cotizaciones/DetallesCotizacion', array(
+		'as' => 'CotizacionesDetallesCotizacion',
+		'uses' => 'CotizacionController@VistaDetallesCotizacion'
+	));
+	Route::post('/Cotizaciones/DetallesCotizacion', array(
+		'as' => 'CotizacionesDetallesCotizacion',
+		'uses' => 'CotizacionController@DetallesCotizacion'
+	));
+	
+	
+	Route::get('/OrdenesCompra/TodasOrdenesCompra', array(
+		'as' => 'OrdenesDeCompraTodasOrdenesCompra',
+		'uses' => 'OrdenCompraController@VistaTodasOrdenesCompra'
+	));
+	
+	Route::get('/OrdenesCompra/DetallesOrdenCompra', array(
+		'as' => 'OrdenesCompraDetallesOrdenCompra',
+		'uses' => 'OrdenCompraController@VistaDetallesOrdenCompra'
+	));
+	Route::post('/OrdenesCompra/DetallesOrdenCompra', array(
+		'as' => 'OrdenesCompraDetallesOrdenCompra',
+		'uses' => 'OrdenCompraController@DetallesOrdenCompra'
+	));
+	
+	Route::post('/search_index', array('as' => 'search_index', 'uses' =>'CotizacionController@search_index'));
+	
 });
 
 
