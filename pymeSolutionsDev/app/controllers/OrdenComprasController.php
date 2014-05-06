@@ -359,12 +359,12 @@ class OrdenComprasController extends BaseController {
                     $detalle = array('COM_DetalleOrdenCompra_Cantidad' => Input::get('cantidad'.$contador),'COM_DetalleOrdenCompra_PrecioUnitario' => Input::get('total'.$contador));
                     $validacionGeneral = array_merge($detalle , $orden);
                $validacion= Validator::make($validacionGeneral ,COMDetalleOrdenCompra::$rules);
-                    if($validacion->passes()){
-                        echo 'paso';
-                    }else{
-                        $products=Producto::wherein('INV_Producto_ID',$productos)->get();
+                    if(!$validacion->passes()){
+                         $products=Producto::wherein('INV_Producto_ID',$productos)->get();
                         return View::make('OrdenCompras.OrdenCompraForm', array('proveedor' => $proveedor , 'productos' => $products ))->withInput($input)->withErrors($validacion);
                     }
+                       
+                    
         
                    
                 }
@@ -372,7 +372,7 @@ class OrdenComprasController extends BaseController {
                 $contador++;
             }
 
-             /*
+             
              //guardo la Orden de Compra
              $OrdenCompras=  new OrdenCompra();
              $OrdenCompras->COM_OrdenCompra_Codigo=rand(0,1000000);
@@ -420,7 +420,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
-            return 'los datos ya estan aqui';*/
+            return 'los datos ya estan aqui';
         }
         
         
