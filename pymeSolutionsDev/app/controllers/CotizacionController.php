@@ -42,9 +42,13 @@ class CotizacionController extends BaseController {
 			}
 			
 			if ($SolicitudCotizacionSeleccionada){
-				return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion));
+				if (!Helpers::CotizacionCapturada($CodigoSolicitudCotizacion)){
+					return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion));
+				}else{
+					return Redirect::route('CotizacionesCapturarCotizacion', array('Error' => 'Ya Capturada'));
+				}
 			}else{
-				return Redirect::route('CotizacionesCapturarCotizacion');
+				return Redirect::route('CotizacionesCapturarCotizacion', array('Error' => 'Sin Seleccion'));
 			}
 			
 		}elseif (Input::has('Buscar')){
@@ -139,17 +143,19 @@ class CotizacionController extends BaseController {
 		$input = Input::except(array('_token', 'Detalle'));
 		
 		$CotizacionSeleccionada = False;
+		$IndiceActual = 0;
 		
 		if (Input::has('Detalle')){
 			foreach ($input as $Codigo){
-				$CodigoCotizacion = $Codigo;
+				$CodigosCotizacion[$IndiceActual] = $Codigo;
 				$CotizacionSeleccionada = True;
+				$IndiceActual += 1;
 			}
 			
 			if ($CotizacionSeleccionada){
-				return Redirect::route('CotizacionesDetallesCotizacion', array('CodigoCotizacion' => $CodigoCotizacion));
+				return Redirect::route('CotizacionesDetallesCotizacion', array('CodigosCotizacion' => $CodigosCotizacion));
 			}else{
-				return Redirect::route('CotizacionesTodasCotizaciones');
+				return Redirect::route('CotizacionesTodasCotizaciones', array('Error' => 'Sin Seleccion'));
 			}
 			
 		}elseif (Input::has('Buscar')){
