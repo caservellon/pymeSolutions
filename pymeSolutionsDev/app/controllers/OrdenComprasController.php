@@ -338,23 +338,27 @@ class OrdenComprasController extends BaseController {
              
             
                                         
-             //obtener los datos del detalle para poder validarlos
+//obtener los datos del detalle para poder validarlos
              $detalle = array();
              $orden= array('COM_OrdenCompra_FechaEntrega'=>  Input::get('COM_OrdenCompra_FechaEntrega'),
                 'COM_Proveedor_IdProveedor' => Input::get('COM_Proveedor_IdProveedor'),
                 'COM_OrdenCompra_FormaPago'=>Input::get('formapago'),
                 'COM_OrdenCompra_Total'=>Input::get('totalGeneral'),'COM_OrdenCompra_Direccion'=>Input::get('COM_OrdenCompra_Direccion'));
                 $validacionorden = Validator::make($detalle , OrdenCompra::$rules );
-                //creando el array con lo productos por si es nesesario regresar data
+//validacion de campos Locales se registra el perfin en busca de los campos locales q me interesan
+                $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_OC%')->get();
+
+        
+//creando el array con lo productos por si es nesesario regresar data
              foreach ($input as $form){
                 if(Input::has('producto'.$contador2)){
                     $productos[]=Input::get('producto'.$contador2);
                 }
                 $contador2++;
              }
-             //recoriendo arreglo para sacar datos
+//recoriendo arreglo para sacar datos
              foreach ($input as $form){
-                //metiendo los datos para validacion
+//metiendo los datos para validacion
                 if(Input::has('producto'.$contador)){
                     $detalle = array('COM_DetalleOrdenCompra_Cantidad' => Input::get('cantidad'.$contador),'COM_DetalleOrdenCompra_PrecioUnitario' => Input::get('total'.$contador));
                     $validacionGeneral = array_merge($detalle , $orden);
@@ -362,18 +366,46 @@ class OrdenComprasController extends BaseController {
                     if(!$validacion->passes()){
                          $products=Producto::wherein('INV_Producto_ID',$productos)->get();
                         return View::make('OrdenCompras.OrdenCompraForm', array('proveedor' => $proveedor , 'productos' => $products ))->withInput($input)->withErrors($validacion);
-                    }
-                       
-                    
-        
-                   
+                    }  
                 }
-
                 $contador++;
             }
-
+//se extrae las reglas de un modelo relacionado
+                $validacionCampos = OrdenCompra::$rule;
+                
+               foreach ($campos as $campo) {
+                   $val = '';
+                    if ($campo->GEN_CampoLocal_Requerido == '1') {
+                        $val = $val.'required|';
+                        $validacionCampos = array_merge($validacionCampos,array($campo->GEN_CampoLocal_Codigo => $val));
+                        
+                    }
+                    switch ($campo->GEN_CampoLocal_Tipo) {
+                        case 'TXT':
+                             $val = $val.'alpha_spaces|';
+                        break;              
+                        case 'INT':
+                            $val = $val.'integer|';
+                        break;
+                        case 'FLOAT':
+                            $val = $val.'numeric|';
+                        break;              
+                        default:
+                        break;
+//se agreegan los campos para ser valorados
+                        
+                    return  $val;
+                    $validacionCampos = array_merge($validacionCampos,array($campo->GEN_CampoLocal_Codigo => $val));
+                    }
+//se valoran los campos
+                }    
+             $validacion= Validator::make($input ,$validacionCampos);
+                    if(!$validacion->passes()){
+                         $products=Producto::wherein('INV_Producto_ID',$productos)->get();
+                        return View::make('OrdenCompras.OrdenCompraForm', array('proveedor' => $proveedor , 'productos' => $products ))->withInput($input)->withErrors($validacion);
+                    } 
              
-             //guardo la Orden de Compra
+//guardo la Orden de Compra
              $OrdenCompras=  new OrdenCompra();
              $OrdenCompras->COM_OrdenCompra_Codigo=rand(0,1000000);
              $OrdenCompras->COM_OrdenCompra_FechaEmision= date('Y/m/d H:i:s');
@@ -393,19 +425,20 @@ class OrdenComprasController extends BaseController {
              $ultimo= $compras->Count();
              
              //guardo los detalles
+             $contador1=1;
               foreach ($input as $form){
-                  if(Input::has('COM_DetalleOrdenCompra_Cantidad'.$contador)>0){
-                  $detalle=new COMDetalleOrdenCompra();
-                  $detalle->COM_DetalleOrdenCompra_Cantidad=Input::get('COM_DetalleOrdenCompra_Cantidad'.$contador);
-                  $detalle->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('COM_DetalleOrdenCompra_PrecioUnitario'.$contador);
-                  $detalle->COM_OrdenCompra_idOrdenCompra=$ultimo;
-                  $detalle->COM_Producto_idProducto=Input::get('COM_Producto_idProducto'.$contador);
-                  $detalle->COM_Usuario_idUsuarioCreo=1;
-                  $detalle->COM_DetalleOrdenCompra_Codigo=rand(0,1000000);
-                  $detalle->save();
+                  if(Input::has('cantidad'.$contador1)>0){
+                  $detalle1=new COMDetalleOrdenCompra();
+                  $detalle1->COM_DetalleOrdenCompra_Cantidad=Input::get('cantidad'.$contador1);
+                  $detalle1->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('precio'.$contador1);
+                  $detalle1->COM_OrdenCompra_idOrdenCompra=$ultimo;
+                  $detalle1->COM_Producto_idProducto=Input::get('producto'.$contador1);
+                  $detalle1->COM_Usuario_idUsuarioCreo=1;
+                  $detalle1->COM_DetalleOrdenCompra_Codigo=rand(0,1000000);
+                  $detalle1->save();
                   
                   }
-                  $contador++;
+                  $contador1++;
               }
               
               //guardo el Historial

@@ -10,7 +10,7 @@
  
 
 ?>
-{{Form::open(array('route'=>'GuardaOCsnCot','id'=>'Formu'))}}
+{{Form::open(array('route'=>'GuardaOCsnCot','id'=>'Formu' , 'method'=>'POST'))}}
 	<div class="row">
 		<div class="row">
       <div class="page-header clearfix">
@@ -144,7 +144,7 @@
 		<div class="col-md-4">
           <label>Fecha Emision</label>
           {{date('Y/m/d H:i:s')}}
-          <label>Fecha Entrega</label>
+          <label>Fecha Entrega * </label>
 		       <a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>
           <br>
              {{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}
