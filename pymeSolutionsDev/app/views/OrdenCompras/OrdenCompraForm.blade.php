@@ -21,7 +21,9 @@
   </div>
   </div>
   <div class="row">
-      <div class="col-md-4 " ></div>
+      <div class="col-md-4 " >
+        
+      </div>
       <div class="col-md-4 " style="text-align: center">
           <h2>Orden de Compra</h2>
           <h5>Empresa X S.A.</h5>
@@ -29,7 +31,13 @@
           <h5>Honduras C.A.</h5>
       </div>
       <div class="col-md-4 " style="text-align: right">
+         <div <? if($errors->any()){echo 'class="alert alert-danger"';}?> >
+              @foreach($errors->all() as $mensaje)
+                <li class="alert alert-danger">{{$mensaje}}</li>
+              @endforeach
+          </div>
           <h5 >Tel.2234-9000 Fax.2234-9000</h5>
+
       </div>
   </div>
 
@@ -109,7 +117,9 @@
         </div>
         <hr>
         <div>
-            <span class="bold-span">Total: </span> <span class="bold-span"><label style="margin-left:56px; text-align:right; ">Lps.</label> <input type="text"  id="total" value="{{$totalGeneral=$subTotal+($subTotal*0.15)}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:90px; text-align:right;"/></span>
+            <span class="bold-span">Total: </span> <span class="bold-span">
+              {{Form::text('totalGeneral',$subTotal+($subTotal*0.15), array('style' => 'display:none'))}}
+              <label style="margin-left:56px; text-align:right; ">Lps.</label> <input type="text"  id="total" value="{{$totalGeneral=$subTotal+($subTotal*0.15)}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:90px; text-align:right;"/></span>
         </div>
         </div>
         <hr>
@@ -135,7 +145,11 @@
           <label>Fecha Emision</label>
           {{date('Y/m/d H:i:s')}}
           <label>Fecha Entrega</label>
-		  <input type="text" id="COM_OrdenCompra_FechaEntrega">
+		       <a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>
+          <br>
+             {{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}
+          
+          <hr>
           <br>
           <label>Forma de Pago</label>
            <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
@@ -156,46 +170,47 @@
           <br>
            {{Form::radio('COM_OrdenCompra_Direccion','uno',true)}}Colonia America
            <br>
-           {{Form::radio('COM_OrdenCompra_Direccion','uno',false)}}Colonia Carrizal
+           {{Form::radio('COM_OrdenCompra_Direccion','dos',false)}}Colonia Carrizal
 		</div>
   </div>
   <div class="row" >
       <div class="col-md-6" >
 	  {{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}
-      <input  id="COM_OrdenCompra_Activo" type="checkbox" checked="checked">
+      
       <label>Activo</label>
+      
       </div>
-      <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
-  </div>
-  <div class="row" id="campos Locales"> 
+
+      <div class="col-md-6" style="text-align: right">
+      <div class="form-group" id="campos Locales"> 
      
       <?/* usar lo q se ocupa */?>
 
-       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
-              <th>{{{ $campo->GEN_CampoLocal_Nombre }}}</th>       
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get() as $campo)
+              <label style="float:left">{{{ $campo->GEN_CampoLocal_Nombre }}}</label>       
                                             @if ($campo->GEN_CampoLocal_Requerido)
                                                              
                 @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-                        <td>*{{  Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo, 'style'=>'max-width:150px')) }}</td>
+                        <td>*{{  Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
                     @endif
                     @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo,'style'=>'max-width:150px')) }}</td>
+                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
                     @endif
                     @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo,'style'=>'max-width:150px')) }}</td>
+                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
                     @endif
                     @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
                        <td>* {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
                     @endif
                     @else
                         @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo,'style'=>'max-width:150px')) }}</td>
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
                     @endif
                     @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo ,'style'=>'max-width:150px')) }}</td>
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
                     @endif
                     @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo,'style'=>'max-width:150px')) }}</td>
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
                     @endif
                     @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
                        <td> {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
@@ -204,6 +219,9 @@
             
         @endforeach                   
   </div>
+      <h5>Nombre del Oficial de Compras</h5></div>
+  </div>
+  
   <script type="text/javascript">setExistentes("<?php echo $contadorDetalle; ?>")</script> 
 	<div class="row">  
       <input type="submit" value="Guardar" class="btn btn-sm btn-primary">

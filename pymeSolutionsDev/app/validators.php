@@ -4,16 +4,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 Validator::extend('alpha_spaces', function($attribute, $value, $parameters)
 {
     return preg_match('/^[\pL\s]+$/u', $value);
     
 });  
-Validator::extend('Numbre_Decimal', function($attribute, $value, $parameters)
+Validator::extend('num_decimal', function($attribute, $value, $parameters)
 {
     return preg_match('/^\d+(\.\d{1,2})?$/', $value);
     
 });  
+
+
 
 Validator::extend('alphanum_spaces', function($attribute, $value, $parameters)
 {
