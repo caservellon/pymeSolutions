@@ -317,15 +317,19 @@ class OrdenComprasController extends BaseController {
              }
              if(sizeof($productos)<1){
                  return 'no se puede crear una orden de Compra';
+             }else{
+                $products=Producto::wherein('INV_Producto_ID',$productos)->get();
              }
              
             
-            return View::make('OrdenCompras.OrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$productos));
+            return View::make('OrdenCompras.OrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$products));
         }
         public function guardarOCsnCOT(){
              $input=Input::all();
              $contador=0;
+             echo var_dump($input);
              
+             /*
              //guardo la Orden de Compra
              $OrdenCompras=  new OrdenCompra();
              $OrdenCompras->COM_OrdenCompra_Codigo=rand(0,1000000);
@@ -373,7 +377,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
-            return 'los datos ya estan aqui';
+            return 'los datos ya estan aqui';*/
         }
         
         
@@ -495,7 +499,6 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
              foreach($trans as $tran){
                   if($tran->COM_OrdenCompra_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
-                      //$tratra= HistorialEstadoOrdenCompra::find($tran->COM_EstadoOrdenCompra_Id);
                       $tran->COM_TransicionEstado_Activo=0;
                       $tran->update();
                       $historial=new HistorialEstadoOrdenCompra();
@@ -508,17 +511,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=$tran->COM_EstadoOrdenCompra_IdEstAct;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=4;
                       $historial->save();
-                      /*$ordenPago=  new COMOrdenPago();
-                      $ordenPago->COM_OrdenPago_Codigo=rand(0,1000000);
-                      $ordenPago->COM_OrdenCompra_idOrdenCompra=$id;
-                      $ordenPago->COM_OrdenPago_Activo=1;
-                      $ordenPago->COM_Usuario_idUsuarioCreo=1;
-                      $ordenPago->COM_OrdenPago_FechaCreo=date('Y/m/d');
-                      $ordenPago->save();*/
-                      
-                      
-                      
-                                        } 
+                   } 
              }
             return 'ya esta autorizada';
         }
@@ -646,7 +639,7 @@ class OrdenComprasController extends BaseController {
 
         //search de mazoni
 
-       public function search_index(){
+       public function search_Producto(){
 
         $proveedor=1;
         //Querys de las columnas propias del Producto
@@ -655,9 +648,6 @@ class OrdenComprasController extends BaseController {
         ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
         ->orWhere('INV_Producto_Descripcion', 'LIKE',  '%'.Input::get('search').'%')
         ->get();
-
-         
-
         //Querys de las columnas que tiene relacion con la tabla Proveedor
         $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
         ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
@@ -665,7 +655,6 @@ class OrdenComprasController extends BaseController {
         ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
         ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
         ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
-
         // reviso si trajo datos para decidir si los proceso         
         if(!empty($queryPoveedor)){
             $temp = array();
@@ -685,7 +674,6 @@ class OrdenComprasController extends BaseController {
             $productos=Producto::wherein('INV_Producto_ID',$temp1)->get();
             }
         }
-       
         $inventario=$productos;
         //reemplazo de variable a enviar a la vista
          return View::make('OrdenCompras.NuevaOrdenCompraSinCotizacion', array('inventario' =>$inventario , 'proveedor'=>$proveedor));
@@ -702,9 +690,6 @@ class OrdenComprasController extends BaseController {
         ->orWhere('COM_Cotizacion_NumeroCotizacion', '=',  Input::get('search'))
         ->orWhere('COM_SolicitudCotizacion_idSolicitudCotizacion', '=',  Input::get('search'))
         ->get();
-
-         
-
         //Querys de las columnas que tiene relacion con la tabla Proveedor
         $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
         ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
@@ -712,7 +697,6 @@ class OrdenComprasController extends BaseController {
         ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
         ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
         ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
-
         // reviso si trajo datos para decidir si los proceso         
         if(!empty($queryPoveedor)){
             $temp = array();
@@ -733,7 +717,6 @@ class OrdenComprasController extends BaseController {
             //$productos=Producto::wherein('INV_Producto_ID',$temp1)->get();
             }
         }
-       
         //$inventario=$productos;
         //reemplazo de variable a enviar a la vista
         return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion',array('cotizaciones'=> $cotizaciones));
