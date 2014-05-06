@@ -8,7 +8,7 @@
 		</div>
 
 		<div class="col-sm-2">
-			<a class="btn btn-sm btn-primary pull-right" href="{{{URL::to('contabilidad')}}}">
+			<a class="btn btn-sm btn-primary pull-right" href="{{{URL::route('con.cierreperiodo')}}}">
 			<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 		</div>
 	</div>
@@ -18,9 +18,10 @@
 <h4 id="h4-Balanza" class="alert alert-info"> Balanza Comprobacion </h4>
 <h4 id="h4-Estado" class="alert alert-info"> Estado de Resultados </h4>
 <h4 id="h4-Balance" class="alert alert-info"> Balance General </h4>
+<h4 id="h4-NuevoPeriodo" class="alert alert-info"> Nuevo Periodo </h4>
 <div class="row ">
-	<div class="col-sm-2">
-		<button id="btn-cierre" class="btn btn-lg btn-success">Iniciar Cierre</button>
+	<div id="btn-cierre" class="col-sm-2">
+		<button  class="btn btn-lg btn-success">Iniciar Cierre</button>
 	</div>
 	<div class="col-sm-10">
 		<div class="progress progress-striped active">
@@ -35,63 +36,50 @@
 @section('contabilidad_scripts')
 <script type="text/javascript">
 	
+	
+
 	$(document).ready(function(){
 
-		$('#btn-cierre').on('click',function(){
-			btnCierre = $(this);
-			$.ajax({
-				url: "{{{URL::route('con.mayorizar')}}}",
-				method: "post",
-				beforeSend: function(){
-					 btnCierre.text('Espere...');
-					 return true;
-				},
-				success: function(data){
-					$('#h4-Mayorizacion').removeClass('alert-info').addClass('alert-success');
-					$('#bar').attr('style','width:25%');
-					$.ajax({
-						url: "{{{URL::route('con.balanza')}}}",
-						method: "post",
-						success: function(data){
-							$('#h4-Balanza').removeClass('alert-info').addClass('alert-success');
-							$('#bar').attr('style','width:50%');
-							$.ajax({
-								url: "{{{URL::route('con.estado')}}}",
-								method: "post",
-								success: function(data){
-									$('#h4-Estado').removeClass('alert-info').addClass('alert-success');
-									$('#bar').attr('style','width:75%');
-									$.ajax({
-										url: "{{{URL::route('con.balance')}}}",
-										method: "post",
-										success: function(data){
-											$('#h4-Balance').removeClass('alert-info').addClass('alert-success');
-											$('#bar').attr('style','width:100%');
-											$('.progress').removeClass('active');
-											//btnCierre.on('click',null);
-										},
-										error: function(xhr){
-											console.log(xhr);
-										}
-									});
-								},
-								error: function(xhr){
-									console.log
-								}
-							});
-						},
-						error: function(xhr){
-							console.log(xhr);
+		function ajax_calls(params,n){
+			if(n<params.length){
+				ob=params[n];
+				$.ajax({
+					url:ob.url,
+					method:"post",
+					success: function(data){
+						$("#h4-"+ob.h4).removeClass('alert-info').addClass('alert-success');
+						$("#bar").attr('style','width:'+ob.barWidth);
+						if(params.length==(n+1)){
+							$('.progress').removeClass('active');
+							$('#btn-cierre').remove();
+							return true;
 						}
-					});
-				},
-				error: function(xhr){
-					console.log(xhr.responseText);
-					$('#h4-Mayorizacion').removeClass('alert-info').addClass('alert-danger');
-				}
-			});		
+						n++;
+						ajax_calls(params,n);
+					},
+					error: function(xhr){
+						console.log(xhr.responseText);
+						$('#h4-'+ob.h4).removeClass('alert-info').addClass('alert-danger');
+					}
+				});
+			}
+		}
+
+		$('#btn-cierre').on('click',function(){
+			array=[
+				{url:"{{{URL::route('con.mayorizar')}}}",h4:"Mayorizacion",barWidth:"30%"},
+				{url:"{{{URL::route('con.balanza')}}}",h4:"Balanza",barWidth:"40%"},
+				{url:"{{{URL::route('con.estado')}}}",h4:"Estado",barWidth:"70%"},
+				{url:"{{{URL::route('con.balance')}}}",h4:"Balance",barWidth:"90%"},
+				{url:"{{{URL::route('con.nuevoperiodo')}}}",h4:"NuevoPeriodo",barWidth:"100%"}
+			];	
+			ajax_calls(array,0);
 
 		});
+
+	
+
+	
 
 	});
 
