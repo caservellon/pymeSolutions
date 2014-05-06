@@ -30,7 +30,7 @@ class CierrePeriodoController extends BaseController {
 				$periodo=$CP[$i]->PeriodosContables()->orderBy('CON_PeriodoContable_FechaFinal','Desc')->take(1)->get()[0];
 				$final_date=$periodo->CON_PeriodoContable_FechaFinal;
 				if ($final_date>$actual_date){
-					//continue;
+					continue;
 				}
 				$array[$counter][0]=$CP[$i];
 				$array[$counter][1]=$periodo;
