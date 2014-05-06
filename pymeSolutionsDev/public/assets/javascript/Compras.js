@@ -23,11 +23,34 @@ function CambiarCantidad(){
 	document.getElementById('total'+seleccionado).value=document.getElementById('precio'+seleccionado).value*document.getElementById('Ccantidad').value;
 	document.getElementById('cantidad'+seleccionado).value=document.getElementById('Ccantidad').value;
 	valor=document.forms[0];
-	valor.elements[(seleccionado*7)-2].value=document.getElementById('cantidad'+seleccionado).value;
-	valor.elements[(seleccionado*7)].value=document.getElementById('total'+seleccionado).value;
+	alert(valor.elements[(seleccionado*7)-2]);
+	var can=encuentraElemento(valor,'cantidad');
+	if(can!=-1){
+		valor.elements[can].value=document.getElementById('cantidad'+seleccionado).value;
+		alert((( seleccionado*7)-2)+'son Iguales'+can);
+	}
+	var tot=encuentraElemento(valor,'total');
+	if(tot!=-1){
+		valor.elements[(tot)].value=document.getElementById('total'+seleccionado).value;
+		alert(((seleccionado*7))+' son Iguales'+tot);
+	}
+	//valor.elements[(seleccionado*7)-2].value=document.getElementById('cantidad'+seleccionado).value;
+	//valor.elements[(seleccionado*7)].value=document.getElementById('total'+seleccionado).value;
 	
 	
 
+}
+//funcion para encontrar el elemento solicitado
+function encuentraElemento(formulario,nombre){
+var encontrado=0;
+	for(var i=5; i<formulario.length;i++){
+		alert(i+' '+formulario.elements[i].name);
+		if(formulario.elements[i].name === nombre+seleccionado){
+			alert('vacio');
+			return i;
+		}
+	}
+	return -1;
 }
 function mostrarVentana()
 {

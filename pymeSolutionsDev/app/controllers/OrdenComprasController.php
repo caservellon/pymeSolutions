@@ -324,11 +324,62 @@ class OrdenComprasController extends BaseController {
             
             return View::make('OrdenCompras.OrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$products));
         }
+        //funcion para guardar la orden de compra sin cotizacion
         public function guardarOCsnCOT(){
              $input=Input::all();
              $contador=0;
-             echo var_dump($input);
-             
+             $contador2=0;
+             $proveedor=Input::get('COM_Proveedor_IdProveedor');
+             $productos=array();
+             //echo var_dump($input);
+             //obtener los datos del detalle para poder validarlos
+             $detalle = array();
+             foreach ($input as $form){
+                if(Input::has('producto'.$contador2)){
+                    $productos[]=Input::get('producto'.$contador2);
+                }
+                $contador2++;
+             }
+             foreach ($input as $form){
+                //metiendo los datos para validacion
+                if(Input::has('producto'.$contador)){
+                    $detalle = array('COM_DetalleOrdenCompra_Cantidad' => Input::get('cantidad'.$contador),'COM_DetalleOrdenCompra_PrecioUnitario' => Input::get('total'.$contador));
+                    $validacionDetalle= Validator::make($detalle ,COMDetalleOrdenCompra::$reglas );
+                    if($validacionDetalle->passes()){
+                        echo 'paso';
+                    }else{
+                        echo 'no paso';
+                        
+                        $products=Producto::wherein('INV_Producto_ID',$productos)->get();
+                        //echo var_dump($products);
+                        return View::make('OrdenCompras.OrdenCompraForm', array('proveedor' => $proveedor , 'productos' => $products ))->withInput($input)->withErrors($validacionDetalle);
+                    }
+                    //echo 'product :'.Input::get('producto'.$contador);
+                    //echo 'cantidad :'.Input::get('cantidad'.$contador);
+                    //echo 'total :'.Input::get('total'.$contador);
+                    //echo "<br>";
+                    //echo var_dump($detalle);
+                    //echo "<br>";
+                    //array_push($temp, $qP->INV_Proveedor_ID);
+                }
+                $contador++;
+            }
+                /*
+                    array_push($temp, $qP->INV_Proveedor_ID);
+                  if(Input::has('COM_DetalleOrdenCompra_Cantidad'.$contador)>0){
+                  $detalle=new COMDetalleOrdenCompra();
+                  $detalle->COM_DetalleOrdenCompra_Cantidad=Input::get('COM_DetalleOrdenCompra_Cantidad'.$contador);
+                  $detalle->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('COM_DetalleOrdenCompra_PrecioUnitario'.$contador);
+                  $detalle->COM_OrdenCompra_idOrdenCompra=$ultimo;
+                  $detalle->COM_Producto_idProducto=Input::get('COM_Producto_idProducto'.$contador);
+                  $detalle->COM_Usuario_idUsuarioCreo=1;
+                  $detalle->COM_DetalleOrdenCompra_Codigo=rand(0,1000000);
+                  $detalle->save();
+                  
+                  }
+                  $contador++;
+              }*/
+
              /*
              //guardo la Orden de Compra
              $OrdenCompras=  new OrdenCompra();
