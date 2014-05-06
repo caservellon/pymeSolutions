@@ -108,7 +108,7 @@ class ParamPeriodoContableController extends BaseController {
 			return Redirect::action('ParamPeriodoContableController@index');
 
 		}
-		$CP->CON_PeriodoContable_FechaInicio=PeriodoContable::where('CON_ClasificacionPeriodo_IDj','=',$id)->get();
+		$CP->CON_PeriodoContable_FechaInicio=PeriodoContable::where('CON_ClasificacionPeriodo_ID','=',$id)->get();
 		$CP->CON_PeriodoContable_FechaInicio=strstr($CP->CON_PeriodoContable_FechaInicio[0]['CON_PeriodoContable_FechaInicio'],' ',true);
         return View::make('paramPeriodoContable.edit')
         	->with('ClasificacionPeriodo',$CP)
