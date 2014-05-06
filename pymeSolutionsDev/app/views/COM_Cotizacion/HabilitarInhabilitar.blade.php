@@ -14,6 +14,12 @@
 		</div>
 	</div>
 	
+	{{ Form::open(array('route' => 'search_index')) }}
+		{{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+		{{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
+		{{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
+	{{ Form::close() }}
+	
 	{{ Form::open(array('route' => 'CotizacionesHabilitarInhabilitar')) }}
 		<div class="row">
 			<div class=" col-lg-12">
@@ -27,7 +33,6 @@
 				</div>
 				
 				<div class="col-md-3">
-					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
 					{{ Form::submit('Actualizar', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Actualizar')) }}
 				</div>
 			</div>
