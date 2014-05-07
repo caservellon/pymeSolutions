@@ -203,7 +203,9 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
-            return 'los datos ya estan aqui';
+                    $ruta = route('ListaOrdenes');
+                    $mensaje = Mensaje::find(12);
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
         
         
@@ -244,7 +246,7 @@ class OrdenComprasController extends BaseController {
                 $productos[]=$detalle->COM_Producto_Id_Producto;
             }
             $proveedor= $cotizacion->COM_Proveedor_idProveedor;
-            echo $cotizacion->COM_Proveedor_idProveedor;
+            //echo $cotizacion->COM_Proveedor_idProveedor;
             return View::make('OrdenCompras.CotOrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$productos,'id_cot'=>Input::get('id')));
         }
 
@@ -348,7 +350,9 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
-            return 'los datos ya estan aqui';
+            $ruta = route('ListaOrdenes');
+                    $mensaje = Mensaje::find(12);
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
         
         //funciones hechas para autorizar ordenes de compra
@@ -363,7 +367,7 @@ class OrdenComprasController extends BaseController {
              $input=Input::all();
              $id=Input::get('id');
              $ordenCompra= OrdenCompra::find($id);
-             $Detalles=  COMDetalleOrdenCompra::where('COM_OrdenCompra_idOrdenCompra','=',$id)->get();
+             $Detalles=  COMDetalleOrdenCompra::where('COM_DetalleOrdenCompra_idOrdenCompra','=',$id)->get();
              $proveedor=$ordenCompra->COM_Proveedor_IdProveedor;             
             return View::make('OrdenCompras.OrdenCompraDetalles',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra));
         }
@@ -378,7 +382,7 @@ class OrdenComprasController extends BaseController {
                       $historial=new HistorialEstadoOrdenCompra();
                       $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
                       $historial->COM_TransicionEstado_Activo=1;
-                      $historial->COM_OrdenCompra_IdOrdenCompra=$id;
+                      $historial->COM_TransicionEstado_IdOrdenCompra=$id;
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
                       $historial->COM_TransicionEstado_Observacion='Esta transicion fue Autorizada';
@@ -387,7 +391,9 @@ class OrdenComprasController extends BaseController {
                       $historial->save();
                    } 
              }
-            return 'ya esta autorizada';
+             $ruta = route('ListaOrdenes');
+                    $mensaje = Mensaje::find(1);;
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
         public function cancelarOrden(){
             $id=Input::get('id');
@@ -401,10 +407,10 @@ class OrdenComprasController extends BaseController {
                       $historial=new HistorialEstadoOrdenCompra();
                       $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
                       $historial->COM_TransicionEstado_Activo=1;
-                      $historial->COM_OrdenCompra_IdOrdenCompra=$id;
+                      $historial->COM_TransicionEstado_IdOrdenCompra=$id;
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
-                      $historial->COM_TransicionEstado_Observacion='Esta transicion fue Cancelada';
+                      $historial->COM_TransicionEstado_Observacion='Esta transaccion no fue autorizada por lo que se  Canceló';
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=$tratra->COM_EstadoOrdenCompra_IdEstAct;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=7;
                       $historial->save();
@@ -414,9 +420,11 @@ class OrdenComprasController extends BaseController {
                       
                                         } 
              }
-            return 'ya esta autorizada';
-            
+              $ruta = route('ListaOrdenes');
+                    $mensaje = 'La orden  de compra'.$or->COM_OrdenCompra_IdOrdenCompra.' fue Cancelada';
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
+
         //administracion de ordenes de compra
         public function ListarOrdenCompra(){
             return View::make('OrdenCompras.AdministrarOrdenes');
@@ -425,9 +433,9 @@ class OrdenComprasController extends BaseController {
              $input=Input::all();
              $id=Input::get('id');
              $ordenCompra= OrdenCompra::find($id);
-             $Detalles=  COMDetalleOrdenCompra::where('COM_OrdenCompra_idOrdenCompra','=',$id)->get();
+             $Detalles=  COMDetalleOrdenCompra::where('COM_DetalleOrdenCompra_idOrdenCompra','=',$id)->get();
              $proveedor=$ordenCompra->COM_Proveedor_IdProveedor;
-             $trans= HistorialEstadoOrdenCompra::where('COM_OrdenCompra_IdOrdenCompra','=',$id)->get();
+             $trans= HistorialEstadoOrdenCompra::where('COM_DetalleOrdenCompra_IdOrdenCompra','=',$id)->get();
              
             return View::make('OrdenCompras.AdministrarOrdenCompraDetalles',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
         }
@@ -450,7 +458,7 @@ class OrdenComprasController extends BaseController {
                 $historial=new HistorialEstadoOrdenCompra();
                       $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
                       $historial->COM_TransicionEstado_Activo=1;
-                      $historial->COM_OrdenCompra_IdOrdenCompra=$id;
+                      $historial->COM_TransicionEstado_IdOrdenCompra=$id;
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
                       $historial->COM_TransicionEstado_Observacion='Esta transicion fue Cancelada';
@@ -461,7 +469,7 @@ class OrdenComprasController extends BaseController {
                 $historial=new HistorialEstadoOrdenCompra();
                       $historial->COM_TransicionEstado_Codigo=rand(0,1000000);
                       $historial->COM_TransicionEstado_Activo=1;
-                      $historial->COM_OrdenCompra_IdOrdenCompra=$id;
+                      $historial->COM_TransicionEstado_IdOrdenCompra=$id;
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
                       $historial->COM_TransicionEstado_Observacion='Esta transicion fue Cancelada';
@@ -469,8 +477,9 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAct=$esig;
                       $historial->save();
             }
-          
-            return 'Orden de Compra Administrada';
+          $ruta = route('ListaOrdenes');
+                    $mensaje = Mensaje::find(15);;
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
          public function HistorialOrdenes(){
             return View::make('OrdenCompras.listaHistorialOrdenes');
@@ -508,7 +517,9 @@ class OrdenComprasController extends BaseController {
             $nuevopago->COM_Usuario_idUsuarioCreo=1;
             $nuevopago->COM_OrdenPago_FechaCreo= date('Y/m/d');
             $nuevopago->save();
-            return 'Orden de pago Generado';
+            $ruta = route('ListaOrdenes');
+                    $mensaje = Mensaje::find(13).' '.Input::get('id_ordenCompra').' '.Mensaje::find(14);
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
 
         //search de mazoni
