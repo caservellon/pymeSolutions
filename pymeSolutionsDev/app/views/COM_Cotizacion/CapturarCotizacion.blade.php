@@ -78,7 +78,7 @@
 
 								@if ($SolicitudCotizacion -> Activo == 1)
 
-								@if ($SolicitudCotizacion -> Activo == 1 && $SolicitudCotizacion -> Recibido == 1)
+								
 
 									<tr>
 										<td>{{ Form::checkbox($SolicitudCotizacion -> Codigo, $SolicitudCotizacion -> Codigo) }}</td>
@@ -91,8 +91,8 @@
 											<td>Capturada</td>
 
 
-										@elseif ($SolicitudCotizacion -> Recibido == 1)
-											<td>Recibida</td>
+										
+											
 
 										@else
 											<td>En Espera</td>
