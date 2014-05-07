@@ -377,7 +377,7 @@ class OrdenComprasController extends BaseController {
                    $val = '';
                     if ($campo->GEN_CampoLocal_Requerido == '1') {
                         $val = $val.'required|';
-                        $validacionCampos = array_merge($validacionCampos,array($campo->GEN_CampoLocal_Codigo => $val));
+                        
                         
                     }
                     switch ($campo->GEN_CampoLocal_Tipo) {
@@ -394,9 +394,10 @@ class OrdenComprasController extends BaseController {
                         break;
 //se agreegan los campos para ser valorados
                         
-                    return  $val;
-                    $validacionCampos = array_merge($validacionCampos,array($campo->GEN_CampoLocal_Codigo => $val));
+                    
+                    
                     }
+                    $validacionCampos = array_merge($validacionCampos,array($campo->GEN_CampoLocal_Codigo => $val));
 //se valoran los campos
                 }    
              $validacion= Validator::make($input ,$validacionCampos);
