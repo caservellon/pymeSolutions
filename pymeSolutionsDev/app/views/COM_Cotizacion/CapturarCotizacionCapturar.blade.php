@@ -6,6 +6,7 @@
 		$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$ProductosSolicitudCotizacion = Helpers::InformacionProductosSolicitudCotizacion($CodigoSolicitudCotizacion);
+		$CamposLocalesSolicitudCotizacion = Helpers::InformacionCamposLocalesSolicitudCotizacion($CodigoSolicitudCotizacion);
 	?>
 	
 	<div class="row">
@@ -49,19 +50,29 @@
 							<th>Descripcion</th>
 							<th>Cantidad</th>
 							<th>Unidad</th>
+							
+							@foreach ($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+								<th>{{ $CampoLocalSolicitudCotizacion -> Nombre }}</th>
+							@endforeach
+							
 							<th>Precio Unitario</th>
 							<th>Total</th>
 						</tr>
 					<thead>
 					
 					<tbody>
-						@foreach($ProductosSolicitudCotizacion as $ProductoSolicitudCotizacion)
+						@foreach ($ProductosSolicitudCotizacion as $ProductoSolicitudCotizacion)
 							<tr>
 								<td>{{ $ProductoSolicitudCotizacion -> Codigo }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Nombre }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Descripcion }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Cantidad }}</td>
 								<td></td>
+								
+								@foreach ($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+								<th>{{ $CampoLocalSolicitudCotizacion -> Valor }}</th>
+							@endforeach
+								
 								<td>Lps. {{ Form::text($ProductoSolicitudCotizacion -> Codigo) }}</td>
 								<td>Lps.</td>
 							</tr>

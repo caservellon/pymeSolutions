@@ -4,12 +4,11 @@
 	
 	<?php $Cotizaciones = Helpers::InformacionCotizaciones(); ?>
 	
-	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Habilitar/Inhabilitar</h3>
 			<div class="pull-right">
-				<a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
+				<a href="/Compras/Cotizaciones" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
 			</div>
 		</div>
 	</div>
@@ -20,8 +19,6 @@
 		{{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
 	{{ Form::close() }}
 	
-
-
 	{{ Form::open(array('route' => 'CotizacionesHabilitarInhabilitar')) }}
 		<div class="row">
 			<div class=" col-lg-12">
@@ -35,9 +32,6 @@
 				</div>
 				
 				<div class="col-md-3">
-
-					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
-
 					{{ Form::submit('Actualizar', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Actualizar')) }}
 				</div>
 			</div>

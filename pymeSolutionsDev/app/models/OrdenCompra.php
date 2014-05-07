@@ -10,7 +10,7 @@
 
 class OrdenCompra extends Eloquent {
 	protected $guarded = array();
-        protected $table = 'COM_OrdenCompra';
+    protected $table = 'COM_OrdenCompra';
 	protected $primaryKey = 'COM_OrdenCompra_IdOrdenCompra';
 
 	public $timestamps = false;

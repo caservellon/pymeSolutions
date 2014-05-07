@@ -8,7 +8,7 @@
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Capturar Cotizaci&oacute;n</h3>
 			<div class="pull-right">
-				<a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
+				<a href="/Compras/Cotizaciones" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
 			</div>
 		</div>
 	</div>
@@ -17,10 +17,12 @@
 		<?php $Error = Input::get('Error') ?>
 		
 		<ul>
-			@if ($Error == 'Ya Capturada')
+			@if ($Error == 'Seleccion Multiple')
+				<li class="alert alert-danger">Debe seleccionar solamente una solicitud de cotizacion para poder capturar</li>
+			@elseif ($Error == 'Ya Capturada')
 				<li class="alert alert-danger">La cotizacion seleccionada ya ha sido capturada</li>
 			@elseif ($Error == 'Sin Seleccion')
-				<li class="alert alert-danger">Debe seleccionar al menos una cotizacion antes de capturar</li>
+				<li class="alert alert-danger">Debe seleccionar una solicitud de cotizacion para poder capturar</li>
 			@endif
 		</ul>
 	@endif
@@ -63,7 +65,7 @@
 						</thead>
 						
 						<tbody >
-							@foreach($SolicitudesCotizacion as $SolicitudCotizacion)
+							@foreach ($SolicitudesCotizacion as $SolicitudCotizacion)
 								@if ($SolicitudCotizacion -> Activo == 1)
 									<tr>
 										<td>{{ Form::checkbox($SolicitudCotizacion -> Codigo, $SolicitudCotizacion -> Codigo) }}</td>

@@ -203,6 +203,11 @@ Route::group(array('prefix' => 'Compras'), function(){
 	));
 	
 	
+	Route::get('/Cotizaciones', array(
+		'as' => 'MenuCotizaciones',
+		'uses' => 'CotizacionController@VistaMenuCotizaciones'
+	));
+	
 	Route::get('/Cotizaciones/CapturarCotizacion', array(
 		'as' => 'CotizacionesCapturarCotizacion',
 		'uses' => 'CotizacionController@VistaCapturarCotizacion'
@@ -242,7 +247,7 @@ Route::group(array('prefix' => 'Compras'), function(){
 	
 	Route::get('/Cotizaciones/TodasCotizaciones', array(
 		'as' => 'CotizacionesTodasCotizaciones',
-		'uses' => 'CotizacionController@VistaTodasCotizaciones'
+		'uses' => 'CotizacionController@TodasCotizaciones'
 	));
 	
 	Route::get('/Cotizaciones/DetallesCotizacion', array(

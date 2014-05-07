@@ -4,23 +4,21 @@
 	
 	<?php $Cotizaciones = Helpers::InformacionCotizaciones(); ?>
 	
-	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Todas las Cotizaciones</h3>
 			<div class="pull-right">
-				<a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
+				<a href="/Compras/Cotizaciones" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
 			</div>
 		</div>
 	</div>
 	
-
 	@if (Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
 		<ul>
 			@if ($Error == 'Sin Seleccion')
-				<li class="alert alert-danger">Debe seleccionar al menos una cotizacion para ver el detalle</li>
+				<li class="alert alert-danger">Debe seleccionar al menos una cotizacion para poder ver el detalle</li>
 			@endif
 		</ul>
 	@endif
@@ -45,9 +43,6 @@
 				</div>
 				
 				<div class="col-md-3">
-
-					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
-
 					{{ Form::submit('Detalle', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Detalle')) }}
 				</div>
 			</div>
@@ -82,7 +77,7 @@
 										<td>Inactivo</td>
 									@endif
 									
-									@if (date_diff(date_create(date("Y-m-d")), date_create($Cotizacion -> Vigencia)) -> format("%R%a") >= 0)
+									@if ($Cotizacion -> Vigente)
 										<td>Vigente</td>
 									@else
 										<td>Vencida</td>
