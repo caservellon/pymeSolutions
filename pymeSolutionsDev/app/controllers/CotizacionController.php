@@ -71,7 +71,7 @@ class CotizacionController extends BaseController {
 	
 	public function CapturarCotizacionCapturar(){
 		$Input = Input::except(array('_token', 'CodigoSolicitudCotizacion', 'VigenciaCotizacion', 'CodigoCotizacion'));
-		
+		return var_dump(Input::all());
 		$HayErrores = false;
 		
 		foreach ($Input as $Precio){

@@ -70,8 +70,8 @@
 								<td></td>
 								
 								@foreach ($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
-								<th>{{ $CampoLocalSolicitudCotizacion -> Valor }}</th>
-							@endforeach
+									<th>{{ $CampoLocalSolicitudCotizacion -> Valor }}</th>
+								@endforeach
 								
 								<td>Lps. {{ Form::text($ProductoSolicitudCotizacion -> Codigo) }}</td>
 								<td>Lps.</td>
