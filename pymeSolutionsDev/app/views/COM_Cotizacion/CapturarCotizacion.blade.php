@@ -2,12 +2,8 @@
 
 @section('main')
 	
-
 	<?php $SolicitudesCotizacion = Helpers::InformacionSolicitudesCotizacion(); ?>
 
-	<?php echo date("Y-m-d"); $SolicitudesCotizacion = Helpers::InformacionSolicitudesCotizacion(); ?>
-
-	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Capturar Cotizaci&oacute;n</h3>
@@ -17,7 +13,6 @@
 		</div>
 	</div>
 	
-
 	@if (Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
@@ -25,13 +20,11 @@
 			@if ($Error == 'Ya Capturada')
 				<li class="alert alert-danger">La cotizacion seleccionada ya ha sido capturada</li>
 			@elseif ($Error == 'Sin Seleccion')
-				<li class="alert alert-danger">Debe seleccionar una cotizacion antes de capturar</li>
+				<li class="alert alert-danger">Debe seleccionar al menos una cotizacion antes de capturar</li>
 			@endif
 		</ul>
 	@endif
 	
-
-
 	{{ Form::open(array('route' => 'search_index')) }}
 		{{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
 		{{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
@@ -51,10 +44,6 @@
 				</div>
 				
 				<div class="col-md-3">
-
-
-					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
-
 					{{ Form::submit('Capturar', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Capturar')) }}
 				</div>
 			</div>
@@ -75,11 +64,7 @@
 						
 						<tbody >
 							@foreach($SolicitudesCotizacion as $SolicitudCotizacion)
-
 								@if ($SolicitudCotizacion -> Activo == 1)
-
-								@if ($SolicitudCotizacion -> Activo == 1 && $SolicitudCotizacion -> Recibido == 1)
-
 									<tr>
 										<td>{{ Form::checkbox($SolicitudCotizacion -> Codigo, $SolicitudCotizacion -> Codigo) }}</td>
 										<td>{{ $SolicitudCotizacion -> Codigo }}</td>
@@ -89,11 +74,6 @@
 										
 										@if (Helpers::CotizacionCapturada($SolicitudCotizacion -> Codigo))
 											<td>Capturada</td>
-
-
-										@elseif ($SolicitudCotizacion -> Recibido == 1)
-											<td>Recibida</td>
-
 										@else
 											<td>En Espera</td>
 										@endif
