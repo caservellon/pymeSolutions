@@ -121,9 +121,9 @@
                 @else
                 <td></td>
                 @endif		
-                <td>{{ link_to_route('Compras.CampoLocal.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
+                <td>{{ link_to_route('Compras.Configuracion.CampoLocal.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
                 <td>
-                    {{ Form::open(array('method' => 'DELETE', 'route' => array('Compras.CampoLocal.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
+                    {{ Form::open(array('method' => 'DELETE', 'route' => array('Compras.Configuracion.CampoLocal.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
                     {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                     {{ Form::close() }}
                 </td>
@@ -183,9 +183,9 @@
                 <td></td>
                 @endif
 
-                <td>{{ link_to_route('Compras.CampoLocal.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
+                <td>{{ link_to_route('Compras.Configuracion.CampoLocal.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
                 <td>
-                    {{ Form::open(array('method' => 'DELETE', 'route' => array('Compras.CampoLocal.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
+                    {{ Form::open(array('method' => 'DELETE', 'route' => array('Compras.Configuracion.CampoLocal.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
                     {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                     {{ Form::close() }}
                 </td>

@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_Cotizacion` (
   `COM_Cotizacion_Vigencia` DATETIME NOT NULL,
   `COM_Cotizacion_NumeroCotizacion` VARCHAR(45) NOT NULL,
   `COM_Cotizacion_FechaCreacion` DATETIME NOT NULL,
+  `COM_Cotizacion_Vigente` TINYINT(1) NOT NULL,
   `COM_Cotizacion_FechaModificacion` DATETIME NULL,
   `COM_Cotizacion_idSolicitudCotizacion` INT NOT NULL,
   `COM_Usuario_idUsuarioCreo` INT NOT NULL,
