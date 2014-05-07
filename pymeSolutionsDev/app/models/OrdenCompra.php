@@ -29,4 +29,7 @@ class OrdenCompra extends Eloquent {
 		'COM_Proveedor_IdProveedor' => 'required',
 		'Usuario_idUsuarioModifico' => 'required'
 	);
+	public static $rule = array(
+		
+	);
 }
