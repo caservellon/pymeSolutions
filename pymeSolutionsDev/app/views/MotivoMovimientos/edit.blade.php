@@ -10,7 +10,7 @@
 </div>
 {{ Form::model($MotivoMovimiento, array('method' => 'PATCH', 'route' => array('Inventario.MotivoMovimiento.update', $MotivoMovimiento->INV_MotivoMovimiento_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
-      {{ Form::label('INV_MotivoMovimiento_Nombre', 'Nombre:', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_MotivoMovimiento_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::text('INV_MotivoMovimiento_Nombre',$MotivoMovimiento->INV_MotivoMovimiento_Nombre, array('class' => 'form-control', 'id' => 'INV_MotivoMovimiento_Nombre', 'placeholder' => 'name' )) }}
       </div>

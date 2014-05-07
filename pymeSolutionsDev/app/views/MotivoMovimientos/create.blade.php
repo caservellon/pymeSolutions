@@ -10,7 +10,7 @@
 
 {{ Form::open(array('route' => 'Inventario.MotivoMovimiento.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
-      {{ Form::label('INV_MotivoMovimiento_Nombre', 'Nombre:', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_MotivoMovimiento_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::text('INV_MotivoMovimiento_Nombre',null, array('class' => 'form-control', 'id' => 'INV_MotivoMovimiento_Nombre', 'placeholder' => 'name' )) }}
       </div>
