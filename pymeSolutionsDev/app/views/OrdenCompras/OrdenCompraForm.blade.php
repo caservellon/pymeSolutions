@@ -31,11 +31,9 @@
           <h5>Honduras C.A.</h5>
       </div>
       <div class="col-md-4 " style="text-align: right">
-         <div <? if($errors->any()){echo 'class="alert alert-danger"';}?> >
-              @foreach($errors->all() as $mensaje)
-                <li class="alert alert-danger">{{$mensaje}}</li>
-              @endforeach
-          </div>
+        <div class="alert alert-danger">
+              {{ implode('', $errors->all('<li >:message</li>')) }}
+        </div>
           <h5 >Tel.2234-9000 Fax.2234-9000</h5>
 
       </div>
