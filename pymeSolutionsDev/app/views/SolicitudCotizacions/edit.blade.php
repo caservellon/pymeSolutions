@@ -10,9 +10,9 @@
 
              {{ Form::model($Solicitud, array('method' => 'PATCH', 'route' => array('Compras.SolicitudCotizacions.update', $Solicitud->COM_SolicitudCotizacion_IdSolicitudCotizacion), 'class' => 'form-horizontal', 'role' => 'form' )) }}
             @if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="alert alert-danger">:message</li>')) }}
-	</ul>
+	<div class="alert alert-danger">
+    {{ implode('', $errors->all('<li >:message</li>')) }}
+</div>
 @endif   
              
              

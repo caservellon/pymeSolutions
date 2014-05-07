@@ -10,12 +10,12 @@ class Cotizacion extends Eloquent {
 
 	public static $rules = array(
 		//'COM_Cotizacion_Idcotizacion' => 'required',
-		'COM_Cotizacion_Codigo' => 'required | unique:COM_Cotizacion',
+		//'COM_Cotizacion_Codigo' => 'required | unique:COM_Cotizacion',
 		//'COM_Cotizacion_FechaEmision' => 'required',
 		//'COM_Cotizacion_FechaEntrega' => 'required',
 		//'COM_Cotizacion_Activo' => 'required',
 		//'COM_Cotizacion_Total' => 'required',
-		'COM_Cotizacion_Vigencia' => 'required | date',
+		'COM_Cotizacion_Vigencia' => 'date',
 		//'COM_Cotizacion_NumeroCotizacion' => 'required',
 		//'COM_Cotizacion_FechaCreacion' => 'required',
 		//'COM_SolicitudCotizacion_idSolicitudCotizacion' => 'required',

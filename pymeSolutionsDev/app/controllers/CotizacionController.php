@@ -11,6 +11,7 @@ class CotizacionController extends BaseController {
 	}
 	
 	public function VistaCapturarCotizacionCapturar(){
+	
 		return View::make('COM_Cotizacion.CapturarCotizacionCapturar');
 	}
 	
@@ -73,6 +74,41 @@ class CotizacionController extends BaseController {
 		$Input = Input::except(array('_token', 'CodigoSolicitudCotizacion', 'VigenciaCotizacion', 'CodigoCotizacion'));
 		return var_dump(Input::all());
 		$HayErrores = false;
+		//$input = Input::all();
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_COT%')->get();
+		$res = Cotizacion::$rules;
+                
+                //$cualquierProducto=Input::get('cualquiera');
+                
+                foreach ($campos as $campo) {
+			$val = '';
+			if ($campo->GEN_CampoLocal_Requerido) {
+				$val = $val.'Required|';
+			}
+			switch ($campo->GEN_CampoLocal_Tipo) {
+				case 'TXT':
+					$val = $val.'alpha_spaces|';
+					break;				
+				case 'INT':
+					$val = $val.'Integer|';
+					break;
+				case 'FLOAT':
+					$val = $val.'Numeric|';
+					break;				
+				default:
+					break;
+			}
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+//                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
+                        
+		}       
+                
+        $validation = Validator::make($Input, $res);
+		
+		if($validation->fails()){
+			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
+			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($validation);
+		} 
 		
 		foreach ($Input as $Precio){
 			$PrecioUnitario['COM_DetalleCotizacion_PrecioUnitario'] = $Precio;
@@ -105,7 +141,7 @@ class CotizacionController extends BaseController {
 		$RegistroActualDetalleCotizacion =  COM_Detalle_Cotizacion::all() -> count() + 1;
 		
 		$Cotizacion = new Cotizacion;
-		$Cotizacion -> COM_Cotizacion_Codigo = Input::get('CodigoCotizacion');
+		$Cotizacion -> COM_Cotizacion_Codigo = 'COM_COT_'.$RegistroActualCotizacion;
 		$Cotizacion -> COM_Cotizacion_Activo = 1;
 		$Cotizacion -> COM_Cotizacion_Vigencia = Input::get('VigenciaCotizacion');
 		
@@ -123,7 +159,15 @@ class CotizacionController extends BaseController {
 		$Cotizacion -> save();
 		
 		$Total = 0;
-		
+		foreach($campos as $campo){
+                        $valorcampolocal = new ValorCampoLocal;
+                        $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
+                        $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
+                        $valorcampolocal->COM_Cotizacion_IdCotizacion=$RegistroActualCotizacion;
+                        $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
+                         $valorcampolocal->save();
+                                
+                    }
 		reset($Input);
 		
 		while (is_numeric(current($Input))){

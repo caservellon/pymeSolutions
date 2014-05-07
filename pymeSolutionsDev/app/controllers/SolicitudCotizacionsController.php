@@ -23,6 +23,7 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function index()
 	{
+                
 		$SolicitudCotizacions = SolicitudCotizacion::paginate();
                 $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
                 
