@@ -71,16 +71,15 @@ class CotizacionController extends BaseController {
 	}
 	
 	public function CapturarCotizacionCapturar(){
-		$Input = Input::except(array('_token', 'CodigoSolicitudCotizacion', 'VigenciaCotizacion', 'CodigoCotizacion'));
-		return var_dump(Input::all());
+		$Input = Input::except(array('_token', 'CodigoSolicitudCotizacion', 'VigenciaCotizacion'));
+		//return(var_dump($Input));
 		$HayErrores = false;
-		//$input = Input::all();
+		
 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_COT%')->get();
 		$res = Cotizacion::$rules;
                 
-                //$cualquierProducto=Input::get('cualquiera');
                 
-                foreach ($campos as $campo) {
+            foreach ($campos as $campo) {
 			$val = '';
 			if ($campo->GEN_CampoLocal_Requerido) {
 				$val = $val.'Required|';
@@ -99,8 +98,7 @@ class CotizacionController extends BaseController {
 					break;
 			}
 			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
-//                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
-                        
+                   
 		}       
                 
         $validation = Validator::make($Input, $res);
@@ -112,9 +110,9 @@ class CotizacionController extends BaseController {
 		
 		foreach ($Input as $Precio){
 			$PrecioUnitario['COM_DetalleCotizacion_PrecioUnitario'] = $Precio;
-			$validacion = Validator::make($PrecioUnitario, COM_Detalle_Cotizacion::$rules, COM_Detalle_Cotizacion::$messages);
+			$Validacion = Validator::make($PrecioUnitario, COM_Detalle_Cotizacion::$rules, COM_Detalle_Cotizacion::$messages);
 			
-			if($validacion->fails()){
+			if($Validacion->fails()){
 				$HayErrores = true;
 				break;
 			}
@@ -122,16 +120,16 @@ class CotizacionController extends BaseController {
 		
 		if ($HayErrores){
 			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
-			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($validacion);
+			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($Validacion);
 		}
 		
 		$Cotizacion['COM_Cotizacion_Codigo'] = Input::get('CodigoCotizacion');
 		$Cotizacion['COM_Cotizacion_Vigencia'] = Input::get('VigenciaCotizacion');
-		$validacion = Validator::make($Cotizacion, Cotizacion::$rules, Cotizacion::$messages);
+		$Validacion = Validator::make($Cotizacion, Cotizacion::$rules, Cotizacion::$messages);
 		
-		if($validacion->fails()){
+		if($Validacion->fails()){
 			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
-			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($validacion);
+			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($Validacion);
 		}
 		
 		$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
@@ -159,6 +157,7 @@ class CotizacionController extends BaseController {
 		$Cotizacion -> save();
 		
 		$Total = 0;
+		
 		foreach($campos as $campo){
                         $valorcampolocal = new ValorCampoLocal;
                         $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
@@ -168,24 +167,28 @@ class CotizacionController extends BaseController {
                          $valorcampolocal->save();
                                 
                     }
+		
 		reset($Input);
 		
 		while (is_numeric(current($Input))){
 			$ProductoSolicitudCotizacion = Helpers::InformacionProductoSolicitudCotizacion(key($Input), $CodigoSolicitudCotizacion);
 			
-			$DetalleCotizacion = new COM_Detalle_Cotizacion;
-			$DetalleCotizacion -> COM_DetalleCotizacion_Codigo = 'DC' . $RegistroActualDetalleCotizacion;
-			$DetalleCotizacion -> COM_DetalleCotizacion_Cantidad = $ProductoSolicitudCotizacion[0] -> Cantidad;
-			$DetalleCotizacion -> COM_DetalleCotizacion_PrecioUnitario = current($Input);
-			$DetalleCotizacion -> COM_DetalleCotizacion_IdCotizacion = $RegistroActualCotizacion;
-			$DetalleCotizacion -> COM_Producto_Id_Producto = $ProductoSolicitudCotizacion[0] -> Id;
-			$DetalleCotizacion -> COM_Usuario_idUsuarioCreo = 1;
-			$DetalleCotizacion -> save();
+			if ($ProductoSolicitudCotizacion != Null){
 			
-			$RegistroActualDetalleCotizacion += 1;
-			
-			$Total += $ProductoSolicitudCotizacion[0] -> Cantidad * current($Input);
-			next($Input);
+				$DetalleCotizacion = new COM_Detalle_Cotizacion;
+				$DetalleCotizacion -> COM_DetalleCotizacion_Codigo = 'DC' . $RegistroActualDetalleCotizacion;
+				$DetalleCotizacion -> COM_DetalleCotizacion_Cantidad = $ProductoSolicitudCotizacion[0] -> Cantidad;
+				$DetalleCotizacion -> COM_DetalleCotizacion_PrecioUnitario = current($Input);
+				$DetalleCotizacion -> COM_DetalleCotizacion_IdCotizacion = $RegistroActualCotizacion;
+				$DetalleCotizacion -> COM_Producto_Id_Producto = $ProductoSolicitudCotizacion[0] -> Id;
+				$DetalleCotizacion -> COM_Usuario_idUsuarioCreo = 1;
+				$DetalleCotizacion -> save();
+				
+				$RegistroActualDetalleCotizacion += 1;
+				
+				$Total += $ProductoSolicitudCotizacion[0] -> Cantidad * current($Input);
+			}
+				next($Input);
 		}
 		
 		$Cotizacion -> COM_Cotizacion_Total = $Total;
