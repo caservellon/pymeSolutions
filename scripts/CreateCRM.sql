@@ -1,4 +1,3 @@
-
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CRM_TipoDocumento`
 -- -----------------------------------------------------
@@ -29,14 +28,10 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Personas` (
   `CRM_Personas_Email` VARCHAR(45) NULL,
   `CRM_Personas_Celular` VARCHAR(45) NULL,
   `CRM_Personas_Fijo` VARCHAR(45) NULL,
-  `CRM_Personas_Descuento` DECIMAL(2) NULL,
+  `CRM_Personas_Descuento` DOUBLE NULL,
   `CRM_Personas_Foto` BLOB NULL,
   `CRM_Personas_Eliminado` DATETIME NULL,
   `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
-  `CRM_Personas_Estado` TINYINT(1) NULL,
-  `CRM_Personas_FechaCreacion` DATETIME NULL,
-  `CRM_Personas_FechaModificacion` DATETIME NULL,
-  `CRM_Personas_UsuarioModificacion` VARCHAR(45) NULL,
   PRIMARY KEY (`CRM_Personas_ID`),
   INDEX `fk_CRM_Personas_CRM_TipoDocumento1_idx` (`CRM_TipoDocumento_CRM_TipoDocumento_ID` ASC),
   CONSTRAINT `fk_CRM_Personas_CRM_TipoDocumento1`
@@ -58,14 +53,10 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Empresas` (
   `CRM_Empresas_Nombre` VARCHAR(45) NULL,
   `CRM_Empresas_Direccion` VARCHAR(45) NULL,
   `CRM_Empresas_Logo` BLOB NULL,
-  `CRM_Empresas_Descuento` DECIMAL(2) NULL,
+  `CRM_Empresas_Descuento` DOUBLE NULL,
   `CRM_Personas_CRM_Personas_ID` INT NULL,
-  `CRM_Empresas_Eliminados` DATETIME NULL,
-  `CRM_Empresas_FechaCreacion` DATETIME NULL,
-  `CRM_Empresas_FechaModificacion` DATETIME NULL,
-  `CRM_Empresas_UsuarioModificacion` VARCHAR(45) NULL,
-  `CRM_Empresas_Estado` TINYINT(1) NULL,
   `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
+  `CRM_Empresas_Eliminados` DATETIME NULL,
   PRIMARY KEY (`CRM_Empresas_ID`),
   INDEX `fk_CRM_Empresas_CRM_Personas1_idx` (`CRM_Personas_CRM_Personas_ID` ASC),
   INDEX `fk_CRM_Empresas_CRM_TipoDocumento1_idx` (`CRM_TipoDocumento_CRM_TipoDocumento_ID` ASC),
@@ -131,3 +122,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_ValorCampoLocal` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+

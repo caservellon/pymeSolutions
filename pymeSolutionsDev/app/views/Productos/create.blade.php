@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Producto &gt; <small>Nuevo Producto</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 
@@ -120,99 +120,38 @@
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('INV_Categoria_IDCategoriaPadre', 'Categoria Padre ID:', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_Categoria_ID', 'Categoria ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('INV_Categoria_IDCategoriaPadre', $combobox, null, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
+        {{ Form::text('INV_Categoria_ID',null, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('INV_Categoria_ID', 'Categoria ID: *', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_Categoria_IDCategoriaPadre', 'Categoria Padre ID:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('INV_Categoria_ID', array(), null, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
+        {{ Form::text('INV_Categoria_IDCategoriaPadre',null, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_UnidadMedida_ID', 'Unidad de Medida ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('INV_UnidadMedida_ID', $unidad, null, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_ID', 'placeholder' => '#' )) }}
+        {{ Form::text('INV_UnidadMedida_ID',null, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_HorarioBloqueo_ID', 'Horario de Bloqueo ID: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('INV_HorarioBloqueo_ID', $horarios,null, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
+        {{ Form::text('INV_HorarioBloqueo_ID',null, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     
     {{ Form::hidden('INV_Producto_FechaCreacion', date('Y-m-d H:i:s')) }}
     {{ Form::hidden('INV_Producto_FechaModificacion', date('Y-m-d H:i:s')) }}
-
-
-    <div class="page-header clearfix">
-      <h3 class="pull-left">Producto &gt; <small>Campos Locales</small></h3>
-    </div>
-        
-        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get() as $campo)
-            <div class="form-group">
-                {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
-                @if ($campo->GEN_CampoLocal_Requerido)
-                    <label>*</label>
-                @endif
-                <div class="col-md-5">
-                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-                        {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-                        {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-                        {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}
-                    @endif
-                </div>
-            </div> 
-        @endforeach
-
-
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 {{ Form::close() }}
-<script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
-<script type="text/javascript">
-//  $(function() {
-    var padres = JSON.parse('{{$jpadres}}');
-    var hijos = JSON.parse('{{$jhijos}}');
-
-    $('#INV_Categoria_IDCategoriaPadre').on('change', function() {
-      var el = $(this);
-      var i = el.val();
-
-      var f = $.map(hijos, function(index, hijo) {
-        var r = null;
-        if (index == i) {
-          r = {name: hijo, i: index};
-        }
-
-        return r;
-      });
-
-      $('#INV_Categoria_ID').empty();
-      $.each(f, function(i, hijo) {
-        $('#INV_Categoria_ID').append($('<option>', {
-          value: hijo.i,
-          text: hijo.name
-        }));  
-      });
-      
-
-    });
-//  });
-</script>
 
 @if ($errors->any())
 	<ul>

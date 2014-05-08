@@ -2,23 +2,10 @@
 
 @section('main')
 
-<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Catalogo Contable</small></h2>
+<h1 align="center">Catalogo Contable</h1>
 
-<div class="pull-right">
-    <a href="{{{ URL::to('contabilidad/configuracion') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
-</div>
 @if (isset($clasi) && $clasi->count())
-<div class="btn-agregar">
-	<a type="button" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/create') }}" class="btn btn-success">
-	  <span class="glyphicon glyphicon-plus"></span> Agregar Cuenta
-	</a>
-</div>
-
-<div class="btn-agregar">
-	<a type="button" href="{{URL::to('contabilidad/configuracion/subcuentas')}}"  class="btn btn-success">
-	  <span class="glyphicon glyphicon-list"></span> Listar Subcuenta
-	</a>
-</div>
+<a class="btn btn-success" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/create') }}"> Crear Nuevo</a>
 @foreach ($clasi as $unidad)
 				<tr>
 					<h3>{{{ $unidad->CON_ClasificacionCuenta_Nombre }}}</h3>
@@ -32,7 +19,7 @@
 							<th>Usuario Creacion</th>
 							<th>Naturaleza Saldo</th>
 							<th>Estado</th>
-							<th>Accion</th>
+						
 						</tr>
 					</thead>
 
@@ -40,7 +27,7 @@
 				@foreach ($Catalogo as $CatalogoContable)
 				<tr>
 					@if($CatalogoContable->CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID ==$unidad-> CON_ClasificacionCuenta_ID )	
-					<td>{{{$unidad->CON_ClasificacionCuenta_Categoria}}}.{{{$unidad->CON_ClasificacionCuenta_Subcategoria}}}.{{{ $CatalogoContable->CON_CatalogoContable_Codigo }}}.{{{$CatalogoContable->CON_CatalogoContable_CodigoSubcuenta}}}</td>
+					<td>{{{$unidad->CON_ClasificacionCuenta_Codigo}}}-{{{ $CatalogoContable->CON_CatalogoContable_Codigo }}}</td>
 					<td>{{{ $CatalogoContable->CON_CatalogoContable_Nombre }}}</td>
 					<td>{{{ $CatalogoContable->CON_CatalogoContable_UsuarioCreacion }}}</td>
 					@if ($CatalogoContable->CON_CatalogoContable_NaturalezaSaldo == 1)
@@ -49,11 +36,11 @@
 					<td>Deudor</td>
 					@endif
 					@if ($CatalogoContable->CON_CatalogoContable_Estado == 1)
-					<td ><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" checked disabled></td>
+					<td ><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" checked></td>
 					@else 
-					<td><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" disabled></td>
+					<td><input id="{{{ $CatalogoContable->CON_CatalogoContable_ID }}}" type="checkbox" ></td>
 					@endif
-                    <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/'.$CatalogoContable->CON_CatalogoContable_ID.'/edit') }}"> Editar</a>
+                    <td><a class="btn btn-success" href="{{ URL::to('catalogo-contable/'.$CatalogoContable->CON_CatalogoContable_ID.'/edit') }}">Editar</a>
 
 
 					</td>
@@ -77,7 +64,7 @@
 	No hay Cuentas en el Catalogo Contable
 @endif
 
-<a class="btn btn-success" id="cambio" onclick ="copyText()"> Confirmar<a>
+<a class="btn btn-success" id="cambio" onclick ="copyText()"> Pues si<a>
 
 
 <script>

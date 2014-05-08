@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Caja &gt; <small>Editar Caja</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Ventas/Cajas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('Cajas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 
@@ -42,8 +42,8 @@
   
         <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Ventas.Cajas.show', 'Cancelar', $Caja->VEN_Caja_id, array('class' => 'btn')) }}
+            {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
+            {{ link_to_route('Ventas.Cajas.show', 'Cancel', $Caja->VEN_Caja_id, array('class' => 'btn')) }}
       </div>
     </div>
 

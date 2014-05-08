@@ -34,7 +34,7 @@ class Producto extends Eloquent {
 		'INV_Producto_UsuarioModificacion' => '',
 		'INV_Producto_Activo' => 'required',
 		//'INV_Categoria_ID' => 'required',
-		'INV_Categoria_IDCategoriaPadre' => 'required',
+		//'INV_Categoria_IDCategoriaPadre' => 'required',
 		//'INV_UnidadMedida_ID' => 'required',
 		//'INV_HorarioBloqueo_ID' => 'required'
 	);

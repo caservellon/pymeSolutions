@@ -4,9 +4,6 @@
 
 <h1>Create MotivoTransaccion</h1>
 
-@include('_messages.errors')
-
-
 {{ Form::open(array('url' => 'contabilidad/motivotransaccion')) }}
 	<ul>
         <li>
@@ -25,6 +22,11 @@
 	</ul>
 {{ Form::close() }}
 
+@if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
+	</ul>
+@endif
 
 @stop
 

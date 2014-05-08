@@ -14,7 +14,7 @@ class PeriodoContable extends Eloquent {
 		);
 	public static $rules = array(
 			//'CON_PeriodoContable_ID' => 'required|integer',
-			'CON_PeriodoContable_Nombre' => 'required|max:45|alpha_spaces',
+			'CON_PeriodoContable_Nombre' => 'required|max:45|alpha',
 			'CON_PeriodoContable_FechaInicio' => 'required|date_format:yyyy-mm-dd',
 			'CON_PeriodoContable_FechaFinal' => 'required|date_format:yyyy-mm-dd'
 

@@ -61,8 +61,8 @@
 </div>
 
 <div class="form-group">
-		{{ link_to_route('Inventario.CampoLocals.edit', 'Edit', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}
-			{{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
+		{{ link_to_route('CRM.CampoLocals.edit', 'Edit', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}
+			{{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
 						{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
 				{{ Form::close() }}
 </div>

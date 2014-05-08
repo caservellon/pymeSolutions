@@ -33,13 +33,7 @@ class CuentaMotivosController extends BaseController {
 	 */
 	public function create()
 	{
-		$motivo= MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
-		$cuenta= CatalogoContable::all()->lists('CON_CatalogoContable_Nombre','CON_CatalogoContable_ID');
-		$select= array();
-		return View::make('CuentaMotivos.create')
-				->with('motivo',$motivo)
-				->with('cuenta',$cuenta)
-				->with('select',$select);
+		return View::make('CuentaMotivos.create');
 	}
 
 	/**

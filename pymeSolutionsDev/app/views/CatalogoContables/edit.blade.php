@@ -2,58 +2,55 @@
 
 @section('main')
 
-<div class="page-header clearfix">
-      <h3 class="pull-left">Catalogo Contable &gt; <small>Editar Cuenta</small></h3>
-      <div class="pull-right">
-        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
-      </div>
-</div>
+<h1>Editar cuenta</h1>
 
 @include('_messages.errors')
 
-{{ Form::model($CatalogoContable, array('class'=>'form-horizontal','action' => array('CatalogoContablesController@update', $CatalogoContable->CON_CatalogoContable_ID), 'method' => 'PUT')) }}            
+{{ Form::model($CatalogoContable, array('action' => array('CatalogoContablesController@update', $CatalogoContable->CON_CatalogoContable_ID), 'method' => 'PUT')) }}            
             
         
-           
-            {{ Form::hidden('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID') }}
+            {{ Form::label('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', 'Clasificacion Cuenta:') }}
+            {{ Form::select('CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID', $clasi, $selected) }}
 
-            
-            {{ Form::hidden('CON_CatalogoContable_Codigo') }}
+            {{ Form::label('CON_CatalogoContable_Codigo', 'Codigo:') }}
+            {{ Form::text('CON_CatalogoContable_Codigo') }}
 
-<div class="form-group">
             {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre:') }}
-            <div class="col-md-3">
             {{ Form::text('CON_CatalogoContable_Nombre' ) }}
-</div>
-</div>
-            
-            {{ Form::hidden('CON_CatalogoContable_UsuarioCreacion') }}
 
-            {{ Form::hidden('CON_CatalogoContable_NaturalezaSaldo') }}
-            {{ Form::hidden('CON_CatalogoContable_CodigoSubcuenta')}}
+            {{ Form::label('CON_CatalogoContable_UsuarioCreacion', 'Usuario Creacion:') }}
+            {{ Form::text('CON_CatalogoContable_UsuarioCreacion') }}
+
+            {{ Form::label('CON_CatalogoContable_NaturalezaSaldo', 'Naturaleza Saldo:') }}
+            {{ Form::select('CON_CatalogoContable_NaturalezaSaldo', $naturaleza, $selected3) }}
+
             
 <div class="form-group">
             {{ Form::label('CON_CatalogoContable_Estado', 'Estado:') }}
-            <div class="col-md-3">
-            {{ Form::select('CON_CatalogoContable_Estado',array(1=>'Activo',0=>'Inactivo')) }}
-</div></div>
-<div class="col-md-5">
-            {{ Form::submit('Realizar Cambios en la cuenta', array('class' => 'btn btn-success')) }}
-    </div>
+            {{ Form::select('CON_CatalogoContable_Estado',$esta,$selected2) }}
+</div>
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+    
 {{ Form::close() }}
 
 
+<script type="text/javascript">
+    
+   $(document).ready( $("#CON_CatalogoContable_Estado").click(function(){
+        if ($(this).attr('value')==1){
+            $(this).val(0);
+        }else{
+            $(this).val(1);
+        }
 
-@stop
-
-@section('contabilidad_scripts')
-
+    }));
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
 
         $("input").addClass("form-control");
         $("select").addClass("form-control");
-        $("label").addClass("control-label pull-left col-md-3");
+
     });
 
 </script>

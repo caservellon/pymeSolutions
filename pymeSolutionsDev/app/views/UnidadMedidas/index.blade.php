@@ -38,10 +38,10 @@
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_FechaModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioModificacion }}}</td>
 					<td>{{{ ($UnidadMedida->INV_UnidadMedida_Activo ? 'Activa' : 'Desactivada') }}}</td>
-                    <td>{{ link_to_route('Inventario.UnidadMedidas.edit', 'Editar', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    <td>{{ link_to_route('Inventario.UnidadMedidas.edit', 'Edit', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.UnidadMedidas.destroy', $UnidadMedida->INV_UnidadMedida_ID))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

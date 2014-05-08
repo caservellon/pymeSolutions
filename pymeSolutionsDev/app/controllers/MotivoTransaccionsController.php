@@ -87,7 +87,7 @@ class MotivoTransaccionsController extends BaseController {
 			return Redirect::route('MotivoTransaccions.index');
 		}
 
-		return View::make('MotivoTransaccions.edit', compact('MotivoTransaccion'));
+		return View::action('MotivoTransaccionsController@edit', compact('MotivoTransaccion'));
 	}
 
 	/**

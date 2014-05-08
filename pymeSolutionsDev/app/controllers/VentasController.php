@@ -79,11 +79,13 @@ class VentasController extends BaseController {
 			$saldo = Input::get('saldo');
 			$isv = Input::get('isv');
 			$caja = Input::get('caja');
+			$total = Input::get('total');
 
 			$venta = new Venta;
-			$venta->VEN_Caja_VEN_Caja_id = (float) $caja;
-			$venta->VEN_Venta_TotalCambio = (float) $saldo;
-			$venta->VEN_Venta_ISV = (float) $isv;
+			$venta->VEN_Caja_VEN_Caja_id = (double) $caja;
+			$venta->VEN_Venta_TotalCambio = (double) $saldo;
+			$venta->VEN_Venta_ISV = (double) $isv;
+			$venta->VEN_Venta_Total = (double) $total;
 			$venta->save();
 			array_push($return, ['numFact' => $venta->VEN_Venta_id]);
 
@@ -96,21 +98,21 @@ class VentasController extends BaseController {
 				$DetalleVenta->save();
 			}
 
-			foreach ($descuentos as $d) {
+			//foreach ($descuentos as $d) {
 				
 
-			}
+			//}
 
-			foreach ($abonos as $a) {
-				$pago = new Pago;
-				$pago->VEN_Pago_Cantidad = (float) $a['monto'];
-				$pago->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
-				$pago->VEN_Venta_VEN_Caja_VEN_Caja_id = $caja;
-				$pago->VEN_FormaPago_VEN_FormaPago_id = FormaPagoVentas::where('VEN_FormaPago_Descripcion',$a['metodo'])->firstOrFail()->VEN_FormaPago_id;
-				$pago->save();
+			 foreach ($abonos as $a) {
+			 	$pago = new Pago;
+			 	$pago->VEN_Pago_Cantidad = (float) $a['monto'];
+			 	$pago->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
+			 	$pago->VEN_Venta_VEN_Caja_VEN_Caja_id = $caja;
+			 	$pago->VEN_FormaPago_VEN_FormaPago_id = FormaPagoVentas::where('VEN_FormaPago_Descripcion',$a['metodo'])->firstOrFail()->VEN_FormaPago_id;
+			 	$pago->save();
 			}
 			
-			return $return;
+			return $venta->VEN_Venta_id;
 
 		}
 	
@@ -208,11 +210,11 @@ class VentasController extends BaseController {
 	{
 		if (Request::ajax())
 		{
-			$Input = Input::all();
+			$Input = Input::get('codigo');
 
-			$Producto = Producto::where('INV_Producto_Codigo', $Input['codigo'])->get();
+			$Producto = Producto::where('INV_Producto_Codigo', $Input)->firstOrFail();
 
-		    return $Producto;
+		    return $Producto->INV_Producto_Cantidad;
 		}
 	}
 

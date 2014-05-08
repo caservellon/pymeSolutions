@@ -6,10 +6,10 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_UnidadMonetaria` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_UnidadMonetaria` (
   `CON_UnidadMonetaria_ID` INT NOT NULL AUTO_INCREMENT,
   `CON_UnidadMonetaria_Nombre` VARCHAR(45) NOT NULL,
-  `CON_UnidadMonetaria_Observacion` VARCHAR(255) NULL DEFAULT NULL,
-  `CON_UnidadMonetaria_TasaConversion` DECIMAL(4,2) NOT NULL,
-  `CON_UnidadMonetaria_FechaCreacion` DATETIME NULL,
-  `CON_UnidadMonetaria_FechaModificacion` DATETIME NULL,
+  `CON_UnidadMonetaria_Observacion` VARCHAR(255) NULL,
+  `CON_UnidadMonetaria_TasaConversion` FLOAT NOT NULL,
+  `CON_UnidadMonetaria_FechaCreacion` DATETIME NOT NULL,
+  `CON_UnidadMonetaria_FechaModificacion` DATETIME NOT NULL,
   PRIMARY KEY (`CON_UnidadMonetaria_ID`),
   UNIQUE INDEX `CON_UnidadMonetaria_Nombre_UNIQUE` (`CON_UnidadMonetaria_Nombre` ASC))
 ENGINE = InnoDB;
@@ -67,11 +67,10 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_ClasificacionCuenta` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ClasificacionCuenta` (
   `CON_ClasificacionCuenta_ID` INT NOT NULL,
-  `CON_ClasificacionCuenta_Nombre` VARCHAR(64) NOT NULL,
+  `CON_ClasificacionCuenta_Codigo` VARCHAR(10) NOT NULL,
+  `CON_ClasificacionCuenta_Nombre` VARCHAR(45) NOT NULL,
   `CON_ClasificacionCuenta_FechaCreacion` DATETIME NOT NULL,
   `CON_ClasificacionCuenta_FechaModificacion` DATETIME NOT NULL,
-  `CON_ClasificacionCuenta_Categoria` VARCHAR(1) NOT NULL,
-  `CON_ClasificacionCuenta_Subcategoria` VARCHAR(2) NOT NULL,
   PRIMARY KEY (`CON_ClasificacionCuenta_ID`))
 ENGINE = InnoDB;
 
@@ -83,7 +82,7 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_CatalogoContable` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CatalogoContable` (
   `CON_CatalogoContable_ID` INT NOT NULL AUTO_INCREMENT,
-  `CON_CatalogoContable_Codigo` VARCHAR(3) NOT NULL,
+  `CON_CatalogoContable_Codigo` VARCHAR(45) NOT NULL,
   `CON_CatalogoContable_Nombre` VARCHAR(120) NOT NULL,
   `CON_CatalogoContable_UsuarioCreacion` VARCHAR(45) NOT NULL,
   `CON_CatalogoContable_NaturalezaSaldo` TINYINT(1) NOT NULL,
@@ -91,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CatalogoContable` (
   `CON_CatalogoContable_FechaCreacion` DATETIME NOT NULL,
   `CON_CatalogoContable_FechaModificacion` DATETIME NOT NULL,
   `CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID` INT NOT NULL,
-  `CON_CatalogoContable_CodigoSubcuenta` VARCHAR(2) NULL,
   PRIMARY KEY (`CON_CatalogoContable_ID`, `CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID`),
   INDEX `fk_CON_CatalogoContable_CON_ClasificacionCuenta1_idx` (`CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID` ASC),
   CONSTRAINT `fk_CON_CatalogoContable_CON_ClasificacionCuenta1`
@@ -109,8 +107,8 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_CuentaMotivo` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaMotivo` (
   `CON_CuentaMotivo_ID` INT NOT NULL AUTO_INCREMENT,
   `CON_CuentaMotivo_DebeHaber` TINYINT(1) NOT NULL,
-  `CON_CuentaMotivo_FechaCreacion` DATETIME,
-  `CON_CuentaMotivo_FechaModificacion` DATETIME,
+  `CON_CuentaMotivo_FechaCreacion` DATETIME NOT NULL,
+  `CON_CuentaMotivo_FechaModificacion` DATETIME NOT NULL,
   `CON_MotivoTransaccion_ID` INT NOT NULL,
   `CON_CatalogoContable_ID` INT NOT NULL,
   PRIMARY KEY (`CON_CuentaMotivo_ID`),
@@ -136,18 +134,36 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_LibroDiario` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_LibroDiario` (
   `CON_LibroDiario_ID` INT NOT NULL AUTO_INCREMENT,
-  `CON_LibroDiario_Observacion` VARCHAR(255) NULL DEFAULT NULL,
+  `CON_LibroDiario_Observacion` VARCHAR(255) NULL,
   `CON_LibroDiario_FechaCreacion` DATETIME NOT NULL,
   `CON_LibroDiario_FechaModificacion` DATETIME NOT NULL,
-  `CON_LibroDiario_Monto` DECIMAL(11,2) NOT NULL,
+  PRIMARY KEY (`CON_LibroDiario_ID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`CON_DetalleAsiento`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`CON_DetalleAsiento` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_DetalleAsiento` (
+  `CON_DetalleAsiento_ID` INT NOT NULL AUTO_INCREMENT,
+  `CON_DetalleAsiento_Monto` FLOAT NOT NULL,
+  `CON_DetalleAsiento_FechaCreacion` DATETIME NOT NULL,
+  `CON_DetalleAsiento_FechaModificacion` DATETIME NOT NULL,
   `CON_MotivoTransaccion_ID` INT NOT NULL,
-  `CON_LibroDiario_AsientoReversion` TINYINT NULL DEFAULT 0,
-  `CON_LibroDiario_Revertido` TINYINT NULL DEFAULT NULL,
-  PRIMARY KEY (`CON_LibroDiario_ID`),
-  INDEX `fk_CON_LibroDiario_CON_MotivoTransaccion1_idx` (`CON_MotivoTransaccion_ID` ASC),
-  CONSTRAINT `fk_CON_LibroDiario_CON_MotivoTransaccion1`
+  `CON_LibroDiario_ID` INT NOT NULL,
+  PRIMARY KEY (`CON_DetalleAsiento_ID`),
+  INDEX `CON_MotivoTransaccion_ID_idx` (`CON_MotivoTransaccion_ID` ASC),
+  INDEX `CON_LibroDiario_ID_idx` (`CON_LibroDiario_ID` ASC),
+  CONSTRAINT `fk_CON_MotivoTransaccion_ID`
     FOREIGN KEY (`CON_MotivoTransaccion_ID`)
     REFERENCES `pymeERP`.`CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CON_LibroDiario_ID`
+    FOREIGN KEY (`CON_LibroDiario_ID`)
+    REFERENCES `pymeERP`.`CON_LibroDiario` (`CON_LibroDiario_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -160,7 +176,7 @@ DROP TABLE IF EXISTS `pymeERP`.`CON_Subcuenta` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Subcuenta` (
   `CON_Subcuenta_ID` INT NOT NULL AUTO_INCREMENT,
-  `CON_Subcuenta_Codigo` VARCHAR(2) NOT NULL,
+  `CON_Subcuenta_Codigo` VARCHAR(45) NOT NULL,
   `CON_Subcuenta_Nombre` VARCHAR(45) NOT NULL,
   `CON_Subcuenta_FechaCreacion` DATETIME NOT NULL,
   `CON_Subcuenta_FechaModificacion` DATETIME NOT NULL,
@@ -173,6 +189,50 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Subcuenta` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`CON_LibroMayor`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`CON_LibroMayor` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_LibroMayor` (
+  `CON_LibroMayor_ID` INT NOT NULL AUTO_INCREMENT,
+  `CON_LibroMayor_FechaCreacion` DATETIME NOT NULL,
+  `CON_LibroMayor_FechaModificacion` DATETIME NOT NULL,
+  PRIMARY KEY (`CON_LibroMayor_ID`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`CON_CuentaT`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`CON_CuentaT` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaT` (
+  `CON_LibroMayor_ID` INT NOT NULL AUTO_INCREMENT,
+  `CON_CuentaT_SaldoDeudor` FLOAT NOT NULL,
+  `CON_CuentaT_SaldoAcreedor` FLOAT NOT NULL,
+  `CON_CuentaT_SaldoFinal` FLOAT NOT NULL,
+  `CON_CuentaT_AcreedorDeudor` TINYINT(1) NOT NULL,
+  `CON_CuentaT_FechaModificacion` DATETIME NOT NULL,
+  `CON_CuentaT_FechaCreacion` DATETIME NOT NULL,
+  `CON_CatalogoContable_CON_CatalogoContable_ID` INT NOT NULL,
+  `CON_CatCont_CON_ClasCuen_CON_ClasCuen_ID` INT NOT NULL,
+  PRIMARY KEY (`CON_LibroMayor_ID`, `CON_CatalogoContable_CON_CatalogoContable_ID`, `CON_CatCont_CON_ClasCuen_CON_ClasCuen_ID`),
+  INDEX `fk_CON_CuentaT_CON_CatalogoContable1_idx` (`CON_CatalogoContable_CON_CatalogoContable_ID` ASC, `CON_CatCont_CON_ClasCuen_CON_ClasCuen_ID` ASC),
+  CONSTRAINT `CON_LibroMayor_ID`
+    FOREIGN KEY (`CON_LibroMayor_ID`)
+    REFERENCES `pymeERP`.`CON_LibroMayor` (`CON_LibroMayor_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CON_CuentaT_CON_CatalogoContable1`
+    FOREIGN KEY (`CON_CatalogoContable_CON_CatalogoContable_ID` , `CON_CatCont_CON_ClasCuen_CON_ClasCuen_ID`)
+    REFERENCES `pymeERP`.`CON_CatalogoContable` (`CON_CatalogoContable_ID` , `CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CON_ClasificacionPeriodo`
@@ -188,13 +248,14 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ClasificacionPeriodo` (
   PRIMARY KEY (`CON_ClasificacionPeriodo_ID`))
 ENGINE = InnoDB;
 
+
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CON_PeriodoContable`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pymeERP`.`CON_PeriodoContable` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_PeriodoContable` (
-  `CON_PeriodoContable_ID` INT NOT NULL AUTO_INCREMENT,
+  `CON_PeriodoContable_ID` INT NOT NULL,
   `CON_PeriodoContable_FechaInicio` DATETIME NOT NULL,
   `CON_PeriodoContable_FechaFinal` DATETIME NOT NULL,
   `CON_PeriodoContable_Nombre` VARCHAR(50) NOT NULL,
@@ -206,54 +267,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_PeriodoContable` (
   CONSTRAINT `fk_CON_PeriodoContable_CON_ClasificacionPeriodo1`
     FOREIGN KEY (`CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID`)
     REFERENCES `pymeERP`.`CON_ClasificacionPeriodo` (`CON_ClasificacionPeriodo_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `pymeERP`.`CON_LibroMayor`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pymeERP`.`CON_LibroMayor` ;
-
-CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_LibroMayor` (
-  `CON_LibroMayor_ID` INT NOT NULL AUTO_INCREMENT,
-  `CON_PeriodoContable_CON_PeriodoContable_ID` INT NOT NULL,
-  `CON_LibroMayor_FechaCreacion` DATETIME NOT NULL,
-  `CON_LibroMayor_FechaModificacion` DATETIME NOT NULL,
-  PRIMARY KEY (`CON_LibroMayor_ID`, `CON_PeriodoContable_CON_PeriodoContable_ID`),
-  INDEX `fk_CON_LibroMayor_CON_PeriodoContable1_idx` (`CON_PeriodoContable_CON_PeriodoContable_ID` ASC),
-  CONSTRAINT `fk_CON_LibroMayor_CON_PeriodoContable1`
-    FOREIGN KEY (`CON_PeriodoContable_CON_PeriodoContable_ID`)
-    REFERENCES `pymeERP`.`CON_PeriodoContable` (`CON_PeriodoContable_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
-
--- -----------------------------------------------------
--- Table `pymeERP`.`CON_CuentaT`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `pymeERP`.`CON_CuentaT` ;
-
-CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_CuentaT` (
-  `CON_LibroMayor_ID` INT NOT NULL AUTO_INCREMENT,
-  `CON_CatalogoContable_ID` INT NOT NULL,
-  `CON_CuentaT_SaldoFinal` FLOAT NOT NULL,
-  `CON_CuentaT_AcreedorDeudor` TINYINT(1) NOT NULL,
-  `CON_CuentaT_FechaModificacion` DATETIME NOT NULL,
-  `CON_CuentaT_FechaCreacion` DATETIME NOT NULL,
-  PRIMARY KEY (`CON_LibroMayor_ID`, `CON_CatalogoContable_ID`),
-  INDEX `fk_CON_CuentaT_CON_CatalogoContable1_idx` (`CON_CatalogoContable_ID` ASC),
-  CONSTRAINT `CON_LibroMayor_ID`
-    FOREIGN KEY (`CON_LibroMayor_ID`)
-    REFERENCES `pymeERP`.`CON_LibroMayor` (`CON_LibroMayor_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_CON_CuentaT_CON_CatalogoContable1`
-    FOREIGN KEY (`CON_CatalogoContable_ID`)
-    REFERENCES `pymeERP`.`CON_CatalogoContable` (`CON_CatalogoContable_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -532,19 +545,3 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Pago` (
   `CON_Pago_FechaPagar` DATETIME NOT NULL,
   PRIMARY KEY (`CON_Pago_ID`))
 ENGINE = InnoDB;
-
-DROP TABLE IF EXISTS `pymeERP`.`CON_ConceptoMotivo` ;
-
-CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ConceptoMotivo` (
-  `CON_ConceptoMotivo_ID` INT NOT NULL AUTO_INCREMENT,
-  `CON_ConceptoMotivo_Concepto` VARCHAR(45) NOT NULL,
-  `CON_MotivoTransaccion_ID` INT NOT NULL,
-  PRIMARY KEY (`CON_ConceptoMotivo_ID`),
-  INDEX `fk_CON_ConceptoMotivo_CON_MotivoTransaccion1_idx` (`CON_MotivoTransaccion_ID` ASC),
-  CONSTRAINT `fk_CON_ConceptoMotivo_CON_MotivoTransaccion1`
-    FOREIGN KEY (`CON_MotivoTransaccion_ID`)
-    REFERENCES `pymeERP`.`CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-

@@ -9,20 +9,20 @@
 {{ Form::open(array('url' => 'cuentamotivos')) }}
 	<ul>
         <li>
-            {{ Form::label('CON_MotivoTransaccion_ID', 'Motivo de la Transaccion:') }}
-            {{ Form::select('CON_MotivoTransaccion_ID',$motivo,$select) }}
+            {{ Form::label('CON_CuentaMotivo_DebeHaber', 'CON_CuentaMotivo_DebeHaber:') }}
+            {{ Form::text('CON_CuentaMotivo_DebeHaber') }}
         </li>
 
         <li>
-            {{ Form::label('CON_CatalogoContable_ID', 'Cuenta del Motivo:') }}
-            {{ Form::select('CON_CatalogoContable_ID',$cuenta,$select) }}
+            {{ Form::label('CON_MotivoTransaccion_ID', 'CON_MotivoTransaccion_ID:') }}
+            {{ Form::text('CON_MotivoTransaccion_ID') }}
         </li>
 
         <li>
-            {{ Form::label('CON_CuentaMotivo_DebeHaber', 'Naturaleza Saldo:') }}
-            {{ Form::select('CON_CuentaMotivo_DebeHaber',array('0' => 'Haber','1' => 'Debe' ),'$select') }}
+            {{ Form::label('CON_CatalogoContable_ID', 'CON_CatalogoContable_ID:') }}
+            {{ Form::text('CON_CatalogoContable_ID') }}
         </li>
-        
+
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
 		</li>

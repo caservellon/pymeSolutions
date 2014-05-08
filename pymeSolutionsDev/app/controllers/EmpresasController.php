@@ -14,6 +14,11 @@ class EmpresasController extends BaseController {
 		$this->Empresa = $Empresa;
 	}
 
+	public function buscar()
+	{
+		return Empresa::where('CRM_Empresas_Nombre', 'LIKE' ,'%' . Input::get('name') . '%')->get();
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -44,42 +49,30 @@ class EmpresasController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
+		$validation = Validator::make($input, Empresa::$rules);
+
 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->get();
-		$res = Empresa::$rules;
 
 		foreach ($campos as $campo) {
-			$val = '';
-			if ($campo->GEN_CampoLocal_Requerido) {
-				$val = $val.'Required|';
+			if (Input::get($campo->GEN_CampoLocal_Codigo)) {
+				DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				//return Redirect::route('Empresas.index');
+			} elseif ($campo->GEN_CampoLocal_Requerido) {
+				return Redirect::route('CRM.Personas.create')
+					->withInput()
+					->withErrors($validation)
+					->with('message', 'Algunos campos requeridos no han sido completados.');
 			}
-			switch ($campo->GEN_CampoLocal_Tipo) {
-				case 'TXT':
-					$val = $val.'alphanumdotspaces|';
-					break;				
-				case 'INT':
-					$val = $val.'Integer|';
-					break;
-				case 'FLOAT':
-					$val = $val.'Numeric|';
-					break;				
-				default:
-					break;
-			}
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
 		}
-
-		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
 		{
-			$empresaa = $this->Empresa->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->lists('GEN_CampoLocal_Codigo')));
-			foreach ($campos as $campo) {
-				DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'CRM_Empresas_CRM_Empresas_ID' => $empresaa->CRM_Empresas_ID));
-			}
-			return Redirect::route('CRM.Empresas.index');
+			$this->Empresa->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->lists('GEN_CampoLocal_Codigo')));
+
+			return Redirect::route('Empresas.index');
 		}
 
-		return Redirect::route('CRM.Empresas.create')
+		return Redirect::route('Empresas.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -95,7 +88,7 @@ class EmpresasController extends BaseController {
 	{
 		$Empresa = $this->Empresa->findOrFail($id);
 
-		return View::make('CRM.Empresas.show', compact('Empresa'));
+		return View::make('Empresas.show', compact('Empresa'));
 	}
 
 	/**
@@ -125,47 +118,17 @@ class EmpresasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->get();
-		$res = Empresa::$rules;
-
-		foreach ($campos as $campo) {
-			$val = '';
-			if ($campo->GEN_CampoLocal_Requerido) {
-				$val = $val.'Required|';
-			}
-			switch ($campo->GEN_CampoLocal_Tipo) {
-				case 'TXT':
-					$val = $val.'alphanumdotspaces|';
-					break;				
-				case 'INT':
-					$val = $val.'Integer|';
-					break;
-				case 'FLOAT':
-					$val = $val.'Numeric|';
-					break;				
-				default:
-					break;
-			}
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
-		}
-
-		$validation = Validator::make($input, $res);
+		$validation = Validator::make($input, Empresa::$rules);
 
 		if ($validation->passes())
 		{
 			$Empresa = $this->Empresa->find($id);
-			$Empresa->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->lists('GEN_CampoLocal_Codigo')));
-			foreach ($campos as $campo) {
-				if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->count() > 0 ) {
-				    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->update(array('CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
-				} elseif (Input::has($campo->GEN_CampoLocal_Codigo)) {
-					DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'CRM_Empresas_CRM_Empresas_ID' => $Empresa->CRM_Empresas_ID));
-				}
-			}
-			return Redirect::route('CRM.Empresas.index', $id);
+			$Empresa->update($input);
+
+			return Redirect::route('Empresas.index', $id);
 		}
 
-		return Redirect::route('CRM.Empresas.edit', $id)
+		return Redirect::route('Empresas.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -179,18 +142,9 @@ class EmpresasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->get();
-		$Empresa = $this->Empresa->find($id);
+		$this->Empresa->find($id)->delete();
 
-		foreach ($campos as $campo) {
-			if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->count() > 0 ) {
-			    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->delete();
-			}
-		}
-
-		$Empresa->delete();
-
-		return Redirect::route('CRM.Empresas.index');
+		return Redirect::route('Empresas.index');
 	}
 
 }

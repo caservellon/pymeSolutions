@@ -9,24 +9,12 @@
       </div>
 </div>
 
-@if ($errors->any())
-    <ul>
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-@endif
-
 {{ Form::open(array('route' => 'CRM.Personas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
         <div class="campo-local-tipo form-group">
-            <div class="col-md-5">
-                {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
-            </div>
-        </div>
-
-        <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">
-            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->whereNull('CRM_TipoDocumento_Flag')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID'),null,array('class' => 'col-md-4 form-control')) }}
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->whereNull('CRM_TipoDocumento_Flag')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID')) }}
           </div>
         </div> 
 
@@ -110,7 +98,7 @@
                         {{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}
                     @endif
                     @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID'),null,array('class' => 'col-md-4 form-control')) }}
+                        {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}
                     @endif
                 </div>
             </div> 
@@ -121,6 +109,12 @@
         </div>
 	</div>
 {{ Form::close() }}
+
+@if ($errors->any())
+	<ul>
+		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
+	</ul>
+@endif
 
 @stop
 

@@ -2,16 +2,21 @@
 
 @section('main')
 
-<div class="page-header clearfix">
+<div class="page-header clearfix no-print">
     <h3 class="pull-left">Caja &gt; <small>Nueva Venta</small></h3>
     <div class="pull-right">
-        <a href="{{{ URL::to('Ventas/Ventas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
+        <a href="{{{ URL::to('Ventas/Ventas') }}}" class="btn btn-sm btn-primary no-print"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
     </div>
 </div>
 
-<form class="form-inline busqueda-cliente">
-        <span>Cliente: </span><input type="text" placeholder="Cliente Único" class="cliente"><button class="btn btn-info">Buscar</button>
-</form>
+<div class="form-inline busqueda-cliente">
+        <center><h3>No. Factura: <span class="num-factura">Compra no Finalizada</span></h3></center>
+        <hr>
+        <center><label class="control-label">Cliente: </label><input type="text" placeholder="Cliente Único" class="cliente form-control">
+        {{ Form::select('Tipo_de_Cliente', array('0' => 'Persona', '1' => 'Empresa'),'0',array('class' => 'Tipo_de_Cliente form-control')) }}
+        <button class="btn btn-info no-print search-cliente">Buscar</button></center>
+        {{ Form::hidden('id-cliente-buscado', null, array('class' => 'id-cliente-buscado'))}}
+</div>
 
 <div class="row">  
 
@@ -59,14 +64,14 @@
 <div class="col-md-4">
     <div class="opciones-cajas">
         <h4>Opciones de Caja</h4>
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregarProducto">Agregar Producto</button>
-        <button type="button" class="btn btn-info editar-prod">Editar Cantidad</button>
-        <button type="button" class="btn btn-warning eliminar-prod">Eliminar Producto</button>
-        <button type="button" class="btn btn-danger cancel-venta">Cancelar Ventas</button>
+        <button type="button" class="btn btn-success no-print" data-toggle="modal" data-target="#agregarProducto">Agregar Producto</button>
+        <button type="button" class="btn btn-info editar-prod no-print">Editar Cantidad</button>
+        <button type="button" class="btn btn-warning eliminar-prod no-print">Eliminar Producto</button>
+        <button type="button" class="btn btn-danger cancel-venta no-print">Cancelar Ventas</button>
         <br>
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarPago">Agregar Pago</button>
-        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#agregarDescuento">Agregar Descuento</button>
-        <button type="button" class="btn btn-default guardar-compra">Finalizar Compra</button>
+        <button type="button" class="btn btn-default no-print" data-toggle="modal" data-target="#agregarPago">Agregar Pago</button>
+        <button type="button" class="btn btn-default no-print" data-toggle="modal" data-target="#agregarDescuento">Agregar Descuento</button>
+        <button type="button" class="btn btn-default guardar-compra no-print">Finalizar Compra</button>
     </div>
 </div>
 </div>
@@ -95,8 +100,8 @@
                     @foreach ($Productos as $Producto)
                     <tr>
                         <td>{{{ $Producto->INV_Producto_ID }}}</td>
-                        <td>{{{ $Producto->INV_Producto_Codigo }}}</td>
-                        <td>{{{ $Producto->INV_Producto_Nombre }}}</td>
+                        <td class='cod'>{{{ $Producto->INV_Producto_Codigo }}}</td>
+                        <td class='nombre'>{{{ $Producto->INV_Producto_Nombre }}}</td>
                         <td class='precio'>{{{ $Producto->INV_Producto_PrecioVenta }}}</td>
                     </tr>
                     @endforeach
@@ -178,16 +183,84 @@
                 </table>
               </div>
               <div class="col-md-4">
-                <span>Cantidad: </span><input type="text" class="ammount-pago">
+                <span>Cantidad Efectivo: </span><input type="text" class="ammount-pago">
                 <br>
-                <span>Metodo de Pago: Efectivo</span>
                 <br>
                 <button class="btn btn-success add-pago-modal-bt">Agregar</button>
+                <hr>
+                <button class="btn btn-success add-bono-modal-bt">Bono de Compra</button>
               </div>
             </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Agregar Bono de Compra -->
+<div class="modal fade" id="agregarBono" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Agregar Bono de Compra</h4>
+      </div>
+      <div class="modal-body">
+        <center>
+            <input type="text" class="bono-compra-tb"> <button class="btn btn-default veri-bono">Verificar</button>
+            <br>
+            <div class="alert alert-warning" id="no-valido">
+              <span>
+                <p>Su bono no es valido o esta vencido</p>
+              </span>
+            </div>
+            <div class="alert alert-success" id="valido">
+              <span>
+                <p>Su bono es valido</p>
+              </span>
+            </div>
+            <div class="alert alert-danger" id="no-existe">
+              <span>
+                <p>El bono ingresado no existe</p>
+              </span>
+            </div>
+
+         </center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cerrar-bono-modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Busqueda CRM -->
+<div class="modal fade" id="buscarCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Busqueda de Cliente</h4>
+      </div>
+      <div class="modal-body">
+
+            <table class="table busqueda-cliente-table selectable" id="busqueda-cliente-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                        </tr>
+                    </thead>
+                    <tbody class="clientes-buscados-list">
+                        
+                    </tbody>
+                </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default agregar-cliente-sel">Aceptar</button>
       </div>
     </div>
   </div>

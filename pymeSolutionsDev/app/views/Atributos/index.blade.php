@@ -38,10 +38,10 @@
 					<td>{{{ $Atributo->INV_Atributo_FechaModificacion }}}</td>
 					<td>{{{ $Atributo->INV_Atributo_UsuarioModificacion }}}</td>
 					<td>{{{ ($Atributo->INV_Atributo_Activo ? 'Activo' : 'Desactivado') }}}</td>
-                    <td>{{ link_to_route('Inventario.Atributos.edit', 'Editar', array($Atributo->INV_Atributo_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    <td>{{ link_to_route('Inventario.Atributos.edit', 'Edit', array($Atributo->INV_Atributo_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Atributos.destroy', $Atributo->INV_Atributo_ID))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

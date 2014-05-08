@@ -1,10 +1,10 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<h2 class="sub-header">Editar Transicion Estado Orden Compra</h2>
+<h2 class="sub-header">Listado de Cajas</h2>
 <div class="btn-agregar">
 	<a type="button" href="" class="btn btn-default">
-	  <span class="glyphicon glyphicon-shopping-cart"></span> Configuración <small>>Parametrizar>Transicion de Estados Orden de Compra</small>
+	  Configuración <small>>Parametrizar>Estados Orden de Compra</small>
 	</a>
 </div>
    
@@ -12,7 +12,7 @@
             <table class="table table-striped" >
               <thead>
                 <tr>
-                  <th>Estado Previo</th>
+                  <th>Estado Anterior</th>
                   <th>Estado Actual</th>
                   <th>Estado Posterior</th>
                   <th>Observacion</th>
@@ -30,11 +30,6 @@
           <td>{{{ COM_EstadoOrdenCompra::find($nombre->COM_OrdenCompra_TransicionEstado_EstadoActual)->COM_EstadoOrdenCompra_Nombre}}}</td>
           <td>{{{ COM_EstadoOrdenCompra::find($nombre->COM_OrdenCompra_TransicionEstado_EstadoPosterior)->COM_EstadoOrdenCompra_Nombre}}}</td>
           <td>{{{ $nombre->COM_OrdenCompra_TransicionEstado_Observacion}}}</td>
-          @if($nombre->COM_OrdenCompra_TransicionEstado_Activo==1)
-                <td>Activo</td>
-                @else
-                <td>Inactivo</td>
-                @endif 
                
                 <td><a href="{{ route('EditarTransicion', array('id'=>$nombre->COM_OrdenCompra_TransicionEstado_Id)) }}" class="btn btn-info">Editar</a></td>
          @endforeach

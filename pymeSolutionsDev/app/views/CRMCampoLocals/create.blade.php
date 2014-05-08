@@ -28,7 +28,7 @@
     <div class="campo-local-tipo form-group">
       {{ Form::label('GEN_CampoLocal_Tipo', 'Tipo de Campo:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('GEN_CampoLocal_Tipo', array('TXT' => 'Texto', 'INT' => 'Entero', 'FLOAT' => 'Decimal', 'LIST' => 'Lista de Valores'),'TXT',array('class' => 'col-md-4 form-control')) }}
+        {{ Form::select('GEN_CampoLocal_Tipo', array('TXT' => 'Texto', 'INT' => 'Entero', 'FLOAT' => 'Decimal', 'LIST' => 'Lista de Valores', 'CHKBOX' => 'Selección Multiple', 'RADIOBTN' => 'Selección Única'),'TXT',array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
 
@@ -48,6 +48,12 @@
       {{ Form::hidden('value-list-array', null, array('class' => 'value-list-array'))}}
     </div>
 
+    <div class="form-group">
+      {{ Form::label('GEN_CampoLocal_Activo', 'Estado de Campo:', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::select('GEN_CampoLocal_Activo', array('1' => 'Activado', '0' => 'Desactivado'),'1',array('class' => 'col-md-4 form-control')) }}
+      </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-5 col-md-offset-2">
@@ -55,6 +61,7 @@
             <label class="checkbox-inline control-label">
                 {{ Form::checkbox('GEN_CampoLocal_Requerido', '1') }}
                 Requerido
+                
             </label>
             <label class="checkbox-inline control-label"> 
                 {{ Form::checkbox('GEN_CampoLocal_ParametroBusqueda', '1') }}
@@ -65,7 +72,7 @@
 
     <div class="form-group">
       <div class="col-md-5 ">
-            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 
@@ -73,9 +80,11 @@
 {{ Form::close() }}
 
 @if ($errors->any())
-  <ul>
-    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-  </ul>
+	<ul>
+		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
+	</ul>
 @endif
 
 @stop
+
+

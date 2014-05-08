@@ -41,10 +41,10 @@
 					<td>{{{ $FormaPago->INV_FormaPago_FechaModificacion }}}</td>
 					<td>{{{ $FormaPago->INV_FormaPago_UsuarioModificacion }}}</td>
 					<td>{{{ $FormaPago->INV_FormaPago_Activo ? 'Activa' : 'Desactivada' }}}</td>
-                    <td>{{ link_to_route('Inventario.FormaPagos.edit', 'Editar', array($FormaPago->INV_FormaPago_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.FormaPagos.edit', 'Edit', array($FormaPago->INV_FormaPago_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.FormaPagos.destroy', $FormaPago->INV_FormaPago_ID))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
 
                         {{ Form::close() }}
                     </td>

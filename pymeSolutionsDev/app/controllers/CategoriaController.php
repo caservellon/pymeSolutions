@@ -33,10 +33,7 @@ class CategoriaController extends BaseController {
 	 */
 	public function create()
 	{
-		$temp = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
-		$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		$tipos = array(0 => "Seleccione ... ") + $temp;
-		return View::make('Categoria.create', compact('tipos', 'horarios'));
+		return View::make('Categoria.create');
 	}
 
 	/**
@@ -48,6 +45,7 @@ class CategoriaController extends BaseController {
 	{
 		$input = Input::all();
 		$validation = Validator::make($input, Categoria::$rules);
+
 		if ($validation->passes())
 		{
 			$Categoria = new Categoria;
@@ -93,14 +91,13 @@ class CategoriaController extends BaseController {
 	public function edit($id)
 	{
 		$Categoria = $this->Categoria->find($id);
-		$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+
 		if (is_null($Categoria))
 		{
-			return Redirect::route('Inventario.Categoria.index', compact('tipos', 'horarios'));
+			return Redirect::route('Inventario.Categoria.index');
 		}
 
-		return View::make('Categoria.edit', compact('Categoria', 'tipos', 'horarios'));
+		return View::make('Categoria.edit', compact('Categoria'));
 	}
 
 	/**

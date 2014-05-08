@@ -9,7 +9,7 @@ class ClasificacionCuenta extends Eloquent {
 
 	public static $rules = array(
 			'CON_ClasificacionCuenta_ID' => 'required|integer',
-			'CON_ClasificacionCuenta_Nombre' => 'required|alpha_spaces|max:45',
+			'CON_ClasificacionCuenta_Nombre' => 'required|alpha|max:45',
 			'CON_ClasificacionCuenta_CODIGO' => 'required|numeric'
 	);
 }

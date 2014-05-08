@@ -72,7 +72,8 @@ class UnidadMonetariaController extends BaseController {
 			return Redirect::action('UnidadMonetariaController@index');
 		}
 
-         return Redirect::action('UnidadMonetariaController@index');
+        return View::make('unidadmonetarias.show')
+        		->with('monetaryUnity', $UM);
 	}
 
 	/**

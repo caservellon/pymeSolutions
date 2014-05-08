@@ -62,8 +62,13 @@
 <div class="form-group">
         <h4>Porcentaje de Descuento : {{{ $Producto->INV_Producto_PorcentajeDescuento }}}</h4>
 </div>
-<div class="form-group">
-    <h4>Estado : {{{ $Producto->INV_Producto_Activo ? 'Activo' : 'Desactivado' }}} </h4>   
+<div class="form-group"><h4>Estado : 
+	@if($Producto->INV_Producto_Activo == 1)
+        Activado
+    @else
+    	Desactivado
+    @endif
+    </h4>    
 </div>
 <div class="form-group">
         <h4>Categoría ID : {{{ $Producto->INV_Categoria_ID }}}</h4>

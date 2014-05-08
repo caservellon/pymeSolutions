@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Ciudad &gt; <small>Nueva Ciudad</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Ciudad') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('Inventario/Ciudad') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 
@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>
     </div>    
 

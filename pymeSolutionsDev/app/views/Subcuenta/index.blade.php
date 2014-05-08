@@ -3,14 +3,6 @@
 @section('main')
 
 <h1>Subcuentas</h1>
-<div class="btn-agregar">
-    <a type="button" href="{{URL::to('contabilidad/configuracion/subcuentas/create')}}"  class="btn btn-success">
-      <span class="glyphicon glyphicon-plus"></span> Agregar Sub-Cuenta
-    </a>
-
-    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad/configuracion/catalogocuentas')}}">
-    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
-</div>
 
 
 @if ($Subcuenta->count())
@@ -29,7 +21,7 @@
 					@foreach($Catalogo as $Cuenta)
 					@foreach($Clasificacion as $Clasi)
 						@if($Cuenta->CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID == $Clasi->CON_ClasificacionCuenta_ID && $Subcuentum->CON_CatalogoContable_ID == $Cuenta->CON_CatalogoContable_ID)
-							<td>{{{$Clasi->CON_ClasificacionCuenta_Categoria}}}.{{{$Clasi->CON_ClasificacionCuenta_Subcategoria}}}.{{{ $Cuenta->CON_CatalogoContable_Codigo }}}.{{{$Subcuentum->CON_Subcuenta_Codigo}}}</td>
+						<td>{{{$Clasi->CON_ClasificacionCuenta_Codigo}}}-{{{$Cuenta->CON_CatalogoContable_Codigo}}}-{{{$Subcuentum->CON_Subcuenta_Codigo}}}</td>
 						@endif
 					@endforeach
 					@endforeach

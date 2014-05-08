@@ -21,9 +21,7 @@ class CatalogoContablesController extends BaseController {
 	 */
 	public function index()
 	{
-		$Catalogo = $this->CatalogoContable	->orderby('CON_CatalogoContable_Codigo')
-											->orderby('CON_CatalogoContable_CodigoSubcuenta')
-											->get();
+		$Catalogo = $this->CatalogoContable->all();
 		$clasi = ClasificacionCuenta::all();
 
 		return View::make('CatalogoContables.index',compact('clasi'))
@@ -45,8 +43,6 @@ class CatalogoContablesController extends BaseController {
     	$selected2 = array();
     	$naturaleza  = array('0' => 'Deudor','1' => 'Acreedor' );
     	$selected3 = array();
-    	$codigos = array();
-    	
 		return View::make('CatalogoContables.create',compact('clasi', 'selected','esta','selected2','naturaleza','selected3'));
 	}
 
@@ -64,10 +60,10 @@ class CatalogoContablesController extends BaseController {
 		{
 			$this->CatalogoContable->create($input);
 
-			return Redirect::action('CatalogoContablesController@index');
+			return Redirect::route('catalogo-contable.index');
 		}
 
-		return Redirect::action('CatalogoContablesController@create')
+		return Redirect::route('catalogo-contable.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -130,7 +126,7 @@ class CatalogoContablesController extends BaseController {
 				$CatalogoContable->update($input);
 
 				//return Redirect::route('CatalogoContables.show', $id);
-				return Redirect::action('CatalogoContablesController@index', $id);
+				return Redirect::action('CatalogoContablesController@show', $id);
 			}
 	
 			
@@ -184,9 +180,6 @@ class CatalogoContablesController extends BaseController {
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');*/
 	}
-
-
-
 
 	/**
 	 * Remove the specified resource from storage.

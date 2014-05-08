@@ -39,10 +39,10 @@
 					<td>{{{ $Horario->INV_Horario_UsuarioCreacion }}}</td>
 					<td>{{{ $Horario->INV_Horario_FechaModificacion }}}</td>
 					<td>{{{ $Horario->INV_Horario_UsuarioModificacion }}}</td>
-                    <td>{{ link_to_route('Inventario.Horarios.edit', 'Editar', array($Horario->INV_Horario_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.Horarios.edit', 'Edit', array($Horario->INV_Horario_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Horarios.destroy', $Horario->INV_Horario_ID))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

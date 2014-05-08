@@ -26,6 +26,32 @@ class BonoDeComprasController extends BaseController {
 		return View::make('BonoDeCompras.index', compact('BonoDeCompras'));
 	}
 
+	public function validar()
+	{
+		$codigoBono = Input::get('bono');
+		$bono = BonoDeCompra::where('VEN_BonoDeCompra_Numero', $codigoBono)->firstOrFail();
+		$estadoBono = $bono->VEN_EstadoBono_VEN_EstadoBono_id;
+
+		if ($estadoBono == 1) {
+			return 'vigente';
+		}
+
+		if ($estadoBono == 2) {
+			return 'vencido';
+		}
+
+		if ($estadoBono == 3) {
+			return 'canjeado';
+		}
+
+	}
+
+	public function valor()
+	{
+		$codigoBono = Input::get('bono');
+		return $bono = BonoDeCompra::where('VEN_BonoDeCompra_Numero', $codigoBono)->firstOrFail()->VEN_BonoDeCompra_Valor;
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *

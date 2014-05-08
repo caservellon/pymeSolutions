@@ -17,10 +17,6 @@ ClassLoader::addDirectories(array(
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
-	app_path().'/classes',
-	app_path().'/libs',
-    app_path().'/helpers',
-	
 
 ));
 
@@ -70,21 +66,7 @@ App::down(function()
 {
 	return Response::make("Be right back!", 503);
 });
-/*
-|--------------------------------------------------------------------------
-| Custom Form Macros
-|--------------------------------------------------------------------------
-|
-*/
- 
-Form::macro('custom', function($type, $name, $value = null, $options = array()) {
-    $value = ((is_null($value) or $value == '')) ? Input::old($name) : $value;
-    $input =  '<input type="'. $type .'" name="' . $name . '" value="' . $value . '"';
-    foreach ($options as $key => $value) {
-        $input .= ' ' . $key . '="' . $value . '"';
-    }
-    return $input.'>';
-});
+
 /*
 |--------------------------------------------------------------------------
 | Require The Filters File
@@ -95,7 +77,6 @@ Form::macro('custom', function($type, $name, $value = null, $options = array()) 
 | definitions instead of putting them all in the main routes file.
 |
 */
-
 
 require app_path().'/filters.php';
 require app_path().'/validators.php';

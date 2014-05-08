@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Atributo &gt; <small>Editar Atributo</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Atributos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('Inventario/Atributos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 
@@ -36,8 +36,8 @@
     {{ Form::hidden('INV_Atributo_FechaModificacion', date('Y-m-d H:i:s')) }}
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Inventario.Atributos.show', 'Cancelar', $Atributo->INV_Atributo_ID, array('class' => 'btn')) }}
+            {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
+            {{ link_to_route('Inventario.Atributos.show', 'Cancel', $Atributo->INV_Atributo_ID, array('class' => 'btn')) }}
       </div>
     </div>
 {{ Form::close() }}

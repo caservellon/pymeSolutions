@@ -54,12 +54,12 @@ class SubcuentaController extends BaseController {
 		{
 			$this->Subcuentum->create($input);
 
-			return Redirect::action('SubcuentaController@index');
+			return Redirect::route('subcuenta.index');
 		}
 		$Catalogo =CatalogoContable::all()->lists('CON_CatalogoContable_Nombre','CON_CatalogoContable_ID');
     	$selected = array();
 
-		return Redirect::action('SubcuentaController@create',compact('Catalogo','selected'))
+		return Redirect::route('subcuenta.create',compact('Catalogo','selected'))
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');

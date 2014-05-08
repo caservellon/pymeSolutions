@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Horario &gt; <small>Editar Horario</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Inventario/Horarios') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('Inventario/Horarios') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 {{ Form::model($Horario, array('method' => 'PATCH', 'route' => array('Inventario.Horarios.update', $Horario->INV_Horario_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
@@ -35,7 +35,7 @@
     {{ Form::hidden('INV_Horario_FechaModificacion', date('Y-m-d H:i:s')) }} 
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 {{ Form::close() }}

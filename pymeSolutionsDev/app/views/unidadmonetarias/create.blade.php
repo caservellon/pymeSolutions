@@ -2,56 +2,41 @@
 
 @section('main')
 
-<div class='page-header clearfix'>
-<h2>Unidad Monetaria > <small>Crear</small>
-    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::route('unidadmonetaria')}}">
-    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
 
-</div>
+<h1>Create Unidad Monetaria</h1>
+
 @include('_messages.errors')
 
-{{ Form::open(array('url' => 'contabilidad/configuracion/unidadmonetaria','class'=>'form-horizontal','role'=>'form')) }}
+{{ Form::open(array('url' => 'contabilidad/configuracion/unidadmonetaria')) }}
 
         <div class="form-group">
-            {{ Form::label('CON_UnidadMonetaria_Nombre', 'Nombre:*') }}
-            <div class='col-md-5'>
-            {{ Form::text('CON_UnidadMonetaria_Nombre','',array('maxlength'=>'45','placeholder'=>'Nombre de la uindad monetaria')) }}
-            </div>
+            {{ Form::label('CON_UnidadMonetaria_Nombre', 'Nombre:') }}
+            {{ Form::text('CON_UnidadMonetaria_Nombre','',array('maxlength'=>'45')) }}
         </div>
 
         <div class="form-group">
-            {{ Form::label('CON_UnidadMonetaria_TasaConversion', 'Tasa Conversion:*') }}
-            <div class='col-md-2'>
-                {{ Form::text('CON_UnidadMonetaria_TasaConversion','',array('maxlength'=>'5','placeholder'=>'##.##')) }}
-            </div>
+            {{ Form::label('CON_UnidadMonetaria_TasaConversion', 'Tasa Conversion:') }}
+            {{ Form::text('CON_UnidadMonetaria_TasaConversion','',array('maxlength'=>'5','placeholder'=>'##.##')) }}
         </div>
 
 
         <div class="form-group">
             {{ Form::label('CON_UnidadMonetaria_Observacion', 'Observacion:') }}
-            <div class='col-md-8'>
-            {{ Form::text('CON_UnidadMonetaria_Observacion','',array('maxlength'=>'255','placeholder'=>'Breve descripcion Ej: Pais de la moneda')) }}
-            </div>
+            {{ Form::text('CON_UnidadMonetaria_Observacion','',array('maxlength'=>'255')) }}
         </div>
 
 		<div class="form-group">
-            <div class='col-md-3'>
-			{{ Form::submit('Agregar unidad monetaria', array('class' => 'btn btn-success')) }}
-            </div>
+			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
 		</div>
 	
 {{ Form::close() }}
 
 
-
-@stop
-
-@section('contabilidad_scripts')
-    <script type="text/javascript">
-    $(document).ready(function(){
+<script type="text/javascript">
+	$(document).ready(function(){
 
         $("input").addClass("form-control");
-        $("label").addClass('col-md-2 control-label pull-left');
+
     });
 
 </script>

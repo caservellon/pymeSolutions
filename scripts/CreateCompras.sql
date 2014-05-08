@@ -1,3 +1,10 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+CREATE SCHEMA IF NOT EXISTS `pymeERP` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `pymeERP` ;
+
 -- -----------------------------------------------------
 -- Table `pymeERP`.`COM_SolicitudCotizacion`
 -- -----------------------------------------------------
@@ -6,9 +13,9 @@ DROP TABLE IF EXISTS `pymeERP`.`COM_SolicitudCotizacion` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_SolicitudCotizacion` (
   `COM_SolicitudCotizacion_IdSolicitudCotizacion` INT NOT NULL AUTO_INCREMENT,
   `COM_SolicitudCotizacion_Codigo` VARCHAR(16) NOT NULL,
-  `COM_SolicitudCotizacion_FechaEmision` DATETIME NOT NULL,
+  `COM_SolicitudCotizacion_FechaEmision` DATE NOT NULL,
   `COM_SolicitudCotizacion_DireccionEntrega` VARCHAR(120) NOT NULL,
-  `COM_SolicitudCotizacion_FechaEntrega` DATETIME NOT NULL,
+  `COM_SolicitudCotizacion_FechaEntrega` DATE NOT NULL,
   `COM_SolicitudCotizacion_Recibido` TINYINT(1) NULL,
   `COM_SolicitudCotizacion_Activo` TINYINT(1) NOT NULL,
   `COM_SolicitudCotizacion_FechaCreacion` DATE NOT NULL,
@@ -28,14 +35,14 @@ DROP TABLE IF EXISTS `pymeERP`.`COM_Cotizacion` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_Cotizacion` (
   `COM_Cotizacion_IdCotizacion` INT NOT NULL AUTO_INCREMENT,
   `COM_Cotizacion_Codigo` VARCHAR(16) NOT NULL,
-  `COM_Cotizacion_FechaEmision` DATETIME NOT NULL,
-  `COM_Cotizacion_FechaEntrega` DATETIME NOT NULL,
+  `COM_Cotizacion_FechaEmision` DATE NOT NULL,
+  `COM_Cotizacion_FechaEntrega` DATE NOT NULL,
   `COM_Cotizacion_Activo` TINYINT(1) NOT NULL,
-  `COM_Cotizacion_Total` DECIMAL(19,4) NOT NULL,
-  `COM_Cotizacion_Vigencia` DATETIME NOT NULL,
+  `COM_Cotizacion_Total` FLOAT NOT NULL,
+  `COM_Cotizacion_Vigencia` DATE NOT NULL,
   `COM_Cotizacion_NumeroCotizacion` VARCHAR(45) NOT NULL,
-  `COM_Cotizacion_FechaCreacion` DATETIME NOT NULL,
-  `COM_Cotizacion_FechaModificacion` DATETIME NULL,
+  `COM_Cotizacion_FechaCreacion` DATE NOT NULL,
+  `COM_Cotizacion_FechaModificacion` DATE NULL,
   `COM_SolicitudCotizacion_idSolicitudCotizacion` INT NOT NULL,
   `COM_Usuario_idUsuarioCreo` INT NOT NULL,
   `COM_Proveedor_idProveedor` INT NOT NULL,
@@ -59,14 +66,13 @@ DROP TABLE IF EXISTS `pymeERP`.`COM_OrdenCompra` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_OrdenCompra` (
   `COM_OrdenCompra_IdOrdenCompra` INT NOT NULL AUTO_INCREMENT,
   `COM_OrdenCompra_Codigo` VARCHAR(16) NOT NULL,
-  `COM_OrdenCompra_FechaEmision` DATETIME NOT NULL,
-  `COM_OrdenCompra_FechaEntrega` DATETIME NOT NULL,
+  `COM_OrdenCompra_FechaEmision` DATE NOT NULL,
+  `COM_OrdenCompra_FechaEntrega` DATE NOT NULL,
   `COM_OrdenCompra_DireccionEntrega` VARCHAR(120) NOT NULL,
   `COM_OrdenCompra_Activo` TINYINT(1) NOT NULL,
-  `COM_OrdenCompra_Total` DECIMAL(19,4) NOT NULL,
-  `COM_OrdenCompra_FechaCreacion` DATETIME NOT NULL,
-  `COM_OrdenCompra_FormaPago` INT NOT NULL,
-  `COM_OrdenCompra_FechaModificacion` DATETIME NULL,
+  `COM_OrdenCompra_Total` FLOAT NOT NULL,
+  `COM_OrdenCompra_FechaCreacion` DATE NOT NULL,
+  `COM_OrdenCompra_FechaModificacion` DATE NULL,
   `COM_Cotizacion_IdCotizacion` INT NULL,
   `COM_Usuario_IdUsuarioCreo` INT NOT NULL,
   `COM_Proveedor_IdProveedor` INT NOT NULL,
@@ -178,76 +184,81 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleOrdenCompra` (
 ENGINE = InnoDB;
 
 
-CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_EstadoOrdenCompra` (
-  `COM_EstadoOrdenCompra_IdEstadoOrdenCompra` INT(11) NOT NULL AUTO_INCREMENT ,
-  `COM_EstadoOrdenCompra_Codigo` VARCHAR(16) NOT NULL ,
-  `COM_EstadoOrdenCompra_Nombre` VARCHAR(45) NOT NULL ,
-  `COM_EstadoOrdenCompra_Observacion` TEXT NOT NULL ,
-  `COM_EstadoOrdenCompra_Activo` TINYINT(1) NOT NULL ,
-  PRIMARY KEY (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra`) )
+-- -----------------------------------------------------
+-- Table `pymeERP`.`COM_EstadoOrdenCompra`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`COM_EstadoOrdenCompra` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_EstadoOrdenCompra` (
+  `COM_EstadoOrdenCompra_IdEstadoOrdenCompra` INT NOT NULL AUTO_INCREMENT,
+  `COM_EstadoOrdenCompra_Codigo` VARCHAR(16) NOT NULL,
+  `COM_EstadoOrdenCompra_Nombre` VARCHAR(45) NOT NULL,
+  `COM_EstadoOrdenCompra_Observacion` TEXT NOT NULL,
+  `COM_EstadoOrdenCompra_Activo` TINYINT(1) NOT NULL,
+  PRIMARY KEY (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra`))
 ENGINE = InnoDB;
 
 
-CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_TransicionEstado` (
-  `COM_TransicionEstado_Id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `COM_TransicionEstado_Codigo` VARCHAR(16) NOT NULL ,
-  `COM_TransicionEstado_Activo` TINYINT(1) NULL DEFAULT NULL ,
-  `COM_OrdenCompra_IdOrdenCompra` INT(11) NOT NULL ,
-  `COM_Usuario_idUsuarioCreo` INT(11) NOT NULL ,
-  `COM_TransicionEstado_FechaCreo` DATETIME NOT NULL ,
-  `COM_TransicionEstado_Observacion` TEXT NULL DEFAULT NULL ,
-  `COM_EstadoOrdenCompra_IdEstAnt` INT(11) NOT NULL ,
-  `COM_EstadoOrdenCompra_IdEstAct` INT(11) NOT NULL ,
-  PRIMARY KEY (`COM_TransicionEstado_Id`) ,
-  INDEX `fk_TransicionEstado_OrdenCompra1_idx` (`COM_OrdenCompra_IdOrdenCompra` ASC) ,
-  UNIQUE INDEX `COM_TransicionEstado_Codigo_UNIQUE` (`COM_TransicionEstado_Codigo` ASC) ,
-  INDEX `fk_COM_TransicionEstado_COM_EstadoOrdenCompra1_idx` (`COM_EstadoOrdenCompra_IdEstAnt` ASC) ,
-  INDEX `fk_COM_TransicionEstado_COM_EstadoOrdenCompra2_idx` (`COM_EstadoOrdenCompra_IdEstAct` ASC) ,
-  CONSTRAINT `fk_TransicionEstado_OrdenCompra1`
-    FOREIGN KEY (`COM_OrdenCompra_IdOrdenCompra` )
-    REFERENCES `pymeERP`.`COM_OrdenCompra` (`COM_OrdenCompra_IdOrdenCompra` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_COM_TransicionEstado_COM_EstadoOrdenCompra1`
-    FOREIGN KEY (`COM_EstadoOrdenCompra_IdEstAnt` )
-    REFERENCES `pymeERP`.`COM_EstadoOrdenCompra` (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_COM_TransicionEstado_COM_EstadoOrdenCompra2`
-    FOREIGN KEY (`COM_EstadoOrdenCompra_IdEstAct` )
-    REFERENCES `pymeERP`.`COM_EstadoOrdenCompra` (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- -----------------------------------------------------
+-- Table `pymeERP`.`COM_OrdenCompra_TransicionEstado`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`COM_OrdenCompra_TransicionEstado` ;
 
-
-CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_OrdenCompra_TransicionEstado` (
-  `COM_OrdenCompra_TransicionEstado_Id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `COM_OrdenCompra_TransicionEstado_Observacion` TEXT NOT NULL ,
-  `COM_OrdenCompra_TransicionEstado_EstadoActual` INT(11) NOT NULL ,
-  `COM_OrdenCompra_TransicionEstado_EstadoPrevio` INT(11) NOT NULL ,
-  `COM_OrdenCompra_TransicionEstado_EstadoPosterior` INT(11) NOT NULL ,
-  INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra1_idx` (`COM_OrdenCompra_TransicionEstado_EstadoPrevio` ASC) ,
-  INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra2_idx` (`COM_OrdenCompra_TransicionEstado_EstadoPosterior` ASC) ,
-  INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra3_idx` (`COM_OrdenCompra_TransicionEstado_EstadoActual` ASC) ,
-  PRIMARY KEY (`COM_OrdenCompra_TransicionEstado_Id`) ,
+CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_OrdenCompra_TransicionEstado` (
+  `COM_OrdenCompra_TransicionEstado_Id` INT NOT NULL AUTO_INCREMENT,
+  `COM_OrdenCompra_TransicionEstado_Observacion` TEXT NOT NULL,
+  `COM_OrdenCompra_TransicionEstado_EstadoActual` INT NOT NULL,
+  `COM_OrdenCompra_TransicionEstado_EstadoPrevio` INT NOT NULL,
+  `COM_OrdenCompra_TransicionEstado_EstadoPosterior` INT NOT NULL,
+  INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra1_idx` (`COM_OrdenCompra_TransicionEstado_EstadoPrevio` ASC),
+  INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra2_idx` (`COM_OrdenCompra_TransicionEstado_EstadoPosterior` ASC),
+  INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra3_idx` (`COM_OrdenCompra_TransicionEstado_EstadoActual` ASC),
+  PRIMARY KEY (`COM_OrdenCompra_TransicionEstado_Id`),
   CONSTRAINT `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra1`
-    FOREIGN KEY (`COM_OrdenCompra_TransicionEstado_EstadoPrevio` )
-    REFERENCES `pymeERP`.`COM_EstadoOrdenCompra` (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra` )
+    FOREIGN KEY (`COM_OrdenCompra_TransicionEstado_EstadoPrevio`)
+    REFERENCES `pymeERP`.`COM_EstadoOrdenCompra` (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra2`
-    FOREIGN KEY (`COM_OrdenCompra_TransicionEstado_EstadoPosterior` )
-    REFERENCES `pymeERP`.`COM_EstadoOrdenCompra` (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra` )
+    FOREIGN KEY (`COM_OrdenCompra_TransicionEstado_EstadoPosterior`)
+    REFERENCES `pymeERP`.`COM_EstadoOrdenCompra` (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra3`
-    FOREIGN KEY (`COM_OrdenCompra_TransicionEstado_EstadoActual` )
-    REFERENCES `pymeERP`.`COM_EstadoOrdenCompra` (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra` )
+    FOREIGN KEY (`COM_OrdenCompra_TransicionEstado_EstadoActual`)
+    REFERENCES `pymeERP`.`COM_EstadoOrdenCompra` (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`COM_TransicionEstado`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`COM_TransicionEstado` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_TransicionEstado` (
+  `COM_TransicionEstado_Id` INT NOT NULL AUTO_INCREMENT,
+  `COM_TransicionEstado_Codigo` VARCHAR(16) NULL,
+  `COM_TransicionEstado_Activo` TINYINT(1) NULL,
+  `COM_OrdenCompra_IdOrdenCompra` INT NOT NULL,
+  `COM_OrdenCompra_TransicionEstado_Id` INT NOT NULL,
+  `COM_Usuario_idUsuarioCreo` INT NOT NULL,
+  `Usuario_idUsuarioModifico` INT NULL,
+  PRIMARY KEY (`COM_TransicionEstado_Id`),
+  INDEX `fk_TransicionEstado_OrdenCompra1_idx` (`COM_OrdenCompra_IdOrdenCompra` ASC),
+  INDEX `fk_COM_TransicionEstado_COM_OrdenCompra_TransicionEstado1_idx` (`COM_OrdenCompra_TransicionEstado_Id` ASC),
+  CONSTRAINT `fk_TransicionEstado_OrdenCompra1`
+    FOREIGN KEY (`COM_OrdenCompra_IdOrdenCompra`)
+    REFERENCES `pymeERP`.`COM_OrdenCompra` (`COM_OrdenCompra_IdOrdenCompra`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_COM_TransicionEstado_COM_OrdenCompra_TransicionEstado1`
+    FOREIGN KEY (`COM_OrdenCompra_TransicionEstado_Id`)
+    REFERENCES `pymeERP`.`COM_OrdenCompra_TransicionEstado` (`COM_OrdenCompra_TransicionEstado_Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -292,3 +303,15 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_ValorCampoLocal` (
 ENGINE = InnoDB;
 
 
+
+
+
+
+
+
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

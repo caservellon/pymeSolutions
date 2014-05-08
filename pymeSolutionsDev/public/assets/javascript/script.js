@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
 
 	// ---------------- Devoluciones ------------------------------
@@ -71,13 +71,91 @@ $(document).ready(function(){
 
 	// ---------------- Caja de Venta - POS ------------------------------
 
+	$('.search-cliente').on('click', function(){
+		if ($('.Tipo_de_Cliente').val() == '0') {
+			$.post('/CRM/Personas/buscar',{
+				'name' : $('.cliente').val()
+			}).success(function(data){
+				$.each(data, function(i, value){
+					$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
+				});
+			})
+		} else {
+			$.post('/CRM/Empresas/buscar',{
+				'name' : $('.cliente').val()
+			}).success(function(data){
+				$.each(data, function(i, value){
+					$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombres']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+				});
+			})
+		};
+		
+		$('#buscarCliente').modal('show');
+	});
+
+	$('.agregar-cliente-sel').on('click', function(){
+		var nodoCliente = $("tbody.clientes-buscados-list tr.highlight");
+		var cliente = nodoCliente.find('td:eq(1)').text() + " " +nodoCliente.find('td:eq(2)').text();
+		$('.id-cliente-buscado').val(nodoCliente.find('td:eq(0)').text());
+		$('.cliente').val(cliente);
+		$('#buscarCliente').modal('hide');
+	});
+
 	if($('#pro-list-table').length){
         actualizarTotales();
-    };
+        $('#no-valido').hide();
+ 		$('#valido').hide();
+ 		$('#no-existe').hide();
+    }
 
+    //Bono de Compra
+    $('.add-bono-modal-bt').on('click', function(){
+    	$('#agregarPago').modal('hide');
+    	$('#agregarBono').modal('show');
+    });
+
+    $('.cerrar-bono-modal').on('click', function(){
+    	$('#agregarPago').modal('show');
+    	$('#agregarBono').modal('hide');	
+    });
+
+    $('.veri-bono').on('click', function(){
+    	$('#no-valido').hide();
+ 		$('#valido').hide();
+ 		$('#no-existe').hide();
+    	$.post('/Ventas/BonoDeCompras/validar',{
+    		'bono':$('.bono-compra-tb').val()
+    	}).success(function(data){
+    		if (data == 'vigente') {
+    			$('#valido').show();
+    			$.post('/Ventas/BonoDeCompras/valor',{
+    				'bono':$('.bono-compra-tb').val()
+    			}).success(function(pago){
+    				pago = parseFloat(pago);
+					pago = 'Lps. ' + pago;
+					$('.pagos-list').append('<tr><td>Bono de Compra</td><td>'+pago+'</td></tr>');
+					actualizarPagos();
+    				actualizarTotales();
+    			});
+    			
+				
+    		};
+    		if (data == 'vencido') {
+    			$('#no-valido').hide();
+    		};
+
+    		if (data == 'canjeado') {
+    			$('#no-valido').hide();
+
+    		};
+    	}).fail(function(data){
+    		$('#no-existe').show();
+    	});
+    });
 
 	//Busqueda por AJAX
-	$('.agregar-producto').on('click',function(){
+	$('.cliente').on('click',function(){
+
 		$.post("/Inventario/Productos/", {
 			"searchTerm" : $('.agregar-producto').val()
 		}).success(function(data){
@@ -124,17 +202,20 @@ $(document).ready(function(){
 
 		data.isv = $('.isv').text();
 
+		data.total = $('.grand-total').text();
+
 		data.saldo = $('.saldo-info').text();
 
-		data.tipocliente = '1';
+		data.tipocliente = $('.Tipo_de_Cliente').val();
 
-		data.cliente = $('.cliente').val();
+		data.cliente = $('.id-cliente-buscado').val();
 
-		data.caja = '1';
+		data.caja = '3';
 
 		console.log(data);
 
 		$.post("/Ventas/Ventas/guardar", data).success(function(data){
+			$('.num-factura').text(data);
 			console.log(data);
 			window.print();
 		});
@@ -150,68 +231,6 @@ $(document).ready(function(){
 		var new_tbody = document.createElement('tbody');
 		$('tbody.pro-list').html(new_tbody);
 		actualizarTotales();
-	});
-
-	$("div.campo-local-tipo").change(function() {
-		if($(this).find("select").val() === "LIST"){
-			$("div.value-list").fadeIn();
-		} else {
-			$("div.value-list").fadeOut();
-			$(".value-input").val(""); 
-		}
-	});
-
-	$(".add-value").click(function(ev) {
-		var input = $('.value-input');
-		if (input.val() === "" || input.val().indexOf(';') !== -1) {
-			input.val('');
-			input.focus();
-			return false;
-		}
-
-		$("ul.list-group").append("<li class=\"list-group-item\">" + input.val() + "<button class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-minus\"></span></button></li>");
-		input.val('');
-		input.focus();
-
-		var values = $('.list-group li').map(function(i, el) {
-			return $(el).text();
-		}).toArray().join(';');
-
-		$('.value-list-array').val(values);
-		ev.preventDefault();
-	});
-
-	$(".list-group").on('click', '.list-group-item button', function(ev) {
-		$(this).parent().remove();
-		var values = $('.list-group li').map(function(i, el) {
-			return $(el).text();
-		}).toArray().join(';');
-
-		$('.value-list-array').val(values);
-		ev.preventDefault();
-	});
-
-	// ------------------------ Campo Local Productos
-
-	$('.input-campo-local').on('blur', function(){
-		$.post('/Inventario/Productos/campolocalsave',{
-			'nombre': $('.input-campo-local').attr('id'),
-			'valor': $('.input-campo-local').val(),
-			'codigoprod': $("input[name=INV_Producto_ID]").val()
-		}).success(function(data){
-			console.log(data);
-		});
-	});
-
-	// ------------------------ Campo Local Proveedor
-	$('.input-campo-local').on('blur', function(){
-		$.post('/Inventario/Proveedor/campolocalsave',{
-			'nombre': $('.input-campo-local').attr('id'),
-			'valor': $('.input-campo-local').val(),
-			'codigoprod': $("input[name=INV_Proveedor_ID]").val()
-		}).success(function(data){
-			console.log(data);
-		});
 	});
 
 	//Eliminar producto seleccionado
@@ -233,6 +252,16 @@ $(document).ready(function(){
 
 	$('.table').on('blur', '.edit-cant', function(){
 		var content = $("tbody.pro-list tr.highlight").find('.edit-cant').val();
+		$.post('/Ventas/Ventas/checkStock', {
+			'codigo': $("tbody.pro-list tr.highlight").find('.cod').text()
+		}).success(function(data){
+			if (data == 0) {
+				$("tbody.pro-list tr.highlight").find('.nombre').append('<spam class="glyphicon glyphicon-remove"></spam>');
+			};
+			if (data < 5) {
+				$("tbody.pro-list tr.highlight").find('.nombre').append('<spam class="glyphicon glyphicon-info-sign"></spam>');
+			};
+		});
 		$("tbody.pro-list tr.highlight").find('.cantidad').text(content);
 		var newTotal = content * (($("tbody.pro-list tr.highlight").find('.precio').text()).substring(5));
 		$("tbody.pro-list tr.highlight").find('.total-art').text("Lps. " + newTotal);
@@ -289,7 +318,7 @@ $(document).ready(function(){
 		$('#agregarDescuento').modal('hide');
 	});
 
-	//Actualiza los totales
+	//Actualiza los pagos
 	function actualizarPagos(){
 		var table = document.getElementById('pagos-tabla');
 		var pagos = 0;
@@ -325,26 +354,50 @@ $(document).ready(function(){
 		actualizarPagos();
 	}
 
-	function setearTotalcc(valor,x){
-	    var a= valor.elements[x].value;
-	    var b=valor.elements[x+1].value;
-	    var c=valor.elements[x+2].value;
-	    var total=(a*b);
-	    valor.elements[x+2].value=total;
-	    document.getElementById("total").value-=c;
-	    document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
-	    valor.elements[valor.length-3].value=document.getElementById("total").value;
-	}
+	//Campos Locales y CRM
 
-	function setearTotalcp(valor,x){
-	    var a= valor.elements[x-1].value;
-	    var b=valor.elements[x].value;
-	    var c=valor.elements[x+1].value;
-	    var total=(a*b);
-	    valor.elements[x+1].value=total;
-	    document.getElementById("total").value-=c;
-	    document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
-	    valor.elements[valor.length-3].value=document.getElementById("total").value;
+	$("a.local-field-btn").on("click",function(){
 
-        }
+	});
+
+	$("div.campo-local-tipo").change(function() {
+		if($(this).find("select").val() === "LIST"){
+			$("div.value-list").fadeIn();
+		} else {
+			$("div.value-list").fadeOut();
+			$(".value-input").val(""); 
+		}
+
+	});
+
+	$(".add-value").click(function(ev) {
+		var input = $('.value-input');
+		if (input.val() === "" || input.val().indexOf(';') !== -1) {
+			input.val('');
+			input.focus();
+			return false;
+		}
+
+		$("ul.list-group").append("<li class=\"list-group-item\">" + input.val() + "<button class=\"btn btn-danger pull-right\"><span class=\"glyphicon glyphicon-minus\"></span></button></li>");
+		input.val('');
+		input.focus();
+
+		var values = $('.list-group li').map(function(i, el) {
+			return $(el).text();
+		}).toArray().join(';');
+
+		$('.value-list-array').val(values);
+		ev.preventDefault();
+	});
+
+	$(".list-group").on('click', '.list-group-item button', function(ev) {
+		$(this).parent().remove();
+		var values = $('.list-group li').map(function(i, el) {
+			return $(el).text();
+		}).toArray().join(';');
+
+		$('.value-list-array').val(values);
+		ev.preventDefault();
+	});
+
 });
