@@ -89,7 +89,7 @@
 				<br><br>
 				
 				<label>Fecha de Vigencia</label>
-				{{Form::text('VigenciaCotizacion', date('Y/m/d H:i:s'))}}
+				{{Form::custom('datetime-local','VigenciaCotizacion', date('Y/m/d H:i:s'))}}
 				
 				<br><br>
 				
