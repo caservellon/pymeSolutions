@@ -75,6 +75,87 @@ $(document).ready(function(){
         actualizarTotales();
     };
 
+    $('.search-cliente').on('click', function(){
+		if ($('.Tipo_de_Cliente').val() == '0') {
+			$.post('/CRM/Personas/buscar',{
+				'name' : $('.cliente').val()
+			}).success(function(data){
+				$.each(data, function(i, value){
+					$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
+				});
+			})
+		} else {
+			$.post('/CRM/Empresas/buscar',{
+				'name' : $('.cliente').val()
+			}).success(function(data){
+				$.each(data, function(i, value){
+					$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombres']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+				});
+			})
+		};
+
+		$('#buscarCliente').modal('show');
+	});
+
+	$('.agregar-cliente-sel').on('click', function(){
+		var nodoCliente = $("tbody.clientes-buscados-list tr.highlight");
+		var cliente = nodoCliente.find('td:eq(1)').text() + " " +nodoCliente.find('td:eq(2)').text();
+		$('.id-cliente-buscado').val(nodoCliente.find('td:eq(0)').text());
+		$('.cliente').val(cliente);
+		$('#buscarCliente').modal('hide');
+	});
+
+	if($('#pro-list-table').length){
+        actualizarTotales();
+        $('#no-valido').hide();
+ 		$('#valido').hide();
+ 		$('#no-existe').hide();
+    }
+
+    //Bono de Compra
+    $('.add-bono-modal-bt').on('click', function(){
+    	$('#agregarPago').modal('hide');
+    	$('#agregarBono').modal('show');
+    });
+
+    $('.cerrar-bono-modal').on('click', function(){
+    	$('#agregarPago').modal('show');
+    	$('#agregarBono').modal('hide');	
+    });
+
+    $('.veri-bono').on('click', function(){
+    	$('#no-valido').hide();
+ 		$('#valido').hide();
+ 		$('#no-existe').hide();
+    	$.post('/Ventas/BonoDeCompras/validar',{
+    		'bono':$('.bono-compra-tb').val()
+    	}).success(function(data){
+    		if (data == 'vigente') {
+    			$('#valido').show();
+    			$.post('/Ventas/BonoDeCompras/valor',{
+    				'bono':$('.bono-compra-tb').val()
+    			}).success(function(pago){
+    				pago = parseFloat(pago);
+					pago = 'Lps. ' + pago;
+					$('.pagos-list').append('<tr><td>Bono de Compra</td><td>'+pago+'</td></tr>');
+					actualizarPagos();
+    				actualizarTotales();
+    			});
+    			
+
+    		};
+    		if (data == 'vencido') {
+    			$('#no-valido').hide();
+    		};
+
+    		if (data == 'canjeado') {
+    			$('#no-valido').hide();
+
+    		};
+    	}).fail(function(data){
+    		$('#no-existe').show();
+    	});
+    });
 
 	//Busqueda por AJAX
 	$('.agregar-producto').on('click',function(){
