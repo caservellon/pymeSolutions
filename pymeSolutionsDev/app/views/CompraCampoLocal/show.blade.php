@@ -54,8 +54,8 @@
 </div>
 
 <div class="form-group">
-		{{ link_to_route('Compras.CampoLocal.edit', 'Edit', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}
-			{{ Form::open(array('method' => 'DELETE', 'route' => array('Compras.CampoLocal.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
+		{{ link_to_route('Compras.Configuracion.CampoLocal.edit', 'Edit', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}
+			{{ Form::open(array('method' => 'DELETE', 'route' => array('Compras.Configuracion.CampoLocal.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
 						{{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
 				{{ Form::close() }}
 </div>

@@ -87,7 +87,7 @@
     <div class="form-group">
         <div class="col-md-5 ">
             {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Compras.Configuracion.CampoLocal.show', 'Cancelar', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
+            {{ link_to_route('Compras.Configuracion.CampoLocal.index', 'Cancelar', null, array('class' => 'btn')) }}
         </div>
     </div>
 
