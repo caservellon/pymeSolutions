@@ -11,6 +11,6 @@ class TipoDocumento extends Eloquent {
 	public static $rules = array(
 		'CRM_TipoDocumento_Codigo' => 'required',
 		'CRM_TipoDocumento_Nombre' => 'required',
-		'CRM_TipoDocumento_Validacion' => 'required'
+		'CRM_TipoDocumento_Validacion' => 'required|is_valid_validation_mask'
 	);
 }
