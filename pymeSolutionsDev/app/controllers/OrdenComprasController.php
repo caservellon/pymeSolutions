@@ -223,13 +223,16 @@ class OrdenComprasController extends BaseController {
              
                 foreach ($input as $in){
                     if(Input::has('comparar'.$contador)){
-                        $cotizaciones[]=Input::get('id_cotizacion'.$contador);
+                        array_push($cotizaciones, Input::get('id_cotizacion'.$contador));
+                        //$cotizaciones[]=Input::get('id_cotizacion'.$contador);
                     }
                     $contador++;
                 }
+
                 if(sizeof($cotizaciones)>1){
+                    $Cotizaciones=Cotizacion::wherein('COM_Cotizacion_IdCotizacion',$cotizaciones)->get();
                     
-                    return View::make('OrdenCompras.CompararCotizaciones',array('cotizaciones'=>$cotizaciones ));
+                return View::make('OrdenCompras.CompararCotizaciones',array('cotizaciones'=>$Cotizaciones ));
                 }else{
                     return 'no se puede comparar cotizaciones';
                 }
@@ -238,9 +241,9 @@ class OrdenComprasController extends BaseController {
         }
         public function FormOrdenCompracnCotizacion(){
             $cotizacion= Cotizacion::find(Input::get('id'));
-            $detalles= DB::table('COM_Detalle_Cotizacion')->select('COM_DetalleCotizacion_IdDetalleCotizacion','COM_DetalleCotizacion_Codigo',
-                                        'COM_DetalleCotizacion_Cantidad','COM_DetalleCotizacion_PrecioUnitario','COM_Cotizacion_IdCotizacion','COM_Producto_Id_Producto',
-                                        'COM_Usuario_idUsuarioCreo','Usuario_idUsuarioModifico')->where('COM_Cotizacion_IdCotizacion','=',$cotizacion->COM_Cotizacion_IdCotizacion)->get();
+            //return Input::get('id');
+            $detalles= COM_DetalleCotizacion::where('COM_DetalleCotizacion_IdCotizacion','=',$cotizacion->COM_Cotizacion_IdCotizacion)->get();
+            /*DB::table('COM_DetalleCotizacion')->select('COM_DetalleCotizacion_IdDetalleCotizacion','COM_DetalleCotizacion_Codigo','COM_DetalleCotizacion_Cantidad','COM_DetalleCotizacion_PrecioUnitario','COM_DetalleCotizacion_IdCotizacion','COM_Producto_Id_Producto','COM_Usuario_idUsuarioCreo')->where('COM_DetalleCotizacion_IdCotizacion','=',$cotizacion->COM_Cotizacion_IdCotizacion)->get();*/
             $productos=array();
             foreach ($detalles as $detalle){
                 $productos[]=$detalle->COM_Producto_Id_Producto;
@@ -253,6 +256,7 @@ class OrdenComprasController extends BaseController {
          public function guardarOCcnCOT(){
              $input=Input::all();
              $contador=0;
+              $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_OC%')->get();
 
              //se extrae las reglas de un modelo relacionado
                 $validacionCampos = OrdenCompra::$rule;

@@ -56,7 +56,7 @@
                       ?>
                       @foreach ($productos as $product)
                       <?php $product1=  Producto::find($productos[$contador]);
-                            $detcot=DB::select('SELECT * FROM COM_Detalle_Cotizacion WHERE  COM_Cotizacion_IdCotizacion = ?', array($id_cot));
+                            $detcot=DB::select('SELECT * FROM COM_DetalleCotizacion WHERE  COM_DetalleCotizacion_IdCotizacion = ?', array($id_cot));
                             $cantidad=null;
                             $precioUnitario=null;
                             foreach ($detcot as $det){
@@ -98,7 +98,7 @@
         {{date('Y/m/d H:i:s')}}
         
         <label>Fecha Entrega</label>
-        {{Form::custom('date','COM_OrdenCompra_FechaEntrega','2014/03/17',array('format'=>'AAAA/MM/DD','required '=>'required '))}}
+        {{Form::custom('datetime-local','COM_OrdenCompra_FechaEntrega','2014/03/17',array('format'=>'AAAA/MM/DD','required '=>'required '))}}
         
         <br>
         <label>Forma de Pago</label>
@@ -133,7 +133,50 @@
 </div>
 <div class="row" >
     <div class="col-md-6" >{{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}<label>Activo</label></div>
-    <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
+    <div class="col-md-6" style="text-align: right">
+          <div class="form-group" id="campos Locales"> 
+     
+      <?/* usar lo q se ocupa */?>
+
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              @if ($campo->GEN_CampoLocal_Requerido)
+                                                             
+                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                        <td>*{{  Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
+                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                       <td>* {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
+                    @endif
+                    @else
+                        @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
+                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
+                    @endif
+                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+                       <td> {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
+                    @endif
+
+               @endif
+            
+        @endforeach                   
+  </div>
+
+        <h5>Nombre del Oficial de Compras</h5>
+    </div>
 </div>
 
 <div class="row">
