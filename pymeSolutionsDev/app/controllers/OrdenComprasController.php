@@ -491,7 +491,7 @@ class OrdenComprasController extends BaseController {
         public function HistorialOrden(){
              $input=Input::all();
              $id=Input::get('id');
-             $trans= HistorialEstadoOrdenCompra::where('COM_OrdenCompra_IdOrdenCompra','=',$id)->paginate();
+             $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$id)->paginate();
             
             return View::make('OrdenCompras.HistorialOrden',array('historial'=>$trans));
         
