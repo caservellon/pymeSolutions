@@ -49,6 +49,7 @@
 					success: function(data){
 						$("#h4-"+ob.h4).removeClass('alert-info').addClass('alert-success');
 						$("#bar").attr('style','width:'+ob.barWidth);
+						console.log(data);
 						if(params.length==(n+1)){
 							$('.progress').removeClass('active');
 							$('#btn-cierre').remove();
@@ -56,6 +57,7 @@
 						}
 						n++;
 						ajax_calls(params,n);
+
 					},
 					error: function(xhr){
 						console.log(xhr.responseText);

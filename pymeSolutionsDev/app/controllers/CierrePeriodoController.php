@@ -30,7 +30,7 @@ class CierrePeriodoController extends BaseController {
 				$periodo=$CP[$i]->PeriodosContables()->orderBy('CON_PeriodoContable_FechaFinal','Desc')->take(1)->get()[0];
 				$final_date=$periodo->CON_PeriodoContable_FechaFinal;
 				if ($final_date>$actual_date){
-					continue;
+					//continue;
 				}
 				$array[$counter][0]=$CP[$i];
 				$array[$counter][1]=$periodo;
@@ -44,9 +44,12 @@ class CierrePeriodoController extends BaseController {
 
     public function mayorizar(){
     	if (Request::ajax()){
-    		$periodo=Cache::get('PeriodoContable');
-    		$result=DB::statement(DB::raw('CALL CON_Mayorizacion(?,?)'),
-    			array($periodo->CON_PeriodoContable_ID,$periodo->CON_PeriodoContable_FechaFinal));
+
+            
+              $periodo=Cache::get('PeriodoContable');
+    		  $result=DB::select('CALL CON_Mayorizacion(?,?);',
+    			 array($periodo->CON_PeriodoContable_ID,$periodo->CON_PeriodoContable_FechaFinal));
+           
     		return json_encode($result);
     	}
     	return "error";
