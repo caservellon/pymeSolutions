@@ -231,17 +231,23 @@ class Helpers {
 			-> get();
 			
 			if (count($query) == 0){
-				return False;
+
+				return false;
 			}
 			
-			return True;
+			return true;
+
 	}
 	
 	
 	public static function EstadoActualOrdenCompra($CodigoOrdenCompra){
 		$query = DB::table('COM_OrdenCompra')
 			-> join('COM_TransicionEstado', 'COM_OrdenCompra_IdOrdenCompra', '=', 'COM_TransicionEstado_IdOrdenCompra')
+
+			-> join('COM_OrdenCompra_TransicionEstado', 'COM_EstadoOrdenCompra_IdEstAct', '=', 'COM_OrdenCompra_TransicionEstado_Id')
+
 			-> join('COM_OrdenCompra_TransicionEstado', 'COM_TransicionEstado_OrdenCompra_TransicionEstado_Id', '=', 'COM_OrdenCompra_TransicionEstado_Id')
+
 			-> join('COM_EstadoOrdenCompra', 'COM_OrdenCompra_TransicionEstado_EstadoActual', '=', 'COM_EstadoOrdenCompra_IdEstadoOrdenCompra')
 			-> select('COM_EstadoOrdenCompra_Nombre as Nombre')
 			-> where('COM_OrdenCompra_Codigo', '=', $CodigoOrdenCompra)
