@@ -34,8 +34,6 @@
                     <h4>{{$cotization->COM_Cotizacion_Codigo}}</h4>
                      <a href="{{ route('ComCot', array('id'=>$cotization->COM_Cotizacion_IdCotizacion)) }}" class="btn btn-info">Crear Orden de Compara para esta Cotizacion</a>
                       <?php $detalles= COM_DetalleCotizacion::where('COM_DetalleCotizacion_IdCotizacion', '=',$cotization->COM_Cotizacion_IdCotizacion)->get();
-                      /*DB::table('COM_DetalleCotizacion')->select('COM_DetalleCotizacion_IdDetalleCotizacion','COM_DetalleCotizacion_Codigo','COM_DetalleCotizacion_Cantidad','COM_DetalleCotizacion_PrecioUnitario','COM_DetalleCotizacion_IdCotizacion','COM_Producto_Id_Producto',
-                                        'COM_Usuario_idUsuarioCreo','Usuario_idUsuarioModifico')->where('COM_DetalleCotizacion_IdCotizacion','=',$cotization->COM_Cotizacion_IdCotizacion)->get();*/
                                         
                                         ?>
 
@@ -57,11 +55,7 @@
                         <tbody >
                             <tr>
 
-                                <!--<th>Coca Cola Lata</th>
-                                <td>Lps. 450</td>
-                                <td>lps. 500</td>
-                                <td>lps. 100</td>
-                                <td>lps. 600</td>-->
+                               
 
                                 @foreach($detalles as $detalle)
                                 <td>{{$detalle->COM_DetalleCotizacion_PrecioUnitario*$detalle->COM_DetalleCotizacion_Cantidad}}</td>

@@ -132,9 +132,38 @@
     </div>
 </div>
 <div class="row" >
-    <div class="col-md-6" >{{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}<label>Activo</label></div>
+    <div class="col-md-6" >
+        {{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}<label>Activo</label>
+          <div class="form-group" id="campos Locales otros"> 
+     
+      <?/* usar lo q se ocupa */?>
+      <h5>Campos Locales de Solicitud de Cotizacion</h5>
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              <?php 
+                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
+              ?>
+              {{$valores->COM_ValorCampoLocal_Valor}}
+              
+        @endforeach
+        <hr>
+        <h5>Campos Locales de Cotizacion</h5>
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              <?php 
+                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
+              ?>
+              {{$valores->COM_ValorCampoLocal_Valor}}
+              
+        @endforeach                   
+  </div>
+    </div>
     <div class="col-md-6" style="text-align: right">
-          <div class="form-group" id="campos Locales"> 
+          <div class="form-group" id="campos Locales compras"> 
      
       <?/* usar lo q se ocupa */?>
 
