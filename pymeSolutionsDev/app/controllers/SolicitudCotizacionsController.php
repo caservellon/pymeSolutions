@@ -126,7 +126,7 @@ class SolicitudCotizacionsController extends BaseController {
 					$val = $val.'Integer|';
 					break;
 				case 'FLOAT':
-					$val = $val.'Numeric|';
+					$val = $val.'decimal|';
 					break;				
 				default:
 					break;
@@ -163,15 +163,7 @@ class SolicitudCotizacionsController extends BaseController {
                     $solicitudCotizacion->COM_Usuario_idUsuarioCreo=1;
                     $solicitudCotizacion->Proveedor_idProveedor=$proveedor[$i];
                     $solicitudCotizacion->save();
-                    foreach($campos as $campo){
-                        $valorcampolocal = new ValorCampoLocal;
-                        $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
-                        $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
-                        $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
-                        $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
-                         $valorcampolocal->save();
-                                
-                    }
+                    
                     
                     $prov_prod = DB::table('INV_Producto_Proveedor')->get();
                     foreach($prov_prod as $key){
@@ -187,11 +179,20 @@ class SolicitudCotizacionsController extends BaseController {
                                 $detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
                                 $detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
                                 $detallesolicitud->COM_Usuario_idUsuarioCreo=1;
+                                $detallesolicitud->save();
                                 
+                                foreach($campos as $campo){
+                                    $valorcampolocal = new ValorCampoLocal;
+                                    $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
+                                    $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
+                                    $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
+                                    $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
+                                    $valorcampolocal->save();
                                 
+                                }
                                     
                                    
-                                    $detallesolicitud->save();
+                                    
                                 
                                 
                                 }
