@@ -110,7 +110,7 @@ class CotizacionController extends BaseController {
 		
 		foreach ($Input as $Precio){
 			$PrecioUnitario['COM_DetalleCotizacion_PrecioUnitario'] = $Precio;
-			$Validacion = Validator::make($PrecioUnitario, COM_Detalle_Cotizacion::$rules, COM_Detalle_Cotizacion::$messages);
+			$Validacion = Validator::make($PrecioUnitario, COM_DetalleCotizacion::$rules, COM_DetalleCotizacion::$messages);
 			
 			if($Validacion->fails()){
 				$HayErrores = true;
@@ -136,7 +136,7 @@ class CotizacionController extends BaseController {
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
 		
 		$RegistroActualCotizacion = Cotizacion::all() -> count() + 1;
-		$RegistroActualDetalleCotizacion =  COM_Detalle_Cotizacion::all() -> count() + 1;
+		$RegistroActualDetalleCotizacion =  COM_DetalleCotizacion::all() -> count() + 1;
 		
 		$Cotizacion = new Cotizacion;
 		$Cotizacion -> COM_Cotizacion_Codigo = 'COM_COT_'.$RegistroActualCotizacion;
@@ -175,7 +175,7 @@ class CotizacionController extends BaseController {
 			
 			if ($ProductoSolicitudCotizacion != Null){
 			
-				$DetalleCotizacion = new COM_Detalle_Cotizacion;
+				$DetalleCotizacion = new COM_DetalleCotizacion;
 				$DetalleCotizacion -> COM_DetalleCotizacion_Codigo = 'DC' . $RegistroActualDetalleCotizacion;
 				$DetalleCotizacion -> COM_DetalleCotizacion_Cantidad = $ProductoSolicitudCotizacion[0] -> Cantidad;
 				$DetalleCotizacion -> COM_DetalleCotizacion_PrecioUnitario = current($Input);
