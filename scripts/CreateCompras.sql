@@ -132,9 +132,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `pymeERP`.`COM_Detalle_Cotizacion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `pymeERP`.`COM_Detalle_Cotizacion` ;
+DROP TABLE IF EXISTS `pymeERP`.`COM_DetalleCotizacion` ;
 
-CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_Detalle_Cotizacion` (
+CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleCotizacion` (
   `COM_DetalleCotizacion_IdDetalleCotizacion` INT NOT NULL AUTO_INCREMENT,
   `COM_DetalleCotizacion_Codigo` VARCHAR(16) NOT NULL,
   `COM_DetalleCotizacion_Cantidad` INT NOT NULL,
