@@ -201,12 +201,17 @@ class SolicitudCotizacionsController extends BaseController {
                     
                     }
                     $ruta = route('Compras.SolicitudCotizacions.index');
+                    //captura el id la solicitud de cotizacion
                     $email[]=$detalle;
+                    //captura el id del proveedor a quien se lo quiere mandar
                     $enviar= Proveedor::find($proveedor[$i]);
                     if($enviar->INV_Proveedor_Email == NULL){
-                       $imprimir= $proveedor[$i];
+                    //guarda al que no se manda
+                    $imprimir[]= $proveedor[$i];
                     }else{
-                        $correo= $proveedor[$i];
+                        //manda para imprimir a los que se les manda correo, use para agarrar array de proveedores
+                        $correo[]= $proveedor[$i];
+                        //metodo de enviar el correo, 'emailscompra' es el view,  
                          Mail::send('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
                         $message->subject('Solicitud ');
                             $message->to($enviar->INV_Proveedor_Email);
