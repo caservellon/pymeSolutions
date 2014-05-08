@@ -20,7 +20,7 @@
 			@if ($Error == 'Seleccion Multiple')
 				<li class="alert alert-danger">Debe seleccionar solamente una solicitud de cotizacion para poder capturar</li>
 			@elseif ($Error == 'Ya Capturada')
-				<li class="alert alert-danger">La cotizacion seleccionada ya ha sido capturada</li>
+				<li class="alert alert-danger">La solicitud de cotizacion seleccionada ya ha sido capturada</li>
 			@elseif ($Error == 'Sin Seleccion')
 				<li class="alert alert-danger">Debe seleccionar una solicitud de cotizacion para poder capturar</li>
 			@endif

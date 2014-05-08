@@ -167,7 +167,7 @@ class Helpers {
 	
 	public static function InformacionProductosCotizacion($CodigoCotizacion){
 		$Consulta = DB::table('COM_Cotizacion')
-			-> join('COM_Detalle_Cotizacion', 'COM_Cotizacion_IdCotizacion', '=', 'COM_DetalleCotizacion_IdCotizacion')
+			-> join('COM_DetalleCotizacion', 'COM_Cotizacion_IdCotizacion', '=', 'COM_DetalleCotizacion_IdCotizacion')
 			-> join('INV_Producto', 'COM_Producto_Id_Producto', '=', 'INV_Producto_ID')
 			-> select('INV_Producto_Codigo as Codigo',
 					  'INV_Producto_Nombre as Nombre',

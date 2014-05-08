@@ -75,11 +75,34 @@ class CotizacionController extends BaseController {
 		//return(var_dump($Input));
 		$HayErrores = false;
 		
+		foreach ($Input as $Precio){
+			$PrecioUnitario['COM_DetalleCotizacion_PrecioUnitario'] = $Precio;
+			$Validacion = Validator::make($PrecioUnitario, COM_DetalleCotizacion::$rules, COM_DetalleCotizacion::$messages);
+			
+			if($Validacion->fails()){
+				$HayErrores = true;
+				break;
+			}
+		}
+		
+		if ($HayErrores){
+			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
+			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($Validacion);
+		}
+		
+		$Cotizacion['COM_Cotizacion_Codigo'] = Input::get('CodigoCotizacion');
+		$Cotizacion['COM_Cotizacion_Vigencia'] = Input::get('VigenciaCotizacion');
+		$Validacion = Validator::make($Cotizacion, Cotizacion::$rules, Cotizacion::$messages);
+		
+		if($Validacion->fails()){
+			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
+			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($Validacion);
+		}
+		
 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_COT%')->get();
 		$res = Cotizacion::$rules;
                 
-                
-            foreach ($campos as $campo) {
+        foreach ($campos as $campo) {
 			$val = '';
 			if ($campo->GEN_CampoLocal_Requerido) {
 				$val = $val.'Required|';
@@ -108,29 +131,6 @@ class CotizacionController extends BaseController {
 			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($validation);
 		} 
 		
-		foreach ($Input as $Precio){
-			$PrecioUnitario['COM_DetalleCotizacion_PrecioUnitario'] = $Precio;
-			$Validacion = Validator::make($PrecioUnitario, COM_DetalleCotizacion::$rules, COM_DetalleCotizacion::$messages);
-			
-			if($Validacion->fails()){
-				$HayErrores = true;
-				break;
-			}
-		}
-		
-		if ($HayErrores){
-			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
-			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($Validacion);
-		}
-		
-		$Cotizacion['COM_Cotizacion_Codigo'] = Input::get('CodigoCotizacion');
-		$Cotizacion['COM_Cotizacion_Vigencia'] = Input::get('VigenciaCotizacion');
-		$Validacion = Validator::make($Cotizacion, Cotizacion::$rules, Cotizacion::$messages);
-		
-		if($Validacion->fails()){
-			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
-			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($Validacion);
-		}
 		
 		$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
@@ -159,14 +159,14 @@ class CotizacionController extends BaseController {
 		$Total = 0;
 		
 		foreach($campos as $campo){
-                        $valorcampolocal = new ValorCampoLocal;
-                        $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
-                        $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
-                        $valorcampolocal->COM_Cotizacion_IdCotizacion=$RegistroActualCotizacion;
-                        $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
-                         $valorcampolocal->save();
-                                
-                    }
+			$valorcampolocal = new ValorCampoLocal;
+			$valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
+			$valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
+			$valorcampolocal->COM_Cotizacion_IdCotizacion=$RegistroActualCotizacion;
+			$valorcampolocal->COM_Usuario_idUsuarioCreo=1;
+			$valorcampolocal->save();
+                           
+        }
 		
 		reset($Input);
 		
