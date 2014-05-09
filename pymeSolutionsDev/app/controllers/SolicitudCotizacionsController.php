@@ -113,7 +113,11 @@ class SolicitudCotizacionsController extends BaseController {
                 
                 $cualquierProducto=Input::get('cualquiera');
                 
-                foreach ($campos as $campo) {
+                
+                for ($j=0; $j< count($proveedor); $j++){
+                    
+                   foreach ($campos as $campo) {
+                    
 			$val = '';
 			if ($campo->GEN_CampoLocal_Requerido) {
 				$val = $val.'Required|';
@@ -131,13 +135,14 @@ class SolicitudCotizacionsController extends BaseController {
 				default:
 					break;
 			}
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo.$proveedor[$j] => $val));
 //                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
+                   }
                         
-		}
+		} 
                 for ($j=0; $j< count($cualquierProducto); $j++){
                     
-                        
+                   
                     $temp = $cualquierProducto[$j];
                     $res=array_merge($res,array('CantidadSolicitar'.$temp => 'Required|Integer|min:1'));
                 }
@@ -164,6 +169,19 @@ class SolicitudCotizacionsController extends BaseController {
                     $solicitudCotizacion->Proveedor_idProveedor=$proveedor[$i];
                     $solicitudCotizacion->save();
                     
+                    foreach($campos as $campo){
+                                   // return $campo->GEN_CampoLocal_Codigo;
+                                    $valorcampolocal = new ValorCampoLocal;
+                                    
+                                    $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo.$proveedor[$i]);
+                                    
+                                    $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
+                                    $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
+                                    $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
+                                    $valorcampolocal->save();
+                                    
+                                  
+                                }
                     
                     $prov_prod = DB::table('INV_Producto_Proveedor')->get();
                     foreach($prov_prod as $key){
@@ -181,15 +199,8 @@ class SolicitudCotizacionsController extends BaseController {
                                 $detallesolicitud->COM_Usuario_idUsuarioCreo=1;
                                 $detallesolicitud->save();
                                 
-                                foreach($campos as $campo){
-                                    $valorcampolocal = new ValorCampoLocal;
-                                    $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
-                                    $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
-                                    $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
-                                    $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
-                                    $valorcampolocal->save();
+                                 
                                 
-                                }
                                     
                                    
                                     
@@ -229,8 +240,9 @@ class SolicitudCotizacionsController extends BaseController {
                     
                 
               }
-              return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))->withErrors($validation)
-			->with('message', 'There were validation errors.');
+              return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
+                     ->withErrors($validation)
+                     ->with('message', 'There were validation errors.');
 	}
         
         public function detalle(){
