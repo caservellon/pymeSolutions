@@ -72,6 +72,7 @@ class CotizacionController extends BaseController {
 	
 	public function CapturarCotizacionCapturar(){
 		$Input = Input::except(array('_token', 'CodigoSolicitudCotizacion', 'VigenciaCotizacion'));
+		//return var_dump(Input::all());
 		$HayErrores = false;
 		
 		$CodigoProducto = array_keys($Input);
@@ -105,7 +106,7 @@ class CotizacionController extends BaseController {
 		}
 		
 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_COT%')->get();
-		$res = Cotizacion::$rules;
+		$res = Cotizacion::$rule;
                 
         foreach ($campos as $campo) {
 			$val = '';
@@ -171,8 +172,7 @@ class CotizacionController extends BaseController {
 			$valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
 			$valorcampolocal->COM_Cotizacion_IdCotizacion=$RegistroActualCotizacion;
 			$valorcampolocal->COM_Usuario_idUsuarioCreo=1;
-			$valorcampolocal->save();
-                           
+			$valorcampolocal->save();             
         }
 		
 		reset($Input);
