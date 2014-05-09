@@ -46,47 +46,59 @@
         <h5>{{$proveedores->INV_Proveedor_Telefono}}</h5>
     </div>
 </div>
-<hr>
-<?php $prov_prod = DB::table('INV_Producto_Proveedor')->get(); ?>
 
 
-@foreach($prov_prod as $key)
-@if($proveedores->INV_Proveedor_ID == $key->INV_Proveedor_ID)
-@for($i=0; $i < count($cualquierProducto); $i++)
+<div class="table-responsive">
+                <table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				
+				<th>Nombre</th>
+				<th>Descripcion</th>
+                                <th>Cantidad a Solicitar</th>
+                                <th>Unidad</th>
+                               
+                                
+			</tr>
+		</thead>
 
-<?php $cualquierProducto1 = Producto::find($cualquierProducto[$i]); ?>
-@if($cualquierProducto1->INV_Producto_ID == $key->INV_Producto_ID)
-<div class="row">
-    <div class="form-group">
-        {{ Form::label('Producto', 'Producto', array('class' => 'col-md-2 control-label')) }}
-        <div class="col-md-4">
-            {{ Form::label('$cualquierProducto1->INV_Producto_Nombre',$cualquierProducto1->INV_Producto_Nombre , array('class' => 'col-md-2 control-label')) }}
-        </div>
+		<tbody>
+                    <?php $prov_prod = DB::table('INV_Producto_Proveedor')->get(); ?>
+                    
+                
+                    @foreach($prov_prod as $key)
+                    @if($proveedores->INV_Proveedor_ID == $key->INV_Proveedor_ID)
+			@for($i=0; $i < count($cualquierProducto); $i++)
+                        
+                                    <?php $cualquierProducto1= Producto::find($cualquierProducto[$i]);  ?>
+                                    @if($cualquierProducto1->INV_Producto_ID == $key->INV_Producto_ID)
+                                    <tr>
+					
+                                       
+                                        
+					<td>{{{ $cualquierProducto1->INV_Producto_Nombre }}}</td>
+					<td>{{{ $cualquierProducto1->INV_Producto_Descripcion }}}</td>
+                                        <td>{{Form::text('CantidadSolicitar'.$cualquierProducto1->INV_Producto_ID, null,array('placeholder'=>'##'))}}</td>
+					
+                                        
+                                        <?php $unidad= UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
+                                        <td>{{{ $unidad->INV_UnidadMedida_Nombre }}}</td>
+                                        
+                                       
+                                        
+                                        
+                                </tr>
+                               @endif 
+                           
+                          @endfor
+                    @endif
+                    @endforeach
+                </tbody> 
+             </table>
+          </div>
 
-    </div>
-    <div class="form-group">
-        {{ Form::label('Descripcion', 'Descripcion', array('class' => 'col-md-2 control-label')) }}
-        <div class="col-md-5">
-            {{ Form::label('$cualquierProducto1->INV_Producto_Descripcion',$cualquierProducto1->INV_Producto_Descripcion , array('class' => 'col-md-2 control-label')) }}
-        </div>
 
-    </div>
-    <div class="form-group">
-        {{ Form::label('Cantidad', 'Cantidad', array('class' => 'col-md-2 control-label')) }}
-        <div class="col-md-5">
-            {{Form::text('CantidadSolicitar'.$cualquierProducto1->INV_Producto_ID, null, array('class' => 'form-control', 'id' => 'Cantidad', 'placeholder'=>'##')) }}<label>*</label>
-
-        </div>
-
-    </div>
-    <?php $unidad = UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
-    <div class="form-group">
-        {{ Form::label('Unidad', 'Unidad', array('class' => 'col-md-2 control-label')) }}
-        <div class="col-md-5">
-            {{ Form::label('$unidad->INV_UnidadMedida_Nombre',$unidad->INV_UnidadMedida_Nombre , array('class' => 'col-md-2 control-label')) }}
-        </div>
-
-    </div>
+<div class="col-md-8 " style="text-align: left">
     @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
     <div class="form-group">
         {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
@@ -95,20 +107,20 @@
         @endif
         <div class="col-md-5">
             @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_ID,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID)) }}
-            {{$campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID}}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID)) }}
+            
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_ID,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID)) }}
-            {{$campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID}}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID, 'placeholder'=>'##')) }}
+            
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_ID,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID)) }}
-            {{$campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID}}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID, 'placeholder'=>'#.##')) }}
+            
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-            {{ Form::select($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_ID, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}
-            {{$campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID}}
+            {{ Form::select($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}
+            
             @endif
         </div>
     </div> 
@@ -117,24 +129,6 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-@endif 
-
-@endfor
-@endif
-@endforeach
 
 <div class="row" >
     <div class="col-md-6" ><label></label></div>
