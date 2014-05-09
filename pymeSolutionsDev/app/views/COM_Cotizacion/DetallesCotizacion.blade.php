@@ -13,7 +13,6 @@
 		</div>
 	</div>
 	
-
 	@foreach ($CodigosCotizacion as $CodigoCotizacion)
 		<?php
 			$Cotizacion = Helpers::InformacionCotizacion($CodigoCotizacion);
@@ -67,7 +66,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<label>Forma de Pago: </label>
 					{{ "Efectivo" }}
 					
@@ -77,7 +76,7 @@
 					{{ $Cotizacion[0] -> Vigencia }}
 				</div>
 				
-				<div class="col-md-8" style="text-align: right">
+				<div class="col-md-7" style="text-align: right">
 					<label>Total: </label>
 					{{ $Cotizacion[0] -> Total }}
 				</div>
