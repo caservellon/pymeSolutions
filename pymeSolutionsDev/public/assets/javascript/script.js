@@ -133,7 +133,7 @@ $(document).ready(function(){
     		if (data == 'vigente') {
     			$('#valido').show();
     			$.post('/Ventas/BonoDeCompras/valor',{
-    				'bono':$('.bono-compra-tb').val()
+    				'bono': $('.bono-compra-tb').val()
     			}).success(function(pago){
     				pago = parseFloat(pago);
 					pago = 'Lps. ' + pago;
@@ -154,6 +154,8 @@ $(document).ready(function(){
     		};
     	}).fail(function(data){
     		$('#no-existe').show();
+    		$('.bono-compra-tb').val("");
+
     	});
     });
 
@@ -350,11 +352,14 @@ $(document).ready(function(){
 	//Agregar Pago
 	$('.add-pago-modal-bt').on('click',function(){
 		var pago = $('.ammount-pago').val();
-		pago = parseFloat(pago);
-		pago = 'Lps. ' + pago;
-		$('.pagos-list').append('<tr><td>Efectivo</td><td>'+pago+'</td></tr>');
-
-		actualizarPagos();
+		if(!isNaN(pago)){
+			pago = parseFloat(pago);
+			pago = 'Lps. ' + pago;
+			$('.pagos-list').append('<tr><td>Efectivo</td><td>'+pago+'</td></tr>');
+			actualizarPagos();
+		} else {
+			$('.ammount-pago').val("");
+		}
 	});
 
 	//Setear Descuentos
