@@ -228,6 +228,7 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_OrdenCompra_TransicionEstado` (
   `COM_OrdenCompra_TransicionEstado_EstadoActual` INT(11) NOT NULL ,
   `COM_OrdenCompra_TransicionEstado_EstadoPrevio` INT(11) NOT NULL ,
   `COM_OrdenCompra_TransicionEstado_EstadoPosterior` INT(11) NOT NULL ,
+  `COM_OrdenCompra_TransicionEstado_Activo` TINYINT(1) NOT NULL ,
   INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra1_idx` (`COM_OrdenCompra_TransicionEstado_EstadoPrevio` ASC) ,
   INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra2_idx` (`COM_OrdenCompra_TransicionEstado_EstadoPosterior` ASC) ,
   INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra3_idx` (`COM_OrdenCompra_TransicionEstado_EstadoActual` ASC) ,

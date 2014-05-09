@@ -12,16 +12,11 @@
     <div class=" col-lg-12">
 			<div  class="col-md-9" >
                           
-                                 <div class="col-xs-5 col-sm-6 col-md-12">
-                                    <input type="Text"  style="width: 550px">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg" >
-                                        <span class="glyphicon glyphicon-filter"></span>
-                                    </button>
-                                </div>
+                                
                                 
 			</div>
 			<div class="col-md-3">
-				<input type="button" value="Buscar" id="bpderecho" class="btn btn-default btn-block col-md-6" >
+			
 			</div>
     </div>
     

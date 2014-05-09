@@ -15,13 +15,17 @@ class Cotizacion extends Eloquent {
 		//'COM_Cotizacion_FechaEntrega' => 'required',
 		//'COM_Cotizacion_Activo' => 'required',
 		//'COM_Cotizacion_Total' => 'required',
-		'COM_Cotizacion_Vigencia' => 'date',
+		'COM_Cotizacion_Vigencia' => 'required | date',
 		//'COM_Cotizacion_NumeroCotizacion' => 'required',
 		//'COM_Cotizacion_FechaCreacion' => 'required',
 		//'COM_SolicitudCotizacion_idSolicitudCotizacion' => 'required',
 		//'COM_Usuario_idUsuarioCreo' => 'required',
 		//'COM_Proveedor_idProveedor' => 'required',
 		//'Usuario_idUsuarioModifico' => 'required'
+	);
+	
+	public static $rule = array(
+		
 	);
 	
 	public static $messages = array(

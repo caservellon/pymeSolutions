@@ -38,7 +38,6 @@
 			<div class=" col-lg-12">
 				<div  class="col-md-9">
 					<div class="col-xs-5 col-sm-6 col-md-12">
-						
 					</div>
 				</div>
 				
@@ -63,7 +62,7 @@
 						
 						<tbody >
 							@foreach ($SolicitudesCotizacion as $SolicitudCotizacion)
-								@if ($SolicitudCotizacion -> Activo == 1)
+								@if ($SolicitudCotizacion -> Activo == 1 && $SolicitudCotizacion -> Recibido == 1)
 									<tr>
 										<td>{{ Form::checkbox($SolicitudCotizacion -> Codigo, $SolicitudCotizacion -> Codigo) }}</td>
 										<td>{{ $SolicitudCotizacion -> Codigo }}</td>
