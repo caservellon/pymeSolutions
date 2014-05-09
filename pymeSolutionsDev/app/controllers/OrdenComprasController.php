@@ -439,7 +439,7 @@ class OrdenComprasController extends BaseController {
              $ordenCompra= OrdenCompra::find($id);
              $Detalles=  COMDetalleOrdenCompra::where('COM_DetalleOrdenCompra_idOrdenCompra','=',$id)->get();
              $proveedor=$ordenCompra->COM_Proveedor_IdProveedor;
-             $trans= HistorialEstadoOrdenCompra::where('COM_DetalleOrdenCompra_IdOrdenCompra','=',$id)->get();
+             $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$id)->get();
              
             return View::make('OrdenCompras.AdministrarOrdenCompraDetalles',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
         }
@@ -491,7 +491,7 @@ class OrdenComprasController extends BaseController {
         public function HistorialOrden(){
              $input=Input::all();
              $id=Input::get('id');
-             $trans= HistorialEstadoOrdenCompra::where('COM_OrdenCompra_IdOrdenCompra','=',$id)->paginate();
+             $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$id)->paginate();
             
             return View::make('OrdenCompras.HistorialOrden',array('historial'=>$trans));
         
