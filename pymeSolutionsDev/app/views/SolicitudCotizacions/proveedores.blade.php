@@ -127,8 +127,21 @@
     @endforeach
 
 </div>
-
-
+<div class="col-md-4">
+<label>Forma de Pago</label>
+           <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedores->INV_Proveedor_ID)->get();
+                  $form=array();
+                  $id=array();
+                  foreach ($formapago as $forma){
+                         $id[]=$forma->INV_FormaPago_ID;
+                   }
+                   $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+                  
+                 
+           ?>
+           {{ Form::select('formapago'.$proveedores->INV_Proveedor_Nombre,$m) }}
+           
+</div>	
 
 <div class="row" >
     <div class="col-md-6" ><label></label></div>

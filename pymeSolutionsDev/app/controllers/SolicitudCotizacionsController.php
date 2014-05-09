@@ -162,6 +162,7 @@ class SolicitudCotizacionsController extends BaseController {
                     $solicitudCotizacion->COM_SolicitudCotizacion_Codigo='COM_SC_'.$detalle;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaEmision= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_SolicitudCotizacion_DireccionEntrega= 'Los Llanos';
+                    $solicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago'.$temprod->INV_Proveedor_Nombre);
                     $solicitudCotizacion->COM_SolicitudCotizacion_Recibido=0;
                     $solicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d H:i:s');
@@ -346,7 +347,7 @@ class SolicitudCotizacionsController extends BaseController {
         //Querys de las columnas propias del Producto
         
             
-        $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Codigo', 'LIKE', '%'.Input::get('search').'%') 
+        $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Codigo', '=', Input::get('search')) 
         ->orWhere('COM_SolicitudCotizacion_Recibido', '=',  Input::get('search'))
 //        ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
 //        ->orWhere('INV_Producto_Descripcion', 'LIKE',  '%'.Input::get('search').'%')
