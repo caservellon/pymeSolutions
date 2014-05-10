@@ -10,7 +10,7 @@ class Cotizacion extends Eloquent {
 
 	public static $rules = array(
 		//'COM_Cotizacion_Idcotizacion' => 'required',
-		'COM_Cotizacion_Codigo' => 'required | unique:COM_Cotizacion',
+		//'COM_Cotizacion_Codigo' => 'required | unique:COM_Cotizacion',
 		//'COM_Cotizacion_FechaEmision' => 'required',
 		//'COM_Cotizacion_FechaEntrega' => 'required',
 		//'COM_Cotizacion_Activo' => 'required',
@@ -22,6 +22,10 @@ class Cotizacion extends Eloquent {
 		//'COM_Usuario_idUsuarioCreo' => 'required',
 		//'COM_Proveedor_idProveedor' => 'required',
 		//'Usuario_idUsuarioModifico' => 'required'
+	);
+	
+	public static $rule = array(
+		
 	);
 	
 	public static $messages = array(

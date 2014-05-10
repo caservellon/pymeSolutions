@@ -2,36 +2,31 @@
 
 @section('main')
 	
-
 	<?php $SolicitudesCotizacion = Helpers::InformacionSolicitudesCotizacion(); ?>
 
-	<?php echo date("Y-m-d"); $SolicitudesCotizacion = Helpers::InformacionSolicitudesCotizacion(); ?>
-
-	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Capturar Cotizaci&oacute;n</h3>
 			<div class="pull-right">
-				<a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
+				<a href="/Compras/Cotizaciones" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
 			</div>
 		</div>
 	</div>
 	
-
 	@if (Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
 		<ul>
-			@if ($Error == 'Ya Capturada')
-				<li class="alert alert-danger">La cotizacion seleccionada ya ha sido capturada</li>
+			@if ($Error == 'Seleccion Multiple')
+				<li class="alert alert-danger">Debe seleccionar solamente una solicitud de cotizacion para poder capturar</li>
+			@elseif ($Error == 'Ya Capturada')
+				<li class="alert alert-danger">La solicitud de cotizacion seleccionada ya ha sido capturada</li>
 			@elseif ($Error == 'Sin Seleccion')
-				<li class="alert alert-danger">Debe seleccionar una cotizacion antes de capturar</li>
+				<li class="alert alert-danger">Debe seleccionar una solicitud de cotizacion para poder capturar</li>
 			@endif
 		</ul>
 	@endif
 	
-
-
 	{{ Form::open(array('route' => 'search_index')) }}
 		{{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
 		{{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
@@ -43,18 +38,10 @@
 			<div class=" col-lg-12">
 				<div  class="col-md-9">
 					<div class="col-xs-5 col-sm-6 col-md-12">
-						<input type="Text"  style="width: 550px">
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg">
-							<span class="glyphicon glyphicon-filter"></span>
-						</button>
 					</div>
 				</div>
 				
 				<div class="col-md-3">
-
-
-					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
-
 					{{ Form::submit('Capturar', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Capturar')) }}
 				</div>
 			</div>
@@ -74,12 +61,8 @@
 						</thead>
 						
 						<tbody >
-							@foreach($SolicitudesCotizacion as $SolicitudCotizacion)
-
-								@if ($SolicitudCotizacion -> Activo == 1)
-
+							@foreach ($SolicitudesCotizacion as $SolicitudCotizacion)
 								@if ($SolicitudCotizacion -> Activo == 1 && $SolicitudCotizacion -> Recibido == 1)
-
 									<tr>
 										<td>{{ Form::checkbox($SolicitudCotizacion -> Codigo, $SolicitudCotizacion -> Codigo) }}</td>
 										<td>{{ $SolicitudCotizacion -> Codigo }}</td>
@@ -89,11 +72,6 @@
 										
 										@if (Helpers::CotizacionCapturada($SolicitudCotizacion -> Codigo))
 											<td>Capturada</td>
-
-
-										@elseif ($SolicitudCotizacion -> Recibido == 1)
-											<td>Recibida</td>
-
 										@else
 											<td>En Espera</td>
 										@endif

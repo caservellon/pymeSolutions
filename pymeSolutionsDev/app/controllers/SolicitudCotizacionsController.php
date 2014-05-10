@@ -23,6 +23,7 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function index()
 	{
+                
 		$SolicitudCotizacions = SolicitudCotizacion::paginate();
                 $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
                 
@@ -112,31 +113,36 @@ class SolicitudCotizacionsController extends BaseController {
                 
                 $cualquierProducto=Input::get('cualquiera');
                 
-                foreach ($campos as $campo) {
+                
+                for ($j=0; $j< count($proveedor); $j++){
+                   $temprod = Proveedor::find($proveedor[$j]);
+                   foreach ($campos as $campo) {
+                    
 			$val = '';
 			if ($campo->GEN_CampoLocal_Requerido) {
 				$val = $val.'Required|';
 			}
 			switch ($campo->GEN_CampoLocal_Tipo) {
 				case 'TXT':
-					$val = $val.'alpha_spaces|';
+					$val = $val.'alphanum_spaces|';
 					break;				
 				case 'INT':
 					$val = $val.'Integer|';
 					break;
 				case 'FLOAT':
-					$val = $val.'Numeric|';
+					$val = $val.'regex:/^([0-9])*\.[0-9]{2}+$/|';
 					break;				
 				default:
 					break;
 			}
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo.$temprod->INV_Proveedor_Nombre => $val));
 //                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
+                   }
                         
-		}
+		} 
                 for ($j=0; $j< count($cualquierProducto); $j++){
                     
-                        
+                   
                     $temp = $cualquierProducto[$j];
                     $res=array_merge($res,array('CantidadSolicitar'.$temp => 'Required|Integer|min:1'));
                 }
@@ -152,25 +158,31 @@ class SolicitudCotizacionsController extends BaseController {
                     $cont = SolicitudCotizacion::all();
                     $detalle=$cont->count()+1;
                     $solicitudCotizacion = new SolicitudCotizacion();
-                    
+                    $temprod = Proveedor::find($proveedor[$i]);
                     $solicitudCotizacion->COM_SolicitudCotizacion_Codigo='COM_SC_'.$detalle;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaEmision= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_SolicitudCotizacion_DireccionEntrega= 'Los Llanos';
+                    $solicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago'.$temprod->INV_Proveedor_Nombre);
                     $solicitudCotizacion->COM_SolicitudCotizacion_Recibido=0;
                     $solicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_Usuario_idUsuarioCreo=1;
                     $solicitudCotizacion->Proveedor_idProveedor=$proveedor[$i];
                     $solicitudCotizacion->save();
+                    
                     foreach($campos as $campo){
-                        $valorcampolocal = new ValorCampoLocal;
-                        $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
-                        $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
-                        $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
-                        $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
-                         $valorcampolocal->save();
-                                
-                    }
+                                   // return $campo->GEN_CampoLocal_Codigo;
+                                    $valorcampolocal = new ValorCampoLocal;
+                                    
+                                    $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo.$temprod->INV_Proveedor_Nombre);
+                                    
+                                    $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
+                                    $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
+                                    $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
+                                    $valorcampolocal->save();
+                                    
+                                  
+                                }
                     
                     $prov_prod = DB::table('INV_Producto_Proveedor')->get();
                     foreach($prov_prod as $key){
@@ -186,11 +198,13 @@ class SolicitudCotizacionsController extends BaseController {
                                 $detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
                                 $detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
                                 $detallesolicitud->COM_Usuario_idUsuarioCreo=1;
+                                $detallesolicitud->save();
                                 
+                                 
                                 
                                     
                                    
-                                    $detallesolicitud->save();
+                                    
                                 
                                 
                                 }
@@ -200,12 +214,17 @@ class SolicitudCotizacionsController extends BaseController {
                     
                     }
                     $ruta = route('Compras.SolicitudCotizacions.index');
+                    //captura el id la solicitud de cotizacion
                     $email[]=$detalle;
+                    //captura el id del proveedor a quien se lo quiere mandar
                     $enviar= Proveedor::find($proveedor[$i]);
                     if($enviar->INV_Proveedor_Email == NULL){
-                       $imprimir= $proveedor[$i];
+                    //guarda al que no se manda
+                    $imprimir[]= $proveedor[$i];
                     }else{
-                        $correo= $proveedor[$i];
+                        //manda para imprimir a los que se les manda correo, use para agarrar array de proveedores
+                        $correo[]= $proveedor[$i];
+                        //metodo de enviar el correo, 'emailscompra' es el view,  
                          Mail::send('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
                         $message->subject('Solicitud ');
                             $message->to($enviar->INV_Proveedor_Email);
@@ -222,8 +241,9 @@ class SolicitudCotizacionsController extends BaseController {
                     
                 
               }
-              return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))->withErrors($validation)
-			->with('message', 'There were validation errors.');
+              return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
+                     ->withErrors($validation)
+                     ->with('message', 'There were validation errors.');
 	}
         
         public function detalle(){
@@ -274,34 +294,12 @@ class SolicitudCotizacionsController extends BaseController {
 	{
                 $input = Input::except('_method');
                 $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
-		$res = SolicitudCotizacion::$rules;
+		
                 
-                foreach ($campos as $campo) {
-			$val = '';
-			if ($campo->GEN_CampoLocal_Requerido) {
-				$val = $val.'Required|';
-			}
-			switch ($campo->GEN_CampoLocal_Tipo) {
-				case 'TXT':
-					$val = $val.'alpha_spaces|';
-					break;				
-				case 'INT':
-					$val = $val.'Integer|';
-					break;
-				case 'FLOAT':
-					$val = $val.'Numeric|';
-					break;				
-				default:
-					break;
-			}
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
-//                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
-                        
-		}
-                $validation = Validator::make($input, $res);
+                
                 
 
-		if($validation->passes()){
+		
                         $SolicitudCotizacion = SolicitudCotizacion::find($id);
                         $SolicitudCotizacion->COM_SolicitudCotizacion_Recibido=Input::get('COM_SolicitudCotizacion_Recibido');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
@@ -311,23 +309,15 @@ class SolicitudCotizacionsController extends BaseController {
                         }else{
                             $SolicitudCotizacion->COM_SolicitudCotizacion_Activo=0;
                         }
-                        $SolicitudCotizacion->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->lists('GEN_CampoLocal_Codigo')));
-                        foreach ($campos as $campo) {
-				if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$id)->count() > 0 ) {
-				    DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$id)->update(array('COM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
-				}
-			}
+                        
 			$SolicitudCotizacion->update();
 
                          $ruta = route('Compras.SolicitudCotizacions.index');
 			 $mensaje = Mensaje::find(1);
                          return View::make('MensajeCompra', compact('mensaje', 'ruta'));
-                }
                 
-                return Redirect::route('Compras.SolicitudCotizacions.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+                
+                
 		
 	
 
@@ -357,7 +347,7 @@ class SolicitudCotizacionsController extends BaseController {
         //Querys de las columnas propias del Producto
         
             
-        $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Codigo', 'LIKE', '%'.Input::get('search').'%') 
+        $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Codigo', '=', Input::get('search')) 
         ->orWhere('COM_SolicitudCotizacion_Recibido', '=',  Input::get('search'))
 //        ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
 //        ->orWhere('INV_Producto_Descripcion', 'LIKE',  '%'.Input::get('search').'%')

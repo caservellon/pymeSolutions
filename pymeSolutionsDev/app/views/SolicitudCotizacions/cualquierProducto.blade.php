@@ -13,7 +13,7 @@
                <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Continuar', array('class' => 'btn btn-default btn-md')) }}</div>
             </div>       
                 <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				<th>Codigo</th>
