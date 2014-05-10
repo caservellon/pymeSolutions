@@ -289,6 +289,16 @@ $(document).ready(function(){
 		$('#agregarDescuento').modal('hide');
 	});
 
+	//precio 
+	$("div.precio-costo-producto").change(function() {
+		if($(this).find("select").val() === "2"){
+			$("div.agregar-precio").fadeIn();
+		} else {
+			$("div.agregar-precio").fadeOut();
+			$(".value-input").val(""); 
+		}
+	});
+
 	//Actualiza los totales
 	function actualizarPagos(){
 		var table = document.getElementById('pagos-tabla');
