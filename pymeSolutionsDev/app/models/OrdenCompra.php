@@ -7,7 +7,7 @@
  */
 
 
-//public  $fecha=date('Y/m/d H:i:s');
+
 class OrdenCompra extends Eloquent {
 	protected $guarded = array();
     protected $table = 'COM_OrdenCompra';
@@ -19,7 +19,7 @@ class OrdenCompra extends Eloquent {
 		'COM_OrdenCompra_IdOrdenCompra' => 'required',
 		'COM_OrdenCompra_Codigo' => 'required',
 		'COM_OrdenCompra_FechaEmision' => 'required',
-		'COM_OrdenCompra_FechaEntrega' => array('required','after:09/05/14'),
+		'COM_OrdenCompra_FechaEntrega' => array('required'),
 		'COM_OrdenCompra_DireccionEntrega' => 'required',
 		'COM_OrdenCompra_Activo' => 'required',
 		'COM_OrdenCompra_Total' => 'required',

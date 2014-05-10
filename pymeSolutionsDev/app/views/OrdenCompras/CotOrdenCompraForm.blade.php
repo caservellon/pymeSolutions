@@ -100,8 +100,12 @@
         <label>Fecha Entrega *</label>
          {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega','value'=>'','required '=>'required '))}}
 
-          <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
-                        "autodateOnStart": false
+         <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
+                        "autodateOnStart": false,
+                        "futureOnly": true,
+                        "locale":"es",
+                        "minTime": "{{$horaInicio}}",
+                        "maxTime": "{{$horaFinal}}"
                     });
             </script>
              <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
