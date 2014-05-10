@@ -146,9 +146,16 @@
 		       <?/*<a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>*/?>
           <br>
               {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega','value'=>'','required '=>'required '))}}
-
+              <? 
+                $horaInicio='09:00';
+                $horaFinal='19:01';
+              ?>
           <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
-                        "autodateOnStart": false
+                        "autodateOnStart": false,
+                        "futureOnly": true,
+                        "locale":"es",
+                        "minTime": "{{$horaInicio}}",
+                        "maxTime": "{{$horaFinal}}"
                     });
             </script>
              <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>

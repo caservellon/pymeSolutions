@@ -7,12 +7,12 @@
  */
 
 
-
+//public  $fecha=date('Y/m/d H:i:s');
 class OrdenCompra extends Eloquent {
 	protected $guarded = array();
     protected $table = 'COM_OrdenCompra';
 	protected $primaryKey = 'COM_OrdenCompra_IdOrdenCompra';
-
+	 
 	public $timestamps = false;
 	
 	public static $rules = array(
@@ -30,7 +30,9 @@ class OrdenCompra extends Eloquent {
 		'COM_Proveedor_IdProveedor' => 'required',
 		'Usuario_idUsuarioModifico' => 'required'
 	);
+	
 	public static $rule = array(
 		
 	);
 }
+?>
