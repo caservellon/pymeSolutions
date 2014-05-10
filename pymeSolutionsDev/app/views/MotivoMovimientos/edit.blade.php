@@ -27,20 +27,8 @@
         {{ Form::textarea('INV_MotivoMovimiento_Observaciones',$MotivoMovimiento->INV_MotivoMovimiento_Observaciones, array('class' => 'form-control', 'id' => 'INV_MotivoMovimiento_Observaciones', 'placeholder' => 'text', 'rows' => '3' )) }}
       </div>
     </div>
-    <div class="form-group">
-      {{ Form::label('INV_MotivoMovimiento_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::checkbox('INV_MotivoMovimiento_Activo', '1', $MotivoMovimiento->INV_MotivoMovimiento_Activo, array('class' => 'col-md-4 control-label')) }}
-      </div>
-    </div>
-    <div class="form-group">
-      {{ Form::label('INV_MotivoMovimiento_Activo', 'Estado: ', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::select('INV_MotivoMovimiento_Activo', array('1' => 'Activada', '0' => 'Desactivada'), $MotivoMovimiento->INV_MotivoMovimiento_Activo, array('class' => 'col-md-4 form-control')) }}
-      </div>
-    </div>
-    {{ Form::hidden('INV_Categoria_FechaCreacion', date('Y-m-d H:i:s')) }}
-    {{ Form::hidden('INV_Categoria_FechaModificacion', date('Y-m-d H:i:s')) }}
+    {{ Form::hidden('INV_MotivoMovimiento_Activo', $MotivoMovimiento->INV_MotivoMovimiento_Activo) }}
+    {{ Form::hidden('INV_MotivoMovimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
     <div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
