@@ -107,7 +107,7 @@ class CotizacionController extends BaseController {
 		
 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_COT%')->get();
 		$res = Cotizacion::$rule;
-                
+        
         foreach ($campos as $campo) {
 			$val = '';
 			

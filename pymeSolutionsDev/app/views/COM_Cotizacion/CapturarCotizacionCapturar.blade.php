@@ -19,7 +19,7 @@
 	</div>
 	
 	<ul>
-		@foreach($errors->all() as $mensaje)
+		@foreach($errors -> all() as $mensaje)
 			<li class="alert alert-danger">{{$mensaje}}</li>
 		@endforeach
     </ul>
@@ -51,7 +51,7 @@
 							<th>Cantidad</th>
 							<th>Unidad</th>
 							
-							@foreach ($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+							@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
 								<th>{{ $CampoLocalSolicitudCotizacion -> Nombre }}</th>
 							@endforeach
 							
@@ -61,7 +61,7 @@
 					<thead>
 					
 					<tbody>
-						@foreach ($ProductosSolicitudCotizacion as $ProductoSolicitudCotizacion)
+						@foreach($ProductosSolicitudCotizacion as $ProductoSolicitudCotizacion)
 							<tr>
 								<td>{{ $ProductoSolicitudCotizacion -> Codigo }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Nombre }}</td>
@@ -69,7 +69,7 @@
 								<td>{{ $ProductoSolicitudCotizacion -> Cantidad }}</td>
 								<td></td>
 								
-								@foreach ($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+								@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
 									<th>{{ $CampoLocalSolicitudCotizacion -> Valor }}</th>
 								@endforeach
 								
@@ -104,7 +104,7 @@
 			
 			<div class="col-md-3 pull-right" style="text-align: right">
 				<div class="form-group" id="campos Locales">
-					@foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get() as $campo)
+					@foreach(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get() as $campo)
 						<br>
 						<label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
 						<br>      

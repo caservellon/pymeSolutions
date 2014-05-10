@@ -47,6 +47,15 @@ Validator::extend('decimal', function($attribute, $value, $parameters)
 
 });
 
+Validator::extend('mayor_igual_fecha_actual', function($attribute, $value, $parameters)
+{
+	if(date_diff(date_create(date("Y-m-d")), date_create(date_format(date_create($value), 'Y-m-d'))) -> format("%R%a") >= 0){
+		return true;
+	}
+	
+    return false;
+});
+
 Validator::extend('is_positive', function($attribute, $value, $parameters)
 {
 	return $value > 0;

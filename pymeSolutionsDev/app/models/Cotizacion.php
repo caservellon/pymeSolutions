@@ -15,7 +15,7 @@ class Cotizacion extends Eloquent {
 		//'COM_Cotizacion_FechaEntrega' => 'required',
 		//'COM_Cotizacion_Activo' => 'required',
 		//'COM_Cotizacion_Total' => 'required',
-		'COM_Cotizacion_Vigencia' => 'required | date',
+		'COM_Cotizacion_Vigencia' => 'required | date | mayor_igual_fecha_actual'
 		//'COM_Cotizacion_NumeroCotizacion' => 'required',
 		//'COM_Cotizacion_FechaCreacion' => 'required',
 		//'COM_SolicitudCotizacion_idSolicitudCotizacion' => 'required',
@@ -32,7 +32,8 @@ class Cotizacion extends Eloquent {
 		'COM_Cotizacion_Codigo.required' => 'El Codigo de Cotizacion es requerido',
 		'COM_Cotizacion_Codigo.unique' => 'El Codigo de Cotizacion debe ser unico',
 		'COM_Cotizacion_Vigencia.required' => 'La Fecha de Vigencia es requerida',
-		'COM_Cotizacion_Vigencia.date' => 'La Fecha de Vigencia debe tener un formato de fecha valido'
+		'COM_Cotizacion_Vigencia.date' => 'La Fecha de Vigencia debe tener un formato de fecha valido',
+		'COM_Cotizacion_Vigencia.mayor_igual_fecha_actual' => 'La Fecha de Vigencia debe ser mayor o igual que la fecha actual'
 	);
         
         public function valorcampolocal(){
