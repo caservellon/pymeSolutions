@@ -14,11 +14,12 @@ class OrdenCompra extends Eloquent {
 	protected $primaryKey = 'COM_OrdenCompra_IdOrdenCompra';
 
 	public $timestamps = false;
+	
 	public static $rules = array(
 		'COM_OrdenCompra_IdOrdenCompra' => 'required',
 		'COM_OrdenCompra_Codigo' => 'required',
 		'COM_OrdenCompra_FechaEmision' => 'required',
-		'COM_OrdenCompra_FechaEntrega' => 'required',
+		'COM_OrdenCompra_FechaEntrega' => array('required','after:09/05/14'),
 		'COM_OrdenCompra_DireccionEntrega' => 'required',
 		'COM_OrdenCompra_Activo' => 'required',
 		'COM_OrdenCompra_Total' => 'required',

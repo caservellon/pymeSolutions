@@ -97,8 +97,23 @@
         <label>Fecha Emision</label>
         {{date('Y/m/d H:i:s')}}
         
-        <label>Fecha Entrega</label>
-        {{Form::custom('datetime-local','COM_OrdenCompra_FechaEntrega','2014/03/17',array('format'=>'AAAA/MM/DD','required '=>'required '))}}
+        <label>Fecha Entrega *</label>
+         {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega','value'=>'','required '=>'required '))}}
+
+          <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
+                        "autodateOnStart": false
+                    });
+            </script>
+             <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
+          
+          <hr>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
         
         <br>
         <label>Forma de Pago</label>
