@@ -2,12 +2,27 @@
 
 @section('main')
 
+
 <div class="page-header clearfix">
       <h3 class="pull-left">Tipo de Documento &gt; <small>Editar Tipo</small></h3>
       <div class="pull-right">
         <a href="{{{ URL::to('CRM/TipoDocumentos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
+</div>
+@endif
 
 {{ Form::model($TipoDocumento, array('method' => 'PATCH', 'route' => array('CRM.TipoDocumentos.update', $TipoDocumento->CRM_TipoDocumento_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
 	<div>
@@ -41,10 +56,6 @@
     </div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+
 
 @stop

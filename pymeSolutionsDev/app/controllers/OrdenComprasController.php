@@ -213,7 +213,7 @@ class OrdenComprasController extends BaseController {
         
         //funciones hechas para crear una orden de Compra Con Cotizacion
         public function OrdenCompracnCotizacion(){
-             $cotizaciones = Cotizacion::where('COM_Cotizacion_Activo','=',1)->get();
+             $cotizaciones = Cotizacion::where('COM_Cotizacion_Vigente','=',1)->get();
             return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion',array('cotizaciones'=> $cotizaciones));
         }
          public function ComparaCotizaciones(){
@@ -234,7 +234,7 @@ class OrdenComprasController extends BaseController {
                     
                 return View::make('OrdenCompras.CompararCotizaciones',array('cotizaciones'=>$Cotizaciones ));
                 }else{
-                    return 'no se puede comparar cotizaciones';
+                    return Redirect::route('ComCot', array('id'=>$cotizaciones[0]));
                 }
              
             return View::make('OrdenCompras.CompararCotizaciones');

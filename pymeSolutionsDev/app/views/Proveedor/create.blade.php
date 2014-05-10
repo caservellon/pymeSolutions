@@ -7,7 +7,20 @@
         <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
-
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
+</div>
+@endif
 
 
 {{ Form::open(array('route' => 'Inventario.Proveedor.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
@@ -123,11 +136,7 @@
 
 {{ Form::close() }}
 
-@if ($errors->any())
-    <ul>
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-@endif
+
 
 @stop
 

@@ -5,21 +5,30 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Persona &gt; <small>Crear Persona</small></h3>
       <div class="pull-right">
-        <a href="/CRM/Personas" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="/CRM/Personas" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
 @if ($errors->any())
-    <ul>
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
         {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
+      </ul>
+      
+</div>
 @endif
 
 {{ Form::open(array('route' => 'CRM.Personas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
         <div class="campo-local-tipo form-group">
             <div class="col-md-5">
-                {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+                {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
             </div>
         </div>
 
@@ -117,7 +126,7 @@
         @endforeach
 
 		<div class="col-md-5">
-            {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
         </div>
 	</div>
 {{ Form::close() }}
