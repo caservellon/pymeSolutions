@@ -17,6 +17,9 @@
 		<?php
 			$Cotizacion = Helpers::InformacionCotizacion($CodigoCotizacion);
 			$ProductosCotizacion = Helpers::InformacionProductosCotizacion($CodigoCotizacion);
+			$SolicitudCotizacionDeCotizacion = Helpers::InformacionSolicitudCotizacionDeCotizacion($CodigoCotizacion);
+			$CamposLocalesSolicitudCotizacion = Helpers::InformacionCamposLocalesSolicitudCotizacion($SolicitudCotizacionDeCotizacion[0] -> Codigo);
+			$CamposLocalesCotizaciones = Helpers::InformacionCamposLocalesCotizaciones();
 		?>
 		
 		{{ Form::open() }}
@@ -43,6 +46,11 @@
 								<th>Descripcion</th>
 								<th>Cantidad</th>
 								<th>Unidad</th>
+								
+								@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+									<th>{{ $CampoLocalSolicitudCotizacion -> Nombre }}</th>
+								@endforeach
+								
 								<th>Precio Unitario</th>
 								<th>Total</th>
 							</tr>
@@ -55,7 +63,12 @@
 									<td>{{ $ProductoCotizacion -> Nombre }}</td>
 									<td>{{ $ProductoCotizacion -> Descripcion }}</td>
 									<td>{{ $ProductoCotizacion -> Cantidad }}</td>
-									<td></td>
+									<td>{{ $ProductoCotizacion -> Unidad }}</td>
+									
+									@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+										<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
+									@endforeach
+									
 									<td>Lps. {{ $ProductoCotizacion -> Precio }}</td>
 									<td>Lps. {{ $ProductoCotizacion -> Cantidad * $ProductoCotizacion -> Precio }}</td>
 								</tr>
@@ -80,7 +93,44 @@
 					<label>Total: </label>
 					{{ $Cotizacion[0] -> Total }}
 				</div>
+				
+				<br>
+				<br>
+				
+				<div class="col-md-5 pull-right" style="text-align: right">
+					<div class="form-group" id="campos Locales">
+						{{--
+						<h4 class="text-center">Campos de Solicitud de Cotizaci&oacute;n</h4>
+						
+						@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+							<br>
+							<label class="pull-left">{{ $CampoLocalSolicitudCotizacion -> Nombre }}</label>
+							{{ Form::text($CampoLocalSolicitudCotizacion -> Valor, $CampoLocalSolicitudCotizacion -> Valor, array('class' => 'form-control', 'disabled')) }}
+						@endforeach
+						--}}
+						<br>
+						<br>
+						
+						@if(Helpers::TieneCamposLocalesCotizacion($CodigoCotizacion))
+							<h4 class="text-center">Campos de Cotizaci&oacute;n</h4>
+						
+							@foreach($CamposLocalesCotizaciones as $CampoLocalCotizaciones)
+								<?php $ValorCampoLocalCotizacion = Helpers::InformacionCampoLocalCotizacion($CampoLocalCotizaciones -> Codigo, $CodigoCotizacion) ?> 
+								
+								@if(count($ValorCampoLocalCotizacion) != 0)
+									<br>
+									<label class="pull-left">{{{ $CampoLocalCotizaciones -> Nombre }}}</label>
+									
+									{{ Form::text($CampoLocalCotizaciones -> Codigo, $ValorCampoLocalCotizacion[0] -> Valor, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo, 'disabled')) }}
+								@endif
+							@endforeach
+						@endif
+					</div>
+				</div>
 			</div>
+			
+			<br>
+			<br>
 		{{ Form::close() }}
 	@endforeach
 

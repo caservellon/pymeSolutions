@@ -96,10 +96,12 @@ class Helpers {
 		$Consulta = DB::table('COM_SolicitudCotizacion')
 			-> join('COM_DetalleSolicitudCotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'SolicitudCotizacion_idSolicitudCotizacion')
 			-> join('INV_Producto', 'Producto_idProducto', '=', 'INV_Producto_ID')
+			-> join('INV_UnidadMedida', 'INV_Producto.INV_UnidadMedida_ID', '=', 'INV_UnidadMedida.INV_UnidadMedida_ID')
 			-> select('INV_Producto_Codigo as Codigo',
 					  'INV_Producto_Nombre as Nombre',
 					  'INV_Producto_Descripcion as Descripcion',
-					  'cantidad as Cantidad'
+					  'cantidad as Cantidad',
+					  'INV_UnidadMedida_Nombre as Unidad'
 					)
 			-> where('COM_SolicitudCotizacion_Codigo', '=', $CodigoSolicitudCotizacion)
 			-> orderBy('cantidad', 'desc')
@@ -128,6 +130,7 @@ class Helpers {
 			-> select('GEN_CampoLocal_Nombre as Nombre',
 					  'COM_ValorCampoLocal_Valor as Valor')
 			-> where('COM_SolicitudCotizacion_Codigo', '=', $CodigoSolicitudCotizacion)
+			-> where('GEN_CampoLocal_Activo', '=', 1)
 			-> get();
 			
 		return $Consulta;
@@ -169,10 +172,12 @@ class Helpers {
 		$Consulta = DB::table('COM_Cotizacion')
 			-> join('COM_DetalleCotizacion', 'COM_Cotizacion_IdCotizacion', '=', 'COM_DetalleCotizacion_IdCotizacion')
 			-> join('INV_Producto', 'COM_Producto_Id_Producto', '=', 'INV_Producto_ID')
+			-> join('INV_UnidadMedida', 'INV_Producto.INV_UnidadMedida_ID', '=', 'INV_UnidadMedida.INV_UnidadMedida_ID')
 			-> select('INV_Producto_Codigo as Codigo',
 					  'INV_Producto_Nombre as Nombre',
 					  'INV_Producto_Descripcion as Descripcion',
 					  'COM_DetalleCotizacion_Cantidad as Cantidad',
+					  'INV_UnidadMedida_Nombre as Unidad',
 					  'COM_DetalleCotizacion_PrecioUnitario as Precio'
 					  )
 			-> where('COM_Cotizacion_Codigo', '=', $CodigoCotizacion)
@@ -180,6 +185,57 @@ class Helpers {
 			-> get();
 			
 		return $Consulta;
+	}
+	
+	public static function InformacionCamposLocalesCotizaciones(){
+		$Consulta = DB::table('GEN_CampoLocal')
+			-> select('GEN_CampoLocal_ID as Id',
+					  'GEN_CampoLocal_Codigo as Codigo',
+					  'GEN_CampoLocal_Nombre as Nombre',
+					  'GEN_CampoLocal_Tipo as Tipo',
+					  'GEN_CampoLocal_Requerido as Requerido'
+					 )
+			-> where('GEN_CampoLocal_Activo',"=",1)
+			-> where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')
+			-> get();
+			
+		return $Consulta;
+	}
+	
+	public static function InformacionCampoLocalCotizacion($CodigoCampoLocal, $CodigoCotizacion){
+		$Consulta = DB::table('GEN_CampoLocal')
+			-> join('COM_ValorCampoLocal', 'GEN_CampoLocal_ID', '=', 'COM_CampoLocal_IdCampoLocal')
+			-> join('COM_Cotizacion', 'COM_ValorCampoLocal.COM_Cotizacion_IdCotizacion', '=', 'COM_Cotizacion.COM_Cotizacion_IdCotizacion')
+			-> select('COM_ValorCampoLocal_Valor as Valor')
+			-> where('GEN_CampoLocal_Activo',"=",1)
+			-> where('GEN_CampoLocal_Codigo', '=', $CodigoCampoLocal)
+			-> where('COM_Cotizacion_Codigo', '=', $CodigoCotizacion)
+			-> get();
+			
+		return $Consulta;
+	}
+	
+	public static function ValoresCampoLocalListaCotizacion($IdCampoLocalLista){
+		$Consulta = DB::table('GEN_CampoLocalLista')
+			-> select('GEN_CampoLocalLista_Valor as Valor')
+			-> where('GEN_CampoLocal_GEN_CampoLocal_ID', "=", $IdCampoLocalLista)
+			-> get();
+			
+		return $Consulta;
+	}
+	
+	public static function TieneCamposLocalesCotizacion($CodigoCotizacion){
+		$Consulta = DB::table('COM_Cotizacion')
+			-> join('COM_ValorCampoLocal', 'COM_Cotizacion.COM_Cotizacion_IdCotizacion', '=', 'COM_ValorCampoLocal.COM_Cotizacion_IdCotizacion')
+			-> select()
+			-> where('COM_Cotizacion.COM_Cotizacion_Codigo', "=", $CodigoCotizacion)
+			-> get();
+
+		if(count($Consulta) == 0){
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public static function InformacionOrdenesCompra (){
@@ -255,6 +311,16 @@ class Helpers {
 			-> join('COM_EstadoOrdenCompra', 'COM_OrdenCompra_TransicionEstado_EstadoActual', '=', 'COM_EstadoOrdenCompra_IdEstadoOrdenCompra')
 			-> select('COM_EstadoOrdenCompra_Nombre as Nombre')
 			-> where('COM_OrdenCompra_Codigo', '=', $CodigoOrdenCompra)
+			-> get();
+			
+			return $Consulta;
+	}
+	
+	public static function InformacionSolicitudCotizacionDeCotizacion($CodigoCotizacion){
+		$Consulta = DB::table('COM_Cotizacion')
+			-> join('COM_SolicitudCotizacion', 'COM_Cotizacion_idSolicitudCotizacion', '=', 'COM_SolicitudCotizacion_IdSolicitudCotizacion')
+			-> select('COM_SolicitudCotizacion_Codigo as Codigo')
+			-> where('COM_Cotizacion_Codigo', '=', $CodigoCotizacion)
 			-> get();
 			
 			return $Consulta;

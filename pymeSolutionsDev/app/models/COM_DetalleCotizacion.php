@@ -10,6 +10,6 @@ class COM_DetalleCotizacion extends Eloquent{
 								 
 	public static $messages = array(
 		'COM_DetalleCotizacion_PrecioUnitario.required' => 'El Precio Unitario es requerido',
-		'COM_DetalleCotizacion_PrecioUnitario.decimal' => 'El Precio Unitario debe ser un numero decimal, sin signo, mayor a cero, y con un maximo de dos digitos despues del punto',
+		'COM_DetalleCotizacion_PrecioUnitario.decimal' => 'El Precio Unitario debe ser un número decimal, sin signo, mayor a cero, y con un máximo de dos dígitos después del punto',
 	);
 }

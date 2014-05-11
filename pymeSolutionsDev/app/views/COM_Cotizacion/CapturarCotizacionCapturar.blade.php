@@ -7,6 +7,7 @@
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$ProductosSolicitudCotizacion = Helpers::InformacionProductosSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$CamposLocalesSolicitudCotizacion = Helpers::InformacionCamposLocalesSolicitudCotizacion($CodigoSolicitudCotizacion);
+		$CamposLocalesCotizaciones = Helpers::InformacionCamposLocalesCotizaciones();
 	?>
 	
 	<div class="row">
@@ -32,7 +33,7 @@
 			<div class="col-md-5 " style="text-align: center">
 				<h2>Cotizaci&oacute;n</h2>
 				<h5>Empresa X S.A.</h5>
-				<h5>Colonia El &Aacute;lamo, Tegicigalpa, Francisco Moraz&aacute;n</h5>
+				<h5>Colonia El &Aacute;lamo, Tegucigalpa, Francisco Moraz&aacute;n</h5>
 				<h5>Honduras, C.A.</h5>
 			</div>
 			<div class="col-md-12 " style="text-align: right">
@@ -45,9 +46,9 @@
 				<table class="table table-striped table-bordered" >
 					<thead>
 						<tr>
-							<th>Codigo</th>
+							<th>C&oacute;digo</th>
 							<th>Nombre</th>
-							<th>Descripcion</th>
+							<th>Descripci&oacute;n</th>
 							<th>Cantidad</th>
 							<th>Unidad</th>
 							
@@ -67,10 +68,10 @@
 								<td>{{ $ProductoSolicitudCotizacion -> Nombre }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Descripcion }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Cantidad }}</td>
-								<td></td>
+								<td>{{ $ProductoSolicitudCotizacion -> Unidad }}</td>
 								
 								@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
-									<th>{{ $CampoLocalSolicitudCotizacion -> Valor }}</th>
+									<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
 								@endforeach
 								
 								<td>Lps. {{ Form::text($ProductoSolicitudCotizacion -> Codigo) }}</td>
@@ -102,47 +103,57 @@
 				<label>Total: </label>
 			</div>
 			
-			<div class="col-md-3 pull-right" style="text-align: right">
+			<br>
+			<br>
+			
+			<div class="col-md-5 pull-right" style="text-align: right">
 				<div class="form-group" id="campos Locales">
-					@foreach(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get() as $campo)
+					{{--
+					<h4 class="text-center">Campos de Solicitud de Cotizaci&oacute;n</h4>
+					
+					@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
 						<br>
-						<label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
-						<br>      
-						@if ($campo->GEN_CampoLocal_Requerido)											 
-							@if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-								<td>*{{  Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-							@endif
-							@if ($campo->GEN_CampoLocal_Tipo == 'INT')
-								<td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-							@endif
-							@if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-								<td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-							@endif
-							@if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-							   <td>* {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
-							@endif
-							@else
-								@if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-								<td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-							@endif
-							@if ($campo->GEN_CampoLocal_Tipo == 'INT')
-								<td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-							@endif
-							@if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-								<td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-							@endif
-							@if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-							   <td> {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
-							@endif
+						<label class="pull-left">{{ $CampoLocalSolicitudCotizacion -> Nombre }}</label>
+						{{ Form::text($CampoLocalSolicitudCotizacion -> Valor, $CampoLocalSolicitudCotizacion -> Valor, array('class' => 'form-control', 'disabled')) }}
+					@endforeach
+					--}}
+					<br>
+					<br>
+				
+					<h4 class="text-center">Campos de Cotizaci&oacute;n</h4>
+					
+					@foreach($CamposLocalesCotizaciones as $CampoLocalCotizaciones)
+						<br>
+						<label class="pull-left">{{{ $CampoLocalCotizaciones -> Nombre }}}</label>
+						
+						@if($CampoLocalCotizaciones -> Requerido)
+							<label class="pull-left">&nbsp *</label>
+						@endif
+						
+						@if($CampoLocalCotizaciones -> Tipo == 'TXT')
+							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+						@endif
+						
+						@if($CampoLocalCotizaciones -> Tipo == 'INT')
+							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+						@endif
+						
+						@if($CampoLocalCotizaciones -> Tipo == 'FLOAT')
+							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+						@endif
+						
+						@if($CampoLocalCotizaciones -> Tipo == 'LIST')
+							<?php $ValoresCampoLocalLista = Helpers::ValoresCampoLocalListaCotizacion($CampoLocalCotizaciones -> Id);?>
+							
+							@foreach($ValoresCampoLocalLista as $ValorCampoLocalLista)
+								<?php $ValoresCampoLocalLista2[$ValorCampoLocalLista -> Valor] = $ValorCampoLocalLista -> Valor ?>
+							@endforeach
+							{{ Form::select($CampoLocalCotizaciones -> Codigo, $ValoresCampoLocalLista2, null, array('class' => 'form-control')) }}
 						@endif
 					@endforeach
 				</div>
 			</div>
 		</div>
-		
-		<br><br>
-			
-		
 	{{Form::close()}}
 	
 @stop
