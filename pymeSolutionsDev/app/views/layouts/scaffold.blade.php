@@ -146,7 +146,11 @@
         <ul class="nav navbar-nav navbar-right">
           <li>
           <p class="navbar-text navbar-right" style="margin-right: 1em;">
-            Signed in as <a href="#" class="navbar-link">Admin</a></p></li>
+             @if (Auth::user() == null )
+              <a href="{{ URL::route("user/login") }}">Entrar</a>
+             @else 
+              {{ Auth::user()->SEG_Usuarios_Email }} <a href="{{ URL::route("user/logout") }}">Salir</a>
+             @endif
         </ul>
     </div>
     </div>
@@ -159,8 +163,7 @@
   <script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
   <script src="/assets/javascript/script.js"></script>
 </body>
-  
-</body>
+
    
       @yield('contabilidad_scripts')
   <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>

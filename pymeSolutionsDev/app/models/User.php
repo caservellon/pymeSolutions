@@ -10,43 +10,39 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var string
 	 */
-	protected $table = 'users';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password');
-
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
+	protected $table = 'SEG_Usuarios';
+	protected $primaryKey = 'SEG_Usuarios_ID';
+	protected $fillable = array('SEG_Usuarios_Username', 'SEG_Usuarios_Email', 'SEG_Usuarios_Contrasena');
+	public $timestamps = false;
+	
 	public function getAuthIdentifier()
 	{
-		return $this->getKey();
+	    return $this->getKey();
 	}
-
-	/**
-	 * Get the password for the user.
-	 *
-	 * @return string
-	 */
-	public function getAuthPassword()
+	  
+    public function getAuthPassword()
+    {
+	    return $this->SEG_Usuarios_Contrasena;
+    } 
+	  
+    public function getRememberToken()
+    {
+	    return $this->SEG_Usuarios_Token;
+    }
+	  
+    public function setRememberToken($value)
+    {
+	    $this->SEG_Usuarios_Token = $value;
+	}
+	  
+	public function getRememberTokenName()
 	{
-		return $this->password;
+	    return "SEG_Usuarios_Token";
 	}
-
-	/**
-	 * Get the e-mail address where password reminders are sent.
-	 *
-	 * @return string
-	 */
+	  
 	public function getReminderEmail()
 	{
-		return $this->email;
+	    return $this->SEG_Usuarios_Email;
 	}
 
 }

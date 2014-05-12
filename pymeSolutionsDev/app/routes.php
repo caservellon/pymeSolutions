@@ -13,9 +13,21 @@
 
 Route::get('/', function(){
 	return View::make('hello');
-
 });
 
+// Seguridad
+
+Route::any("/login", [
+	"as"   => "user/login",
+	"uses" => "UserController@login"
+]);
+
+Route::any("/logout", [
+  "as"   => "user/logout",
+  "uses" => "UserController@logout"
+]);
+
+//Inventario
 
 Route::group(array('prefix' => 'Inventario'), function()
 {
