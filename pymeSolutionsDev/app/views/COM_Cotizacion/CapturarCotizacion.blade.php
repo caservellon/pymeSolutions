@@ -13,16 +13,14 @@
 		</div>
 	</div>
 	
-	@if (Input::has('Error'))
+	@if(Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
 		<ul>
-			@if ($Error == 'Seleccion Multiple')
-				<li class="alert alert-danger">Debe seleccionar solamente una solicitud de cotizacion para poder capturar</li>
-			@elseif ($Error == 'Ya Capturada')
-				<li class="alert alert-danger">La solicitud de cotizacion seleccionada ya ha sido capturada</li>
-			@elseif ($Error == 'Sin Seleccion')
+			@if($Error == 'Sin Seleccion')
 				<li class="alert alert-danger">Debe seleccionar una solicitud de cotizacion para poder capturar</li>
+			@elseif($Error == 'Ya Capturada')
+				<li class="alert alert-danger">La solicitud de cotizacion seleccionada ya ha sido capturada</li>
 			@endif
 		</ul>
 	@endif
@@ -64,7 +62,7 @@
 							@foreach ($SolicitudesCotizacion as $SolicitudCotizacion)
 								@if ($SolicitudCotizacion -> Activo == 1 && $SolicitudCotizacion -> Recibido == 1)
 									<tr>
-										<td>{{ Form::checkbox($SolicitudCotizacion -> Codigo, $SolicitudCotizacion -> Codigo) }}</td>
+										<td>{{ Form::radio('Solicitud de Cotizacion', $SolicitudCotizacion -> Codigo) }}</td>
 										<td>{{ $SolicitudCotizacion -> Codigo }}</td>
 										<td>{{ $SolicitudCotizacion -> NombreProveedor }}</td>
 										<td>{{ $SolicitudCotizacion -> FechaEmision }}</td>

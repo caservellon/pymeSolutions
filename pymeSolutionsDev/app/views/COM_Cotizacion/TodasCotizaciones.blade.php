@@ -67,13 +67,13 @@
 									<td>{{ $Cotizacion -> FechaEmision }}</td>
 									<td>{{ $Cotizacion -> Vigencia }}</td>
 									
-									@if ($Cotizacion -> Activo == 1)
+									@if($Cotizacion -> Activo == 1)
 										<td>Activo</td>
 									@else
 										<td>Inactivo</td>
 									@endif
 									
-									@if ($Cotizacion -> Vigente)
+									@if($Cotizacion -> Vigente)
 										<td>Vigente</td>
 									@else
 										<td>Vencida</td>
