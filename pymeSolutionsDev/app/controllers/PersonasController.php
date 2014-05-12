@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class PersonasController extends BaseController {
 
 	/**
@@ -21,7 +23,8 @@ class PersonasController extends BaseController {
 	 */
 	public function index()
 	{
-		$Personas = $this->Persona->all();
+		//$Personas = $this->Persona->all();
+		$Personas = $this->Persona->whereNull('CRM_Personas_Eliminado')->get();
 
 		return View::make('Personas.index', compact('Personas'));
 	}
@@ -67,11 +70,15 @@ class PersonasController extends BaseController {
 
 		if ($validation->passes())
 		{
-			
 			$personaa = $this->Persona->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->lists('GEN_CampoLocal_Codigo')));
+			$personaa->CRM_Personas_FechaCreacion = Carbon::now();
+			$personaa->CRM_Personas_UsuarioModificacion = "admin";
+			$personaa->save();
+
 			foreach ($campos as $campo) {
 				DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'CRM_Personas_CRM_Personas_ID' => $personaa->CRM_Personas_ID));
 			}
+
 			return Redirect::route('CRM.Personas.index');
 		}
 
@@ -151,6 +158,10 @@ class PersonasController extends BaseController {
 		{
 			$Persona = $this->Persona->find($id);
 			$Persona->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->lists('GEN_CampoLocal_Codigo')));
+			$Persona->CRM_Personas_FechaModificacion = Carbon::now();
+			$Persona->CRM_Personas_UsuarioModificacion = "admin";
+			$Persona->save();
+
 			foreach ($campos as $campo) {
 				if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->count() > 0 ) {
 				    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->update(array('CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
@@ -158,6 +169,7 @@ class PersonasController extends BaseController {
 					DB::table('CRM_ValorCampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'CRM_ValorCampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'CRM_Personas_CRM_Personas_ID' => $Persona->CRM_Personas_ID));
 				}
 			}
+
 			return Redirect::route('CRM.Personas.index', $id);
 		}
 
@@ -177,6 +189,8 @@ class PersonasController extends BaseController {
 	{	
 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->get();
 		$Persona = $this->Persona->find($id);
+		$Persona->CRM_Personas_Eliminado = Carbon::now();
+		$Persona->save();
 
 		if (DB::table('CRM_Empresas')->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->count() > 0) {
 			return Redirect::route('CRM.Empresas.index');
@@ -188,7 +202,7 @@ class PersonasController extends BaseController {
 			}
 		}
 
-		$Persona->delete();
+		//$Persona->delete();
 
 		return Redirect::route('CRM.Personas.index');
 	}

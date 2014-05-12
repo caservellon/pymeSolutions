@@ -60,7 +60,7 @@
     </div>
     <div class="form-group">
       <div class="col-md-5">
-      {{ Form::submit('Enviar', array('class' => 'btn btn-info')) }}
+      {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 {{ Form::close() }}
