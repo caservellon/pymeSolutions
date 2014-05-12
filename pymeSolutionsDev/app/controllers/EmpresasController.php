@@ -71,6 +71,20 @@ class EmpresasController extends BaseController {
 			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
 		}
 
+		$regex = 'Required|regex:/^';
+		$toRegex = DB::table('CRM_TipoDocumento')->where('CRM_TipoDocumento_ID',Input::get('CRM_TipoDocumento_CRM_TipoDocumento_ID'))->first()->CRM_TipoDocumento_Validacion;
+		for ($i=0; $i < strlen($toRegex) ; $i++) { 
+			if ($toRegex[$i] == '#') {
+				$regex = $regex.'[0-9]';
+			} elseif ( $toRegex[$i] == 'L') {
+				$regex = $regex.'[a-zA-Z]';
+			} elseif ($toRegex[$i] == '/' || $toRegex[$i] == '_' || $toRegex[$i] == '-' || $toRegex[$i] == '.') {
+				$regex = $regex.'\\'.$toRegex[$i];
+			}
+		}
+		$regex = $regex.'$/';
+		$res = array_merge($res,array('CRM_Empresas_Codigo' => $regex));
+
 		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
@@ -156,6 +170,20 @@ class EmpresasController extends BaseController {
 			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
 		}
 
+		$regex = 'regex:/^';
+		$toRegex = DB::table('CRM_TipoDocumento')->where('CRM_TipoDocumento_ID',DB::table('CRM_Empresas')->where('CRM_Empresas_ID',$id)->first()->CRM_TipoDocumento_CRM_TipoDocumento_ID)->first()->CRM_TipoDocumento_Validacion;
+		for ($i=0; $i < strlen($toRegex) ; $i++) { 
+			if ($toRegex[$i] == '#') {
+				$regex = $regex.'[0-9]';
+			} elseif ( $toRegex[$i] == 'L') {
+				$regex = $regex.'[a-zA-Z]';
+			} elseif ($toRegex[$i] == '/' || $toRegex[$i] == '_' || $toRegex[$i] == '-' || $toRegex[$i] == '.') {
+				$regex = $regex.'\\'.$toRegex[$i];
+			}
+		}
+		$regex = $regex.'$/';
+		$res = array_merge($res,array('CRM_Empresas_Codigo' => $regex));
+
 		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
@@ -192,14 +220,16 @@ class EmpresasController extends BaseController {
 	{
 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_EP%')->get();
 		$Empresa = $this->Empresa->find($id);
+		$Empresa->CRM_Empresas_Estado = 1;
 		$Empresa->CRM_Empresas_Eliminados = Carbon::now();
-		$Empresa->save();
 
 		foreach ($campos as $campo) {
 			if (DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->count() > 0 ) {
 			    DB::table('CRM_ValorCampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('CRM_Empresas_CRM_Empresas_ID',$Empresa->CRM_Empresas_ID)->delete();
 			}
 		}
+
+		$Empresa->save();
 
 		//$Empresa->delete();
 

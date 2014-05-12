@@ -375,6 +375,16 @@ $(document).ready(function(){
 		$('#agregarDescuento').modal('hide');
 	});
 
+
+	//Selectores para Tipos de Documento
+	$('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
+    	$('input#CRM_Personas_codigo').prop('placeholder',$('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').text());
+    });
+
+    $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
+    	$('input#CRM_Empresas_Codigo').prop('placeholder',$('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').text());
+    });
+
 	//Actualiza los totales
 	function actualizarPagos(){
 		var table = document.getElementById('pagos-tabla');

@@ -66,6 +66,20 @@ class PersonasController extends BaseController {
 			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
 		}
 
+		$regex = 'Required|regex:/^';
+		$toRegex = DB::table('CRM_TipoDocumento')->where('CRM_TipoDocumento_ID',Input::get('CRM_TipoDocumento_CRM_TipoDocumento_ID'))->first()->CRM_TipoDocumento_Validacion;
+		for ($i=0; $i < strlen($toRegex) ; $i++) { 
+			if ($toRegex[$i] == '#') {
+				$regex = $regex.'[0-9]';
+			} elseif ( $toRegex[$i] == 'L') {
+				$regex = $regex.'[a-zA-Z]';
+			} elseif ($toRegex[$i] == '/' || $toRegex[$i] == '_' || $toRegex[$i] == '-' || $toRegex[$i] == '.') {
+				$regex = $regex.'\\'.$toRegex[$i];
+			}
+		}
+		$regex = $regex.'$/';
+		$res = array_merge($res,array('CRM_Personas_codigo' => $regex));
+
 		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
@@ -152,6 +166,20 @@ class PersonasController extends BaseController {
 			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
 		}
 
+		$regex = 'regex:/^';
+		$toRegex = DB::table('CRM_TipoDocumento')->where('CRM_TipoDocumento_ID',DB::table('CRM_Personas')->where('CRM_Personas_ID',$id)->first()->CRM_TipoDocumento_CRM_TipoDocumento_ID)->first()->CRM_TipoDocumento_Validacion;
+		for ($i=0; $i < strlen($toRegex) ; $i++) { 
+			if ($toRegex[$i] == '#') {
+				$regex = $regex.'[0-9]';
+			} elseif ( $toRegex[$i] == 'L') {
+				$regex = $regex.'[a-zA-Z]';
+			} elseif ($toRegex[$i] == '/' || $toRegex[$i] == '_' || $toRegex[$i] == '-' || $toRegex[$i] == '.') {
+				$regex = $regex.'\\'.$toRegex[$i];
+			}
+		}
+		$regex = $regex.'$/';
+		$res = array_merge($res,array('CRM_Personas_codigo' => $regex));
+
 		$validation = Validator::make($input, $res);
 
 		if ($validation->passes())
@@ -189,8 +217,8 @@ class PersonasController extends BaseController {
 	{	
 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'CRM_PS%')->get();
 		$Persona = $this->Persona->find($id);
+		$Persona->CRM_Personas_Estado = 1;
 		$Persona->CRM_Personas_Eliminado = Carbon::now();
-		$Persona->save();
 
 		if (DB::table('CRM_Empresas')->where('CRM_Personas_CRM_Personas_ID',$Persona->CRM_Personas_ID)->count() > 0) {
 			return Redirect::route('CRM.Empresas.index');
@@ -202,6 +230,8 @@ class PersonasController extends BaseController {
 			}
 		}
 
+		$Persona->save();
+		
 		//$Persona->delete();
 
 		return Redirect::route('CRM.Personas.index');

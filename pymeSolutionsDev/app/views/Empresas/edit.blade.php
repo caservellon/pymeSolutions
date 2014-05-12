@@ -36,7 +36,7 @@
         <div class="form-group">
             {{ Form::label('CRM_Empresas_Nombre', 'Nombre de Empresa:*', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
-                {{ Form::text('CRM_Empresas_Nombre',null, array('class' => 'form-control', 'id' => 'CRM_Empresas_Nombre', 'placeholder' => 'FICOHSA', 'maxlength' => '15'  )) }}
+                {{ Form::text('CRM_Empresas_Nombre',null, array('class' => 'form-control', 'id' => 'CRM_Empresas_Nombre', 'placeholder' => 'FICOHSA', 'maxlength' => '16'  )) }}
             </div>
         </div>
 

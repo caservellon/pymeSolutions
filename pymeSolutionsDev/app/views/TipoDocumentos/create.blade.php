@@ -20,30 +20,29 @@
       <ul>
         {{ implode('', $errors->all('<li class="error">:message</li>')) }}
       </ul>
-      
 </div>
 @endif
 
 {{ Form::open(array('route' => 'CRM.TipoDocumentos.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div>
         <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_Codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_TipoDocumento_Codigo', 'Código:*', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-4">
                 {{ Form::text('CRM_TipoDocumento_Codigo',null, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Codigo', 'placeholder' => 'PASS' ))}}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_Nombre', 'Nombre:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_TipoDocumento_Nombre', 'Nombre:*', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-4">
                 {{ Form::text('CRM_TipoDocumento_Nombre',null, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Nombre', 'placeholder' => 'Pasaporte' )) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_Validacion', 'Validación:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_TipoDocumento_Validacion', 'Validación:*', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-4">
-                {{ Form::text('CRM_TipoDocumento_Validacion',null, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Validacion', 'placeholder' => 'XXX-XXX-L' ))}}
+                {{ Form::text('CRM_TipoDocumento_Validacion',null, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Validacion', 'placeholder' => 'L-###' ))}}
             </div>
         </div>
 

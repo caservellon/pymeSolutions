@@ -18,7 +18,7 @@ class Persona extends Eloquent {
 		//'CRM_Personas_Celular' => 'Required|Integer|digits:8|regex:/^\(504\)[0-9]{4}-[0-9]{4}/',
 		'CRM_Personas_Fijo' => 'Required|regex:/^\(504\)[0-9]{4}-[0-9]{4}/',
 		//'CRM_Personas_Fijo' => 'Required|Integer|digits:8|regex:/^\(504\)[0-9]{4}-[0-9]{4}/',
-		'CRM_Personas_Descuento' => 'required|Numeric|between:0,100|Regex:/[0-9]{1,2}(\.[0-9]{1,2})$/',
-		'CRM_Personas_Foto' => ''
+		'CRM_Personas_Descuento' => 'required|Numeric|between:0,0.99|Regex:/[0-9]{1,2}(\.[0-9]{1,2})$/',
+		'CRM_Personas_Foto' => 'url'
 	);
 }

@@ -36,7 +36,7 @@
         <div class="form-group">
             {{ Form::hidden('CRM_Personas_codigo', 'Código:', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
-                {{ Form::hidden('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => '###', 'maxlength' => '15'  )) }}
+                {{ Form::hidden('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => '###', 'maxlength' => '16'  )) }}
             </div>
         </div>
         

@@ -34,14 +34,14 @@
         <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:*', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">
-            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->whereNull('CRM_TipoDocumento_Flag')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID'),null,array('class' => 'col-md-4 form-control')) }}
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->whereNull('CRM_TipoDocumento_Flag')->lists('CRM_TipoDocumento_Validacion','CRM_TipoDocumento_ID'),null,array('class' => 'col-md-4 form-control')) }}
           </div>
         </div> 
 
         <div class="form-group">
             {{ Form::label('CRM_Personas_codigo', 'Código:*', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
-                {{ Form::text('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => '#####-####-#####', 'maxlength' => '15' )) }}
+                {{ Form::text('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => 'Seleccione un documento.', 'maxlength' => '16' )) }}
             </div>
         </div> 
 
