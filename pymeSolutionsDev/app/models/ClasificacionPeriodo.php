@@ -7,7 +7,8 @@ class ClasificacionPeriodo extends Eloquent {
 	protected $table ='CON_ClasificacionPeriodo';
 	protected $primaryKey='CON_ClasificacionPeriodo_ID';
 	protected $fillable = array('CON_ClasificacionPeriodo_Nombre','CON_ClasificacionPeriodo_CatidadDias');
-	
+	protected $softDelete=true;
+
 	public static $rules = array(
 			//'CON_ClasificacionPeriodo_ID' => 'required|integer',
 
@@ -27,9 +28,9 @@ class ClasificacionPeriodo extends Eloquent {
 
 	);
 
-	public function CON_PeriodoContable()
+	public function PeriodosContables()
     {
-        return $this->hasMany('PeriodoContable');
+        return $this->hasMany('PeriodoContable','CON_ClasificacionPeriodo_ID');
     }
 
 }

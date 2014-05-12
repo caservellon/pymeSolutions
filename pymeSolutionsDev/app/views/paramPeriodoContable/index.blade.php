@@ -29,7 +29,34 @@
 			<tr>
 				<td>{{ $Clasificacion->CON_ClasificacionPeriodo_Nombre  }}</td>
 				<td>{{ $Clasificacion->CON_ClasificacionPeriodo_CatidadDias  }}</td>
-				<td><a class="btn btn-info" href="{{ URL::to('contabilidad/configuracion/periodocontable/'.$Clasificacion->CON_ClasificacionPeriodo_ID.'/edit') }}"><i class='glyphicon glyphicon-pencil'></i> Editar</a>
+				<td>
+					<div class="row">
+						<div class="col-sm-3">
+			        	<a class="btn btn-info" href="{{ URL::route('con.editperiodo',$Clasificacion->CON_ClasificacionPeriodo_ID)}}">
+						<i class='glyphicon glyphicon-pencil'></i> Editar</a>
+						</div>
+						<div class="col-sm-2">
+						<?php 
+							if ($Clasificacion->deleted_at==null){
+							 $route=URL::route('con.deleteperiodo',$Clasificacion->CON_ClasificacionPeriodo_ID);
+							 $text="Deshabilitar";
+							 $class="danger";
+							}else{
+							 	$route=URL::route('con.enableperiodo',$Clasificacion->CON_ClasificacionPeriodo_ID);
+							 	$text="Habilitar";
+							 	$class="warning";
+							} 
+						 ?>
+						
+
+						<form method="post" action="{{{$route}}}">
+					        <button type='submit' class="btn btn-{{$class}}" role="button">
+					        <i class="glyphicon glyphicon-trash"></i> {{{$text}}}</button>
+				        </form>
+				        </div>
+			        </div>
+
+				</td>
 			</tr>
 		@endforeach	
 		</tbody>
