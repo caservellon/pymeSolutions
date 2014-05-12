@@ -72,29 +72,6 @@ class SolicitudCotizacionsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
-              $cualquierProducto=array();
-            
-                for ($i = 1; $i <=count(Input::all()); $i++) {
-                    if (Input::get('Incluir'.$i)==1){
-                        $cualquierProducto[] = Input::get('id'.$i);
-                    }
-                }
-                $prov=array();
-                for($i=0; $i < count($cualquierProducto); $i++){
-                    $prov_prod = DB::table('INV_Producto_Proveedor')->get();
-                    foreach($prov_prod as $key){
-                        if($cualquierProducto[$i] == $key->INV_Producto_ID){
-                            $prov[]= $key->INV_Proveedor_ID;
-                        }
-                    
-                    }
-                }
-                $provfinal = array_unique($prov); 
-                $proveedor= array_values($provfinal);  
-            return View::make('SolicitudCotizacions.create', compact('cualquierProducto', 'proveedor'));
-	}
 
 	/**
 	 * Store a newly created resource in storage.
