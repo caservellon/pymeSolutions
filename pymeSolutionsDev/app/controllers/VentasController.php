@@ -80,6 +80,14 @@ class VentasController extends BaseController {
 			$isv = Input::get('isv');
 			$caja = Input::get('caja');
 
+			$subTotal = 0;
+			$isvCalculado = 0;
+			$descuentoCalculado = 0;
+			$otrosIsvCalculado = 0;
+			$costoVendido = 0;
+			$totalEfectivo = 0;
+			$totalBonoDeCompra = 0;
+
 			$venta = new Venta;
 			$venta->VEN_Caja_VEN_Caja_id = (float) $caja;
 			$venta->VEN_Venta_TotalCambio = (float) $saldo;
@@ -94,6 +102,9 @@ class VentasController extends BaseController {
 				$DetalleVenta->VEN_DetalleDeVenta_PrecioVenta = Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioVenta;
 				$DetalleVenta->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
 				$DetalleVenta->save();
+				$subTotal += (float)$DetalleVenta->VEN_DetalleDeVenta_PrecioVenta * $p['cantidad'];
+				$isvCalculado += $subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_ISV; // TODO revisar el campo de isv en db
+				$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 			}
 
 			foreach ($descuentos as $d) {
@@ -108,8 +119,27 @@ class VentasController extends BaseController {
 				$pago->VEN_Venta_VEN_Caja_VEN_Caja_id = $caja;
 				$pago->VEN_FormaPago_VEN_FormaPago_id = FormaPagoVentas::where('VEN_FormaPago_Descripcion',$a['metodo'])->firstOrFail()->VEN_FormaPago_id;
 				$pago->save();
+				if ($a['metodo'] == "Efectivo") {
+					$totalEfectivo += $a['monto'];
+				} else {
+					$totalBonoDeCompra += $a['monto'];
+				}
+			}
+
+
+			$subTotal = $subTotal - $descuentoCalculado;
+			if ($totalBonoDeCompra != 0) {
+				Contabilidad::GenerarTransaccion(4, $totalBonoDeCompra);
+			}
+			if ($totalEfectivo != 0) {
+				Contabilidad::GenerarTransaccion(3, $totalEfectivo);
 			}
 			
+			
+			Contabilidad::GenerarTransaccion(5,$isvCalculado);
+			Contabilidad::GenerarTransaccion(7,$descuentoCalculado);
+			Contabilidad::GenerarTransaccion(6,$costoVendido);
+
 			return $return;
 
 		}
