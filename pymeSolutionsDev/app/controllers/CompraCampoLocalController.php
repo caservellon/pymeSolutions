@@ -128,7 +128,9 @@ class CompraCampoLocalController extends BaseController {
 				}
 			}
                          $ruta = route('Compras.Configuracion.CampoLocal.index');
+                         //Trae el mensaje de la base de datos
                          $mensaje = Mensaje::find(1);
+                         
                          return View::make('MensajeCompra', compact('mensaje', 'ruta'));
 		}
 
