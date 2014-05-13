@@ -16,16 +16,15 @@ Route::get('/', function(){
 });
 
 // Seguridad
+Route::group(array('prefix' => 'Auth'), function()
+{
+	Route::any('login', array('as' => 'Auth.login', 'uses' => 'UserController@login'));
+	Route::any('logout', array('as' => 'Auth.logout', 'uses' => 'UserController@logout'));
+	Route::resource('Usuarios', 'UserController');
+	Route::resource('Roles', 'RoleController');
+	Route::resource('Errores', 'ErrorController');
+});
 
-Route::any("/login", [
-	"as"   => "user/login",
-	"uses" => "UserController@login"
-]);
-
-Route::any("/logout", [
-  "as"   => "user/logout",
-  "uses" => "UserController@logout"
-]);
 
 //Inventario
 

@@ -3,8 +3,51 @@
 class UserController
   extends Controller
 {
-	  public function login()
-	  {
+
+	protected $User;
+
+	public function __construct(User $User)
+	{
+		$this->User = $User;
+	}
+
+	public function index()
+	{
+		$User = $this->User->all();
+
+		return View::make('Usuarios.index', compact('User'));
+	}
+
+	public function create()
+	{
+		return View::make('Usuarios.create');
+	}
+
+	public function store()
+	{
+
+	}
+
+	public function show($id){
+
+	}
+
+	public function edit($id)
+	{
+
+	}
+
+	public function update($id)
+	{
+
+	}
+
+	public function destroy($id){
+
+	}
+
+	public function login()
+	{
 	  	//Crea un usuario si no existe ninguno en la base de datos
 	  	if(User::all()->count() == 0){
 	  		$users = [
@@ -29,7 +72,7 @@ class UserController
 		        $credentials = $this->getLoginCredentials();
 		  
 		        if (Auth::attempt($credentials)) {
-		          	return Redirect::route("user/login");
+		          	return Redirect::route("Auth.login");
 		        }
 		  
 		        return Redirect::back()->withErrors([
@@ -51,35 +94,34 @@ class UserController
 		    $ip = $_SERVER['REMOTE_ADDR'];
 		}
 
-	  
-	    return View::make("user/login");
+	    return View::make("Usuarios.login");
   	}
 
   	public function logout()
 	{
-	  Auth::logout();
+	 	Auth::logout();
 	  
-	  return Redirect::route("user/login");
+	  	return Redirect::route("Auth.login");
 	}
   
-  protected function isPostRequest()
-  {
-    return Input::server("REQUEST_METHOD") == "POST";
-  }
+  	protected function isPostRequest()
+  	{
+    	return Input::server("REQUEST_METHOD") == "POST";
+  	}
   
-  protected function getLoginValidator()
-  {
-    return Validator::make(Input::all(), [
-      "SEG_Usuarios_Email" => "required",
-      "password" => "required"
-    ]);
-  }
+  	protected function getLoginValidator()
+  	{
+	    return Validator::make(Input::all(), [
+	      	"SEG_Usuarios_Email" => "required",
+	      	"password" => "required"
+	    ]);
+  	}
   
-  protected function getLoginCredentials()
-  {
-    return [
-      "SEG_Usuarios_Email" => Input::get("SEG_Usuarios_Email"),
-      "password" => Input::get("password")
-    ];
-  }
+	protected function getLoginCredentials()
+	{
+	    return [
+	      	"SEG_Usuarios_Email" => Input::get("SEG_Usuarios_Email"),
+	      	"password" => Input::get("password")
+	    ];
+	}
 }

@@ -147,9 +147,9 @@
           <li>
           <p class="navbar-text navbar-right" style="margin-right: 1em;">
              @if (Auth::user() == null )
-              <a href="{{ URL::route("user/login") }}">Entrar</a>
+              <a href="{{ URL::route('Auth.login') }}">Entrar</a>
              @else 
-              {{ Auth::user()->SEG_Usuarios_Email }} <a href="{{ URL::route("user/logout") }}">Salir</a>
+              {{ Auth::user()->SEG_Usuarios_Email }} <a href="{{ URL::route('Auth.logout') }}">Salir</a>
              @endif
         </ul>
     </div>
