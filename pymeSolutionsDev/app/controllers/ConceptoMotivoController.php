@@ -17,8 +17,11 @@ class ConceptoMotivoController extends BaseController {
 
 	public function index()
 	{
-		$Asientos = ConceptoMotivo::all();
-        return Redirect::action('ConceptoMotivoController@create');
+		$conceptos = ConceptoMotivo::all();
+		$Motiv     = MotivoTransaccion::all();
+        return View::make('ConceptoMotivo.index')
+        -> with('ConceptoMotivos',$conceptos)
+        -> with('Moti',$Motiv);
     }
 
 	/**
@@ -123,8 +126,8 @@ class ConceptoMotivoController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$input['CON_ConceptoMotivo_FechaCreacion']= date('Y-m-d');
-			$input['CON_ConceptoMotivo_FechaModificacion'] =date('Y-m-d');
+			//$input['CON_ConceptoMotivo_FechaCreacion']= date('Y-m-d');
+			//$input['CON_ConceptoMotivo_FechaModificacion'] =date('Y-m-d');
 			$this->ConceptoMotivo->create($input);
 
 			return Redirect::action('ConceptoMotivoController@index');
