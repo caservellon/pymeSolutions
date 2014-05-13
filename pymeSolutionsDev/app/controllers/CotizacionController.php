@@ -90,7 +90,7 @@ class CotizacionController extends BaseController {
 			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion)) -> withInput() -> withErrors($Validacion);
 		}
 		
-		
+		/*
 		$Cotizacion['COM_Cotizacion_Vigencia'] = Input::get('VigenciaCotizacion');
 		$Validacion = Validator::make($Cotizacion, Cotizacion::$rules, Cotizacion::$messages);
 		
@@ -98,7 +98,7 @@ class CotizacionController extends BaseController {
 			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
 			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion)) -> withInput() -> withErrors($Validacion);
 		}
-		
+		*/
 		
 		$CamposLocalesCotizacion = Helpers::InformacionCamposLocalesCotizaciones();
         
