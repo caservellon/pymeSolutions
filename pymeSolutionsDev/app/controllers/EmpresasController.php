@@ -14,6 +14,11 @@ class EmpresasController extends BaseController {
 		$this->Empresa = $Empresa;
 	}
 
+	public function buscar()
+	{
+		return Empresa::where('CRM_Empresas_Nombre', 'LIKE' ,'%' . Input::get('name') . '%')->get();
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *

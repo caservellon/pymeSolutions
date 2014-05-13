@@ -14,11 +14,11 @@ class PersonasController extends BaseController {
 		$this->Persona = $Persona;
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+	public function buscar() {
+		$Personas = Persona::where('CRM_Personas_Nombres', 'LIKE' , '%' . Input::get('name') . '%')->get();
+		return $Personas;
+	}
+
 	public function index()
 	{
 		$Personas = $this->Persona->all();
