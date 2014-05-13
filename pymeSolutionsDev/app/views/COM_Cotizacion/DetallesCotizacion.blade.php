@@ -62,15 +62,15 @@
 									<td>{{ $ProductoCotizacion -> Codigo }}</td>
 									<td>{{ $ProductoCotizacion -> Nombre }}</td>
 									<td>{{ $ProductoCotizacion -> Descripcion }}</td>
-									<td>{{ $ProductoCotizacion -> Cantidad }}</td>
+									<td>{{ number_format($ProductoCotizacion -> Cantidad) }}</td>
 									<td>{{ $ProductoCotizacion -> Unidad }}</td>
 									
 									@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
 										<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
 									@endforeach
 									
-									<td>Lps. {{ $ProductoCotizacion -> Precio }}</td>
-									<td>Lps. {{ $ProductoCotizacion -> Cantidad * $ProductoCotizacion -> Precio }}</td>
+									<td>Lps. {{ number_format($ProductoCotizacion -> Precio, 2) }}</td>
+									<td>Lps. {{ number_format($ProductoCotizacion -> Cantidad * $ProductoCotizacion -> Precio, 2) }}</td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -91,7 +91,7 @@
 				
 				<div class="col-md-7" style="text-align: right">
 					<label>Total: </label>
-					{{ $Cotizacion[0] -> Total }}
+					{{ number_format($Cotizacion[0] -> Total, 2) }}
 				</div>
 				
 				<br>

@@ -100,7 +100,7 @@ class CotizacionController extends BaseController {
 		}
 		
 		
-		$CamposLocalesCotizacion = Helpers::InformacionCamposLocalesCotizacion();
+		$CamposLocalesCotizacion = Helpers::InformacionCamposLocalesCotizaciones();
         
         foreach($CamposLocalesCotizacion as $CampoLocalCotizacion){
 			$Reglas[$CampoLocalCotizacion -> Codigo] = '';

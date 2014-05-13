@@ -90,7 +90,17 @@
 				<br><br>
 				
 				<label>Fecha de Vigencia</label>
-				{{Form::custom('datetime-local','VigenciaCotizacion', date('Y/m/d H:i:s'))}}
+				{{Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'readonly' => 'readonly'))}}
+				<script>
+					$('#VigenciaCotizacion').appendDtpicker({
+						"autodateOnStart": false,
+						"futureOnly": true,
+						"locale":"es",
+						"minTime":"08:00",
+						"maxTime":"19:01",
+						"minuteInterval": 15
+					});
+				</script>
 				
 				<br><br>
 				
