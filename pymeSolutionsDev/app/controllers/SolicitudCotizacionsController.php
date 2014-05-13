@@ -116,14 +116,17 @@ class SolicitudCotizacionsController extends BaseController {
 //                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
                    }
                         
-		} 
-                for ($j=0; $j< count($cualquierProducto); $j++){
+		
+                
+                for ($k=0; $k< count($cualquierProducto); $k++){
                     
                    
-                    $temp = $cualquierProducto[$j];
-                    $res=array_merge($res,array('CantidadSolicitar'.$temp => 'Required|Integer|min:1'));
+                    $temp = Producto::find($cualquierProducto[$k]);
+                    
+                    
+                    $res=array_merge($res,array('CantidadSolicitar'.$temprod->INV_Proveedor_Nombre.$temp->INV_Producto_Nombre => 'Required|Integer|min:1'));
                 }
-                
+                }
                 
                 
                 $validation = Validator::make($Input, $res);
@@ -202,7 +205,7 @@ class SolicitudCotizacionsController extends BaseController {
                         //manda para imprimir a los que se les manda correo, use para agarrar array de proveedores
                         $correo[]= $proveedor[$i];
                         //metodo de enviar el correo, 'emailscompra' es el view,  
-                         Mail::send('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
+                         Mail::queue('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
                         $message->subject('Solicitud ');
                             $message->to($enviar->INV_Proveedor_Email);
                     });
@@ -219,6 +222,7 @@ class SolicitudCotizacionsController extends BaseController {
                 
               }
               return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
+                     ->withInput()
                      ->withErrors($validation)
                      ->with('message', 'There were validation errors.');
 	}
