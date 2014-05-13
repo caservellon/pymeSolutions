@@ -23,6 +23,12 @@
 </div>
 @endif
 
+<div class="input-val">
+    @foreach ( DB::table('CRM_TipoDocumento')->whereNull('CRM_TipoDocumento_Flag')->get() as $doc)
+        {{ Form::hidden($doc->CRM_TipoDocumento_Validacion,null, array('id' => $doc->CRM_TipoDocumento_ID, 'name' => $doc->CRM_TipoDocumento_Validacion, 'data-val' => strlen($doc->CRM_TipoDocumento_Validacion))) }}
+    @endforeach
+</div>
+
 {{ Form::open(array('route' => 'CRM.Personas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
         <div class="campo-local-tipo form-group">
@@ -34,14 +40,14 @@
         <div class="campo-local-tipo form-group">
           {{ Form::label('CRM_TipoDocumento_CRM_TipoDocumento_ID', 'Tipo de Documento:*', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">
-            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->whereNull('CRM_TipoDocumento_Flag')->lists('CRM_TipoDocumento_Validacion','CRM_TipoDocumento_ID'),null,array('class' => 'col-md-4 form-control')) }}
+            {{ Form::select('CRM_TipoDocumento_CRM_TipoDocumento_ID', DB::table('CRM_TipoDocumento')->whereNull('CRM_TipoDocumento_Flag')->lists('CRM_TipoDocumento_Nombre','CRM_TipoDocumento_ID'),null,array('class' => 'col-md-4 form-control')) }}
           </div>
         </div> 
 
         <div class="form-group">
             {{ Form::label('CRM_Personas_codigo', 'Código:*', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-5">
-                {{ Form::text('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => 'Seleccione un documento.', 'maxlength' => '16' )) }}
+                {{ Form::text('CRM_Personas_codigo',null, array('class' => 'form-control', 'id' => 'CRM_Personas_codigo', 'placeholder' => 'Seleccione un documento.', 'maxlength' => '15' )) }}
             </div>
         </div> 
 
