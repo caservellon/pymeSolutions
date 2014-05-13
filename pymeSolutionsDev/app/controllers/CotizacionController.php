@@ -132,11 +132,13 @@ class CotizacionController extends BaseController {
 			}
 		}       
                 
-        $Validacion = Validator::make($Input, $Reglas, $Mensajes);
-		
-		if($Validacion -> fails()){
-			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
-			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion)) -> withInput() -> withErrors($Validacion);
+		if(count($CamposLocalesCotizacion) != 0){
+			$Validacion = Validator::make($Input, $Reglas, $Mensajes);
+			
+			if($Validacion -> fails()){
+				$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
+				return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion)) -> withInput() -> withErrors($Validacion);
+			}
 		}
 		
 		
