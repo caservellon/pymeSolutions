@@ -12,6 +12,7 @@
 */
 
 Route::get('/', function(){
+	//Artisan::call('up',array());
 	return View::make('hello');
 
 });
@@ -281,10 +282,10 @@ Route::group(array('prefix' => 'Compras'), function(){
 
 
 Route::group(array('prefix' => 'contabilidad'),function(){
-			Route::get('/',function ()
+			Route::get('/',array('as'=>'con.principal' ,'uses'=>function ()
 			{
 				return View::make('Menus.contabilidad');
-			});
+			}));
 			
 			Route::resource('clasificacioncuentas','ClasificacionCuentaController');
 			Route::resource('motivotransaccion', 'MotivoTransaccionsController');
@@ -294,6 +295,9 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('librodiario','LibroDiarioController');
 			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::resource('estadoresultados', 'EstadoresultadosController');
+
+			Route::resource('conceptomotivo','ConceptoMotivoController');
+			Route::get('crear/conceptomotivo',array('uses'=>'ConceptoMotivoController@create'));
 
 			Route::get('librodiario',array('uses' => 'LibroDiarioController@index'));
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
@@ -318,7 +322,9 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::resource('catalogocuentas', 'CatalogoContablesController');
 				Route::resource('subcuentas', 'SubcuentaController');
 
-
+				Route::post('periodocontable/habilitar/{id}',array('as'=>'con.enableperiodo','uses'=>'ParamPeriodoContableController@enable'));
+				Route::post('periodocontable/eliminar/{id}',array('as'=>'con.deleteperiodo','uses'=>'ParamPeriodoContableController@destroy'));
+				Route::get('periodocontable/editar/{id}',array('as'=>'con.editperiodo', 'uses'=>'ParamPeriodoContableController@edit'));
 				Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
 				Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
 				Route::get('subcuentas',array ('as'=>'subcuentas', 'uses' => 'SubcuentaController@index'));
@@ -328,10 +334,13 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::group(array('prefix'=>'cierreperiodo'),function(){
 				Route::get('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
 
+				Route::post('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
+
 				Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
 				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
 				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
 				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
+				Route::post('nuevoperiodo',array('as'=>'con.nuevoperiodo','uses'=>'CierrePeriodoController@nuevoPeriodo'));
 			});
 
 
