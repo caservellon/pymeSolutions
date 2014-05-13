@@ -30,6 +30,10 @@ Validator::extend('alphanumdotspaces', function($attribute, $value, $parameters)
     
 });
 
+Validator::extend('is_valid_validation_mask', function($attribute, $value, $parameters){
+	return preg_match_all('/[#\/_\-\.L]*/', $value) == 2;
+});
+
 Validator::extend('decimal', function($attribute, $value, $parameters)
 {
 	$EsDecimalValido = false;

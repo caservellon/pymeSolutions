@@ -50,10 +50,10 @@
 					    	<td></td>
 					    @endif
 					@endforeach
-                    <td>{{ link_to_route('CRM.Empresas.edit', 'Edit', array($Empresa->CRM_Empresas_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('CRM.Empresas.edit', 'Editar', array($Empresa->CRM_Empresas_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.Empresas.destroy', $Empresa->CRM_Empresas_ID))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

@@ -61,6 +61,10 @@ mysql -u "root" "-proot" "pymeERP" < "INS_VEN_EstadoBono.sql" >> ./logs/install.
 mysql -u "root" "-proot" "pymeERP" < "INS_VEN_FormaPago.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_VEN_PeriodoCierreDeCaja.sql" >> ./logs/install.log 2>&1
 
+echo "Populating Generales " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "INS_GEN_Mensajes.sql" >> ./logs/install.log 2>&1
+ 
+
 DATE=$(date +"%Y/%m/%d %H:%M:%S")
 echo "Process ended at " $DATE >> ./logs/install.log
 

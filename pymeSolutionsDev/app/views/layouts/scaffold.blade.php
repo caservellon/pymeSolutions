@@ -44,7 +44,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/Compras/SolicitudCotizacion">Solicitudes de Cotización</a></li>
-                  <li><a href="#">Cotizaciones</a></li>
+                  <li><a href="/Compras/Cotizaciones">Cotizaciones</a></li>
                   <li><a href="#">**Ordenes de Compras</a></li>
                   <li><a href="/Compras/OrdenCompra/sinCotizacion/ListaProductos" >Crear Orden Compra sin Cotizacion</a></li>
                   <li><a href="/Compras/OrdenCompra/conCotizacion/ListaCotizaciones" >Comparar Cotizaciones</a></li>

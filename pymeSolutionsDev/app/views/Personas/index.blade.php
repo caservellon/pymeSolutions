@@ -14,7 +14,7 @@
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<th>#</th>
+				
 				<th>Código</th>
 				<th>Nombres</th>
 				<th>Apellidos</th>
@@ -33,7 +33,7 @@
 		<tbody>
 			@foreach ($Personas as $Persona)
 				<tr>
-					<td>{{{ $Persona->CRM_Personas_ID }}}</td>
+					
 					<td>{{{ $Persona->CRM_Personas_codigo }}}</td>
 					<td>{{{ $Persona->CRM_Personas_Nombres }}}</td>
 					<td>{{{ $Persona->CRM_Personas_Apellidos }}}</td>
@@ -50,10 +50,10 @@
 					    	<td></td>
 					    @endif
 					@endforeach
-                    <td>{{ link_to_route('CRM.Personas.edit', 'Edit', array($Persona->CRM_Personas_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('CRM.Personas.edit', 'Editar', array($Persona->CRM_Personas_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.Personas.destroy', $Persona->CRM_Personas_ID))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

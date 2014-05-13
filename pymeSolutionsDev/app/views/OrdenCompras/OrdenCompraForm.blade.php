@@ -10,7 +10,7 @@
  
 
 ?>
-{{Form::open(array('route'=>'GuardaOCsnCot','id'=>'Formu'))}}
+{{Form::open(array('route'=>'GuardaOCsnCot','id'=>'Formu' , 'method'=>'POST'))}}
 	<div class="row">
 		<div class="row">
       <div class="page-header clearfix">
@@ -31,11 +31,9 @@
           <h5>Honduras C.A.</h5>
       </div>
       <div class="col-md-4 " style="text-align: right">
-         <div <? if($errors->any()){echo 'class="alert alert-danger"';}?> >
-              @foreach($errors->all() as $mensaje)
-                <li class="alert alert-danger">{{$mensaje}}</li>
-              @endforeach
-          </div>
+        <div class="alert alert-danger">
+              {{ implode('', $errors->all('<li >:message</li>')) }}
+        </div>
           <h5 >Tel.2234-9000 Fax.2234-9000</h5>
 
       </div>
@@ -144,10 +142,11 @@
 		<div class="col-md-4">
           <label>Fecha Emision</label>
           {{date('Y/m/d H:i:s')}}
-          <label>Fecha Entrega</label>
-		       <a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>
+          <label>Fecha Entrega * </label>
+		       <?/*<a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>*/?>
           <br>
-             {{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}
+              {{Form::custom('datetime-local','COM_OrdenCompra_FechaEntrega','2014/03/17',array('format'=>'AAAA/MM/DD','required '=>'required '))}}
+             <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
           
           <hr>
           <br>
@@ -187,8 +186,10 @@
       <?/* usar lo q se ocupa */?>
 
        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get() as $campo)
-              <label style="float:left">{{{ $campo->GEN_CampoLocal_Nombre }}}</label>       
-                                            @if ($campo->GEN_CampoLocal_Requerido)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              @if ($campo->GEN_CampoLocal_Requerido)
                                                              
                 @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
                         <td>*{{  Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
@@ -215,6 +216,7 @@
                     @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
                        <td> {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
                     @endif
+
                @endif
             
         @endforeach                   

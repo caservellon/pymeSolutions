@@ -1,7 +1,7 @@
 <?php
 
-class COM_Detalle_Cotizacion extends Eloquent{
-	protected $table = 'COM_Detalle_Cotizacion';
+class COM_DetalleCotizacion extends Eloquent{
+	protected $table = 'COM_DetalleCotizacion';
 	public $timestamps = false;
 	public static $rules = array(
 		'cantidad' => 'numeric',

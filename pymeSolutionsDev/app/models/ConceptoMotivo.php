@@ -1,6 +1,6 @@
 <?php
 
-class CON_ConceptoMotivo extends Eloquent {
+class ConceptoMotivo extends Eloquent {
 	protected $guarded = array();
 	public $timestamps=false;
 	protected $table = 'CON_ConceptoMotivo';

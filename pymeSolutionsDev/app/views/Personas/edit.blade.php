@@ -8,6 +8,20 @@
         <a href="{{{ URL::to('CRM/Personas') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
+</div>
+@endif
 
 {{ Form::model($Persona, array('method' => 'PATCH', 'route' => array('CRM.Personas.update', $Persona->CRM_Personas_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
@@ -97,17 +111,12 @@
 
         <div class="form-group">
             <div class="col-md-5">
-                {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-                {{ link_to_route('CRM.Personas.show', 'Cancel', $Persona->CRM_Personas_ID, array('class' => 'btn')) }}
+                {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+                {{ link_to_route('CRM.Personas.show', 'Cancelar', $Persona->CRM_Personas_ID, array('class' => 'btn')) }}
             </div>
         </div>
 	</div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

@@ -1,0 +1,28 @@
+//Inserts para Proveedor_FormaPago
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('1', '1');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('1', '2');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('1', '3');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('1', '4');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('2', '5');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('2', '3');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('2', '1');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('3', '2');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('3', '4');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('4', '1');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('4', '2');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('4', '3');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('5', '1');
+INSERT INTO `pymeERP`.`INV_Proveedor_FormaPago` (`INV_FormaPago_ID`, `INV_Proveedor_ID`) VALUES ('5', '5');
+
+//inserts para Proveeedor_Producto
+
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('1', '1');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('1', '3');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('1', '5');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('2', '2');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('2', '4');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('3', '1');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('3', '5');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('4', '2');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('4', '3');
+INSERT INTO `pymeERP`.`INV_Producto_Proveedor` (`INV_Producto_ID`, `INV_Proveedor_ID`) VALUES ('4', '4');

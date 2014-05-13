@@ -79,6 +79,7 @@ class VentasController extends BaseController {
 			$saldo = Input::get('saldo');
 			$isv = Input::get('isv');
 			$caja = Input::get('caja');
+			$total = Input::get('total');
 
 			$subTotal = 0;
 			$isvCalculado = 0;
@@ -89,9 +90,10 @@ class VentasController extends BaseController {
 			$totalBonoDeCompra = 0;
 
 			$venta = new Venta;
-			$venta->VEN_Caja_VEN_Caja_id = (float) $caja;
-			$venta->VEN_Venta_TotalCambio = (float) $saldo;
-			$venta->VEN_Venta_ISV = (float) $isv;
+			$venta->VEN_Caja_VEN_Caja_id = (double) $caja;
+			$venta->VEN_Venta_TotalCambio = (double) $saldo;
+			$venta->VEN_Venta_ISV = (double) $isv;
+			$venta->VEN_Venta_Total = (double) $total;
 			$venta->save();
 			array_push($return, ['numFact' => $venta->VEN_Venta_id]);
 
@@ -107,10 +109,9 @@ class VentasController extends BaseController {
 				$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 			}
 
-			foreach ($descuentos as $d) {
-				
+			//foreach ($descuentos as $d) {
 
-			}
+
 
 			foreach ($abonos as $a) {
 				$pago = new Pago;
@@ -142,8 +143,9 @@ class VentasController extends BaseController {
 
 			return $return;
 
+
 		}
-	
+
 	}
 
 	public function Listar() {
@@ -154,7 +156,7 @@ class VentasController extends BaseController {
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
-	
+
 	}
 
 	public function ListarOne($id) {
@@ -165,7 +167,7 @@ class VentasController extends BaseController {
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
-	
+
 	}
 
 	public function Devs() {
@@ -176,7 +178,7 @@ class VentasController extends BaseController {
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
-	
+
 	}
 
 	public function DevsOne($id) {
@@ -187,7 +189,7 @@ class VentasController extends BaseController {
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
-	
+
 	}
 
 	/**
@@ -238,11 +240,11 @@ class VentasController extends BaseController {
 	{
 		if (Request::ajax())
 		{
-			$Input = Input::all();
+			$Input = Input::get('codigo');
 
-			$Producto = Producto::where('INV_Producto_Codigo', $Input['codigo'])->get();
+			$Producto = Producto::where('INV_Producto_Codigo', $Input)->firstOrFail();
 
-		    return $Producto;
+		    return $Producto->INV_Producto_Cantidad;
 		}
 	}
 
