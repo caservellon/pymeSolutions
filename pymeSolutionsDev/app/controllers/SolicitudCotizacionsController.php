@@ -170,10 +170,10 @@ class SolicitudCotizacionsController extends BaseController {
                             for($j=0; $j < count($cualquierProducto); $j++){
                                 if($cualquierProducto[$j]==$key->INV_Producto_ID){
                                 $detallesolicitud= new DetalleSolicitudCotizacion();
-                                
+                                $temp = Producto::find($cualquierProducto[$j]);
                 
                                 
-                                $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$cualquierProducto[$j]);
+                                $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$temprod->INV_Proveedor_Nombre.$temp->INV_Producto_Nombre);
                                 
                                 $detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
                                 $detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
@@ -222,7 +222,7 @@ class SolicitudCotizacionsController extends BaseController {
                 
               }
               return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
-                     ->withInput()
+                     
                      ->withErrors($validation)
                      ->with('message', 'There were validation errors.');
 	}
