@@ -40,8 +40,8 @@
 					<td>{{{ $Categoria->INV_Categoria_FechaModificacion }}}</td>
 					<td>{{{ $Categoria->INV_Categoria_UsuarioModificacion }}}</td>
 					<td>{{{ ($Categoria->INV_Categoria_Activo ? 'Activa' : 'Desactivada') }}}</td>
-					<td>{{{ $Categoria->INV_Categoria_IDCategoriaPadre }}}</td>
-					<td>{{{ $Categoria->INV_Categoria_HorarioDescuento_ID }}}</td>
+					<td>{{{ $Categorias[$Categoria->INV_Categoria_IDCategoriaPadre - 1]->INV_Categoria_Nombre }}}</td>
+					<td>{{{ $Horarios[$Categoria->INV_Categoria_HorarioDescuento_ID - 1]->INV_Horario_Nombre }}}</td>
                     <td>{{ link_to_route('Inventario.Categoria.edit', 'Editar', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Categoria.destroy', $Categoria->INV_Categoria_ID))) }}

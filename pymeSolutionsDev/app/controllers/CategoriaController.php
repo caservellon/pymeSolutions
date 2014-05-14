@@ -22,8 +22,9 @@ class CategoriaController extends BaseController {
 	public function index()
 	{
 		$Categoria = $this->Categoria->all();
-
-		return View::make('Categoria.index', compact('Categoria'));
+		$Categorias = Categoria::all();
+		$Horarios = Horario::all();
+		return View::make('Categoria.index', compact('Categoria', 'Categorias', 'Horarios'));
 	}
 
 	/**
@@ -129,7 +130,7 @@ class CategoriaController extends BaseController {
 			$Categoria->INV_Categoria_UsuarioModificacion = Input::get('INV_Categoria_UsuarioModificacion');
 			$Categoria->update();
 
-			return Redirect::route('Inventario.Categoria.show', $id);
+			return Redirect::route('Inventario.Categoria.index');
 		}
 
 		return Redirect::route('Inventario.Categoria.edit', $id)
