@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_TipoDocumento` (
   `CRM_TipoDocumento_Codigo` VARCHAR(45) NULL,
   `CRM_TipoDocumento_Nombre` VARCHAR(45) NULL,
   `CRM_TipoDocumento_Validacion` VARCHAR(50) NULL,
-  `CRM_TipoDocumento_Eliminado` TINYINT(1) NULL,
+  `CRM_TipoDocumento_Eliminado` TINYINT(1) NULL DEFAULT FALSE,
   `CRM_TipoDocumento_Flag` TINYINT(1) NULL,
   PRIMARY KEY (`CRM_TipoDocumento_ID`))
 ENGINE = InnoDB;

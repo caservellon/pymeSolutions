@@ -18,6 +18,7 @@
 					<th>Código</th>
 					<th>Nombre</th>
 					<th>Validación</th>
+					<th>Activo</th>
 				</tr>
 			</thead>
 
@@ -27,11 +28,23 @@
 						<td>{{{ $TipoDocumento->CRM_TipoDocumento_Codigo }}}</td>
 						<td>{{{ $TipoDocumento->CRM_TipoDocumento_Nombre }}}</td>
 						<td>{{{ $TipoDocumento->CRM_TipoDocumento_Validacion }}}</td>
+						@if($TipoDocumento->CRM_TipoDocumento_Eliminado == 0)
+							<td><span class="glyphicon glyphicon-ok"></span></td>
+						@else
+							<td></td>
+						@endif
 						<td>{{ link_to_route('CRM.TipoDocumentos.edit', 'Editar', array($TipoDocumento->CRM_TipoDocumento_ID), array('class' => 'btn btn-info')) }}</td>
 						<td>
-						    {{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.TipoDocumentos.destroy', $TipoDocumento->CRM_TipoDocumento_ID))) }}
+						@if($TipoDocumento->CRM_TipoDocumento_Eliminado == 0)
+							{{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.TipoDocumentos.destroy', $TipoDocumento->CRM_TipoDocumento_ID))) }}
 						        {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
 						    {{ Form::close() }}
+						@else
+							{{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.TipoDocumentos.destroy', $TipoDocumento->CRM_TipoDocumento_ID))) }}
+						        {{ Form::submit('Activar', array('class' => 'btn btn-success')) }}
+						    {{ Form::close() }}
+						@endif
+						    
 						</td>
 					</tr>
 				@endforeach
