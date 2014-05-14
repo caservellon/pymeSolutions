@@ -42,10 +42,66 @@ class CierrePeriodoController extends BaseController {
         
     }
 
+    public function run(){
+        $array=array();
+        $current=0;
+        try {
+
+            $periodo=Cache::get('PeriodoContable');
+            $periodoId=$periodo->CON_PeriodoContable_ID;
+            
+            DB::beginTransaction();
+            $result=DB::select('CALL CON_Mayorizacion(?,?);',
+                array($periodoId,$periodo->CON_PeriodoContable_FechaFinal));
+            
+            $array[0]=array(0,'30%');
+
+            //Simula Creacion de Balanza
+            $array[1]=array(1,'40%');
+            Cache::forever('EstadoCierre',$array);
+            $current+=2;
+            //sleep(5);
+            //Estado
+            $result=DB::statement(DB::raw('CALL CON_EstadoResultados(?)'),
+                array($periodoId));
+            $array=array_merge(Cache::get('EstadoCierre'),array(array(2,'65%')));
+            Cache::forever('EstadoCierre',$array);
+            $current++;
+            //sleep(3);
+            //Balance
+            $result=DB::statement(DB::raw('CALL CON_BalanceGeneral(?)'),
+                array($periodoId));
+            $array=array_merge(Cache::get('EstadoCierre'),array(array(3,'85%')));
+            Cache::forever('EstadoCierre',$array);
+            $current++;
+            //sleep(3);
+            //Nuevo Periodo
+            $result=DB::statement(DB::raw('CALL CON_NuevoPeriodo(?)'),
+                array($periodoId));
+            $array=array_merge(Cache::get('EstadoCierre'),array(array(4,'100%')));
+            DB::commit();
+            Cache::forever('EstadoCierre',$array);
+            
+        } catch (Exception $e) {
+           // Cache::forever('EstadoCierre',array('Error'=>));
+            DB::rollBack();
+            return Response::json(
+                array('success'=>false,
+                      'error'=>json_encode($e),
+                      'current'=> $current
+                ));
+        }
+        return Response::json(array('success'=>true));
+    }
+
+    public function retrieve(){
+        $array=Cache::get('EstadoCierre');
+        Cache::forever('EstadoCierre',array());
+        return Response::json($array);
+    }
+
     public function mayorizar(){
     	if (Request::ajax()){
-
-            
               $periodo=Cache::get('PeriodoContable');
     		  $result=DB::select('CALL CON_Mayorizacion(?,?);',
     			 array($periodo->CON_PeriodoContable_ID,$periodo->CON_PeriodoContable_FechaFinal));

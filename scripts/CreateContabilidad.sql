@@ -459,12 +459,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`CON_DetalleBalance` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_DetalleBalance` (
+  `CON_BalanceGeneral_ID` INT NOT NULL,
   `CON_CatalogoContable_ID` INT NOT NULL,
   `CON_DetalleBalance_Saldo` FLOAT NOT NULL,
   `CON_DetalleBalance_FechaCreacion` DATETIME NOT NULL,
   `CON_DetalleBalance_FechaModificacion` DATETIME NOT NULL,
-  `CON_BalanceGeneral_ID` INT NOT NULL,
-  PRIMARY KEY (`CON_CatalogoContable_ID`),
+  PRIMARY KEY (`CON_BalanceGeneral_ID`, `CON_CatalogoContable_ID`),
   INDEX `CON_BalanceGeneral_ID_idx` (`CON_BalanceGeneral_ID` ASC),
   CONSTRAINT `CON_BalanceGeneral_ID`
     FOREIGN KEY (`CON_BalanceGeneral_ID`)
@@ -851,15 +851,15 @@ BEGIN
     WHERE ClC.CON_ClasificacionCuenta_ID BETWEEN 1 AND 5
     ORDER BY ClC.CON_ClasificacionCuenta_ID);
     
-    DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING
-    BEGIN
-      ROLLBACK;
-    END;
+   -- DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING
+    -- BEGIN
+      -- ROLLBACK;
+    -- END;
   
     DECLARE CONTINUE HANDLER 
     FOR NOT FOUND SET finished = 1;
     
-    START TRANSACTION;
+    -- START TRANSACTION;
   
 INSERT INTO `pymeERP`.`CON_BalanceGeneral`
 (`CON_PeriodoContable_ID`,
@@ -924,11 +924,12 @@ Now());
     `CON_BalanceGeneral_TotalActivosNC` = TotalActivosNC,
     `CON_BalanceGeneral_TotalPasivosNC` = TotalPasivosNC,
     `CON_BalanceGeneral_CapitalFinal` = TotalActivosC+TotalActivosNC-TotalPasivosC-TotalPasivosNC
-    WHERE `CON_PeriodoContable_ID` = ID_PeriodoCOntable;
-     COMMIT;
+    WHERE `CON_PeriodoContable_ID` = ID_PeriodoContable;
+    -- COMMIT;
 
 END$$
 DELIMITER ;
+
 
 DELIMITER $$
 CREATE PROCEDURE `CON_NuevoPeriodo`(IN ID_PeriodoContable INTEGER)
