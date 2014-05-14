@@ -1,5 +1,4 @@
-CREATE SCHEMA IF NOT EXISTS `pymeERP` DEFAULT CHARACTER SET utf8 ;
-USE `pymeERP` ;
+
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`GEN_CampoLocal`
@@ -9,16 +8,18 @@ DROP TABLE IF EXISTS `pymeERP`.`GEN_CampoLocal` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocal` (
   `GEN_CampoLocal_ID` INT NOT NULL AUTO_INCREMENT,
   `GEN_CampoLocal_Codigo` VARCHAR(60) NOT NULL,
-  `GEN_CampoLocal_Activo` TINYINT(1) NOT NULL,
+  `GEN_CampoLocal_Activo` TINYINT(1) NOT NULL DEFAULT TRUE,
   `GEN_CampoLocal_Nombre` VARCHAR(256) NOT NULL,
   `GEN_CampoLocal_Tipo` VARCHAR(45) NOT NULL,
   `GEN_CampoLocal_Requerido` TINYINT(1) NOT NULL,
   `GEN_CampoLocal_ParametroBusqueda` TINYINT(1) NOT NULL,
   `GEN_Usuario_idUsuarioCreo` INT NOT NULL,
+  `GEN_CampoLocal_TimeStamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `Usuario_idUsuarioModifico` INT NULL DEFAULT NULL,
   PRIMARY KEY (`GEN_CampoLocal_ID`),
   UNIQUE INDEX `COM_CampoLocal_Codigo_UNIQUE` (`GEN_CampoLocal_Codigo` ASC))
 ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`GEN_Mensajes`
@@ -63,7 +64,6 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`GEN_CampoLocalLista` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocalLista` (
-
   `GEN_CampoLocalLista_ID` INT NOT NULL AUTO_INCREMENT,
   `GEN_CampoLocalLista_Valor` VARCHAR(45) NULL,
   `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
@@ -75,3 +75,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocalLista` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
