@@ -273,7 +273,7 @@ class Helpers {
 		return $Consulta;
 	}
 	
-	public static function InformacionProductosOrdenCompra($CodigoOrdenCOmpra){
+	public static function InformacionProductosOrdenCompra($CodigoOrdenCompra){
 		$Consulta = DB::table('COM_OrdenCompra')
 			-> join('COM_DetalleOrdenCompra', 'COM_OrdenCompra_IdOrdenCompra', '=', 'COM_DetalleOrdenCompra_idOrdenCompra')
 			-> join('INV_Producto', 'COM_Producto_idProducto', '=', 'INV_Producto_ID')
@@ -283,7 +283,7 @@ class Helpers {
 					  'COM_DetalleOrdenCompra_Cantidad as Cantidad',
 					  'COM_DetalleOrdenCompra_PrecioUnitario as Precio'
 					  )
-			-> where('COM_OrdenCompra_Codigo', '=', $CodigoOrdenCOmpra)
+			-> where('COM_OrdenCompra_Codigo', '=', $CodigoOrdenCompra)
 			-> orderBy('COM_DetalleOrdenCompra_Cantidad', 'desc')
 			-> get();
 			

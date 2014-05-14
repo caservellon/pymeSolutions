@@ -90,7 +90,7 @@ class CotizacionController extends BaseController {
 			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion)) -> withInput() -> withErrors($Validacion);
 		}
 		
-		/*
+		
 		$Cotizacion['COM_Cotizacion_Vigencia'] = Input::get('VigenciaCotizacion');
 		$Validacion = Validator::make($Cotizacion, Cotizacion::$rules, Cotizacion::$messages);
 		
@@ -98,7 +98,7 @@ class CotizacionController extends BaseController {
 			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
 			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion)) -> withInput() -> withErrors($Validacion);
 		}
-		*/
+		
 		
 		$CamposLocalesCotizacion = Helpers::InformacionCamposLocalesCotizaciones();
         
@@ -153,7 +153,7 @@ class CotizacionController extends BaseController {
 		$Cotizacion -> COM_Cotizacion_Activo = 1;
 		$Cotizacion -> COM_Cotizacion_Vigencia = Input::get('VigenciaCotizacion');
 		
-		if (date_diff(date_create(date("Y-m-d")), date_create(date_format(date_create(Input::get('VigenciaCotizacion')), 'Y-m-d'))) -> format("%R%a") >= 0){
+		if (date_diff(date_create(date("Y-m-d G:i")), date_create(date_format(date_create(Input::get('VigenciaCotizacion')), 'Y-m-d G:i'))) -> format("%R%a") >= 0){
 			$Cotizacion -> COM_Cotizacion_Vigente = 1;
 		}else{
 			$Cotizacion -> COM_Cotizacion_Vigente = 0;

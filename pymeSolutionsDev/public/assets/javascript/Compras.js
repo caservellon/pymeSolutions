@@ -109,3 +109,45 @@ function eliminar(){
 	impuesto();
 	total();
 }
+
+
+//Funciones para Cotizacion
+
+function IndiceElemento(Formulario, NombreElemento){
+	for(var i = 0; i < Formulario.length; i++){
+		if(Formulario.elements[i].name === NombreElemento){
+			return i;
+		}
+	}
+	return -1;
+}
+
+function AsignarTotales(NombreCampoPrecio, CantidadProducto){
+	Formulario = document.forms[0];
+	var IndiceCampoPrecio = IndiceElemento(Formulario, NombreCampoPrecio);
+	var NombreCampoTotal = "Total"+NombreCampoPrecio;
+	var IndiceCampoTotal = IndiceElemento(Formulario, NombreCampoTotal);
+	var Total = Formulario.elements[IndiceCampoPrecio].value * CantidadProducto;
+	
+	Formulario.elements[IndiceCampoTotal].value = Total;
+	//Formulario.elements[IndiceCampoTotal].value = Total.toFixed(2);
+	//Formulario.elements[IndiceCampoTotal].value = Formulario.elements[IndiceCampoTotal].value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	
+	
+	var NombreCampoTotalFinal = "TotalFinal";
+	var IndiceCampoTotalFinal = IndiceElemento(Formulario, NombreCampoTotalFinal);
+	var NombreCampo;
+	var IndiceCampo;
+	var TotalFinal = 0;
+	
+	for(var i = 0; i < Formulario.length; i++){
+		NombreCampo = Formulario.elements[i].name;
+		if(NombreCampo.match("Total.") != null && NombreCampo != NombreCampoTotalFinal){
+			IndiceCampo = IndiceElemento(Formulario, NombreCampo);
+			TotalFinal += Number(Formulario.elements[IndiceCampo].value);
+		}
+	}
+	
+	Formulario.elements[IndiceCampoTotalFinal].value = TotalFinal.toFixed(2);
+	Formulario.elements[IndiceCampoTotalFinal].value = Formulario.elements[IndiceCampoTotalFinal].value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

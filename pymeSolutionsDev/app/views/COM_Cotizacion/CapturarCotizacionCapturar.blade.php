@@ -74,8 +74,8 @@
 									<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
 								@endforeach
 								
-								<td>Lps. {{ Form::text($ProductoSolicitudCotizacion -> Codigo) }}</td>
-								<td>Lps.</td>
+								<td>{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}</td>
+								<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('disabled')) }}</td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -93,6 +93,7 @@
 				{{Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'readonly' => 'readonly'))}}
 				<script>
 					$('#VigenciaCotizacion').appendDtpicker({
+						"dateFormat": "YYYY-MM-DD h:m",
 						"autodateOnStart": false,
 						"futureOnly": true,
 						"locale":"es",
@@ -110,7 +111,7 @@
 			</div>
 			
 			<div class="col-md-8" style="text-align: right">
-				<label>Total: </label>
+				<label>Total: {{ Form::text('TotalFinal', null, array('disabled')) }}</label>
 			</div>
 			
 			<br>
