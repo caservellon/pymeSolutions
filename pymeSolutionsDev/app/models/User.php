@@ -12,8 +12,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 */
 	protected $table = 'SEG_Usuarios';
 	protected $primaryKey = 'SEG_Usuarios_ID';
-	protected $fillable = array('SEG_Usuarios_Username', 'SEG_Usuarios_Email', 'SEG_Usuarios_Contrasena');
+	protected $fillable = array('SEG_Usuarios_Username', 'SEG_Usuarios_Email', 'SEG_Usuarios_Contrasena', 'SEG_Usuarios_Nombre','SEG_Usuarios_Activo');
 	public $timestamps = false;
+
+	public static $rules = array(
+		'SEG_Usuarios_Username' => 'unique:SEG_Usuarios'
+	);
 	
 	public function getAuthIdentifier()
 	{

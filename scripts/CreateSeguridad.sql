@@ -20,21 +20,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_CRM_EditarEmpresa` TINYINT(1) NULL,
   `SEG_Roles_CRM_EliminarEmpresa` TINYINT(1) NULL,
   `SEG_Roles_CRM_Configuracion` TINYINT(1) NULL,
-  `SEG_Roles_VEN_AbrirCaja` TINYINT(1) NULL,
-  `SEG_Roles_VEN_CrearCaja` TINYINT(1) NULL,
-  `SEG_Roles_VEN_CerrarCaja` TINYINT(1) NULL,
-  `SEG_Roles_VEN_ModificarCaja` TINYINT(1) NULL,
-  `SEG_Roles_VEN_EliminarCaja` TINYINT(1) NULL,
-  `SEG_Roles_VEN_RegistrarVenta` TINYINT(1) NULL,
-  `SEG_Roles_VEN_RegistrarDevolucion` TINYINT(1) NULL,
-  `SEG_Roles_VEN_EditarVenta` TINYINT(1) NULL,
-  `SEG_Roles_VEN_EditarDevolucion` TINYINT(1) NULL,
-  `SEG_Roles_VEN_VerVentas` TINYINT(1) NULL,
-  `SEG_Roles_VEN_VerDevolucion` TINYINT(1) NULL,
-  `SEG_Roles_VEN_AgregarDescuento` TINYINT(1) NULL,
-  `SEG_Roles_VEN_EliminarDescuento` TINYINT(1) NULL,
-  `SEG_Roles_VEN_EditarDescuento` TINYINT(1) NULL,
-  `SEG_Roles_VEN_VerDescuento` TINYINT(1) NULL,
   `SEG_Roles_COM_NuevoEstadoOrden` TINYINT(1) NULL,
   `SEG_Roles_COM_AlmacenaEstadoOrden` TINYINT(1) NULL,
   `SEG_Roles_COM_IndexEstadoOrden` TINYINT(1) NULL,
@@ -157,7 +142,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_INV_editarHorario` TINYINT(1) NULL,
   `SEG_Roles_INV_eliminarHorario` TINYINT(1) NULL,
   `SEG_Roles_INV_listarHorario` TINYINT(1) NULL,
-  `SEG_Roles_INV_crearFormaPago` TINYINT(1) NULL,
   `SEG_Roles_INV_crearFormaPago` TINYINT(1) NULL,
   `SEG_Roles_INV_eliminarFormaPago` TINYINT(1) NULL,
   `SEG_Roles_INV_listarFormaPago` TINYINT(1) NULL,
@@ -333,4 +317,3 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_PassToken` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-

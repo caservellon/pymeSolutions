@@ -13,9 +13,9 @@ class UserController
 
 	public function index()
 	{
-		$User = $this->User->all();
+		$Usuarios = $this->User->all();
 
-		return View::make('Usuarios.index', compact('User'));
+		return View::make('Usuarios.index', compact('Usuarios'));
 	}
 
 	public function create()
@@ -25,7 +25,21 @@ class UserController
 
 	public function store()
 	{
+		$input = Input::all();
+		$validation = Validator::make($input, User::$rules);
+		//return var_dump($input);
+		if ($validation->passes())
+		{	
+			$input['SEG_Usuarios_Contrasena'] = Hash::make($input['SEG_Usuarios_Contrasena']);
+			$this->User->create($input);
 
+			return Redirect::route('Auth.Usuarios.index');
+		}
+
+		return Redirect::route('Auth.Usuarios.create')
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'Error de Validacion.');
 	}
 
 	public function show($id){
@@ -43,7 +57,14 @@ class UserController
 	}
 
 	public function destroy($id){
-
+		$User = User::find($id);
+		if ($User->SEG_Usuarios_Activo == true) {
+			$User->SEG_Usuarios_Activo = false;
+		} else {
+			$User->SEG_Usuarios_Activo = true;
+		}
+		$User->save();
+		return Redirect::route('Auth.Usuarios.index');
 	}
 
 	public function login()
@@ -55,7 +76,8 @@ class UserController
 			    	"SEG_Usuarios_Nombre" => "Administrador",
 			        "SEG_Usuarios_Username" => "admin",
 			        "SEG_Usuarios_Contrasena" => Hash::make("hola123"),
-			        "SEG_Usuarios_Email"    => "admin@admin.com"
+			        "SEG_Usuarios_Email"    => "admin@admin.com",
+			        "SEG_Usuarios_Activo" => true,
 			    ]
 		    ];
 		  
