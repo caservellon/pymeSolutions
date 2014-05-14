@@ -48,6 +48,7 @@ class AtributosController extends BaseController {
 
 		if ($validation->passes())
 		{
+			/*
 			$Atributo = new Atributo;
 			$Atributo->INV_Atributo_Nombre = Input::get('INV_Atributo_Nombre');
 			$Atributo->INV_Atributo_TipoDato = Input::get('INV_Atributo_TipoDato');
@@ -57,6 +58,8 @@ class AtributosController extends BaseController {
 			$Atributo->INV_Atributo_FechaModificacion = date('Y-m-d H:i:s');
 			$Atributo->INV_Atributo_UsuarioModificacion = Input::get('INV_Atributo_UsuarioModificacion');
 			$Atributo->save();
+			*/
+			$this->Atributo->create($input);
 			return Redirect::route('Inventario.Atributos.index');
 		}
 

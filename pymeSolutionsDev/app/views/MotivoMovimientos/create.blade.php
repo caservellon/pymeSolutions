@@ -10,7 +10,7 @@
 
 {{ Form::open(array('route' => 'Inventario.MotivoMovimiento.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="form-group">
-      {{ Form::label('INV_MotivoMovimiento_Nombre', 'Nombre:', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_MotivoMovimiento_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::text('INV_MotivoMovimiento_Nombre',null, array('class' => 'form-control', 'id' => 'INV_MotivoMovimiento_Nombre', 'placeholder' => 'name' )) }}
       </div>
@@ -27,12 +27,7 @@
         {{ Form::textarea('INV_MotivoMovimiento_Observaciones',null, array('class' => 'form-control', 'id' => 'INV_MotivoMovimiento_Observaciones', 'placeholder' => 'text', 'rows' => '3' )) }}
       </div>
     </div>
-    <div class="form-group">
-      {{ Form::label('INV_MotivoMovimiento_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::checkbox('INV_MotivoMovimiento_Activo', '1', '1', array('class' => 'col-md-4 control-label')) }}
-      </div>
-    </div>
+    {{ Form::hidden('INV_MotivoMovimiento_Activo', 0) }}
     {{ Form::hidden('INV_MotivoMovimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
     {{ Form::hidden('INV_MotivoMovimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
 	<div class="form-group">

@@ -69,6 +69,15 @@ class DetalleMovimientosController extends BaseController {
 		if ($validation->passes())
 		{
 			$Producto = Producto::find(Input::get('INV_DetalleMovimiento_IDProducto'));
+			if ($input['PrecioCosto'] == 0) {
+				$input['INV_DetalleMovimiento_PrecioCosto'] = $Producto->INV_Producto_PrecioCosto;
+			}elseif ($input['PrecioCosto'] == 1) {
+				$input['INV_DetalleMovimiento_PrecioCosto'] = '0';
+			}elseif ($input['INV_DetalleMovimiento_PrecioCosto'] == '') {
+				$input['INV_DetalleMovimiento_PrecioCosto'] = '0';
+			}
+			//return $input;
+		
 			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + (Input::get('INV_DetalleMovimiento_PrecioCosto') * Input::get('INV_DetalleMovimiento_CantidadProducto')))/(Input::get('INV_DetalleMovimiento_CantidadProducto') + $Producto->INV_Producto_Cantidad);
 			//Calcular Precio de Costo
 			$input['INV_DetalleMovimiento_PrecioCosto'] = $Costo;

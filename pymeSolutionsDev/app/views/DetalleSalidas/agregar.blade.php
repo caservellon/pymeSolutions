@@ -5,6 +5,12 @@
       <h3 class="pull-left">Detalle Salida &gt; <small>Agregar</small></h3>
 </div>
 
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
 {{ Form::open(array('route' => 'Inventario.DetalleSalida.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
     <div class="form-group">
     {{ Form::label('INV_Producto_ID', 'ID:', array('class' => 'col-md-2 control-label')) }}
@@ -25,7 +31,13 @@
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('INV_DetalleMovimiento_CantidadProducto', 'Cantidad:', array('class' => 'col-md-2 control-label')) }}
+    {{ Form::label('INV_Producto_Cantidad', 'Cantidad en Inventario:', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-4">
+          {{ Form::text('INV_Producto_Cantidad', $Producto->INV_Producto_Cantidad, array('class' => 'form-control', 'id' => 'INV_Producto_Cantidad', 'disabled')) }}
+      </div>
+    </div>
+    <div class="form-group">
+      {{ Form::label('INV_DetalleMovimiento_CantidadProducto', 'Cantidad:*', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::text('INV_DetalleMovimiento_CantidadProducto',$Motivo->INV_DetalleMovimiento_CantidadProducto, array('class' => 'form-control', 'id' => 'INV_DetalleMovimiento_CantidadProducto', 'placeholder' => '#', 'rows' => '3' )) }}
       </div>
@@ -52,10 +64,5 @@
     </div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

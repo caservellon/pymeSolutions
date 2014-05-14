@@ -32,11 +32,11 @@
       <div class="col-md-5">
         {{ Form::select('INV_Atributo_TipoDato', array('Numerico' => 'Numerico', 'Decimal' => 'Decimal', 'Texto' => 'Texto' ), $Atributo->INV_Atributo_TipoDato, array('class' => 'form-control', 'id' => 'INV_Atributo_TipoDato', 'placeholder' => '#' )) }}
       </div>
-    </div> 
+    </div>
     <div class="form-group">
-      {{ Form::label('INV_Atributo_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_Atributo_Activo', 'Estado: ', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::checkbox('INV_Atributo_Activo', '1', $Atributo->INV_Atributo_Activo, array('class' => 'col-md-4 control-label')) }}
+        {{ Form::select('INV_Atributo_Activo', array('1' => 'Activada', '0' => 'Desactivada'), $Atributo->INV_Atributo_Activo, array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
     {{ Form::hidden('INV_Atributo_FechaModificacion', date('Y-m-d H:i:s')) }}
@@ -47,7 +47,6 @@
       </div>
     </div>
 {{ Form::close() }}
-
 
 
 @stop

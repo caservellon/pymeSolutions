@@ -33,9 +33,9 @@ class CategoriaController extends BaseController {
 	 */
 	public function create()
 	{
-		$temp = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+		$temp = Categoria::where('INV_Categoria_IDCategoriaPadre','=','1')->Where('INV_Categoria_Activo', '=', '1')->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
 		$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		$tipos = array(0 => "Seleccione ... ") + $temp;
+		$tipos = $temp;
 		return View::make('Categoria.create', compact('tipos', 'horarios'));
 	}
 
@@ -94,7 +94,8 @@ class CategoriaController extends BaseController {
 	{
 		$Categoria = $this->Categoria->find($id);
 		$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+		//return $tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+		$tipos = Categoria::where('INV_Categoria_IDCategoriaPadre','=','1')->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
 		if (is_null($Categoria))
 		{
 			return Redirect::route('Inventario.Categoria.index', compact('tipos', 'horarios'));

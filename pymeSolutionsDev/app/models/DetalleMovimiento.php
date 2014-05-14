@@ -14,7 +14,7 @@ class DetalleMovimiento extends Eloquent {
 		'INV_DetalleMovimiento_CodigoProducto' => 'max:16',
 		'INV_DetalleMovimiento_NombreProducto' => 'max:128',
 		'INV_DetalleMovimiento_CantidadProducto' => 'required|Integer|min:1|max:9999999999',
-		'INV_DetalleMovimiento_PrecioCosto' => '',
+		'INV_DetalleMovimiento_PrecioCosto' => 'numeric|min:0',
 		'INV_DetalleMovimiento_PrecioVenta' => '',
 		'INV_DetalleMovimiento_FechaCreacion' => '',
 		'INV_DetalleMovimiento_UsuarioCreacion' => '',
