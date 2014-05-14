@@ -11,7 +11,7 @@ class UnidadMedida extends Eloquent {
 
 	public static $rules = array(
 		//'INV_UnidadMedida_ID' => 'required',
-		'INV_UnidadMedida_Nombre' => 'required|regex:/^[a-z A-Z]?/|Between:1,128',
+		'INV_UnidadMedida_Nombre' => 'required|regex:/^[a-z A-Z]?/|Between:1,128|unique:INV_UnidadMedida',
 		'INV_UnidadMedida_Descripcion' => 'Between:1,256',
 		'INV_UnidadMedida_FechaCreacion' => '',
 		'INV_UnidadMedida_UsuarioCreacion' => '',
