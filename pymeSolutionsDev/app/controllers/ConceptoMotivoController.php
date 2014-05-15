@@ -181,8 +181,8 @@ class ConceptoMotivoController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$motivo = $this->ConceptoMotivo->find($id);
-			$motivo->update($input);
+			$moti = $this->ConceptoMotivo->find($id);
+			$moti->update($input);
 
 			return Redirect::action('ConceptoMotivoController@index');
 		}
