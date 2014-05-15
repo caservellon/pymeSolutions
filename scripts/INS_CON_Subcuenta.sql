@@ -151,6 +151,34 @@ end;
 $$
 DELIMITER ;
 
+
+-- Trigger ENUSO
+
+DELIMITER $$
+ Create trigger CuentasEnUso after insert on CON_TransaccionContabilidad
+ for each row
+begin
+declare c1 int;
+declare c2 int;
+
+select max(CON_CatalogoContable_ID)
+into c1 
+from CON_CuentaMotivo
+where (CON_MotivoTransaccion_ID = NEW.CON_MotivoTransaccion_ID);
+
+select min(CON_CatalogoContable_ID)
+into c2
+from CON_CuentaMotivo
+where (CON_MotivoTransaccion_ID = NEW.CON_MotivoTransaccion_ID);
+
+update CON_CatalogoContable set CON_CatalogoContable_EnUso = 1
+where CON_CatalogoContable_ID = c1 Or CON_CatalogoContable_ID = c2; 
+
+end;
+
+
+
+
 INSERT INTO `CON_Subcuenta` (`CON_Subcuenta_ID`,`CON_Subcuenta_Codigo`,`CON_Subcuenta_Nombre`,`CON_Subcuenta_FechaCreacion`,`CON_Subcuenta_FechaModificacion`,`CON_CatalogoContable_ID`) VALUES (1,'01','Caja',Now(),Now(),1);
 INSERT INTO `CON_Subcuenta` (`CON_Subcuenta_ID`,`CON_Subcuenta_Codigo`,`CON_Subcuenta_Nombre`,`CON_Subcuenta_FechaCreacion`,`CON_Subcuenta_FechaModificacion`,`CON_CatalogoContable_ID`) VALUES (2,'02','Banco Ficohsa',Now(),Now(),1);
 INSERT INTO `CON_Subcuenta` (`CON_Subcuenta_ID`,`CON_Subcuenta_Codigo`,`CON_Subcuenta_Nombre`,`CON_Subcuenta_FechaCreacion`,`CON_Subcuenta_FechaModificacion`,`CON_CatalogoContable_ID`) VALUES (3,'03','Banco CityBank',Now(),Now(),1);
