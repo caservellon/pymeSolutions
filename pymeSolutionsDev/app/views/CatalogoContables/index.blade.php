@@ -53,10 +53,9 @@
 					@else 
 					<td><span class="glyphicon glyphicon-remove"></td>
 					@endif
-                    <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/'.$CatalogoContable->CON_CatalogoContable_ID.'/edit') }}"> Editar</a>
-
-
-					</td>
+					@if ($CatalogoContable->CON_CatalogoContable_EnUso == 0)
+                    <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/'.$CatalogoContable->CON_CatalogoContable_ID.'/edit') }}"> Editar</a></td>
+                    @endif
 				</tr>
 				
 				@endif
