@@ -848,7 +848,8 @@ BEGIN
       pymeERP.CON_CatalogoContable as CC ON CC.CON_CatalogoContable_ID = CT.CON_CatalogoContable_ID
         INNER JOIN 
       pymeERP.CON_ClasificacionCuenta as ClC ON ClC.CON_ClasificacionCuenta_ID=CC.CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID
-    WHERE ClC.CON_ClasificacionCuenta_ID BETWEEN 1 AND 5
+    WHERE (ClC.CON_ClasificacionCuenta_ID BETWEEN 1 AND 5)
+      AND L.CON_PeriodoContable_CON_PeriodoContable_ID= ID_PeriodoContable
     ORDER BY ClC.CON_ClasificacionCuenta_ID);
     
    -- DECLARE EXIT HANDLER FOR SQLEXCEPTION, SQLWARNING
