@@ -17,7 +17,7 @@
         <tbody>
             @foreach ($Venta as $venta)
                 <tr>
-                    <td>{{{ $venta->VEN_DetalleDeVenta_id }}}</td>
+                    <td>{{{ $venta->VEN_DetalleDeVenta_Codigo }}}</td>
                     <td>{{{ $venta->VEN_DetalleDeVenta_CantidadVendida }}}</td>
                     <td>{{{ $venta->VEN_DetalleDeVenta_PrecioVenta }}}</td>
                 </tr>

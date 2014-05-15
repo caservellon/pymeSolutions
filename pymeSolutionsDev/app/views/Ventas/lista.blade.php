@@ -29,7 +29,7 @@
                     <td>{{{ $Venta->VEN_Venta_Subtotal }}}</td>
                     <td>{{{ $Venta->VEN_Venta_Total }}}</td>
                     <td>{{{ $Venta->VEN_Caja_VEN_Caja_id }}}</td>
-                    <td>{{ link_to_route('Ventas.ListarOne', 'Show', array($Venta->VEN_Venta_id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Ventas.ListarOne', 'Ver', array($Venta->VEN_Venta_id), array('class' => 'btn btn-info')) }}</td>
                 </tr>
             @endforeach
         </tbody>

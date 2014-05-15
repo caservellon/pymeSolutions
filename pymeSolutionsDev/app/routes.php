@@ -405,6 +405,9 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::resource('EstadoBonos', 'EstadobonosController');
 
 	Route::resource('BonoDeCompras', 'BonodecomprasController');
+	Route::post('BonoDeCompras/validar', array('as' => 'Ventas.BonoDeCompras.validar', 'uses' => 'BonoDeComprasController@validar'));
+	Route::post('BonoDeCompras/valor', array('as' => 'Ventas.BonoDeCompras.valor', 'uses' => 'BonoDeComprasController@valor'));
+
 
 	Route::resource('Devoluciones', 'DevolucionesController');
 	Route::post('Devoluciones/process', array('as' => 'Ventas.Devoluciones.process', 'uses' => 'DevolucionesController@process'));

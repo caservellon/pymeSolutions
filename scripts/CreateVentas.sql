@@ -1,5 +1,4 @@
 
-
 -- -----------------------------------------------------
 -- Table `pymeERP`.`VEN_DescuentoEspecial`
 -- -----------------------------------------------------
@@ -302,7 +301,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`VEN_Pago` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Pago` (
-  `VEN_Pago_ID` INT NOT NULL,
+  `VEN_Pago_ID` INT NOT NULL AUTO_INCREMENT,
   `VEN_Pago_Cantidad` VARCHAR(45) NULL,
   `VEN_Venta_VEN_Venta_id` INT NOT NULL,
   `VEN_Venta_VEN_Caja_VEN_Caja_id` INT NOT NULL,
@@ -321,3 +320,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_Pago` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+

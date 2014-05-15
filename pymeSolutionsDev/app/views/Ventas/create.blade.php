@@ -63,7 +63,7 @@
 </div>
 <div class="col-md-4">
     <div class="opciones-cajas">
-        <h4>Opciones de Caja</h4>
+        <h4 class="no-print">Opciones de Caja</h4>
         <button type="button" class="btn btn-success no-print" data-toggle="modal" data-target="#agregarProducto">Agregar Producto</button>
         <button type="button" class="btn btn-info editar-prod no-print">Editar Cantidad</button>
         <button type="button" class="btn btn-warning eliminar-prod no-print">Eliminar Producto</button>

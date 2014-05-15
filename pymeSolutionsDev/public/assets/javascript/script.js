@@ -74,29 +74,31 @@ $(document).ready(function(){
     };
 
     $('.search-cliente').on('click', function(){
-		if ($('.Tipo_de_Cliente').val() == '0') {
-			$.post('/CRM/Personas/buscar',{
-				'name' : $('.cliente').val()
-			}).success(function(data){
-				$.each(data, function(i, value){
-					$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
+    	if($('.cliente').val() !==  ""){
+			if ($('.Tipo_de_Cliente').val() == '0') {
+				$.post('/CRM/Personas/buscar',{
+					'name' : $('.cliente').val()
+				}).success(function(data){
+					$.each(data, function(i, value){
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
+					});
+				}).fail(function(data) {
+					//TODO: Mensaje de no encontrado
 				});
-			}).fail(function(data) {
-				alert("Nothing here bro");
-			});
-		} else {
-			$.post('/CRM/Empresas/buscar',{
-				'name' : $('.cliente').val()
-			}).success(function(data){
-				$.each(data, function(i, value){
-					$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombres']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+			} else {
+				$.post('/CRM/Empresas/buscar',{
+					'name' : $('.cliente').val()
+				}).success(function(data){
+					$.each(data, function(i, value){
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombres']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+					});
+				}).fail(function (data) {
+
 				});
-			}).fail(function (data) {
+			};
 
-			});
-		};
-
-		$('#buscarCliente').modal('show');
+			$('#buscarCliente').modal('show');
+		}
 	});
 
 	$('.agregar-cliente-sel').on('click', function(){
@@ -129,6 +131,7 @@ $(document).ready(function(){
     	$('#no-valido').hide();
  		$('#valido').hide();
  		$('#no-existe').hide();
+ 		console.log($('.bono-compra-tb').val());
     	$.post('/Ventas/BonoDeCompras/validar',{
     		'bono':$('.bono-compra-tb').val()
     	}).success(function(data){
@@ -203,24 +206,27 @@ $(document).ready(function(){
 			console.log("dafsdafdfS", abono);
 			data.abonos.push({
 				metodo: $(abono).find('td:eq(0)').text(),
-				monto: $(abono).find('td:eq(1)').text()
+				monto: $(abono).find('td:eq(1)').text().substring(5)
 			});
 		});
 
-		data.isv = $('.isv').text();
+		data.isv = $('.isv').text().substring(5);
 
-		data.saldo = $('.saldo-info').text();
+		data.saldo = $('.saldo-info').text().substring(5);
 
 		data.tipocliente = '1';
 
 		data.cliente = $('.cliente').val();
+
+		data.total = $('.grand-total').text().substring(5);
 
 		data.caja = '1';
 
 		console.log(data);
 
 		$.post("/Ventas/Ventas/guardar", data).success(function(data){
-			console.log(data);
+			$('.num-factura').text(data[0].numFact);
+			console.log(data[0].numFact);
 			window.print();
 		});
 	});
@@ -318,6 +324,16 @@ $(document).ready(function(){
 
 	$('.table').on('blur', '.edit-cant', function(){
 		var content = $("tbody.pro-list tr.highlight").find('.edit-cant').val();
+		$.post('/Ventas/Ventas/checkStock', {
+ 			'codigo': $("tbody.pro-list tr.highlight").find('.cod').text()
+ 		}).success(function(data){
+ 			if (data == 0) {
+ 				$("tbody.pro-list tr.highlight").find('.nombre').append('<spam class="glyphicon glyphicon-remove"></spam>');
+ 			};
+ 			if (data < 5) {
+ 				$("tbody.pro-list tr.highlight").find('.nombre').append('<spam class="glyphicon glyphicon-info-sign"></spam>');
+ 			};
+ 		});
 		$("tbody.pro-list tr.highlight").find('.cantidad').text(content);
 		var newTotal = content * (($("tbody.pro-list tr.highlight").find('.precio').text()).substring(5));
 		$("tbody.pro-list tr.highlight").find('.total-art').text("Lps. " + newTotal);
@@ -366,13 +382,22 @@ $(document).ready(function(){
 
 	//Setear Descuentos
 	$('.agregar-descuento').on('click',function(){
+		
 		$('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
 		    var cantidad = $(descuento).find('td:eq(4)').text();
 		    cantidad = cantidad/100;
 		    var subtotal = $('.sub-total').text();
 		    subtotal = parseFloat(subtotal.substring(5));
 		    var descuento = subtotal*cantidad;
-		    $('.descuento').text("Lps. " + descuento);
+		    var isv = (subtotal - descuento)* 0.15;
+		    var totallyTotalBro = (subtotal - descuento) + isv;
+		    $('.descuento').text("Lps. " + descuento.toFixed(2));
+			$('.sub-total').text("Lps. " + subtotal.toFixed(2));
+			$('.isv').text("Lps. " + isv.toFixed(2));
+			$('.grand-total').text("Lps. " + totallyTotalBro.toFixed(2));
+			var abonado = parseFloat($('.abonado-info').text().substring(5));
+
+			$('.saldo-info').text("Lps. " + (totallyTotalBro - abonado).toFixed(2));
 		});
 		$('#agregarDescuento').modal('hide');
 	});

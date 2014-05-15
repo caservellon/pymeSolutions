@@ -69,7 +69,7 @@ class VentasController extends BaseController {
 	 * @return Response
 	 */
 	public function guardar(){
-		$numFact = 0;
+		//$numFact = 0;
 		$return = array();
 		if (Request::ajax())
 		{
@@ -90,10 +90,12 @@ class VentasController extends BaseController {
 			$totalBonoDeCompra = 0;
 
 			$venta = new Venta;
+			$venta->VEN_Venta_Codigo = "Venta_Normal_" . (double) $caja . "_" . date("Y-m-d H:i:s"); 
 			$venta->VEN_Caja_VEN_Caja_id = (double) $caja;
 			$venta->VEN_Venta_TotalCambio = (double) $saldo;
-			$venta->VEN_Venta_ISV = (double) $isv;
-			$venta->VEN_Venta_Total = (double) $total;
+			$venta->VEN_Venta_ISV = $isv;
+			$venta->VEN_Venta_Total = $total;
+			$venta->VEN_Venta_Subtotal = $total - $isv;
 			$venta->save();
 			array_push($return, ['numFact' => $venta->VEN_Venta_id]);
 
@@ -109,9 +111,12 @@ class VentasController extends BaseController {
 				$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 			}
 
+			
+
+
 			//foreach ($descuentos as $d) {
 
-
+			//}
 
 			foreach ($abonos as $a) {
 				$pago = new Pago;

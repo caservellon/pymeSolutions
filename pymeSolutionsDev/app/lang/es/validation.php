@@ -94,7 +94,7 @@ return array(
     */
 
     'attributes' => array(),
-    "is_positive" => "El :attribute no puede ser un número negativo",
+    "is_positive" => "El :attribute no puede ser un número negativo o cero",
     "is_valid_validation_mask" => "La máscara de validación es invalida, solo puede contener los siguientes caracteres [ # / _ - . L ]",
     "alpha_spaces" => "El :attribute puede contener sólo letras y espacios.",
     "alphanum_spaces" => "El :attribute puede contener sólo letras, números y espacios.",
