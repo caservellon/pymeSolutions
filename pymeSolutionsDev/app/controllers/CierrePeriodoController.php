@@ -87,7 +87,7 @@ class CierrePeriodoController extends BaseController {
             DB::rollBack();
             return Response::json(
                 array('success'=>false,
-                      'error'=>json_encode($e),
+                      'error'=>json_encode($e->getMessage()),
                       'current'=> $current
                 ));
         }

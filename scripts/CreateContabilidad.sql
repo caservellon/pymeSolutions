@@ -626,15 +626,15 @@ BEGIN
                     AND L.CON_LibroDiario_FechaCreacion <= FechaFinal
             GROUP BY CM.CON_CatalogoContable_ID) as Debe ON Haber.CON_CatalogoContable_ID = Debe.CON_CatalogoContable_ID);
 
-      DECLARE EXIT HANDLER FOR SQLEXCEPTION,SQLWARNING
-         BEGIN
-            ROLLBACK;
-         END;
+      -- DECLARE EXIT HANDLER FOR SQLEXCEPTION,SQLWARNING
+         -- BEGIN
+            -- ROLLBACK;
+         -- END;
 
     DECLARE CONTINUE HANDLER 
     FOR NOT FOUND SET finished = 1;
 
-    START TRANSACTION;
+    -- START TRANSACTION;
 
     
      INSERT INTO `pymeERP`.`CON_LibroMayor`
@@ -687,7 +687,7 @@ BEGIN
     END LOOP get_cuentaT;
 
     CLOSE cuentaT_cursor;
-    COMMIT;
+    -- COMMIT;
 
  
 END$$
@@ -711,10 +711,10 @@ BEGIN
   DECLARE Impuesto float;
   DECLARE Utilidad_neta float;
 
-  DECLARE EXIT HANDLER FOR SQLEXCEPTION,SQLWARNING
-         BEGIN
-            ROLLBACK;
-         END;
+  -- DECLARE EXIT HANDLER FOR SQLEXCEPTION,SQLWARNING
+         -- BEGIN
+            -- ROLLBACK;
+         -- END;
 
   SELECT 
     SUM(CT.CON_CuentaT_SaldoFinal) Venta
@@ -811,12 +811,12 @@ into costo_ventas
     set Utilidad_neta = Utilidad_ISR - Impuesto;
     END IF;
 
-    START TRANSACTION;
+    -- START TRANSACTION;
 
     INSERT INTO `pymeERP`.`CON_EstadoResultado` (`CON_PeriodoContable_ID`, `CON_EstadoResultados_Ingresos`, `CON_EstadoResultados_CostoVentas`, `CON_EstadoResultados_UtilidadBruta`, `CON_EstadoResultados_GastosdeVentas`, `CON_EstadoResultados_GastosAdministrativos`, `CON_EstadoResultados_UtilidadOperacion`, `CON_EstadoResultados_GastoFinanciero`, `CON_EstadoResultados_UtilidadAntesImpuesto`, `CON_EstadoResultados_Impuesto`, `CON_EstadoResultados_UtilidadPerdidaFinal`, `CON_EstadoResultados_FechaCreacion`, `CON_EstadoResultados_FechaModificacion`) 
     VALUES (PeriodoContable_ID, Ingresos_op, costo_ventas , Utilidad_Bruta, Gasto_ventas, Gastos_operacional, Utilidad_operacional, Gasto_Financiero, Utilidad_ISR, Impuesto, Utilidad_neta, Now(), Now());
     
-    COMMIT;
+    -- COMMIT;
   END$$
 DELIMITER ;
 
@@ -941,11 +941,11 @@ BEGIN
   DECLARE ID_ClasificacionPeriodo integer;
   DECLARE CantidadDias integer;
 
-  DECLARE EXIT HANDLER FOR SQLEXCEPTION,SQLWARNING
-         BEGIN
-            ROLLBACK;
-      SELECT 1;
-         END;
+  -- DECLARE EXIT HANDLER FOR SQLEXCEPTION,SQLWARNING
+         -- BEGIN
+            -- ROLLBACK;
+      -- SELECT 1;
+         -- END;
 
   SELECT PC.CON_PeriodoContable_FechaFinal,PC.CON_ClasificacionPeriodo_ID, CP.CON_ClasificacionPeriodo_CatidadDias
     INTO  FechaFinal_Old, ID_ClasificacionPeriodo, CantidadDias
@@ -957,7 +957,7 @@ BEGIN
   SET FechaInicio_New= DATE_ADD(FechaFinal_Old, INTERVAL 1 DAY);
   SET FechaFinal_New=DATE_ADD(FechaInicio_New, INTERVAL CantidadDias DAY);
 
-  START TRANSACTION;
+  -- START TRANSACTION;
 
     INSERT INTO `pymeERP`.`CON_PeriodoContable`
     (
@@ -974,7 +974,7 @@ BEGIN
     ID_ClasificacionPeriodo);
 
 
-  COMMIT;
+  -- COMMIT;
   SELECT 0;
 END$$
 DELIMITER ;
