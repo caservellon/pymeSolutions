@@ -35,7 +35,7 @@ class VentasController extends BaseController {
 	{
 		$Clientes = Persona::all();
 
-		$Descuentos = Descuento::all();
+		$Descuentos = Descuento::where('VEN_DescuentoEspecial_Estado', '1')->get();
 		$Productos = Producto::all();
 		return View::make('Ventas.create', compact('Productos', 'Descuentos', 'Clientes'));
 	}

@@ -21,7 +21,7 @@ class DescuentosController extends BaseController {
 	 */
 	public function index()
 	{
-		$Descuentos = $this->Descuento->all();
+		$Descuentos = $this->Descuento->orderBy('VEN_DescuentoEspecial_Precedencia', 'desc')->get();
 
 		return View::make('Descuentos.index', compact('Descuentos'));
 	}

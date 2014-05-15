@@ -49,7 +49,7 @@
     <div class="form-group">
       {{ Form::label('VEN_PeriodoCierreDeCaja_Estado', 'Estado de Caja:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('VEN_PeriodoCierreDeCaja_Estado', array('1' => 'Activado', '0' => 'Desactivado'),'1',array('class' => 'col-md-4 control-label')) }}
+        {{ Form::select('VEN_PeriodoCierreDeCaja_Estado', array('1' => 'Activado', '0' => 'Desactivado'),'1',array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
 
