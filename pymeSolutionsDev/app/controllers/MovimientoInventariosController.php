@@ -161,4 +161,36 @@ class MovimientoInventariosController extends BaseController {
 		return View::make('MovimientoInventarios.salidas', compact('Motivos', 'MovimientoInventarios'));
 	}
 
+	public function ordenes(){
+		$orden = array();
+		return View::make('MovimientoInventarios.orden', compact('orden'));
+	}
+
+	public function search(){
+		$CodigoOrdenCompra = Input::get('search');
+		//$orden = Helper::InformacionProductosOrdenCompra('1');
+		//return $orden;
+		/*$orden = DB::table('COM_OrdenCompra')
+			-> join('COM_DetalleOrdenCompra', 'COM_OrdenCompra.COM_OrdenCompra_IdOrdenCompra', '=', 'COM_DetalleOrdenCompra.COM_OrdenCompra_idOrdenCompra')
+			-> join('INV_Producto', 'COM_DetalleOrdenCompra.COM_Producto_idProducto', '=', 'INV_Producto.INV_Producto_ID')
+			-> select('INV_Producto.INV_Producto_Codigo as Codigo',
+					  'INV_Producto.INV_Producto_Nombre as Nombre',
+					  'INV_Producto.INV_Producto_Descripcion as Descripcion',
+					  'COM_DetalleOrdenCompra.COM_DetalleOrdenCompra_Cantidad as Cantidad',
+					  'COM_DetalleOrdenCompra.COM_DetalleOrdenCompra_PrecioUnitario as Precio'
+					  )
+			-> where('COM_OrdenCompra.COM_OrdenCompra_Codigo', '=', $CodigoOrdenCompra)
+			-> get();*/
+		$ordenes = OrdenCompra::all();
+		$proveedores = Proveedor::all();
+		$orden = DB::select('select pro.INV_Producto_ID as ID, pro.INV_Producto_Nombre as Nombre, 
+					det.COM_DetalleOrdenCompra_Cantidad as Cantidad, det.COM_DetalleOrdenCompra_PrecioUnitario as Precio
+					from pymeERP.COM_OrdenCompra com inner join pymeERP.COM_DetalleOrdenCompra det on 
+					com.COM_OrdenCompra_IdOrdenCompra = det.COM_OrdenCompra_idOrdenCompra
+					inner join pymeERP.INV_Producto pro on det.COM_Producto_idProducto = pro.INV_Producto_ID
+					where com.COM_OrdenCompra_IdOrdenCompra = ?', array($CodigoOrdenCompra));
+		//return $orden;
+		return View::make('MovimientoInventarios.orden', compact('orden', 'ordenes', 'proveedores', 'CodigoOrdenCompra'));
+	}
+
 }

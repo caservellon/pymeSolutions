@@ -54,6 +54,9 @@ Route::group(array('prefix' => 'Inventario'), function()
 		
 		Route::get('DetalleSalida/Agregar/{id}', array('as' => 'Inventario.DetalleSalida.Agregar', 'uses' =>'DetalleSalidasController@agregar'));
 
+		Route::get('MovimientoInventario/Orden', array('as' => 'Inventario.MovimientoInventario.Orden', 'uses' =>'MovimientoinventariosController@ordenes'));
+		Route::post('MovimientoInventario/search', array('as' => 'Inventario.MovimientoInventario.search', 'uses' =>'MovimientoinventariosController@search'));
+
 		Route::resource('MovimientoInventario', 'MovimientoinventariosController');
 
 		Route::post('DetalleSalida/search', array('as' => 'Inventario.DetalleSalida.search', 'uses' =>'DetalleSalidasController@search'));
