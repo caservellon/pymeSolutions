@@ -18,7 +18,8 @@
 	{{Form::open(array(
 		'method'=>'post',
 		'route'=>'con.cierreperiodo',
-		'class'=>'form-horizontal'))}}
+		'class'=>'form-horizontal',
+		'id'=>'form-cierre'))}}
 		<div class="form-group"> 
 
 			{{Form::label('periodo','Periodo Contable:',array('class'=>'control-label pull-left col-sm-2'))}}

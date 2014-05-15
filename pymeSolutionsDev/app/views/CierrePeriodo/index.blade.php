@@ -1,6 +1,7 @@
 @extends ('layouts.scaffold')
 
 @section ('main')
+<div id="main">
 <div class="page-header containe">
 	<div class="row">
 		<div class="col-sm-10">
@@ -26,18 +27,21 @@
 </div>
 
 <div class="row ">
-	<div id="buttons"  class="col-sm-2">
-		<button id="btn-cierre" class="btn btn-lg btn-success">Iniciar Cierre</button>
-		<button id="btn-reintentar" class="btn btn-lg btn-primary" style="display:none;">Reintentar</button>
-	</div>
+	
 
-	<div class="col-sm-10">
+	<div class="col-sm-12">
 		<div class="progress progress-striped active">
 		  <div id="bar" class="progress-bar "  role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
 		    <span class="sr-only">0% Complete</span>
 		  </div>
 		</div>
 	</div>
+
+	<div id="buttons"  class="col-sm-2">
+		<button id="btn-cierre" class="btn btn-lg btn-success">Iniciar Cierre</button>
+		<button id="btn-reintentar" class="btn btn-lg btn-primary" style="display:none;">Reintentar</button>
+	</div>
+</div>
 </div>
 @stop
 
@@ -65,19 +69,22 @@
 					};
 		
 		var funEjecutar= function(){
+			estado = window.setInterval(funEstado,1000);
 			$.ajax({
 				url:"{{URL::route('con.cierreperiodo.run')}}",
 				method: "post",
 				success: function(data){
-					//window.clearInterval(estado);
+					window.clearInterval(estado);
+					funEstado();
 					var msgs=$("#h4-msg")[0].children;
 					
 					if(data.success){
 						console.log('run: ');
 						console.log(data);
-						for (var i = 0; i < msgs.length; i++) {
+						window.setTimeout(function(){$("#main").html(data.msg);},1500);
+						/*for (var i = 0; i < msgs.length; i++) {
 								$(msgs[i]).attr('class','alert alert-success');
-						};
+						};*/
 					}else{
 						console.log('not success: ');
 						console.log(data.error);
@@ -96,8 +103,7 @@
 		$('#btn-cierre').on('click',function(){
 			var estado,btn;
 			btn=$(this);
-			btn.remove();
-			estado = window.setTimeout(funEstado,1);
+			btn.remove();	
 			funEjecutar();
 
 		});
@@ -106,7 +112,7 @@
 			$("#h4-msg").children().attr('class','alert alert-info');
 			$("#bar").attr('style','width:0%');
 			$("#h4-error").attr("style","display:none").text("");
-			estado = window.setTimeout(funEstado,1);
+			//estado = window.setInterval(funEstado,700);
 			funEjecutar();
 		});
 
