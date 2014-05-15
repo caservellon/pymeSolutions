@@ -162,8 +162,12 @@ class MovimientoInventariosController extends BaseController {
 	}
 
 	public function ordenes(){
+		$idOrdenes = HistorialEstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstAct','=','9')->lists('COM_TransicionEstado_IdOrdenCompra');
+		$ordenes = OrdenCompra::wherein('COM_OrdenCompra_IdOrdenCompra',$idOrdenes)->lists('COM_OrdenCompra_Codigo');
+		$proveedores = Proveedor::all();
+		
 		$orden = array();
-		return View::make('MovimientoInventarios.orden', compact('orden'));
+		return View::make('MovimientoInventarios.orden', compact('orden', 'ordenes', 'proveedores'));
 	}
 
 	public function search(){
@@ -188,7 +192,7 @@ class MovimientoInventariosController extends BaseController {
 					from pymeERP.COM_OrdenCompra com inner join pymeERP.COM_DetalleOrdenCompra det on 
 					com.COM_OrdenCompra_IdOrdenCompra = det.COM_OrdenCompra_idOrdenCompra
 					inner join pymeERP.INV_Producto pro on det.COM_Producto_idProducto = pro.INV_Producto_ID
-					where com.COM_OrdenCompra_IdOrdenCompra = ?', array($CodigoOrdenCompra));
+					where com.COM_OrdenCompra_Codigo = ?', array($CodigoOrdenCompra));
 		//return $orden;
 		return View::make('MovimientoInventarios.orden', compact('orden', 'ordenes', 'proveedores', 'CodigoOrdenCompra'));
 	}
