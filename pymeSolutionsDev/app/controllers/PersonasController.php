@@ -66,7 +66,7 @@ class PersonasController extends BaseController {
 			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
 		}
 
-		$regex = 'Required|regex:/^';
+		$regex = 'Required|unique:CRM_Personas|regex:/^';
 		$toRegex = DB::table('CRM_TipoDocumento')->where('CRM_TipoDocumento_ID',Input::get('CRM_TipoDocumento_CRM_TipoDocumento_ID'))->first()->CRM_TipoDocumento_Validacion;
 		for ($i=0; $i < strlen($toRegex) ; $i++) { 
 			if ($toRegex[$i] == '#') {

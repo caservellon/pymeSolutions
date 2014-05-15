@@ -9,7 +9,7 @@ class Empresa extends Eloquent {
 	public $timestamps = false;
 
 	public static $rules = array(
-		'CRM_Empresas_Codigo' => 'required',
+		'CRM_Empresas_Codigo' => 'required|unique:CRM_Empresas',
 		'CRM_Empresas_Nombre' => 'required|Min:3|Max:80|alpha_spaces',
 		'CRM_Empresas_Direccion' => 'required|Min:3|Max:255|alphanumdotspaces',
 		'CRM_Empresas_Logo' => 'url',
