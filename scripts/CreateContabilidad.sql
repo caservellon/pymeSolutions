@@ -627,10 +627,10 @@ BEGIN
                     AND L.CON_LibroDiario_FechaCreacion <= FechaFinal
             GROUP BY CM.CON_CatalogoContable_ID) as Debe ON Haber.CON_CatalogoContable_ID = Debe.CON_CatalogoContable_ID);
 
-      -- DECLARE EXIT HANDLER FOR SQLEXCEPTION,SQLWARNING
-         -- BEGIN
+       DECLARE EXIT HANDLER FOR SQLWARNING
+         BEGIN
             -- ROLLBACK;
-         -- END;
+         END;
 
     DECLARE CONTINUE HANDLER 
     FOR NOT FOUND SET finished = 1;
