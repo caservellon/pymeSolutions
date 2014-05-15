@@ -148,6 +148,7 @@ function AsignarTotales(NombreCampoPrecio, CantidadProducto){
 		}
 	}
 	
-	Formulario.elements[IndiceCampoTotalFinal].value = TotalFinal.toFixed(2);
-	Formulario.elements[IndiceCampoTotalFinal].value = Formulario.elements[IndiceCampoTotalFinal].value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	TotalFinal = TotalFinal.toFixed(2);
+	TotalFinal = TotalFinal.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	Formulario.elements[IndiceCampoTotalFinal].value = TotalFinal;
 }

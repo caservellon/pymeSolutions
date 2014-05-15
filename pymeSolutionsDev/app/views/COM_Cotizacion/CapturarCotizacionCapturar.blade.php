@@ -75,7 +75,7 @@
 								@endforeach
 								
 								<td>{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}</td>
-								<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('disabled')) }}</td>
+								<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('readonly' => 'readonly', 'tabindex' => '-1')) }}</td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -111,7 +111,7 @@
 			</div>
 			
 			<div class="col-md-8" style="text-align: right">
-				<label>Total: {{ Form::text('TotalFinal', null, array('disabled')) }}</label>
+				<label>Total: {{ Form::text('TotalFinal', null, array('readonly' => 'readonly', 'tabindex' => '-1')) }}</label>
 			</div>
 			
 			<br>
