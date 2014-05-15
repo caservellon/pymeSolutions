@@ -99,7 +99,9 @@
         
         <label>Fecha Entrega *</label>
          {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega','value'=>'','required '=>'required '))}}
-
+		 <?php $horaInicio="08:30";
+		 $horaFinal="19:00";
+		?>
          <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
                         "autodateOnStart": false,
                         "futureOnly": true,
