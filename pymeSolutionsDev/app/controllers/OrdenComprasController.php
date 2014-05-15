@@ -380,7 +380,7 @@ class OrdenComprasController extends BaseController {
              $or=  OrdenCompra::find($id);
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
              foreach($trans as $tran){
-                  if($tran->COM_COM_TransicionEstado_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
+                  if($tran->COM_TransicionEstado_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
                       $tran->COM_TransicionEstado_Activo=0;
                       $tran->update();
                       $ultimo=HistorialEstadoOrdenCompra::count();
@@ -405,10 +405,10 @@ class OrdenComprasController extends BaseController {
              $or=  OrdenCompra::find($id);
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
              foreach($trans as $tran){
-                  if(COM_TransicionEstado_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
-                      $tratra= HistorialEstadoOrdenCompra::find($tran->COM_OrdenCompra_TransicionEstado_Id);
-                      $tratra->COM_TransicionEstado_Activo=0;
-                      $tratra->update();
+                  if($tran->COM_TransicionEstado_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
+                      
+                      $tran->COM_TransicionEstado_Activo=0;
+                      $tran->update();
                       $ultimo=HistorialEstadoOrdenCompra::count();
                       $historial=new HistorialEstadoOrdenCompra();
                       $historial->COM_TransicionEstado_Codigo='COM_HOC_'.($ultimo+1);
@@ -417,7 +417,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
                       $historial->COM_TransicionEstado_Observacion='Esta transaccion no fue autorizada por lo que se  Canceló';
-                      $historial->COM_EstadoOrdenCompra_IdEstAnt=$tratra->COM_EstadoOrdenCompra_IdEstAct;
+                      $historial->COM_EstadoOrdenCompra_IdEstAnt=$tran->COM_EstadoOrdenCompra_IdEstAct;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=7;
                       $historial->save();
                       $or->COM_OrdenCompra_Activo=0;
@@ -427,7 +427,7 @@ class OrdenComprasController extends BaseController {
                                         } 
              }
               $ruta = route('ListaOrdenes');
-                    $mensaje = 'La orden  de compra'.$or->COM_OrdenCompra_IdOrdenCompra.' fue Cancelada';
+                    $mensaje = Mensaje::find(12);
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
 
