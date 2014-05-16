@@ -27,25 +27,25 @@
     <div>
     
       <div class="form-group">
-          {{ Form::label('VEN_Caja_Codigo', 'Código:',array('class' => 'col-md-2 control-label')) }}
+          {{ Form::label('VEN_Caja_Codigo', 'Código*:',array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-4">
               {{ Form::text('VEN_Caja_Codigo', null, array('class' => 'form-control', 'id' => 'VEN_Caja_Codigo', 'placeholder'=>'CAJ-00001')) }}
           </div>
       </div>
       <div class="form-group">
-        {{ Form::label('VEN_Caja_Numero', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
+        {{ Form::label('VEN_Caja_Numero', 'Número de Caja*:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
           {{ Form::text('VEN_Caja_Numero',null, array('class' => 'form-control', 'id' => 'VEN_Caja_Numero', 'placeholder' => '#' )) }}
         </div>
       </div> 
       <div class="form-group">
-        {{ Form::label('VEN_Caja_Estado', 'Estado de Caja:', array('class' => 'col-md-2 control-label')) }}
+        {{ Form::label('VEN_Caja_Estado', 'Estado de Caja*:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
           {{ Form::select('VEN_Caja_Estado', array('1' => 'Activado', '0' => 'Desactivado'),'1',array('class' => 'col-md-4 form-control')) }}
         </div>
       </div>
       <div class="form-group">
-        {{ Form::label('VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id', 'Periodo de Cierre:', array('class' => 'col-md-2 control-label')) }}
+        {{ Form::label('VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id', 'Periodo de Cierre*:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
           {{ Form::select('VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id', $periodos,'1',array('class' => 'col-md-4 form-control')) }}
         </div>
