@@ -12,9 +12,25 @@
 */
 
 Route::get('/', function(){
-	//Artisan::call('up',array());
 	return View::make('hello');
 
+});
+
+Route::group(array('prefix'=>'mantenimiento'),function(){
+
+	Route::get('/',function(){
+		return View::make('Menus.mode');
+	},array('as'=>'mantenimiento'));
+
+	Route::post('up',array('as'=>'mantenimiento.up','uses'=>function(){
+		Artisan::call('up');
+		return Response::json(array('success'=>true));
+	}));
+
+	Route::post('down',array('as'=>'mantenimiento.down','uses'=>function(){
+		Artisan::call('down');
+	},));
+	
 });
 
 

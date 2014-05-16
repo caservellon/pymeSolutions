@@ -26,7 +26,7 @@ class Contabilidad {
 				  'CON_LibroDiario_Monto'=>$Monto,
 				  'CON_MotivoTransaccion_ID'=>$IDMotivo,
 				  'CON_LibroDiario_AsientoReversion'=> 1)
-			):
+			);
 		return 'ok';
 	}
 

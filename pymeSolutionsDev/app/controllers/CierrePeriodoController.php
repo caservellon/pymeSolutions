@@ -53,7 +53,7 @@ class CierrePeriodoController extends BaseController {
             $periodoId=$periodo->CON_PeriodoContable_ID;
             
             DB::beginTransaction();
-            $result=DB::select('CALL CON_Mayorizacion(?,"?");',
+            $result=DB::statement(DB::raw('CALL CON_Mayorizacion(?,"?");'),
                 array($periodoId,$periodo->CON_PeriodoContable_FechaFinal));
             
             $array[0]=array(0,'30%');
