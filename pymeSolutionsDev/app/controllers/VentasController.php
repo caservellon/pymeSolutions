@@ -80,6 +80,8 @@ class VentasController extends BaseController {
 			$isv = Input::get('isv');
 			$caja = Input::get('caja');
 			$total = Input::get('total');
+			$idcliente = Input::get('clienteid');
+			$tipo_cliente = Input::get('tipocliente');
 
 			$subTotal = 0;
 			$isvCalculado = 0;
@@ -93,6 +95,13 @@ class VentasController extends BaseController {
 			$venta->VEN_Venta_Codigo = "Venta_Normal_" . (double) $caja . "_" . date("Y-m-d H:i:s"); 
 			$venta->VEN_Caja_VEN_Caja_id = (double) $caja;
 			$venta->VEN_Venta_TotalCambio = (double) $saldo;
+			if($tipo_cliente == 0){
+
+				$venta->CRM_Personas_CRM_Personas_ID = $idcliente;
+			} else {
+				$venta->CRM_Empresas_CRM_Empresas_ID = $idcliente;
+			}
+			$venta->VEN_Venta_TimeStamp = date("Y-m-d h:i:s");
 			$venta->VEN_Venta_ISV = $isv;
 			$venta->VEN_Venta_Total = $total;
 			$venta->VEN_Venta_Subtotal = $total - $isv;

@@ -8,26 +8,43 @@ $(document).ready(function(){
 		$.post('/Ventas/Ventas/searchInvoice' ,{
 			'searchTerm' : $('.no-factura').val()
 		}).success(function(data){
+			$("div.alert").hide();
 			 $.each(data, function(index, value){
-				$('#detalle-factura > tbody:last').append('<tr><td><input type="checkbox" class="check"></td><td class="codigo">'+value["VEN_DetalleDeVenta_Codigo"]+'</td><td>'+value["VEN_DetalleDeVenta_Nombre"]+'</td><td>'+value["VEN_DetalleDeVenta_PrecioVenta"]+'</td><td><input type="number" class="quantity" min="1" max="'+value["VEN_DetalleDeVenta_CantidadVendida"]+'" > / '+value["VEN_DetalleDeVenta_CantidadVendida"]+'</td><td>'+(value["VEN_DetalleDeVenta_CantidadVendida"] * value["VEN_DetalleDeVenta_PrecioVenta"])+'</td></tr>');		
+				$('#detalle-factura > tbody:last').append('<tr><td><input type="checkbox" class="check"></td><td class="codigo">'+value["VEN_DetalleDeVenta_Codigo"]+'</td><td>'+value["VEN_DetalleDeVenta_Nombre"]+'</td><td>'+value["VEN_DetalleDeVenta_PrecioVenta"]+'</td><td><input type="number" class="quantity" min="1" max="'+value["VEN_DetalleDeVenta_CantidadVendida"]+'" > / <span class=\"Maxtop\">'+value["VEN_DetalleDeVenta_CantidadVendida"]+'</span></td><td>'+(value["VEN_DetalleDeVenta_CantidadVendida"] * value["VEN_DetalleDeVenta_PrecioVenta"])+'</td></tr>');		
 			 });
 		}).fail(function(data){
-			alert('No se encontro esa factura');
+			$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No se encontró la factura!</h4>");
+			$("div.alert").show();
 		});
 	});
 
 	// POST get selected and quantity
 	$('.crear-devolucion').on('click', function(){
 		devolver = [];
+		if($('.productos-dev input:checked').length == 0){
+			$('div.alert').html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No se seleccionó ninguna devolución!</h4>");
+			$('div.alert').show();
+		} else {
+			$('div.alert').hide();
+		}
 		$('.productos-dev input:checked').parents('tr').map(function(i, producto) {
 		    var td = $(producto).find('td');
 		    var codigo = td.eq(1).text();
 		    var cantidad = td.eq(4).find('.quantity').val();
-
-		    devolver.push({
-		        codigo: codigo,
-		        cantidad: cantidad
-		    });
+		   	var top = td.eq(4).find('.Maxtop').val();
+		   	if(cantidad > top ){
+		   		$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No puede exceder las cantidades!</h4>");
+		   		$("div.alert").show();
+		   	} else if(cantidad === ""){
+		   		$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No puede dejar vacias las cantidades!</h4>");
+		   		$("div.alert").show();
+		   	} else {
+		   		$("div.alert").hide();
+			    devolver.push({
+			        codigo: codigo,
+			        cantidad: cantidad
+			    });	   		
+		   	}
 		});
 
 		$.post('/Ventas/Devoluciones/process', {
@@ -203,7 +220,7 @@ $(document).ready(function(){
 		data.abonos = [];
 
 		$('.pagos-list').find('tr').each(function(i, abono){
-			console.log("dafsdafdfS", abono);
+			//console.log("dafsdafdfS", abono);
 			data.abonos.push({
 				metodo: $(abono).find('td:eq(0)').text(),
 				monto: $(abono).find('td:eq(1)').text().substring(5)
@@ -214,12 +231,12 @@ $(document).ready(function(){
 
 		data.saldo = $('.saldo-info').text().substring(5);
 
-		data.tipocliente = '1';
+		data.tipocliente = $('.Tipo_de_Cliente').val();
 
 		data.cliente = $('.cliente').val();
 
 		data.total = $('.grand-total').text().substring(5);
-
+		data.clienteid = $('.id-cliente-buscado').val();
 		data.caja = '1';
 
 		console.log(data);
