@@ -2,10 +2,10 @@
 
 @section('main')
 
-<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Motivo Movimiento de Inventario<small></h2>
+<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Concepto Movimiento de Inventario<small></h2>
 <div class="btn-agregar">
 	<a type="button" href="{{ URL::route('Inventario.MotivoMovimiento.create') }}" class="btn btn-default">
-	  <span class="glyphicon glyphicon-shopping-cart"></span> Nuevo Motivo
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Nuevo Concepto
 	</a>
 </div>
 

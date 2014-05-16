@@ -76,7 +76,7 @@
                 {{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
               </li>
               <li>
-                {{ link_to_route('Inventario.MotivoMovimiento.index', 'Motivo Movimiento Inventario')}}
+                {{ link_to_route('Inventario.MotivoMovimiento.index', 'Concepto Movimiento Inventario')}}
               </li>
               <li class="divider"></li>
               <li>

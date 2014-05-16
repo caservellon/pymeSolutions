@@ -29,7 +29,7 @@
 	      <h5 class="col-md-6"><strong>Código Orden:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;">{{{ $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_Codigo }}}</h5>
 	    </div>
 	    <div class="col-md-13">
-	      <h5 class="col-md-6"><strong>Proveedor:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $proveedores[$ordenes[$CodigoOrdenCompra - 1]->COM_Proveedor_IdProveedor]->INV_Proveedor_Nombre }}}</h5>
+	      <h5 class="col-md-6"><strong>Proveedor:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $proveedores[$ordenes[$CodigoOrdenCompra - 1]->COM_Proveedor_IdProveedor - 1]->INV_Proveedor_Nombre }}}</h5>
 	    </div>
 	    <div class="col-md-13">
 	      <h5 class="col-md-6"><strong>Fecha de Emisión:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_FechaEmision }}}</h5>
@@ -43,13 +43,40 @@
     </div>
 
     <div class="col-md-4" style="text-align:right;">
-    	<a href="{{{ URL::to('Inventario/MovimientoInventario') }}}" class="btn btn-primary btn-block" style="margin-top:5%;">Recibida</a>
+    	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Recibida')) }}
+			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
+			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Recibida') }}
+			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
+			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
+			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', 'Admin') }}
+			{{ Form::hidden('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 2) }}
+			{{ Form::submit('Recibida', array('class' => 'btn btn-primary btn-block', 'style' => 'margin-top:5%;')) }}
+		{{ Form::close() }}
     </div>
     <div class="col-md-4" style="text-align:right;">
-    	<a href="{{{ URL::to('Inventario/MovimientoInventario') }}}" class="btn btn-primary btn-block" style="margin-top:5%;">Recibida con Errores</a>
+    	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Recibida')) }}
+			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
+			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Recibida Con Errores') }}
+			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
+			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
+			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', 'Admin') }}
+			{{ Form::hidden('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 2) }}
+			{{ Form::submit('Recibida Con Errores', array('class' => 'btn btn-primary btn-block', 'style' => 'margin-top:5%;')) }}
+		{{ Form::close() }}
     </div>
     <div class="col-md-4" style="text-align:right;">
-    	<a href="{{{ URL::to('Inventario/MovimientoInventario') }}}" class="btn btn-primary btn-block" style="margin-top:5%;">Rechazada</a>
+    	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Rechazada')) }}
+			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
+			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Rechazada') }}
+			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
+			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
+			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', 'Admin') }}
+			{{ Form::hidden('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 2) }}
+			{{ Form::submit('Rechazada', array('class' => 'btn btn-primary btn-block', 'style' => 'margin-top:5%;')) }}
+		{{ Form::close() }}
     </div>
 
 
@@ -77,7 +104,42 @@
         </table>
     </div>
 @else
-	no
+	@if ($ordenes->count())
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Proveedor</th>
+						<th>Estado de la Orden</th>
+						<th>Fecha Entrega</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach ($ordenes as $orden)
+						<tr>
+							<td>{{{ $orden->COM_OrdenCompra_Codigo }}}</td>
+							<td>{{{ $proveedores[$orden->COM_Proveedor_IdProveedor - 1]->INV_Proveedor_Nombre }}}</td>
+							<td> En Proceso </td>
+							<td>{{{ $orden->COM_OrdenCompra_FechaEntrega }}}</td>
+							<td>
+								{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.search')) }}
+									{{ Form::hidden('search', $orden->COM_OrdenCompra_Codigo) }}
+									{{ Form::submit('Ver Detalles', array('class' => 'btn btn-info')) }}
+								{{ Form::close() }}
+							</td>
+						</tr>
+					@endforeach
+				</tbody>
+			</table>
+		</div>
+	@else
+		<div class="alert alert-danger">
+			<h3>No Hay Órdenes de Compra Disponibles</h3>
+		</div>
+	@endif
+
 @endif
 
 @stop

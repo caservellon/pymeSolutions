@@ -78,13 +78,13 @@ class DetalleMovimientosController extends BaseController {
 			}
 			//return $input;
 		
-			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + (Input::get('INV_DetalleMovimiento_PrecioCosto') * Input::get('INV_DetalleMovimiento_CantidadProducto')))/(Input::get('INV_DetalleMovimiento_CantidadProducto') + $Producto->INV_Producto_Cantidad);
 			//Calcular Precio de Costo
-			$input['INV_DetalleMovimiento_PrecioCosto'] = $Costo;
-			//$Producto->INV_Producto_PrecioCosto = $Costo;
-			//return $input;
+			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + (Input::get('INV_DetalleMovimiento_PrecioCosto') * Input::get('INV_DetalleMovimiento_CantidadProducto')))/(Input::get('INV_DetalleMovimiento_CantidadProducto') + $Producto->INV_Producto_Cantidad);
+			
+			$Producto->INV_Producto_PrecioCosto = $Costo;
 			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + Input::get('INV_DetalleMovimiento_CantidadProducto');
 			$Producto->save();
+			
 			$this->DetalleMovimiento->create($input);
 			//return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id'));
 			return Redirect::route('Inventario.DetalleMovimiento.create');

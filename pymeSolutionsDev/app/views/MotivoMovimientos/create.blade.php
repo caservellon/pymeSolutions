@@ -2,7 +2,7 @@
 
 @section('main')
 <div class="page-header clearfix">
-      <h3 class="pull-left">Motivo Movimiento Inventario &gt; <small>Nuevo Motivo</small></h3>
+      <h3 class="pull-left">Concepto Movimiento Inventario &gt; <small>Nuevo Concepto</small></h3>
       <div class="pull-right">
         <a href="{{{ URL::to('Inventario/MotivoMovimiento') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
