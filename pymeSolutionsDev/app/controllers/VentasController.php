@@ -168,7 +168,7 @@ class VentasController extends BaseController {
 		$Venta = DB::table('VEN_DetalleDeVenta')->where('VEN_Venta_VEN_Venta_id',$id)->get();
 
 		if ($Venta) {
-			return View::make('Ventas.ListarOne')->with('Venta', $Venta);
+			return View::make('Ventas.ListarOne')->with('Venta', $Venta, 'id', $id);
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
@@ -190,7 +190,7 @@ class VentasController extends BaseController {
 		$Dev = DB::table('VEN_DetalleDevolucion')->where('VEN_Devolucion_VEN_Devolucion_id',$id)->get();
 
 		if ($Dev) {
-			return View::make('Ventas.DevsOne')->with('Dev', $Dev);
+			return View::make('Ventas.devsOne')->with('Dev', $Dev);
 		}
 
 		return Redirect::route('Ventas.Ventas.create');

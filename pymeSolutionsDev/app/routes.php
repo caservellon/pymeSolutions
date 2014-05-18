@@ -389,7 +389,7 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::get('Listar/{id}', array('as' => 'Ventas.ListarOne', 'uses' => 'VentasController@ListarOne'));
 
 	Route::get('Devs', array('as' => 'Ventas.Devs','uses' => 'VentasController@Devs'));
-	Route::get('Devs/{id}', array('as' => 'Ventas.DevsOne', 'uses' => 'VentasController@DevsOne'));
+	Route::get('Devs/{id}', array('as' => 'Ventas.devsOne', 'uses' => 'VentasController@devsOne'));
 	
 	Route::resource('Ventas', 'VentasController');
 	Route::post('Ventas/guardar', array('as' => 'Ventas.Ventas.guardar','uses' => 'VentasController@guardar'));
