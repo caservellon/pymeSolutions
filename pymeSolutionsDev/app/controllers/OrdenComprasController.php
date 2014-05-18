@@ -406,7 +406,6 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
              foreach($trans as $tran){
                   if($tran->COM_TransicionEstado_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
-                      
                       $tran->COM_TransicionEstado_Activo=0;
                       $tran->update();
                       $ultimo=HistorialEstadoOrdenCompra::count();
