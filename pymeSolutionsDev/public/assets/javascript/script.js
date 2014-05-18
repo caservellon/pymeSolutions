@@ -419,6 +419,18 @@ $(document).ready(function(){
 		$('#agregarDescuento').modal('hide');
 	});
 
+
+	//Selectores para Tipos de Documento
+	$('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
+		$('input#CRM_Personas_codigo').prop('placeholder',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().prop('name'));
+		$('input#CRM_Personas_codigo').prop('maxlength',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().attr('data-val'));
+    });
+
+    $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
+		$('input#CRM_Empresas_Codigo').prop('placeholder',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().prop('name'));
+		$('input#CRM_Empresas_Codigo').prop('maxlength',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().attr('data-val'));
+    });
+
 	//Actualiza los totales
 	function actualizarPagos(){
 		var table = document.getElementById('pagos-tabla');

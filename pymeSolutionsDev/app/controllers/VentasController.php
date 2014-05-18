@@ -106,7 +106,7 @@ class VentasController extends BaseController {
 			$venta->VEN_Venta_Total = $total;
 			$venta->VEN_Venta_Subtotal = $total - $isv;
 			$venta->save();
-			array_push($return, ['numFact' => $venta->VEN_Venta_id]);
+			//array_push($return, ['numFact' => $venta->VEN_Venta_id]);
 
 			foreach ($productos as $p) {
 				$DetalleVenta = new DetalleDeVenta;
