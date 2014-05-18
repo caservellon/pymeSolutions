@@ -30,8 +30,8 @@
                       
                      
                       @foreach($Ordenes as $orden)
-                      <?php //$or=  OrdenCompra::find($orden);
-                            $proveedor= Proveedor::find($orden->COM_Proveedor_IdProveedor);
+                      <?php 
+                            $proveedor= invCompras::ProveedorCompras($orden->COM_Proveedor_IdProveedor);
                             $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
                                 
                       ?>

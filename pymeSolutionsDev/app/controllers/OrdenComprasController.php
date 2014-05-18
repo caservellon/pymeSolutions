@@ -36,7 +36,7 @@ class OrdenComprasController extends BaseController {
     
         //funciones hechas para crear una orden de compra sin cotizacion
         public function OrdenComprasnCotizacion(){
-            $inventario= Producto::all();
+            $inventario= invCompras::CualquierProducto();
             return View::make('OrdenCompras.NuevaOrdenCompraSinCotizacion',array('inventario'=>$inventario,'proveedor'=> 1));
         }
          public function FormOrdenComprasnCotizacion(){
