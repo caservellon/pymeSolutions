@@ -499,8 +499,9 @@ class OrdenComprasController extends BaseController {
         }
         //genero pago de orden compra
          public function generarpagoLC(){
-            
-            return View::make('OrdenCompras.ListaOrdenCompraPago');
+            $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
+            $ordenCompra=OrdenCompra::whereNotIn('COM_OrdenCompra_IdOrdenCompra',$ordenPago)->get();
+            return View::make('OrdenCompras.ListaOrdenCompraPago',array('Ordenes'=>$ordenCompra));
         }
         public function DetallePago(){
                        $input=Input::all();
@@ -523,7 +524,7 @@ class OrdenComprasController extends BaseController {
             $nuevopago->COM_OrdenPago_FechaCreo= date('Y/m/d H:i:s');
             $nuevopago->save();
             $ruta = route('ListaOrdenes');
-                    $mensaje = Mensaje::find(13).' '.Input::get('id_ordenCompra').' '.Mensaje::find(14);
+                    $mensaje = Mensaje::find(14);
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
 
