@@ -362,6 +362,7 @@ Route::group(array('prefix' => 'CRM'), function(){
 
 	Route::resource('Empresas', 'EmpresasController');
 	Route::post('Empresas/buscar', array('as' => 'CRM.Empresas.buscar', 'uses' => 'EmpresasController@buscar'));
+
 	Route::resource('Personas', 'PersonasController');
 	Route::post('Personas/buscar', array('as' => 'CRM.Personas.buscar', 'uses' => 'PersonasController@buscar'));
 
@@ -382,8 +383,8 @@ Route::group(array('prefix' => 'Ventas'), function(){
 		return View::make('Menus.ventas');
 	});
 
-	Route::resource('AperturaCajas', 'AperturacajasController');
-	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturacajasController@abrir'));
+	Route::resource('AperturaCajas', 'AperturaCajasController');
+	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturaCajasController@abrir'));
 
 	Route::get('Listar', array('as' => 'Ventas.Listar','uses' => 'VentasController@Listar'));
 	Route::get('Listar/{id}', array('as' => 'Ventas.ListarOne', 'uses' => 'VentasController@ListarOne'));

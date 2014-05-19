@@ -28,7 +28,7 @@
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre: *',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
-            {{ Form::text('GEN_CampoLocal_Nombre', null, array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre')) }}
+            {{ Form::text('GEN_CampoLocal_Nombre', null, array('class' => 'form-control', 'autofocus', 'id' => 'GEN_CampoLocal_Nombre')) }}
         </div>
     </div>
 
