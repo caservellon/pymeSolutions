@@ -16,7 +16,6 @@
             <table class="table table-striped">
               <thead>
 				<tr>
-					<th>#</th>
 					<th>Código</th>
 					<th>Número de Caja</th>
 					<th>Estado de Caja</th>
@@ -27,14 +26,13 @@
             <tbody>
             	@foreach ($Cajas as $Caja)
                 <tr>
-					<td>{{{ $Caja->VEN_Caja_id }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Codigo }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Numero }}}</td>
-					@if ($Caja->VEN_Caja_Estado == 1)
-						<td>Activa</td>
+					@if($Caja->VEN_Caja_Estado == 1)
+						<td><span class="glyphicon glyphicon-ok"></span></td>
 					@else
-						<td>Desactivada</td>
-					@endif
+						<td></td>
+					@endif	
 					<td>{{ PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_id', $Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id)->first()->VEN_PeriodoCierreDeCaja_Codigo }}</td>
 					<td>{{{ $Caja->VEN_Caja_SaldoInicial }}}</td>
                     <td>{{ link_to_route('Ventas.Cajas.edit', 'Editar', array($Caja->VEN_Caja_id), array('class' => 'btn btn-info')) }}</td>

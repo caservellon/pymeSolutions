@@ -12,6 +12,6 @@ class PeriodoCierreDeCaja extends Eloquent {
 		'VEN_PeriodoCierreDeCaja_Codigo' => 'required|unique:VEN_PeriodoCierreDeCaja',
 		'VEN_PeriodoCierreDeCaja_ValorHoras' => 'required|integer|is_positive',
 		'VEN_PeriodoCierreDeCaja_Estado' => 'required',
-		'VEN_PeriodoCierreDeCaja_HoraPartida' => 'required'
+		'VEN_PeriodoCierreDeCaja_HoraPartida' => 'required|is_time'
 	);
 }
