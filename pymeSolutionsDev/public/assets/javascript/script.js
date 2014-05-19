@@ -93,9 +93,10 @@ $(document).ready(function(){
     $('.search-cliente').on('click', function(){
     	if($('.cliente').val() !==  ""){
 			if ($('.Tipo_de_Cliente').val() == '0') {
-				$.post('/CRM/Personas/buscar',{
-					'name' : $('.cliente').val()
+				$.post('/CRM/Personas/buscar',
+{					'name' : $('.cliente').val()
 				}).success(function(data){
+					console.log(data);
 					$.each(data, function(i, value){
 						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
 					});

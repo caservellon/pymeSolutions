@@ -17,8 +17,33 @@ class PersonasController extends BaseController {
 	}
 
 	public function buscar() {
-		$Personas = Persona::where('CRM_Personas_Nombres', 'LIKE' , '%' . Input::get('name') . '%')->get();
-		return $Personas;
+		$val = '%'.Input::get('name').'%';
+		$result = DB::table('CRM_Personas')->where('CRM_Personas_Nombres','LIKE',$val)
+							->orWhere('CRM_Personas_Apellidos','LIKE',$val)
+							->orWhere('CRM_Personas_Direccion','LIKE',$val)
+							->orWhere('CRM_Personas_Email','LIKE',$val)
+							->orWhere('CRM_Personas_Celular','LIKE',$val)
+							->orWhere('CRM_Personas_Fijo','LIKE',$val)
+							->orWhere('CRM_Personas_codigo','LIKE',$val)->lists('CRM_Personas_ID');
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1);
+		if ($campos) {
+			$noListas = $campos->where('GEN_CampoLocal_Tipo','<>','LIST')->lists('GEN_CampoLocal_ID');
+			$listas = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1)->where('GEN_CampoLocal_Tipo','LIKE','%LIST%')->lists('GEN_CampoLocal_ID');
+			if ($listas) {
+				$valorLista = DB::table('GEN_CampoLocalLista')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$listas)->where('GEN_CampoLocalLista_Valor','LIKE',$val)->lists('GEN_CampoLocalLista_ID');
+				if($valorLista) {
+					$result = array_merge($result,DB::table('CRM_ValorCampoLocal')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$listas)->whereIn('CRM_ValorCampoLocal_Valor',$valorLista)->lists('CRM_Personas_CRM_Personas_ID'));
+				}
+			}
+			if ($noListas) {
+				$result = array_merge($result,DB::table('CRM_ValorCampoLocal')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$noListas)->where('CRM_ValorCampoLocal_Valor','LIKE',$val)->lists('CRM_Personas_CRM_Personas_ID'));
+			}
+		}
+		if ($result) {
+			return DB::table('CRM_Personas')->whereIn('CRM_Personas_ID',$result)->get();
+		} else {
+			return  0;
+		}
 	}
 
 	public function index()

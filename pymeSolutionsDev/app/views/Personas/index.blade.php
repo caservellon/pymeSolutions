@@ -27,6 +27,8 @@
 				@foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get() as $campo)
 				    <th>{{{ $campo->GEN_CampoLocal_Nombre }}}</th>
 				@endforeach
+				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 

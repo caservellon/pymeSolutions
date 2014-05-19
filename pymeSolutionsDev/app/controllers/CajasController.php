@@ -21,7 +21,7 @@ class CajasController extends BaseController {
 	 */
 	public function index()
 	{
-		$Cajas = $this->Caja->all();
+		$Cajas = $this->Caja->where('VEN_Caja_Estado',1)->get();
 		//return $Cajas;
 		return View::make('Cajas.index', compact('Cajas'));
 	}
@@ -126,7 +126,11 @@ class CajasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Caja->find($id)->delete();
+		$Caja = $this->Caja->find($id);
+		$Caja->VEN_Caja_Estado = 0;
+		$Caja->save();
+
+		#$this->Caja->find($id)->delete();
 
 		return Redirect::route('Ventas.Cajas.index');
 	}
