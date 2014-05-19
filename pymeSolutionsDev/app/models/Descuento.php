@@ -18,4 +18,16 @@ class Descuento extends Eloquent {
 		'VEN_DescuentoEspecial_Estado' => 'required',
 		//'VEN_DescuentoEspecial_TimeStamp' => 'required'
 	);
+
+	public static $rulesUpdate = array(
+		//'VEN_DescuentoEspecial_id' => 'required',
+		'VEN_DescuentoEspecial_Codigo' => 'required',
+		'VEN_DescuentoEspecial_Nombre' => 'required',
+		'VEN_DescuentoEspecial_Valor' => 'required',
+		'VEN_DescuentoEspecial_FechaInicio' => 'required',
+		'VEN_DescuentoEspecial_FechaFinal' => 'required',
+		'VEN_DescuentoEspecial_Precedencia' => 'required',
+		'VEN_DescuentoEspecial_Estado' => 'required',
+		//'VEN_DescuentoEspecial_TimeStamp' => 'required'
+	);
 }

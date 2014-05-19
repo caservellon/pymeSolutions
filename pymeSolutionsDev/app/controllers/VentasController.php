@@ -37,6 +37,12 @@ class VentasController extends BaseController {
 
 		$Descuentos = Descuento::where('VEN_DescuentoEspecial_Estado', '1')->get();
 		$Productos = Producto::all();
+
+		if (Caja::where("VEN_Caja_Estado", 1)->get()->count() == 0) {
+			$Cajas = Caja::where("VEN_Caja_Estado",1)->get();
+			return View::make('Cajas.index', compact('Cajas'));
+		}
+
 		return View::make('Ventas.create', compact('Productos', 'Descuentos', 'Clientes'));
 	}
 
@@ -83,7 +89,7 @@ class VentasController extends BaseController {
 			$idcliente = Input::get('clienteid');
 			$tipo_cliente = Input::get('tipocliente');
 
-			$subTotal = 0;
+			$subTotal = 0.0;
 			$isvCalculado = 0;
 			$descuentoCalculado = 0;
 			$otrosIsvCalculado = 0;
@@ -105,8 +111,11 @@ class VentasController extends BaseController {
 			$venta->VEN_Venta_ISV = $isv;
 			$venta->VEN_Venta_Total = $total;
 			$venta->VEN_Venta_Subtotal = $total - $isv;
+
 			$venta->save();
-			//array_push($return, ['numFact' => $venta->VEN_Venta_id]);
+			array_push($return, ['numFact' => $venta->VEN_Venta_id]);
+
+			
 
 			foreach ($productos as $p) {
 				$DetalleVenta = new DetalleDeVenta;
@@ -120,12 +129,14 @@ class VentasController extends BaseController {
 				$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 			}
 
-			
+			foreach ($descuentos as $d) {
+				$descuentoCalculado += ((Double) Descuento::find(intval($d))->VEN_DescuentoEspecial_Valor / 100.0) * $subTotal;
+			}
 
+			$venta->VEN_Venta_DescuentoCliente = $descuentoCalculado;
+			$venta->VEN_Venta_TotalDescuentoProductos = $descuentoCalculado;
+			$venta->save();
 
-			//foreach ($descuentos as $d) {
-
-			//}
 
 			foreach ($abonos as $a) {
 				$pago = new Pago;

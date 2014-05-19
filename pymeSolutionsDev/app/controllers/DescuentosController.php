@@ -21,7 +21,7 @@ class DescuentosController extends BaseController {
 	 */
 	public function index()
 	{
-		$Descuentos = $this->Descuento->orderBy('VEN_DescuentoEspecial_Precedencia', 'desc')->get();
+		$Descuentos = $this->Descuento->where("VEN_DescuentoEspecial_Estado", 1)->orderBy('VEN_DescuentoEspecial_Precedencia', 'desc')->get();
 
 		return View::make('Descuentos.index', compact('Descuentos'));
 	}
@@ -99,7 +99,7 @@ class DescuentosController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Descuento::$rules);
+		$validation = Validator::make($input, Descuento::$rulesUpdate);
 
 		if ($validation->passes())
 		{
@@ -123,8 +123,9 @@ class DescuentosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Descuento->find($id)->delete();
-
+		$disc = Descuento::find($id);
+		$disc->VEN_DescuentoEspecial_Estado = 0;
+		$disc->save();
 		return Redirect::route('Ventas.Descuentos.index');
 	}
 

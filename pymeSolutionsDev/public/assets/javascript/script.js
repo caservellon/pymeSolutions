@@ -107,7 +107,7 @@ $(document).ready(function(){
 					'name' : $('.cliente').val()
 				}).success(function(data){
 					$.each(data, function(i, value){
-						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombres']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombre']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
 					});
 				}).fail(function (data) {
 
@@ -466,6 +466,24 @@ $(document).ready(function(){
 		$('.grand-total').text("Lps. " + (subtotal * (1.15)).toFixed(2));
 		actualizarPagos();
 	}
+
+	$('#VEN_DescuentoEspecial_FechaInicio').appendDtpicker({
+		"onShow": function(handler){
+			
+		},
+		"onHide": function(handler){
+			
+		}
+	});
+
+	$('#VEN_DescuentoEspecial_FechaFinal').appendDtpicker({
+		"onShow": function(handler){
+			
+		},
+		"onHide": function(handler){
+			
+		}
+	});
 
 	function setearTotalcc(valor,x){
 	    var a= valor.elements[x].value;

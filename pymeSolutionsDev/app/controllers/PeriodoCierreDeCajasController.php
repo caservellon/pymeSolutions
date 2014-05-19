@@ -99,7 +99,9 @@ class PeriodoCierreDeCajasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, PeriodoCierreDeCaja::$rules);
+		$validation = Validator::make($input, PeriodoCierreDeCaja::$rulesUpdate);
+
+		
 
 		if ($validation->passes())
 		{

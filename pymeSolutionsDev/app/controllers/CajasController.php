@@ -21,7 +21,7 @@ class CajasController extends BaseController {
 	 */
 	public function index()
 	{
-		$Cajas = $this->Caja->all();
+		$Cajas = $this->Caja->where("VEN_Caja_Estado",1)->get();
 		//return $Cajas;
 		return View::make('Cajas.index', compact('Cajas'));
 	}
@@ -102,7 +102,7 @@ class CajasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Caja::$rules);
+		$validation = Validator::make($input, Caja::$rulesUpdate);
 
 		if ($validation->passes())
 		{
@@ -126,7 +126,9 @@ class CajasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Caja->find($id)->delete();
+		$box = Caja::find($id);
+		$box->VEN_Caja_Estado = 0;
+		$box->save();
 
 		return Redirect::route('Ventas.Cajas.index');
 	}

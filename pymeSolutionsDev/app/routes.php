@@ -361,7 +361,7 @@ Route::group(array('prefix' => 'CRM'), function(){
 	});
 
 	Route::resource('Empresas', 'EmpresasController');
-	
+	Route::post('Empresas/buscar', array('as' => 'CRM.Empresas.buscar', 'uses' => 'EmpresasController@buscar'));
 	Route::resource('Personas', 'PersonasController');
 	Route::post('Personas/buscar', array('as' => 'CRM.Personas.buscar', 'uses' => 'PersonasController@buscar'));
 
