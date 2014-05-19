@@ -360,6 +360,12 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::post('nuevoperiodo',array('as'=>'con.nuevoperiodo','uses'=>'CierrePeriodoController@nuevoPeriodo'));
 			});
 
+			Route::group(array('prefix'=>'compras'), function(){
+
+
+				Route::get('/',array('as'=>'con.compras','uses'=>'PagoComprasController@index'));
+			});
+
 
 	});
 
