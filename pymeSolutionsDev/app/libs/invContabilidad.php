@@ -23,6 +23,18 @@
 			}
 			return 'Concepto No Encontrado';
 		}
+
+		public static function getFormaPago($id)
+		{
+			$forma = FormaPago::find($id);
+			if ($forma) {
+				$ret = array();
+				$ret['Nombre'] = $forma->INV_FormaPago_Nombre;
+				$ret['Dias'] = $forma->INV_FormaPago_DiasCredito;
+				return $ret;
+			}
+			return 'Forma De Pago No Encontrado';
+		}
 	}
 
 ?>
