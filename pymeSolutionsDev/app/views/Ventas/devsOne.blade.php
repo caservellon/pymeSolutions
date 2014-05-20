@@ -39,10 +39,10 @@
     </table>
           <div class="venta-info">
               <div>
-                  <span class="bold-span">Total: </span> <span class="sub-total ventas-valores">Lps. {{{ $DEV->VEN_Devolucion_Monto }}}</span>
+                  <span class="bold-span">Total: </span> <span class="ventas-valores">Lps. {{{ $DEV->VEN_Devolucion_Monto }}}</span>
               </div>
               <div>
-                  <span class="bold-span">Codigo: </span> <span class="descuento ventas-valores">{{{ $DEV->VEN_Devolucion_Codigo }}}</span>
+                  <span class="bold-span">Codigo: </span> <span class="ventas-valores">{{{ $DEV->VEN_Devolucion_Codigo }}}</span>
               </div>
               <div>
                 <br><span>{{ link_to_route('Ventas.ListarOne', 'Ver Venta', array($DEV->VEN_Venta_VEN_Venta_id), array('class' => 'btn btn-info btn-block')) }}</span>
