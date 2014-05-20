@@ -21,7 +21,7 @@ class CatalogoContablesController extends BaseController {
 	 */
 	public function index()
 	{
-		Contabilidad::GenerarTransaccion(1,500);
+		//Contabilidad::GenerarTransaccion(1,500);
 
 		$Catalogo = $this->CatalogoContable	->orderby('CON_CatalogoContable_Codigo')
 											->orderby('CON_CatalogoContable_CodigoSubcuenta')
