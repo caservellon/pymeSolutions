@@ -37,6 +37,7 @@ class SolicitudCotizacionsController extends BaseController {
         
         public function vistaReorden(){
             $reOrden = invCompras::ProductoReorden();
+            return $reOrden;
             return View::make('SolicitudCotizacions.reOrden', compact('reOrden'));
         }
         
