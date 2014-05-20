@@ -32,7 +32,7 @@ $(document).ready(function(){
 		    var codigo = td.eq(1).text();
 		    var cantidad = td.eq(4).find('.quantity').val();
 		   	var top = td.eq(4).find('.Maxtop').val();
-		   	if(cantidad > top ){
+		   	if(cantidad < top ){
 		   		$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No puede exceder las cantidades!</h4>");
 		   		$("div.alert").show();
 		   	} else if(cantidad === ""){
