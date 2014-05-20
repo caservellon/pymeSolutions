@@ -50,7 +50,7 @@
       </div>
     </div>
     <div style="display:none;" class="agregar-precio form-group">
-      <label class="col-md-2 control-label">Otra Cantidad:</label>
+      <label class="col-md-2 control-label">Otro Precio:</label>
       <div class="col-md-4">
         <div class="input-group">
           {{ Form::text('INV_DetalleMovimiento_PrecioCosto', 0, array('class' => 'form-control', 'id' => 'INV_DetalleMovimiento_PrecioCosto')) }}
