@@ -13,6 +13,7 @@
   <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
 
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
   <script type="text/javascript" src="/assets/javascript/Compras.js"></script>
   <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
 
@@ -162,6 +163,8 @@
    <script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
   <script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
   <script src="/assets/javascript/script.js"></script>
+  <script src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+
 </body>
   
 </body>

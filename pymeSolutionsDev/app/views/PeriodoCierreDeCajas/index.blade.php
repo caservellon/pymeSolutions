@@ -14,7 +14,6 @@
             <table class="table table-striped">
               <thead>
 				<tr>
-					<th>#</th>
 					<th>Código</th>
 					<th>Horas</th>
 					<th>Hora de Partida</th>
@@ -24,16 +23,15 @@
             <tbody>
             @foreach ($PeriodoCierreDeCajas as $PeriodoCierreDeCaja)
                 <tr>
-					<td>{{{ $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_id }}}</td>
 					<td>{{{ $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_Codigo }}}</td>
 					<td>{{{ $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_ValorHoras }}}</td>
 					<td>{{{ $PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_HoraPartida }}}</td>
-					@if ($PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_Estado == 1)
-						<td>Activa</td>
-					@else
-						<td>Desactivada</td>
-					@endif
 					
+					@if($PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_Estado == 1)
+						<td><span class="glyphicon glyphicon-ok"></span></td>
+					@else
+						<td></td>
+					@endif
                     <td>{{ link_to_route('Ventas.PeriodoCierreDeCajas.edit', 'Editar', array($PeriodoCierreDeCaja->VEN_PeriodoCierreDeCaja_id ), array('class' => 'btn btn-info')) }}</td>
                     <td>
 

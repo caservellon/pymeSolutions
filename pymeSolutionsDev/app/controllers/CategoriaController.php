@@ -31,8 +31,8 @@ class CategoriaController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function create(){
+		
 		$temp = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
 		$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
 		$tipos = array(0 => "Seleccione ... ") + $temp;

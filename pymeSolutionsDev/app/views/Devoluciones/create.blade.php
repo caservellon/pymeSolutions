@@ -4,6 +4,10 @@
 
 <h1>Registrar Devolución</h1>
 
+<div style="display:none;" class="alert alert-danger fade in">
+
+</div>
+
 <div class="factura-info">
     <label>Ingrese numero de factura: </label><input type="text" class="no-factura"> <button class="no-fact-accept btn btn-success">Ingresar</button>
 </div>

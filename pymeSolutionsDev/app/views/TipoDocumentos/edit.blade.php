@@ -27,21 +27,21 @@
 {{ Form::model($TipoDocumento, array('method' => 'PATCH', 'route' => array('CRM.TipoDocumentos.update', $TipoDocumento->CRM_TipoDocumento_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
 	<div>
         <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_Codigo', 'Validación:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_TipoDocumento_Codigo', 'Código: *', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-4">
                 {{ Form::text('CRM_TipoDocumento_Codigo',$TipoDocumento->CRM_TipoDocumento_Codigo, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Codigo', 'placeholder' => 'PASS' ))}}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_Nombre', 'Nombre:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_TipoDocumento_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-4">
                 {{ Form::text('CRM_TipoDocumento_Nombre',$TipoDocumento->CRM_TipoDocumento_Nombre, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Nombre', 'placeholder' => 'Pasaporte' )) }}
             </div>
         </div>
 
         <div class="form-group">
-            {{ Form::label('CRM_TipoDocumento_Validacion', 'Validación:', array('class' => 'col-md-2 control-label')) }}
+            {{ Form::label('CRM_TipoDocumento_Validacion', 'Validación: *', array('class' => 'col-md-2 control-label')) }}
             <div class="col-md-4">
                 {{ Form::text('CRM_TipoDocumento_Validacion',$TipoDocumento->CRM_TipoDocumento_Validacion, array('class' => 'form-control' , 'id' => 'CRM_TipoDocumento_Validacion', 'placeholder' => 'XXX-XXX-L' ))}}
             </div>

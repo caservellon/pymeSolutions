@@ -4,9 +4,6 @@
 
 <div class="page-header clearfix no-print">
     <h3 class="pull-left">Caja &gt; <small>Nueva Venta</small></h3>
-    <div class="pull-right">
-        <a href="{{{ URL::to('Ventas/Ventas') }}}" class="btn btn-sm btn-primary no-print"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
-    </div>
 </div>
 
 <div class="form-inline busqueda-cliente">
@@ -63,7 +60,7 @@
 </div>
 <div class="col-md-4">
     <div class="opciones-cajas">
-        <h4>Opciones de Caja</h4>
+        <h4 class="no-print">Opciones de Caja</h4>
         <button type="button" class="btn btn-success no-print" data-toggle="modal" data-target="#agregarProducto">Agregar Producto</button>
         <button type="button" class="btn btn-info editar-prod no-print">Editar Cantidad</button>
         <button type="button" class="btn btn-warning eliminar-prod no-print">Eliminar Producto</button>
