@@ -61,7 +61,7 @@
                 
 			
                         
-                                    <?php $cualquierProducto1= Producto::find($key->Producto_idProducto);  ?>
+                                    <?php $cualquierProducto1= invCompras::ProductoCompras($key->Producto_idProducto);  ?>
                                     
                                     <tr>
 					
