@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Generar Orden de pago <small></small></h3>
       <div class="pull-right">
-        <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 <div class="row">
