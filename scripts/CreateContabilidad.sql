@@ -550,6 +550,27 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ConceptoMotivo` (
 ENGINE = InnoDB;
 
 
+CREATE TABLE `pymeERP`.`CON_MotivoInventario` (
+  
+`CON_MotivoInventario_ID` INT NOT NULL,
+
+  `CON_MotivoTransaccion_ID` INT NULL,
+
+  PRIMARY KEY (`CON_MotivoInventario_ID`),
+
+  INDEX `CON_CON_MotivoTransaccion_idx` (`CON_MotivoTransaccion_ID` ASC),
+
+  CONSTRAINT `CON_CON_MotivoTransaccion`
+    
+FOREIGN KEY (`CON_MotivoTransaccion_ID`)
+    
+REFERENCES `pymeERP`.`CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`)
+   
+ ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
 DROP PROCEDURE IF EXISTS pymeERP.CON_Mayorizacion;
 
 DELIMITER $$

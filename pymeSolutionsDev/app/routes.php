@@ -337,6 +337,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::resource('periodocontable', 'ParamPeriodoContableController');
 				Route::resource('catalogocuentas', 'CatalogoContablesController');
 				Route::resource('subcuentas', 'SubcuentaController');
+				Route::resource('motivoinventarios', 'MotivoInventariosController');
 
 				Route::post('periodocontable/habilitar/{id}',array('as'=>'con.enableperiodo','uses'=>'ParamPeriodoContableController@enable'));
 				Route::post('periodocontable/eliminar/{id}',array('as'=>'con.deleteperiodo','uses'=>'ParamPeriodoContableController@destroy'));
@@ -344,6 +345,11 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
 				Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
 				Route::get('subcuentas',array ('as'=>'subcuentas', 'uses' => 'SubcuentaController@index'));
+
+
+				Route::any('motivoinventarios/activar', array('as' => 'MotivoInventario.activar', 'uses' =>'MotivoInventariosController@activar'));
+
+
 				//Route::post('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
 			});
 
@@ -448,6 +454,8 @@ Route::resource('tipodocumentos', 'TipodocumentosController');
 Route::resource('productocampolocals', 'ProductocampolocalsController');
 
 Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
+
+
 
 
 
