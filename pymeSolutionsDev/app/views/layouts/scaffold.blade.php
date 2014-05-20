@@ -7,6 +7,10 @@
 
     <!--script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script-->
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <!--Load Script and Stylesheet -->
+  <script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+  <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
 
   <link rel="stylesheet" type="text/css" href="/assets/css/general.css">
   <script type="text/javascript" src="/assets/javascript/Compras.js"></script>
@@ -44,7 +48,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/Compras/SolicitudCotizacion">Solicitudes de Cotización</a></li>
-                  <li><a href="#">Cotizaciones</a></li>
+                  <li><a href="/Compras/Cotizaciones">Cotizaciones</a></li>
                   <li><a href="#">**Ordenes de Compras</a></li>
                   <li><a href="/Compras/OrdenCompra/sinCotizacion/ListaProductos" >Crear Orden Compra sin Cotizacion</a></li>
                   <li><a href="/Compras/OrdenCompra/conCotizacion/ListaCotizaciones" >Comparar Cotizaciones</a></li>

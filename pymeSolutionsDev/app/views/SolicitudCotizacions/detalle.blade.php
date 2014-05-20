@@ -35,7 +35,7 @@
             
             
                 <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				
@@ -43,10 +43,10 @@
 				<th>Descripcion</th>
                                 <th>Cantidad a Solicitar</th>
                                 <th>Unidad</th>
-                                <?php $lista = CampoLocal::where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
-                                foreach ($lista as $campo){ ?>
-                                    <th><?php echo $campo->GEN_CampoLocal_Nombre ?></th>
-                                <?php } ?>
+                                <?php // $lista = CampoLocal::where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
+//                                foreach ($lista as $campo){ ?>
+<!--                                    <th><?php //echo $campo->GEN_CampoLocal_Nombre ?></th>-->
+                                <?php //} ?>
                                 
                                 
                                 
@@ -61,7 +61,7 @@
                 
 			
                         
-                                    <?php $cualquierProducto1= Producto::find($key->Producto_idProducto);  ?>
+                                    <?php $cualquierProducto1= invCompras::ProductoCompras($key->Producto_idProducto);  ?>
                                     
                                     <tr>
 					
@@ -74,12 +74,12 @@
                                         
                                         <?php $unidad= UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
                                         <td>{{{ $unidad->INV_UnidadMedida_Nombre }}}</td>
-                                        <?php foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo){ 
-					    if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$key->idDetalleSolicitudCotizacion)->count() > 0 ){ ?>
-					    	<td><?php echo DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$key->idDetalleSolicitudCotizacion)->first()->COM_ValorCampoLocal_Valor ?></td>
-                                            <?php }else{?>
-					    	<td></td>
-                                        <?php }} ?>
+                                      <?php // foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo){ 
+//					    if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$key->SolicitudCotizacion_idSolicitudCotizacion)->count() > 0 ){ ?>
+					    	<!--<td><?php // echo DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$key->SolicitudCotizacion_idSolicitudCotizacion)->first()->COM_ValorCampoLocal_Valor ?></td>-->
+                                            <?php // }else{?>
+<!--					    	<td></td>-->
+                                        <?php // }} ?>
                                         
                                         
                                 </tr>

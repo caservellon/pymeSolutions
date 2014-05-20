@@ -4,7 +4,6 @@
 	
 	<?php $OrdenesCompra = Helpers::InformacionOrdenesCompra(); ?>
 	
-	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;&Oacute;rdenes de Compra &gt; Todas las &Oacute;rdenes de Compra</h3>
@@ -14,13 +13,12 @@
 		</div>
 	</div>
 	
-
 	@if (Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
 		<ul>
 			@if ($Error == 'Sin Seleccion')
-				<li class="alert alert-danger">Debe seleccionar al menos una orden de compra para ver el detalle</li>
+				<li class="alert alert-danger">Debe seleccionar al menos una orden de compra para poder ver el detalle</li>
 			@endif
 		</ul>
 	@endif
@@ -30,28 +28,16 @@
 		{{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
 		{{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
 	{{ Form::close() }}
-	
-	{{ Form::open(array('route' => 'OrdenesCompraDetallesOrdenCompra')) }}
 
 	{{ Form::open(array('route' => 'OrdenesCompraDetallesOrdenCompra')) }}
-	
-
 		<div class="row">
 			<div class=" col-lg-12">
 				<div  class="col-md-9" >
 					<div class="col-xs-5 col-sm-6 col-md-12">
-						<input type="Text"  style="width: 550px">
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg" >
-							<span class="glyphicon glyphicon-filter"></span>
-						</button>
 					</div>              
 				</div>
 				
 				<div class="col-md-3">
-
-
-					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
-
 					{{ Form::submit('Detalle', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Detalle')) }}
 				</div>
 			</div>
@@ -75,16 +61,10 @@
 									<td>{{ Form::checkbox($OrdenCompra -> Codigo, $OrdenCompra -> Codigo) }}</td>
 									<td>{{ $OrdenCompra -> Codigo }}</td>
 									<td>{{ $OrdenCompra -> NombreProveedor }}</td>
-									
-
-									<?php $EstadoOrdenCompra = Helpers::EstadoActualOrdenCompra($OrdenCompra -> Codigo); ?>
-									
-									<td>{{ $EstadoOrdenCompra[0] -> Nombre }}</td>
 
 									<?php $EstadoOrdenCompra = Helpers::EstadoActualOrdenCompra($OrdenCompra -> Codigo) ?>
 									<td>{{ $EstadoOrdenCompra[0] -> Nombre }} </td>
 
-									
 									<td>{{ $OrdenCompra -> FechaEmision }}</td>
 								</tr>
 							@endforeach

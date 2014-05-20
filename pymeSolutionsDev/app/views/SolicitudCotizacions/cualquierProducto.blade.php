@@ -13,7 +13,7 @@
                <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Continuar', array('class' => 'btn btn-default btn-md')) }}</div>
             </div>       
                 <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				<th>Codigo</th>
@@ -39,7 +39,7 @@
                                         <td>{{{ $value->INV_Producto_PuntoReorden }}}</td>
                                         <td>@foreach($prov_prod as $key)
                                         @if($value->INV_Producto_ID==$key->INV_Producto_ID)
-                                        <?php $proveedor = Proveedor::find($key->INV_Proveedor_ID); 
+                                        <?php $proveedor = invCompras::ProveedorCompras($key->INV_Proveedor_ID); 
                                           
                                         ?>
                                         <a>{{{$proveedor->INV_Proveedor_Codigo}}}</a>

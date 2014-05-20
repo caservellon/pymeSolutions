@@ -4,23 +4,21 @@
 	
 	<?php $Cotizaciones = Helpers::InformacionCotizaciones(); ?>
 	
-	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Todas las Cotizaciones</h3>
 			<div class="pull-right">
-				<a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
+				<a href="/Compras/Cotizaciones" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atr&aacute;s</a>
 			</div>
 		</div>
 	</div>
 	
-
 	@if (Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
 		<ul>
 			@if ($Error == 'Sin Seleccion')
-				<li class="alert alert-danger">Debe seleccionar al menos una cotizacion para ver el detalle</li>
+				<li class="alert alert-danger">Debe seleccionar al menos una cotizacion para poder ver el detalle</li>
 			@endif
 		</ul>
 	@endif
@@ -37,17 +35,10 @@
 			<div class=" col-lg-12">
 				<div  class="col-md-9" >
 					<div class="col-xs-5 col-sm-6 col-md-12">
-						<input type="Text"  style="width: 550px">
-						<button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg" >
-							<span class="glyphicon glyphicon-filter"></span>
-						</button>
 					</div>              
 				</div>
 				
 				<div class="col-md-3">
-
-					<input type="submit" value="Buscar" class="btn btn-default btn-block col-md-6">
-
 					{{ Form::submit('Detalle', array('class' => 'btn btn-default btn-block col-md-6', 'name' => 'Detalle')) }}
 				</div>
 			</div>
@@ -76,13 +67,13 @@
 									<td>{{ $Cotizacion -> FechaEmision }}</td>
 									<td>{{ $Cotizacion -> Vigencia }}</td>
 									
-									@if ($Cotizacion -> Activo == 1)
+									@if($Cotizacion -> Activo == 1)
 										<td>Activo</td>
 									@else
 										<td>Inactivo</td>
 									@endif
 									
-									@if (date_diff(date_create(date("Y-m-d")), date_create($Cotizacion -> Vigencia)) -> format("%R%a") >= 0)
+									@if($Cotizacion -> Vigente)
 										<td>Vigente</td>
 									@else
 										<td>Vencida</td>

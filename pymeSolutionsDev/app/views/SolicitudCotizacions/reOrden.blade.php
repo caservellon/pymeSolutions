@@ -14,7 +14,7 @@
             </div>  
             
                 <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				<th>Codigo</th>
@@ -31,7 +31,7 @@
 		<tbody>
                     
 			@foreach ($reOrden as $value)
-                        @if($value->INV_Producto_Cantidad <= $value->INV_Producto_PuntoReorden)
+                        
                             <?php $prov_prod = DB::table('INV_Producto_Proveedor')->get(); ?>
 				<tr>
 					<td>{{{ $value->INV_Producto_Codigo }}}</td>
@@ -41,7 +41,7 @@
                                         <td>{{{ $value->INV_Producto_PuntoReorden }}}</td>
                                         <td>@foreach($prov_prod as $key)
                                         @if($value->INV_Producto_ID==$key->INV_Producto_ID)
-                                        <?php $proveedor = Proveedor::find($key->INV_Proveedor_ID); 
+                                        <?php $proveedor = invCompras::ProveedorCompras($key->INV_Proveedor_ID); 
                                           
                                         ?>
                                         <a>{{{$proveedor->INV_Proveedor_Codigo}}}</a>
@@ -53,7 +53,7 @@
                                         <td>Incluir{{ Form::checkbox('Incluir'.$value->INV_Producto_ID, '1', false) }}</td>
                                         {{form::text('id'.$value->INV_Producto_ID, $value->INV_Producto_ID, array('style'=>'display:none'))}}
                                 </tr>
-                                @endif
+                                
                 @endforeach
                 
             

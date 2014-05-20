@@ -85,7 +85,7 @@ class CompraCampoLocalController extends BaseController {
 		{
 			return Redirect::route('Compras.Configuracion.CampoLocal.index');
 		}
-		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'COMP_SC', 6) == 0? 'SC':'COT';
+		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'COM_SC', 6) == 0? 'SC':'COT';
 		$CampoLocalLista = null;
 		$stringConcat = "";
 		if ($CampoLocal->GEN_CampoLocal_Tipo == "LIST") {
@@ -128,7 +128,9 @@ class CompraCampoLocalController extends BaseController {
 				}
 			}
                          $ruta = route('Compras.Configuracion.CampoLocal.index');
+                         //Trae el mensaje de la base de datos
                          $mensaje = Mensaje::find(1);
+                         
                          return View::make('MensajeCompra', compact('mensaje', 'ruta'));
 		}
 

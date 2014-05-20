@@ -1,7 +1,7 @@
 <?php
 
-class COM_Detalle_Cotizacion extends Eloquent{
-	protected $table = 'COM_Detalle_Cotizacion';
+class COM_DetalleCotizacion extends Eloquent{
+	protected $table = 'COM_DetalleCotizacion';
 	public $timestamps = false;
 	public static $rules = array(
 		'cantidad' => 'numeric',
@@ -10,6 +10,6 @@ class COM_Detalle_Cotizacion extends Eloquent{
 								 
 	public static $messages = array(
 		'COM_DetalleCotizacion_PrecioUnitario.required' => 'El Precio Unitario es requerido',
-		'COM_DetalleCotizacion_PrecioUnitario.decimal' => 'El Precio Unitario debe ser un numero decimal, sin signo, mayor a cero, y con un maximo de dos digitos despues del punto',
+		'COM_DetalleCotizacion_PrecioUnitario.decimal' => 'El Precio Unitario debe ser un número decimal, sin signo, mayor a cero, y con un máximo de dos dígitos después del punto',
 	);
 }
