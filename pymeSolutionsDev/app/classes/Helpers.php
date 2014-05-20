@@ -74,6 +74,7 @@ class Helpers {
 	public static function InformacionSolicitudCotizacion($CodigoSolicitudCotizacion){
 		$Consulta = DB::table('COM_SolicitudCotizacion')
 			-> join('INV_Proveedor', 'Proveedor_idProveedor', '=', 'INV_Proveedor_ID')
+			-> join('INV_FormaPago', 'COM_SolicitudCotizacion_FormaPago', '=', 'INV_FormaPago_ID')
 			-> select('COM_SolicitudCotizacion_IdSolicitudCotizacion as IdSolicitudCotizacion',
 					  'COM_SolicitudCotizacion_Codigo as Codigo',
 					  'Proveedor_idProveedor as IdProveedor',
@@ -82,6 +83,7 @@ class Helpers {
 					  'INV_Proveedor_Telefono as TelefonoProveedor',
 					  'COM_SolicitudCotizacion_FechaEmision as FechaEmision',
 					  'COM_SolicitudCotizacion_FechaEntrega as FechaEntrega',
+					  'INV_FormaPago_ID as IdFormaPago',
 					  'COM_Usuario_idUsuarioCreo as IdUsuarioCreo',
 					  'COM_SolicitudCotizacion_Recibido as Recibido',
 					  'COM_SolicitudCotizacion_Activo as Activo'
@@ -156,11 +158,13 @@ class Helpers {
 	public static function InformacionCotizacion($CodigoCotizacion){
 		$Consulta = DB::table('COM_Cotizacion')
 			-> join('INV_Proveedor', 'COM_Proveedor_idProveedor', '=', 'INV_Proveedor_ID')
+			-> join('INV_FormaPago', 'COM_Cotizacion_IdFormaPago', '=', 'INV_FormaPago_ID')
 			-> select('INV_Proveedor_Nombre as NombreProveedor',
 					  'INV_Proveedor_Direccion as DireccionProveedor',
 					  'INV_Proveedor_Telefono as TelefonoProveedor',
 					  'COM_Cotizacion_Total as Total',
-					  'COM_Cotizacion_Vigencia as Vigencia'
+					  'COM_Cotizacion_Vigencia as Vigencia',
+					  'INV_FormaPago_Nombre as FormaPago'
 					)
 			-> where('COM_Cotizacion_Codigo', '=', $CodigoCotizacion)
 			-> get();
@@ -321,6 +325,16 @@ class Helpers {
 			-> join('COM_SolicitudCotizacion', 'COM_Cotizacion_idSolicitudCotizacion', '=', 'COM_SolicitudCotizacion_IdSolicitudCotizacion')
 			-> select('COM_SolicitudCotizacion_Codigo as Codigo')
 			-> where('COM_Cotizacion_Codigo', '=', $CodigoCotizacion)
+			-> get();
+			
+			return $Consulta;
+	}
+	
+	public static function InformacionFormasPago(){
+		$Consulta = DB::table('INV_FormaPago')
+			-> select('INV_FormaPago_ID as IdFormaPago',
+					  'INV_FormaPago_Nombre as Nombre'
+					 )
 			-> get();
 			
 			return $Consulta;
