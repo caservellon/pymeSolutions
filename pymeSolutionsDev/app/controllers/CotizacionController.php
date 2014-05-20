@@ -152,7 +152,7 @@ class CotizacionController extends BaseController {
 		$Cotizacion -> COM_Cotizacion_Codigo = 'COM_COT_'.$RegistroActualCotizacion;
 		$Cotizacion -> COM_Cotizacion_Activo = 1;
 		$Cotizacion -> COM_Cotizacion_Vigencia = Input::get('VigenciaCotizacion');
-		//$Cotizacion -> COM_Cotizacion_IdFormaPago = Input::get('FormaPago');
+		$Cotizacion -> COM_Cotizacion_IdFormaPago = Input::get('IdFormaPago');
 		
 		if (date_diff(date_create(date("Y-m-d G:i")), date_create(date_format(date_create(Input::get('VigenciaCotizacion')), 'Y-m-d G:i'))) -> format("%R%a") >= 0){
 			$Cotizacion -> COM_Cotizacion_Vigente = 1;

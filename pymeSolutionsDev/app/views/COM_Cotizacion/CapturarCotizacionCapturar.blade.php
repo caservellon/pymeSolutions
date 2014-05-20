@@ -87,9 +87,9 @@
 		<div class="row">
 			<div class="col-md-4">
 				@foreach($FormasPago as $FormaPago)
-					<?php $FormasPago2[$FormaPago -> Nombre] = $FormaPago -> Nombre ?>
+					<?php $FormasPago2[$FormaPago -> IdFormaPago] = $FormaPago -> Nombre ?>
 				@endforeach
-				<label>Forma de Pago: {{ Form::select('FormaPago', $FormasPago2, $SolicitudCotizacion[0] -> FormaPago, array('class' => 'form-control')) }}</label>
+				<label>Forma de Pago: {{ Form::select('IdFormaPago', $FormasPago2, $SolicitudCotizacion[0] -> IdFormaPago, array('class' => 'form-control')) }}</label>
 				
 				<br><br>
 				

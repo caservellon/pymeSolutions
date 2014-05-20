@@ -83,7 +83,7 @@ class Helpers {
 					  'INV_Proveedor_Telefono as TelefonoProveedor',
 					  'COM_SolicitudCotizacion_FechaEmision as FechaEmision',
 					  'COM_SolicitudCotizacion_FechaEntrega as FechaEntrega',
-					  'INV_FormaPago_Nombre as FormaPago',
+					  'INV_FormaPago_ID as IdFormaPago',
 					  'COM_Usuario_idUsuarioCreo as IdUsuarioCreo',
 					  'COM_SolicitudCotizacion_Recibido as Recibido',
 					  'COM_SolicitudCotizacion_Activo as Activo'
@@ -332,7 +332,7 @@ class Helpers {
 	
 	public static function InformacionFormasPago(){
 		$Consulta = DB::table('INV_FormaPago')
-			-> select('INV_FormaPago_ID',
+			-> select('INV_FormaPago_ID as IdFormaPago',
 					  'INV_FormaPago_Nombre as Nombre'
 					 )
 			-> get();
