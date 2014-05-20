@@ -78,7 +78,7 @@
                                         
 					<td>{{{ $cualquierProducto1->INV_Producto_Nombre }}}</td>
 					<td>{{{ $cualquierProducto1->INV_Producto_Descripcion }}}</td>
-                                        <td>{{Form::text('CantidadSolicitar'.$cualquierProducto1->INV_Producto_ID, null,array('placeholder'=>'##'))}}</td>
+                                        <td>{{ Form::text('CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre, null, array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
 					
                                         
                                         <?php $unidad= UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
@@ -107,15 +107,15 @@
         @endif
         <div class="col-md-5">
             @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID)) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre)) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID, 'placeholder'=>'##')) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, 'placeholder'=>'##')) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID, 'placeholder'=>'#.##')) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, 'placeholder'=>'#.##')) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
