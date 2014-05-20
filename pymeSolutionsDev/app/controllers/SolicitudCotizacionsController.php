@@ -31,12 +31,13 @@ class SolicitudCotizacionsController extends BaseController {
 	}
         
         public function vistacrear(){
-            $cualquierProducto = Producto::where('INV_Producto_Activo', '=', 1)->get();
+            $cualquierProducto = invCompras::CualquierProducto();
             return View::make('SolicitudCotizacions.cualquierProducto', compact('cualquierProducto'));
         }
         
         public function vistaReorden(){
-            $reOrden = Producto::where('INV_Producto_Activo', '=', 1)->get();
+            $reOrden = invCompras::ProductoReorden();
+            return $reOrden;
             return View::make('SolicitudCotizacions.reOrden', compact('reOrden'));
         }
         
@@ -72,29 +73,6 @@ class SolicitudCotizacionsController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
-              $cualquierProducto=array();
-            
-                for ($i = 1; $i <=count(Input::all()); $i++) {
-                    if (Input::get('Incluir'.$i)==1){
-                        $cualquierProducto[] = Input::get('id'.$i);
-                    }
-                }
-                $prov=array();
-                for($i=0; $i < count($cualquierProducto); $i++){
-                    $prov_prod = DB::table('INV_Producto_Proveedor')->get();
-                    foreach($prov_prod as $key){
-                        if($cualquierProducto[$i] == $key->INV_Producto_ID){
-                            $prov[]= $key->INV_Proveedor_ID;
-                        }
-                    
-                    }
-                }
-                $provfinal = array_unique($prov); 
-                $proveedor= array_values($provfinal);  
-            return View::make('SolicitudCotizacions.create', compact('cualquierProducto', 'proveedor'));
-	}
 
 	/**
 	 * Store a newly created resource in storage.
@@ -139,14 +117,17 @@ class SolicitudCotizacionsController extends BaseController {
 //                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
                    }
                         
-		} 
-                for ($j=0; $j< count($cualquierProducto); $j++){
+		
+                
+                for ($k=0; $k< count($cualquierProducto); $k++){
                     
                    
-                    $temp = $cualquierProducto[$j];
-                    $res=array_merge($res,array('CantidadSolicitar'.$temp => 'Required|Integer|min:1'));
+                    $temp = Producto::find($cualquierProducto[$k]);
+                    
+                    
+                    $res=array_merge($res,array('CantidadSolicitar'.$temprod->INV_Proveedor_Nombre.$temp->INV_Producto_Nombre => 'Required|Integer|min:1'));
                 }
-                
+                }
                 
                 
                 $validation = Validator::make($Input, $res);
@@ -190,10 +171,10 @@ class SolicitudCotizacionsController extends BaseController {
                             for($j=0; $j < count($cualquierProducto); $j++){
                                 if($cualquierProducto[$j]==$key->INV_Producto_ID){
                                 $detallesolicitud= new DetalleSolicitudCotizacion();
-                                
+                                $temp = Producto::find($cualquierProducto[$j]);
                 
                                 
-                                $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$cualquierProducto[$j]);
+                                $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$temprod->INV_Proveedor_Nombre.$temp->INV_Producto_Nombre);
                                 
                                 $detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
                                 $detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
@@ -225,7 +206,7 @@ class SolicitudCotizacionsController extends BaseController {
                         //manda para imprimir a los que se les manda correo, use para agarrar array de proveedores
                         $correo[]= $proveedor[$i];
                         //metodo de enviar el correo, 'emailscompra' es el view,  
-                         Mail::send('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
+                         Mail::queue('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
                         $message->subject('Solicitud ');
                             $message->to($enviar->INV_Proveedor_Email);
                     });
@@ -242,12 +223,13 @@ class SolicitudCotizacionsController extends BaseController {
                 
               }
               return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
+                     ->withInput(Input::all())
                      ->withErrors($validation)
                      ->with('message', 'There were validation errors.');
 	}
         
         public function detalle(){
-            $proveedor= Proveedor::find(Input::get('prov'));
+            $proveedor= invCompras::ProveedorCompras(Input::get('prov'));
             
             $solicitud= DetalleSolicitudCotizacion::where('SolicitudCotizacion_idSolicitudCotizacion', '=', Input::get('solCot'))->get();
             return View::make('SolicitudCotizacions.detalle', compact('solicitud', 'proveedor'));

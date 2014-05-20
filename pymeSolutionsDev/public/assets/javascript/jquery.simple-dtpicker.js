@@ -1,6 +1,10 @@
 /**
  * jquery-simple-datetimepicker (jquery.simple-dtpicker.js)
+<<<<<<< HEAD
+ * v1.13.0
+=======
  * v1.12.0
+>>>>>>> 02f9439c086866464fa88cf9b1c6fdea4f224746
  * (c) Masanori Ohgita - 2014.
  * https://github.com/mugifly/jquery-simple-datetimepicker
  */
@@ -113,6 +117,16 @@
 			prevMonth: 'Προηγ. μήνας',
 			nextMonth: 'Επόμ. μήνας',
 			today: 'Σήμερα'
+
+		},
+		ua: {
+			days: ["Неділя","Понеділок","Вівторок","Cереда","Четвер","П'ятниця","Субота"],
+			months: ["Cічень","Лютий","Березень","Квітень","Травень","Червня","Липня","Серпня","Вересня","Жовтень","Листопада","Грудня"],
+			format: 'YYYY-MM-DD hh:mm',
+			prevMonth: 'Попередній місяць',
+			nextMonth: 'Наступний місяць',
+			today: 'Cьогодні'
+
 		}
 	};
 	/* ----- */
@@ -1351,7 +1365,11 @@
 				o.handler.apply(this, arguments);
 			}
 		}
-  	};
+
+	};
+
+  	
+
 	
 	/* Set event handler to Body element, for hide a floated-picker */
 	$(function(){

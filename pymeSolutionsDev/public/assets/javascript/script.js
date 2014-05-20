@@ -52,18 +52,20 @@ $(document).ready(function(){
 			'no-factura' : $('.no-factura').val()
 		}).success(function(data){
 			$('#resultadoDevolucion').modal('show');
-
+			$('.bono-compra').hide();
 			$.each(data, function(key, value){
 				$.each(value, function(keyin, valuein){
 					if ($.isNumeric(keyin)) {
-						$('#detalle-devolucion > tbody:last').append('<tr><td>'+keyin+'</td><td>'+valuein+'</td></tr>');
-					} else {
 						if (keyin == "BonoCompraCantidad") {
 							$('.cantidad-bc').text('Lps. ' + valuein);
+							$('.bono-compra').show();
 						}
 						if (keyin == "BonoCompraCodigo") {
 							$('.codigo-bc').text(valuein);
 						};
+					} else {
+						$('#detalle-devolucion > tbody:last').append('<tr><td>'+keyin+'</td><td>'+valuein+'</td></tr>');
+						
 					}
 
 				});

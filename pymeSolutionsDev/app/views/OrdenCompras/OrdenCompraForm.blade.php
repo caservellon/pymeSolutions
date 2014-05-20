@@ -145,10 +145,28 @@
           <label>Fecha Entrega * </label>
 		       <?/*<a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>*/?>
           <br>
-              {{Form::custom('datetime-local','COM_OrdenCompra_FechaEntrega','2014/03/17',array('format'=>'AAAA/MM/DD','required '=>'required '))}}
+              {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega'))}}
+              <? 
+                $horaInicio='09:00';
+                $horaFinal='19:01';
+              ?>
+          <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
+                        "autodateOnStart": false,
+                        "futureOnly": true,
+                        "locale":"es",
+                        "minTime": "{{$horaInicio}}",
+                        "maxTime": "{{$horaFinal}}"
+                    });
+            </script>
              <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
           
           <hr>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
           <br>
           <label>Forma de Pago</label>
            <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
@@ -177,7 +195,33 @@
 	  {{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}
       
       <label>Activo</label>
-      
+                <div class="form-group" id="campos Locales otros"> 
+     
+      <?/* usar lo q se ocupa */?>
+      <h5>Campos Locales de Solicitud de Cotizacion</h5>
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              <?php 
+                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
+              ?>
+              {{$valores->COM_ValorCampoLocal_Valor}}
+              
+        @endforeach
+        <hr>
+        <h5>Campos Locales de Cotizacion</h5>
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              <?php 
+                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
+              ?>
+              {{$valores->COM_ValorCampoLocal_Valor}}
+              
+        @endforeach                   
+  </div>
       </div>
 
       <div class="col-md-6" style="text-align: right">

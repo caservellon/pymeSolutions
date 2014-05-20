@@ -38,8 +38,7 @@ Validator::extend('is_valid_validation_mask', function($attribute, $value, $para
 	return preg_match_all('/[#\/_\-\.L]*/', $value) == 2;
 });
 
-Validator::extend('decimal', function($attribute, $value, $parameters)
-{
+Validator::extend('decimal', function($attribute, $value, $parameters){
 	$EsDecimalValido = false;
 	$EsMayorCero = false;
 	
@@ -52,7 +51,14 @@ Validator::extend('decimal', function($attribute, $value, $parameters)
 	}
 	
     return $EsDecimalValido && $EsMayorCero;
+});
 
+Validator::extend('mayor_igual_fecha_actual', function($attribute, $value, $parameters){
+	if(date_diff(date_create(date("Y-m-d")), date_create(date_format(date_create($value), 'Y-m-d'))) -> format("%R%a") >= 0){
+		return true;
+	}
+	
+    return false;
 });
 
 Validator::extend('is_positive', function($attribute, $value, $parameters)

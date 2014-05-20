@@ -62,8 +62,4 @@ public static function invGetMotivo($Concepto){
 
 	
 
-
-
-
-}
 ?>
