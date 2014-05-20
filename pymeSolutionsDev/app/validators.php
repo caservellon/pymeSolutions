@@ -9,7 +9,13 @@ Validator::extend('alpha_spaces', function($attribute, $value, $parameters)
 {
     return preg_match('/^[\pL\s]+$/u', $value);
     
-});  
+});
+
+Validator::extend('is_time',function($attribute, $value, $parameters)
+{
+	return preg_match('/^(2[0-3]|[0-1]?[0-9]):[0-5]?[0-9](:[0-5]?[0-9])?/', $value);
+});
+
 Validator::extend('num_decimal', function($attribute, $value, $parameters)
 {
     return preg_match('/^\d+(\.\d{1,2})?$/', $value);

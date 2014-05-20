@@ -32,7 +32,7 @@ $(document).ready(function(){
 		    var codigo = td.eq(1).text();
 		    var cantidad = td.eq(4).find('.quantity').val();
 		   	var top = td.eq(4).find('.Maxtop').val();
-		   	if(cantidad > top ){
+		   	if(cantidad < top ){
 		   		$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No puede exceder las cantidades!</h4>");
 		   		$("div.alert").show();
 		   	} else if(cantidad === ""){
@@ -93,9 +93,10 @@ $(document).ready(function(){
     $('.search-cliente').on('click', function(){
     	if($('.cliente').val() !==  ""){
 			if ($('.Tipo_de_Cliente').val() == '0') {
-				$.post('/CRM/Personas/buscar',{
-					'name' : $('.cliente').val()
+				$.post('/CRM/Personas/buscar',
+{					'name' : $('.cliente').val()
 				}).success(function(data){
+					console.log(data);
 					$.each(data, function(i, value){
 						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
 					});
@@ -107,7 +108,7 @@ $(document).ready(function(){
 					'name' : $('.cliente').val()
 				}).success(function(data){
 					$.each(data, function(i, value){
-						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombres']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombre']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
 					});
 				}).fail(function (data) {
 
@@ -466,6 +467,24 @@ $(document).ready(function(){
 		$('.grand-total').text("Lps. " + (subtotal * (1.15)).toFixed(2));
 		actualizarPagos();
 	}
+
+	$('#VEN_DescuentoEspecial_FechaInicio').appendDtpicker({
+		"onShow": function(handler){
+			
+		},
+		"onHide": function(handler){
+			
+		}
+	});
+
+	$('#VEN_DescuentoEspecial_FechaFinal').appendDtpicker({
+		"onShow": function(handler){
+			
+		},
+		"onHide": function(handler){
+			
+		}
+	});
 
 	function setearTotalcc(valor,x){
 	    var a= valor.elements[x].value;

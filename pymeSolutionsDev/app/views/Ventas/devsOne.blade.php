@@ -20,6 +20,7 @@
                   <th>Nombre</th>
                   <th>Descripción</th>
                   <th>Cantidad Devuelta</th>
+                  <th>Precio</th>
                   <th>Total</th>
               </tr>
           </thead>
@@ -27,10 +28,11 @@
             @foreach ($Dev as $dev)
                 <tr>
                     <td>{{{ $dev->VEN_DetalleDevolucion_Producto }}}</td>
-                    <td>{{{ DB::table('INV_Producto')->where('INV_Producto_ID',$dev->VEN_DetalleDevolucion_Producto)->first()->INV_Producto_Nombre }}}</td>
-                    <td>{{{ DB::table('INV_Producto')->where('INV_Producto_ID',$dev->VEN_DetalleDevolucion_Producto)->first()->INV_Producto_Descripcion }}}</td>
+                    <td>{{{ DB::table('INV_Producto')->where('INV_Producto_Codigo',$dev->VEN_DetalleDevolucion_Producto)->first()->INV_Producto_Nombre }}}</td>
+                    <td>{{{ DB::table('INV_Producto')->where('INV_Producto_Codigo',$dev->VEN_DetalleDevolucion_Producto)->first()->INV_Producto_Descripcion }}}</td>
                     <td>{{{ $dev->VEN_DetalleDevolucion_Cantidad }}}</td>
-                    <td>$$$$</td>
+                    <td>{{{ $dev->VEN_DetalleDevolucion_Precio }}}</td>
+                    <td>{{{ $dev->VEN_DetalleDevolucion_Cantidad * $dev->VEN_DetalleDevolucion_Precio }}}</td>
                 </tr>
             @endforeach
           </tbody>

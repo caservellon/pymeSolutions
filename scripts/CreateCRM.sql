@@ -105,9 +105,6 @@ DROP TABLE IF EXISTS `pymeERP`.`CRM_ValorCampoLocal` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_ValorCampoLocal` (
   `CRM_ValorCampoLocal_ID` INT NOT NULL AUTO_INCREMENT,
   `CRM_ValorCampoLocal_Valor` VARCHAR(45) NULL,
-  `CRM_ValorCampoLocal_Creacion` DATETIME NULL,
-  `CRM_ValorCampoLocal_Modificacion` DATETIME NULL,
-  `CRM_ValorCampoLocal_Usuario` VARCHAR(45) NULL,
   `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
   `CRM_Empresas_CRM_Empresas_ID` INT NULL,
   `CRM_Personas_CRM_Personas_ID` INT NULL,

@@ -64,7 +64,8 @@ td,th {
 }
 
 .busqueda-cliente input {
-	padding-right: 35%;
+	padding-right: 0px;
+    width: 400px !important;
 }
 
 .busqueda-cliente {

@@ -217,6 +217,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`VEN_DetalleDevolucion` (
   `VEN_DetalleDevolucion_Producto` VARCHAR(45) NULL,
   `VEN_DetalleDevolucion_Cantidad` DOUBLE NULL,
   `VEN_DetalleDevolucion_TimeStamp` DATETIME NULL,
+  `VEN_DetalleDevolucion_Precio` DECIMAL(19,2) NULL,
   `VEN_Devolucion_VEN_Devolucion_id` INT NOT NULL,
   PRIMARY KEY (`VEN_DetalleDevolucion_id`),
   INDEX `fk_VEN_DetalleDevolucion_VEN_Devolucion1_idx` (`VEN_Devolucion_VEN_Devolucion_id` ASC),

@@ -16,9 +16,31 @@ class EmpresasController extends BaseController {
 		$this->Empresa = $Empresa;
 	}
 
-	public function buscar()
-	{
-		return Empresa::where('CRM_Empresas_Nombre', 'LIKE' ,'%' . Input::get('name') . '%')->get();
+	public function buscar() {
+		#return Empresa::where('CRM_Empresas_Nombre', 'LIKE' ,'%' . Input::get('name') . '%')->get();
+		$val = '%'.Input::get('name').'%';
+		$result = DB::table('CRM_Empresas')->where('CRM_Empresas_Nombre','LIKE',$val)
+							->orWhere('CRM_Empresas_Direccion','LIKE',$val)
+							->orWhere('CRM_Empresas_Codigo','LIKE',$val)->lists('CRM_Empresas_ID');
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','CRM_EP_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1);
+		if ($campos) {
+			$noListas = $campos->where('GEN_CampoLocal_Tipo','<>','LIST')->lists('GEN_CampoLocal_ID');
+			$listas = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','CRM_EP_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1)->where('GEN_CampoLocal_Tipo','LIKE','%LIST%')->lists('GEN_CampoLocal_ID');
+			if ($listas) {
+				$valorLista = DB::table('GEN_CampoLocalLista')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$listas)->where('GEN_CampoLocalLista_Valor','LIKE',$val)->lists('GEN_CampoLocalLista_ID');
+				if($valorLista) {
+					$result = array_merge($result,DB::table('CRM_ValorCampoLocal')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$listas)->whereIn('CRM_ValorCampoLocal_Valor',$valorLista)->lists('CRM_Empresas_CRM_Empresas_ID'));
+				}
+			}
+			if ($noListas) {
+				$result = array_merge($result,DB::table('CRM_ValorCampoLocal')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$noListas)->where('CRM_ValorCampoLocal_Valor','LIKE',$val)->lists('CRM_Empresas_CRM_Empresas_ID'));
+			}
+		}
+		if ($result) {
+			return DB::table('CRM_Empresas')->whereIn('CRM_Empresas_ID',$result)->get();
+		} else {
+			return  0;
+		}
 	}
 
 	/**
