@@ -31,12 +31,12 @@ class SolicitudCotizacionsController extends BaseController {
 	}
         
         public function vistacrear(){
-            $cualquierProducto = Producto::where('INV_Producto_Activo', '=', 1)->get();
+            $cualquierProducto = invCompras::CualquierProducto();
             return View::make('SolicitudCotizacions.cualquierProducto', compact('cualquierProducto'));
         }
         
         public function vistaReorden(){
-            $reOrden = Producto::where('INV_Producto_Activo', '=', 1)->get();
+            $reOrden = invCompras::ProductoReorden();
             return View::make('SolicitudCotizacions.reOrden', compact('reOrden'));
         }
         
@@ -222,13 +222,13 @@ class SolicitudCotizacionsController extends BaseController {
                 
               }
               return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
-                     
+                     ->withInput(Input::all())
                      ->withErrors($validation)
                      ->with('message', 'There were validation errors.');
 	}
         
         public function detalle(){
-            $proveedor= Proveedor::find(Input::get('prov'));
+            $proveedor= invCompras::ProveedorCompras(Input::get('prov'));
             
             $solicitud= DetalleSolicitudCotizacion::where('SolicitudCotizacion_idSolicitudCotizacion', '=', Input::get('solCot'))->get();
             return View::make('SolicitudCotizacions.detalle', compact('solicitud', 'proveedor'));

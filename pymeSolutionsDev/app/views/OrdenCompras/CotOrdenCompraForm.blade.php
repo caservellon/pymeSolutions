@@ -75,8 +75,9 @@
                         <td>{{ $product1->INV_Producto_Nombre}}</td>
                         <td>{{ $product1->INV_Producto_Descripcion}}</td>
                         <?//esta es la forma para llamar a java script desde laravel?>
-                        
+                        {{Form::text('COM_DetalleOrdenCompra_Cantidad'.$contador,$cantidad, array('style' => 'display:none'))}}
                         <td>{{$cantidad}}</td>
+                        {{Form::text('COM_DetalleOrdenCompra_PrecioUnitario'.$contador,$precioUnitario, array('style' => 'display:none'))}}
                         <td>{{$precioUnitario}}</td>
                         <td>{{$cantidad*$precioUnitario}}</td>
                         <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);
@@ -99,7 +100,9 @@
         
         <label>Fecha Entrega *</label>
          {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega','value'=>'','required '=>'required '))}}
-
+		 <?php $horaInicio="08:30";
+		 $horaFinal="19:00";
+		?>
          <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
                         "autodateOnStart": false,
                         "futureOnly": true,

@@ -46,7 +46,12 @@ class COMTransicionEstadoController extends BaseController {
                         $model->COM_OrdenCompra_TransicionEstado_EstadoPrevio=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPrevio');
                         $model->COM_OrdenCompra_TransicionEstado_EstadoPosterior=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPosterior');
                         $model->COM_OrdenCompra_TransicionEstado_EstadoActual=Input::get('COM_OrdenCompra_TransicionEstado_EstadoActual');
-                        $model->COM_OrdenCompra_TransicionEstado_Observacion=Input::get('COM_OrdenCompra_TransicionEstado_Observacion');
+                        if(Input::has('COM_OrdenCompra_TransicionEstado_Observacion')){
+                            $model->COM_OrdenCompra_TransicionEstado_Observacion=Input::get('COM_OrdenCompra_TransicionEstado_Observacion');
+                        }else{
+                            $model->COM_OrdenCompra_TransicionEstado_Observacion='Prefirio no guardar una observacion';
+                        }
+                        
                         if(Input::has('COM_OrdenCompra_TransicionEstado_Activo')){
                             $model->COM_OrdenCompra_TransicionEstado_Activo=1;
                         }else{
