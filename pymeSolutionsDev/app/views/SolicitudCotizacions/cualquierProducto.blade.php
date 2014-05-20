@@ -39,7 +39,7 @@
                                         <td>{{{ $value->INV_Producto_PuntoReorden }}}</td>
                                         <td>@foreach($prov_prod as $key)
                                         @if($value->INV_Producto_ID==$key->INV_Producto_ID)
-                                        <?php $proveedor = Proveedor::find($key->INV_Proveedor_ID); 
+                                        <?php $proveedor = invCompras::ProveedorCompras($key->INV_Proveedor_ID); 
                                           
                                         ?>
                                         <a>{{{$proveedor->INV_Proveedor_Codigo}}}</a>

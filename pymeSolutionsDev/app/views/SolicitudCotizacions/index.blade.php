@@ -46,7 +46,7 @@
 			@foreach ($SolicitudCotizacions as $editars)
 				<tr>
 					<td>{{{ $editars->COM_SolicitudCotizacion_Codigo }}}</td>
-                                        <?php $proveedor= Proveedor::find($editars->Proveedor_idProveedor) ?>
+                                        <?php $proveedor= invCompras::ProveedorCompras($editars->Proveedor_idProveedor) ?>
 					<td><a>{{{ $proveedor->INV_Proveedor_Nombre }}}</a></td>
 					<td>{{{ $editars->COM_SolicitudCotizacion_FechaEmision }}}</td>
 					@if($editars->COM_Usuario_idUsuarioCreo==1)
