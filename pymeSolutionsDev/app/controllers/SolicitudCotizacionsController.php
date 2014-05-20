@@ -328,22 +328,36 @@ class SolicitudCotizacionsController extends BaseController {
         $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
         //Querys de las columnas propias del Producto
         
-            
-        $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Codigo', '=', Input::get('search')) 
-        ->orWhere('COM_SolicitudCotizacion_Recibido', '=',  Input::get('search'))
+         $val= '%'.Input::get('search').'%';  
+        $SolicitudCotizacions = DB::table('COM_SolicitudCotizacion')->where('COM_SolicitudCotizacion_Codigo', '=', $val)
+        ->orWhere('COM_SolicitudCotizacion_Recibido', '=',  $val)
 //        ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
 //        ->orWhere('INV_Producto_Descripcion', 'LIKE',  '%'.Input::get('search').'%')
         ->paginate();
 
-         
+//         $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1);
+//		if ($campos) {
+//			$noListas = $campos->where('GEN_CampoLocal_Tipo','<>','LIST')->lists('GEN_CampoLocal_ID');
+//			$listas = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1)->where('GEN_CampoLocal_Tipo','LIKE','%LIST%')->lists('GEN_CampoLocal_ID');
+//			if ($listas) {
+//				$valorLista = DB::table('GEN_CampoLocalLista')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$listas)->where('GEN_CampoLocalLista_Valor','LIKE',$val)->lists('GEN_CampoLocalLista_ID');
+//				if($valorLista) {
+//					$SolicitudCotizacions = array_merge($SolicitudCotizacions,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$listas)->whereIn('COM_ValorCampoLocal_Valor',$valorLista)->lists('COM_SolicitudCotizacion_IdSolicitudCotizacion'));
+//				}
+//			}
+//			if ($noListas) {
+//				$SolicitudCotizacions = array_merge($SolicitudCotizacions,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$noListas)->where('COM_ValorCampoLocal_Valor','LIKE',$val)->lists('COM_SolicitudCotizacion_IdSolicitudCotizacion'));
+//			}
+//		}
+		
 
         //Querys de las columnas que tiene relacion con la tabla Proveedor
-        $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_Direccion', 'LIKE', '%'.Input::get('search').' %')
-        ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
-        ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
+        $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', $val)
+        ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  $val)
+        ->orWhere('INV_Proveedor_Direccion', 'LIKE', $val)
+        ->orWhere('INV_Proveedor_Email', 'LIKE', $val)
+        ->orWhere('INV_Proveedor_Codigo', 'LIKE',  $val)
+        ->orWhere('INV_Proveedor_Telefono', 'LIKE',  $val)->get();
 //
         // reviso si trajo datos para decidir si los proceso         
         if(!empty($queryPoveedor)){
