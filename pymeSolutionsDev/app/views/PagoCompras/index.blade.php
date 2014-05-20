@@ -40,16 +40,15 @@
 				<?php $porpagar=PagoCompras::find($idop);
 				 $var=invContabilidad::getFormaPago($key['idfp']);?>
 				 <td> {{$var['Nombre']; }}</td>
-				@if ($porpagar!=null)
+				@if ($porpagar)
 					<td> {{$porpagar->CON_Pago_PorPagar }}</td>
 				@else
 					<td> {{$key['total']}}</td>
 				@endif
-				<td> 
-				@if($porpagar!=null && $porpagar->CON_Pago_PorPagar!=0)
+				<td>
 				<button id="{{$count}}" class="pago btn btn-success">
 				Pagar 	<i class="glyphicon glyphicon-usd"></i></button> 
-				@endif
+				
 				</td>
 			</tr>
 			@endforeach									

@@ -10,6 +10,7 @@ class PagoComprasController extends BaseController {
 
 	public function index()
 	{	
+
 		$OrdenesPago=comContabilidad::OrdenesSinPagar();
 		return View::make('PagoCompras.index',compact('OrdenesPago'));
     }
@@ -39,67 +40,14 @@ class PagoComprasController extends BaseController {
 			$pago->update();
 			
 		}else{
+			$tmp=$OrdenesPago['total'];
 			$pago= new PagoCompras;
 			$pago->CON_Pago_ID=$OrdenesPago['idop'];
-			$pago->CON_Pago_PorPagar=$OrdenesPago['total']-($OrdenesPago['total']/$dias);
+			$pago->CON_Pago_PorPagar=$tmp-($tmp/$dias);
 			$pago->save();
 		}
 
 	  	return ":D ".Input::get('id');
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-        return View::make('PagoCompras.show');
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-        return View::make('PagoCompras.edit');
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
 	}
 
 }
