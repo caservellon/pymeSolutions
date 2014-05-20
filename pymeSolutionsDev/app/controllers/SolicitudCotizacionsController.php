@@ -323,6 +323,27 @@ class SolicitudCotizacionsController extends BaseController {
 		return Redirect::route('SolicitudCotizacions.index');
 	}
         
+        public function buscarCualquierProducto(){
+        
+         $val= '%'.Input::get('search').'%';  
+        $cualquierProducto = DB::table('INV_Producto')->where('INV_Producto_Codigo', 'LIKE', $val)
+        ->orWhere('INV_Producto_Nombre', 'LIKE', $val)
+        ->orWhere('INV_Producto_Descripcion', 'LIKE', $val)
+        ->orWhere('INV_Producto_PrecioVenta', 'LIKE', $val)
+        ->orWhere('INV_Producto_Cantidad', 'LIKE', $val)
+        ->orWhere('INV_Producto_PuntoReorden', 'LIKE', $val)
+        ->orWhere('INV_Producto_PrecioCosto', 'LIKE', $val)
+        ->get();
+
+
+		
+
+        
+        
+         return View::make('SolicitudCotizacions.cualquierProducto', compact('cualquierProducto'));
+        //return View::make('Proveedor.index', compact('Proveedor'));
+    }
+        
         public function search_index(){
 
         $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
