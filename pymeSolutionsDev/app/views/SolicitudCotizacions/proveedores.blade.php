@@ -70,7 +70,7 @@
                     @if($proveedores->INV_Proveedor_ID == $key->INV_Proveedor_ID)
 			@for($i=0; $i < count($cualquierProducto); $i++)
                         
-                                    <?php $cualquierProducto1= Producto::find($cualquierProducto[$i]);  ?>
+                                    <?php $cualquierProducto1= invCompras::ProductoCompras($cualquierProducto[$i]);  ?>
                                     @if($cualquierProducto1->INV_Producto_ID == $key->INV_Producto_ID)
                                     <tr>
 					
@@ -81,7 +81,7 @@
                                         <td>{{ Form::text('CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre, null, array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
 					
                                         
-                                        <?php $unidad= UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
+                                        <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>
                                         <td>{{{ $unidad->INV_UnidadMedida_Nombre }}}</td>
                                         
                                        
@@ -135,7 +135,7 @@
                   foreach ($formapago as $forma){
                          $id[]=$forma->INV_FormaPago_ID;
                    }
-                   $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+                   $m= invCompras::FormaPagolista($id);
                   
                  
            ?>
