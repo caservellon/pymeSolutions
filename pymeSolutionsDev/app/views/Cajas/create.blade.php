@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="form-group">
-        {{ Form::label('VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id', 'Periodo de Cierre: *', array('class' => 'col-md-2 control-label')) }}
+        {{ Form::label('VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id', 'Periodo de Cierre:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
           {{ Form::select('VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id', $periodos,'1',array('class' => 'col-md-4 form-control')) }}
         </div>

@@ -21,7 +21,7 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function index()
 	{
-		$PeriodoCierreDeCajas = $this->PeriodoCierreDeCaja->all();
+		$PeriodoCierreDeCajas = PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_Estado', 1)->get();
 
 		return View::make('PeriodoCierreDeCajas.index', compact('PeriodoCierreDeCajas'));
 	}
@@ -125,7 +125,9 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->PeriodoCierreDeCaja->find($id)->delete();
+		$PDDC = PeriodoCierreDeCaja::find($id);
+		$PDDC->VEN_PeriodoCierreDeCaja_Estado = 0;
+		$PDDC->save();
 
 		return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
 	}
