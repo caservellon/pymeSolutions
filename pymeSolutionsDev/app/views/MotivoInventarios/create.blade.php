@@ -1,11 +1,11 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<div class='page-header clearfix'>
-<h2>Configuracion > <small>Agregar</small>
-    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
-    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
-    
+<h1>Modificar el Motivo de Inventario</h1>
+
+
+<div class="pull-right">
+    <a href="{{{ URL::to('contabilidad/configuracion/motivoinventarios') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 </div>
 @include('_messages.errors')
 
@@ -30,7 +30,7 @@
   
   {{ Form::hidden('CON_MotivoInventario_ID',$id) }}
 
-			{{ Form::submit('Cambiar', array('class' => 'btn btn-info')) }}
+			{{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
 		  
 {{ Form::close() }}
 
