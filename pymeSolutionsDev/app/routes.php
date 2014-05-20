@@ -12,9 +12,25 @@
 */
 
 Route::get('/', function(){
-	//Artisan::call('up',array());
 	return View::make('hello');
 
+});
+
+Route::group(array('prefix'=>'mantenimiento'),function(){
+
+	Route::get('/',function(){
+		return View::make('Menus.mode');
+	},array('as'=>'mantenimiento'));
+
+	Route::post('up',array('as'=>'mantenimiento.up','uses'=>function(){
+		Artisan::call('up');
+		return Response::json(array('success'=>true));
+	}));
+
+	Route::post('down',array('as'=>'mantenimiento.down','uses'=>function(){
+		Artisan::call('down');
+	},));
+	
 });
 
 
@@ -321,6 +337,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::resource('periodocontable', 'ParamPeriodoContableController');
 				Route::resource('catalogocuentas', 'CatalogoContablesController');
 				Route::resource('subcuentas', 'SubcuentaController');
+				Route::resource('motivoinventarios', 'MotivoInventariosController');
 
 				Route::post('periodocontable/habilitar/{id}',array('as'=>'con.enableperiodo','uses'=>'ParamPeriodoContableController@enable'));
 				Route::post('periodocontable/eliminar/{id}',array('as'=>'con.deleteperiodo','uses'=>'ParamPeriodoContableController@destroy'));
@@ -328,19 +345,31 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
 				Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
 				Route::get('subcuentas',array ('as'=>'subcuentas', 'uses' => 'SubcuentaController@index'));
+
+
+				Route::any('motivoinventarios/activar', array('as' => 'MotivoInventario.activar', 'uses' =>'MotivoInventariosController@activar'));
+
+
 				//Route::post('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
 			});
 
 			Route::group(array('prefix'=>'cierreperiodo'),function(){
 				Route::get('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
-
+				
+				Route::post('ejecutar',array('as'=>'con.cierreperiodo.run', 'uses'=>'CierrePeriodoController@run'));
+				Route::post('estado',array('as'=>'con.cierreperiodo.estado','uses'=>'CierrePeriodoController@retrieve'));
 				Route::post('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
-
 				Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
 				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
 				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
 				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
 				Route::post('nuevoperiodo',array('as'=>'con.nuevoperiodo','uses'=>'CierrePeriodoController@nuevoPeriodo'));
+			});
+
+			Route::group(array('prefix'=>'compras'), function(){
+
+
+				Route::get('/',array('as'=>'con.compras','uses'=>'PagoComprasController@index'));
 			});
 
 
@@ -436,6 +465,8 @@ Route::resource('tipodocumentos', 'TipodocumentosController');
 Route::resource('productocampolocals', 'ProductocampolocalsController');
 
 Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
+
+
 
 
 
