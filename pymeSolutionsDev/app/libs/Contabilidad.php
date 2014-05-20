@@ -59,7 +59,14 @@ public static function invGetMotivo($Concepto){
 
 
 
-}
-	
+public static function isValid(){
 
-?>
+	$clasificacion=ClasificacionPeriodo::all();
+
+	if ($clasificacion->count()){
+		return true;
+	}
+	return false;
+}	
+
+} ?>

@@ -24,11 +24,15 @@
 			<th>Total</th>
 			
 			<th>Forma de Pago</th>
+			<th>Fecha limite de pago</th>
 			<th>Por pagar</th>
+			<th>Cuota</th>
 			<th>Accion</th>
 		</tr>
 		</thead>
 		<tbody>
+
+
 			<?php $count=-1; ?>
 			@foreach ($OrdenesPago as $key)
 			<?php $idop=$key['idop']; $count++; ?>
@@ -37,14 +41,17 @@
 				<td> {{ invContabilidad::ProveedorInfo($key['idop'])->INV_Proveedor_Nombre}}</td>
 				<td> {{$key['total']}}</td>
 
-				<?php $porpagar=PagoCompras::find($idop);
-				 $var=invContabilidad::getFormaPago($key['idfp']);?>
-				 <td> {{$var['Nombre']; }}</td>
+					<?php $porpagar=PagoCompras::find($idop);
+					 $var=invContabilidad::getFormaPago($key['idfp']);?>
+				<td> {{$var['Nombre']; }}</td>
+				<td> -- </td>
+
 				@if ($porpagar)
 					<td> {{$porpagar->CON_Pago_PorPagar }}</td>
 				@else
 					<td> {{$key['total']}}</td>
 				@endif
+				<td> -- </td>
 				<td>
 				<button id="{{$count}}" class="pago btn btn-success">
 				Pagar 	<i class="glyphicon glyphicon-usd"></i></button> 

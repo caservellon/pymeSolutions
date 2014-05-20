@@ -24,7 +24,7 @@ Validator::extend('num_decimal', function($attribute, $value, $parameters)
 
 Validator::extend('alphanum_spaces', function($attribute, $value, $parameters)
 {
-    return preg_match('/^([-a-z0-9_-áéíóúûü-\s])+$/i', $value);
+    return preg_match('/^[a-z\d\s]+$/i', $value);
 
 });
 
