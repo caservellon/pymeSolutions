@@ -19,11 +19,33 @@ class PagoComprasController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function paid()
 	{
-	  	
-       
-      
+		$id=Input::get('id');
+		$OrdenesPago=comContabilidad::OrdenesSinPagar();
+		$OrdenesPago=$OrdenesPago[$id];
+		$pago=PagoCompras::find($OrdenesPago['idop']);
+		$dias=invContabilidad::getFormaPago($OrdenesPago['idfp']);
+		$dias=$dias['Dias'];
+		if($pago){
+			$tmp=$pago->CON_Pago_PorPagar;
+			$tmp2=2*$OrdenesPago['total']/$dias;
+			if($tmp<=$tmp2){
+				comContabilidad::cambiarAPagada($OrdenesPago['idop']);
+				$pago->CON_Pago_PorPagar=0;
+			}else{
+				$pago->CON_Pago_PorPagar=$tmp-$tmp2;
+			}
+			$pago->update();
+			
+		}else{
+			$pago= new PagoCompras;
+			$pago->CON_Pago_ID=$OrdenesPago['idop'];
+			$pago->CON_Pago_PorPagar=$OrdenesPago['total']-($OrdenesPago['total']/$dias);
+			$pago->save();
+		}
+
+	  	return ":D ".Input::get('id');
 	}
 
 	/**

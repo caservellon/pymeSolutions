@@ -364,6 +364,8 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 
 
 				Route::get('/',array('as'=>'con.compras','uses'=>'PagoComprasController@index'));
+			
+				Route::post('pagar',array('as'=>'con.pagarcompra','uses'=>'PagoComprasController@paid'));
 			});
 
 

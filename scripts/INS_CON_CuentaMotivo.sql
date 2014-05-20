@@ -20,3 +20,5 @@ INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHabe
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (16,0,8,60);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (17,0,9,1);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (18,1,9,38);
+INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (19,1,10,1);
+INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (20,0,10,66);

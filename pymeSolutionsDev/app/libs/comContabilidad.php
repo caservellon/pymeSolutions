@@ -13,7 +13,7 @@ class comContabilidad {
 	return $return;
 	}
 	public static function cambiarAPagada($idOp){
-		$orden= OrdenPagoCOMOrdenPago::find($idOP);
+		$orden = COMOrdenPago::find($idOp);
 		$orden->COM_OrdenPago_Activo=0;
 		$orden->update();
 	}
