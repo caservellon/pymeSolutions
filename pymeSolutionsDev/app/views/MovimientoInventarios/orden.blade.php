@@ -51,7 +51,26 @@
 			{{ Form::hidden('INV_Movimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
 			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', 'Admin') }}
 			{{ Form::hidden('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 2) }}
-			{{ Form::submit('Recibida', array('class' => 'btn btn-primary btn-block', 'style' => 'margin-top:5%;')) }}
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">Observaciones</h4>
+			      </div>
+			      <div class="modal-body">
+			       	{{ Form::textarea('INV_Movimiento_Observaciones', 'Compra Recibida', array('class' => 'form-control', 'id' => 'INV_Movimiento_Observaciones', 'placeholder' => 'Observaciones', 'rows' => '3', 'maxlength'=>'256')) }}
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			        {{ Form::submit('Aceptar', array('class' => 'btn btn-primary')) }}
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">
+		  Recibida
+		</button>
 		{{ Form::close() }}
     </div>
     <div class="col-md-4" style="text-align:right;">
@@ -81,7 +100,7 @@
 
 
 	<div class="col-md-10"><h3>Detalle Orden Compra</h3></div>
-	<div class="table-responsive">
+	<div class="table-responsive col-md-12">
         <table class="table table-striped">
             <thead>
 				<tr>
