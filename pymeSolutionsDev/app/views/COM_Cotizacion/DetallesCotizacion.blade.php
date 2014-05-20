@@ -81,7 +81,7 @@
 			<div class="row">
 				<div class="col-md-5">
 					<label>Forma de Pago: </label>
-					{{ "Efectivo" }}
+					{{ $Cotizacion[0] -> FormaPago }}
 					
 					<br><br>
 					

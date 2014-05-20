@@ -5,6 +5,7 @@
 	<?php
 		$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
+		$FormasPago = Helpers::InformacionFormasPago();
 		$ProductosSolicitudCotizacion = Helpers::InformacionProductosSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$CamposLocalesSolicitudCotizacion = Helpers::InformacionCamposLocalesSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$CamposLocalesCotizaciones = Helpers::InformacionCamposLocalesCotizaciones();
@@ -85,12 +86,15 @@
 
 		<div class="row">
 			<div class="col-md-4">
-				<label>Forma de Pago: Efectivo</label>
+				@foreach($FormasPago as $FormaPago)
+					<?php $FormasPago2[$FormaPago -> Nombre] = $FormaPago -> Nombre ?>
+				@endforeach
+				<label>Forma de Pago: {{ Form::select('FormaPago', $FormasPago2, $SolicitudCotizacion[0] -> FormaPago, array('class' => 'form-control')) }}</label>
 				
 				<br><br>
 				
 				<label>Fecha de Vigencia</label>
-				{{Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'readonly' => 'readonly'))}}
+				{{ Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'readonly' => 'readonly')) }}
 				<script>
 					$('#VigenciaCotizacion').appendDtpicker({
 						"dateFormat": "YYYY-MM-DD h:m",
