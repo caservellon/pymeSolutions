@@ -329,8 +329,11 @@ class OrdenComprasController extends BaseController {
 
              
              //guardo los detalles
+                    $contador=0;
+                    
               foreach ($input as $form){
                   if(Input::has('COM_DetalleOrdenCompra_Cantidad'.$contador)>0){
+                    echo'hola';
                     $ultDet= COMDetalleOrdenCompra::count();
                   $detalle=new COMDetalleOrdenCompra();
                   $detalle->COM_DetalleOrdenCompra_Cantidad=Input::get('COM_DetalleOrdenCompra_Cantidad'.$contador);
