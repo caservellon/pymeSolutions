@@ -52,8 +52,9 @@ class DevolucionesController extends BaseController {
 			$DevolucionCode = $this->randomCode();
 
 			foreach ($Input['data'] as $prod) {
-				
+
 				$Producto = Producto::where('INV_Producto_Codigo', $prod['codigo'])->get()->first();
+
 				if ($Producto->INV_Producto_Cantidad == 0) {
 					$cantidadBono += ($Producto->INV_Producto_PrecioVenta * $prod['cantidad']);
 					$totalDevolucion += ($Producto->INV_Producto_PrecioVenta * $prod['cantidad']);
@@ -71,9 +72,17 @@ class DevolucionesController extends BaseController {
 			$Devolucion->VEN_Devolucion_Codigo = $DevolucionCode;
 			$Devolucion->save();
 
+
 			foreach ($Input['data'] as $prod) {
-				
+				$Detalle = new DetalleDevolucion;
+				$Producto = Producto::where('INV_Producto_Codigo', $prod['codigo'])->get()->first();
+				$Detalle->VEN_DetalleDevolucion_Producto = $Producto->INV_Producto_Codigo;
+				$Detalle->VEN_DetalleDevolucion_Cantidad = $prod['cantidad'];	
+				$Detalle->VEN_DetalleDevolucion_Precio = $Producto->INV_Producto_PrecioVenta;
+				$Detalle->VEN_Devolucion_VEN_Devolucion_id = $Devolucion->VEN_Devolucion_id;
+				$Detalle->save();
 			}
+
 
 			if ($cantidadBono != 0) {
 				$BonoDeCompra = new BonoDeCompra;

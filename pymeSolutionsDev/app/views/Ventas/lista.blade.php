@@ -28,8 +28,8 @@
                     <td>{{{ $Venta->VEN_Venta_ISV }}}</td>
                     <td>{{{ $Venta->VEN_Venta_Subtotal }}}</td>
                     <td>{{{ $Venta->VEN_Venta_Total }}}</td>
-                    <td>{{{ $Venta->VEN_Caja_VEN_Caja_id }}}</td>
-                    <td>{{ link_to_route('Ventas.ListarOne', 'Show', array($Venta->VEN_Venta_id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{{ DB::table('VEN_Caja')->where('VEN_Caja_ID',$Venta->VEN_Caja_VEN_Caja_id)->first()->VEN_Caja_Numero }}}</td>
+                    <td>{{ link_to_route('Ventas.ListarOne', 'Ver Detalle de Venta', array($Venta->VEN_Venta_id), array('class' => 'btn btn-info')) }}</td>
                 </tr>
             @endforeach
         </tbody>

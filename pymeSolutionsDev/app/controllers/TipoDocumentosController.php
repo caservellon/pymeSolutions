@@ -97,7 +97,15 @@ class TipoDocumentosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->TipoDocumento->find($id)->delete();
+		$doc = $this->TipoDocumento->find($id);
+
+		if ($doc->CRM_TipoDocumento_Eliminado == true) {
+			$doc->CRM_TipoDocumento_Eliminado = false;
+		} else {
+			$doc->CRM_TipoDocumento_Eliminado = true;
+		}
+
+		$doc->save();
 
 		return Redirect::route('CRM.TipoDocumentos.index');
 	}

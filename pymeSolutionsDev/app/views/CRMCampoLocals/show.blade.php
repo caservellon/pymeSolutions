@@ -46,14 +46,7 @@
 							<h4>Tipo de Campo: Lista de Valores</h4>
 							@break;
 					@endcase   
-					@case('CHKBOX')
-							<h4>Tipo de Campo: Selección Multiple</h4>
-							@break;
-					@endcase   
-					@case('RADIOBTN')
-							<h4>Tipo de Campo: Selección Única</h4>
-							@break;
-					@endcase
+					
 				@endswitch
 </div>
 <div class="form-group">
