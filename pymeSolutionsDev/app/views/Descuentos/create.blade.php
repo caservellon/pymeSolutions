@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Descuento &gt; <small>Nuevo Descuento</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Ventas/Descuentos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="{{{ URL::to('Ventas/Descuentos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
@@ -71,14 +71,14 @@
     <div class="form-group">
           {{ Form::label('VEN_DescuentoEspecial_Estado', 'Estado de Descuento*:', array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-5">
-            {{ Form::select('VEN_DescuentoEspecial_Estado', array('1' => 'Activado', '0' => 'Desactivado'),1 ,array('class' => 'col-md-4 control-label')) }}
+            {{ Form::select('VEN_DescuentoEspecial_Estado', array('1' => 'Activado', '0' => 'Desactivado'),1 ,array('class' => 'col-md-4 form-control')) }}
           </div>
     </div>
 
 
 	<div class="form-group">
       <div class="col-md-5">
-      {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+      {{ Form::submit('Enviar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 {{ Form::close() }}
