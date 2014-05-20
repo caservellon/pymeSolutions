@@ -129,9 +129,12 @@ class VentasController extends BaseController {
 				$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 			}
 
-			foreach ($descuentos as $d) {
-				$descuentoCalculado += ((Double) Descuento::find(intval($d))->VEN_DescuentoEspecial_Valor / 100.0) * $subTotal;
+			if ($descuentos != "") {
+				foreach ($descuentos as $d) {
+					$descuentoCalculado += ((Double) Descuento::find(intval($d))->VEN_DescuentoEspecial_Valor / 100.0) * $subTotal;
+				}
 			}
+			
 
 			$venta->VEN_Venta_DescuentoCliente = $descuentoCalculado;
 			$venta->VEN_Venta_TotalDescuentoProductos = $descuentoCalculado;
