@@ -144,7 +144,7 @@
                       </div>
     <?php       $ante=array();
                 $sig=array();
-                $transiciones=  COMOrdenCompraTransicionEstado::where('COM_OrdenCompra_TransicionEstado_EstadoActual','=',$id_activo)->where('COM_OrdenCompra_TransicionEstado_Activo','=','1')->get();
+                $transiciones=  COMOrdenCompraTransicionEstado::where('COM_OrdenCompra_TransicionEstado_EstadoActual','=',$id_activo)->where('COM_TransicionEstado_Activo','=','1')->get();
                foreach ($transiciones as $transicion){
                    if($transicion->COM_OrdenCompra_TransicionEstado_EstadoPrevio > 2){
                         $ante[]=$transicion->COM_OrdenCompra_TransicionEstado_EstadoPrevio;
