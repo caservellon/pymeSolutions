@@ -9,6 +9,7 @@ class Contabilidad {
 
 
 	public static function GenerarTransaccion($Concepto,$Monto){
+		if ($monto!=0){
 		$IDMotivo= Contabilidad::GetMotivo($Concepto);
 		DB::table('CON_TransaccionContabilidad')->insertGetId(
 			array('CON_TransaccionContabilidad_Importe' => $Monto,
@@ -28,6 +29,9 @@ class Contabilidad {
 				  'CON_LibroDiario_AsientoReversion'=> 1)
 			);
 		return 'ok';
+		}
+		return 'not ok';
+
 	}
 
 
@@ -36,25 +40,28 @@ public static function invGetMotivo($Concepto){
 	}	
 
 	public static function invGenerarTransaccion($Concepto,$Monto){
-		$IDMotivo= Contabilidad::invGetMotivo($Concepto);
-		DB::table('CON_TransaccionContabilidad')->insertGetId(
-			array('CON_TransaccionContabilidad_Importe' => $Monto,
-				  'CON_TransaccionContabilidad_UsuarioCreacion' => 'Admin',
-				  'CON_TransaccionContabilidad_FechaCreacion' => date('Y-m-d H:i:s'),
-				  'CON_TransaccionContabilidad_FechaModificacion' => date('Y-m-d H:i:s'),
-				  'CON_UnidadMonetaria_ID' => 1,
-				  'CON_MotivoTransaccion_ID' => $IDMotivo)
+		if ($monto!=0){
+			$IDMotivo= Contabilidad::invGetMotivo($Concepto);
+			DB::table('CON_TransaccionContabilidad')->insertGetId(
+				array('CON_TransaccionContabilidad_Importe' => $Monto,
+					  'CON_TransaccionContabilidad_UsuarioCreacion' => 'Admin',
+					  'CON_TransaccionContabilidad_FechaCreacion' => date('Y-m-d H:i:s'),
+					  'CON_TransaccionContabilidad_FechaModificacion' => date('Y-m-d H:i:s'),
+					  'CON_UnidadMonetaria_ID' => 1,
+					  'CON_MotivoTransaccion_ID' => $IDMotivo)
 
-			);
-		DB::table('CON_LibroDiario')->insertGetId(
-			array('CON_LibroDiario_Observacion' =>'Asiento Automatico',
-				  'CON_LibroDiario_FechaCreacion'=> date('Y-m-d H:i:s'),
-				  'CON_LibroDiario_FechaModificacion'=>date('Y-m-d H:i:s'),
-				  'CON_LibroDiario_Monto'=>$Monto,
-				  'CON_MotivoTransaccion_ID'=>$IDMotivo,
-				  'CON_LibroDiario_AsientoReversion'=> 1)
-			);
-		return 'ok';
+				);
+			DB::table('CON_LibroDiario')->insertGetId(
+				array('CON_LibroDiario_Observacion' =>'Asiento Automatico',
+					  'CON_LibroDiario_FechaCreacion'=> date('Y-m-d H:i:s'),
+					  'CON_LibroDiario_FechaModificacion'=>date('Y-m-d H:i:s'),
+					  'CON_LibroDiario_Monto'=>$Monto,
+					  'CON_MotivoTransaccion_ID'=>$IDMotivo,
+					  'CON_LibroDiario_AsientoReversion'=> 1)
+				);
+			return 'ok';
+		}
+			return 'not ok';
 	}
 
 
