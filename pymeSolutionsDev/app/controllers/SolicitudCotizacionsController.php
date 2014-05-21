@@ -92,7 +92,7 @@ class SolicitudCotizacionsController extends BaseController {
                 
                 
                 for ($j=0; $j< count($proveedor); $j++){
-                   $temprod = Proveedor::find($proveedor[$j]);
+                   $temprod = invCompras::ProveedorCompras($proveedor[$j]);
                    foreach ($campos as $campo) {
                     
 			$val = '';
@@ -121,7 +121,7 @@ class SolicitudCotizacionsController extends BaseController {
                 for ($k=0; $k< count($cualquierProducto); $k++){
                     
                    
-                    $temp = Producto::find($cualquierProducto[$k]);
+                    $temp = invCompras::ProductoCompras($cualquierProducto[$k]);
                     
                     
                     $res=array_merge($res,array('CantidadSolicitar'.$temprod->INV_Proveedor_Nombre.$temp->INV_Producto_Nombre => 'Required|Integer|min:1'));
@@ -138,7 +138,7 @@ class SolicitudCotizacionsController extends BaseController {
                     $cont = SolicitudCotizacion::all();
                     $detalle=$cont->count()+1;
                     $solicitudCotizacion = new SolicitudCotizacion();
-                    $temprod = Proveedor::find($proveedor[$i]);
+                    $temprod =  invCompras::ProveedorCompras($proveedor[$i]);
                     $solicitudCotizacion->COM_SolicitudCotizacion_Codigo='COM_SC_'.$detalle;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaEmision= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_SolicitudCotizacion_DireccionEntrega= 'Los Llanos';
@@ -164,13 +164,13 @@ class SolicitudCotizacionsController extends BaseController {
                                   
                                 }
                     
-                    $prov_prod = DB::table('INV_Producto_Proveedor')->get();
+                    $prov_prod = invCompras::ProveedorProducto($proveedor[$i]);
                     foreach($prov_prod as $key){
-                        if($proveedor[$i] == $key->INV_Proveedor_ID){
+                        
                             for($j=0; $j < count($cualquierProducto); $j++){
                                 if($cualquierProducto[$j]==$key->INV_Producto_ID){
                                 $detallesolicitud= new DetalleSolicitudCotizacion();
-                                $temp = Producto::find($cualquierProducto[$j]);
+                                $temp = invCompras::ProductoCompras($cualquierProducto[$j]);
                 
                                 
                                 $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$temprod->INV_Proveedor_Nombre.$temp->INV_Producto_Nombre);
@@ -189,7 +189,7 @@ class SolicitudCotizacionsController extends BaseController {
                                 
                                 }
                             }
-                        }
+                        
                         
                     
                     }
@@ -197,7 +197,7 @@ class SolicitudCotizacionsController extends BaseController {
                     //captura el id la solicitud de cotizacion
                     $email[]=$detalle;
                     //captura el id del proveedor a quien se lo quiere mandar
-                    $enviar= Proveedor::find($proveedor[$i]);
+                    $enviar= invCompras::ProveedorCompras($proveedor[$i]);
                     if($enviar->INV_Proveedor_Email == NULL){
                     //guarda al que no se manda
                     $imprimir[]= $proveedor[$i];

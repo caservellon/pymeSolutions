@@ -43,7 +43,7 @@
 		<tbody>
                     
 			@foreach ($cualquierProducto as $value)
-                            <?php $prov_prod = DB::table('INV_Producto_Proveedor')->get(); ?>
+                            <?php $prov_prod = invCompras::ProductoProveedor(1); ?>
 				<tr>
 					<td>{{{ $value->INV_Producto_Codigo }}}</td>
 					<td>{{{ $value->INV_Producto_Nombre }}}</td>
@@ -51,13 +51,10 @@
 					<td>{{{ $value->INV_Producto_Cantidad }}}</td>
                                         <td>{{{ $value->INV_Producto_PuntoReorden }}}</td>
                                         <td>@foreach($prov_prod as $key)
-                                        @if($value->INV_Producto_ID==$key->INV_Producto_ID)
-                                        <?php $proveedor = invCompras::ProveedorCompras($key->INV_Proveedor_ID); 
-                                          
-                                        ?>
-                                        <a>{{{$proveedor->INV_Proveedor_Codigo}}}</a>
-                                        {{form::text('idP'.$proveedor->INV_Proveedor_ID, $proveedor->INV_Proveedor_ID, array('style'=>'display:none'))}}
-                                        @endif
+                                  
+                                        <a>{{{$key->INV_Proveedor_Codigo}}}</a>
+                                        {{form::text('idP'.$key->INV_Proveedor_ID, $key->INV_Proveedor_ID, array('style'=>'display:none'))}}
+                                        
                                         @endforeach</td>
                                          
                                         <!--<td>{{ link_to_route('seleccion', 'Incluir', array('id'=>$value->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>-->

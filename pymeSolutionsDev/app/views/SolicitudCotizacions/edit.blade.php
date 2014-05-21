@@ -38,7 +38,7 @@
                      
                      {{ Form::label('COM_SolicitudCotizacion_FormaPago', 'Forma Pago', array('class' => 'col-md-2 control-label')) }}
                      <div class="col-md-5">
-                         <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedores->INV_Proveedor_ID)->get();
+                         <?php $formapago=invCompras::ProveedorFormaPago($proveedores->INV_Proveedor_ID);
                   $form=array();
                   $id=array();
                   foreach ($formapago as $forma){

@@ -63,11 +63,11 @@
 		</thead>
 
 		<tbody>
-                    <?php $prov_prod = DB::table('INV_Producto_Proveedor')->get(); ?>
+                    <?php $prov_prod = invCompras::ProveedorProducto($proveedores->INV_Proveedor_ID) ?>
                     
                 
                     @foreach($prov_prod as $key)
-                    @if($proveedores->INV_Proveedor_ID == $key->INV_Proveedor_ID)
+                   
 			@for($i=0; $i < count($cualquierProducto); $i++)
                         
                                     <?php $cualquierProducto1= invCompras::ProductoCompras($cualquierProducto[$i]);  ?>
@@ -91,7 +91,7 @@
                                @endif 
                            
                           @endfor
-                    @endif
+                    
                     @endforeach
                 </tbody> 
              </table>
@@ -129,7 +129,7 @@
 </div>
 <div class="col-md-4">
 <label>Forma de Pago</label>
-           <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedores->INV_Proveedor_ID)->get();
+           <?php $formapago=  invCompras::ProveedorFormaPago($proveedores->INV_Proveedor_ID);
                   $form=array();
                   $id=array();
                   foreach ($formapago as $forma){
