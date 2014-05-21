@@ -11,7 +11,7 @@ class Producto extends Eloquent {
 
 	public static $rules = array(
 		//'INV_Producto_ID' => 'required',
-		'INV_Producto_Codigo' => 'max:16',
+		'INV_Producto_Codigo' => 'max:16|required',
 		'INV_Producto_Nombre' => 'required|regex:/^[a-z A-Z]?/|Between:1,128',
 		'INV_Producto_Descripcion' => 'required|regex:/^[a-z A-Z]?/|Between:1,512',
 		'INV_Producto_PrecioVenta' => 'required|numeric|min:0.01|regex:/[0-9]*(\.[0-9]{1,2})?$/',
