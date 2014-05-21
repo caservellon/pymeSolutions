@@ -1,59 +1,6 @@
 <?php
 class Helpers {
 
-	public static function cualquierProducto(){
-		$query = DB::table('INV_Producto')
-			-> lists('INV_Producto_Codigo',
-					 'INV_Producto_Nombre',
-					 'INV_Producto_Descripcion',
-					 'INV_Producto_Cantidad', 
-					 'INV_Producto_PuntoReorden',
-					 'INV_Producto_PrecioVenta',
-					 'INV_Producto_Activo',
-					 'INV_Producto_PorcentajeDescuento',
-					 'INV_Producto_ID'
-					);
-		$arreglo = $query;
-		return $arreglo;
-	}
-	
-	public static function productoReorden(){
-		$query = DB::table('INV_Producto')
-			-> lists('INV_Producto_Codigo',
-					 'INV_Producto_Nombre',
-					 'INV_Producto_Descripcion',
-					 'INV_Producto_Cantidad', 
-					 'INV_Producto_PuntoReorden',
-					 'INV_Producto_PrecioVenta',
-					 'INV_Producto_Activo',
-					 'INV_Producto_PorcentajeDescuento', 
-					 'INV_Producto_ID'
-					)
-			-> where('INV_Producto_Cantidad', '=', 'INV_Producto_PuntoReorden'
-					);
-		$arreglo = $query;
-		return $arreglo;
-	}
-	
-	public static function proveedorCompras($id){
-		//$query = DB::select('select INV_Proveedor_Nombre, INV_Proveedor_Codigo, INV_Proveedor_Direccion, INV_Proveedor_Email, INV_Proveedor_ID');
-		$query = DB::table('INV_Proveedor')
-			-> lists('INV_Proveedor_Nombre',
-					 'INV_Proveedor_Codigo',
-					 'INV_Proveedor_Direccion',
-					 'INV_Proveedor_Email', 
-					 'INV_Proveedor_ID'
-					);
-		$arreglo = $query;
-		return $arreglo;
-	}
-	
-	
-	
-	
-	
-	
-	
 	public static function InformacionSolicitudesCotizacion(){
 		$Consulta = DB::table('COM_SolicitudCotizacion')
 			-> join('INV_Proveedor', 'Proveedor_idProveedor', '=', 'INV_Proveedor_ID')
