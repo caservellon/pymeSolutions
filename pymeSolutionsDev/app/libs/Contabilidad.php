@@ -9,7 +9,7 @@ class Contabilidad {
 
 
 	public static function GenerarTransaccion($Concepto,$Monto){
-		if ($monto!=0){
+		if ($Monto!=0){
 		$IDMotivo= Contabilidad::GetMotivo($Concepto);
 		DB::table('CON_TransaccionContabilidad')->insertGetId(
 			array('CON_TransaccionContabilidad_Importe' => $Monto,

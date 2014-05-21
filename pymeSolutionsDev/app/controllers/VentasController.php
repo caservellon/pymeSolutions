@@ -167,7 +167,7 @@ class VentasController extends BaseController {
 			
 			Contabilidad::GenerarTransaccion(5,$isvCalculado);
 			Contabilidad::GenerarTransaccion(7,$descuentoCalculado);
-			Contabilidad::GenerarTransaccion(6,$costoVendido);
+			//Contabilidad::GenerarTransaccion(6,$costoVendido);
 
 			return $return;
 
