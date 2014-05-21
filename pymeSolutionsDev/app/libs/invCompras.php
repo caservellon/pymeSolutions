@@ -3,7 +3,8 @@
 	class invCompras {
 
 		public static function ProductoReorden(){ //foreach
-			return DB::table('INV_Producto')->where('INV_Producto_Cantidad', '=', 'INV_PuntoReorden')->get();
+			#return Producto::where('INV_Producto_Cantidad', '=', 'INV_Producto_PuntoReorden')->get();
+			return Producto::whereRaw('INV_Producto_Cantidad <= INV_Producto_PuntoReorden')->get();
 		}
 
 		public static function CualquierProducto(){ //invCompra::CualquierProducto[0]
