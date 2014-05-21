@@ -57,7 +57,7 @@
 						@else
 							<td>En Espera</td>
 						@endif
-                                         <?php $forma= FormaPago::find($editars->COM_SolicitudCotizacion_FormaPago) ?>
+                                         <?php $forma= invCompras::FormaPagoCompras($editars->COM_SolicitudCotizacion_FormaPago) ?>
                                         <td>{{{ $forma->INV_FormaPago_Nombre }}}</td>
 					@foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
 					    @if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$editars->COM_SolicitudCotizacion_IdSolicitudCotizacion)->count() > 0 )

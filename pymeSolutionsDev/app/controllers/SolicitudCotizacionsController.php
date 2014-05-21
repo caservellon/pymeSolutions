@@ -37,7 +37,6 @@ class SolicitudCotizacionsController extends BaseController {
         
         public function vistaReorden(){
             $reOrden = invCompras::ProductoReorden();
-            return $reOrden;
             return View::make('SolicitudCotizacions.reOrden', compact('reOrden'));
         }
         
@@ -323,27 +322,45 @@ class SolicitudCotizacionsController extends BaseController {
 		return Redirect::route('SolicitudCotizacions.index');
 	}
         
+        public function buscarCualquierProducto(){
+        
+         $val= '%'.Input::get('search').'%';  
+        $cualquierProducto = DB::table('INV_Producto')->where('INV_Producto_Codigo', 'LIKE', $val)
+        ->orWhere('INV_Producto_Nombre', 'LIKE', $val)
+        ->orWhere('INV_Producto_Descripcion', 'LIKE', $val)
+        ->orWhere('INV_Producto_PrecioVenta', 'LIKE', $val)
+        ->orWhere('INV_Producto_Cantidad', 'LIKE', $val)
+        ->orWhere('INV_Producto_PuntoReorden', 'LIKE', $val)
+        ->orWhere('INV_Producto_PrecioCosto', 'LIKE', $val)
+        ->get();
+
+
+		
+
+        
+        
+         return View::make('SolicitudCotizacions.cualquierProducto', compact('cualquierProducto'));
+        //return View::make('Proveedor.index', compact('Proveedor'));
+    }
+        
         public function search_index(){
 
         $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
         //Querys de las columnas propias del Producto
         
-            
-        $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Codigo', '=', Input::get('search')) 
-        ->orWhere('COM_SolicitudCotizacion_Recibido', '=',  Input::get('search'))
+         $val= '%'.Input::get('search').'%';  
+        $SolicitudCotizacions = DB::table('COM_SolicitudCotizacion')->where('COM_SolicitudCotizacion_Codigo', 'LIKE', $val)
+        //->orWhere('COM_SolicitudCotizacion_Recibido', 'LIKE',  $val)
 //        ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
 //        ->orWhere('INV_Producto_Descripcion', 'LIKE',  '%'.Input::get('search').'%')
-        ->paginate();
-
-         
-
+        ->lists('COM_SolicitudCotizacion_IdSolicitudCotizacion');
         //Querys de las columnas que tiene relacion con la tabla Proveedor
-        $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_Direccion', 'LIKE', '%'.Input::get('search').' %')
-        ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
-        ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
+        $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', $val)
+        ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  $val)
+        ->orWhere('INV_Proveedor_Direccion', 'LIKE', $val)
+        ->orWhere('INV_Proveedor_Email', 'LIKE', $val)
+        ->orWhere('INV_Proveedor_Codigo', 'LIKE',  $val)
+        ->orWhere('INV_Proveedor_Telefono', 'LIKE',  $val)->get();
 //
         // reviso si trajo datos para decidir si los proceso         
         if(!empty($queryPoveedor)){
@@ -360,11 +377,40 @@ class SolicitudCotizacionsController extends BaseController {
             //remplazo el arreglo origian con el nuevo de los productos que pertenecen a un proveedor en especial
             $SolicitudCotizacions=  SolicitudCotizacion::wherein('Proveedor_idProveedor',$temp)->paginate();
             }
+            
         }
-//       
-//        $inventario=$productos;
+         $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1);
+		if (!empty($campos)) {
+                        //return $val;
+			$noListas = $campos->where('GEN_CampoLocal_Tipo','<>','LIST')->lists('GEN_CampoLocal_ID');
+			$listas = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1)->where('GEN_CampoLocal_Tipo','LIKE','%LIST%')->lists('GEN_CampoLocal_ID');
+			if ($listas) {
+				$valorLista = DB::table('GEN_CampoLocalLista')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$listas)->where('GEN_CampoLocalLista_Valor','LIKE',$val)->lists('GEN_CampoLocalLista_ID');
+				if($valorLista) {
+					$SolicitudCotizacions = array_merge($SolicitudCotizacions,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$listas)->whereIn('COM_ValorCampoLocal_Valor',$valorLista)->lists('COM_SolicitudCotizacion_IdSolicitudCotizacion'));
+				}
+			}
+			if ($noListas) {
+				$SolicitudCotizacions = array_merge($SolicitudCotizacions,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$noListas)->where('COM_ValorCampoLocal_Valor','LIKE',$val)->lists('COM_SolicitudCotizacion_IdSolicitudCotizacion'));
+                                
+			}
+                        if($SolicitudCotizacions)
+                            $SolicitudCotizacions=  SolicitudCotizacion::wherein('COM_SolicitudCotizacion_IdSolicitudCotizacion',$SolicitudCotizacions)->paginate();
+                        
+                        //return View::make('SolicitudCotizacions.index', compact('SolicitudCotizacions','CamposLocales'));
+		}
+                
+                
+		
+            //return    $SolicitudCotizacions;
+            if(!empty($SolicitudCotizacions))
+                return View::make('SolicitudCotizacions.index', compact('SolicitudCotizacions','CamposLocales'));
+            else
+                return 'No es parametro de busqueda';
+       // $inventario=$productos;
         //reemplazo de variable a enviar a la vista
-         return View::make('SolicitudCotizacions.index', compact('SolicitudCotizacions','CamposLocales'));
+//         $SolicitudCotizacions=  SolicitudCotizacion::wherein('Proveedor_idProveedor',$temp)->paginate();
+         
         //return View::make('Proveedor.index', compact('Proveedor'));
     }
         

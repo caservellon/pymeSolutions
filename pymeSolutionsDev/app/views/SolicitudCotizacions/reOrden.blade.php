@@ -7,6 +7,18 @@
         <a href="{{{ URL::to('Compras/SolicitudCotizacion/Crear') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
       </div>
 </div>   
+
+<div  class="col-md-9" >
+                          
+                                 <div class="col-xs-5 col-sm-6 col-md-12">
+                                    {{ Form::open(array('route' => 'SolicitudCotizacions.buscarCualquierProducto')) }}
+                                    {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+                                    {{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
+                                    {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
+                                    {{ Form::close() }}
+                                </div>
+             
+</div>
             {{ Form::open(array('route' => 'seleccion', 'class' => "form-horizontal" , 'role' => 'form' )) }}
             <div class="row">
                 

@@ -72,7 +72,7 @@
                                         <td>{{{$key->cantidad}}}</td>
 					
                                         
-                                        <?php $unidad= UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
+                                        <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>
                                         <td>{{{ $unidad->INV_UnidadMedida_Nombre }}}</td>
                                       <?php // foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo){ 
 //					    if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$key->SolicitudCotizacion_idSolicitudCotizacion)->count() > 0 ){ ?>
