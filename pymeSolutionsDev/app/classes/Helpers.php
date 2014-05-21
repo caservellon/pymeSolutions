@@ -1,65 +1,13 @@
 <?php
 class Helpers {
 
-	public static function cualquierProducto(){
-		$query = DB::table('INV_Producto')
-			-> lists('INV_Producto_Codigo',
-					 'INV_Producto_Nombre',
-					 'INV_Producto_Descripcion',
-					 'INV_Producto_Cantidad', 
-					 'INV_Producto_PuntoReorden',
-					 'INV_Producto_PrecioVenta',
-					 'INV_Producto_Activo',
-					 'INV_Producto_PorcentajeDescuento',
-					 'INV_Producto_ID'
-					);
-		$arreglo = $query;
-		return $arreglo;
-	}
-	
-	public static function productoReorden(){
-		$query = DB::table('INV_Producto')
-			-> lists('INV_Producto_Codigo',
-					 'INV_Producto_Nombre',
-					 'INV_Producto_Descripcion',
-					 'INV_Producto_Cantidad', 
-					 'INV_Producto_PuntoReorden',
-					 'INV_Producto_PrecioVenta',
-					 'INV_Producto_Activo',
-					 'INV_Producto_PorcentajeDescuento', 
-					 'INV_Producto_ID'
-					)
-			-> where('INV_Producto_Cantidad', '=', 'INV_Producto_PuntoReorden'
-					);
-		$arreglo = $query;
-		return $arreglo;
-	}
-	
-	public static function proveedorCompras($id){
-		//$query = DB::select('select INV_Proveedor_Nombre, INV_Proveedor_Codigo, INV_Proveedor_Direccion, INV_Proveedor_Email, INV_Proveedor_ID');
-		$query = DB::table('INV_Proveedor')
-			-> lists('INV_Proveedor_Nombre',
-					 'INV_Proveedor_Codigo',
-					 'INV_Proveedor_Direccion',
-					 'INV_Proveedor_Email', 
-					 'INV_Proveedor_ID'
-					);
-		$arreglo = $query;
-		return $arreglo;
-	}
-	
-	
-	
-	
-	
-	
-	
 	public static function InformacionSolicitudesCotizacion(){
 		$Consulta = DB::table('COM_SolicitudCotizacion')
 			-> join('INV_Proveedor', 'Proveedor_idProveedor', '=', 'INV_Proveedor_ID')
 			-> select('COM_SolicitudCotizacion_Codigo as Codigo',
 					  'INV_Proveedor_Nombre as NombreProveedor',
 					  'COM_SolicitudCotizacion_FechaEmision as FechaEmision',
+					  'COM_SolicitudCotizacion_FechaCreacion as FechaCreacion',
 					  'COM_Usuario_idUsuarioCreo as IdUsuarioCreo',
 					  'COM_SolicitudCotizacion_Recibido as Recibido',
 					  'COM_SolicitudCotizacion_Activo as Activo'
@@ -74,16 +22,18 @@ class Helpers {
 	public static function InformacionSolicitudCotizacion($CodigoSolicitudCotizacion){
 		$Consulta = DB::table('COM_SolicitudCotizacion')
 			-> join('INV_Proveedor', 'Proveedor_idProveedor', '=', 'INV_Proveedor_ID')
-			-> join('INV_FormaPago', 'COM_SolicitudCotizacion_FormaPago', '=', 'INV_FormaPago_ID')
 			-> select('COM_SolicitudCotizacion_IdSolicitudCotizacion as IdSolicitudCotizacion',
 					  'COM_SolicitudCotizacion_Codigo as Codigo',
 					  'Proveedor_idProveedor as IdProveedor',
 					  'INV_Proveedor_Nombre as NombreProveedor',
-					  'INV_Proveedor_Direccion as DireccionProveedor',
-					  'INV_Proveedor_Telefono as TelefonoProveedor',
+					  //'INV_Proveedor_Direccion as DireccionProveedor',
+					  //'INV_Proveedor_Telefono as TelefonoProveedor',
 					  'COM_SolicitudCotizacion_FechaEmision as FechaEmision',
 					  'COM_SolicitudCotizacion_FechaEntrega as FechaEntrega',
-					  'INV_FormaPago_ID as IdFormaPago',
+					  'COM_SolicitudCotizacion_FechaCreacion as FechaCreacion',
+					  'COM_SolicitudCotizacion_FormaPago as IdFormaPago',
+					  'COM_SolicitudCotizacion_CantidadPago as CantidadPagos',
+					  'COM_SolicitudCotizacion_PeriodoGracia as PeriodoGracia',
 					  'COM_Usuario_idUsuarioCreo as IdUsuarioCreo',
 					  'COM_SolicitudCotizacion_Recibido as Recibido',
 					  'COM_SolicitudCotizacion_Activo as Activo'
@@ -133,6 +83,52 @@ class Helpers {
 					  'COM_ValorCampoLocal_Valor as Valor')
 			-> where('COM_SolicitudCotizacion_Codigo', '=', $CodigoSolicitudCotizacion)
 			-> where('GEN_CampoLocal_Activo', '=', 1)
+			-> get();
+			
+		return $Consulta;
+	}
+	
+	public static function BusquedaSolicitudCotizacion($Busqueda){
+		$Consulta = DB::table('COM_SolicitudCotizacion');
+		  
+		if($Busqueda == 'Capturada'){
+			$Consulta = $Consulta
+				-> join('COM_Cotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'COM_Cotizacion_idSolicitudCotizacion');
+		
+		}elseif($Busqueda == 'En Espera'){
+			$Consulta = $Consulta
+				-> join('COM_Cotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '<>', 'COM_Cotizacion_idSolicitudCotizacion');
+		
+		}
+			
+		$Consulta = $Consulta
+			-> join('INV_Proveedor', 'Proveedor_idProveedor', '=', 'INV_Proveedor_ID')
+			-> select('COM_SolicitudCotizacion_IdSolicitudCotizacion as IdSolicitudCotizacion',
+					  'COM_SolicitudCotizacion_Codigo as Codigo',
+					  'Proveedor_idProveedor as IdProveedor',
+					  'INV_Proveedor_Nombre as NombreProveedor',
+					  'COM_SolicitudCotizacion_FechaEmision as FechaEmision',
+					  'COM_SolicitudCotizacion_FechaEntrega as FechaEntrega',
+					  'COM_SolicitudCotizacion_FechaCreacion as FechaCreacion',
+					  'COM_SolicitudCotizacion_FormaPago as IdFormaPago',
+					  'COM_SolicitudCotizacion_CantidadPago as CantidadPagos',
+					  'COM_SolicitudCotizacion_PeriodoGracia as PeriodoGracia',
+					  'COM_SolicitudCotizacion.COM_Usuario_idUsuarioCreo as IdUsuarioCreo',
+					  'COM_SolicitudCotizacion_Recibido as Recibido',
+					  'COM_SolicitudCotizacion_Activo as Activo'
+					);
+					
+			if($Busqueda != 'Capturada' && $Busqueda != 'En Espera'){
+				$Consulta = $Consulta
+					-> where('COM_SolicitudCotizacion_Codigo', 'LIKE', '%' . $Busqueda . '%')
+					-> orWhere('INV_Proveedor_Nombre', 'LIKE', '%' . $Busqueda . '%')
+					-> orWhere('COM_SolicitudCotizacion_FechaCreacion', 'LIKE', '%' . $Busqueda . '%')
+					-> orWhere('COM_SolicitudCotizacion.COM_Usuario_idUsuarioCreo', 'LIKE', '%' . $Busqueda . '%');
+			}
+		
+		$Consulta = $Consulta
+			-> orderBy('COM_SolicitudCotizacion_FechaEmision', 'desc')
+			-> orderBy('COM_SolicitudCotizacion_Codigo')
 			-> get();
 			
 		return $Consulta;

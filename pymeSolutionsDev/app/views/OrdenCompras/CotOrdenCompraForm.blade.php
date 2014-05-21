@@ -5,7 +5,7 @@
     <div class="page-header clearfix">
       <h3 class="pull-left">Crear Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
       <div class="pull-right">
-        <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 </div>
@@ -135,6 +135,12 @@
                  
          ?>
          {{ Form::select('formapago',$m) }}
+         <?php $Coti=Cotizacion::find($id_cot);?>
+         <label>Periodo de Gracia</label>
+           <br>
+           {{  Form::text('COM_OrdenCompra_PeriodoGracia',$Coti->COM_Cotizacion_PeriodoGracia, array('readonly'=>'readonly')) }}
+           <label>Cantidad de Abonos a Realizar</label>
+           {{  Form::text('COM_OrdenCompra_CantidadPago',$Coti->COM_Cotizacion_CantidadPago, array('readonly'=>'readonly') )}}
          
     </div>
     <div class="col-md-4">

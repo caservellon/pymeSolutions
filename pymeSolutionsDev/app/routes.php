@@ -136,6 +136,7 @@ Route::group(array('prefix' => 'Compras'), function(){
         Route::get('SolicitudCotizacion/Crear/MostrarDetalle', array('as'=>'detalle', 'uses'=> 'SolicitudCotizacionsController@detalle'));
         Route::post('SolicitudCotizacion/Crear/detalleCualquierProducto', array('as'=>'seleccion', 'uses'=> 'SolicitudCotizacionsController@mostrarProveedor'));
         Route::post('SolicitudCotizacion', array('as' => 'SolicitudCotizacions.search_index', 'uses' =>'SolicitudCotizacionsController@search_index'));
+        Route::post('SolicitudCotizacion/Crear/CualquierProducto', array('as' => 'SolicitudCotizacions.buscarCualquierProducto', 'uses' =>'SolicitudCotizacionsController@buscarCualquierProducto'));
         Route::resource('SolicitudCotizacions', 'SolicitudCotizacionsController');
 //edita una transicion de estado de orden de compras ya existente
 
@@ -296,8 +297,6 @@ Route::group(array('prefix' => 'Compras'), function(){
 		'as' => 'OrdenesCompraDetallesOrdenCompra',
 		'uses' => 'OrdenCompraController@DetallesOrdenCompra'
 	));
-	
-	Route::post('/search_index', array('as' => 'search_index', 'uses' =>'CotizacionController@search_index'));
 	
 });
 
