@@ -180,7 +180,11 @@
                  
            ?>
            {{ Form::select('formapago',$m) }}
-           
+           <label>Periodo de Gracia</label>
+           <br>
+           {{  Form::text('COM_OrdenCompra_PeriodoGracia','15', null) }}
+           <label>Cantidad de Abonos a Realizar</label>
+           {{  Form::text('COM_OrdenCompra_CantidadPago','10', null )}}
 		</div>
 		<div class="col-md-4">
         <label>Direccion de Entrega*:</label>

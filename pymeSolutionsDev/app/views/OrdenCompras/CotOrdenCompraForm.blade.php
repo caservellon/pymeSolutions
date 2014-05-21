@@ -135,6 +135,12 @@
                  
          ?>
          {{ Form::select('formapago',$m) }}
+         <?php $Coti=Cotizacion::find($id_cot);?>
+         <label>Periodo de Gracia</label>
+           <br>
+           {{  Form::text('COM_OrdenCompra_PeriodoGracia',$Coti->COM_Cotizacion_PeriodoGracia, array('readonly'=>'readonly')) }}
+           <label>Cantidad de Abonos a Realizar</label>
+           {{  Form::text('COM_OrdenCompra_CantidadPago',$Coti->COM_Cotizacion_CantidadPago, array('readonly'=>'readonly') )}}
          
     </div>
     <div class="col-md-4">
