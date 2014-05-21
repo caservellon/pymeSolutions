@@ -9,7 +9,7 @@
 </div>
 
 <div class="alert alert-danger">
-	<h2>No Hay Productos o Motivos de Movimiento Registrados</h2>
+	<h2>No Hay Productos o Conceptos de Movimiento Registrados</h2>
 </div>
 
 <div class="pull-left">

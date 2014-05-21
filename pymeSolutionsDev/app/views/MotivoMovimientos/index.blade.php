@@ -51,7 +51,7 @@
 	</div>
 @else
 	<div class="alert alert-danger">
-		<h3>No Hay Motivos de Movimiento</h3>
+		<h3>No Hay Conceptos de Movimiento</h3>
 	</div>
 @endif
 
