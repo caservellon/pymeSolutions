@@ -249,12 +249,21 @@ class MovimientoInventariosController extends BaseController {
 			$Producto->INV_Producto_PrecioCosto = $Costo;
 			$Producto->save();
 		}
+		//Se llama el método para realizar la contabilidad
 		//Modificamos el estado de la orden de compra
 		return Redirect::route('Inventario.MovimientoInventario.index');
 	}
 
 	public function rechazada(){
 		$input = Input::all();
+		//Se llama el método para realizar la contabilidad
+		//Modificamos el estado de la orden de compra
+		return Redirect::route('Inventario.MovimientoInventario.index');
+	}
+
+	public function errores(){
+		$input = Input::all();
+		//return $input;
 		$orden = DB::select('select pro.INV_Producto_ID as ID, pro.INV_Producto_Nombre as Nombre, 
 					det.COM_DetalleOrdenCompra_Cantidad as Cantidad, det.COM_DetalleOrdenCompra_PrecioUnitario as Precio
 					from pymeERP.COM_OrdenCompra com inner join pymeERP.COM_DetalleOrdenCompra det on 
@@ -262,7 +271,15 @@ class MovimientoInventariosController extends BaseController {
 					inner join pymeERP.INV_Producto pro on det.COM_Producto_idProducto = pro.INV_Producto_ID
 					where com.COM_OrdenCompra_IdOrdenCompra = ?', array($input['INV_Movimiento_IDOrdenCompra']));
 		//Se crea el Movimiento de Inventario para despues agregar el detalle del movimiento
-		$this->MovimientoInventario->create($input);
+		$t['INV_Movimiento_IDOrdenCompra'] = $input['INV_Movimiento_IDOrdenCompra'];
+		$t['INV_Movimiento_Observaciones'] = $input['INV_Movimiento_Observaciones'];
+		$t['INV_Movimiento_FechaCreacion'] = $input['INV_Movimiento_FechaCreacion'];
+		$t['INV_Movimiento_UsuarioCreacion'] = $input['INV_Movimiento_UsuarioCreacion'];
+		$t['INV_Movimiento_FechaModificacion'] = $input['INV_Movimiento_FechaModificacion'];
+		$t['INV_Movimiento_UsuarioModificacion'] = $input['INV_Movimiento_UsuarioModificacion'];
+		$t['INV_MotivoMovimiento_INV_MotivoMovimiento_ID'] = $input['INV_MotivoMovimiento_INV_MotivoMovimiento_ID'];
+		$this->MovimientoInventario->create($t);
+
 		//Buscamos el moviemiento que acabamos de crear para poder obtener su id
 		$temp = MovimientoInventario::where('INV_Movimiento_IDOrdenCompra', $input['INV_Movimiento_IDOrdenCompra'])->orderBy('INV_Movimiento_ID', 'DESC')->get();
 		$Movimiento = $temp[0];
@@ -277,7 +294,7 @@ class MovimientoInventariosController extends BaseController {
 			$detalle['INV_DetalleMovimiento_IDProducto'] = $or->ID;
 			$detalle['INV_DetalleMovimiento_CodigoProducto'] = $Producto->INV_Producto_Codigo;
 			$detalle['INV_DetalleMovimiento_NombreProducto'] = $Producto->INV_Producto_Nombre;
-			$detalle['INV_DetalleMovimiento_CantidadProducto'] = $or->Cantidad;
+			$detalle['INV_DetalleMovimiento_CantidadProducto'] = $input['Cant'.$or->ID];
 			$detalle['INV_DetalleMovimiento_PrecioCosto'] = $or->Precio;
 			$detalle['INV_DetalleMovimiento_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
 			$detalle['INV_DetalleMovimiento_FechaCreacion'] = date('Y-m-d H:i:s');
@@ -290,6 +307,7 @@ class MovimientoInventariosController extends BaseController {
 			$detalle['INV_Producto_INV_Categoria_ID'] = $Producto->INV_Categoria_ID;
 			$detalle['INV_Producto_INV_Categoria_IDCategoriaPadre'] = $Producto->INV_Categoria_IDCategoriaPadre;
 			$detalle['INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID'] = $Producto->INV_UnidadMedida_ID;
+			//return $detalle;
 			//Creamos el detalle para un solo producto
 			DetalleMovimiento::create($detalle);
 			//Actualizamos el Inventario
@@ -297,13 +315,8 @@ class MovimientoInventariosController extends BaseController {
 			$Producto->INV_Producto_PrecioCosto = $Costo;
 			$Producto->save();
 		}
+		//Se llama el método para realizar la contabilidad
 		//Modificamos el estado de la orden de compra
-		return Redirect::route('Inventario.MovimientoInventario.index');
-	}
-
-	public function errores(){
-		$input = Input::all();
-		$this->MovimientoInventario->create($input);
 		return Redirect::route('Inventario.MovimientoInventario.index');
 	}
 
