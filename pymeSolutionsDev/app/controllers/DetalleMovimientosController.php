@@ -80,10 +80,10 @@ class DetalleMovimientosController extends BaseController {
 			//return $input;
 		
 			//Calcular Precio de Costo
-			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + (Input::get('INV_DetalleMovimiento_PrecioCosto') * Input::get('INV_DetalleMovimiento_CantidadProducto')))/(Input::get('INV_DetalleMovimiento_CantidadProducto') + $Producto->INV_Producto_Cantidad);
+			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + ($input['INV_DetalleMovimiento_PrecioCosto'] * $input['INV_DetalleMovimiento_CantidadProducto']))/($input['INV_DetalleMovimiento_CantidadProducto'] + $Producto->INV_Producto_Cantidad);
 			
 			$Producto->INV_Producto_PrecioCosto = $Costo;
-			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + Input::get('INV_DetalleMovimiento_CantidadProducto');
+			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $input['INV_DetalleMovimiento_CantidadProducto'];
 			$Producto->save();
 			
 			$this->DetalleMovimiento->create($input);
