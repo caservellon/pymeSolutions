@@ -373,7 +373,11 @@ class SolicitudCotizacionsController extends BaseController {
         ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.$val.'%')
         ->orWhere('INV_Proveedor_Codigo', 'LIKE',  '%'.$val.'%')
         ->orWhere('INV_Proveedor_Telefono', 'LIKE',  '%'.$val.'%')->get();
-//
+        
+        $queryForma= FormaPago::where('INV_FormaPago_Nombre','LIKE', '%'.$val.'%')
+        ->get();
+        
+       
         // reviso si trajo datos para decidir si los proceso         
         
          $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1);
@@ -410,6 +414,22 @@ class SolicitudCotizacionsController extends BaseController {
               
             //remplazo el arreglo origian con el nuevo de los productos que pertenecen a un proveedor en especial
             $SolicitudCotizacions=  SolicitudCotizacion::wherein('Proveedor_idProveedor',$temp)->paginate();
+            }
+            
+        } 
+        if(!empty($queryForma)){
+            $temp = array();
+            
+            //hago la primer revision para saber que productos distribuye ese proveedor
+            foreach ($queryForma as $qP) {
+                array_push($temp, $qP->INV_FormaPago_ID);
+                
+            }
+            // ahora extraigo esos productos de ese proveedor especifico
+            if (sizeof($temp)>0) {
+              
+            //remplazo el arreglo origian con el nuevo de los productos que pertenecen a un proveedor en especial
+            $SolicitudCotizacions=  SolicitudCotizacion::wherein('COM_SolicitudCotizacion_FormaPago',$temp)->paginate();
             }
             
         } 

@@ -142,6 +142,9 @@
            {{ Form::select('formapago'.$proveedores->INV_Proveedor_Nombre,$m) }}
            
 </div>	
+<div class="col-md-4">
+    <p>Por favor mandar la cantidad de pagos a realizar y el periodo de gracia para realizar el primer pago a partir de enviar la cotizacion</p>
+</div>	
 
 <div class="row" >
     <div class="col-md-6" ><label></label></div>
