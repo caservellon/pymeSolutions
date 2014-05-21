@@ -19,8 +19,7 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function index()
-	{
+	public function index(){
 		$PeriodoCierreDeCajas = PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_Estado', 1)->get();
 
 		return View::make('PeriodoCierreDeCajas.index', compact('PeriodoCierreDeCajas'));
@@ -31,8 +30,7 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{
+	public function create() {
 		return View::make('PeriodoCierreDeCajas.create');
 	}
 
