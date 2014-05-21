@@ -274,17 +274,23 @@ class SolicitudCotizacionsController extends BaseController {
 	public function update($id)
 	{
                 $input = Input::except('_method');
-                $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
-		
+                //$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
+		$res = SolicitudCotizacion::$rules;
+                
+                $validation = Validator::make($input, $res);
                 
                 
                 
-
+                        if($validation->passes()){
 		
                         $SolicitudCotizacion = SolicitudCotizacion::find($id);
+                        $temprod = invCompras::ProveedorCompras($SolicitudCotizacion->Proveedor_idProveedor);
                         $SolicitudCotizacion->COM_SolicitudCotizacion_Recibido=Input::get('COM_SolicitudCotizacion_Recibido');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
                         $SolicitudCotizacion->Usuario_idUsuarioModifico = 2;
+                        $SolicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago'.$temprod->INV_Proveedor_Nombre);
+                        $SolicitudCotizacion->COM_SolicitudCotizacion_CantidadPago=Input::get('COM_SolicitudCotizacion_CantidadPago');
+                        $SolicitudCotizacion->COM_SolicitudCotizacion_PeriodoGracia=Input::get('COM_SolicitudCotizacion_PeriodoGracia');
                         if(Input::has('COM_SolicitudCotizacion_Activo')){
                             $SolicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
                         }else{
@@ -296,7 +302,12 @@ class SolicitudCotizacionsController extends BaseController {
                          $ruta = route('Compras.SolicitudCotizacions.index');
 			 $mensaje = Mensaje::find(1);
                          return View::make('MensajeCompra', compact('mensaje', 'ruta'));
-                
+                        }
+                        
+                        return Redirect::route('Compras.SolicitudCotizacions.edit',$id)
+                        ->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
                 
                 
 		
