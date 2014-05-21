@@ -513,9 +513,15 @@ class OrdenComprasController extends BaseController {
         //genero pago de orden compra
          public function generarpagoLC(){
             $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
+            //return var_dump($ordenPago);
+            if(sizeof($ordenPago)>0){
             $ordenCompra=OrdenCompra::whereNotIn('COM_OrdenCompra_IdOrdenCompra',$ordenPago)->get();
+        }else{
+            $ordenCompra= OrdenCompra::all();
+        }
             return View::make('OrdenCompras.ListaOrdenCompraPago',array('Ordenes'=>$ordenCompra));
         }
+        
         public function DetallePago(){
                        $input=Input::all();
              $id=Input::get('id');
