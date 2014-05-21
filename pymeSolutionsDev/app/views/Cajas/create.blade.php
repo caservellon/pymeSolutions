@@ -8,19 +8,32 @@
       </div>
 </div>
 
-
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
+</div>
+@endif
               
 {{ Form::open(array('route' => 'Ventas.Cajas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
     <div>
     
       <div class="form-group">
-          {{ Form::label('VEN_Caja_Codigo', 'Código:',array('class' => 'col-md-2 control-label')) }}
+          {{ Form::label('VEN_Caja_Codigo', 'Código: *',array('class' => 'col-md-2 control-label')) }}
           <div class="col-md-4">
               {{ Form::text('VEN_Caja_Codigo', null, array('class' => 'form-control', 'id' => 'VEN_Caja_Codigo', 'placeholder'=>'CAJ-00001')) }}
           </div>
       </div>
       <div class="form-group">
-        {{ Form::label('VEN_Caja_Numero', 'Número de Caja:', array('class' => 'col-md-2 control-label')) }}
+        {{ Form::label('VEN_Caja_Numero', 'Número de Caja: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
           {{ Form::text('VEN_Caja_Numero',null, array('class' => 'form-control', 'id' => 'VEN_Caja_Numero', 'placeholder' => '#' )) }}
         </div>
@@ -42,18 +55,13 @@
     
     <div class="form-group">
       <div class="col-md-5">
-      {{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+        {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 
 	
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop
 

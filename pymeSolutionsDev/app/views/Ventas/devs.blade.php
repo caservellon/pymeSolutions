@@ -22,8 +22,8 @@
                     <td>{{{ $Dev->VEN_Devolucion_id }}}</td>
                     <td>{{{ $Dev->VEN_Devolucion_Codigo }}}</td>
                     <td>{{{ $Dev->VEN_Devolucion_Monto }}}</td>
-                    <td>{{{ $Dev->VEN_Venta_VEN_Venta_id }}}</td>
-                    <td>{{ link_to_route('Ventas.DevsOne', 'Show', array($Dev->VEN_Devolucion_id), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Ventas.ListarOne', 'Ver Venta', array($Dev->VEN_Venta_VEN_Venta_id), array('class' => 'btn btn-default')) }}</td>
+                    <td>{{ link_to_route('Ventas.devsOne', 'Ver Detalle de Devolución', array($Dev->VEN_Devolucion_id), array('class' => 'btn btn-info')) }}</td>
                 </tr>
             @endforeach
         </tbody>

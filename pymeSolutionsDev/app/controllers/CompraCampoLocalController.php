@@ -26,20 +26,19 @@ class CompraCampoLocalController extends BaseController {
 
 	public function store()
 	{
-		$validation = true;
+		$input = Input::all();
+ 		$validation = Validator::make($input, CampoLocal::$rules);
 		$Campo = new CampoLocal;
 		$Campo->GEN_CampoLocal_Activo = 1;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
-		if (Input::get('GEN_CampoLocal_Nombre') == "") {
-			$validation = false;
-		} else {
+		
 			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
 			$Codigo = "COM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
 			$Campo->GEN_CampoLocal_Codigo = $Codigo;
-		}
-		if ($validation) {
+		
+		if ($validation->passes()) {
 			$index = 0;
 			$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo)->get()->count();
 			while($count > 0){
@@ -60,7 +59,9 @@ class CompraCampoLocalController extends BaseController {
 
 				}
 			}
-			return Redirect::route('Compras.Configuracion.CampoLocal.index');
+                        $ruta = route('Compras.Configuracion.CampoLocal.index');
+			 $mensaje = Mensaje::find(1);
+                         return View::make('MensajeCompra', compact('mensaje', 'ruta'));
 		}
 
 		return Redirect::route('Compras.Configuracion.CampoLocal.create')
@@ -84,7 +85,7 @@ class CompraCampoLocalController extends BaseController {
 		{
 			return Redirect::route('Compras.Configuracion.CampoLocal.index');
 		}
-		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'COMP_SC', 6) == 0? 'SC':'COT';
+		$tipoDePerfil = strncmp($CampoLocal->GEN_CampoLocal_Codigo,'COM_SC', 6) == 0? 'SC':'COT';
 		$CampoLocalLista = null;
 		$stringConcat = "";
 		if ($CampoLocal->GEN_CampoLocal_Tipo == "LIST") {
@@ -99,19 +100,17 @@ class CompraCampoLocalController extends BaseController {
 	}
 
 	public function update($id){
-
-		$validation = true;
+                $input = Input::all();
+		$validation = Validator::make($input, CampoLocal::$rules);
 		$Campo = CampoLocal::find($id);
 		$Campo->GEN_CampoLocal_Activo = 1;
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
-		if (Input::get('GEN_CampoLocal_Nombre') == "") {
-			$validation = false;
-		} else {
+		
 			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
 
-		}
-		if ($validation){
+		
+		if ($validation->passes()){
 			if($Campo->save()){
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
 					$oneList = Input::get('value-list-array');
@@ -128,7 +127,11 @@ class CompraCampoLocalController extends BaseController {
 					}
 				}
 			}
-			return Redirect::route('Compras.Configuracion.CampoLocal.index');
+                         $ruta = route('Compras.Configuracion.CampoLocal.index');
+                         //Trae el mensaje de la base de datos
+                         $mensaje = Mensaje::find(1);
+                         
+                         return View::make('MensajeCompra', compact('mensaje', 'ruta'));
 		}
 
 		return Redirect::route('Compras.Configuracion.CampoLocal.edit', $id)

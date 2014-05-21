@@ -17,8 +17,8 @@ class ParamPeriodoContableController extends BaseController {
 
 	public function index()
 	{
-		$CP = $this->ClasificacionPeriodo->all();
-		$PC = $this->PeriodoContable->all();
+		$CP = $this->ClasificacionPeriodo->withTrashed()->get();
+		//$PC = $this->PeriodoContable->all();
         return View::make('paramPeriodoContable.index')
         	->with('ClasificacionPeriodo',$CP);
 	}
@@ -42,8 +42,9 @@ class ParamPeriodoContableController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		
-		$validation = Validator::make($input, ClasificacionPeriodo::$rules,ClasificacionPeriodo::$messages,ClasificacionPeriodo::$atributos);
+		$rules=str_replace('?', date('Y-m-d',strtotime("-1 days")), ClasificacionPeriodo::$rules); 
+
+		$validation = Validator::make($input, $rules,ClasificacionPeriodo::$messages,ClasificacionPeriodo::$atributos);
 		if ($validation->fails())
 		{
 			return Redirect::action('ParamPeriodoContableController@create')
@@ -61,8 +62,7 @@ class ParamPeriodoContableController extends BaseController {
 			$PeriodoContable = new PeriodoContable;
 			$PeriodoContable->CON_PeriodoContable_FechaInicio = Input::get('CON_PeriodoContable_FechaInicio');
 			$PeriodoContable->CON_PeriodoContable_FechaFinal = $this->getFinalDate($PeriodoContable->CON_PeriodoContable_FechaInicio,$ClasificacionPeriodo->CON_ClasificacionPeriodo_CatidadDias);
-			$PeriodoContable->CON_PeriodoContable_Nombre = Input::get('CON_ClasificacionPeriodo_Nombre');
-			$PeriodoContable->CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID = $ClasificacionPeriodo->CON_ClasificacionPeriodo_ID;
+			$PeriodoContable->CON_ClasificacionPeriodo_ID = $ClasificacionPeriodo->CON_ClasificacionPeriodo_ID;
 			$PeriodoContable->CON_PeriodoContable_FechaCreacion= date('Y-m-d');
 			$PeriodoContable->CON_PeriodoContable_FechaModificacion= date('Y-m-d');
 			$PeriodoContable->save();
@@ -108,7 +108,7 @@ class ParamPeriodoContableController extends BaseController {
 			return Redirect::action('ParamPeriodoContableController@index');
 
 		}
-		$CP->CON_PeriodoContable_FechaInicio=PeriodoContable::where('CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID','=',$id)->get();
+		$CP->CON_PeriodoContable_FechaInicio=PeriodoContable::where('CON_ClasificacionPeriodo_ID','=',$id)->get();
 		$CP->CON_PeriodoContable_FechaInicio=strstr($CP->CON_PeriodoContable_FechaInicio[0]['CON_PeriodoContable_FechaInicio'],' ',true);
         return View::make('paramPeriodoContable.edit')
         	->with('ClasificacionPeriodo',$CP)
@@ -142,7 +142,7 @@ class ParamPeriodoContableController extends BaseController {
 				//$PeriodoContable = PeriodoContable::where('CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID','=',$id)->get();
 				//$PeriodoContable =$PeriodoContable[0];
 				//$PeriodoContable->update($input);
-				return Redirect::action('ParamPeriodoContableController@index', $id);
+				return Redirect::action('ParamPeriodoContableController@index');
 			}
 		}
 
@@ -150,6 +150,11 @@ class ParamPeriodoContableController extends BaseController {
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
+	}
+
+	public function enable($id){
+		$clasificacion=ClasificacionPeriodo::withTrashed()->where('CON_ClasificacionPeriodo_ID', $id)->restore();
+		return Redirect::action('ParamPeriodoContableController@index');	
 	}
 
 	/**
@@ -160,7 +165,9 @@ class ParamPeriodoContableController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$clasificacion=ClasificacionPeriodo::find($id);
+		$clasificacion->delete();
+		return Redirect::action('ParamPeriodoContableController@index');
 	}
 
 }

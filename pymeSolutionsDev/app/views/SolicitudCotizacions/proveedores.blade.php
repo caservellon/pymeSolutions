@@ -9,21 +9,23 @@
 </div>
 
 {{ Form::open(array('route' => array('Compras.SolicitudCotizacions.store', 'cualquiera'=>$cualquierProducto, 'prove'=>$proveedor), 'class' => "form-horizontal" , 'role' => 'form' )) }}
-            <div class="row">
-                
-               <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Confirmar', array('class' => 'btn btn-default btn-md')) }}</div>
-            </div> 
-<?php $prod = array_unique($proveedor); $prodfinal= array_values($prod)?>
+<div class="row">
+    <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Confirmar', array('class' => 'btn btn-default btn-md')) }}</div>
+</div> 
 
         
-       
-        
-        
+@if ($errors->any())
+<div class="alert alert-danger">
+    {{ implode('', $errors->all('<li >:message</li>')) }}
+</div>
+@endif      
 
-            
-            @for($j=0; $j < count($prodfinal); $j++)
-            <?php $proveedores = Proveedor::find($prodfinal[$j]); ?>
-            <div class="row">
+
+
+
+@for($j=0; $j < count($proveedor); $j++)
+<?php $proveedores = Proveedor::find($proveedor[$j]); ?>
+<div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
         <h2> Solicitud de Cotizacion</h2>
@@ -35,17 +37,19 @@
         <h5 >Tel.2234-9000 Fax.2234-9000</h5>
     </div>
 </div>
-            <div class="row">
-             <div class="col-md-4">
-            <h4>Para:</h4>
-            <h5>{{{$proveedores->INV_Proveedor_Nombre}}}</h5>
-            <h5>{{$proveedores->INV_Proveedor_Email}}</h5>
-            <h5>{{$proveedores->INV_Proveedor_Direccion}}</h5>
-            <h5>{{$proveedores->INV_Proveedor_Telefono}}</h5>
-             </div>
-            </div>
-                <div class="table-responsive">
-                <table class="table table-striped">
+<div class="row">
+    <div class="col-md-4">
+        <h4>Para:</h4>
+        <h5>{{{$proveedores->INV_Proveedor_Nombre}}}</h5>
+        <h5>{{$proveedores->INV_Proveedor_Email}}</h5>
+        <h5>{{$proveedores->INV_Proveedor_Direccion}}</h5>
+        <h5>{{$proveedores->INV_Proveedor_Telefono}}</h5>
+    </div>
+</div>
+
+
+<div class="table-responsive">
+                <table class="table table-striped table-bordered">
 		<thead>
 			<tr>
 				
@@ -53,9 +57,7 @@
 				<th>Descripcion</th>
                                 <th>Cantidad a Solicitar</th>
                                 <th>Unidad</th>
-                                @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
-                                    <th>{{{ $campo->GEN_CampoLocal_Nombre }}}</th>
-                                @endforeach
+                               
                                 
 			</tr>
 		</thead>
@@ -76,33 +78,12 @@
                                         
 					<td>{{{ $cualquierProducto1->INV_Producto_Nombre }}}</td>
 					<td>{{{ $cualquierProducto1->INV_Producto_Descripcion }}}</td>
-                                        <td>{{Form::text('CantidadSolicitar'.$cualquierProducto1->INV_Producto_ID)}}</td>
+                                        <td>{{ Form::text('CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre, null, array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
 					
                                         
                                         <?php $unidad= UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
                                         <td>{{{ $unidad->INV_UnidadMedida_Nombre }}}</td>
-                                        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
-            
-                                           
-                                            @if ($campo->GEN_CampoLocal_Requerido)
-                                               
-                                            
-                
-                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-                       <td>* {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_ID')) }}</td>
-                    @endif
-               @endif
-            
-        @endforeach
+                                        
                                        
                                         
                                         
@@ -115,14 +96,61 @@
                 </tbody> 
              </table>
           </div>
-           <div class="row" >
-                <div class="col-md-6" ><label></label></div>
-                <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
-            </div>
-            <hr>
-          @endfor    
 
-    {{Form::close()}}
+
+<div class="col-md-8 " style="text-align: left">
+    @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
+    <div class="form-group">
+        {{ Form::label($campo->GEN_CampoLocal_Codigo, $campo->GEN_CampoLocal_Nombre.":", array('class' => 'col-md-2 control-label')) }}
+        @if ($campo->GEN_CampoLocal_Requerido)
+        <label>*</label>
+        @endif
+        <div class="col-md-5">
+            @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre)) }}
+            
+            @endif
+            @if ($campo->GEN_CampoLocal_Tipo == 'INT')
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, 'placeholder'=>'##')) }}
+            
+            @endif
+            @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, 'placeholder'=>'#.##')) }}
+            
+            @endif
+            @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
+            {{ Form::select($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}
+            
+            @endif
+        </div>
+    </div> 
+    @endforeach
+
+</div>
+<div class="col-md-4">
+<label>Forma de Pago</label>
+           <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedores->INV_Proveedor_ID)->get();
+                  $form=array();
+                  $id=array();
+                  foreach ($formapago as $forma){
+                         $id[]=$forma->INV_FormaPago_ID;
+                   }
+                   $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+                  
+                 
+           ?>
+           {{ Form::select('formapago'.$proveedores->INV_Proveedor_Nombre,$m) }}
+           
+</div>	
+
+<div class="row" >
+    <div class="col-md-6" ><label></label></div>
+    <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
+</div>
+<hr>
+@endfor    
+
+{{Form::close()}}
     
 @stop
 

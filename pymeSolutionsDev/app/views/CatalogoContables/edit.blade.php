@@ -2,7 +2,12 @@
 
 @section('main')
 
-<h1>Editar cuenta</h1>
+<div class="page-header clearfix">
+      <h3 class="pull-left">Catalogo Contable &gt; <small>Editar Cuenta</small></h3>
+      <div class="pull-right">
+        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+      </div>
+</div>
 
 @include('_messages.errors')
 
@@ -30,7 +35,7 @@
 <div class="form-group">
             {{ Form::label('CON_CatalogoContable_Estado', 'Estado:') }}
             <div class="col-md-3">
-            {{ Form::select('CON_CatalogoContable_Estado',$esta,$selected2) }}
+            {{ Form::select('CON_CatalogoContable_Estado',array(1=>'Activo',0=>'Inactivo')) }}
 </div></div>
 <div class="col-md-5">
             {{ Form::submit('Realizar Cambios en la cuenta', array('class' => 'btn btn-success')) }}
@@ -43,17 +48,6 @@
 
 @section('contabilidad_scripts')
 
-<script type="text/javascript">
-    
-   $(document).ready( $("#CON_CatalogoContable_Estado").click(function(){
-        if ($(this).attr('value')==1){
-            $(this).val(0);
-        }else{
-            $(this).val(1);
-        }
-
-    }));
-</script>
 <script type="text/javascript">
     $(document).ready(function(){
 

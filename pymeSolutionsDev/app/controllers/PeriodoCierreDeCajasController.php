@@ -21,7 +21,7 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function index()
 	{
-		$PeriodoCierreDeCajas = $this->PeriodoCierreDeCaja->all();
+		$PeriodoCierreDeCajas = PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_Estado', 1)->get();
 
 		return View::make('PeriodoCierreDeCajas.index', compact('PeriodoCierreDeCajas'));
 	}
@@ -99,7 +99,9 @@ class PeriodoCierreDeCajasController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, PeriodoCierreDeCaja::$rules);
+		$validation = Validator::make($input, PeriodoCierreDeCaja::$rulesUpdate);
+
+		
 
 		if ($validation->passes())
 		{
@@ -123,7 +125,9 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->PeriodoCierreDeCaja->find($id)->delete();
+		$PDDC = PeriodoCierreDeCaja::find($id);
+		$PDDC->VEN_PeriodoCierreDeCaja_Estado = 0;
+		$PDDC->save();
 
 		return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
 	}

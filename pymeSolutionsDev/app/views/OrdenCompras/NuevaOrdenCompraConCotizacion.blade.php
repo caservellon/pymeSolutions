@@ -9,16 +9,16 @@
 </div>
 <div class="row">
     <div class=" col-lg-12">
-			<div  class="col-md-9" >
-                                 <div class="col-xs-5 col-sm-6 col-md-12">
-                                    <input type="Text"  style="width: 550px">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg" >
-                                        <span class="glyphicon glyphicon-filter"></span>
-                                    </button>
+			<div  class="col-md-9" > <div class="col-xs-5 col-sm-6 col-md-12">
+                                    {{ Form::open(array('route' => 'OrdenCompra.search_Cotizaciones')) }}
+                                    {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+                                    {{ Form::text('search', null, array('class' => 'col-md-4','style'=>'width: 400px', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
+                                    {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' , 'style'=>'margin-left: 5px' )) }}
+                                    {{ Form::close() }}
                                 </div>
 			</div>
 			<div class="col-md-3">
-				<input type="button" value="Buscar" id="bpderecho" class="btn btn-default btn-block col-md-6" >  
+				
 				
                                 {{Form::open(array('route'=>'CompararCotizaciones'))}}
                                 {{Form::submit('Comparar Cotizaciones',array('class'=>'btn btn-default btn-block col-md-6'))}}
@@ -40,7 +40,7 @@
                 </tr>
               </thead>
                   <tbody >
-                      <?php $cotizaciones = Cotizacion::where('COM_Cotizacion_Activo','=',1)->get();
+                      <?php
                             $contador=0;
                             ?>
                       @foreach($cotizaciones as $cotizacion)

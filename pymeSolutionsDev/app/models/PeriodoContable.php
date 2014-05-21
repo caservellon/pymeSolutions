@@ -10,7 +10,7 @@ class PeriodoContable extends Eloquent {
 		'CON_PeriodoContable_Nombre',
 		'CON_PeriodoContable_FechaInicio',
 		'CON_PeriodoContable_FechaFinal',
-		'CON_ClasificacionPeriodo_CON_ClasificacionPeriodo_ID'
+		'CON_ClasificacionPeriodo_ID'
 		);
 	public static $rules = array(
 			//'CON_PeriodoContable_ID' => 'required|integer',
@@ -20,7 +20,7 @@ class PeriodoContable extends Eloquent {
 
 		);
 
-	public function CON_ClasificacionPeriodo()
+	public function ClasificacionPeriodo()
     {
         return $this->belongsTo('ClasificacionPeriodo');
     }

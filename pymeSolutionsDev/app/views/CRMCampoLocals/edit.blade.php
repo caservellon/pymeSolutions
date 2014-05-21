@@ -7,24 +7,38 @@
         <a href="/CRM/CampoLocals" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
+</div>
+@endif
 
 {{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('CRM.CampoLocals.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
-        {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
+        {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre: *',array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
             {{ Form::text('GEN_CampoLocal_Nombre', $CampoLocal->GEN_Campo_Local_Nombre, array('class' => 'form-control', 'id' => 'GEN_CampoLocal_Nombre', 'placeholder'=>'CAJ-00001')) }}
         </div>
     </div>
 
     <div class="form-group">
-      {{ Form::label('Tipo_de_Perfil', 'Tipo de perfil:', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('Tipo_de_Perfil', 'Tipo de perfil: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::select('Tipo_de_Perfil', array('PS' => 'Persona', 'EP' => 'Empresa'),$tipoDePerfil,array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
 
     <div class="campo-local-tipo form-group">
-      {{ Form::label('GEN_CampoLocal_Tipo', 'Tipo de Campo:', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('GEN_CampoLocal_Tipo', 'Tipo de Campo: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         @if($CampoLocal->GEN_CampoLocal_Tipo == "LIST") 
         <select class="col-md-4 form-control" id="GEN_CampoLocal_Tipo" name="GEN_CampoLocal_Tipo" disabled><option value="LIST" selected="selected">Lista de Valores</option></select>
@@ -39,7 +53,7 @@
     @else
     <div style="display:none;" class="value-list form-group">
     @endif
-      <label class="col-md-2 control-label">Agregar elementos:</label>
+      <label class="col-md-2 control-label">Agregar elementos: *</label>
       <div class="col-md-5">
         <div class="input-group">
           <input type="text" class="value-input form-control">
@@ -61,7 +75,12 @@
       </div>
     </div>
 
-    
+    <div class="form-group">
+       {{ Form::label('GEN_CampoLocal_Activo', 'Estado de Campo:', array('class' => 'col-md-2 control-label')) }}
+       <div class="col-md-5">
+         {{ Form::select('GEN_CampoLocal_Activo', array('1' => 'Activado', '0' => 'Desactivado'),$CampoLocal->GEN_CampoLocal_Activo ,array('class' => 'col-md-4 form-control')) }}
+       </div>
+     </div>
 
     <div class="form-group">
         <div class="col-md-5 col-md-offset-2">
@@ -81,7 +100,7 @@
     <div class="form-group">
       <div class="col-md-5 ">
             {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('CRM.CampoLocals.show', 'Cancelar', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
+            {{ link_to_route('CRM.CampoLocals.index', 'Cancelar', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
       </div>
     </div>
 
@@ -89,10 +108,5 @@
 {{ Form::close() }}
 
 
-@if ($errors->any())
-  <ul>
-    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-  </ul>
-@endif
 
 @stop

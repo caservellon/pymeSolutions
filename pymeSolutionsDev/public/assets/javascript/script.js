@@ -1,6 +1,4 @@
 $(document).ready(function(){
-
-
 	// ---------------- Devoluciones ------------------------------
 
 	// POST busca factura y devuelve items
@@ -10,26 +8,43 @@ $(document).ready(function(){
 		$.post('/Ventas/Ventas/searchInvoice' ,{
 			'searchTerm' : $('.no-factura').val()
 		}).success(function(data){
+			$("div.alert").hide();
 			 $.each(data, function(index, value){
-				$('#detalle-factura > tbody:last').append('<tr><td><input type="checkbox" class="check"></td><td class="codigo">'+value["VEN_DetalleDeVenta_Codigo"]+'</td><td>'+value["VEN_DetalleDeVenta_Nombre"]+'</td><td>'+value["VEN_DetalleDeVenta_PrecioVenta"]+'</td><td><input type="number" class="quantity" min="1" max="'+value["VEN_DetalleDeVenta_CantidadVendida"]+'" > / '+value["VEN_DetalleDeVenta_CantidadVendida"]+'</td><td>'+(value["VEN_DetalleDeVenta_CantidadVendida"] * value["VEN_DetalleDeVenta_PrecioVenta"])+'</td></tr>');		
+				$('#detalle-factura > tbody:last').append('<tr><td><input type="checkbox" class="check"></td><td class="codigo">'+value["VEN_DetalleDeVenta_Codigo"]+'</td><td>'+value["VEN_DetalleDeVenta_Nombre"]+'</td><td>'+value["VEN_DetalleDeVenta_PrecioVenta"]+'</td><td><input type="number" class="quantity" min="1" max="'+value["VEN_DetalleDeVenta_CantidadVendida"]+'" > / <span class=\"Maxtop\">'+value["VEN_DetalleDeVenta_CantidadVendida"]+'</span></td><td>'+(value["VEN_DetalleDeVenta_CantidadVendida"] * value["VEN_DetalleDeVenta_PrecioVenta"])+'</td></tr>');		
 			 });
 		}).fail(function(data){
-			alert('No se encontro esa factura');
+			$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No se encontró la factura!</h4>");
+			$("div.alert").show();
 		});
 	});
 
 	// POST get selected and quantity
 	$('.crear-devolucion').on('click', function(){
 		devolver = [];
+		if($('.productos-dev input:checked').length == 0){
+			$('div.alert').html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No se seleccionó ninguna devolución!</h4>");
+			$('div.alert').show();
+		} else {
+			$('div.alert').hide();
+		}
 		$('.productos-dev input:checked').parents('tr').map(function(i, producto) {
 		    var td = $(producto).find('td');
 		    var codigo = td.eq(1).text();
 		    var cantidad = td.eq(4).find('.quantity').val();
-
-		    devolver.push({
-		        codigo: codigo,
-		        cantidad: cantidad
-		    });
+		   	var top = td.eq(4).find('.Maxtop').val();
+		   	if(cantidad < top ){
+		   		$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No puede exceder las cantidades!</h4>");
+		   		$("div.alert").show();
+		   	} else if(cantidad === ""){
+		   		$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No puede dejar vacias las cantidades!</h4>");
+		   		$("div.alert").show();
+		   	} else {
+		   		$("div.alert").hide();
+			    devolver.push({
+			        codigo: codigo,
+			        cantidad: cantidad
+			    });	   		
+		   	}
 		});
 
 		$.post('/Ventas/Devoluciones/process', {
@@ -37,18 +52,20 @@ $(document).ready(function(){
 			'no-factura' : $('.no-factura').val()
 		}).success(function(data){
 			$('#resultadoDevolucion').modal('show');
-
+			$('.bono-compra').hide();
 			$.each(data, function(key, value){
 				$.each(value, function(keyin, valuein){
 					if ($.isNumeric(keyin)) {
-						$('#detalle-devolucion > tbody:last').append('<tr><td>'+keyin+'</td><td>'+valuein+'</td></tr>');
-					} else {
 						if (keyin == "BonoCompraCantidad") {
 							$('.cantidad-bc').text('Lps. ' + valuein);
+							$('.bono-compra').show();
 						}
 						if (keyin == "BonoCompraCodigo") {
 							$('.codigo-bc').text(valuein);
 						};
+					} else {
+						$('#detalle-devolucion > tbody:last').append('<tr><td>'+keyin+'</td><td>'+valuein+'</td></tr>');
+						
 					}
 
 				});
@@ -75,6 +92,97 @@ $(document).ready(function(){
         actualizarTotales();
     };
 
+    $('.search-cliente').on('click', function(){
+    	if($('.cliente').val() !==  ""){
+			if ($('.Tipo_de_Cliente').val() == '0') {
+				$.post('/CRM/Personas/buscar',
+{					'name' : $('.cliente').val()
+				}).success(function(data){
+					console.log(data);
+					$.each(data, function(i, value){
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
+					});
+				}).fail(function(data) {
+					//TODO: Mensaje de no encontrado
+				});
+			} else {
+				$.post('/CRM/Empresas/buscar',{
+					'name' : $('.cliente').val()
+				}).success(function(data){
+					$.each(data, function(i, value){
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombre']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+					});
+				}).fail(function (data) {
+
+				});
+			};
+
+			$('#buscarCliente').modal('show');
+		}
+	});
+
+	$('.agregar-cliente-sel').on('click', function(){
+		var nodoCliente = $("tbody.clientes-buscados-list tr.highlight");
+		var cliente = nodoCliente.find('td:eq(1)').text() + " " +nodoCliente.find('td:eq(2)').text();
+		$('.id-cliente-buscado').val(nodoCliente.find('td:eq(0)').text());
+		$('.cliente').val(cliente);
+		$('#buscarCliente').modal('hide');
+	});
+
+	if($('#pro-list-table').length){
+        actualizarTotales();
+        $('#no-valido').hide();
+ 		$('#valido').hide();
+ 		$('#no-existe').hide();
+    }
+
+    //Bono de Compra
+    $('.add-bono-modal-bt').on('click', function(){
+    	$('#agregarPago').modal('hide');
+    	$('#agregarBono').modal('show');
+    });
+
+    $('.cerrar-bono-modal').on('click', function(){
+    	$('#agregarPago').modal('show');
+    	$('#agregarBono').modal('hide');	
+    });
+
+    $('.veri-bono').on('click', function(){
+    	$('#no-valido').hide();
+ 		$('#valido').hide();
+ 		$('#no-existe').hide();
+ 		console.log($('.bono-compra-tb').val());
+    	$.post('/Ventas/BonoDeCompras/validar',{
+    		'bono':$('.bono-compra-tb').val()
+    	}).success(function(data){
+    		if (data == 'vigente') {
+    			$('#valido').show();
+    			$.post('/Ventas/BonoDeCompras/valor',{
+    				'bono': $('.bono-compra-tb').val()
+    			}).success(function(pago){
+    				pago = parseFloat(pago);
+					pago = 'Lps. ' + pago;
+					$('.pagos-list').append('<tr><td>Bono de Compra</td><td>'+pago+'</td></tr>');
+					actualizarPagos();
+    				actualizarTotales();
+    			});
+    			
+
+    		};
+    		if (data == 'vencido') {
+    			$('#no-valido').hide();
+    		};
+
+    		if (data == 'canjeado') {
+    			$('#no-valido').hide();
+
+    		};
+    	}).fail(function(data){
+    		$('#no-existe').show();
+    		$('.bono-compra-tb').val("");
+
+    	});
+    });
 
 	//Busqueda por AJAX
 	$('.agregar-producto').on('click',function(){
@@ -115,27 +223,30 @@ $(document).ready(function(){
 		data.abonos = [];
 
 		$('.pagos-list').find('tr').each(function(i, abono){
-			console.log("dafsdafdfS", abono);
+			//console.log("dafsdafdfS", abono);
 			data.abonos.push({
 				metodo: $(abono).find('td:eq(0)').text(),
-				monto: $(abono).find('td:eq(1)').text()
+				monto: $(abono).find('td:eq(1)').text().substring(5)
 			});
 		});
 
-		data.isv = $('.isv').text();
+		data.isv = $('.isv').text().substring(5);
 
-		data.saldo = $('.saldo-info').text();
+		data.saldo = $('.saldo-info').text().substring(5);
 
-		data.tipocliente = '1';
+		data.tipocliente = $('.Tipo_de_Cliente').val();
 
 		data.cliente = $('.cliente').val();
 
+		data.total = $('.grand-total').text().substring(5);
+		data.clienteid = $('.id-cliente-buscado').val();
 		data.caja = '1';
 
 		console.log(data);
 
 		$.post("/Ventas/Ventas/guardar", data).success(function(data){
-			console.log(data);
+			$('.num-factura').text(data[0].numFact);
+			console.log(data[0].numFact);
 			window.print();
 		});
 	});
@@ -233,6 +344,16 @@ $(document).ready(function(){
 
 	$('.table').on('blur', '.edit-cant', function(){
 		var content = $("tbody.pro-list tr.highlight").find('.edit-cant').val();
+		$.post('/Ventas/Ventas/checkStock', {
+ 			'codigo': $("tbody.pro-list tr.highlight").find('.cod').text()
+ 		}).success(function(data){
+ 			if (data == 0) {
+ 				$("tbody.pro-list tr.highlight").find('.nombre').append('<spam class="glyphicon glyphicon-remove"></spam>');
+ 			};
+ 			if (data < 5) {
+ 				$("tbody.pro-list tr.highlight").find('.nombre').append('<spam class="glyphicon glyphicon-info-sign"></spam>');
+ 			};
+ 		});
 		$("tbody.pro-list tr.highlight").find('.cantidad').text(content);
 		var newTotal = content * (($("tbody.pro-list tr.highlight").find('.precio').text()).substring(5));
 		$("tbody.pro-list tr.highlight").find('.total-art').text("Lps. " + newTotal);
@@ -269,25 +390,38 @@ $(document).ready(function(){
 	//Agregar Pago
 	$('.add-pago-modal-bt').on('click',function(){
 		var pago = $('.ammount-pago').val();
-		pago = parseFloat(pago);
-		pago = 'Lps. ' + pago;
-		$('.pagos-list').append('<tr><td>Efectivo</td><td>'+pago+'</td></tr>');
-
-		actualizarPagos();
+		if(!isNaN(pago)){
+			pago = parseFloat(pago);
+			pago = 'Lps. ' + pago;
+			$('.pagos-list').append('<tr><td>Efectivo</td><td>'+pago+'</td></tr>');
+			actualizarPagos();
+		} else {
+			$('.ammount-pago').val("");
+		}
 	});
 
 	//Setear Descuentos
 	$('.agregar-descuento').on('click',function(){
+		
 		$('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
 		    var cantidad = $(descuento).find('td:eq(4)').text();
 		    cantidad = cantidad/100;
 		    var subtotal = $('.sub-total').text();
 		    subtotal = parseFloat(subtotal.substring(5));
 		    var descuento = subtotal*cantidad;
-		    $('.descuento').text("Lps. " + descuento);
+		    var isv = (subtotal - descuento)* 0.15;
+		    var totallyTotalBro = (subtotal - descuento) + isv;
+		    $('.descuento').text("Lps. " + descuento.toFixed(2));
+			$('.sub-total').text("Lps. " + subtotal.toFixed(2));
+			$('.isv').text("Lps. " + isv.toFixed(2));
+			$('.grand-total').text("Lps. " + totallyTotalBro.toFixed(2));
+			var abonado = parseFloat($('.abonado-info').text().substring(5));
+
+			$('.saldo-info').text("Lps. " + (totallyTotalBro - abonado).toFixed(2));
 		});
 		$('#agregarDescuento').modal('hide');
 	});
+
 
 	//precio 
 	$("div.precio-costo-producto").change(function() {
@@ -298,6 +432,19 @@ $(document).ready(function(){
 			$(".value-input").val(""); 
 		}
 	});
+
+
+	//Selectores para Tipos de Documento
+	$('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
+		$('input#CRM_Personas_codigo').prop('placeholder',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().prop('name'));
+		$('input#CRM_Personas_codigo').prop('maxlength',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().attr('data-val'));
+    });
+
+    $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
+		$('input#CRM_Empresas_Codigo').prop('placeholder',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().prop('name'));
+		$('input#CRM_Empresas_Codigo').prop('maxlength',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().attr('data-val'));
+    });
+
 
 	//Actualiza los totales
 	function actualizarPagos(){
@@ -335,6 +482,24 @@ $(document).ready(function(){
 		actualizarPagos();
 	}
 
+	$('#VEN_DescuentoEspecial_FechaInicio').appendDtpicker({
+		"onShow": function(handler){
+			
+		},
+		"onHide": function(handler){
+			
+		}
+	});
+
+	$('#VEN_DescuentoEspecial_FechaFinal').appendDtpicker({
+		"onShow": function(handler){
+			
+		},
+		"onHide": function(handler){
+			
+		}
+	});
+
 	function setearTotalcc(valor,x){
 	    var a= valor.elements[x].value;
 	    var b=valor.elements[x+1].value;
@@ -355,6 +520,6 @@ $(document).ready(function(){
 	    document.getElementById("total").value-=c;
 	    document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
 	    valor.elements[valor.length-3].value=document.getElementById("total").value;
-	}
 
+        }
 });

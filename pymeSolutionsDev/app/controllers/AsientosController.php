@@ -29,10 +29,12 @@ class AsientosController extends BaseController {
 	public function create()
 	{
 	   $Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
-      
+      	$Periodo=false;
+      	if(ClasificacionPeriodo::all()->count())
+      		$Periodo=true;
        return View::make('AsientosContables.create')
-       		
-       		->with('Motivos',$Motivos);
+       		->with('Motivos',$Motivos)
+       		->with('PeriodoContable',$Periodo);
 	}
 
 	/**
@@ -78,7 +80,7 @@ class AsientosController extends BaseController {
 			$rules = array(
 	            'CON_MotivoTransaccion_Codigo' => 'required|unique:CON_MotivoTransaccion,CON_MotivoTransaccion_Codigo',
 	            'CON_MotivoTransaccion_Descripcion' => 'required|alpha_spaces',
-	            'CON_CatalogoContable_Debe' => 'required',
+	            'CON_CatalogoContable_Debe' => 'required|different:CON_CatalogoContable_Haber',
 	            'CON_CatalogoContable_Haber' => 'required'
 	        );
 			$validation= Validator::make($input,$rules);

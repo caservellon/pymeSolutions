@@ -1,3 +1,4 @@
+
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CRM_TipoDocumento`
 -- -----------------------------------------------------
@@ -8,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_TipoDocumento` (
   `CRM_TipoDocumento_Codigo` VARCHAR(45) NULL,
   `CRM_TipoDocumento_Nombre` VARCHAR(45) NULL,
   `CRM_TipoDocumento_Validacion` VARCHAR(50) NULL,
-  `CRM_TipoDocumento_Eliminados` DATETIME NULL,
+  `CRM_TipoDocumento_Eliminado` TINYINT(1) NULL DEFAULT FALSE,
   `CRM_TipoDocumento_Flag` TINYINT(1) NULL,
   PRIMARY KEY (`CRM_TipoDocumento_ID`))
 ENGINE = InnoDB;
@@ -28,10 +29,14 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Personas` (
   `CRM_Personas_Email` VARCHAR(45) NULL,
   `CRM_Personas_Celular` VARCHAR(45) NULL,
   `CRM_Personas_Fijo` VARCHAR(45) NULL,
-  `CRM_Personas_Descuento` DOUBLE NULL,
+  `CRM_Personas_Descuento` DECIMAL(2,2) NULL,
   `CRM_Personas_Foto` BLOB NULL,
   `CRM_Personas_Eliminado` DATETIME NULL,
   `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
+  `CRM_Personas_Estado` TINYINT(1) NULL,
+  `CRM_Personas_FechaCreacion` DATETIME NULL,
+  `CRM_Personas_FechaModificacion` DATETIME NULL,
+  `CRM_Personas_UsuarioModificacion` VARCHAR(45) NULL,
   PRIMARY KEY (`CRM_Personas_ID`),
   INDEX `fk_CRM_Personas_CRM_TipoDocumento1_idx` (`CRM_TipoDocumento_CRM_TipoDocumento_ID` ASC),
   CONSTRAINT `fk_CRM_Personas_CRM_TipoDocumento1`
@@ -53,10 +58,14 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_Empresas` (
   `CRM_Empresas_Nombre` VARCHAR(45) NULL,
   `CRM_Empresas_Direccion` VARCHAR(45) NULL,
   `CRM_Empresas_Logo` BLOB NULL,
-  `CRM_Empresas_Descuento` DOUBLE NULL,
+  `CRM_Empresas_Descuento` DECIMAL(2,2) NULL,
   `CRM_Personas_CRM_Personas_ID` INT NULL,
-  `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
   `CRM_Empresas_Eliminados` DATETIME NULL,
+  `CRM_Empresas_FechaCreacion` DATETIME NULL,
+  `CRM_Empresas_FechaModificacion` DATETIME NULL,
+  `CRM_Empresas_UsuarioModificacion` VARCHAR(45) NULL,
+  `CRM_Empresas_Estado` TINYINT(1) NULL,
+  `CRM_TipoDocumento_CRM_TipoDocumento_ID` INT NOT NULL,
   PRIMARY KEY (`CRM_Empresas_ID`),
   INDEX `fk_CRM_Empresas_CRM_Personas1_idx` (`CRM_Personas_CRM_Personas_ID` ASC),
   INDEX `fk_CRM_Empresas_CRM_TipoDocumento1_idx` (`CRM_TipoDocumento_CRM_TipoDocumento_ID` ASC),
@@ -96,9 +105,6 @@ DROP TABLE IF EXISTS `pymeERP`.`CRM_ValorCampoLocal` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`CRM_ValorCampoLocal` (
   `CRM_ValorCampoLocal_ID` INT NOT NULL AUTO_INCREMENT,
   `CRM_ValorCampoLocal_Valor` VARCHAR(45) NULL,
-  `CRM_ValorCampoLocal_Creacion` DATETIME NULL,
-  `CRM_ValorCampoLocal_Modificacion` DATETIME NULL,
-  `CRM_ValorCampoLocal_Usuario` VARCHAR(45) NULL,
   `GEN_CampoLocal_GEN_CampoLocal_ID` INT NOT NULL,
   `CRM_Empresas_CRM_Empresas_ID` INT NULL,
   `CRM_Personas_CRM_Personas_ID` INT NULL,

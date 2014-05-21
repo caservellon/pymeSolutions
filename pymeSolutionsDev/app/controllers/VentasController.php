@@ -35,8 +35,14 @@ class VentasController extends BaseController {
 	{
 		$Clientes = Persona::all();
 
-		$Descuentos = Descuento::all();
+		$Descuentos = Descuento::where('VEN_DescuentoEspecial_Estado', '1')->get();
 		$Productos = Producto::all();
+
+		if (Caja::where("VEN_Caja_Estado", 1)->get()->count() == 0) {
+			$Cajas = Caja::where("VEN_Caja_Estado",1)->get();
+			return View::make('Cajas.index', compact('Cajas'));
+		}
+
 		return View::make('Ventas.create', compact('Productos', 'Descuentos', 'Clientes'));
 	}
 
@@ -69,7 +75,7 @@ class VentasController extends BaseController {
 	 * @return Response
 	 */
 	public function guardar(){
-		$numFact = 0;
+		//$numFact = 0;
 		$return = array();
 		if (Request::ajax())
 		{
@@ -79,13 +85,37 @@ class VentasController extends BaseController {
 			$saldo = Input::get('saldo');
 			$isv = Input::get('isv');
 			$caja = Input::get('caja');
+			$total = Input::get('total');
+			$idcliente = Input::get('clienteid');
+			$tipo_cliente = Input::get('tipocliente');
+
+			$subTotal = 0.0;
+			$isvCalculado = 0;
+			$descuentoCalculado = 0;
+			$otrosIsvCalculado = 0;
+			$costoVendido = 0;
+			$totalEfectivo = 0;
+			$totalBonoDeCompra = 0;
 
 			$venta = new Venta;
-			$venta->VEN_Caja_VEN_Caja_id = (float) $caja;
-			$venta->VEN_Venta_TotalCambio = (float) $saldo;
-			$venta->VEN_Venta_ISV = (float) $isv;
+			$venta->VEN_Venta_Codigo = "Venta_Normal_" . (double) $caja . "_" . date("Y-m-d H:i:s"); 
+			$venta->VEN_Caja_VEN_Caja_id = (double) $caja;
+			$venta->VEN_Venta_TotalCambio = (double) $saldo;
+			if($tipo_cliente == 0){
+
+				$venta->CRM_Personas_CRM_Personas_ID = $idcliente;
+			} else {
+				$venta->CRM_Empresas_CRM_Empresas_ID = $idcliente;
+			}
+			$venta->VEN_Venta_TimeStamp = date("Y-m-d h:i:s");
+			$venta->VEN_Venta_ISV = $isv;
+			$venta->VEN_Venta_Total = $total;
+			$venta->VEN_Venta_Subtotal = $total - $isv;
+
 			$venta->save();
 			array_push($return, ['numFact' => $venta->VEN_Venta_id]);
+
+			
 
 			foreach ($productos as $p) {
 				$DetalleVenta = new DetalleDeVenta;
@@ -94,12 +124,22 @@ class VentasController extends BaseController {
 				$DetalleVenta->VEN_DetalleDeVenta_PrecioVenta = Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioVenta;
 				$DetalleVenta->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
 				$DetalleVenta->save();
+				$subTotal += (float)$DetalleVenta->VEN_DetalleDeVenta_PrecioVenta * $p['cantidad'];
+				$isvCalculado += $subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_ISV; // TODO revisar el campo de isv en db
+				$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 			}
 
-			foreach ($descuentos as $d) {
-				
-
+			if ($descuentos != "") {
+				foreach ($descuentos as $d) {
+					$descuentoCalculado += ((Double) Descuento::find(intval($d))->VEN_DescuentoEspecial_Valor / 100.0) * $subTotal;
+				}
 			}
+			
+
+			$venta->VEN_Venta_DescuentoCliente = $descuentoCalculado;
+			$venta->VEN_Venta_TotalDescuentoProductos = $descuentoCalculado;
+			$venta->save();
+
 
 			foreach ($abonos as $a) {
 				$pago = new Pago;
@@ -108,12 +148,32 @@ class VentasController extends BaseController {
 				$pago->VEN_Venta_VEN_Caja_VEN_Caja_id = $caja;
 				$pago->VEN_FormaPago_VEN_FormaPago_id = FormaPagoVentas::where('VEN_FormaPago_Descripcion',$a['metodo'])->firstOrFail()->VEN_FormaPago_id;
 				$pago->save();
+				if ($a['metodo'] == "Efectivo") {
+					$totalEfectivo += $a['monto'];
+				} else {
+					$totalBonoDeCompra += $a['monto'];
+				}
+			}
+
+
+			$subTotal = $subTotal - $descuentoCalculado;
+			if ($totalBonoDeCompra != 0) {
+				Contabilidad::GenerarTransaccion(4, $totalBonoDeCompra);
+			}
+			if ($totalEfectivo != 0) {
+				Contabilidad::GenerarTransaccion(3, $totalEfectivo);
 			}
 			
+			
+			Contabilidad::GenerarTransaccion(5,$isvCalculado);
+			Contabilidad::GenerarTransaccion(7,$descuentoCalculado);
+			//Contabilidad::GenerarTransaccion(6,$costoVendido);
+
 			return $return;
 
+
 		}
-	
+
 	}
 
 	public function Listar() {
@@ -124,18 +184,18 @@ class VentasController extends BaseController {
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
-	
+
 	}
 
 	public function ListarOne($id) {
 		$Venta = DB::table('VEN_DetalleDeVenta')->where('VEN_Venta_VEN_Venta_id',$id)->get();
 
 		if ($Venta) {
-			return View::make('Ventas.ListarOne')->with('Venta', $Venta);
+			return View::make('Ventas.ListarOne')->with('Venta', $Venta, 'id', $id);
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
-	
+
 	}
 
 	public function Devs() {
@@ -146,18 +206,18 @@ class VentasController extends BaseController {
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
-	
+
 	}
 
 	public function DevsOne($id) {
 		$Dev = DB::table('VEN_DetalleDevolucion')->where('VEN_Devolucion_VEN_Devolucion_id',$id)->get();
 
 		if ($Dev) {
-			return View::make('Ventas.DevsOne')->with('Dev', $Dev);
+			return View::make('Ventas.devsOne')->with('Dev', $Dev);
 		}
 
 		return Redirect::route('Ventas.Ventas.create');
-	
+
 	}
 
 	/**
@@ -208,11 +268,11 @@ class VentasController extends BaseController {
 	{
 		if (Request::ajax())
 		{
-			$Input = Input::all();
+			$Input = Input::get('codigo');
 
-			$Producto = Producto::where('INV_Producto_Codigo', $Input['codigo'])->get();
+			$Producto = Producto::where('INV_Producto_Codigo', $Input)->firstOrFail();
 
-		    return $Producto;
+		    return $Producto->INV_Producto_Cantidad;
 		}
 	}
 

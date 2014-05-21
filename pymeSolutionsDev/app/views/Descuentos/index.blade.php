@@ -28,6 +28,7 @@
 		</thead>
 
 		<tbody>
+			
 			@foreach ($Descuentos as $Descuento)
 				<tr>
 					<td>{{{ $Descuento->VEN_DescuentoEspecial_id }}}</td>
@@ -37,11 +38,12 @@
 					<td>{{{ $Descuento->VEN_DescuentoEspecial_FechaInicio }}}</td>
 					<td>{{{ $Descuento->VEN_DescuentoEspecial_FechaFinal }}}</td>
 					<td>{{{ $Descuento->VEN_DescuentoEspecial_Precedencia }}}</td>
-					@if ($Descuento->VEN_DescuentoEspecial_Estado  == 1)
-						<td>Activa</td>
-					@else
-						<td>Desactivada</td>
-					@endif
+					@if($Descuento->VEN_DescuentoEspecial_Estado  == 1)
+							<td><span class="glyphicon glyphicon-ok"></span></td>
+						@else
+							<td></td>
+						@endif	
+					
                     <td>{{ link_to_route('Ventas.Descuentos.edit', 'Editar', array($Descuento->VEN_DescuentoEspecial_id), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Ventas.Descuentos.destroy', $Descuento->VEN_DescuentoEspecial_id))) }}

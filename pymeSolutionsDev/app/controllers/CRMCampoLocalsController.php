@@ -24,20 +24,20 @@ class CRMCampoLocalsController extends BaseController {
 
 	public function store()
 	{
-		$validation = true;
+		$input = Input::all();
+		$validation = Validator::make($input, CampoLocal::$rules);
+
 		$Campo = new CampoLocal;
-		$Campo->GEN_CampoLocal_Activo = 1;
+		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
-		if (Input::get('GEN_CampoLocal_Nombre') == "") {
-			$validation = false;
-		} else {
-			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
-			$Codigo = "CRM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
-			$Campo->GEN_CampoLocal_Codigo = $Codigo;
-		}
-		if ($validation) {
+		$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
+		$Codigo = "CRM_" . Input::get('Tipo_de_Perfil') . "_" . $Campo->GEN_CampoLocal_Nombre;
+		$Campo->GEN_CampoLocal_Codigo = $Codigo;
+		$valueListArray =  Input::get('value-list-array');
+		$Listadu = $Campo->GEN_CampoLocal_Tipo == "LIST" ? ($valueListArray == "" ? false : true) : true ;
+		if ($validation->passes() && $Listadu ) {
 			$index = 0;
 			$count = CampoLocal::where("GEN_CampoLocal_Codigo", $Campo->GEN_CampoLocal_Codigo)->get()->count();
 			while($count > 0){
@@ -47,7 +47,7 @@ class CRMCampoLocalsController extends BaseController {
 			$Campo->GEN_CampoLocal_Codigo = $index == 0 ? $Campo->GEN_CampoLocal_Codigo: $Campo->GEN_CampoLocal_Codigo . $index;
 			if($Campo->save()){
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
-					$oneList = Input::get('value-list-array');
+					$oneList = $valueListArray;
 					$valueList = explode(";", $oneList);
 					foreach ($valueList as $value ) {
 						$ListItem = new CampoLocalLista;
@@ -60,7 +60,9 @@ class CRMCampoLocalsController extends BaseController {
 			}
 			return Redirect::route('CRM.CampoLocals.index');
 		}
-
+		if($valueListArray == "" && $Campo->GEN_CampoLocal_Tipo == 'LIST'){
+			$validation->getMessageBag()->add('GEN_CampoLocal_Tipo', 'La lista de valores no puede ser vacía');
+		}
 		return Redirect::route('CRM.CampoLocals.create')
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -97,22 +99,18 @@ class CRMCampoLocalsController extends BaseController {
 	}
 
 	public function update($id){
-
-		$validation = true;
+		$input = array_except(Input::all(), '_method');
+		$validation = Validator::make($input, CampoLocal::$rules);
 		$Campo = CampoLocal::find($id);
-		$Campo->GEN_CampoLocal_Activo = 1;
+		$Campo->GEN_CampoLocal_Activo = Input::get('GEN_CampoLocal_Activo');
 		$Campo->GEN_CampoLocal_Requerido = Input::get('GEN_CampoLocal_Requerido') == 1 ? 1 : 0;
 		$Campo->GEN_CampoLocal_ParametroBusqueda = Input::get('GEN_CampoLocal_ParametroBusqueda') == 1 ? 1 : 0;
+		$valueListArray =  Input::get('value-list-array');
 		if($Campo->GEN_CampoLocal_Tipo != "LIST"){
 			$Campo->GEN_CampoLocal_Tipo = Input::get('GEN_CampoLocal_Tipo');
-		}
-		if (Input::get('GEN_CampoLocal_Nombre') == "") {
-			$validation = false;
-		} else {
-			$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
-
-		}
-		if ($validation){
+		}	
+		$Campo->GEN_CampoLocal_Nombre = Input::get("GEN_CampoLocal_Nombre");
+		if ($validation->passes() && $valueListArray != ""){
 			if($Campo->save()){
 				if ($Campo->GEN_CampoLocal_Tipo == 'LIST') {
 					$oneList = Input::get('value-list-array');
@@ -131,7 +129,9 @@ class CRMCampoLocalsController extends BaseController {
 			}
 			return Redirect::route('CRM.CampoLocals.index');
 		}
-
+		if($valueListArray == ""){
+			$validation->getMessageBag()->add('GEN_CampoLocal_Tipo', 'La lista de valores no puede ser vacía');
+		}
 		return Redirect::route('CRM.CampoLocals.edit', $id)
 			->withInput()
 			->withErrors($validation)

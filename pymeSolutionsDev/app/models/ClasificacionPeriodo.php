@@ -7,13 +7,14 @@ class ClasificacionPeriodo extends Eloquent {
 	protected $table ='CON_ClasificacionPeriodo';
 	protected $primaryKey='CON_ClasificacionPeriodo_ID';
 	protected $fillable = array('CON_ClasificacionPeriodo_Nombre','CON_ClasificacionPeriodo_CatidadDias');
-	
+	protected $softDelete=true;
+
 	public static $rules = array(
 			//'CON_ClasificacionPeriodo_ID' => 'required|integer',
 
-			'CON_ClasificacionPeriodo_Nombre' => 'required|max:45|alpha_spaces',
+			'CON_ClasificacionPeriodo_Nombre' => 'required|max:45|alphanum_spaces',
 			'CON_ClasificacionPeriodo_CatidadDias' => 'required|integer|max:366',
-			'CON_PeriodoContable_FechaInicio' => 'required|date_format:Y-m-d'
+			'CON_PeriodoContable_FechaInicio' => 'required|date_format:Y-m-d|date|after:?'
 
 
 		);
@@ -27,9 +28,9 @@ class ClasificacionPeriodo extends Eloquent {
 
 	);
 
-	public function CON_PeriodoContable()
+	public function PeriodosContables()
     {
-        return $this->hasMany('PeriodoContable');
+        return $this->hasMany('PeriodoContable','CON_ClasificacionPeriodo_ID');
     }
 
 }

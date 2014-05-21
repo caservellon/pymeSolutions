@@ -24,8 +24,10 @@ class LibroDiarioController extends BaseController {
 	{
 		
 		if(Request::Ajax()){
-			$LibroDiario = $this->LibroDiario->where('CON_LibroDiario_FechaCreacion','>=',Input::get('date1')
-				,'and','CON_LibroDiario_FechaCreacion','<=',Input::get('date2'))->get();
+			$LibroDiario = $this->LibroDiario
+				->where('CON_LibroDiario_FechaCreacion','>=',Input::get('date1'))
+				->where('CON_LibroDiario_FechaCreacion','<=',Input::get('date2'))
+				->get();
 			$Asientos=$this->getAsientos($LibroDiario);
 			return View::make('LibroDiario.table')
 				->with('LibroDiario',$Asientos);
@@ -45,7 +47,8 @@ class LibroDiarioController extends BaseController {
 		//	$Cuentas=CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
 			
 			$CuentaMotivo= CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
-			if (($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==0 XOR $Asiento->CON_LibroDiario_AsientoReversion==1)){
+
+			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==0 XOR $Asiento->CON_LibroDiario_AsientoReversion==1){
 
 			   $Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
 			   $Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);

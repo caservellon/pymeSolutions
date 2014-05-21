@@ -30,12 +30,10 @@ class TipoDocumentosController extends BaseController {
 		
 		if ($validation->passes())
 		{
-			$pattern = '/[#\/_\-\.L]*/';
-			$validationString = $input['CRM_TipoDocumento_Validacion'];
-			if(preg_match_all($pattern, $validationString) == 2){
-				$this->TipoDocumento->create($input);
-				return Redirect::route('CRM.TipoDocumentos.index');
-			}
+			//$pattern = '/[X\/_\-\.L]*/';
+			//$validationString = $input['CRM_TipoDocumento_Validacion'];
+			$this->TipoDocumento->create($input);
+			return Redirect::route('CRM.TipoDocumentos.index');
 			
 		}
 
@@ -75,13 +73,13 @@ class TipoDocumentosController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$pattern = '/[#\/_\-\.L]*/';
-			$validationString = $input['CRM_TipoDocumento_Validacion'];
-			if(preg_match_all($pattern, $validationString) == 2){
-				$TipoDocumento = $this->TipoDocumento->find($id);
-				$TipoDocumento->update($input);
-				return Redirect::route('CRM.TipoDocumentos.index');
-			}
+			//$pattern = '/[X\/_\-\.L]*/';
+			//$validationString = $input['CRM_TipoDocumento_Validacion'];
+			//if(preg_match_all($pattern, $validationString) == 2){
+			$TipoDocumento = $this->TipoDocumento->find($id);
+			$TipoDocumento->update($input);
+			return Redirect::route('CRM.TipoDocumentos.index');
+			//}
 
 		}
 
@@ -99,7 +97,15 @@ class TipoDocumentosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->TipoDocumento->find($id)->delete();
+		$doc = $this->TipoDocumento->find($id);
+
+		if ($doc->CRM_TipoDocumento_Eliminado == true) {
+			$doc->CRM_TipoDocumento_Eliminado = false;
+		} else {
+			$doc->CRM_TipoDocumento_Eliminado = true;
+		}
+
+		$doc->save();
 
 		return Redirect::route('CRM.TipoDocumentos.index');
 	}
