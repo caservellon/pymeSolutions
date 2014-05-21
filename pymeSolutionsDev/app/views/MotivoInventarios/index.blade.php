@@ -60,8 +60,7 @@
 <tbody>
 @foreach($Conceptos as $concepto)
 <tr>
-	@if(!($concepto->INV_MotivoMovimiento_Activo))
-		<td>{{{$concepto->INV_MotivoMovimiento_Nombre}}}</td>
+	@if(!($concepto->INV_MotivoMovimiento_Activo)) <td>{{{$concepto->INV_MotivoMovimiento_Nombre}}}</td>
 		@if($concepto->INV_MotivoMovimiento_TipoMovimiento)
 		<td>Entrada</td>
 		@else
