@@ -75,8 +75,8 @@
 									<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
 								@endforeach
 								
-								<td>{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}</td>
-								<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('readonly' => 'readonly', 'tabindex' => '-1')) }}</td>
+								<td>{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}</td>
+								<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'readonly' => 'readonly', 'tabindex' => '-1')) }}</td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -89,12 +89,21 @@
 				@foreach($FormasPago as $FormaPago)
 					<?php $FormasPago2[$FormaPago -> IdFormaPago] = $FormaPago -> Nombre ?>
 				@endforeach
-				<label>Forma de Pago: {{ Form::select('IdFormaPago', $FormasPago2, $SolicitudCotizacion[0] -> IdFormaPago, array('class' => 'form-control')) }}</label>
+				<label>Forma de Pago: {{ Form::select('IdFormaPago', $FormasPago2, $SolicitudCotizacion[0] -> IdFormaPago, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}</label>
 				
 				<br><br>
 				
+				<label>Cantidad de pagos: {{ Form::text('CantidadPagos', $SolicitudCotizacion[0] -> CantidadPagos, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}</label>
+				
+				<br><br>
+				
+				<label>Per&iacute;do de gracia: {{ Form::text('PeriodoGracia', $SolicitudCotizacion[0] -> PeriodoGracia, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}</label>
+				
+				<br><br>
+				
+				
 				<label>Fecha de Vigencia</label>
-				{{ Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'readonly' => 'readonly')) }}
+				{{ Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Hacer clic para agregar fecha')) }}
 				<script>
 					$('#VigenciaCotizacion').appendDtpicker({
 						"dateFormat": "YYYY-MM-DD h:m",
@@ -114,8 +123,12 @@
 				{{-- </div> --}}
 			</div>
 			
-			<div class="col-md-8" style="text-align: right">
-				<label>Total: {{ Form::text('TotalFinal', null, array('readonly' => 'readonly', 'tabindex' => '-1')) }}</label>
+			<div class="col-md-5">
+			</div>
+			
+			<div class="col-md-3 align-right">
+				{{ Form::label('Total', 'Total: ', array('class' => 'control-label')) }}
+				{{ Form::text('TotalFinal', null, array('class' => 'form-control', 'readonly' => 'readonly', 'tabindex' => '-1')) }}
 			</div>
 			
 			<br>
@@ -135,7 +148,9 @@
 					<br>
 					<br>
 				
-					<h4 class="text-center">Campos de Cotizaci&oacute;n</h4>
+					@if(count($CamposLocalesCotizaciones) != 0)
+						<h4 class="text-center">Campos de Cotizaci&oacute;n</h4>
+					@endif
 					
 					@foreach($CamposLocalesCotizaciones as $CampoLocalCotizaciones)
 						<br>

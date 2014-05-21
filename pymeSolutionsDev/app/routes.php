@@ -292,8 +292,6 @@ Route::group(array('prefix' => 'Compras'), function(){
 		'uses' => 'OrdenCompraController@DetallesOrdenCompra'
 	));
 	
-	Route::post('/search_index', array('as' => 'search_index', 'uses' =>'CotizacionController@search_index'));
-	
 });
 
 
