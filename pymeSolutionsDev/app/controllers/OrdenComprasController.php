@@ -557,25 +557,47 @@ class OrdenComprasController extends BaseController {
 
             $input = Input::all();
             $ordenOC=OrdenCompra::find(Input::get('id_ordenCompra'));
-           // $fp= DB::table('INV_Proveedor_FormaPago')->where('INV_FormaPago_ID', '=',$ordenOC->COM_OrdenCompra_FormaPago)->first();
-            $fechaAnterior=date('Y-m-d');
-            for( $i=0; $i<$ordenOC->COM_OrdenCompra_CantidadPago; $i++){
+            $fp= DB::table('INV_FormaPago')->where('INV_FormaPago_ID', '=',$ordenOC->COM_OrdenCompra_FormaPago)->first();
+            $abonos=$ordenOC->COM_OrdenCompra_Total/$ordenOC->COM_OrdenCompra_CantidadPago;
+            
+            $fecha2= $this->calculaFecha('days',$ordenOC->COM_OrdenCompra_PeriodoGracia,date('Y-m-d'));
+            $ultimo= COMOrdenPago::count();
+                $nuevopago=  new COMOrdenPago();
+                $nuevopago->COM_OrdenPago_Codigo='COM_OPG_'.($ultimo+1);
+                $nuevopago->COM_OrdenCompra_idOrdenCompra= Input::get('id_ordenCompra');
+                $nuevopago->COM_OrdenPago_Activo=1;
+                $nuevopago->COM_Usuario_idUsuarioCreo=1;
+                $nuevopago->COM_OrdenCompra_FechaCreo= date('Y/m/d H:i:s');
+                $nuevopago->COM_OrdenCompra_FechaPagar=$fecha2;
+                $nuevopago->COM_OrdenCompra_Monto=$abonos;
+                $nuevopago->COM_OrdenCompra_FormaPago=$ordenOC->COM_OrdenCompra_FormaPago;
+                $nuevopago->COM_Proveedor_IdProveedor =$ordenOC->COM_Proveedor_IdProveedor;
+                $nuevopago->save();
+                
+               
 
-                $fecha= $this->calculaFecha('days',15,$fechaAnterior);
-                echo'crea'.$i.'en '.$fecha;
-                $fechaAnterior=$fecha;
+                $fechaAnterior=$fecha2;
+            for( $i=0; $i<($ordenOC->COM_OrdenCompra_CantidadPago-1); $i++){
+
+                $fecha= $this->calculaFecha('days',$fp->INV_FormaPago_DiasCredito,$fechaAnterior);
+                $ultimo= COMOrdenPago::count();
+                $nuevopago=  new COMOrdenPago();
+                $nuevopago->COM_OrdenPago_Codigo='COM_OPG_'.($ultimo+1);
+                $nuevopago->COM_OrdenCompra_idOrdenCompra= Input::get('id_ordenCompra');
+                $nuevopago->COM_OrdenPago_Activo=1;
+                $nuevopago->COM_Usuario_idUsuarioCreo=1;
+                $nuevopago->COM_OrdenCompra_FechaCreo= date('Y/m/d H:i:s');
+                $nuevopago->COM_OrdenCompra_FechaPagar=$fecha;
+                $nuevopago->COM_OrdenCompra_Monto=$abonos;
+                $nuevopago->COM_OrdenCompra_FormaPago=$ordenOC->COM_OrdenCompra_FormaPago;
+                $nuevopago->COM_Proveedor_IdProveedor =$ordenOC->COM_Proveedor_IdProveedor;
+                $nuevopago->save();                
+
             }
-            /*$ultimo= COMOrdenPago::count();
-            $nuevopago=  new COMOrdenPago();
-            $nuevopago->COM_OrdenPago_Codigo='COM_OPG_'.($ultimo+1);
-            $nuevopago->COM_OrdenCompra_idOrdenCompra= Input::get('id_ordenCompra');
-            $nuevopago->COM_OrdenPago_Activo=1;
-            $nuevopago->COM_Usuario_idUsuarioCreo=1;
-            $nuevopago->COM_OrdenPago_FechaCreo= date('Y/m/d H:i:s');
-            $nuevopago->save();
+           
             $ruta = route('ListaOrdenes');
                     $mensaje = Mensaje::find(14);
-                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));*/
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
 
         //search de mazoni
