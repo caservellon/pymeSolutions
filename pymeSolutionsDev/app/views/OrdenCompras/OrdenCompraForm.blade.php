@@ -271,6 +271,7 @@
   </div>
       <h5>Nombre del Oficial de Compras</h5></div>
   </div>
+ 
   
   <script type="text/javascript">setExistentes("<?php echo $contadorDetalle; ?>")</script> 
 	<div class="row">  
