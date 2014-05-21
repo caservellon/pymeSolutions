@@ -8,6 +8,13 @@
       </div>
 </div>
 
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
+
 {{ Form::model($CampoLocal, array('method' => 'PATCH', 'route' => array('Inventario.CampoLocals.update', $CampoLocal->GEN_CampoLocal_ID), 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
@@ -85,12 +92,5 @@
 
 
 {{ Form::close() }}
-
-
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

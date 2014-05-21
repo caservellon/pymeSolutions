@@ -3,7 +3,14 @@
 @section('main')
 
 
+@if ($errors->any())
+    <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+    </ul>
+@endif
+
 <h3 class="sub-header">Productos Agregados</h3>
+
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
@@ -96,12 +103,6 @@
     </div>
 
 
-@if ($errors->any())
-	<div class="" style="margin-top:50px;"><ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-    </div>
-@endif
 
 @stop
 

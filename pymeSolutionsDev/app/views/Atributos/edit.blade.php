@@ -8,17 +8,23 @@
       </div>
 </div>
 
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
 {{ Form::model($Atributo, array('method' => 'PATCH', 'route' => array('Inventario.Atributos.update', $Atributo->INV_Atributo_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
     <div class="form-group">
         {{ Form::label('INV_Atributo_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
-            {{ Form::text('INV_Atributo_Codigo', $Atributo->INV_Atributo_Codigo, array('class' => 'form-control', 'id' => 'INV_Atributo_Codigo', 'placeholder'=>'ATRIB-00001')) }}
+            {{ Form::text('INV_Atributo_Codigo', $Atributo->INV_Atributo_Codigo, array('class' => 'form-control', 'id' => 'INV_Atributo_Codigo', 'placeholder'=>'ATRIB-00001', 'maxlength'=>'16')) }}
         </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Atributo_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Atributo_Nombre', $Atributo->INV_Atributo_Nombre, array('class' => 'form-control', 'id' => 'INV_Atributo_Nombre', 'placeholder' => 'name' )) }}
+        {{ Form::text('INV_Atributo_Nombre', $Atributo->INV_Atributo_Nombre, array('class' => 'form-control', 'id' => 'INV_Atributo_Nombre', 'placeholder' => 'name', 'maxlength'=>'128')) }}
       </div>
     </div> 
     <div class="form-group">
@@ -26,11 +32,11 @@
       <div class="col-md-5">
         {{ Form::select('INV_Atributo_TipoDato', array('Numerico' => 'Numerico', 'Decimal' => 'Decimal', 'Texto' => 'Texto' ), $Atributo->INV_Atributo_TipoDato, array('class' => 'form-control', 'id' => 'INV_Atributo_TipoDato', 'placeholder' => '#' )) }}
       </div>
-    </div> 
+    </div>
     <div class="form-group">
-      {{ Form::label('INV_Atributo_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_Atributo_Activo', 'Estado: ', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::checkbox('INV_Atributo_Activo', '1', $Atributo->INV_Atributo_Activo, array('class' => 'col-md-4 control-label')) }}
+        {{ Form::select('INV_Atributo_Activo', array('1' => 'Activada', '0' => 'Desactivada'), $Atributo->INV_Atributo_Activo, array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>
     {{ Form::hidden('INV_Atributo_FechaModificacion', date('Y-m-d H:i:s')) }}
@@ -42,10 +48,5 @@
     </div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

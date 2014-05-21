@@ -9,8 +9,11 @@
 	<a type="button" href="{{ URL::route('Inventario.MovimientoInventario.Entrada') }}" class="btn btn-primary" style="width:200px; height:200px; padding-top: 3%">
 	  <img src="/images/get-128.png"><br> Entradas de Inventario
 	</a>
-	<a src="/images/get-128.png" type="button" href="{{ URL::route('Inventario.MovimientoInventario.Salida') }}" class="btn btn-success" style="width:200px; height:200px; margin-left:5%; padding-top: 3%">
+	<a type="button" href="{{ URL::route('Inventario.MovimientoInventario.Salida') }}" class="btn btn-success" style="width:200px; height:200px; margin-left:5%; padding-top: 3%">
 	  <img src="/images/open.png"><br> Salidas de Inventario
+	</a>
+	<a type="button" href="{{ URL::route('Inventario.MovimientoInventario.Orden') }}" class="btn btn-info" style="width:200px; height:200px; margin-left:5%; padding-top: 3%">
+	  <img src="/images/orden.png"><br> Registrar Orden de Compra
 	</a>
 </div>
 @stop

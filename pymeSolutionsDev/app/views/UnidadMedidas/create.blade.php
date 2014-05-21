@@ -8,19 +8,23 @@
       </div>
 </div>
 
-
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
 
 {{ Form::open(array('route' => 'Inventario.UnidadMedidas.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
     <div class="form-group">
         {{ Form::label('INV_UnidadMedida_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::text('INV_UnidadMedida_Nombre', null, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_Nombre', 'placeholder'=>'name')) }}
+            {{ Form::text('INV_UnidadMedida_Nombre', null, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_Nombre', 'placeholder'=>'name', 'maxlength'=>'128')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('INV_UnidadMedida_Descripcion', 'Descripción: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::textarea('INV_UnidadMedida_Descripcion', null, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_UnidadMedida_Descripcion', 'placeholder'=>'Descripcion')) }}
+            {{ Form::textarea('INV_UnidadMedida_Descripcion', null, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_UnidadMedida_Descripcion', 'placeholder'=>'Descripcion', 'maxlength'=>'256')) }}
         </div>
     </div>
     <div class="form-group">
@@ -39,11 +43,6 @@
     
 {{ Form::close() }}
 
-@if ($errors->any())
-    <ul>
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-@endif
 
 @stop
 

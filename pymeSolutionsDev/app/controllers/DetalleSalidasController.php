@@ -76,12 +76,14 @@ class DetalleSalidasController extends BaseController {
 					->withErrors('Ingrese una cantidad menor')
 					->with('message', 'Cantidad muy Grande');
 			}
-			//Calcular Precio de Costo
-			//$Producto->INV_Producto_PrecioCosto = Input::get('INV_DetalleMovimiento_PrecioCosto');
 			
+
 			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad - Input::get('INV_DetalleMovimiento_CantidadProducto');
 			$Producto->save();
 			$this->DetalleMovimiento->create($input);
+			
+			//Generar los asientos para la transacción de entrada a inventario
+			Contabilidad::invGenerarTransaccion($input['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'], $input['INV_DetalleMovimiento_PrecioCosto']);
 			//return View::make('DetalleSalidas.create', compact('Productos', 'Motivo', 'id'));
 			return Redirect::route('Inventario.DetalleSalida.create');
 		}

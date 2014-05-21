@@ -19,31 +19,21 @@
 
 </head>
 <body style="margin-top: 50px">
-  
-  <div class="navbar navbar-fixed-top navbar-inverse" role="navigation" style="text-align:left;">
-    <div class="container">
-      <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="/">pyme Solutions</a>
-      </div>
-        
-        <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-          <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="/Ventas/Ventas/create">Gestión de Ventas</a></li>
-                  <li><a href="/Ventas/Cajas">Gestión de Caja</a></li>
-                  <li><a href="/Ventas/Devoluciones/create">Devoluciones</a></li>
-                  <li class="divider"></li>
-                  <li><a href="/Ventas">Configuración</a></li>
-                </ul>
-              </li>
+  <header>
+  <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <a class="navbar-brand" href="#">pyme Solutions</a>
+
+    <ul class="nav navbar-nav navbar-left">
+      <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/Ventas/Ventas/create">Gestión de Ventas</a></li>
+              <li><a href="/Ventas/Cajas">Gestión de Caja</a></li>
+              <li><a href="/Ventas/Devoluciones/create">Devoluciones</a></li>
+              <li class="divider"></li>
+              <li><a href="/Ventas">Configuración</a></li>
+            </ul>
+          </li>
 
           <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>

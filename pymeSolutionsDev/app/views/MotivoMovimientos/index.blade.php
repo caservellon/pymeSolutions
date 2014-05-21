@@ -2,10 +2,10 @@
 
 @section('main')
 
-<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Motivo Movimiento de Inventario<small></h2>
+<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Concepto Movimiento de Inventario<small></h2>
 <div class="btn-agregar">
 	<a type="button" href="{{ URL::route('Inventario.MotivoMovimiento.create') }}" class="btn btn-default">
-	  <span class="glyphicon glyphicon-shopping-cart"></span> Nuevo Motivo
+	  <span class="glyphicon glyphicon-shopping-cart"></span> Nuevo Concepto
 	</a>
 </div>
 
@@ -38,10 +38,10 @@
 					<td>{{{ $MotivoMovimiento->INV_MotivoMovimiento_FechaModificacion }}}</td>
 					<td>{{{ $MotivoMovimiento->INV_MotivoMovimiento_UsuarioModificacion }}}</td>
 					<td>{{{ $MotivoMovimiento->INV_MotivoMovimiento_Activo ? 'Activo' : 'Inactivo' }}}</td>
-                    <td>{{ link_to_route('Inventario.MotivoMovimiento.edit', 'Edit', array($MotivoMovimiento->INV_MotivoMovimiento_ID), array('class' => 'btn btn-info')) }}</td>
+                    <td>{{ link_to_route('Inventario.MotivoMovimiento.edit', 'Editar', array($MotivoMovimiento->INV_MotivoMovimiento_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.MotivoMovimiento.destroy', $MotivoMovimiento->INV_MotivoMovimiento_ID))) }}
-                            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
+                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
 				</tr>

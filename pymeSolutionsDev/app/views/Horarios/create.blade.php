@@ -8,13 +8,17 @@
       </div>
 </div>
 
-
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
 
 {{ Form::open(array('route' => 'Inventario.Horarios.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
     <div class="form-group">
         {{ Form::label('INV_Horario_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
-            {{ Form::text('INV_Horario_Nombre', null, array('class' => 'form-control', 'id' => 'INV_Horario_Nombre', 'placeholder'=>'Name')) }}
+            {{ Form::text('INV_Horario_Nombre', null, array('class' => 'form-control', 'id' => 'INV_Horario_Nombre', 'placeholder'=>'Name', 'maxlength'=>'128')) }}
         </div>
     </div>
     <div class="form-group">
@@ -26,30 +30,25 @@
     <div class="form-group">
       {{ Form::label('INV_Horario_FechaInicio', 'Fecha de Inicio:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Horario_FechaInicio',null, array('class' => 'form-control', 'id' => 'INV_Horario_FechaInicio', 'placeholder' => 'dd/mm/aaaaa' )) }}
+        <input type="date" {{ Form::text('INV_Horario_FechaInicio', null, array('class' => 'form-control', 'id' => 'INV_Horario_FechaInicio', 'placeholder' => 'dd/mm/aaaaa')) }} 
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Horario_FechaFinal', 'Fecha Final:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Horario_FechaFinal',null, array('class' => 'form-control', 'id' => 'INV_Horario_FechaFinal', 'placeholder' => 'dd/mm/aaaaa' )) }}
+        <input type="date" {{ Form::text('INV_Horario_FechaFinal',null, array('class' => 'form-control', 'id' => 'INV_Horario_FechaFinal', 'placeholder' => 'dd/mm/aaaaa' )) }}
       </div>
     </div>
     {{ Form::hidden('INV_Horario_FechaCreacion', date('Y-m-d H:i:s')) }} 
     {{ Form::hidden('INV_Horario_FechaModificacion', date('Y-m-d H:i:s')) }} 
     <div class="form-group">
       <div class="col-md-5">
-            {{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
       </div>
     </div>
 
 {{ Form::close() }}
 
-@if ($errors->any())
-    <ul>
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-@endif
 
 @stop
 
