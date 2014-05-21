@@ -10,6 +10,8 @@
 
 <br>
 <br>
+@if(isset($Conceptos) && $Conceptos->count())
+	
 <h3>Motivos Activos</h3>
 <table class="table table-striped table-bordered">
 	<thead>
@@ -78,7 +80,9 @@
 @endforeach
 </tbody>
 </table>
-
+@else
+<p>No hay conceptos!</p>
+@endif
 
 
 @stop

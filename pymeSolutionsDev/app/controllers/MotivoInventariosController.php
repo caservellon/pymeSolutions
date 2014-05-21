@@ -50,8 +50,8 @@ class MotivoInventariosController extends BaseController {
 
 		if ($validation->passes())
 		{
-			return invContabilidad::Activar($input['CON_MotivoInventario_ID']);
 			$this->MotivoInventario->create($input);
+			invContabilidad::Activar($input['CON_MotivoInventario_ID']);
 			return Redirect::action('MotivoInventariosController@index');
 
 		}
