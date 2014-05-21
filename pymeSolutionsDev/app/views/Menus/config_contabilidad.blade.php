@@ -15,6 +15,9 @@
 		<span class="glyphicon glyphicon-calendar"></span><br> Configuracion Periodo Contable</a>
 	<a href="{{URL::to('contabilidad/configuracion/unidadmonetaria')}}" class="btn btn-default btn-lg btn-block">
 		<span class="glyphicon glyphicon-usd"></span><br> Unidad Monetaria</a>
+	<a href="{{URL::to('contabilidad/configuracion/motivoinventarios')}}" class="btn btn-default btn-lg btn-block">
+		<span class="glyphicon glyphicon-shopping-cart"></span><br>Motivos de Inventario</a>
+	
 </div>
 <br>
 
