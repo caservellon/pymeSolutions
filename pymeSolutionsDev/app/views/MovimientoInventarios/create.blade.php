@@ -17,7 +17,7 @@
 
 {{ Form::open(array('route' => 'Inventario.MovimientoInventario.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	  <div class="form-group">
-        {{ Form::label('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 'Motivo Movimiento: *', array('class' => 'col-md-2 control-label')) }}
+        {{ Form::label('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 'Concepto Movimiento: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
         {{ Form::select('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', $Motivos,null, array('class' => 'form-control', 'id' => 'INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 'placeholder' => '#' )) }}
       </div>

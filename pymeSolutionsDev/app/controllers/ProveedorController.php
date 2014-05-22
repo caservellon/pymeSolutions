@@ -98,6 +98,21 @@ class ProveedorController extends BaseController {
 		return View::make('Proveedor.create', compact('ciudades','productos', 'fpagos'));
 	}
 
+	public function create2(){
+
+		$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_Nombre');
+		$proveedor = Proveedor::all()->lists('INV_Proveedor_Nombre', 'INV_Proveedor_Nombre');
+
+		return View::make('Proveedor.p2p', compact('productos', 'proveedor'));
+	}
+
+	public function create3(){
+
+		$fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+		$proveedor = Proveedor::all()->lists('INV_Proveedor_Nombre', 'INV_Proveedor_Nombre');
+
+		return View::make('Proveedor.f2p', compact('fpagos', 'proveedor'));
+	}
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -140,8 +155,6 @@ class ProveedorController extends BaseController {
 			foreach ($campos as $campo) {
 				DB::table('INV_Proveedor_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Proveedor_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'INV_Proveedor_INV_Proveedor_ID' => $prove->INV_Proveedor_ID, 'INV_Proveedor_INV_Ciudad_ID' => $prove->INV_Ciudad_ID));
 			}
-			DB::table('INV_Producto_Proveedor')->insert(array('INV_Producto_ID' => Input::get('INV_Producto_ID'), 'INV_Proveedor_ID' => $prove->INV_Proveedor_ID));
-			DB::table('INV_Proveedor_FormaPago')->insert(array('INV_FormaPago_ID' => Input::get('INV_FormaPago_ID'), 'INV_Proveedor_ID' => $prove->INV_Proveedor_ID));
 			return Redirect::route('Inventario.Proveedor.index');
 		}
 
@@ -163,6 +176,34 @@ class ProveedorController extends BaseController {
 			->update(array('INV_Proveedor_CampoLocal_Valor' => $valorCampo));
 
 		return $valorCampo;
+	}
+
+	public function save()
+	{
+		$oneList = Input::get('value-list-array');
+		$valueList = explode(";", $oneList);
+		$PROVID = Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->first()->INV_Proveedor_ID;
+		foreach ($valueList as $value ) {
+			$PRODID = Producto::where('INV_Producto_Nombre', $value)->first()->INV_Producto_ID;
+			DB::table('INV_Producto_Proveedor')->insert(array('INV_Proveedor_ID' => $PROVID, 'INV_Producto_ID' => $PRODID));
+		}
+
+
+		return Redirect::route('Inventario.Proveedor.index');
+	}
+
+	public function save2()
+	{
+		$oneList = Input::get('value-list-array');
+		$valueList = explode(";", $oneList);
+		$PROVID = Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->first()->INV_Proveedor_ID;
+		foreach ($valueList as $value ) {
+			$FPID = FormaPago::where('INV_FormaPago_Nombre', $value)->first()->INV_FormaPago_ID;
+			DB::table('INV_Proveedor_FormaPago')->insert(array('INV_Proveedor_ID' => $PROVID, 'INV_FormaPago_ID' => $FPID));
+		}
+
+
+		return Redirect::route('Inventario.Proveedor.index');
 	}
 
 	/**
