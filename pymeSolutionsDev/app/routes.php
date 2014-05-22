@@ -273,6 +273,10 @@ Route::group(array('prefix' => 'Compras'), function(){
 		'as' => 'CotizacionesTodasCotizaciones',
 		'uses' => 'CotizacionController@TodasCotizaciones'
 	));
+	Route::post('/Cotizaciones/TodasCotizaciones', array(
+		'as' => 'CotizacionesTodasCotizaciones',
+		'uses' => 'CotizacionController@TodasCotizaciones'
+	));
 	
 	Route::get('/Cotizaciones/DetallesCotizacion', array(
 		'as' => 'CotizacionesDetallesCotizacion',
