@@ -423,6 +423,17 @@ $(document).ready(function(){
 	});
 
 
+	//precio 
+	$("div.precio-costo-producto").change(function() {
+		if($(this).find("select").val() === "2"){
+			$("div.agregar-precio").fadeIn();
+		} else {
+			$("div.agregar-precio").fadeOut();
+			$(".value-input").val(""); 
+		}
+	});
+
+
 	//Selectores para Tipos de Documento
 	$('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
 		$('input#CRM_Personas_codigo').prop('placeholder',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().prop('name'));
@@ -433,6 +444,7 @@ $(document).ready(function(){
 		$('input#CRM_Empresas_Codigo').prop('placeholder',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().prop('name'));
 		$('input#CRM_Empresas_Codigo').prop('maxlength',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().attr('data-val'));
     });
+
 
 	//Actualiza los totales
 	function actualizarPagos(){

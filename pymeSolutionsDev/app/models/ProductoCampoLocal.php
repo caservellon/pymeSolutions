@@ -10,7 +10,7 @@ class ProductoCampoLocal extends Eloquent {
 
 	public static $rules = array(
 		'INV_Producto_CampoLocal_IDCampoLocal',
-		'INV_Producto_CampoLocal_Valor' => 'required',
+		'INV_Producto_CampoLocal_Valor' => 'required|max:128',
 		'INV_Producto_CampoLocal_FechaCreacion' => 'required',
 		'INV_Producto_CampoLocal_UsuarioCreacion' => 'required',
 		'INV_Producto_CampoLocal_FechaModificacion' => 'required',

@@ -22,14 +22,8 @@ class ProductosController extends BaseController {
 	public function index()
 	{
 		$Productos = $this->Producto->all();
-		$CamposLocales = CampoLocal::where("GEN_CampoLocal_Codigo","LIKE","INV_PRD%")->get();
-		$arrayTemp = array();
-		foreach ($CamposLocales as $CL) {
-			array_push($arrayTemp, $CL->GEN_CampoLocal_ID);
-		}
-		$ValoresCampLoc = ProductoCampoLocal::whereBetween('GEN_CampoLocal_GEN_CampoLocal_ID', $arrayTemp)->get();
 		
-		return View::make('Productos.index', compact('Productos','CamposLocales', 'ValoresCampLoc'));
+		return View::make('Productos.index', compact('Productos'));
 	}
 
 	

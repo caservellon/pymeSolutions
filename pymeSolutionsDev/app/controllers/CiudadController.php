@@ -119,7 +119,7 @@ class CiudadController extends BaseController {
 			$Ciudad->INV_Ciudad_UsuarioModificacion = Input::get('INV_Ciudad_UsuarioModificacion');
 			$Ciudad->update();
 
-			return Redirect::route('Inventario.Ciudad.show', $id);
+			return Redirect::route('Inventario.Ciudad.index', $id);
 		}
 
 		return Redirect::route('Inventario.Ciudad.edit', $id)

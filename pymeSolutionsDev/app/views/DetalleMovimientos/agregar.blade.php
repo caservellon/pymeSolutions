@@ -5,6 +5,12 @@
       <h3 class="pull-left">Detalle Movimiento &gt; <small>Agregar</small></h3>
 </div>
 
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
 {{ Form::open(array('route' => 'Inventario.DetalleMovimiento.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
     <div class="form-group">
     {{ Form::label('INV_Producto_ID', 'ID:', array('class' => 'col-md-2 control-label')) }}
@@ -25,12 +31,32 @@
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('INV_DetalleMovimiento_CantidadProducto', 'Cantidad:', array('class' => 'col-md-2 control-label')) }}
+    {{ Form::label('INV_Producto_Cantidad', 'Cantidad en Inventario:', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-4">
+          {{ Form::text('INV_Producto_Cantidad', $Producto->INV_Producto_Cantidad, array('class' => 'form-control', 'id' => 'INV_Producto_Cantidad', 'disabled')) }}
+      </div>
+    </div>
+    <div class="form-group">
+      {{ Form::label('INV_DetalleMovimiento_CantidadProducto', 'Cantidad:*', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::text('INV_DetalleMovimiento_CantidadProducto',$Motivo->INV_DetalleMovimiento_CantidadProducto, array('class' => 'form-control', 'id' => 'INV_DetalleMovimiento_CantidadProducto', 'placeholder' => '#', 'rows' => '3' )) }}
       </div>
     </div>
     <!-- Calcular Precio Costo -->
+    <div class="precio-costo-producto form-group">
+      {{ Form::label('PrecioCosto', 'Precio Costo:*', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::select('PrecioCosto', array('0' => 'Precio de Inventario', '1' => 'Sin Precio', '2' => 'Otro Precio'), '0', array('class' => 'form-control', 'placeholder' => '#' )) }}
+      </div>
+    </div>
+    <div style="display:none;" class="agregar-precio form-group">
+      <label class="col-md-2 control-label">Otro Precio:</label>
+      <div class="col-md-4">
+        <div class="input-group">
+          {{ Form::text('INV_DetalleMovimiento_PrecioCosto', 0, array('class' => 'form-control', 'id' => 'INV_DetalleMovimiento_PrecioCosto')) }}
+        </div>
+      </div>
+    </div>
     {{ Form::hidden('INV_DetalleMovimiento_IDProducto', $Producto->INV_Producto_ID) }}
     {{ Form::hidden('INV_DetalleMovimiento_CodigoProducto', $Producto->INV_Producto_Codigo) }}
     {{ Form::hidden('INV_DetalleMovimiento_NombreProducto', $Producto->INV_Producto_Nombre) }}
@@ -46,15 +72,10 @@
     <div class="form-group">
       <div class="col-md-5">
             {{ Form::submit('Aceptar', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Inventario.DetalleMovimiento.create', 'Cancel', null, array('class' => 'btn btn-danger')) }}
+            {{ link_to_route('Inventario.DetalleMovimiento.create', 'Cancelar', null, array('class' => 'btn btn-danger')) }}
       </div>
     </div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

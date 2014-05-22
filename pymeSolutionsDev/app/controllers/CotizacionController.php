@@ -37,17 +37,19 @@ class CotizacionController extends BaseController {
 	
 	public function CapturarCotizacion(){
 		$Input = Input::except(array('_token', 'Capturar'));
-
+		//$Prueba = Helpers::BusquedaSolicitudCotizacion('ind');
+		//return var_dump($Prueba);
+		//return var_dump($Input);
 		$SolicitudCotizacionSeleccionada = false;
 		
-		if (Input::has('Capturar')){
-			foreach ($Input as $Codigo){
+		if(Input::has('Capturar')){
+			foreach($Input as $Codigo){
 				$CodigoSolicitudCotizacion = $Codigo;
 				$SolicitudCotizacionSeleccionada = true;
 			}
 			
-			if ($SolicitudCotizacionSeleccionada){
-				if (!Helpers::CotizacionCapturada($CodigoSolicitudCotizacion)){
+			if($SolicitudCotizacionSeleccionada){
+				if(!Helpers::CotizacionCapturada($CodigoSolicitudCotizacion)){
 					return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion));
 				}else{
 					return Redirect::route('CotizacionesCapturarCotizacion', array('Error' => 'Ya Capturada'));
@@ -56,10 +58,11 @@ class CotizacionController extends BaseController {
 				return Redirect::route('CotizacionesCapturarCotizacion', array('Error' => 'Sin Seleccion'));
 			}
 			
-		}elseif (Input::has('Buscar')){
+		}elseif(Input::has('Buscar')){
+			return Redirect::route('CotizacionesCapturarCotizacion', array('Busqueda' => Input::get('Busqueda'))) -> withInput();
 			
-		}else{
-			return View::make('COM_Cotizacion.CapturarCotizacion');
+		}elseif(Input::has('Restablecer')){
+			return Redirect::route('CotizacionesCapturarCotizacion');
 		}
 		
 	}
@@ -152,7 +155,9 @@ class CotizacionController extends BaseController {
 		$Cotizacion -> COM_Cotizacion_Codigo = 'COM_COT_'.$RegistroActualCotizacion;
 		$Cotizacion -> COM_Cotizacion_Activo = 1;
 		$Cotizacion -> COM_Cotizacion_Vigencia = Input::get('VigenciaCotizacion');
-		$Cotizacion -> COM_Cotizacion_IdFormaPago = Input::get('IdFormaPago');
+		$Cotizacion -> COM_Cotizacion_IdFormaPago = $SolicitudCotizacion[0] -> IdFormaPago;
+		$Cotizacion -> COM_Cotizacion_CantidadPago = $SolicitudCotizacion[0] -> CantidadPagos;
+		$Cotizacion -> COM_Cotizacion_PeriodoGracia = $SolicitudCotizacion[0] -> PeriodoGracia;
 		
 		if (date_diff(date_create(date("Y-m-d G:i")), date_create(date_format(date_create(Input::get('VigenciaCotizacion')), 'Y-m-d G:i'))) -> format("%R%a") >= 0){
 			$Cotizacion -> COM_Cotizacion_Vigente = 1;
@@ -183,7 +188,7 @@ class CotizacionController extends BaseController {
 		while (is_numeric(current($Input))){
 			$ProductoSolicitudCotizacion = Helpers::InformacionProductoSolicitudCotizacion(key($Input), $CodigoSolicitudCotizacion);
 			
-			if ($ProductoSolicitudCotizacion != null){
+			if (count($ProductoSolicitudCotizacion) != 0){
 			
 				$DetalleCotizacion = new COM_DetalleCotizacion;
 				$DetalleCotizacion -> COM_DetalleCotizacion_Codigo = 'DC' . $RegistroActualDetalleCotizacion;
