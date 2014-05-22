@@ -25,7 +25,7 @@
 				<th>Usuario Creacion</th>
 				<th>Fecha Modificacion</th>
 				<th>Usuario Modificacion</th>
-				<th>Motivo Movimiento</th>
+				<th>Concepto Movimiento</th>
 			</tr>
 		</thead>
 
