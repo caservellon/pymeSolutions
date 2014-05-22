@@ -196,11 +196,12 @@ class DetalleSalidasController extends BaseController {
 		//$idProductos = DB::select('select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array(0));
 		//$idProductos = DB::select('select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
 		//return $idProductos;
+		$text = Input::get('search');
 		$Categorias = Categoria::all();
 		if(Input::get('search')=='')
 			$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array($id));
 		else 
-			$Productos = DB::select('select * from INV_Producto where (INV_Producto_Nombre = ? or INV_Producto_Codigo = ? or INV_Categoria_ID in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre = ?) or INV_Categoria_IDCategoriaPadre in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre = ?)) and INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(Input::get('search'), Input::get('search'), Input::get('search'), Input::get('search'), $id));
+			$Productos = DB::select("select * from INV_Producto where (INV_Producto_Nombre LIKE '%". $text ."%' or INV_Producto_Codigo LIKE '%". $text ."%' or INV_Categoria_ID in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre LIKE '%". $text ."%') or INV_Categoria_IDCategoriaPadre in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre LIKE '%". $text ."%')) and INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)", array($id));
 		//$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(0));
 		//$Productos = Producto::where('INV_Producto_ID', '=', Input::get('search'))->orWhere('INV_Producto_Codigo', '=', Input::get('search'))->orWhere('INV_Producto_Nombre', '=', Input::get('search'))->get();
 		//return DB::select('select * from INV_Producto where INV_Producto_Nombre = ? and INV_Producto_ID = ?',array(Input::get('search'), Input::get('search')));

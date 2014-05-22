@@ -3,6 +3,19 @@
 @section('main')
 
 <h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Movimiento Inventario <small>Registro de Orden<small></h2>
+@if ($errors->any())
+    <div class="alert alert-danger fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        @if($errors->count() > 1)
+            <h4>Oh no! Se encontraron errores!</h4>
+        @else
+            <h4>Oh no! Se encontró un error!</h4>
+        @endif
+        <ul>
+            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+        </ul>  
+    </div>
+@endif
 <div class="btn-agregar">
 	<div class="pull-right">
     	<a href="{{{ URL::to('Inventario/MovimientoInventario') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
@@ -44,6 +57,7 @@
 
     <div class="col-md-4" style="text-align:right;">
     	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Recibida')) }}
+			{{ Form::hidden('COM_OrdenCompra_Codigo', $CodigoOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Recibida') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
@@ -75,7 +89,8 @@
     </div>
     <div class="col-md-4" style="text-align:right;">
     	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Errores')) }}
-			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
+    		{{ Form::hidden('COM_OrdenCompra_Codigo', $CodigoOrdenCompra) }}
+    		{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Recibida Con Errores') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
 			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
@@ -96,7 +111,8 @@
 								<tr>
 									<th>#</th>
 									<th>Producto</th>
-									<th>Cantidad</th>
+									<th>Cantidad Recibida</th>
+									<th>Cantidad Orden</th>
 									<th>Precio</th>
 								</tr>
 							</thead>
@@ -106,6 +122,7 @@
 						           		<td>{{{ $or->ID }}}</td>
 										<td>{{{ $or->Nombre }}}</td>
 										<td>{{ Form::text('Cant'.$or->ID, $or->Cantidad, array('class' => 'form-control', 'id' => 'Cant'.$or->ID)) }}</td>
+										<td>{{{ $or->Cantidad }}}</td>
 										<td>{{{ $or->Precio }}}</td>
 									</tr>
 						        @endforeach
@@ -128,7 +145,8 @@
     </div>
     <div class="col-md-4" style="text-align:right;">
     	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Rechazada')) }}
-			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
+    		{{ Form::hidden('COM_OrdenCompra_Codigo', $CodigoOrdenCompra) }}
+    		{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Rechazada') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
 			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
@@ -183,7 +201,7 @@
         </table>
     </div>
 @else
-	@if ($ordenes->count())
+	@if ($ordenes)
 		<div class="table-responsive">
 			<table class="table table-striped">
 				<thead>
