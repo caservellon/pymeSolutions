@@ -236,4 +236,17 @@ class ProductosController extends BaseController {
 		$result = $query;
 		return $result;
 	}
+
+	public function save()
+	{
+		$oneList = Input::get('value-list-array');
+		$valueList = explode(";", $oneList);
+		$PRODID = Producto::where('INV_Producto_Nombre', Input::get('INV_Producto_Nombre'))->first()->INV_Producto_ID;
+		foreach ($valueList as $value ) {
+			$PROVID = Proveedor::where('INV_Proveedor_Nombre', $value)->first()->INV_Proveedor_ID;
+			DB::table('INV_Producto_Proveedor')->insert(array('INV_Proveedor_ID' => $PROVID, 'INV_Producto_ID' => $PRODID));
+		}
+	return View::make('Productos/p2p');
+	}
+
 }
