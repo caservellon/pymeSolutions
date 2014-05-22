@@ -654,19 +654,47 @@ class OrdenComprasController extends BaseController {
     public function search_cotizaciones(){
 
         $proveedor=1;
+        $Cotizaciones1 = array();
         //Querys de las columnas propias del Producto
         $Cotizaciones = cotizacion::where('COM_Cotizacion_IdCotizacion', '=', Input::get('search')) 
         ->orWhere('COM_Cotizacion_Codigo', '=',  Input::get('search'))
         ->orWhere('COM_Cotizacion_NumeroCotizacion', '=',  Input::get('search'))
-        ->orWhere('COM_SolicitudCotizacion_idSolicitudCotizacion', '=',  Input::get('search'))
         ->get();
+        
         //Querys de las columnas que tiene relacion con la tabla Proveedor
-        $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_Direccion', 'LIKE', '%'.Input::get('search').' %')
-        ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
-        ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
-        ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
+            $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.Input::get('search').'%')
+            ->orWhere('INV_Proveedor_RepresentanteVentas', 'LIKE',  '%'.Input::get('search').'%')
+            ->orWhere('INV_Proveedor_Direccion', 'LIKE', '%'.Input::get('search').' %')
+            ->orWhere('INV_Proveedor_Email', 'LIKE', '%'.Input::get('search').'%')
+            ->orWhere('INV_Proveedor_Codigo', '=',  Input::get('search'))
+            ->orWhere('INV_Proveedor_Telefono', '=',  Input::get('search'))->get();
+        
+        //reviso los campos locales de busqueda de la cotizacion
+         
+         $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1);
+        if ($campos) {
+                        //return $val;
+            $noListas = $campos->where('GEN_CampoLocal_Tipo','<>','LIST')->lists('GEN_CampoLocal_ID');
+            $listas = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1)->where('GEN_CampoLocal_Tipo','LIKE','%LIST%')->lists('GEN_CampoLocal_ID');
+
+            if ($listas) {
+                $valorLista = DB::table('GEN_CampoLocalLista')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$listas)->where('GEN_CampoLocalLista_Valor','LIKE', '%'.Input::get('search').'%')->lists('GEN_CampoLocalLista_ID');
+                if($valorLista) {
+                    $Cotizaciones1 = array_merge($Cotizaciones1,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$listas)->whereIn('COM_ValorCampoLocal_Valor',$valorLista)->lists('COM_Cotizacion_IdCotizacion'));
+                }
+            }
+            if ($noListas) {
+                $Cotizaciones1 = array_merge($Cotizaciones1,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$noListas)->where('COM_ValorCampoLocal_Valor','LIKE', '%'.Input::get('search').'%')->lists('COM_Cotizacion_IdCotizacion'));
+                                
+            }
+                        if($Cotizaciones1){
+                            $Cotizaciones=  Cotizacion::wherein('COM_Cotizacion_IdCotizacion',$Cotizaciones1)->get();
+
+                        }
+                        
+                        
+        }
+
         // reviso si trajo datos para decidir si los proceso         
         if(!empty($queryPoveedor)){
             $temp = array();
@@ -678,7 +706,7 @@ class OrdenComprasController extends BaseController {
             }
             // ahora extraigo esos productos de ese proveedor especifico
             if (sizeof($temp)>0) {
-                $cotizaciones=Cotizacion::wherein('COM_Proveedor_IdProveedor',$temp)->get();
+                $Cotizaciones=Cotizacion::wherein('COM_Proveedor_IdProveedor',$temp)->get();
                 //$propro = DB::table('INV_Producto_Proveedor')->wherein('INV_Proveedor_ID',$temp)->get();
             //foreach ($propro as $pro) {
               //  array_push($temp1, $pro->INV_Producto_ID);   
@@ -689,7 +717,7 @@ class OrdenComprasController extends BaseController {
         }
         //$inventario=$productos;
         //reemplazo de variable a enviar a la vista
-        return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion',array('cotizaciones'=> $cotizaciones));
+        return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion',array('cotizaciones'=> $Cotizaciones));
         
     }
         
