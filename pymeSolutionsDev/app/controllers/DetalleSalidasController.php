@@ -64,33 +64,107 @@ class DetalleSalidasController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, DetalleMovimiento::$rules);
-		
-		if ($validation->passes())
-		{
-			
-			$Producto = Producto::find(Input::get('INV_DetalleMovimiento_IDProducto'));
-			if ($Producto->INV_Producto_Cantidad < Input::get('INV_DetalleMovimiento_CantidadProducto')) {
-				return Redirect::route('Inventario.DetalleSalida.create')
-					->withInput()
-					->withErrors('Ingrese una cantidad menor')
-					->with('message', 'Cantidad muy Grande');
+		$t = array();
+		//return $input;
+		for (reset($input); $i = key($input); next($input)) {
+			if ($i != '_token' && $i != 'Motivo' && $i != 'Motivo2') {
+				$t1 = $i;
+				next($input);
+				$t2 = key($input);
+				next($input);
+				$t3 = key($input);
+				next($input);
+				$t4 = key($input);
+				$t6 = $input[$t2];
+				if ($t1 == 'A'.$t6) {
+					next($input);
+					$t5 = key($input);
+					$t[$t2] = $input[$t2];
+					$t[$t3] = $input[$t3];
+					$t[$t4] = $input[$t4];
+					if ($input[$t4] == '1')
+						$t[$t4] = $input[$t5];
+					elseif ($input[$t4] == '')
+						$t[$t4] = 0;
+				}
 			}
-			
-
-			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad - Input::get('INV_DetalleMovimiento_CantidadProducto');
-			$Producto->save();
-			$this->DetalleMovimiento->create($input);
-			
-			//Generar los asientos para la transacción de entrada a inventario
-			Contabilidad::invGenerarTransaccion($input['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'], $input['INV_DetalleMovimiento_PrecioCosto']*$input['INV_DetalleMovimiento_CantidadProducto']);
-			//return View::make('DetalleSalidas.create', compact('Productos', 'Motivo', 'id'));
-			return Redirect::route('Inventario.DetalleSalida.create');
 		}
-		//return 'no';
+		//return $t;
+		if (sizeof($t) == 0) {
+			return Redirect::route('Inventario.DetalleSalida.create')
+			->withInput()
+			->withErrors('Debe seleccionar por lo menos un Producto!')
+			->with('message', 'There were validation errors.');
+		}
+		//return $t;
+		$validation = true;
+		for (reset($t); $j = key($t); next($t)) {
+			$t1 = $j;
+			next($t);
+			$t2 = key($t);
+			if ($t[$t2] < 1) {
+				$validation = false;
+				break;
+			}else{
+				$Producto = Producto::find($input[$t1]);
+				if ($t[$t2] > $Producto->INV_Producto_Cantidad) {
+					return Redirect::route('Inventario.DetalleSalida.create')
+						->withInput()
+						->withErrors('La Cantidad de salida no debe sobrepasar la que se encuentra en Inventario!')
+						->with('message', 'There were validation errors.');
+				}
+			}
+			next($t);
+		}
+		
+		if ($validation)
+		{
+			//return $t;
+			$monto = 0;
+			for (reset($t); $x = key($t); next($t)) {
+				$detalle = array();
+				$t1 = $x;
+				next($t);
+				$t2 = key($t);
+				next($t);
+				$t3 = key($t);
+				$Producto = Producto::find($input[$t1]);
+
+				//Se actualiza la cantidad en inventario
+				$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad - $t[$t2];
+				$Producto->save();
+
+				//llenado array detalle para almacenarlo
+				$detalle['INV_DetalleMovimiento_IDProducto'] = $Producto->INV_Producto_ID;
+				$detalle['INV_DetalleMovimiento_CodigoProducto'] = $Producto->INV_Producto_Codigo;
+				$detalle['INV_DetalleMovimiento_NombreProducto'] = $Producto->INV_Producto_Nombre;
+				$detalle['INV_DetalleMovimiento_CantidadProducto'] = $t[$t2];
+				$detalle['INV_DetalleMovimiento_PrecioCosto'] = $t[$t3];
+				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
+				$detalle['INV_DetalleMovimiento_FechaCreacion'] = date('Y-m-d H:i:s');
+				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = 'Admin';
+				$detalle['INV_DetalleMovimiento_FechaModificacion'] = date('Y-m-d H:i:s');
+				$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = 'Admin';
+				$detalle['INV_Movimiento_ID'] = $input['Motivo'];
+				$detalle['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'] = $input['Motivo2'];
+				$detalle['INV_Producto_INV_Producto_ID'] = $Producto->INV_Producto_ID;
+				$detalle['INV_Producto_INV_Categoria_ID'] = $Producto->INV_Categoria_ID;
+				$detalle['INV_Producto_INV_Categoria_IDCategoriaPadre'] = $Producto->INV_Categoria_IDCategoriaPadre;
+				$detalle['INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID'] = $Producto->INV_UnidadMedida_ID;
+
+				$this->DetalleMovimiento->create($detalle);
+				$monto += ($t[$t2] * $t[$t3]);
+			}
+			//return $monto;
+			//Generar los asientos para la transacción de entrada a inventario
+			Contabilidad::invGenerarTransaccion($input['Motivo2'], $monto);
+			//return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id'));
+			return Redirect::route('Inventario.MovimientoInventario.Detalles', array($input['Motivo']));
+		}
+
 		return Redirect::route('Inventario.DetalleSalida.create')
 			->withInput()
-			->withErrors($validation)
+			->withErrors('Ingrese solamente cantidades mayores que 0!')
 			->with('message', 'There were validation errors.');
 	}
 
