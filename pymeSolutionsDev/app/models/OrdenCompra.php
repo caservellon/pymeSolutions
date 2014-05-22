@@ -28,7 +28,9 @@ class OrdenCompra extends Eloquent {
 		'COM_Cotizacion_IdCotizacion' => 'required',
 		'COM_Usuario_IdUsuarioCreo' => 'required',
 		'COM_Proveedor_IdProveedor' => 'required',
-		'Usuario_idUsuarioModifico' => 'required'
+		'Usuario_idUsuarioModifico' => 'required',
+		'COM_OrdenCompra_PeriodoGracia' => array('required','min:1','max:30'),
+		'COM_OrdenCompra_CantidadPago' => array('required','min:1')
 	);
 	
 	public static $rule = array(

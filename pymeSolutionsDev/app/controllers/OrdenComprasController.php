@@ -81,8 +81,8 @@ class OrdenComprasController extends BaseController {
              $orden= array('COM_OrdenCompra_FechaEntrega'=>  Input::get('COM_OrdenCompra_FechaEntrega'),
                 'COM_Proveedor_IdProveedor' => Input::get('COM_Proveedor_IdProveedor'),
                 'COM_OrdenCompra_FormaPago'=>Input::get('formapago'),
-                'COM_OrdenCompra_Total'=>Input::get('totalGeneral'),'COM_OrdenCompra_Direccion'=>Input::get('COM_OrdenCompra_Direccion'));
-                $validacionorden = Validator::make($detalle , OrdenCompra::$rules );
+                'COM_OrdenCompra_Total'=>Input::get('totalGeneral'),'COM_OrdenCompra_Direccion'=>Input::get('COM_OrdenCompra_Direccion'),'COM_OrdenCompra_PeriodoGracia'=>Input::get('COM_OrdenCompra_PeriodoGracia'),'COM_OrdenCompra_CantidadPago'=>Input::get('COM_OrdenCompra_CantidadPago'));
+                $validacionorden = Validator::make($orden , OrdenCompra::$rules );
 //validacion de campos Locales se registra el perfin en busca de los campos locales q me interesan
                 $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_OC%')->get();
 
@@ -99,8 +99,9 @@ class OrdenComprasController extends BaseController {
 //metiendo los datos para validacion
                 if(Input::has('producto'.$contador)){
                     $detalle = array('COM_DetalleOrdenCompra_Cantidad' => Input::get('cantidad'.$contador),'COM_DetalleOrdenCompra_PrecioUnitario' => Input::get('total'.$contador));
-                    $validacionGeneral = array_merge($detalle , $orden);
-               $validacion= Validator::make($validacionGeneral ,COMDetalleOrdenCompra::$rules);
+                        $validacionGeneral = array_merge($detalle , $orden);
+                        //$reglGeneral = array_merge(COMDetalleOrdenCompra::$rules , OrdenCompra::$rules);
+                        $validacion= Validator::make($validacionGeneral ,COMDetalleOrdenCompra::$rules);
                     if(!$validacion->passes()){
                          $products=Producto::wherein('INV_Producto_ID',$productos)->get();
                         return View::make('OrdenCompras.OrdenCompraForm', array('proveedor' => $proveedor , 'productos' => $products ))->withInput($input)->withErrors($validacion);
@@ -108,6 +109,7 @@ class OrdenComprasController extends BaseController {
                 }
                 $contador++;
             }
+            return 'valido';
 //se extrae las reglas de un modelo relacionado
                 $validacionCampos = OrdenCompra::$rule;
                 
@@ -145,6 +147,9 @@ class OrdenComprasController extends BaseController {
                     } 
              
 //guardo la Orden de Compra
+                $validacionOrden= Validator::make($input ,OrdenCompra::$rules);
+                //return Input::get('COM_OrdenCompra_FechaEntrega');
+            
              $OrdenCompras=  new OrdenCompra();
              $ultimoI= OrdenCompra::count();
              $OrdenCompras->COM_OrdenCompra_Codigo='COM_OC_'.($ultimoI+1);
@@ -210,6 +215,8 @@ class OrdenComprasController extends BaseController {
                     $ruta = route('ListaOrdenes');
                     $mensaje = Mensaje::find(12);
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+                
+
         }
         
         

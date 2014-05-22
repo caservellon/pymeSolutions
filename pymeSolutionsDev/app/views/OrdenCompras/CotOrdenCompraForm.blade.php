@@ -108,7 +108,8 @@
                         "futureOnly": true,
                         "locale":"es",
                         "minTime": "{{$horaInicio}}",
-                        "maxTime": "{{$horaFinal}}"
+                        "maxTime": "{{$horaFinal}}",
+                        "dateFormat": "YYYY/MM/DD hh:mm"
                     });
             </script>
              <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
