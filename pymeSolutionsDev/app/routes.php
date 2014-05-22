@@ -309,7 +309,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('cuentamotivos', 'CuentaMotivosController');
 			Route::resource('asientocontable','AsientosController');
 			Route::resource('librodiario','LibroDiarioController');
-			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
+			//Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::resource('estadoresultados', 'EstadoresultadosController');
 
 			Route::resource('conceptomotivo','ConceptoMotivoController');
@@ -359,11 +359,12 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::post('ejecutar',array('as'=>'con.cierreperiodo.run', 'uses'=>'CierrePeriodoController@run'));
 				Route::post('estado',array('as'=>'con.cierreperiodo.estado','uses'=>'CierrePeriodoController@retrieve'));
 				Route::post('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
-				Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
+				/*Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
 				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
 				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
 				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
 				Route::post('nuevoperiodo',array('as'=>'con.nuevoperiodo','uses'=>'CierrePeriodoController@nuevoPeriodo'));
+				*/
 			});
 
 			Route::group(array('prefix'=>'compras'), function(){
@@ -373,7 +374,12 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			
 				Route::post('pagar',array('as'=>'con.pagarcompra','uses'=>'PagoComprasController@paid'));
 			});
+			Route::group(array('prefix'=>'balanzacomprobacion'),function(){
 
+				Route::get('/',array('as'=>'con.balanza','uses'=>'BalanzaComprobacionController@index'));
+				Route::post('clasifperiodos',array('as'=>'con.blclasificacion','uses'=>'BalanzaComprobacionController@clasifperiodos'));
+				Route::post('tabla',array('as'=>'con.bltable','uses'=>'BalanzaComprobacionController@table'));
+			});
 
 	});
 
