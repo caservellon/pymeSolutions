@@ -66,6 +66,7 @@ class UserController
 
 		if ($validation->passes())
 		{
+			$input['SEG_Usuarios_Contrasena'] = Hash::make($input['SEG_Usuarios_Contrasena']);
 			$User = $this->User->find($id);
 			$User->update($input);
 
@@ -110,15 +111,26 @@ class UserController
 
 	  	//Autentica
 	    if ($this->isPostRequest()) {
-	      $validator = $this->getLoginValidator();
-	  
+	    	$validator = $this->getLoginValidator();	  
 	      	if ($validator->passes()) {
 		        $credentials = $this->getLoginCredentials();
-		  
-		        if (Auth::attempt($credentials)) {
-		          	return Redirect::route("Auth.login");
+		        $credentials["SEG_Usuarios_Activo"] = 1; // Agrega al array el elemento para verificar si usuario esta activo
+		        if (Auth::attempt($credentials)) {	          	
+		          	if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+					    $ip = $_SERVER['HTTP_CLIENT_IP'];
+					} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+					    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+					} else {
+					    $ip = $_SERVER['REMOTE_ADDR'];
+					}
+					$UserAct = User::find(Auth::user()->SEG_Usuarios_ID);
+					$UserAct->SEG_Usuarios_IP3 = $UserAct->SEG_Usuarios_IP2;
+					$UserAct->SEG_Usuarios_IP2 = $UserAct->SEG_Usuarios_IP1;
+					$UserAct->SEG_Usuarios_IP1 = $ip;
+					$UserAct->SEG_Usuarios_UltimaSesion = date("Y-m-d h:i:s");
+					$UserAct->save();
+					return Redirect::route("Auth.login");
 		        }
-		  
 		        return Redirect::back()->withErrors([
 		          	"errors" => ["Sus credenciales no concuerdan."]
 		        ]);
@@ -130,14 +142,6 @@ class UserController
 	    }
 
 	    //Recoge la IP del cliente y la guarda en la base de datos
-	    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-		    $ip = $_SERVER['HTTP_CLIENT_IP'];
-		} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-		} else {
-		    $ip = $_SERVER['REMOTE_ADDR'];
-		}
-
 	    return View::make("Usuarios.login");
   	}
 

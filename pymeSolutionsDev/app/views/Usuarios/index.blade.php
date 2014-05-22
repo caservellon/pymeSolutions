@@ -14,7 +14,6 @@
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
-				<th>#</th>
 				<th>Nombres</th>
 				<th>Correo</th>
 				<th>Usuario</th>
@@ -27,18 +26,16 @@
 		<tbody>
 			@foreach ($Usuarios as $Usuario)
 				<tr>
-					<td>{{{ $Usuario->SEG_Usuarios_ID }}}</td>
 					<td>{{{ $Usuario->SEG_Usuarios_Nombre }}}</td>
 					<td>{{{ $Usuario->SEG_Usuarios_Email }}}</td>
 					<td>{{{ $Usuario->SEG_Usuarios_Username }}}</td>
 					<td>{{{ $Usuario->SEG_Usuarios_IP1 }}}</td>
 					<td>{{{ $Usuario->SEG_Usuarios_UltimaSesion }}}</td>
 					@if($Usuario->SEG_Usuarios_Activo == 1)
-						<td>Activo</td>
+							<td><span class="glyphicon glyphicon-ok"></span></td>
 					@else
-						<td>Desactivado</td>
+							<td></td>
 					@endif
-
                     <td>{{ link_to_route('Auth.Usuarios.edit', 'Editar', array($Usuario->SEG_Usuarios_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                  		@if($Usuario->SEG_Usuarios_Activo == 1)
