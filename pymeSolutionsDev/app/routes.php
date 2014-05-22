@@ -136,6 +136,7 @@ Route::group(array('prefix' => 'Compras'), function(){
         Route::get('SolicitudCotizacion/Crear/MostrarDetalle', array('as'=>'detalle', 'uses'=> 'SolicitudCotizacionsController@detalle'));
         Route::post('SolicitudCotizacion/Crear/detalleCualquierProducto', array('as'=>'seleccion', 'uses'=> 'SolicitudCotizacionsController@mostrarProveedor'));
         Route::post('SolicitudCotizacion', array('as' => 'SolicitudCotizacions.search_index', 'uses' =>'SolicitudCotizacionsController@search_index'));
+        Route::post('SolicitudCotizacion/Crear/CualquierProducto', array('as' => 'SolicitudCotizacions.buscarCualquierProducto', 'uses' =>'SolicitudCotizacionsController@buscarCualquierProducto'));
         Route::resource('SolicitudCotizacions', 'SolicitudCotizacionsController');
 //edita una transicion de estado de orden de compras ya existente
 
@@ -297,8 +298,6 @@ Route::group(array('prefix' => 'Compras'), function(){
 		'uses' => 'OrdenCompraController@DetallesOrdenCompra'
 	));
 	
-	Route::post('/search_index', array('as' => 'search_index', 'uses' =>'CotizacionController@search_index'));
-	
 });
 
 
@@ -315,7 +314,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('cuentamotivos', 'CuentaMotivosController');
 			Route::resource('asientocontable','AsientosController');
 			Route::resource('librodiario','LibroDiarioController');
-			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
+			//Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::resource('estadoresultados', 'EstadoresultadosController');
 
 			Route::resource('conceptomotivo','ConceptoMotivoController');
@@ -365,11 +364,12 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::post('ejecutar',array('as'=>'con.cierreperiodo.run', 'uses'=>'CierrePeriodoController@run'));
 				Route::post('estado',array('as'=>'con.cierreperiodo.estado','uses'=>'CierrePeriodoController@retrieve'));
 				Route::post('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
-				Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
+				/*Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
 				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
 				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
 				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
 				Route::post('nuevoperiodo',array('as'=>'con.nuevoperiodo','uses'=>'CierrePeriodoController@nuevoPeriodo'));
+				*/
 			});
 
 			Route::group(array('prefix'=>'compras'), function(){
@@ -379,7 +379,12 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			
 				Route::post('pagar',array('as'=>'con.pagarcompra','uses'=>'PagoComprasController@paid'));
 			});
+			Route::group(array('prefix'=>'balanzacomprobacion'),function(){
 
+				Route::get('/',array('as'=>'con.balanza','uses'=>'BalanzaComprobacionController@index'));
+				Route::post('clasifperiodos',array('as'=>'con.blclasificacion','uses'=>'BalanzaComprobacionController@clasifperiodos'));
+				Route::post('tabla',array('as'=>'con.bltable','uses'=>'BalanzaComprobacionController@table'));
+			});
 
 	});
 

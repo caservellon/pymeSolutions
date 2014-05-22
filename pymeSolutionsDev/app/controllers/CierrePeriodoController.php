@@ -53,7 +53,8 @@ class CierrePeriodoController extends BaseController {
             $periodoId=$periodo->CON_PeriodoContable_ID;
             
             DB::beginTransaction();
-            $result=DB::statement(DB::raw('CALL CON_Mayorizacion(?,"?");'),
+
+            $result=DB::statement(DB::raw('CALL CON_Mayorizacion(?,?);'),
                 array($periodoId,$periodo->CON_PeriodoContable_FechaFinal));
             
             $array[0]=array(0,'30%');
@@ -81,6 +82,7 @@ class CierrePeriodoController extends BaseController {
             $result=DB::statement(DB::raw('CALL CON_NuevoPeriodo(?)'),
                 array($periodoId));
             $array=array_merge(Cache::get('EstadoCierre'),array(array(4,'100%')));
+
             DB::commit();
             Cache::forget('PeriodoContable');
             Cache::forever('EstadoCierre',$array);

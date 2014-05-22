@@ -76,19 +76,20 @@ class DetalleMovimientosController extends BaseController {
 			}elseif ($input['INV_DetalleMovimiento_PrecioCosto'] == '') {
 				$input['INV_DetalleMovimiento_PrecioCosto'] = '0';
 			}
+			unset($input['PrecioCosto']);
 			//return $input;
 		
 			//Calcular Precio de Costo
-			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + (Input::get('INV_DetalleMovimiento_PrecioCosto') * Input::get('INV_DetalleMovimiento_CantidadProducto')))/(Input::get('INV_DetalleMovimiento_CantidadProducto') + $Producto->INV_Producto_Cantidad);
+			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + ($input['INV_DetalleMovimiento_PrecioCosto'] * $input['INV_DetalleMovimiento_CantidadProducto']))/($input['INV_DetalleMovimiento_CantidadProducto'] + $Producto->INV_Producto_Cantidad);
 			
 			$Producto->INV_Producto_PrecioCosto = $Costo;
-			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + Input::get('INV_DetalleMovimiento_CantidadProducto');
+			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $input['INV_DetalleMovimiento_CantidadProducto'];
 			$Producto->save();
 			
 			$this->DetalleMovimiento->create($input);
 			
 			//Generar los asientos para la transacción de entrada a inventario
-			Contabilidad::invGenerarTransaccion($input['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'], $input['INV_DetalleMovimiento_PrecioCosto']);
+			Contabilidad::invGenerarTransaccion($input['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'], $input['INV_DetalleMovimiento_PrecioCosto']*$input['INV_DetalleMovimiento_CantidadProducto']);
 			//return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id'));
 			return Redirect::route('Inventario.DetalleMovimiento.create');
 		}

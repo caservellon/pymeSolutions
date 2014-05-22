@@ -32,6 +32,8 @@
 				<th>Usuario</th>
 				<th>Estado</th>
                                 <th>FormaPago</th>
+                                <th>PlanPago</th>
+                                <th>PeriodoGracia</th>
 				@foreach($CamposLocales as $CampoLocal)
                                                 @if($CampoLocal->GEN_CampoLocal_Activo==1)
 						<th>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</th>
@@ -57,8 +59,11 @@
 						@else
 							<td>En Espera</td>
 						@endif
-                                         <?php $forma= FormaPago::find($editars->COM_SolicitudCotizacion_FormaPago) ?>
+                                         <?php $forma= invCompras::FormaPagoCompras($editars->COM_SolicitudCotizacion_FormaPago) ?>
                                         <td>{{{ $forma->INV_FormaPago_Nombre }}}</td>
+                                        <td>{{{ $editars->COM_SolicitudCotizacion_CantidadPago }}}</td>
+                                        <td>{{{ $editars->COM_SolicitudCotizacion_PeriodoGracia }}}</td>
+                                        
 					@foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
 					    @if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$editars->COM_SolicitudCotizacion_IdSolicitudCotizacion)->count() > 0 )
 					    	<td>{{{ DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_SolicitudCotizacion_IdSolicitudCotizacion',$editars->COM_SolicitudCotizacion_IdSolicitudCotizacion)->first()->COM_ValorCampoLocal_Valor }}}</td>
@@ -71,8 +76,13 @@
 							<td>Activo</td>
 						@else
 							<td>Inactivo</td>
-						@endif	
-					<td>{{ link_to_route('Compras.SolicitudCotizacions.edit', 'Editar', array($editars->COM_SolicitudCotizacion_IdSolicitudCotizacion), array('class' => 'btn btn-info')) }}</td>
+						@endif
+                                        @if($editars->COM_SolicitudCotizacion_Recibido == 1)
+                                        
+					<td style="visibility:hidden">{{ link_to_route('Compras.SolicitudCotizacions.edit', 'Editar', array($editars->COM_SolicitudCotizacion_IdSolicitudCotizacion),array('class' => 'btn btn-info')) }}</td>
+					@else
+                                        <td>{{ link_to_route('Compras.SolicitudCotizacions.edit', 'Editar', array($editars->COM_SolicitudCotizacion_IdSolicitudCotizacion),array('class' => 'btn btn-info')) }}</td>
+                                        @endif
                                         <td>{{ link_to_route('detalle', 'Detalle', array('prov'=>$editars->Proveedor_idProveedor, 'solCot'=> $editars->COM_SolicitudCotizacion_IdSolicitudCotizacion), array('class' => 'btn btn-success')) }}</td>
 
         

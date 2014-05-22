@@ -63,14 +63,14 @@
 		</thead>
 
 		<tbody>
-                    <?php $prov_prod = DB::table('INV_Producto_Proveedor')->get(); ?>
+                    <?php $prov_prod = invCompras::ProveedorProducto($proveedores->INV_Proveedor_ID) ?>
                     
                 
                     @foreach($prov_prod as $key)
-                    @if($proveedores->INV_Proveedor_ID == $key->INV_Proveedor_ID)
+                   
 			@for($i=0; $i < count($cualquierProducto); $i++)
                         
-                                    <?php $cualquierProducto1= Producto::find($cualquierProducto[$i]);  ?>
+                                    <?php $cualquierProducto1= invCompras::ProductoCompras($cualquierProducto[$i]);  ?>
                                     @if($cualquierProducto1->INV_Producto_ID == $key->INV_Producto_ID)
                                     <tr>
 					
@@ -81,7 +81,7 @@
                                         <td>{{ Form::text('CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre, null, array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
 					
                                         
-                                        <?php $unidad= UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
+                                        <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>
                                         <td>{{{ $unidad->INV_UnidadMedida_Nombre }}}</td>
                                         
                                        
@@ -91,7 +91,7 @@
                                @endif 
                            
                           @endfor
-                    @endif
+                    
                     @endforeach
                 </tbody> 
              </table>
@@ -129,18 +129,21 @@
 </div>
 <div class="col-md-4">
 <label>Forma de Pago</label>
-           <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedores->INV_Proveedor_ID)->get();
+           <?php $formapago=  invCompras::ProveedorFormaPago($proveedores->INV_Proveedor_ID);
                   $form=array();
                   $id=array();
                   foreach ($formapago as $forma){
                          $id[]=$forma->INV_FormaPago_ID;
                    }
-                   $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+                   $m= invCompras::FormaPagolista($id);
                   
                  
            ?>
            {{ Form::select('formapago'.$proveedores->INV_Proveedor_Nombre,$m) }}
            
+</div>	
+<div class="col-md-4">
+    <p>Por favor mandar la cantidad de pagos a realizar y el periodo de gracia para realizar el primer pago a partir de enviar la cotizacion</p>
 </div>	
 
 <div class="row" >

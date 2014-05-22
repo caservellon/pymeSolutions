@@ -83,7 +83,7 @@ class DetalleSalidasController extends BaseController {
 			$this->DetalleMovimiento->create($input);
 			
 			//Generar los asientos para la transacción de entrada a inventario
-			Contabilidad::invGenerarTransaccion($input['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'], $input['INV_DetalleMovimiento_PrecioCosto']);
+			Contabilidad::invGenerarTransaccion($input['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'], $input['INV_DetalleMovimiento_PrecioCosto']*$input['INV_DetalleMovimiento_CantidadProducto']);
 			//return View::make('DetalleSalidas.create', compact('Productos', 'Motivo', 'id'));
 			return Redirect::route('Inventario.DetalleSalida.create');
 		}

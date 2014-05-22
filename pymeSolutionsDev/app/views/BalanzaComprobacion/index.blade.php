@@ -1,30 +1,63 @@
 @extends ('layouts.scaffold')
 @section('main')
 
-<h2 class='sub-header'><i class="glyphicon glyphicon-cog"></i>Balanza de Comprobacion <small> Ver</small>
-<a class='btn btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
-    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
-</h2>
 
-<table class="table table-striped">
-	<thead>
-		<th>Cuenta</th>
-		<th>Debe</th>
-		<th>Haber</th>
-	</thead>
-	<tbody>
-		@foreach ($Cuentas as $Cuenta)
-			<tr>
-					<td>{{{ $Cuenta->CON_CatalogoContable_Nombre }}}</td>
-					@if ( $Cuenta->CON_CuentaT_AcreedorDeudor == 0 )
-						<td>{{{ $Cuenta->CON_CuentaT_SaldoFinal }}}</td>
-					@else
-						<td>{{{ $Cuenta->CON_CuentaT_SaldoFinal }}}</td>
-					@endif
-			</tr>
+<div class="page-header">
+	<div class="row">
+	<h2 class='sub-header'><i class="glyphicon glyphicon-cog"></i>Balanza de Comprobacion <small> Ver</small>
+	<a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
+	    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+	</h2>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-3 form-group">
+		{{Form::label('CP','Clasificacion de Periodo:')}}
+		<div>
+		{{Form::select('CP',$Periodos,array('class'=>'form-control'))}}
+		</div>
+	</div>
+	<div class="col-sm-3 form-group">
+		<label>Periodo:</label>
+		<div id="periodos">
+			<select id="PC"></select>
+		</div>
+	</div>
+</div>
+<br>
+<div id="table">
+</div>
+
+<a class='btn btn-default pull-right disabled' href="">Generar Balanza Comprobacion Ajustada</a>
+@stop
+
+@section('contabilidad_scripts')
+
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+
+			$('#CP').on('change',function(){
+
+				$.post('{{URL::route("con.blclasificacion")}}',{id:this.value})
+					.success(function(data){
+						$("#periodos").html(data);
+						$('#PC').on('change',function(){
+
+							$.post('{{URL::route("con.bltable")}}',{id:this.value})
+									.success(function(data){
+										$("#table").html(data);
+									});
+						});
+						$('#PC').change();
+				});
+			});
+
 			
-		@endforeach
-	</tbody>
-</table>
-<a class='btn btn-default pull-right' href="">Generar Balanza Comprobacion Ajustada</a>
+			$('#CP').change();
+	});
+
+	</script>
+
 @stop
