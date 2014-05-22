@@ -93,6 +93,7 @@ class SolicitudCotizacionsController extends BaseController {
                 
                 for ($j=0; $j< count($proveedor); $j++){
                    $temprod = invCompras::ProveedorCompras($proveedor[$j]);
+                   $nombret = str_replace(' ', '', $temprod->INV_Proveedor_Nombre);
                    foreach ($campos as $campo) {
                     
 			$val = '';
@@ -112,7 +113,7 @@ class SolicitudCotizacionsController extends BaseController {
 				default:
 					break;
 			}
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo.$temprod->INV_Proveedor_Nombre => $val));
+			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo.$nombret => $val));
 //                        $res = array_merge($res, array('cualquiera'=>'Requerid|min:0|Numeric|'));
                    }
                         
@@ -123,8 +124,9 @@ class SolicitudCotizacionsController extends BaseController {
                    
                     $temp = invCompras::ProductoCompras($cualquierProducto[$k]);
                     
+                    $nombre = str_replace(' ', '', $temp->INV_Producto_Nombre);
                     
-                    $res=array_merge($res,array('CantidadSolicitar'.$temprod->INV_Proveedor_Nombre.$temp->INV_Producto_Nombre => 'Required|Integer|min:1'));
+                    $res=array_merge($res,array('CantidadSolicitar'.$nombret.$nombre => 'Required|Integer|min:1'));
                 }
                 }
                 
@@ -139,10 +141,11 @@ class SolicitudCotizacionsController extends BaseController {
                     $detalle=$cont->count()+1;
                     $solicitudCotizacion = new SolicitudCotizacion();
                     $temprod =  invCompras::ProveedorCompras($proveedor[$i]);
+                    $nombret = str_replace(' ', '', $temprod->INV_Proveedor_Nombre);
                     $solicitudCotizacion->COM_SolicitudCotizacion_Codigo='COM_SC_'.$detalle;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaEmision= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_SolicitudCotizacion_DireccionEntrega= 'Los Llanos';
-                    $solicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago'.$temprod->INV_Proveedor_Nombre);
+                    $solicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago'.$nombret);
                     $solicitudCotizacion->COM_SolicitudCotizacion_Recibido=0;
                     $solicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d H:i:s');
@@ -154,7 +157,7 @@ class SolicitudCotizacionsController extends BaseController {
                                    // return $campo->GEN_CampoLocal_Codigo;
                                     $valorcampolocal = new ValorCampoLocal;
                                     
-                                    $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo.$temprod->INV_Proveedor_Nombre);
+                                    $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo.$nombret);
                                     
                                     $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
                                     $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
@@ -171,9 +174,9 @@ class SolicitudCotizacionsController extends BaseController {
                                 if($cualquierProducto[$j]==$key->INV_Producto_ID){
                                 $detallesolicitud= new DetalleSolicitudCotizacion();
                                 $temp = invCompras::ProductoCompras($cualquierProducto[$j]);
-                
+                                $nombre = str_replace(' ', '', $temp->INV_Producto_Nombre);
                                 
-                                $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$temprod->INV_Proveedor_Nombre.$temp->INV_Producto_Nombre);
+                                $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$nombret.$nombre);
                                 
                                 $detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
                                 $detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
@@ -222,7 +225,7 @@ class SolicitudCotizacionsController extends BaseController {
                 
               }
               return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
-                     ->withInput(Input::all())
+                     ->withInput($Input)
                      ->withErrors($validation)
                      ->with('message', 'There were validation errors.');
 	}
@@ -359,10 +362,16 @@ class SolicitudCotizacionsController extends BaseController {
         $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
         //Querys de las columnas propias del Producto
         
-         $val= Input::get('search');  
+        $val= Input::get('search');  
+        if(($val== 'Recibido')||($val== 'recibido'))
+            $val=1;
+        if(($val== 'En Espera')||($val== 'en espera'))
+            $val=0;
+        $SolicitudCotizacions = DB::table('COM_SolicitudCotizacion')->where('COM_SolicitudCotizacion_Recibido', '=',  $val)->lists('COM_SolicitudCotizacion_IdSolicitudCotizacion');
         $SolicitudCotizacions = DB::table('COM_SolicitudCotizacion')->where('COM_SolicitudCotizacion_Codigo', 'LIKE', '%'.$val.'%')
         ->orWhere('COM_SolicitudCotizacion_CantidadPago', '=',  $val)
         ->orWhere('COM_SolicitudCotizacion_PeriodoGracia', '=',  $val)
+  //      ->orWhere('COM_SolicitudCotizacion_Recibido', '=',  $val)
 //        ->orWhere('INV_Producto_ValorCodigoBarras', '=',  Input::get('search'))
 //        ->orWhere('INV_Producto_Descripcion', 'LIKE',  '%'.Input::get('search').'%')
         ->lists('COM_SolicitudCotizacion_IdSolicitudCotizacion');
