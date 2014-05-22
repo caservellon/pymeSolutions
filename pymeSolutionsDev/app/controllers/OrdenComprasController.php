@@ -578,7 +578,6 @@ class OrdenComprasController extends BaseController {
 
                 $fechaAnterior=$fecha2;
             for( $i=0; $i<($ordenOC->COM_OrdenCompra_CantidadPago-1); $i++){
-
                 $fecha= $this->calculaFecha('days',$fp->INV_FormaPago_DiasCredito,$fechaAnterior);
                 $ultimo= COMOrdenPago::count();
                 $nuevopago=  new COMOrdenPago();
@@ -591,7 +590,8 @@ class OrdenComprasController extends BaseController {
                 $nuevopago->COM_OrdenCompra_Monto=$abonos;
                 $nuevopago->COM_OrdenCompra_FormaPago=$ordenOC->COM_OrdenCompra_FormaPago;
                 $nuevopago->COM_Proveedor_IdProveedor =$ordenOC->COM_Proveedor_IdProveedor;
-                $nuevopago->save();                
+                $nuevopago->save(); 
+                $fechaAnterior=$fecha;               
 
             }
            
