@@ -43,17 +43,39 @@ class UserController
 	}
 
 	public function show($id){
-
+		return Redirect::route('Auth.Usuarios.index');
 	}
 
 	public function edit($id)
 	{
+		$User = $this->User->find($id);
+
+		if (is_null($User))
+		{
+			return Redirect::route('Auth.Usuarios.index');
+		}
+
+		return View::make('Usuarios.edit', compact('User'));
 
 	}
 
 	public function update($id)
 	{
+		$input = array_except(Input::all(), '_method');
+		$validation = Validator::make($input, User::$rulesUpdate);
 
+		if ($validation->passes())
+		{
+			$User = $this->User->find($id);
+			$User->update($input);
+
+			return Redirect::route('Auth.Usuarios.index');
+		}
+
+		return Redirect::route('Auth.Usuarios.edit', $id)
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'Errores de Validacion.');
 	}
 
 	public function destroy($id){

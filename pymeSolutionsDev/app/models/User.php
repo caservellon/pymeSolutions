@@ -18,6 +18,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public static $rules = array(
 		'SEG_Usuarios_Username' => 'unique:SEG_Usuarios'
 	);
+
+	public static $rulesUpdate = array(
+		'SEG_Usuarios_Username' => 'required'
+	);
 	
 	public function getAuthIdentifier()
 	{
