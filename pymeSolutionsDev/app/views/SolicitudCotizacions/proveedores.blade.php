@@ -13,6 +13,15 @@
     <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Confirmar', array('class' => 'btn btn-default btn-md')) }}</div>
 </div> 
 
+
+
+@if($iguales == 'Cantidad')
+<div class="alert alert-danger">
+    
+    <li >La cantidad del mismo producto con distinto proveedor tienen que ser iguales</li>
+   
+</div>
+ @endif
         
 @if ($errors->any())
 <div class="alert alert-danger">
