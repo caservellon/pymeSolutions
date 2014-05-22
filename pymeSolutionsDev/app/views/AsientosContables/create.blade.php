@@ -100,7 +100,7 @@
               $('#div_crearmotivo').html(data);
             });
          });
-
+         $('#CON_MotivoTransaccion_ID').click();
     });
 </script>
 

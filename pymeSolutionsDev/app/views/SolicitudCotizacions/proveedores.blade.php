@@ -70,7 +70,7 @@
                    
 			@for($i=0; $i < count($cualquierProducto); $i++)
                         
-                                    <?php $cualquierProducto1= invCompras::ProductoCompras($cualquierProducto[$i]);  ?>
+                                    <?php $cualquierProducto1= invCompras::ProductoCompras($cualquierProducto[$i]);  $nombret = str_replace(' ', '', $proveedores->INV_Proveedor_Nombre);?>
                                     @if($cualquierProducto1->INV_Producto_ID == $key->INV_Producto_ID)
                                     <tr>
 					
@@ -78,7 +78,8 @@
                                         
 					<td>{{{ $cualquierProducto1->INV_Producto_Nombre }}}</td>
 					<td>{{{ $cualquierProducto1->INV_Producto_Descripcion }}}</td>
-                                        <td>{{ Form::text('CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre, null, array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
+                                        <?php $nombre = str_replace(' ', '', $cualquierProducto1->INV_Producto_Nombre ); ?>
+                                        <td>{{ Form::text('CantidadSolicitar'.$nombret.$nombre, null, array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
 					
                                         
                                         <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>
@@ -107,19 +108,19 @@
         @endif
         <div class="col-md-5">
             @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre)) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$nombret,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$nombret)) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, 'placeholder'=>'##')) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$nombret,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$nombret, 'placeholder'=>'##')) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, 'placeholder'=>'#.##')) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$nombret,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$nombret, 'placeholder'=>'#.##')) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-            {{ Form::select($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}
+            {{ Form::select($campo->GEN_CampoLocal_Codigo.$nombret, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}
             
             @endif
         </div>
@@ -139,7 +140,7 @@
                   
                  
            ?>
-           {{ Form::select('formapago'.$proveedores->INV_Proveedor_Nombre,$m) }}
+           {{ Form::select('formapago'.$nombret,$m) }}
            
 </div>	
 <div class="col-md-4">
