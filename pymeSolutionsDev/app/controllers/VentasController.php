@@ -158,16 +158,16 @@ class VentasController extends BaseController {
 
 			$subTotal = $subTotal - $descuentoCalculado;
 			if ($totalBonoDeCompra != 0) {
-				Contabilidad::GenerarTransaccion(4, $totalBonoDeCompra);
+				Contabilidad::GenerarTransaccion(4, $subTotal);
 			}
 			if ($totalEfectivo != 0) {
-				Contabilidad::GenerarTransaccion(3, $totalEfectivo);
+				Contabilidad::GenerarTransaccion(3, $subTotal);
 			}
 			
 			
 			Contabilidad::GenerarTransaccion(5,$isvCalculado);
 			Contabilidad::GenerarTransaccion(7,$descuentoCalculado);
-			//Contabilidad::GenerarTransaccion(6,$costoVendido);
+			Contabilidad::GenerarTransaccion(6,$costoVendido);
 
 			return $return;
 
