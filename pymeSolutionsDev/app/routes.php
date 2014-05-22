@@ -311,6 +311,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('librodiario','LibroDiarioController');
 			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::resource('estadoresultados', 'EstadoresultadosController');
+			Route::resource('BalanceGeneral', 'BalancegeneralsController');
 
 			Route::resource('conceptomotivo','ConceptoMotivoController');
 			Route::get('crear/conceptomotivo',array('uses'=>'ConceptoMotivoController@create'));
@@ -467,6 +468,7 @@ Route::resource('tipodocumentos', 'TipodocumentosController');
 Route::resource('productocampolocals', 'ProductocampolocalsController');
 
 Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
+
 
 
 
