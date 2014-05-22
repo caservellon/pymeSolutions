@@ -86,6 +86,27 @@
         {{ Form::text('INV_Proveedor_RutaImagen',$Proveedor->INV_Proveedor_RutaImagen, array('class' => 'form-control', 'id' => 'INV_Proveedor_RutaImagen', 'placeholder' => 'Dir' )) }}
       </div>
     </div>
+
+    <div class="form-group">
+      {{ Form::label('INV_Ciudad_ID', 'Ciudad: *', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::select('INV_Ciudad_ID', $ciudades, null, array('class' => 'form-control', 'id' => 'INV_Ciudad_ID', 'placeholder' => '#' )) }}
+      </div>
+    </div>
+
+    <div class="form-group">
+     {{ Form::label('INV_Producto_ID', 'Producto: *', array('class' => 'col-md-2 control-label')) }}
+     <div class="col-md-5">
+       {{ Form::select('INV_Producto_ID', $productos, null, array('class' => 'form-control', 'id' => 'INV_Producto_ID', 'placeholder' => '#' )) }}
+     </div>
+   </div>
+
+   <div class="form-group">
+     {{ Form::label('INV_FormaPago_ID', 'Forma de Pago: *', array('class' => 'col-md-2 control-label')) }}
+     <div class="col-md-5">
+       {{ Form::select('INV_FormaPago_ID', $fpagos, null, array('class' => 'form-control', 'id' => 'INV_FormaPago_ID', 'placeholder' => '#' )) }}
+     </div>
+   </div>
    
     <div class="form-group">
       {{ Form::label('INV_Proveedor_Activo', 'Activo: ', array('class' => 'col-md-2 control-label')) }}
