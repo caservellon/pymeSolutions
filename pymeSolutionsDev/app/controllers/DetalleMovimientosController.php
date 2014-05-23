@@ -100,6 +100,7 @@ class DetalleMovimientosController extends BaseController {
 		$validation = true;
 		for (reset($t); $j = key($t); next($t)) {
 			next($t);
+			$j = key($t);
 			if ($t[$j] < 1) {
 				$validation = false;
 				break;
