@@ -29,7 +29,7 @@
 <div id="table">
 </div>
 
-<a class='btn btn-default pull-right disabled' href="">Generar Balanza Comprobacion Ajustada</a>
+<!--a class='btn btn-default pull-right disabled' href="">Generar Balanza Comprobacion Ajustada</a-->
 @stop
 
 @section('contabilidad_scripts')

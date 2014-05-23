@@ -5,7 +5,7 @@
 	<div class="page-header">
 	<div class='row'>
 		<div class='col-sm-10'>
-			 <h2><i class='glyphicon glyphicon-list'></i> Lista de pagos </h2>
+			 <h2><i class='glyphicon glyphicon-list'></i> Lista de cuentas por pagar </h2>
 		</div>
 		<div class="col-sm-2">
 			<a href="{{URL::route('con.principal')}}" class="btn btn-sm btn-primary">
@@ -21,41 +21,29 @@
 		<tr>
 			<th>Codigo</th>
 			<th>Proveedor</th>
-			<th>Total</th>
-			
 			<th>Forma de Pago</th>
 			<th>Fecha limite de pago</th>
-			<th>Por pagar</th>
-			<th>Cuota</th>
+			<th>Total</th>
 			<th>Accion</th>
 		</tr>
 		</thead>
 		<tbody>
 
 
-			<?php $count=-1; ?>
 			@foreach ($OrdenesPago as $key)
-			<?php $idop=$key['idop']; $count++; ?>
+			<?php $idop=$key->COM_OrdenPago_IdOrdenPago; 
+				$prov=invContabilidad::ProveedorInfo($key->COM_Proveedor_IdProveedor); ?>
 			<tr>
 				<td>{{$idop}}</td>
-				<td> {{ invContabilidad::ProveedorInfo($key['idop'])->INV_Proveedor_Nombre}}</td>
-				<td> {{$key['total']}}</td>
-
+				<td> {{ $prov['INV_Proveedor_Nombre'] }}</td>
 					<?php $porpagar=PagoCompras::find($idop);
-					 $var=invContabilidad::getFormaPago($key['idfp']);?>
-				<td> {{$var['Nombre']; }}</td>
-				<td> -- </td>
-
-				@if ($porpagar)
-					<td> {{$porpagar->CON_Pago_PorPagar }}</td>
-				@else
-					<td> {{$key['total']}}</td>
-				@endif
-				<td> -- </td>
+					 $var=invContabilidad::getFormaPago($key->COM_OrdenCompra_FormaPago);?>
+				<td> {{ $var['Nombre']; }}</td>
+				<td> {{date('Y-m-d',strtotime($key->COM_OrdenCompra_FechaPagar))}} </td>
+				<td> {{$key->COM_OrdenCompra_Monto}}</td>
 				<td>
-				<button id="{{$count}}" class="pago btn btn-success">
-				Pagar 	<i class="glyphicon glyphicon-usd"></i></button> 
-				
+					<button id="{{$idop}}" class="pago btn btn-success">
+						Pagar <i class="glyphicon glyphicon-hand-up"></i></button> 
 				</td>
 			</tr>
 			@endforeach									
@@ -70,9 +58,10 @@
 	<script type="text/javascript">
 	$(".pago").on('click',function(){
 		//alert(this.id);
+
 		$.post("{{URL::route('con.pagarcompra')}}",{id:this.id})
 			.success(function(data){
-				//alert(data);
+				alert(data);
 				location.reload();
 			})
 			.error(function(xhr,error){

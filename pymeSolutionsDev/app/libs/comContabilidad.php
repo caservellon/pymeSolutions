@@ -1,22 +1,15 @@
 <?php
 class comContabilidad {
 	public static function OrdenesSinPagar(){
-	 $contador=0;
-    $return= array();
-    $sinPagos = COMOrdenPago::where('COM_OrdenPago_Activo','=',1)->lists('COM_OrdenCompra_idOrdenCompra');
-    $sinPagosid = COMOrdenPago::where('COM_OrdenPago_Activo','=',1)->lists('COM_OrdenPago_IdOrdenPago');
-    foreach($sinPagos as $OP){
-      $OC=OrdenCompra::find($OP);
-        array_push($return, array(
-        	'idop'=>$sinPagosid[$contador],
-        	'total'=>$OC->COM_OrdenCompra_Total,
-        	'idprov'=>$OC->COM_Proveedor_IdProveedor,
-        	'idfp'=>$OC->COM_OrdenCompra_FormaPago,
-        	'FCreo'=>$OC->COM_OrdenCompra_FechaEmision,
-        	'FEntrega'=>$OC->COM_OrdenCompra_FechaEntrega));
-        $contador++;  
-    }
-	return $return;
+	$sinPago=COMOrdenpago::where('COM_OrdenPago_Activo','=',1)
+			//->where('COM_OrdenCompra_FechaPagar','<=',date('Y-m-d'))
+			->get(array('COM_OrdenPago_IdOrdenPago',
+						'COM_OrdenCompra_idOrdenCompra',
+						'COM_OrdenCompra_FechaPagar',
+						'COM_OrdenCompra_Monto',
+						'COM_Proveedor_IdProveedor',
+						'COM_OrdenCompra_FormaPago'));
+	return $sinPago;
 	}
 	public static function cambiarAPagada($idOp){
 		$orden= COMOrdenPago::find($idOp);

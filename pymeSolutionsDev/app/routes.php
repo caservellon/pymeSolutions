@@ -319,7 +319,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 
 			Route::resource('conceptomotivo','ConceptoMotivoController');
 			Route::get('crear/conceptomotivo',array('uses'=>'ConceptoMotivoController@create'));
-
+			Route::get('libromayor',array('uses'=>'LibroMayorController@index'));
 			Route::get('librodiario',array('uses' => 'LibroDiarioController@index'));
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));

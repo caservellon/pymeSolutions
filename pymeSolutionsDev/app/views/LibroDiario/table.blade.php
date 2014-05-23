@@ -2,7 +2,7 @@
 
 
 @if ($LibroDiario!=array())
-	<table class="table table-hover table-striped table-bordered">
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th>No. Asiento</th>
@@ -16,9 +16,9 @@
 		</thead>
 
 		<tbody>
-
+				<?php $flag=0; ?>
 				@foreach ($LibroDiario as $Libro)
-					<tr>	
+					<tr class="@if ($flag) {{'active'}} @endif">	
 						<td>{{{$Libro[0]['no']}}}</td>
 						<td>{{{strstr($Libro[0]['fecha'],' ',true)}}}</td>
 						<td><p class="pull-left">{{{$Libro[0]['cuenta']}}}</p></td>
@@ -32,7 +32,7 @@
 	                  	@endif
 	                  	</td>
 					</tr>
-					<tr>
+					<tr class="@if ($flag) {{'active'}} @endif">
 						<td></td>
 						<td></td>
 						<td>{{{$Libro[1]['cuenta']}}}</td>
@@ -41,6 +41,7 @@
 						<td></td>
 						<td></td>
 					</tr>
+					<?php if($flag) $flag=0; else $flag=1; ?>
 				@endforeach
 		</tbody>
 	</table>

@@ -46,7 +46,7 @@ class AsientosController extends BaseController {
 
 		if(Request::ajax()){
 			$CuentaMotivo= CuentaMotivo::where('CON_MotivoTransaccion_ID','=',Input::get('id'))->get();
-			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==0){
+			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==NULL){
 			   $Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
 				$Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);
 			}
