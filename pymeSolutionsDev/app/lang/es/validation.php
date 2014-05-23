@@ -60,7 +60,6 @@ return array(
     "required_with"    => "El :attribute es requerido cuando :values está presente.",
     "required_without" => "El :attribute es requerido cuando :values no está presente.",
     "same"             => "El :attribute y :other deben coincidir.",
-    "cantidad"         => "El :attribute del mismo producto con distinto proveedor tienen que ser iguales",
     "size"             => array(
         "numeric" => "El :attribute debe ser :size.",
         "file"    => "El :attribute debe tener :size kilobytes.",
