@@ -43,7 +43,7 @@
 		<tbody>
                     
 			@foreach ($cualquierProducto as $value)
-                            <?php $prov_prod = invCompras::ProductoProveedor(1); ?>
+                            <?php $prov_prod = invCompras::ProductoProveedor($value->INV_Producto_ID); ?>
 				<tr>
 					<td>{{{ $value->INV_Producto_Codigo }}}</td>
 					<td>{{{ $value->INV_Producto_Nombre }}}</td>

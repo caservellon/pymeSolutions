@@ -2,7 +2,10 @@
 
 @section('main')
 
-	<?php $CodigosCotizacion = Input::get('CodigosCotizacion'); ?>
+	<?php 
+		$CodigosCotizacion = Input::get('CodigosCotizacion');
+		$FormasPago = Helpers::InformacionFormasPago();
+	?>
 	
 	<div class="row">
 		<div class="page-header clearfix">
@@ -69,8 +72,8 @@
 										<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
 									@endforeach
 									
-									<td>Lps. {{ number_format($ProductoCotizacion -> Precio, 2) }}</td>
-									<td>Lps. {{ number_format($ProductoCotizacion -> Cantidad * $ProductoCotizacion -> Precio, 2) }}</td>
+									<td>{{ number_format($ProductoCotizacion -> Precio, 2) }}</td>
+									<td>{{ number_format($ProductoCotizacion -> Cantidad * $ProductoCotizacion -> Precio, 2) }}</td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -80,8 +83,18 @@
 
 			<div class="row">
 				<div class="col-md-5">
-					<label>Forma de Pago: </label>
+					<label>Forma de Pago:</label>
 					{{ $Cotizacion[0] -> FormaPago }}
+				
+					<br><br>
+					
+					<label>Cantidad de Pagos:</label>
+					{{ $Cotizacion[0] -> CantidadPagos }}
+					
+					<br><br>
+					
+					<label>Per&iacute;odo de Gracia:</label>
+					{{ $Cotizacion[0] -> PeriodoGracia }}
 					
 					<br><br>
 					
