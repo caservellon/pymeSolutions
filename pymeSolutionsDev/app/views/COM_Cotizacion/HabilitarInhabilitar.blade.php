@@ -75,7 +75,7 @@
 									<th>Proveedor</th>
 									<th>Fecha de creaci&oacute;n</th>
 									<th>Vigencia</th>
-									<th>Activo / Inactivo</th>
+									<th>Activa / Inactiva</th>
 								</tr>
 							</thead>
 							
