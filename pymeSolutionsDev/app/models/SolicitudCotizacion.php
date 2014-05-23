@@ -13,4 +13,5 @@ class SolicitudCotizacion extends Eloquent {
 		'COM_SolicitudCotizacion_CantidadPago'=> 'min:1|Integer|',
                 'COM_SolicitudCotizacion_PeriodoGracia'=> 'min:1|Integer|'
 	);
+        
 }

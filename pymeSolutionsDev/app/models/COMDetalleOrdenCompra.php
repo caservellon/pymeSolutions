@@ -12,7 +12,9 @@
                                             'COM_OrdenCompra_Total' => 'required',
                                             'COM_Proveedor_IdProveedor' => 'required',
                                             'COM_DetalleOrdenCompra_Cantidad'=>array('required','integer','min:1'),
-                                            'COM_DetalleOrdenCompra_PrecioUnitario'=>array('required','num_decimal')
+                                            'COM_DetalleOrdenCompra_PrecioUnitario'=>array('required','num_decimal'),
+                                            'COM_OrdenCompra_PeriodoGracia' => array('required','min:1','max:30','integer'),
+        'COM_OrdenCompra_CantidadPago' => array('required','min:1','integer')
                                             );
 }
 

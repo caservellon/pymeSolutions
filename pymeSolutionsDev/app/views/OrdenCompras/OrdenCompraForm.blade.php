@@ -155,7 +155,8 @@
                         "futureOnly": true,
                         "locale":"es",
                         "minTime": "{{$horaInicio}}",
-                        "maxTime": "{{$horaFinal}}"
+                        "maxTime": "{{$horaFinal}}",
+                        "dateFormat": "YYYY/MM/DD hh:mm"
                     });
             </script>
              <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
@@ -182,9 +183,9 @@
            {{ Form::select('formapago',$m) }}
            <label>Periodo de Gracia</label>
            <br>
-           {{  Form::text('COM_OrdenCompra_PeriodoGracia','15', null) }}
+           {{  Form::text('COM_OrdenCompra_PeriodoGracia',null) }}
            <label>Cantidad de Abonos a Realizar</label>
-           {{  Form::text('COM_OrdenCompra_CantidadPago','10', null )}}
+           {{  Form::text('COM_OrdenCompra_CantidadPago',null)}}
 		</div>
 		<div class="col-md-4">
         <label>Direccion de Entrega*:</label>
