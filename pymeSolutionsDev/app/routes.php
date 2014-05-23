@@ -16,6 +16,7 @@ Route::get('/', function(){
 });
 
 // Seguridad
+Route::get('Rol',array('uses'=>'RolesController@index'));
 Route::group(array('prefix' => 'Auth'), function()
 {
 	Route::any('login', array('as' => 'Auth.login', 'uses' => 'UserController@login'));
