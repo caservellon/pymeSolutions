@@ -5,7 +5,7 @@
     <div class="page-header clearfix">
       <h3 class="pull-left">Autorizar Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
       <div class="pull-right">
-        <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 </div>
@@ -104,7 +104,7 @@
 <div class="row">
     
     <a href="{{ route('AutorizarOrdCom', array('id'=>$ordenCompra->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Autorizar</a>
-    <a href="{{ route('CancelaOrdCom', array('id'=>$ordenCompra->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Cancelar</a>
+    <a href="javascript:window.history.back();" class="btn btn-info">Cancelar</a>
     
 </div>
 

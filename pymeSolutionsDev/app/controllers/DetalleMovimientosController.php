@@ -64,26 +64,100 @@ class DetalleMovimientosController extends BaseController {
 	public function store()
 	{
 		$input = Input::all();
-		$validation = Validator::make($input, DetalleMovimiento::$rules);
-
-		if ($validation->passes())
+		$t = array();
+		//return $input;
+		for (reset($input); $i = key($input); next($input)) {
+			if ($i != '_token' && $i != 'Motivo' && $i != 'Motivo2') {
+				$t1 = $i;
+				next($input);
+				$t2 = key($input);
+				next($input);
+				$t3 = key($input);
+				next($input);
+				$t4 = key($input);
+				$t6 = $input[$t2];
+				if ($t1 == 'A'.$t6) {
+					next($input);
+					$t5 = key($input);
+					$t[$t2] = $input[$t2];
+					$t[$t3] = $input[$t3];
+					$t[$t4] = $input[$t4];
+					if ($input[$t4] == '1')
+						$t[$t4] = $input[$t5];
+					elseif ($input[$t4] == '')
+						$t[$t4] = 0;
+				}
+			}
+		}
+		//return $t;
+		if (sizeof($t) == 0) {
+			return Redirect::route('Inventario.DetalleMovimiento.create')
+			->withInput()
+			->withErrors('Debe seleccionar por lo menos un Producto!')
+			->with('message', 'There were validation errors.');
+		}
+		//return $t;
+		$validation = true;
+		for (reset($t); $j = key($t); next($t)) {
+			next($t);
+			if ($t[$j] < 1) {
+				$validation = false;
+				break;
+			}
+			next($t);
+		}
+		
+		if ($validation)
 		{
-			$Producto = Producto::find(Input::get('INV_DetalleMovimiento_IDProducto'));
-			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + (Input::get('INV_DetalleMovimiento_PrecioCosto') * Input::get('INV_DetalleMovimiento_CantidadProducto')))/(Input::get('INV_DetalleMovimiento_CantidadProducto') + $Producto->INV_Producto_Cantidad);
-			//Calcular Precio de Costo
-			$input['INV_DetalleMovimiento_PrecioCosto'] = $Costo;
-			//$Producto->INV_Producto_PrecioCosto = $Costo;
-			//return $input;
-			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + Input::get('INV_DetalleMovimiento_CantidadProducto');
-			$Producto->save();
-			$this->DetalleMovimiento->create($input);
+			//return $t;
+			$monto = 0;
+			for (reset($t); $x = key($t); next($t)) {
+				$detalle = array();
+				$t1 = $x;
+				next($t);
+				$t2 = key($t);
+				next($t);
+				$t3 = key($t);
+				$Producto = Producto::find($input[$t1]);
+
+				//Calcular Precio de Costo
+				$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + ($t[$t3] * $t[$t2]))/($t[$t2] + $Producto->INV_Producto_Cantidad);
+				
+				$Producto->INV_Producto_PrecioCosto = $Costo;
+				$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $t[$t2];
+				$Producto->save();
+
+				//llenado array detalle para almacenarlo
+				$detalle['INV_DetalleMovimiento_IDProducto'] = $Producto->INV_Producto_ID;
+				$detalle['INV_DetalleMovimiento_CodigoProducto'] = $Producto->INV_Producto_Codigo;
+				$detalle['INV_DetalleMovimiento_NombreProducto'] = $Producto->INV_Producto_Nombre;
+				$detalle['INV_DetalleMovimiento_CantidadProducto'] = $t[$t2];
+				$detalle['INV_DetalleMovimiento_PrecioCosto'] = $t[$t3];
+				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
+				$detalle['INV_DetalleMovimiento_FechaCreacion'] = date('Y-m-d H:i:s');
+				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = 'Admin';
+				$detalle['INV_DetalleMovimiento_FechaModificacion'] = date('Y-m-d H:i:s');
+				$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = 'Admin';
+				$detalle['INV_Movimiento_ID'] = $input['Motivo'];
+				$detalle['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'] = $input['Motivo2'];
+				$detalle['INV_Producto_INV_Producto_ID'] = $Producto->INV_Producto_ID;
+				$detalle['INV_Producto_INV_Categoria_ID'] = $Producto->INV_Categoria_ID;
+				$detalle['INV_Producto_INV_Categoria_IDCategoriaPadre'] = $Producto->INV_Categoria_IDCategoriaPadre;
+				$detalle['INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID'] = $Producto->INV_UnidadMedida_ID;
+
+				$this->DetalleMovimiento->create($detalle);
+				$monto += ($t[$t2] * $t[$t3]);
+			}
+			
+			//Generar los asientos para la transacción de entrada a inventario
+			Contabilidad::invGenerarTransaccion($input['Motivo2'], $monto);
 			//return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id'));
-			return Redirect::route('Inventario.DetalleMovimiento.create');
+			return Redirect::route('Inventario.MovimientoInventario.Detalles', array($input['Motivo']));
 		}
 
 		return Redirect::route('Inventario.DetalleMovimiento.create')
 			->withInput()
-			->withErrors($validation)
+			->withErrors('Ingrese solamente cantidades mayores que 0!')
 			->with('message', 'There were validation errors.');
 	}
 
@@ -190,10 +264,11 @@ class DetalleMovimientosController extends BaseController {
 		//$idProductos = DB::select('select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?', array($id));
 		//return $idProductos;
 		$Categorias = Categoria::all();
+		$text = Input::get('search');
 		if(Input::get('search')=='')
 			$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array($id));
 		else 
-			$Productos = DB::select('select * from INV_Producto where (INV_Producto_Nombre = ? or INV_Producto_Codigo = ? or INV_Categoria_ID in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre = ?) or INV_Categoria_IDCategoriaPadre in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre = ?)) and INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(Input::get('search'), Input::get('search'), Input::get('search'), Input::get('search'), $id));
+			$Productos = DB::select("select * from INV_Producto where (INV_Producto_Nombre LIKE '%". $text ."%' or INV_Producto_Codigo LIKE '%". $text ."%' or INV_Categoria_ID in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre LIKE '%". $text ."%') or INV_Categoria_IDCategoriaPadre in (select INV_Categoria_ID from INV_Categoria where INV_Categoria_Nombre LIKE '%". $text ."%')) and INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)", array($id));
 		//$Productos = DB::select('select * from INV_Producto where INV_Producto_ID not in (select INV_DetalleMovimiento_IDProducto from INV_DetalleMovimiento where INV_Movimiento_ID = ?)', array(0));
 		//$Productos = Producto::where('INV_Producto_ID', '=', Input::get('search'))->orWhere('INV_Producto_Codigo', '=', Input::get('search'))->orWhere('INV_Producto_Nombre', '=', Input::get('search'))->get();
 		//return DB::select('select * from INV_Producto where INV_Producto_Nombre = ? and INV_Producto_ID = ?',array(Input::get('search'), Input::get('search')));

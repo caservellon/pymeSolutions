@@ -56,8 +56,8 @@
         </li>
 
 		<li>
-			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('Inventario.MovimientoInventario.show', 'Cancel', $MovimientoInventario->id, array('class' => 'btn')) }}
+			{{ Form::submit('Actualizar', array('class' => 'btn btn-info')) }}
+			{{ link_to_route('Inventario.MovimientoInventario.show', 'Cancelar', $MovimientoInventario->id, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

@@ -7,42 +7,60 @@
         <a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
+
+@if ($errors->any())
+
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
+</div>
+
+@endif
+
 {{ Form::model($Producto, array('method' => 'PATCH', 'route' => array('Inventario.Productos.update', $Producto->INV_Producto_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
         {{ Form::hidden('INV_Producto_ID') }}
     <div class="form-group">
       {{ Form::label('INV_Producto_Codigo', 'Codigo:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-4">
-        {{ Form::text('INV_Producto_Codigo', $Producto->INV_Producto_Codigo, array('class' => 'form-control', 'id' => 'INV_Producto_Codigo', 'placeholder'=>'PRO-00001')) }}
+        {{ Form::text('INV_Producto_Codigo', $Producto->INV_Producto_Codigo, array('class' => 'form-control', 'id' => 'INV_Producto_Codigo', 'placeholder'=>'PRO-00001', 'maxlength'=>'16')) }}
       </div>
     </div>
     <div class="form-group">
         {{ Form::label('INV_Producto_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::text('INV_Producto_Nombre', $Producto->INV_Producto_Nombre, array('class' => 'form-control', 'id' => 'INV_Producto_Nombre', 'placeholder'=>'name')) }}
+            {{ Form::text('INV_Producto_Nombre', $Producto->INV_Producto_Nombre, array('class' => 'form-control', 'id' => 'INV_Producto_Nombre', 'placeholder'=>'Nombre', 'maxlength'=>'128')) }}
         </div>
     </div>
     <div class="form-group">
         {{ Form::label('INV_Producto_Descripcion', 'Descripción: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::textarea('INV_Producto_Descripcion', $Producto->INV_Producto_Descripcion, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_Producto_Descripcion', 'placeholder'=>'Descripcion')) }}
+            {{ Form::textarea('INV_Producto_Descripcion', $Producto->INV_Producto_Descripcion, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_Producto_Descripcion', 'placeholder'=>'Descripcion', 'maxlength'=>'512')) }}
         </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_PrecioVenta', 'Precio de Venta: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_PrecioVenta',$Producto->INV_Producto_PrecioVenta, array('class' => 'form-control', 'id' => 'INV_Producto_PrecioVenta', 'placeholder' => '#.#' )) }}
+        {{ Form::text('INV_Producto_PrecioVenta',$Producto->INV_Producto_PrecioVenta, array('class' => 'form-control', 'id' => 'INV_Producto_PrecioVenta', 'placeholder' => '*.##' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_MargenGanancia', 'Margen de Ganancia: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_MargenGanancia',$Producto->INV_Producto_MargenGanancia, array('class' => 'form-control', 'id' => 'INV_Producto_MargenGanancia', 'placeholder' => '0.#' )) }}
+        {{ Form::text('INV_Producto_MargenGanancia',$Producto->INV_Producto_MargenGanancia, array('class' => 'form-control', 'id' => 'INV_Producto_MargenGanancia', 'placeholder' => '*.##' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_PrecioCosto', 'Precio de Costo: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_PrecioCosto',$Producto->INV_Producto_PrecioCosto, array('class' => 'form-control', 'id' => 'INV_Producto_PrecioCosto', 'placeholder' => '#.#' )) }}
+        {{ Form::text('INV_Producto_PrecioCosto',$Producto->INV_Producto_PrecioCosto, array('class' => 'form-control', 'id' => 'INV_Producto_PrecioCosto', 'placeholder' => '*.##' )) }}
       </div>
     </div>
     <div class="form-group">
@@ -54,13 +72,13 @@
     <div class="form-group">
       {{ Form::label('INV_Producto_Impuesto1', 'Impuesto 1:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_Impuesto1',$Producto->INV_Producto_Impuesto1, array('class' => 'form-control', 'id' => 'INV_Producto_Impuesto1', 'placeholder' => '0.#' )) }}
+        {{ Form::text('INV_Producto_Impuesto1',$Producto->INV_Producto_Impuesto1, array('class' => 'form-control', 'id' => 'INV_Producto_Impuesto1', 'placeholder' => '0.##' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_Impuesto2', 'Impuesto 2:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_Impuesto2',$Producto->INV_Producto_Impuesto2, array('class' => 'form-control', 'id' => 'INV_Producto_Impuesto2', 'placeholder' => '0.#' )) }}
+        {{ Form::text('INV_Producto_Impuesto2',$Producto->INV_Producto_Impuesto2, array('class' => 'form-control', 'id' => 'INV_Producto_Impuesto2', 'placeholder' => '0.##' )) }}
       </div>
     </div>
     <div class="form-group">
@@ -72,7 +90,7 @@
     <div class="form-group">
         {{ Form::label('INV_Producto_Comentarios', 'Comentarios:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-5">
-            {{ Form::textarea('INV_Producto_Comentarios', $Producto->INV_Producto_Comentarios, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_Producto_Comentarios', 'placeholder'=>'Comentario')) }}
+            {{ Form::textarea('INV_Producto_Comentarios', $Producto->INV_Producto_Comentarios, array('class' => 'form-control', 'rows' => '3',  'id' => 'INV_Producto_Comentarios', 'placeholder'=>'Comentario', 'maxlength'=>'512')) }}
         </div>
     </div>
     <div class="form-group">
@@ -102,13 +120,13 @@
     <div class="form-group">
       {{ Form::label('INV_Producto_ValorDescuento', 'Valor de Descuento:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_ValorDescuento',$Producto->INV_Producto_ValorDescuento, array('class' => 'form-control', 'id' => 'INV_Producto_ValorDescuento', 'placeholder' => '#.#' )) }}
+        {{ Form::text('INV_Producto_ValorDescuento',$Producto->INV_Producto_ValorDescuento, array('class' => 'form-control', 'id' => 'INV_Producto_ValorDescuento', 'placeholder' => '*.##' )) }}
       </div>
     </div>
     <div class="form-group">
       {{ Form::label('INV_Producto_PorcentajeDescuento', 'Porcentaje de Descuento:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::text('INV_Producto_PorcentajeDescuento',$Producto->INV_Producto_PorcentajeDescuento, array('class' => 'form-control', 'id' => 'INV_Producto_PorcentajeDescuento', 'placeholder' => '0.#' )) }}
+        {{ Form::text('INV_Producto_PorcentajeDescuento',$Producto->INV_Producto_PorcentajeDescuento, array('class' => 'form-control', 'id' => 'INV_Producto_PorcentajeDescuento', 'placeholder' => '0.##' )) }}
       </div>
     </div>
     <div class="form-group">
@@ -179,10 +197,6 @@
 {{ Form::close() }}
     
   
-@if ($errors->any())
-    <ul>
-        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
-    </ul>
-@endif
+
 
 @stop

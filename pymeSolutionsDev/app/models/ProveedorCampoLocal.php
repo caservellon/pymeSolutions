@@ -10,7 +10,7 @@ class ProveedorCampoLocal extends Eloquent {
 
 	public static $rules = array(
 		'INV_Proveedor_CampoLocal_ID' => 'required',
-		'INV_Proveedor_CampoLocal_Valor' => 'required',
+		'INV_Proveedor_CampoLocal_Valor' => 'required|max:128',
 		'INV_Proveedor_CampoLocal_FechaCreacion' => 'required',
 		'INV_Proveedor_CampoLocal_UsuarioCreacion' => 'required',
 		'INV_Proveedor_CampoLocal_FechaModificacion' => 'required',

@@ -46,6 +46,7 @@ mysql -u "root" "-proot" "pymeERP" < "INS_INV_FormaPago.sql" >> ./logs/install.l
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_UnidadMedida.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Productos.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Proveedores.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_MotivoMovimiento.sql" >> ./logs/install.log 2>&1
 
 echo "Populating Contabilidad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_ClasificacionCuenta.sql" >> ./logs/install.log 2>&1
@@ -54,12 +55,17 @@ mysql -u "root" "-proot" "pymeERP" < "INS_CON_Subcuenta.sql" >> ./logs/install.l
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_MotivoTransaccion.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_CuentaMotivo.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_UnidadMonetaria.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_CON_ConceptoMotivo.sql" >> ./logs/install.log 2>&1
 
 echo "Populating Ventas " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_VEN_DescuentoEspecial.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_VEN_EstadoBono.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_VEN_FormaPago.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_VEN_PeriodoCierreDeCaja.sql" >> ./logs/install.log 2>&1
+
+echo "Populating Generales " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "INS_GEN_Mensajes.sql" >> ./logs/install.log 2>&1
+ 
 
 DATE=$(date +"%Y/%m/%d %H:%M:%S")
 echo "Process ended at " $DATE >> ./logs/install.log

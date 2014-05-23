@@ -1,6 +1,4 @@
 $(document).ready(function(){
-
-
 	// ---------------- Devoluciones ------------------------------
 
 	// POST busca factura y devuelve items
@@ -10,26 +8,43 @@ $(document).ready(function(){
 		$.post('/Ventas/Ventas/searchInvoice' ,{
 			'searchTerm' : $('.no-factura').val()
 		}).success(function(data){
+			$("div.alert").hide();
 			 $.each(data, function(index, value){
-				$('#detalle-factura > tbody:last').append('<tr><td><input type="checkbox" class="check"></td><td class="codigo">'+value["VEN_DetalleDeVenta_Codigo"]+'</td><td>'+value["VEN_DetalleDeVenta_Nombre"]+'</td><td>'+value["VEN_DetalleDeVenta_PrecioVenta"]+'</td><td><input type="number" class="quantity" min="1" max="'+value["VEN_DetalleDeVenta_CantidadVendida"]+'" > / '+value["VEN_DetalleDeVenta_CantidadVendida"]+'</td><td>'+(value["VEN_DetalleDeVenta_CantidadVendida"] * value["VEN_DetalleDeVenta_PrecioVenta"])+'</td></tr>');		
+				$('#detalle-factura > tbody:last').append('<tr><td><input type="checkbox" class="check"></td><td class="codigo">'+value["VEN_DetalleDeVenta_Codigo"]+'</td><td>'+value["VEN_DetalleDeVenta_Nombre"]+'</td><td>'+value["VEN_DetalleDeVenta_PrecioVenta"]+'</td><td><input type="number" class="quantity" min="1" max="'+value["VEN_DetalleDeVenta_CantidadVendida"]+'" > / <span class=\"Maxtop\">'+value["VEN_DetalleDeVenta_CantidadVendida"]+'</span></td><td>'+(value["VEN_DetalleDeVenta_CantidadVendida"] * value["VEN_DetalleDeVenta_PrecioVenta"])+'</td></tr>');		
 			 });
 		}).fail(function(data){
-			alert('No se encontro esa factura');
+			$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No se encontró la factura!</h4>");
+			$("div.alert").show();
 		});
 	});
 
 	// POST get selected and quantity
 	$('.crear-devolucion').on('click', function(){
 		devolver = [];
+		if($('.productos-dev input:checked').length == 0){
+			$('div.alert').html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No se seleccionó ninguna devolución!</h4>");
+			$('div.alert').show();
+		} else {
+			$('div.alert').hide();
+		}
 		$('.productos-dev input:checked').parents('tr').map(function(i, producto) {
 		    var td = $(producto).find('td');
 		    var codigo = td.eq(1).text();
 		    var cantidad = td.eq(4).find('.quantity').val();
-
-		    devolver.push({
-		        codigo: codigo,
-		        cantidad: cantidad
-		    });
+		   	var top = td.eq(4).find('.Maxtop').val();
+		   	if(cantidad < top ){
+		   		$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No puede exceder las cantidades!</h4>");
+		   		$("div.alert").show();
+		   	} else if(cantidad === ""){
+		   		$("div.alert").html("<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">×</button><h4>No puede dejar vacias las cantidades!</h4>");
+		   		$("div.alert").show();
+		   	} else {
+		   		$("div.alert").hide();
+			    devolver.push({
+			        codigo: codigo,
+			        cantidad: cantidad
+			    });	   		
+		   	}
 		});
 
 		$.post('/Ventas/Devoluciones/process', {
@@ -37,18 +52,20 @@ $(document).ready(function(){
 			'no-factura' : $('.no-factura').val()
 		}).success(function(data){
 			$('#resultadoDevolucion').modal('show');
-
+			$('.bono-compra').hide();
 			$.each(data, function(key, value){
 				$.each(value, function(keyin, valuein){
 					if ($.isNumeric(keyin)) {
-						$('#detalle-devolucion > tbody:last').append('<tr><td>'+keyin+'</td><td>'+valuein+'</td></tr>');
-					} else {
 						if (keyin == "BonoCompraCantidad") {
 							$('.cantidad-bc').text('Lps. ' + valuein);
+							$('.bono-compra').show();
 						}
 						if (keyin == "BonoCompraCodigo") {
 							$('.codigo-bc').text(valuein);
 						};
+					} else {
+						$('#detalle-devolucion > tbody:last').append('<tr><td>'+keyin+'</td><td>'+valuein+'</td></tr>');
+						
 					}
 
 				});
@@ -76,25 +93,32 @@ $(document).ready(function(){
     };
 
     $('.search-cliente').on('click', function(){
-		if ($('.Tipo_de_Cliente').val() == '0') {
-			$.post('/CRM/Personas/buscar',{
-				'name' : $('.cliente').val()
-			}).success(function(data){
-				$.each(data, function(i, value){
-					$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
+    	if($('.cliente').val() !==  ""){
+			if ($('.Tipo_de_Cliente').val() == '0') {
+				$.post('/CRM/Personas/buscar',
+{					'name' : $('.cliente').val()
+				}).success(function(data){
+					console.log(data);
+					$.each(data, function(i, value){
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
+					});
+				}).fail(function(data) {
+					//TODO: Mensaje de no encontrado
 				});
-			})
-		} else {
-			$.post('/CRM/Empresas/buscar',{
-				'name' : $('.cliente').val()
-			}).success(function(data){
-				$.each(data, function(i, value){
-					$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombres']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
-				});
-			})
-		};
+			} else {
+				$.post('/CRM/Empresas/buscar',{
+					'name' : $('.cliente').val()
+				}).success(function(data){
+					$.each(data, function(i, value){
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombre']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+					});
+				}).fail(function (data) {
 
-		$('#buscarCliente').modal('show');
+				});
+			};
+
+			$('#buscarCliente').modal('show');
+		}
 	});
 
 	$('.agregar-cliente-sel').on('click', function(){
@@ -127,13 +151,14 @@ $(document).ready(function(){
     	$('#no-valido').hide();
  		$('#valido').hide();
  		$('#no-existe').hide();
+ 		console.log($('.bono-compra-tb').val());
     	$.post('/Ventas/BonoDeCompras/validar',{
     		'bono':$('.bono-compra-tb').val()
     	}).success(function(data){
     		if (data == 'vigente') {
     			$('#valido').show();
     			$.post('/Ventas/BonoDeCompras/valor',{
-    				'bono':$('.bono-compra-tb').val()
+    				'bono': $('.bono-compra-tb').val()
     			}).success(function(pago){
     				pago = parseFloat(pago);
 					pago = 'Lps. ' + pago;
@@ -154,6 +179,8 @@ $(document).ready(function(){
     		};
     	}).fail(function(data){
     		$('#no-existe').show();
+    		$('.bono-compra-tb').val("");
+
     	});
     });
 
@@ -196,27 +223,30 @@ $(document).ready(function(){
 		data.abonos = [];
 
 		$('.pagos-list').find('tr').each(function(i, abono){
-			console.log("dafsdafdfS", abono);
+			//console.log("dafsdafdfS", abono);
 			data.abonos.push({
 				metodo: $(abono).find('td:eq(0)').text(),
-				monto: $(abono).find('td:eq(1)').text()
+				monto: $(abono).find('td:eq(1)').text().substring(5)
 			});
 		});
 
-		data.isv = $('.isv').text();
+		data.isv = $('.isv').text().substring(5);
 
-		data.saldo = $('.saldo-info').text();
+		data.saldo = $('.saldo-info').text().substring(5);
 
-		data.tipocliente = '1';
+		data.tipocliente = $('.Tipo_de_Cliente').val();
 
 		data.cliente = $('.cliente').val();
 
+		data.total = $('.grand-total').text().substring(5);
+		data.clienteid = $('.id-cliente-buscado').val();
 		data.caja = '1';
 
 		console.log(data);
 
 		$.post("/Ventas/Ventas/guardar", data).success(function(data){
-			console.log(data);
+			$('.num-factura').text(data[0].numFact);
+			console.log(data[0].numFact);
 			window.print();
 		});
 	});
@@ -284,16 +314,15 @@ $(document).ready(function(){
 		});
 	});
 
-	// ------------------------ Campo Local Proveedor
-	$('.input-campo-local').on('blur', function(){
+	/*// ------------------------ Campo Local Proveedor
+	$('#INV_Proveedor_Nombre').on('blur', function(){
 		$.post('/Inventario/Proveedor/campolocalsave',{
-			'nombre': $('.input-campo-local').attr('id'),
-			'valor': $('.input-campo-local').val(),
-			'codigoprod': $("input[name=INV_Proveedor_ID]").val()
+			'valor': $('#INV_Proveedor_Nombre').val(),
+			alert('HOLIXXX');
 		}).success(function(data){
 			console.log(data);
 		});
-	});
+	});*/
 
 	//Eliminar producto seleccionado
 	$('.eliminar-prod').on('click',function(){
@@ -314,6 +343,16 @@ $(document).ready(function(){
 
 	$('.table').on('blur', '.edit-cant', function(){
 		var content = $("tbody.pro-list tr.highlight").find('.edit-cant').val();
+		$.post('/Ventas/Ventas/checkStock', {
+ 			'codigo': $("tbody.pro-list tr.highlight").find('.cod').text()
+ 		}).success(function(data){
+ 			if (data == 0) {
+ 				$("tbody.pro-list tr.highlight").find('.nombre').append('<spam class="glyphicon glyphicon-remove"></spam>');
+ 			};
+ 			if (data < 5) {
+ 				$("tbody.pro-list tr.highlight").find('.nombre').append('<spam class="glyphicon glyphicon-info-sign"></spam>');
+ 			};
+ 		});
 		$("tbody.pro-list tr.highlight").find('.cantidad').text(content);
 		var newTotal = content * (($("tbody.pro-list tr.highlight").find('.precio').text()).substring(5));
 		$("tbody.pro-list tr.highlight").find('.total-art').text("Lps. " + newTotal);
@@ -350,25 +389,61 @@ $(document).ready(function(){
 	//Agregar Pago
 	$('.add-pago-modal-bt').on('click',function(){
 		var pago = $('.ammount-pago').val();
-		pago = parseFloat(pago);
-		pago = 'Lps. ' + pago;
-		$('.pagos-list').append('<tr><td>Efectivo</td><td>'+pago+'</td></tr>');
-
-		actualizarPagos();
+		if(!isNaN(pago)){
+			pago = parseFloat(pago);
+			pago = 'Lps. ' + pago;
+			$('.pagos-list').append('<tr><td>Efectivo</td><td>'+pago+'</td></tr>');
+			actualizarPagos();
+		} else {
+			$('.ammount-pago').val("");
+		}
 	});
 
 	//Setear Descuentos
 	$('.agregar-descuento').on('click',function(){
+		
 		$('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
 		    var cantidad = $(descuento).find('td:eq(4)').text();
 		    cantidad = cantidad/100;
 		    var subtotal = $('.sub-total').text();
 		    subtotal = parseFloat(subtotal.substring(5));
 		    var descuento = subtotal*cantidad;
-		    $('.descuento').text("Lps. " + descuento);
+		    var isv = (subtotal - descuento)* 0.15;
+		    var totallyTotalBro = (subtotal - descuento) + isv;
+		    $('.descuento').text("Lps. " + descuento.toFixed(2));
+			$('.sub-total').text("Lps. " + subtotal.toFixed(2));
+			$('.isv').text("Lps. " + isv.toFixed(2));
+			$('.grand-total').text("Lps. " + totallyTotalBro.toFixed(2));
+			var abonado = parseFloat($('.abonado-info').text().substring(5));
+
+			$('.saldo-info').text("Lps. " + (totallyTotalBro - abonado).toFixed(2));
 		});
 		$('#agregarDescuento').modal('hide');
 	});
+
+
+	//precio 
+	$("div.precio-costo-producto").change(function() {
+		if($(this).find("select").val() === "2"){
+			$("div.agregar-precio").fadeIn();
+		} else {
+			$("div.agregar-precio").fadeOut();
+			$(".value-input").val(""); 
+		}
+	});
+
+
+	//Selectores para Tipos de Documento
+	$('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
+		$('input#CRM_Personas_codigo').prop('placeholder',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().prop('name'));
+		$('input#CRM_Personas_codigo').prop('maxlength',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().attr('data-val'));
+    });
+
+    $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID').on('click', function() {
+		$('input#CRM_Empresas_Codigo').prop('placeholder',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().prop('name'));
+		$('input#CRM_Empresas_Codigo').prop('maxlength',$('input#' + $('select#CRM_TipoDocumento_CRM_TipoDocumento_ID option:selected').val()).first().attr('data-val'));
+    });
+
 
 	//Actualiza los totales
 	function actualizarPagos(){
@@ -406,6 +481,24 @@ $(document).ready(function(){
 		actualizarPagos();
 	}
 
+	$('#VEN_DescuentoEspecial_FechaInicio').appendDtpicker({
+		"onShow": function(handler){
+			
+		},
+		"onHide": function(handler){
+			
+		}
+	});
+
+	$('#VEN_DescuentoEspecial_FechaFinal').appendDtpicker({
+		"onShow": function(handler){
+			
+		},
+		"onHide": function(handler){
+			
+		}
+	});
+
 	function setearTotalcc(valor,x){
 	    var a= valor.elements[x].value;
 	    var b=valor.elements[x+1].value;
@@ -427,5 +520,127 @@ $(document).ready(function(){
 	    document.getElementById("total").value= parseFloat(document.getElementById("total").value) + parseFloat(total);
 	    valor.elements[valor.length-3].value=document.getElementById("total").value;
 
-        }
+    }
+
+    // ----------------------------- Inventario
+
+    if($('#p2p-view').length){
+    	$(function(){
+		    $('select').combobox();
+		});
+
+		(function ($) {
+        $.widget("ui.combobox", {
+            _create: function () {
+                var input,
+                  that = this,
+                  wasOpen = false,
+                  select = this.element.hide(),
+                  selected = select.children(":selected"),
+                  defaultValue = selected.text() || "",
+                  wrapper = this.wrapper = $("<span>")
+                    .addClass("ui-combobox")
+                    .insertAfter(select);
+
+                function removeIfInvalid(element) {
+                    var value = $(element).val(),
+                      matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(value) + "$", "i"),
+                      valid = false;
+                    select.children("option").each(function () {
+                        if ($(this).text().match(matcher)) {
+                            this.selected = valid = true;
+                            return false;
+                        }
+                    });
+
+                    if (!valid) {
+                        // remove invalid value, as it didn't match anything
+                        $(element).val(defaultValue);
+                        select.val(defaultValue);
+                        input.data("ui-autocomplete").term = "";
+                    }
+                }
+
+                input = $("<input>")
+                  .appendTo(wrapper)
+                  .val(defaultValue)
+                  .attr("title", "")
+                  .addClass("ui-state-default ui-combobox-input")
+                  .width(select.width())
+                  .autocomplete({
+                      delay: 0,
+                      minLength: 0,
+                      autoFocus: true,
+                      source: function (request, response) {
+                          var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+                          response(select.children("option").map(function () {
+                              var text = $(this).text();
+                              if (this.value && (!request.term || matcher.test(text)))
+                                  return {
+                                      label: text.replace(
+                                        new RegExp(
+                                          "(?![^&;]+;)(?!<[^<>]*)(" +
+                                          $.ui.autocomplete.escapeRegex(request.term) +
+                                          ")(?![^<>]*>)(?![^&;]+;)", "gi"
+                                        ), "<strong>$1</strong>"),
+                                      value: text,
+                                      option: this
+                                  };
+                          }));
+                      },
+                      select: function (event, ui) {
+                          ui.item.option.selected = true;
+                          that._trigger("selected", event, {
+                              item: ui.item.option
+                          });
+                      },
+                      change: function (event, ui) {
+                          if (!ui.item) {
+                              removeIfInvalid(this);
+                          }
+                      }
+                  })
+                  .addClass("ui-widget ui-widget-content ui-corner-left");
+
+                input.data("ui-autocomplete")._renderItem = function (ul, item) {
+                    return $("<li>")
+                      .append("<a>" + item.label + "</a>")
+                      .appendTo(ul);
+                };
+
+                $("<a>")
+                  .attr("tabIndex", -1)
+                  .appendTo(wrapper)
+                  .button({
+                      icons: {
+                          primary: "ui-icon-triangle-1-s"
+                      },
+                      text: false
+                  })
+                  .removeClass("ui-corner-all")
+                  .addClass("ui-corner-right ui-combobox-toggle")
+                  .mousedown(function () {
+                      wasOpen = input.autocomplete("widget").is(":visible");
+                  })
+                  .click(function () {
+                      input.focus();
+
+                      // close if already visible
+                      if (wasOpen) {
+                          return;
+                      }
+
+                      // pass empty string as value to search for, displaying all results
+                      input.autocomplete("search", "");
+                  });
+            },
+
+            _destroy: function () {
+                this.wrapper.remove();
+                this.element.show();
+            }
+        });
+    })(jQuery);
+	};
+
 });

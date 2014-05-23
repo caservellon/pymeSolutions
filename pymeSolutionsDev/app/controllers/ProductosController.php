@@ -22,14 +22,8 @@ class ProductosController extends BaseController {
 	public function index()
 	{
 		$Productos = $this->Producto->all();
-		$CamposLocales = CampoLocal::where("GEN_CampoLocal_Codigo","LIKE","INV_PRD%")->get();
-		$arrayTemp = array();
-		foreach ($CamposLocales as $CL) {
-			array_push($arrayTemp, $CL->GEN_CampoLocal_ID);
-		}
-		$ValoresCampLoc = ProductoCampoLocal::whereBetween('GEN_CampoLocal_GEN_CampoLocal_ID', $arrayTemp)->get();
 		
-		return View::make('Productos.index', compact('Productos','CamposLocales', 'ValoresCampLoc'));
+		return View::make('Productos.index', compact('Productos'));
 	}
 
 	
@@ -242,4 +236,17 @@ class ProductosController extends BaseController {
 		$result = $query;
 		return $result;
 	}
+
+	public function save()
+	{
+		$oneList = Input::get('value-list-array');
+		$valueList = explode(";", $oneList);
+		$PRODID = Producto::where('INV_Producto_Nombre', Input::get('INV_Producto_Nombre'))->first()->INV_Producto_ID;
+		foreach ($valueList as $value ) {
+			$PROVID = Proveedor::where('INV_Proveedor_Nombre', $value)->first()->INV_Proveedor_ID;
+			DB::table('INV_Producto_Proveedor')->insert(array('INV_Proveedor_ID' => $PROVID, 'INV_Producto_ID' => $PRODID));
+		}
+	return View::make('Productos/p2p');
+	}
+
 }

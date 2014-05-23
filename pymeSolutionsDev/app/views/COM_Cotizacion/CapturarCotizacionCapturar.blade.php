@@ -5,9 +5,11 @@
 	<?php
 		$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
+		$FormasPago = Helpers::InformacionFormasPago();
 		$ProductosSolicitudCotizacion = Helpers::InformacionProductosSolicitudCotizacion($CodigoSolicitudCotizacion);
+		$CamposLocalesSolicitudCotizacion = Helpers::InformacionCamposLocalesSolicitudCotizacion($CodigoSolicitudCotizacion);
+		$CamposLocalesCotizaciones = Helpers::InformacionCamposLocalesCotizaciones();
 	?>
-	
 	
 	<div class="row">
 		<div class="page-header clearfix">
@@ -19,7 +21,7 @@
 	</div>
 	
 	<ul>
-		@foreach($errors->all() as $mensaje)
+		@foreach($errors -> all() as $mensaje)
 			<li class="alert alert-danger">{{$mensaje}}</li>
 		@endforeach
     </ul>
@@ -32,7 +34,7 @@
 			<div class="col-md-5 " style="text-align: center">
 				<h2>Cotizaci&oacute;n</h2>
 				<h5>Empresa X S.A.</h5>
-				<h5>Colonia El &Aacute;lamo, Tegicigalpa, Francisco Moraz&aacute;n</h5>
+				<h5>Colonia El &Aacute;lamo, Tegucigalpa, Francisco Moraz&aacute;n</h5>
 				<h5>Honduras, C.A.</h5>
 			</div>
 			<div class="col-md-12 " style="text-align: right">
@@ -45,11 +47,16 @@
 				<table class="table table-striped table-bordered" >
 					<thead>
 						<tr>
-							<th>Codigo</th>
+							<th>C&oacute;digo</th>
 							<th>Nombre</th>
-							<th>Descripcion</th>
+							<th>Descripci&oacute;n</th>
 							<th>Cantidad</th>
 							<th>Unidad</th>
+							
+							@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+								<th>{{ $CampoLocalSolicitudCotizacion -> Nombre }}</th>
+							@endforeach
+							
 							<th>Precio Unitario</th>
 							<th>Total</th>
 						</tr>
@@ -62,9 +69,14 @@
 								<td>{{ $ProductoSolicitudCotizacion -> Nombre }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Descripcion }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Cantidad }}</td>
-								<td></td>
-								<td>Lps. {{ Form::text($ProductoSolicitudCotizacion -> Codigo) }}</td>
-								<td>Lps.</td>
+								<td>{{ $ProductoSolicitudCotizacion -> Unidad }}</td>
+								
+								@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+									<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
+								@endforeach
+								
+								<td>{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}</td>
+								<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}</td>
 							</tr>
 						@endforeach
 					</tbody>
@@ -74,28 +86,102 @@
 
 		<div class="row">
 			<div class="col-md-4">
-				<label>Forma de Pago: Efectivo</label>
+				@foreach($FormasPago as $FormaPago)
+					<?php $FormasPago2[$FormaPago -> IdFormaPago] = $FormaPago -> Nombre ?>
+				@endforeach
+				{{ Form::label('FormaPago', 'Forma de Pago:') }}
+				{{ $SolicitudCotizacion[0] -> FormaPago }}
 				
 				<br><br>
 				
-				<label>Fecha de Vigencia</label>
-				{{Form::text('VigenciaCotizacion', date('Y/m/d H:i:s'))}}
+				{{ Form::label('CantidadPagos', 'Cantidad de Pagos:') }}
+				{{ $SolicitudCotizacion[0] -> CantidadPagos }}
 				
 				<br><br>
 				
-				<label>C&oacute;digo de Cotizaci&oacute;n</label>
-				{{ Form::text('CodigoCotizacion') }}
+				{{ Form::label('PeriodoGracia', 'Per&iacute;odo de Gracia:') }}
+				{{ $SolicitudCotizacion[0] -> PeriodoGracia }}
+				
+				<br><br>
+				
+				{{ Form::label('FechaVigencia', 'Fecha de Vigencia') }}
+				{{ Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Hacer clic para agregar fecha')) }}
+				<script>
+					$('#VigenciaCotizacion').appendDtpicker({
+						"dateFormat": "YYYY-MM-DD h:m",
+						"autodateOnStart": false,
+						"futureOnly": true,
+						"locale":"es",
+						"minTime":"08:00",
+						"maxTime":"19:01",
+						"minuteInterval": 15
+					});
+				</script>
+				
+				<br><br>
+				
+				
+				{{ Form::submit('Guardar', array('class' => 'btn btn-sm btn-primary')) }}
 			</div>
 			
-			<div class="col-md-8" style="text-align: right">
-				<label>Total: </label>
+			<div class="col-md-5">
 			</div>
-		</div>
 			
-		<br><br>
+			<div class="col-md-3 align-right">
+				{{ Form::label('Total', 'Total: ', array('class' => 'control-label')) }}
+				{{ Form::text('TotalFinal', null, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}
+			</div>
 			
-		<div class="row">
-			{{ Form::submit('Guardar', array('class' => 'btn btn-sm btn-primary')) }}
+			<br><br>
+			
+			<div class="col-md-5 pull-right" style="text-align: right">
+				<div class="form-group" id="campos Locales">
+					{{--
+					<h4 class="text-center">Campos de Solicitud de Cotizaci&oacute;n</h4>
+					
+					@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
+						<br>
+						<label class="pull-left">{{ $CampoLocalSolicitudCotizacion -> Nombre }}</label>
+						{{ Form::text($CampoLocalSolicitudCotizacion -> Valor, $CampoLocalSolicitudCotizacion -> Valor, array('class' => 'form-control', 'disabled')) }}
+					@endforeach
+					--}}
+					<br><br>
+				
+					@if(count($CamposLocalesCotizaciones) != 0)
+						<h4 class="text-center">Campos de Cotizaci&oacute;n</h4>
+					@endif
+					
+					@foreach($CamposLocalesCotizaciones as $CampoLocalCotizaciones)
+						<br>
+						<label class="pull-left">{{{ $CampoLocalCotizaciones -> Nombre }}}</label>
+						
+						@if($CampoLocalCotizaciones -> Requerido)
+							<label class="pull-left">&nbsp; *</label>
+						@endif
+						
+						@if($CampoLocalCotizaciones -> Tipo == 'TXT')
+							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+						@endif
+						
+						@if($CampoLocalCotizaciones -> Tipo == 'INT')
+							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+						@endif
+						
+						@if($CampoLocalCotizaciones -> Tipo == 'FLOAT')
+							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+						@endif
+						
+						@if($CampoLocalCotizaciones -> Tipo == 'LIST')
+							<?php $ValoresCampoLocalLista = Helpers::ValoresCampoLocalListaCotizacion($CampoLocalCotizaciones -> Id);?>
+							
+							@foreach($ValoresCampoLocalLista as $ValorCampoLocalLista)
+								<?php $ValoresCampoLocalLista2[$ValorCampoLocalLista -> Valor] = $ValorCampoLocalLista -> Valor ?>
+							@endforeach
+							{{ Form::select($CampoLocalCotizaciones -> Codigo, $ValoresCampoLocalLista2, null, array('class' => 'form-control')) }}
+						@endif
+					@endforeach
+				</div>
+			</div>
 		</div>
 	{{Form::close()}}
 	

@@ -5,7 +5,7 @@
     <div class="page-header clearfix">
       <h3 class="pull-left">Autorizar Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
       <div class="pull-right">
-        <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 </div>
@@ -144,7 +144,7 @@
                       </div>
     <?php       $ante=array();
                 $sig=array();
-                $transiciones=  COMOrdenCompraTransicionEstado::where('COM_OrdenCompra_TransicionEstado_EstadoActual','=',$id_activo)->where('COM_OrdenCompra_TransicionEstado_Activo','=','1')->get();
+                $transiciones=  COMOrdenCompraTransicionEstado::where('COM_OrdenCompra_TransicionEstado_EstadoActual','=',$id_activo)->where('COM_TransicionEstado_Activo','=','1')->get();
                foreach ($transiciones as $transicion){
                    if($transicion->COM_OrdenCompra_TransicionEstado_EstadoPrevio > 2){
                         $ante[]=$transicion->COM_OrdenCompra_TransicionEstado_EstadoPrevio;

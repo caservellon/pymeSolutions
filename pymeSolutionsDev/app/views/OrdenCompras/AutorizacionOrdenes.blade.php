@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Autorizar Orden de Compra por Cotizacion<small></small></h3>
       <div class="pull-right">
-        <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 <div class="row">
@@ -25,7 +25,9 @@
                 </tr>
               </thead>
                   <tbody >
-                     <?php $ordenes= OrdenCompra::where('COM_OrdenCompra_Activo','=',1)->lists('COM_OrdenCompra_IdOrdenCompra','COM_OrdenCompra_Codigo','COM_OrdenCompra_FechaEmision','COM_Proveedor_IdProveedor');      
+                     <?php 
+                     $autorizadas= HistorialEstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstAct','=',3)->where('COM_TransicionEstado_Activo','=',1)->lists('COM_TransicionEstado_IdOrdenCompra');
+                     $ordenes= OrdenCompra::whereIn('COM_OrdenCompra_IdOrdenCompra',$autorizadas)->lists('COM_OrdenCompra_IdOrdenCompra','COM_OrdenCompra_Codigo','COM_OrdenCompra_FechaEmision','COM_Proveedor_IdProveedor');      
                       ?>
                       @foreach($ordenes as $orden)
                       <?php $or=  OrdenCompra::find($orden);

@@ -5,9 +5,16 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Campo Local &gt; <small>Nuevo Campo Local</small></h3>
       <div class="pull-right">
-        <a href="/CRM/CampoLocals" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="/Inventario/CampoLocals" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
+
+
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
 
 
 {{ Form::open(array('route' => 'Inventario.CampoLocals.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
@@ -72,11 +79,6 @@
 
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop
 

@@ -106,7 +106,7 @@ class HorariosController extends BaseController {
 			$Horario = $this->Horario->find($id);
 			$Horario->update($input);
 
-			return Redirect::route('Inventario.Horarios.show', $id);
+			return Redirect::route('Inventario.Horarios.index', $id);
 		}
 
 		return Redirect::route('Inventario.Horarios.edit', $id)

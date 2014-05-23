@@ -10,13 +10,13 @@
  
 
 ?>
-{{Form::open(array('route'=>'GuardaOCsnCot','id'=>'Formu'))}}
+{{Form::open(array('route'=>'GuardaOCsnCot','id'=>'Formu' , 'method'=>'POST'))}}
 	<div class="row">
 		<div class="row">
       <div class="page-header clearfix">
         <h3 class="pull-left">Crear Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
         <div class="pull-right">
-          <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+          <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
         </div>
   </div>
   </div>
@@ -31,11 +31,9 @@
           <h5>Honduras C.A.</h5>
       </div>
       <div class="col-md-4 " style="text-align: right">
-         <div <? if($errors->any()){echo 'class="alert alert-danger"';}?> >
-              @foreach($errors->all() as $mensaje)
-                <li class="alert alert-danger">{{$mensaje}}</li>
-              @endforeach
-          </div>
+        <div class="alert alert-danger">
+              {{ implode('', $errors->all('<li >:message</li>')) }}
+        </div>
           <h5 >Tel.2234-9000 Fax.2234-9000</h5>
 
       </div>
@@ -144,12 +142,32 @@
 		<div class="col-md-4">
           <label>Fecha Emision</label>
           {{date('Y/m/d H:i:s')}}
-          <label>Fecha Entrega</label>
-		       <a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>
+          <label>Fecha Entrega * </label>
+		       <?/*<a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>*/?>
           <br>
-             {{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}
+              {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega'))}}
+              <? 
+                $horaInicio='09:00';
+                $horaFinal='19:01';
+              ?>
+          <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
+                        "autodateOnStart": false,
+                        "futureOnly": true,
+                        "locale":"es",
+                        "minTime": "{{$horaInicio}}",
+                        "maxTime": "{{$horaFinal}}",
+                        "dateFormat": "YYYY/MM/DD hh:mm"
+                    });
+            </script>
+             <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
           
           <hr>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
           <br>
           <label>Forma de Pago</label>
            <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
@@ -163,7 +181,11 @@
                  
            ?>
            {{ Form::select('formapago',$m) }}
-           
+           <label>Periodo de Gracia</label>
+           <br>
+           {{  Form::text('COM_OrdenCompra_PeriodoGracia',null) }}
+           <label>Cantidad de Abonos a Realizar</label>
+           {{  Form::text('COM_OrdenCompra_CantidadPago',null)}}
 		</div>
 		<div class="col-md-4">
         <label>Direccion de Entrega*:</label>
@@ -178,7 +200,33 @@
 	  {{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}
       
       <label>Activo</label>
-      
+                <div class="form-group" id="campos Locales otros"> 
+     
+      <?/* usar lo q se ocupa */?>
+      <h5>Campos Locales de Solicitud de Cotizacion</h5>
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              <?php 
+                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
+              ?>
+              {{$valores->COM_ValorCampoLocal_Valor}}
+              
+        @endforeach
+        <hr>
+        <h5>Campos Locales de Cotizacion</h5>
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              <?php 
+                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
+              ?>
+              {{$valores->COM_ValorCampoLocal_Valor}}
+              
+        @endforeach                   
+  </div>
       </div>
 
       <div class="col-md-6" style="text-align: right">
@@ -187,8 +235,10 @@
       <?/* usar lo q se ocupa */?>
 
        @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get() as $campo)
-              <label style="float:left">{{{ $campo->GEN_CampoLocal_Nombre }}}</label>       
-                                            @if ($campo->GEN_CampoLocal_Requerido)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              @if ($campo->GEN_CampoLocal_Requerido)
                                                              
                 @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
                         <td>*{{  Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
@@ -215,12 +265,14 @@
                     @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
                        <td> {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
                     @endif
+
                @endif
             
         @endforeach                   
   </div>
       <h5>Nombre del Oficial de Compras</h5></div>
   </div>
+ 
   
   <script type="text/javascript">setExistentes("<?php echo $contadorDetalle; ?>")</script> 
 	<div class="row">  

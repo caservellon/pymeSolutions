@@ -110,7 +110,7 @@ class FormaPagosController extends BaseController {
 			$FormaPago = $this->FormaPago->find($id);
 			$FormaPago->update($input);
 
-			return Redirect::route('Inventario.FormaPagos.show', $id);
+			return Redirect::route('Inventario.FormaPagos.index', $id);
 		}
 
 		return Redirect::route('Inventario.FormaPagos.edit', $id)

@@ -25,6 +25,23 @@ Route::group(array('prefix' => 'Auth'), function()
 	Route::resource('Errores', 'ErrorController');
 });
 
+Route::group(array('prefix'=>'mantenimiento'),function(){
+
+	Route::get('/',function(){
+		return View::make('Menus.mode');
+	},array('as'=>'mantenimiento'));
+
+	Route::post('up',array('as'=>'mantenimiento.up','uses'=>function(){
+		Artisan::call('up');
+		return Response::json(array('success'=>true));
+	}));
+
+	Route::post('down',array('as'=>'mantenimiento.down','uses'=>function(){
+		Artisan::call('down');
+	},));
+	
+});
+
 
 //Inventario
 
@@ -34,6 +51,20 @@ Route::group(array('prefix' => 'Inventario'), function()
 	{
 		return View::make('Menus.inventario');
 	});
+
+	Route::get('/Proveedor/f2p', array('as' => 'Inventario.Proveedor.f2p', 'uses' => 'ProveedorController@create3'));
+	Route::post('/Proveedor/f2p', array('as' => 'Proveedor.save2', 'uses' => 'ProveedorController@save2'));
+
+
+	Route::get('/Proveedor/p2p', array('as' => 'Inventario.Proveedor.save', 'uses' => 'ProveedorController@create2'));
+	Route::post('/Proveedor/p2p', array('as' => 'Proveedor.save', 'uses' => 'ProveedorController@save'));
+
+
+	Route::get('/Productos/p2p', function(){
+    	return View::make('Productos/p2p');
+	});
+	
+	Route::post('/Productos/p2p', array('as' => 'Productos.save', 'uses' => 'ProductosController@save'));
 
 		Route::resource('Ciudad', 'CiudadController');
 		Route::resource('UnidadMedidas', 'UnidadMedidasController');
@@ -64,6 +95,12 @@ Route::group(array('prefix' => 'Inventario'), function()
 		Route::get('MovimientoInventario/Entrada', array('as' => 'Inventario.MovimientoInventario.Entrada', 'uses' =>'MovimientoinventariosController@entradas'));
 		
 		Route::get('DetalleSalida/Agregar/{id}', array('as' => 'Inventario.DetalleSalida.Agregar', 'uses' =>'DetalleSalidasController@agregar'));
+
+		Route::get('MovimientoInventario/Orden', array('as' => 'Inventario.MovimientoInventario.Orden', 'uses' =>'MovimientoinventariosController@ordenes'));
+		Route::post('MovimientoInventario/search', array('as' => 'Inventario.MovimientoInventario.search', 'uses' =>'MovimientoinventariosController@search'));
+		Route::post('MovimientoInventario/Recibida', array('as' => 'Inventario.MovimientoInventario.Recibida', 'uses' =>'MovimientoinventariosController@recibida'));
+		Route::post('MovimientoInventario/Rechazada', array('as' => 'Inventario.MovimientoInventario.Rechazada', 'uses' =>'MovimientoinventariosController@rechazada'));
+		Route::post('MovimientoInventario/RecibidaErrores', array('as' => 'Inventario.MovimientoInventario.Errores', 'uses' =>'MovimientoinventariosController@errores'));
 
 		Route::resource('MovimientoInventario', 'MovimientoinventariosController');
 
@@ -123,7 +160,8 @@ Route::group(array('prefix' => 'Compras'), function(){
         Route::get('SolicitudCotizacion/Crear/Reorden', array('as'=>'reOrden', 'uses'=> 'SolicitudCotizacionsController@vistaReorden'));
         Route::get('SolicitudCotizacion/Crear/MostrarDetalle', array('as'=>'detalle', 'uses'=> 'SolicitudCotizacionsController@detalle'));
         Route::post('SolicitudCotizacion/Crear/detalleCualquierProducto', array('as'=>'seleccion', 'uses'=> 'SolicitudCotizacionsController@mostrarProveedor'));
-        Route::post('SolicitudCotizacion', array('as' => 'search_index', 'uses' =>'SolicitudCotizacionsController@search_index'));
+        Route::post('SolicitudCotizacion', array('as' => 'SolicitudCotizacions.search_index', 'uses' =>'SolicitudCotizacionsController@search_index'));
+        Route::post('SolicitudCotizacion/Crear/CualquierProducto', array('as' => 'SolicitudCotizacions.buscarCualquierProducto', 'uses' =>'SolicitudCotizacionsController@buscarCualquierProducto'));
         Route::resource('SolicitudCotizacions', 'SolicitudCotizacionsController');
 //edita una transicion de estado de orden de compras ya existente
 
@@ -214,6 +252,11 @@ Route::group(array('prefix' => 'Compras'), function(){
 	));
 	
 	
+	Route::get('/Cotizaciones', array(
+		'as' => 'MenuCotizaciones',
+		'uses' => 'CotizacionController@VistaMenuCotizaciones'
+	));
+	
 	Route::get('/Cotizaciones/CapturarCotizacion', array(
 		'as' => 'CotizacionesCapturarCotizacion',
 		'uses' => 'CotizacionController@VistaCapturarCotizacion'
@@ -253,7 +296,11 @@ Route::group(array('prefix' => 'Compras'), function(){
 	
 	Route::get('/Cotizaciones/TodasCotizaciones', array(
 		'as' => 'CotizacionesTodasCotizaciones',
-		'uses' => 'CotizacionController@VistaTodasCotizaciones'
+		'uses' => 'CotizacionController@TodasCotizaciones'
+	));
+	Route::post('/Cotizaciones/TodasCotizaciones', array(
+		'as' => 'CotizacionesTodasCotizaciones',
+		'uses' => 'CotizacionController@TodasCotizaciones'
 	));
 	
 	Route::get('/Cotizaciones/DetallesCotizacion', array(
@@ -280,17 +327,15 @@ Route::group(array('prefix' => 'Compras'), function(){
 		'uses' => 'OrdenCompraController@DetallesOrdenCompra'
 	));
 	
-	Route::post('/search_index', array('as' => 'search_index', 'uses' =>'CotizacionController@search_index'));
-	
 });
 
 
 
 Route::group(array('prefix' => 'contabilidad'),function(){
-			Route::get('/',function ()
+			Route::get('/',array('as'=>'con.principal' ,'uses'=>function ()
 			{
 				return View::make('Menus.contabilidad');
-			});
+			}));
 			
 			Route::resource('clasificacioncuentas','ClasificacionCuentaController');
 			Route::resource('motivotransaccion', 'MotivoTransaccionsController');
@@ -298,9 +343,12 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('cuentamotivos', 'CuentaMotivosController');
 			Route::resource('asientocontable','AsientosController');
 			Route::resource('librodiario','LibroDiarioController');
-			Route::resource('balanzacomprobacion','BalanzaComprobacionController');
+			//Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::resource('estadoresultados', 'EstadoresultadosController');
 
+			Route::resource('conceptomotivo','ConceptoMotivoController');
+			Route::get('crear/conceptomotivo',array('uses'=>'ConceptoMotivoController@create'));
+			Route::get('libromayor',array('uses'=>'LibroMayorController@index'));
 			Route::get('librodiario',array('uses' => 'LibroDiarioController@index'));
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
@@ -323,23 +371,49 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::resource('periodocontable', 'ParamPeriodoContableController');
 				Route::resource('catalogocuentas', 'CatalogoContablesController');
 				Route::resource('subcuentas', 'SubcuentaController');
+				Route::resource('motivoinventarios', 'MotivoInventariosController');
 
-
+				Route::post('periodocontable/habilitar/{id}',array('as'=>'con.enableperiodo','uses'=>'ParamPeriodoContableController@enable'));
+				Route::post('periodocontable/eliminar/{id}',array('as'=>'con.deleteperiodo','uses'=>'ParamPeriodoContableController@destroy'));
+				Route::get('periodocontable/editar/{id}',array('as'=>'con.editperiodo', 'uses'=>'ParamPeriodoContableController@edit'));
 				Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
 				Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
 				Route::get('subcuentas',array ('as'=>'subcuentas', 'uses' => 'SubcuentaController@index'));
+
+
+				Route::any('motivoinventarios/activar', array('as' => 'MotivoInventario.activar', 'uses' =>'MotivoInventariosController@activar'));
+
+
 				//Route::post('catalogo-contable/cambiarestado', array('uses'=>'CatalogoContablesController@cambiarestado'));
 			});
 
 			Route::group(array('prefix'=>'cierreperiodo'),function(){
 				Route::get('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
-
-				Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
+				
+				Route::post('ejecutar',array('as'=>'con.cierreperiodo.run', 'uses'=>'CierrePeriodoController@run'));
+				Route::post('estado',array('as'=>'con.cierreperiodo.estado','uses'=>'CierrePeriodoController@retrieve'));
+				Route::post('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
+				/*Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
 				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
 				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
 				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
+				Route::post('nuevoperiodo',array('as'=>'con.nuevoperiodo','uses'=>'CierrePeriodoController@nuevoPeriodo'));
+				*/
 			});
 
+			Route::group(array('prefix'=>'compras'), function(){
+
+
+				Route::get('/',array('as'=>'con.compras','uses'=>'PagoComprasController@index'));
+			
+				Route::post('pagar',array('as'=>'con.pagarcompra','uses'=>'PagoComprasController@paid'));
+			});
+			Route::group(array('prefix'=>'balanzacomprobacion'),function(){
+
+				Route::get('/',array('as'=>'con.balanza','uses'=>'BalanzaComprobacionController@index'));
+				Route::post('clasifperiodos',array('as'=>'con.blclasificacion','uses'=>'BalanzaComprobacionController@clasifperiodos'));
+				Route::post('tabla',array('as'=>'con.bltable','uses'=>'BalanzaComprobacionController@table'));
+			});
 
 	});
 
@@ -358,8 +432,10 @@ Route::group(array('prefix' => 'CRM'), function(){
 	});
 
 	Route::resource('Empresas', 'EmpresasController');
-	
+	Route::post('Empresas/buscar', array('as' => 'CRM.Empresas.buscar', 'uses' => 'EmpresasController@buscar'));
+
 	Route::resource('Personas', 'PersonasController');
+	Route::post('Personas/buscar', array('as' => 'CRM.Personas.buscar', 'uses' => 'PersonasController@buscar'));
 
 	Route::resource('TipoDocumentos', 'TipoDocumentosController');
 
@@ -378,14 +454,14 @@ Route::group(array('prefix' => 'Ventas'), function(){
 		return View::make('Menus.ventas');
 	});
 
-	Route::resource('AperturaCajas', 'AperturacajasController');
-	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturacajasController@abrir'));
+	Route::resource('AperturaCajas', 'AperturaCajasController');
+	Route::get('AperturaCajas/Abrir/{id}', array('as' => 'Ventas.AperturaCajas.abrir', 'uses' => 'AperturaCajasController@abrir'));
 
 	Route::get('Listar', array('as' => 'Ventas.Listar','uses' => 'VentasController@Listar'));
 	Route::get('Listar/{id}', array('as' => 'Ventas.ListarOne', 'uses' => 'VentasController@ListarOne'));
 
 	Route::get('Devs', array('as' => 'Ventas.Devs','uses' => 'VentasController@Devs'));
-	Route::get('Devs/{id}', array('as' => 'Ventas.DevsOne', 'uses' => 'VentasController@DevsOne'));
+	Route::get('Devs/{id}', array('as' => 'Ventas.devsOne', 'uses' => 'VentasController@devsOne'));
 	
 	Route::resource('Ventas', 'VentasController');
 	Route::post('Ventas/guardar', array('as' => 'Ventas.Ventas.guardar','uses' => 'VentasController@guardar'));
@@ -401,6 +477,9 @@ Route::group(array('prefix' => 'Ventas'), function(){
 	Route::resource('EstadoBonos', 'EstadobonosController');
 
 	Route::resource('BonoDeCompras', 'BonodecomprasController');
+	Route::post('BonoDeCompras/validar', array('as' => 'Ventas.BonoDeCompras.validar', 'uses' => 'BonoDeComprasController@validar'));
+	Route::post('BonoDeCompras/valor', array('as' => 'Ventas.BonoDeCompras.valor', 'uses' => 'BonoDeComprasController@valor'));
+
 
 	Route::resource('Devoluciones', 'DevolucionesController');
 	Route::post('Devoluciones/process', array('as' => 'Ventas.Devoluciones.process', 'uses' => 'DevolucionesController@process'));
@@ -428,6 +507,8 @@ Route::resource('tipodocumentos', 'TipodocumentosController');
 Route::resource('productocampolocals', 'ProductocampolocalsController');
 
 Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
+
+
 
 
 

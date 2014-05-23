@@ -1,8 +1,8 @@
 <?php
 
 class LibroDiario extends Eloquent {
-	protected $table = 'CON_Transaccion';
-	protected $primaryKey = 'CON_Transaccion_ID';
+	protected $table = 'CON_TransaccionContabilidad';
+	protected $primaryKey = 'CON_TransaccionContabilidad_ID';
 	public $timestamps=false;
 	public static $rules = array(
 		//'CON_LibroDiario_Observacion' => 'required'

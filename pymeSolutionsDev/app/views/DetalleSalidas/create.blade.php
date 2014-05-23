@@ -3,106 +3,80 @@
 @section('main')
 
 
-<h3 class="sub-header">Productos Agregados</h3>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Codigo</th>
-                <th>Producto</th>
-                <th>Categoría</th>
-                <th>Categoría Padre</th>
-                <th>Cantidad</th>
-                <th>Precio Venta</th>
-                <th>Precio Costo</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($results as $result)
-                <tr>
-                    <td>{{{ $result->INV_DetalleMovimiento_IDProducto }}}</td>
-                    <td>{{{ $result->INV_DetalleMovimiento_CodigoProducto }}}</td>
-                    <td>{{{ $result->INV_DetalleMovimiento_NombreProducto }}}</td>
-                    <td>{{{ $Categorias[$result->INV_Producto_INV_Categoria_ID - 1]->INV_Categoria_Nombre }}}</td>
-                    <td>{{{ $Categorias[$result->INV_Producto_INV_Categoria_IDCategoriaPadre - 1]->INV_Categoria_Nombre }}}</td>
-                    <td>{{{ $result->INV_DetalleMovimiento_CantidadProducto }}}</td>
-                    <td>{{{ $result->INV_DetalleMovimiento_PrecioVenta }}}</td>
-                    <td>{{{ $result->INV_DetalleMovimiento_PrecioCosto }}}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
+@if ($errors->any())
+    <div class="alert alert-danger fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        @if($errors->count() > 1)
+            <h4>Oh no! Se encontraron errores!</h4>
+        @else
+            <h4>Oh no! Se encontró un error!</h4>
+        @endif
+        <ul>
+            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+        </ul>  
+    </div>
+@endif
 
 <h3 class="sub-header">Seleccione los Productos a Incluir en la Salida de Inventario</h3>
 {{ Form::open(array('route' => 'Inventario.DetalleSalida.search', 'class' => "form-horizontal" , 'role' => 'form')) }}
 <div class="form-group">
     {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
-<div class="col-md-6">
-    {{ Form::text('search', null, array('class' => 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, codigo, categoria..')) }}
-</div>
-<div class="col-md-2">
-    {{ Form::submit('Buscar', array('class' => 'btn btn-info')) }}
-</div>
+    <div class="col-md-6">
+        {{ Form::text('search', null, array('class' => 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, codigo, categoria..')) }}
+    </div>
+    <div class="col-md-2">
+        {{ Form::submit('Buscar', array('class' => 'btn btn-info')) }}
+    </div>
 </div>
 {{ Form::close() }}
+
+{{ Form::open(array('route' => 'Inventario.DetalleSalida.store', 'class' => "form-horizontal", 'role' => 'form')) }}
+    {{ Form::hidden('Motivo', $Motivo->INV_Movimiento_ID) }}
+    {{ Form::hidden('Motivo2', $Motivo->INV_MotivoMovimiento_INV_MotivoMovimiento_ID) }}
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
             <tr>
+                <th>Agregar</th>
+                <th>Cantidad Salida</th>
                 <th>ID</th>
-                <th>Codigo</th>
                 <th>Producto</th>
                 <th>Categoría</th>
-                <th>Categoría Padre</th>
                 <th>Cantidad</th>
                 <th>Precio Venta</th>
                 <th>Precio Costo</th>
-                <th>Incluir</th>
             </tr>
         </thead>
 
         <tbody>
             @foreach ($Productos as $Producto)
                 <tr>
+                    <td>{{ Form::checkbox('A'.$Producto->INV_Producto_ID) }}</td>
+                    {{ Form::hidden('Pro'.$Producto->INV_Producto_ID, $Producto->INV_Producto_ID) }}
+                    <td>{{ Form::text('Cant'.$Producto->INV_Producto_ID, 0, array('class' => 'form-control text-center', 'id' => 'Cant'.$Producto->INV_Producto_ID)) }}</td>
+                    {{ Form::hidden('INV_DetalleMovimiento_PrecioCosto'.$Producto->INV_Producto_ID, $Producto->INV_Producto_PrecioCosto) }}
+                    {{ Form::hidden('OtroPrecio'.$Producto->INV_Producto_ID, $Producto->INV_Producto_PrecioCosto) }}
                     <td>{{{ $Producto->INV_Producto_ID }}}</td>
-                    <td>{{{ $Producto->INV_Producto_Codigo }}}</td>
                     <td>{{{ $Producto->INV_Producto_Nombre }}}</td>
                     <td>{{{ $Categorias[$Producto->INV_Categoria_ID - 1]->INV_Categoria_Nombre }}}</td>
-                    <td>{{{ $Categorias[$Producto->INV_Categoria_IDCategoriaPadre - 1]->INV_Categoria_Nombre }}}</td>
                     <td>{{{ $Producto->INV_Producto_Cantidad }}}</td>
                     <td>{{{ $Producto->INV_Producto_PrecioVenta }}}</td>
                     <td>{{{ $Producto->INV_Producto_PrecioCosto }}}</td>
-                    <td>{{ link_to_route('Inventario.DetalleSalida.Agregar', 'Agregar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>
                 </tr>
                 
             @endforeach
         </tbody>
       </table>
     </div>
-    <div class="form-group">
-      <div class="col-md-5">
-            <!-- comment{{ link_to_route('Inventario.MovimientoInventario.Terminar', 'Terminar', $id, array('class' => 'btn btn-info')) }}-->
-            @if ($results != null)
-                {{ link_to_route('Inventario.MovimientoInventario.Detalles', 'Terminar', $id, array('class' => 'btn btn-info')) }}
-            @else
-                {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.SalidaInventario.destroy', $id))) }}
-                    {{ Form::submit('Cancelar', array('class' => 'btn btn-danger')) }}
-                {{ Form::close() }}
-                <!--{{ link_to_route('Inventario.MovimientoInventario.destroy', 'Cancelar', $id, array('class' => 'btn btn-danger')) }} -->
-            @endif
-      </div>
+    <div class="form-group col-md-2">
+        {{ Form::submit('Terminar', array('class' => 'btn btn-info')) }}
     </div>
-
-
-@if ($errors->any())
-	<div class="" style="margin-top:50px;"><ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
+{{ Form::close() }}
+    <div>
+        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.SalidaInventario.destroy', $id))) }}
+            {{ Form::submit('Cancelar', array('class' => 'btn btn-danger')) }}
+        {{ Form::close() }}
     </div>
-@endif
-
 @stop
 
 

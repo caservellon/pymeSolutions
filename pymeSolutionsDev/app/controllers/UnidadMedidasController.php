@@ -119,7 +119,7 @@ class UnidadMedidasController extends BaseController {
 			$UnidadMedida->INV_UnidadMedida_UsuarioModificacion = Input::get('INV_UnidadMedida_UsuarioModificacion');
 			$UnidadMedida->update();
 
-			return Redirect::route('Inventario.UnidadMedidas.show', $id);
+			return Redirect::route('Inventario.UnidadMedidas.index', $id);
 		}
 
 		return Redirect::route('Inventario.UnidadMedidas.edit', $id)
