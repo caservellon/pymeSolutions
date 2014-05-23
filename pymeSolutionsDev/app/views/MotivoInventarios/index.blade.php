@@ -20,20 +20,22 @@
 			<th>Tipo Movimiento</th>
 			<th>Observaciones</th>
 			<th>Activo</th>
+			<th></th>
 		</tr>
 	</thead>	
 <tbody>
 @foreach($Conceptos as $concepto)
 <tr>
 	@if($concepto->INV_MotivoMovimiento_Activo)
+	
 		<td>{{{$concepto->INV_MotivoMovimiento_Nombre}}}</td>
-		@if($concepto->INV_MotivoMovimiento_TipoMovimiento)
-		<td>Entrada</td>
+		@if($concepto->INV_MotivoMovimiento_TipoMovimiento != 1)
+			<td>Salida</td>
 		@else
-		<td>Salida</td>
+			<td>Entrada</td>
 		@endif
 		<td>{{{$concepto->INV_MotivoMovimiento_Observaciones}}}</td>
-		@if ($concepto->INV_MotivoMovimiento_Activo == 0)
+		@if ($concepto->INV_MotivoMovimiento_Activo == 1)
 		<td ><span class="glyphicon glyphicon-ok"></td>
 		@else 
 		<td><span class="glyphicon glyphicon-remove"></td>
@@ -54,14 +56,14 @@
 			<th>Tipo Movimiento</th>
 			<th>Observaciones</th>
 			<th>Activo</th>
-			
+			<th></th>
 		</tr>
 	</thead>	
 <tbody>
 @foreach($Conceptos as $concepto)
 <tr>
 	@if(!($concepto->INV_MotivoMovimiento_Activo)) <td>{{{$concepto->INV_MotivoMovimiento_Nombre}}}</td>
-		@if($concepto->INV_MotivoMovimiento_TipoMovimiento)
+		@if($concepto->INV_MotivoMovimiento_TipoMovimiento!=1)
 		<td>Entrada</td>
 		@else
 		<td>Salida</td>

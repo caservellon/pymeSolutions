@@ -3,7 +3,7 @@
 @section('main')
 	
 	@if(Input::has('Busqueda'))
-		<?php $SolicitudesCotizacion = Helpers::BusquedaSolicitudCotizacion(Input::get('Busqueda')); ?>
+		<?php $SolicitudesCotizacion = Helpers::BusquedaSolicitudesCotizacion(Input::get('Busqueda')); ?>
 	@else
 		<?php $SolicitudesCotizacion = Helpers::InformacionSolicitudesCotizacion(); ?>
 	@endif
@@ -28,6 +28,7 @@
 			<div class="col-md-2">
 				{{ Form::submit('Buscar', array('name' => 'Buscar', 'class' => 'btn btn-success btn-sm')) }}
 			</div>
+			
 			@if(Input::has('Busqueda'))
 				<div class="col-md-2">
 					{{ Form::submit('Restablecer', array('name' => 'Restablecer', 'class' => 'btn btn-info btn-sm')) }}
@@ -52,8 +53,10 @@
 	
 	@if(Input::has('Busqueda') && count($SolicitudesCotizacion) == 0)
 		<li class="alert alert-danger">No se encontraron solicitudes de cotizaci&oacute;n bajo ese criterio de b&uacute;squeda</li>
+	
 	@elseif(!Input::has('Busqueda') && count($SolicitudesCotizacion) == 0)
 		<li class="alert alert-danger">No hay solicitudes de cotizaci&oacute;n disponibles para capturar</li>
+	
 	@else
 		{{ Form::open(array('route' => 'CotizacionesCapturarCotizacion')) }}
 			<div class="row">
@@ -83,22 +86,20 @@
 							</thead>
 							
 							<tbody >
-								@foreach ($SolicitudesCotizacion as $SolicitudCotizacion)
-									@if ($SolicitudCotizacion -> Activo == 1 && $SolicitudCotizacion -> Recibido == 1)
-										<tr>
-											<td>{{ Form::radio('Solicitud de Cotizacion', $SolicitudCotizacion -> Codigo) }}</td>
-											<td>{{ $SolicitudCotizacion -> Codigo }}</td>
-											<td>{{ $SolicitudCotizacion -> NombreProveedor }}</td>
-											<td>{{ $SolicitudCotizacion -> FechaCreacion }}</td>
-											<td>{{ $SolicitudCotizacion -> IdUsuarioCreo }}</td>
-											
-											@if (Helpers::CotizacionCapturada($SolicitudCotizacion -> Codigo))
-												<td>Capturada</td>
-											@else
-												<td>En Espera</td>
-											@endif
-										</tr>
-									@endif
+								@foreach($SolicitudesCotizacion as $SolicitudCotizacion)
+									<tr>
+										<td>{{ Form::radio('Solicitud de Cotizacion', $SolicitudCotizacion -> Codigo) }}</td>
+										<td>{{ $SolicitudCotizacion -> Codigo }}</td>
+										<td>{{ $SolicitudCotizacion -> NombreProveedor }}</td>
+										<td>{{ $SolicitudCotizacion -> FechaCreacion }}</td>
+										<td>{{ $SolicitudCotizacion -> IdUsuarioCreo }}</td>
+										
+										@if(Helpers::CotizacionCapturada($SolicitudCotizacion -> Codigo))
+											<td>Capturada</td>
+										@else
+											<td>En Espera</td>
+										@endif
+									</tr>
 								@endforeach
 							</tbody>
 						</table>

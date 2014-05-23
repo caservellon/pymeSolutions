@@ -37,9 +37,10 @@ class CotizacionController extends BaseController {
 	
 	public function CapturarCotizacion(){
 		$Input = Input::except(array('_token', 'Capturar'));
-		//$Prueba = Helpers::BusquedaSolicitudCotizacion('ind');
+		//$Prueba = Helpers::BusquedaSolicitudCotizacion('Capturada');
 		//return var_dump($Prueba);
 		//return var_dump($Input);
+		
 		$SolicitudCotizacionSeleccionada = false;
 		
 		if(Input::has('Capturar')){
@@ -69,7 +70,7 @@ class CotizacionController extends BaseController {
 	
 	public function CapturarCotizacionCapturar(){
 		$Input = Input::except(array('_token', 'CodigoSolicitudCotizacion', 'VigenciaCotizacion'));
-		//return var_dump(Input::all());
+		
 		$HayErrores = false;
 		$CodigoProducto = array_keys($Input);
 		
@@ -214,6 +215,8 @@ class CotizacionController extends BaseController {
 	}
 	
 	public function TodasCotizaciones(){
+		$Input = Input::except(array('_token', 'Detalle'));
+		
 		$Cotizaciones = Cotizacion::all();
 	
 		foreach ($Cotizaciones as $Cotizacion){
@@ -227,20 +230,14 @@ class CotizacionController extends BaseController {
 				$Cotizacion -> save();
 			}
 		}
-	
-		return View::make('COM_Cotizacion.TodasCotizaciones');
-	}
-	
-	public function DetallesCotizacion(){ 
-		$Input = Input::except(array('_token', 'Detalle'));
 		
-		$CotizacionSeleccionada = False;
+		$CotizacionSeleccionada = false;
 		$IndiceActual = 0;
 		
 		if (Input::has('Detalle')){
 			foreach ($Input as $Codigo){
 				$CodigosCotizacion[$IndiceActual] = $Codigo;
-				$CotizacionSeleccionada = True;
+				$CotizacionSeleccionada = true;
 				$IndiceActual += 1;
 			}
 			
@@ -251,38 +248,57 @@ class CotizacionController extends BaseController {
 			}
 			
 		}elseif (Input::has('Buscar')){
-			
+			return Redirect::route('CotizacionesTodasCotizaciones', array('Busqueda' => Input::get('Busqueda'))) -> withInput();
+		
+		}elseif(Input::has('Restablecer')){
+			return Redirect::route('CotizacionesTodasCotizaciones');
 		}
 		
+		return View::make('COM_Cotizacion.TodasCotizaciones');
 	}
 	
 	public function HabilitarInhabilitar(){
+		//$CotizacionesBusqueda = Helpers::BusquedaCotizaciones(Input::get('Busqueda'));
+		//return var_dump($Cot);
+		
+		//return var_dump(Input::all());
+		//return var_dump($Cotizaciones);
+		
 		$Cotizaciones = Cotizacion::all();
 		
 		if (Input::has('Actualizar')){
-			foreach ($Cotizaciones as $Cotizacion){
-				if ($Cotizacion -> COM_Cotizacion_Activo){
-					if (!Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
-						$Cotizacion -> COM_Cotizacion_Activo = 0;
-						$Cotizacion -> save();
-					}
-				}else{
-					if (Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
-						$Cotizacion -> COM_Cotizacion_Activo = 1;
-						$Cotizacion -> save();
-					}
-				}	
+			//return var_dump(Input::all());
+			if(Input::has('')){
+				return var_dump(Input::all());
+				foreach ($Cotizaciones as $Cotizacion){
+					if ($Cotizacion -> COM_Cotizacion_Activo){
+						if (!Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
+							$Cotizacion -> COM_Cotizacion_Activo = 0;
+							$Cotizacion -> save();
+						}
+					}else{
+						if (Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
+							$Cotizacion -> COM_Cotizacion_Activo = 1;
+							$Cotizacion -> save();
+						}
+					}	
+				}
+			}else{
+			
 			}
 			
 			return Redirect::route('CotizacionesHabilitarInhabilitarMensajeEstadoCotizacionCambiado');
 			
-		}elseif (Input::has('Buscar')){
+		}elseif(Input::has('Buscar')){
+			//return Redirect::route('CotizacionesHabilitarInhabilitar', array('Busqueda' => Input::get('Busqueda'))) -> with('CotizacionesBusqueda', $CotizacionesBusqueda);
+			return Redirect::route('CotizacionesHabilitarInhabilitar', array('Busqueda' => Input::get('Busqueda')));
 			
+		}elseif(Input::has('Restablecer')){
+			return Redirect::route('CotizacionesHabilitarInhabilitar');
 		}
 		
 	}
-	
-	
+	/*
 	public function search_index(){
 
 		//Querys de las columnas propias de Proveedor
@@ -317,5 +333,5 @@ class CotizacionController extends BaseController {
 
 		return View::make('Proveedor.index', compact('Proveedor'));
 	}
-	
+	*/
 }
