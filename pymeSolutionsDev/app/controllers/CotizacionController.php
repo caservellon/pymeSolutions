@@ -289,8 +289,8 @@ class CotizacionController extends BaseController {
 			
 			return Redirect::route('CotizacionesHabilitarInhabilitarMensajeEstadoCotizacionCambiado');
 			
-		}elseif (Input::has('Buscar')){
-			//return Redirect::route('CotizacionesHabilitarInhabilitar', array('Busqueda' => Input::get('Busqueda'))) -> with('CotizacionesBusqueda' ,$CotizacionesBusqueda);
+		}elseif(Input::has('Buscar')){
+			//return Redirect::route('CotizacionesHabilitarInhabilitar', array('Busqueda' => Input::get('Busqueda'))) -> with('CotizacionesBusqueda', $CotizacionesBusqueda);
 			return Redirect::route('CotizacionesHabilitarInhabilitar', array('Busqueda' => Input::get('Busqueda')));
 			
 		}elseif(Input::has('Restablecer')){

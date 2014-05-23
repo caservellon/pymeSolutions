@@ -8,6 +8,8 @@
 		<?php $Cotizaciones = Helpers::InformacionCotizaciones(); ?>
 	@endif
 	
+	<?php $CamposLocalesCotizaciones = Helpers::InformacionCamposLocalesCotizaciones(); ?>
+	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Todas las Cotizaciones</h3>
@@ -79,6 +81,11 @@
 									<th>Proveedor</th>
 									<th>Fecha de creaci&oacute;n</th>
 									<th>Vigencia</th>
+									
+									@foreach($CamposLocalesCotizaciones as $CampoLocalCotizaciones)
+										<th>{{ $CampoLocalCotizaciones -> Nombre }}
+									@endforeach
+									
 									<th>Estado</th>
 									<th>Estado Vigencia</th>
 								</tr>
@@ -92,6 +99,16 @@
 										<td>{{ $Cotizacion -> NombreProveedor }}</td>
 										<td>{{ $Cotizacion -> FechaCreacion }}</td>
 										<td>{{ $Cotizacion -> Vigencia }}</td>
+										
+										@foreach($CamposLocalesCotizaciones as $CampoLocalCotizaciones)
+											<?php $ValorCampoLocalCotizacion = Helpers::InformacionCampoLocalCotizacion($CampoLocalCotizaciones -> Codigo, $Cotizacion -> Codigo) ?> 
+											
+											@if(count($ValorCampoLocalCotizacion) != 0)
+												<td>{{ $ValorCampoLocalCotizacion[0] -> Valor }}</td>
+											@else
+												<td></td>
+											@endif
+										@endforeach
 										
 										@if($Cotizacion -> Activo == 1)
 											<td>Activa</td>

@@ -102,7 +102,7 @@ class Helpers {
 			-> where(function($Consulta){
 					$Consulta
 						-> where('COM_SolicitudCotizacion_Activo', '=', '1')
-						-> where('COM_SolicitudCotizacion_Recibido' , '=', '1');
+						-> where('COM_SolicitudCotizacion_Recibido', '=', '1');
 			});
 			
 				
@@ -142,6 +142,7 @@ class Helpers {
 			-> get();
 			
 		return $Consulta;
+		
 	}
 	
 	
@@ -208,7 +209,7 @@ class Helpers {
 					  'GEN_CampoLocal_Tipo as Tipo',
 					  'GEN_CampoLocal_Requerido as Requerido'
 					 )
-			-> where('GEN_CampoLocal_Activo',"=",1)
+			-> where('GEN_CampoLocal_Activo', "=", '1')
 			-> where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')
 			-> get();
 			
@@ -220,7 +221,7 @@ class Helpers {
 			-> join('COM_ValorCampoLocal', 'GEN_CampoLocal_ID', '=', 'COM_CampoLocal_IdCampoLocal')
 			-> join('COM_Cotizacion', 'COM_ValorCampoLocal.COM_Cotizacion_IdCotizacion', '=', 'COM_Cotizacion.COM_Cotizacion_IdCotizacion')
 			-> select('COM_ValorCampoLocal_Valor as Valor')
-			-> where('GEN_CampoLocal_Activo',"=",1)
+			-> where('GEN_CampoLocal_Activo','=', '1')
 			-> where('GEN_CampoLocal_Codigo', '=', $CodigoCampoLocal)
 			-> where('COM_Cotizacion_Codigo', '=', $CodigoCotizacion)
 			-> get();
@@ -284,6 +285,7 @@ class Helpers {
 				-> orWhere('INV_Proveedor_Nombre', 'LIKE', '%' . $Busqueda . '%')
 				-> orWhere('COM_Cotizacion_FechaCreacion', 'LIKE', '%' . $Busqueda . '%')
 				-> orWhere('COM_Cotizacion_Vigencia', 'LIKE', '%' . $Busqueda . '%');
+				//-> orWhere('COM_ValorCampoLocal_Valor', 'LIKE', '%' . $Busqueda . '%');
 		}
 		
 		$Consulta = $Consulta
@@ -291,6 +293,35 @@ class Helpers {
 			-> orderBy('COM_Cotizacion_Codigo')
 			-> get();
 			
+		/*
+		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1);
+		 if ($campos) {
+                        //return $val;
+			$noListas = $campos->where('GEN_CampoLocal_Tipo','<>','LIST')->lists('GEN_CampoLocal_ID');
+			$listas = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT_%')->where('GEN_CampoLocal_ParametroBusqueda',1)->where('GEN_CampoLocal_Activo',1)->where('GEN_CampoLocal_Tipo','LIKE','%LIST%')->lists('GEN_CampoLocal_ID');
+			if ($listas) {
+				$valorLista = DB::table('GEN_CampoLocalLista')->whereIn('GEN_CampoLocal_GEN_CampoLocal_ID',$listas)->where('GEN_CampoLocalLista_Valor','LIKE', $Busqueda.'%')->lists('GEN_CampoLocalLista_ID');
+				if($valorLista) {
+					$Consulta = array_merge($Consulta,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$listas)->whereIn('COM_ValorCampoLocal_Valor',$valorLista)->lists('COM_Cotizacion_IdCotizacion'));
+				}
+			}
+			if ($noListas) {
+				$Consulta = array_merge($Consulta,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$noListas)->where('COM_ValorCampoLocal_Valor','LIKE',$Busqueda.'%')->lists('COM_Cotizacion_IdCotizacion'));
+                                
+			}
+                        if($Consulta)
+                            $Consulta=  Cotizacion::wherein('COM_Cotizacion_IdCotizacion',$Consulta)->select('COM_Cotizacion_IdCotizacion')->get();
+                        
+             }           	
+			
+			if(!empty($Consulta))
+                return $Consulta;
+            else{
+                //$ruta = route('Compras.SolicitudCotizacions.index');
+ 			   	//$mensaje = Mensaje::find(4);
+                return "Hola";
+            }
+			*/
 		return $Consulta;
 	}
 	
