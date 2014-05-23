@@ -13,7 +13,7 @@
     </div>
 </div>
 <div class="form-group">
-    <h4>Motivo</h4>
+    <h4>Concepto</h4>
     <div class="col-md-5">
         {{{ $Motivo }}}
     </div>

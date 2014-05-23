@@ -125,7 +125,8 @@ class VentasController extends BaseController {
 				$DetalleVenta->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
 				$DetalleVenta->save();
 				$subTotal += (float)$DetalleVenta->VEN_DetalleDeVenta_PrecioVenta * $p['cantidad'];
-				$isvCalculado += $subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_ISV; // TODO revisar el campo de isv en db
+				$isvCalculado += $subTotal * 0.15;
+			//	$isvCalculado += $subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_Impuesto1 + ($subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_Impuesto2); // TODO revisar el campo de isv en db
 				$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 			}
 
@@ -158,16 +159,16 @@ class VentasController extends BaseController {
 
 			$subTotal = $subTotal - $descuentoCalculado;
 			if ($totalBonoDeCompra != 0) {
-				Contabilidad::GenerarTransaccion(4, $totalBonoDeCompra);
+				Contabilidad::GenerarTransaccion(4, $subTotal);
 			}
 			if ($totalEfectivo != 0) {
-				Contabilidad::GenerarTransaccion(3, $totalEfectivo);
+				Contabilidad::GenerarTransaccion(3, $subTotal);
 			}
 			
 			
 			Contabilidad::GenerarTransaccion(5,$isvCalculado);
 			Contabilidad::GenerarTransaccion(7,$descuentoCalculado);
-			//Contabilidad::GenerarTransaccion(6,$costoVendido);
+			Contabilidad::GenerarTransaccion(6,$costoVendido);
 
 			return $return;
 

@@ -41,6 +41,20 @@ Route::group(array('prefix' => 'Inventario'), function()
 		return View::make('Menus.inventario');
 	});
 
+	Route::get('/Proveedor/f2p', array('as' => 'Inventario.Proveedor.f2p', 'uses' => 'ProveedorController@create3'));
+	Route::post('/Proveedor/f2p', array('as' => 'Proveedor.save2', 'uses' => 'ProveedorController@save2'));
+
+
+	Route::get('/Proveedor/p2p', array('as' => 'Inventario.Proveedor.save', 'uses' => 'ProveedorController@create2'));
+	Route::post('/Proveedor/p2p', array('as' => 'Proveedor.save', 'uses' => 'ProveedorController@save'));
+
+
+	Route::get('/Productos/p2p', function(){
+    	return View::make('Productos/p2p');
+	});
+	
+	Route::post('/Productos/p2p', array('as' => 'Productos.save', 'uses' => 'ProductosController@save'));
+
 		Route::resource('Ciudad', 'CiudadController');
 		Route::resource('UnidadMedidas', 'UnidadMedidasController');
 		Route::resource('Categoria', 'CategoriaController');

@@ -162,7 +162,8 @@ class MovimientoInventariosController extends BaseController {
 	}
 
 	public function ordenes(){
-		$idOrdenes = HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=','9')->lists('COM_OrdenCompra_TransicionEstado_Id');
+		//$idOrdenes = HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=','9')->lists('COM_OrdenCompra_TransicionEstado_Id');
+		$idOrdenes = comInventario::getOrdenes();
 		$ordenes = array();
 		if ($idOrdenes) {
 			$temp = OrdenCompra::wherein('COM_OrdenCompra_IdOrdenCompra',$idOrdenes);
@@ -194,30 +195,45 @@ class MovimientoInventariosController extends BaseController {
 		}
 		$ordenes = OrdenCompra::all();
 		$proveedores = Proveedor::all();
-		$orden = DB::select('select pro.INV_Producto_ID as ID, pro.INV_Producto_Nombre as Nombre, 
+		/*$orden = DB::select('select pro.INV_Producto_ID as ID, pro.INV_Producto_Nombre as Nombre, 
 					det.COM_DetalleOrdenCompra_Cantidad as Cantidad, det.COM_DetalleOrdenCompra_PrecioUnitario as Precio
 					from pymeERP.COM_OrdenCompra com inner join pymeERP.COM_DetalleOrdenCompra det on 
-					com.COM_OrdenCompra_IdOrdenCompra = det.COM_OrdenCompra_idOrdenCompra
+					com.COM_OrdenCompra_IdOrdenCompra = det.COM_DetalleOrdenCompra_idOrdenCompra
 					inner join pymeERP.INV_Producto pro on det.COM_Producto_idProducto = pro.INV_Producto_ID
 					where com.COM_OrdenCompra_Codigo = ?', array($CodigoOrdenCompra));
+		//*/
+		$orden = comInventario::InformacionProductosOrdenCompra($CodigoOrdenCompra);
+		if ($orden) {
+			return View::make('MovimientoInventarios.orden', compact('orden', 'ordenes', 'proveedores', 'CodigoOrdenCompra'));
+		}
 		//return $orden;
-		return View::make('MovimientoInventarios.orden', compact('orden', 'ordenes', 'proveedores', 'CodigoOrdenCompra'));
+		return Redirect::route('Inventario.MovimientoInventario.Orden')
+			->withErrors('No se encontraron Órdenes con ese código!');
 	}
 
 	public function recibida(){
 		$input = Input::all();
 		//return $input;
-		$orden = DB::select('select pro.INV_Producto_ID as ID, pro.INV_Producto_Nombre as Nombre, 
+		/*$orden = DB::select('select pro.INV_Producto_ID as ID, pro.INV_Producto_Nombre as Nombre, 
 					det.COM_DetalleOrdenCompra_Cantidad as Cantidad, det.COM_DetalleOrdenCompra_PrecioUnitario as Precio
 					from pymeERP.COM_OrdenCompra com inner join pymeERP.COM_DetalleOrdenCompra det on 
 					com.COM_OrdenCompra_IdOrdenCompra = det.COM_OrdenCompra_idOrdenCompra
 					inner join pymeERP.INV_Producto pro on det.COM_Producto_idProducto = pro.INV_Producto_ID
 					where com.COM_OrdenCompra_IdOrdenCompra = ?', array($input['INV_Movimiento_IDOrdenCompra']));
+		//*/
+		$CodigoOrdenCompra = $input['COM_OrdenCompra_Codigo'];
+		$IdMovimiento = $input['INV_MotivoMovimiento_INV_MotivoMovimiento_ID'];
+		$IdOrdenCompra = $input['INV_Movimiento_IDOrdenCompra'];
+		$orden = comInventario::InformacionProductosOrdenCompra($CodigoOrdenCompra);
+		unset($input['COM_OrdenCompra_Codigo']);
+
 		//Se crea el Movimiento de Inventario para despues agregar el detalle del movimiento
 		$this->MovimientoInventario->create($input);
+
 		//Buscamos el moviemiento que acabamos de crear para poder obtener su id
 		$temp = MovimientoInventario::where('INV_Movimiento_IDOrdenCompra', $input['INV_Movimiento_IDOrdenCompra'])->orderBy('INV_Movimiento_ID', 'DESC')->get();
 		$Movimiento = $temp[0];
+		$monto = 0;
 		//se procede a llenar los detalles de Movimiento de Inventario
 		foreach ($orden as $or) {
 			//Buscamos el Producto a Agregar
@@ -242,34 +258,65 @@ class MovimientoInventariosController extends BaseController {
 			$detalle['INV_Producto_INV_Categoria_ID'] = $Producto->INV_Categoria_ID;
 			$detalle['INV_Producto_INV_Categoria_IDCategoriaPadre'] = $Producto->INV_Categoria_IDCategoriaPadre;
 			$detalle['INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID'] = $Producto->INV_UnidadMedida_ID;
+			//return $detalle;
+
+			//Se suma el monto del produto para generar la contabilidad
+			$monto += ($or->Cantidad * $or->Precio);
+
 			//Creamos el detalle para un solo producto
 			DetalleMovimiento::create($detalle);
+
 			//Actualizamos el Inventario
 			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $or->Cantidad;
 			$Producto->INV_Producto_PrecioCosto = $Costo;
 			$Producto->save();
 		}
 		//Se llama el método para realizar la contabilidad
+		Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
+
 		//Modificamos el estado de la orden de compra
-		return Redirect::route('Inventario.MovimientoInventario.index');
+		comInventario::CambiaEstadoOrden($IdOrdenCompra, 2);
+
+		return Redirect::route('Inventario.MovimientoInventario.index')
+			->with('message', 'Orden de Compra Recibida!');
 	}
 
 	public function rechazada(){
 		$input = Input::all();
+		$CodigoOrdenCompra = $input['COM_OrdenCompra_Codigo'];
+		$IdMovimiento = $input['INV_MotivoMovimiento_INV_MotivoMovimiento_ID'];
+		$IdOrdenCompra = $input['INV_Movimiento_IDOrdenCompra'];
+		$orden = comInventario::InformacionProductosOrdenCompra($CodigoOrdenCompra);
+		
+		$diff = 0;
+		foreach ($orden as $or) {
+			$diff += ($or->Cantidad * $or->Precio);
+		}
 		//Se llama el método para realizar la contabilidad
+		Contabilidad::invGenerarTransaccion($IdMovimiento, $diff);
+
 		//Modificamos el estado de la orden de compra
-		return Redirect::route('Inventario.MovimientoInventario.index');
+		comInventario::CambiaEstadoOrden($IdOrdenCompra, 1);
+
+		return Redirect::route('Inventario.MovimientoInventario.index')
+			->with('message', 'Orden de Compra Rechazada!');
 	}
 
 	public function errores(){
 		$input = Input::all();
 		//return $input;
-		$orden = DB::select('select pro.INV_Producto_ID as ID, pro.INV_Producto_Nombre as Nombre, 
+		/*$orden = DB::select('select pro.INV_Producto_ID as ID, pro.INV_Producto_Nombre as Nombre, 
 					det.COM_DetalleOrdenCompra_Cantidad as Cantidad, det.COM_DetalleOrdenCompra_PrecioUnitario as Precio
 					from pymeERP.COM_OrdenCompra com inner join pymeERP.COM_DetalleOrdenCompra det on 
 					com.COM_OrdenCompra_IdOrdenCompra = det.COM_OrdenCompra_idOrdenCompra
 					inner join pymeERP.INV_Producto pro on det.COM_Producto_idProducto = pro.INV_Producto_ID
 					where com.COM_OrdenCompra_IdOrdenCompra = ?', array($input['INV_Movimiento_IDOrdenCompra']));
+		//*/
+		$CodigoOrdenCompra = $input['COM_OrdenCompra_Codigo'];
+		$IdMovimiento = $input['INV_MotivoMovimiento_INV_MotivoMovimiento_ID'];
+		$IdOrdenCompra = $input['INV_Movimiento_IDOrdenCompra'];
+		$orden = comInventario::InformacionProductosOrdenCompra($CodigoOrdenCompra);
+		unset($input['COM_OrdenCompra_Codigo']);
 		//Se crea el Movimiento de Inventario para despues agregar el detalle del movimiento
 		$t['INV_Movimiento_IDOrdenCompra'] = $input['INV_Movimiento_IDOrdenCompra'];
 		$t['INV_Movimiento_Observaciones'] = $input['INV_Movimiento_Observaciones'];
@@ -284,40 +331,69 @@ class MovimientoInventariosController extends BaseController {
 		$temp = MovimientoInventario::where('INV_Movimiento_IDOrdenCompra', $input['INV_Movimiento_IDOrdenCompra'])->orderBy('INV_Movimiento_ID', 'DESC')->get();
 		$Movimiento = $temp[0];
 		//se procede a llenar los detalles de Movimiento de Inventario
+		$cont = 0;
+		$monto = 0;
+		$diff = 0;
+		//return $input;
 		foreach ($orden as $or) {
 			//Buscamos el Producto a Agregar
 			$Producto = Producto::find($or->ID);
-			//return $Producto;
-			//Calculando Precio Costo con Promedio Ponderado
-			$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + ($or->Cantidad * $or->Precio))/($or->Cantidad + $Producto->INV_Producto_Cantidad);
-			//Agregamos los detalles a un array
-			$detalle['INV_DetalleMovimiento_IDProducto'] = $or->ID;
-			$detalle['INV_DetalleMovimiento_CodigoProducto'] = $Producto->INV_Producto_Codigo;
-			$detalle['INV_DetalleMovimiento_NombreProducto'] = $Producto->INV_Producto_Nombre;
-			$detalle['INV_DetalleMovimiento_CantidadProducto'] = $input['Cant'.$or->ID];
-			$detalle['INV_DetalleMovimiento_PrecioCosto'] = $or->Precio;
-			$detalle['INV_DetalleMovimiento_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
-			$detalle['INV_DetalleMovimiento_FechaCreacion'] = date('Y-m-d H:i:s');
-			$detalle['INV_DetalleMovimiento_FechaModificacion'] = date('Y-m-d H:i:s');
-			$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = 'Admin';
-			$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = 'Admin';
-			$detalle['INV_Movimiento_ID'] = $Movimiento->INV_Movimiento_ID;
-			$detalle['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'] = '2';
-			$detalle['INV_Producto_INV_Producto_ID'] = $Producto->INV_Producto_ID;
-			$detalle['INV_Producto_INV_Categoria_ID'] = $Producto->INV_Categoria_ID;
-			$detalle['INV_Producto_INV_Categoria_IDCategoriaPadre'] = $Producto->INV_Categoria_IDCategoriaPadre;
-			$detalle['INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID'] = $Producto->INV_UnidadMedida_ID;
-			//return $detalle;
-			//Creamos el detalle para un solo producto
-			DetalleMovimiento::create($detalle);
-			//Actualizamos el Inventario
-			$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $or->Cantidad;
-			$Producto->INV_Producto_PrecioCosto = $Costo;
-			$Producto->save();
+			if ($input['Cant'.$or->ID] < 0) {
+				return Redirect::route('Inventario.MovimientoInventario.Orden')
+					->withErrors('Ingrese Solo Valores Positivos');
+			}elseif ($input['Cant'.$or->ID] > $or->Cantidad) {
+				return Redirect::route('Inventario.MovimientoInventario.Orden')
+					->withErrors('No puede ingresar un valor mayor a la cantidad de la Orden');
+			}elseif ($input['Cant'.$or->ID] > 0) {
+				//return $Producto;
+				$cont++;
+				//Calculando Precio Costo con Promedio Ponderado
+				$Costo = (($Producto->INV_Producto_Cantidad * $Producto->INV_Producto_PrecioCosto) + ($input['Cant'.$or->ID] * $or->Precio))/($or->Cantidad + $Producto->INV_Producto_Cantidad);
+				//Agregamos los detalles a un array
+				$detalle['INV_DetalleMovimiento_IDProducto'] = $or->ID;
+				$detalle['INV_DetalleMovimiento_CodigoProducto'] = $Producto->INV_Producto_Codigo;
+				$detalle['INV_DetalleMovimiento_NombreProducto'] = $Producto->INV_Producto_Nombre;
+				$detalle['INV_DetalleMovimiento_CantidadProducto'] = $input['Cant'.$or->ID];
+				$detalle['INV_DetalleMovimiento_PrecioCosto'] = $or->Precio;
+				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
+				$detalle['INV_DetalleMovimiento_FechaCreacion'] = date('Y-m-d H:i:s');
+				$detalle['INV_DetalleMovimiento_FechaModificacion'] = date('Y-m-d H:i:s');
+				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = 'Admin';
+				$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = 'Admin';
+				$detalle['INV_Movimiento_ID'] = $Movimiento->INV_Movimiento_ID;
+				$detalle['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'] = '2';
+				$detalle['INV_Producto_INV_Producto_ID'] = $Producto->INV_Producto_ID;
+				$detalle['INV_Producto_INV_Categoria_ID'] = $Producto->INV_Categoria_ID;
+				$detalle['INV_Producto_INV_Categoria_IDCategoriaPadre'] = $Producto->INV_Categoria_IDCategoriaPadre;
+				$detalle['INV_Producto_INV_UnidadMedida_INV_UnidadMedida_ID'] = $Producto->INV_UnidadMedida_ID;
+				//return $detalle;
+
+				//Se suma el monto del produto para generar la contabilidad
+				$monto += ($input['Cant'.$or->ID] * $or->Precio);
+				$diff += (($or->Cantidad - $input['Cant'.$or->ID]) * $or->Precio);
+
+				//Creamos el detalle para un solo producto
+				DetalleMovimiento::create($detalle);
+
+				//Actualizamos el Inventario
+				$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $or->Cantidad;
+				$Producto->INV_Producto_PrecioCosto = $Costo;
+				$Producto->save();
+			}
 		}
-		//Se llama el método para realizar la contabilidad
-		//Modificamos el estado de la orden de compra
-		return Redirect::route('Inventario.MovimientoInventario.index');
+		if ($cont > 0) {
+			//Se llama el método para realizar la contabilidad
+			Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
+			Contabilidad::invGenerarTransaccion($IdMovimiento, $diff);
+
+			//Modificamos el estado de la orden de compra
+			comInventario::CambiaEstadoOrden($IdOrdenCompra, 0);
+
+			return Redirect::route('Inventario.MovimientoInventario.index')
+				->with('message', 'Orden de Compra Recibida con Errores!');
+		}
+		return Redirect::route('Inventario.MovimientoInventario.Orden')
+			->withErrors('Debe seleccionar por lo menos un Producto');
 	}
 
 }

@@ -33,7 +33,7 @@
 		<td>Salida</td>
 		@endif
 		<td>{{{$concepto->INV_MotivoMovimiento_Observaciones}}}</td>
-		@if ($concepto->INV_MotivoMovimiento_Activo == 1)
+		@if ($concepto->INV_MotivoMovimiento_Activo == 0)
 		<td ><span class="glyphicon glyphicon-ok"></td>
 		@else 
 		<td><span class="glyphicon glyphicon-remove"></td>

@@ -14,6 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
 		<script type="text/javascript" src="/assets/javascript/Compras.js"></script>
 		<script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 	</head>
 
 	<body style="margin-top: 50px">
@@ -61,6 +62,12 @@
 							</li>
 							<li>
 								{{ link_to_route('Inventario.Proveedor.index', 'Proveedores')}}
+							</li>
+							<li>
+								{{ link_to_route('Inventario.Proveedor.f2p', 'Administrar Formas de Pago')}}
+							</li>
+							<li>
+								{{ link_to_route('Inventario.Proveedor.save', 'Administrar Productos de Proveedores')}}
 							</li>
 							<li>
 								{{ link_to_route('Inventario.Categoria.index', 'Categorías')}}
@@ -152,7 +159,7 @@
 		<script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
 		<script src="/assets/javascript/script.js"></script>
 		<script src="/assets/javascript/jquery.simple-dtpicker.js"></script>
-		
+		<script type="text/javascript" src="/assets/javascript/jquery-ui.js"></script>
 	</body>
 		 
 	@yield('contabilidad_scripts')
