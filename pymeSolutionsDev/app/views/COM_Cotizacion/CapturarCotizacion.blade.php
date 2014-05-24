@@ -8,6 +8,8 @@
 		<?php $SolicitudesCotizacion = Helpers::InformacionSolicitudesCotizacion(); ?>
 	@endif
 	
+	<?php $CamposLocalesSolicitudesCotizacion = Helpers::InformacionCamposLocalesSolicitudesCotizacion(); ?>
+	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Capturar Cotizaci&oacute;n</h3>
@@ -80,6 +82,11 @@
 									<th>C&oacute;digo</th>
 									<th>Proveedor</th>
 									<th>Fecha de creaci&oacute;n</th>
+									
+									@foreach($CamposLocalesSolicitudesCotizacion as $CampoLocalSolicitudesCotizacion)
+										<th>{{ $CampoLocalSolicitudesCotizacion -> Nombre }}</th>
+									@endforeach
+									
 									<th>Usuario</th>
 									<th>Estado</th>
 								</tr>
@@ -92,6 +99,17 @@
 										<td>{{ $SolicitudCotizacion -> Codigo }}</td>
 										<td>{{ $SolicitudCotizacion -> NombreProveedor }}</td>
 										<td>{{ $SolicitudCotizacion -> FechaCreacion }}</td>
+										
+										@foreach($CamposLocalesSolicitudesCotizacion as $CampoLocalSolicitudesCotizacion)
+											<?php $CampoLocalSolicitudCotizacion = Helpers::InformacionCampoLocalSolicitudCotizacion($CampoLocalSolicitudesCotizacion -> Codigo, $SolicitudCotizacion -> Codigo) ?> 
+											
+											@if(count($CampoLocalSolicitudCotizacion) != 0)
+												<td>{{ $CampoLocalSolicitudCotizacion[0] -> Valor }}</td>
+											@else
+												<td></td>
+											@endif
+										@endforeach
+										
 										<td>{{ $SolicitudCotizacion -> IdUsuarioCreo }}</td>
 										
 										@if(Helpers::CotizacionCapturada($SolicitudCotizacion -> Codigo))

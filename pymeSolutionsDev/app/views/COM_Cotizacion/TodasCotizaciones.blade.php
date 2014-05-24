@@ -36,9 +36,9 @@
 					{{ Form::submit('Restablecer', array('name' => 'Restablecer', 'class' => 'btn btn-info btn-sm')) }}
 				</div>
 			@endif
-		</div>		
+		</div>			
 	{{ Form::close() }}
-	
+
 	<br>
 	
 	@if (Input::has('Error'))
@@ -73,7 +73,7 @@
 			
 				<div class="col-md-9" style="overflow:auto; height: 350px">
 					<div class="table-responsive">
-						<table class="table table-striped table-bordered" >
+						<table class="table table-striped table-bordered">
 							<thead>
 								<tr>
 									<th></th>

@@ -52,11 +52,6 @@
 							<th>Descripci&oacute;n</th>
 							<th>Cantidad</th>
 							<th>Unidad</th>
-							
-							@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
-								<th>{{ $CampoLocalSolicitudCotizacion -> Nombre }}</th>
-							@endforeach
-							
 							<th>Precio Unitario</th>
 							<th>Total</th>
 						</tr>
@@ -70,11 +65,6 @@
 								<td>{{ $ProductoSolicitudCotizacion -> Descripcion }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Cantidad }}</td>
 								<td>{{ $ProductoSolicitudCotizacion -> Unidad }}</td>
-								
-								@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
-									<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
-								@endforeach
-								
 								<td>{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}</td>
 								<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}</td>
 							</tr>
@@ -172,12 +162,12 @@
 						@endif
 						
 						@if($CampoLocalCotizaciones -> Tipo == 'LIST')
-							<?php $ValoresCampoLocalLista = Helpers::ValoresCampoLocalListaCotizacion($CampoLocalCotizaciones -> Id);?>
+							<?php $ElementosCampoLocalListaCotizaciones = Helpers::InformacionCampoLocalListaCotizaciones($CampoLocalCotizaciones -> Id);?>
 							
-							@foreach($ValoresCampoLocalLista as $ValorCampoLocalLista)
-								<?php $ValoresCampoLocalLista2[$ValorCampoLocalLista -> Valor] = $ValorCampoLocalLista -> Valor ?>
+							@foreach($ElementosCampoLocalListaCotizaciones as $ElementoCampoLocalListaCotizaciones)
+								<?php $ElementosCampoLocalListaCotizaciones2[$ElementoCampoLocalListaCotizaciones -> Valor] = $ElementoCampoLocalListaCotizaciones -> Valor ?>
 							@endforeach
-							{{ Form::select($CampoLocalCotizaciones -> Codigo, $ValoresCampoLocalLista2, null, array('class' => 'form-control')) }}
+							{{ Form::select($CampoLocalCotizaciones -> Codigo, $ElementosCampoLocalListaCotizaciones2, null, array('class' => 'form-control')) }}
 						@endif
 					@endforeach
 				</div>
