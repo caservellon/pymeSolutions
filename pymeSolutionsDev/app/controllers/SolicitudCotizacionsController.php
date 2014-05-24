@@ -84,25 +84,25 @@ class SolicitudCotizacionsController extends BaseController {
                 $imprimir= array();
                 $correo= array();
 		$proveedor=Input::get('prove');
-                $cantidaigual=array();
-                $cantidaddif=array();
+//                $cantidaigual=array();
+//                $cantidaddif=array();
                 $iguales='diferente';
                 $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
 		$res = SolicitudCotizacion::$rules;
                 
                 $cualquierProducto=Input::get('cualquiera');
-                for ($j=0; $j< count($proveedor); $j++){
-                    $temprod = invCompras::ProveedorCompras($proveedor[$j]);
-                   $nombret = str_replace(' ', '', $temprod->INV_Proveedor_Nombre);
-                    for ($k=0; $k< count($cualquierProducto); $k++){
-                        $temp = invCompras::ProductoCompras($cualquierProducto[$k]);
-                    
-                        $nombre = str_replace(' ', '', $temp->INV_Producto_Nombre);
-                        $cantidaigual[]=Input::get('CantidadSolicitar'.$nombret.$nombre);
-                        $cantidaddif[]=$cantidaigual[0];
-                        
-                    }
-                }
+//                for ($j=0; $j< count($proveedor); $j++){
+//                    $temprod = invCompras::ProveedorCompras($proveedor[$j]);
+//                   $nombret = str_replace(' ', '', $temprod->INV_Proveedor_Nombre);
+//                    for ($k=0; $k< count($cualquierProducto); $k++){
+//                        $temp = invCompras::ProductoCompras($cualquierProducto[$k]);
+//                    
+//                        $nombre = str_replace(' ', '', $temp->INV_Producto_Nombre);
+//                        $cantidaigual[]=Input::get('CantidadSolicitar'.$nombret.$nombre);
+//                        $cantidaddif[]=$cantidaigual[0];
+//                        
+//                    }
+//                }
                 
                 
                 for ($j=0; $j< count($proveedor); $j++){
@@ -145,12 +145,12 @@ class SolicitudCotizacionsController extends BaseController {
                     }
                 }
                 
-                if($cantidaigual!=$cantidaddif){
-                       $iguales='Cantidad';
-                       return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor','iguales'));
-                      
-                       
-                    }
+//                if($cantidaigual!=$cantidaddif){
+//                       $iguales='Cantidad';
+//                       return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor','iguales'));
+//                      
+//                       
+//                    }
                  
                 
                 $validation = Validator::make($Input, $res);
