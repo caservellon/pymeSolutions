@@ -18,6 +18,11 @@ class RolesController extends BaseController {
 
 	public function index()
 	{
+		return View::make('Roles.index');
+	}
+
+	public function create()
+	{
 		$model = Role::find(1);
 		$columnas =  $model->getAllColumnsNames();
         return View::make('Roles.create',compact('columnas'));

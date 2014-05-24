@@ -16,13 +16,13 @@ Route::get('/', function(){
 });
 
 // Seguridad
-Route::get('Rol',array('uses'=>'RolesController@index'));
+
 Route::group(array('prefix' => 'Auth'), function()
 {
 	Route::any('login', array('as' => 'Auth.login', 'uses' => 'UserController@login'));
 	Route::any('logout', array('as' => 'Auth.logout', 'uses' => 'UserController@logout'));
 	Route::resource('Usuarios', 'UserController');
-	Route::resource('Roles', 'RoleController');
+	Route::resource('Roles', 'RolesController');
 	Route::resource('Errores', 'ErrorController');
 });
 
