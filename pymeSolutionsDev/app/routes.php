@@ -13,7 +13,22 @@
 
 Route::get('/', function(){
 	return View::make('hello');
+});
 
+// Seguridad
+
+Route::get('/403', function(){
+	return View::make('Roles.403');
+});
+
+Route::group(array('prefix' => 'Auth'), function()
+{
+	Route::any('login', array('as' => 'Auth.login', 'uses' => 'UserController@login'));
+	Route::any('logout', array('as' => 'Auth.logout', 'uses' => 'UserController@logout'));
+	Route::resource('Usuarios', 'UserController');
+	Route::resource('Roles', 'RolesController');
+	Route::resource('Errores', 'ErrorController');
+	Route::get('prueba', array('as' => 'Auth.test', 'uses' => 'RolesController@ejemplo'));
 });
 
 Route::group(array('prefix'=>'mantenimiento'),function(){
@@ -33,6 +48,8 @@ Route::group(array('prefix'=>'mantenimiento'),function(){
 	
 });
 
+
+//Inventario
 
 Route::group(array('prefix' => 'Inventario'), function()
 {
