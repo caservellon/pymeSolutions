@@ -17,6 +17,10 @@ Route::get('/', function(){
 
 // Seguridad
 
+Route::get('/403', function(){
+	return View::make('Roles.403');
+});
+
 Route::group(array('prefix' => 'Auth'), function()
 {
 	Route::any('login', array('as' => 'Auth.login', 'uses' => 'UserController@login'));
@@ -24,6 +28,7 @@ Route::group(array('prefix' => 'Auth'), function()
 	Route::resource('Usuarios', 'UserController');
 	Route::resource('Roles', 'RolesController');
 	Route::resource('Errores', 'ErrorController');
+	Route::get('prueba', array('as' => 'Auth.test', 'uses' => 'RolesController@ejemplo'));
 });
 
 Route::group(array('prefix'=>'mantenimiento'),function(){

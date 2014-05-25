@@ -15,7 +15,7 @@
     </ul>
 @endif
 
-{{ Form::open(array('url' => 'Auth/Rol', 'class' => "form-horizontal" , 'role' => 'form')) }}
+{{ Form::open(array('route' => 'Auth.Roles.store', 'class' => "form-horizontal" , 'role' => 'form')) }}
 	<div class="">
   		{{ Form::label('SEG_Roles_Nombre', 'Nombre del Rol:', array('class' => 'col-md-2 control-label')) }}
   		<div class="col-md-5">
@@ -180,7 +180,7 @@
 
 	<div class="form-group">
         <div class='col-md-3'>
-			{{ Form::submit('Crear Rol', array('class' => 'btn btn-success')) }}
+			{{ Form::submit('Crear Role', array('class' => 'btn btn-success')) }}
         </div>
 	</div>
 

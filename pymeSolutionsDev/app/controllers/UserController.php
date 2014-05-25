@@ -20,12 +20,14 @@ class UserController
 
 	public function create()
 	{
-		return View::make('Usuarios.create');
+		$roles = Role::all()->lists('SEG_Roles_Nombre','SEG_Roles_ID');
+		return View::make('Usuarios.create', compact('roles'));
 	}
 
 	public function store()
 	{
 		$input = Input::all();
+		return var_dump($input);
 		$validation = Validator::make($input, User::$rules);
 		//return var_dump($input);
 		if ($validation->passes())
