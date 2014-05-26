@@ -248,7 +248,7 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_DetallePago;
 		}
 		
-		public static function GuardarPago()){
+		public static function GuardarPago(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarPago;
 		}
 		
@@ -360,7 +360,7 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VistaTodasOrdenesCompra;
 		}
 		
-		public static function VistaDetallesOrdenCompra()){
+		public static function VistaDetallesOrdenCompra(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VistaDetallesOrdenCompra;
 		}
 		
