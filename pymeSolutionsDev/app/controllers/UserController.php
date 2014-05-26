@@ -131,7 +131,7 @@ class UserController
 					$UserAct->SEG_Usuarios_IP1 = $ip;
 					$UserAct->SEG_Usuarios_UltimaSesion = date("Y-m-d h:i:s");
 					$UserAct->save();
-					return Redirect::route("Auth.login");
+					return View::make("hello");
 		        }
 		        return Redirect::back()->withErrors([
 		          	"errors" => ["Sus credenciales no concuerdan."]

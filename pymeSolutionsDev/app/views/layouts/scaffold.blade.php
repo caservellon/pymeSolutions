@@ -142,12 +142,11 @@
 					</li>
 
 				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
-					<li>
-					<p class="navbar-text navbar-right" style="margin-right: 1em;">
-						Signed in as <a href="#" class="navbar-link">Admin</a></p></li>
-				</ul>
+				@if (Auth::check()) 
+					<p class="navbar-text navbar-right auth">Hola {{Auth::user()->SEG_Usuarios_Email}} <span class="navbar-link">{{ link_to_route('Auth.logout', 'Salir') }}</span></p>
+				@else
+					<p class="navbar-text navbar-right auth"><span class="navbar-link">{{ link_to_route('Auth.login', 'Entrar')}}</span></p>
+				@endif
 			</nav>
 		</header>
 

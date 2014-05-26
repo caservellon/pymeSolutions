@@ -13,6 +13,10 @@ div.btn-agregar {
 	padding-bottom: 10px;
 }
 
+.auth {
+	padding-right: 1.5em;
+}
+
 .control-label {
 	font-weight: bold;
 }
