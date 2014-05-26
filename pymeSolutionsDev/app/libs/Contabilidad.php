@@ -26,7 +26,7 @@ class Contabilidad {
 				  'CON_LibroDiario_FechaModificacion'=>date('Y-m-d H:i:s'),
 				  'CON_LibroDiario_Monto'=>$Monto,
 				  'CON_MotivoTransaccion_ID'=>$IDMotivo,
-				  'CON_LibroDiario_AsientoReversion'=> 1)
+				  'CON_LibroDiario_AsientoRevertido'=> 1)
 			);
 		return 'ok';
 		}
@@ -57,7 +57,7 @@ public static function invGetMotivo($Concepto){
 					  'CON_LibroDiario_FechaModificacion'=>date('Y-m-d H:i:s'),
 					  'CON_LibroDiario_Monto'=>$Monto,
 					  'CON_MotivoTransaccion_ID'=>$IDMotivo,
-					  'CON_LibroDiario_AsientoReversion'=> 1)
+					  'CON_LibroDiario_AsientoRevertido'=> 1)
 				);
 			return 'ok';
 		}
@@ -86,7 +86,7 @@ public static function GenerarTransaccionCmp($Concepto,$Monto,$IdProv){
 					  'CON_LibroDiario_FechaModificacion'=>date('Y-m-d H:i:s'),
 					  'CON_LibroDiario_Monto'=>$Monto,
 					  'CON_MotivoTransaccion_ID'=>$IDMotivo,
-					  'CON_LibroDiario_AsientoReversion'=> 1)
+					  'CON_LibroDiario_AsientoRevertido'=> 1)
 				);
 			return 'ok';
 		}
