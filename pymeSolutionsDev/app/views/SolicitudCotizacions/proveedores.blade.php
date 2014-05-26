@@ -14,14 +14,6 @@
 </div> 
 
 
-
-@if($iguales == 'Cantidad')
-<div class="alert alert-danger">
-    
-    <li >La cantidad del mismo producto con distinto proveedor tienen que ser iguales</li>
-   
-</div>
- @endif
         
 @if ($errors->any())
 <div class="alert alert-danger">
@@ -33,7 +25,7 @@
 
 
 @for($j=0; $j < count($proveedor); $j++)
-<?php $proveedores = Proveedor::find($proveedor[$j]); ?>
+<?php $proveedores = invCompras::ProveedorCompras($proveedor[$j]); ?>
 <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
