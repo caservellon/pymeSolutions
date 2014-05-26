@@ -26,7 +26,7 @@ class BalanzaComprobacionController extends BaseController {
     										//->orderBy('CON_PeriodoContable_ID','desc')
     										->get()
     										->lists('Rango','CON_PeriodoContable_ID');
-    		return Form::select('PC',$Periodos,NULL,array('id'=>'PC'));	
+    		return Form::select('PC',$Periodos,NULL,array('id'=>'PC','class'=>'form-control'));	
     }
 
     public function table(){

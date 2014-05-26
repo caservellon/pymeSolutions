@@ -74,6 +74,24 @@ public static function isValid(){
 		return true;
 	}
 	return false;
-}	
+}
+
+
+public static function GenerarTransaccionCmp($Concepto,$Monto,$IdProv){
+		if ($Monto!=0){
+			$IDMotivo= Contabilidad::GetMotivo($Concepto);
+			DB::table('CON_LibroDiario')->insertGetId(
+				array('CON_LibroDiario_Observacion' =>'Asiento Automatico: Proveedor '.invContabilidad::ProveedorInfo($IdProv)->INV_Proveedor_Nombre,
+					  'CON_LibroDiario_FechaCreacion'=> date('Y-m-d H:i:s'),
+					  'CON_LibroDiario_FechaModificacion'=>date('Y-m-d H:i:s'),
+					  'CON_LibroDiario_Monto'=>$Monto,
+					  'CON_MotivoTransaccion_ID'=>$IDMotivo,
+					  'CON_LibroDiario_AsientoReversion'=> 1)
+				);
+			return 'ok';
+		}
+		return 'not ok';
+
+	}
 
 } ?>

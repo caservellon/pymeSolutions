@@ -4,8 +4,8 @@
 */
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (1,1,1,5);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (2,0,1,35);
-INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (3,0,2,1);
-INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (4,1,2,60);
+INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (3,1,2,60);
+INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (4,0,2,1);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (5,0,3,35);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (6,1,3,60);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (7,0,4,5);
@@ -20,7 +20,9 @@ INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHabe
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (16,0,8,60);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (17,0,9,1);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (18,1,9,38);
-INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (19,1,10,1);
+INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (19,1,10,35);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (20,0,10,66);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (21,1,11,1);
 INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (22,0,11,83);
+INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (23,1,12,83);
+INSERT INTO `CON_CuentaMotivo` (`CON_CuentaMotivo_ID`,`CON_CuentaMotivo_DebeHaber`,`CON_MotivoTransaccion_ID`,`CON_CatalogoContable_ID`) VALUES (24,0,12,35);

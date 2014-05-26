@@ -29,7 +29,7 @@
 	@if($concepto->INV_MotivoMovimiento_Activo)
 	
 		<td>{{{$concepto->INV_MotivoMovimiento_Nombre}}}</td>
-		@if($concepto->INV_MotivoMovimiento_TipoMovimiento != 1)
+		@if($concepto->INV_MotivoMovimiento_TipoMovimiento == 1)
 			<td>Salida</td>
 		@else
 			<td>Entrada</td>

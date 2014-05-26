@@ -48,7 +48,9 @@ class LibroDiarioController extends BaseController {
 			
 			$CuentaMotivo= CuentaMotivo::where('CON_MotivoTransaccion_ID','=',$Asiento->CON_MotivoTransaccion_ID)->get();
 
-			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==NULL XOR $Asiento->CON_LibroDiario_AsientoReversion==1){
+			if ($CuentaMotivo[0]->CON_CuentaMotivo_DebeHaber==NULL 
+				XOR $Asiento->CON_LibroDiario_AsientoReversion==1
+				){
 
 			   $Debe= CatalogoContable::find($CuentaMotivo[0]->CON_CatalogoContable_ID);
 			   $Haber = CatalogoContable::find($CuentaMotivo[1]->CON_CatalogoContable_ID);

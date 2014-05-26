@@ -61,3 +61,21 @@ VALUES
 (7,
 'Descuento',
 7); 
+
+INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
+(`CON_ConceptoMotivo_ID`,
+`CON_ConceptoMotivo_Concepto`,
+`CON_MotivoTransaccion_ID`)
+VALUES
+(8,
+'Compra Proveedores',
+10); 
+
+INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
+(`CON_ConceptoMotivo_ID`,
+`CON_ConceptoMotivo_Concepto`,
+`CON_MotivoTransaccion_ID`)
+VALUES
+(9,
+'Compra Cuentas por pagar',
+12); 

@@ -1,3 +1,9 @@
+<div align="center">
+<h2>Empresa pymeERP</h2>
+	<h3>Balanza Comprobacion</h3>
+	<h4 class="date">Para el</h4><br>
+</div>
+
 <table class="table table-bordered table-striped">
 	<thead>
 		<th>Cuenta</th>
