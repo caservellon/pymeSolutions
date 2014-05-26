@@ -34,7 +34,8 @@ class RolesController extends BaseController {
 
 	public function index()
 	{
-		return View::make('Roles.index');
+		$Roles = Role::all();
+		return View::make('Roles.index',compact('Roles'));
 	}
 
 	public function create()
@@ -50,6 +51,41 @@ class RolesController extends BaseController {
 		} else {
 			return Redirect::to('/403');
 		}
+	}
+
+	public function edit($id){
+		$Role = $this->Role->find($id);
+		$model = Role::find(1);
+		$columnas =  $model->getAllColumnsNames();
+		if (is_null($Role))
+		{
+			return Redirect::route('Auth.Roles.index');
+		}
+
+		return View::make('Roles.edit', compact('Role', 'columnas'));
+	}
+
+	public function update($id)
+	{
+		$input = array_except(Input::all(), '_method');
+		$validation = Validator::make($input, Role::$rules);
+
+		if ($validation->passes())
+		{
+			$Role = $this->Role->find($id);
+			$Role->update($input);
+
+			return Redirect::route('Auth.Roles.index');
+		}
+
+		return Redirect::route('Auth.Roles.edit', $id)
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
+	}
+
+	public function destroy($id){
+
 	}
 
 }
