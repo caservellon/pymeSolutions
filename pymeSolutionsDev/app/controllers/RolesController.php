@@ -85,7 +85,17 @@ class RolesController extends BaseController {
 	}
 
 	public function destroy($id){
+		$Role = $this->Role->find($id);
 
+		if ($Role->SEG_Roles_Estado == true) {
+			$Role->SEG_Roles_Estado = false;
+		} else {
+			$Role->SEG_Roles_Estado = true;
+		}
+
+		$Role->save();
+
+		return Redirect::route('Auth.Roles.index');
 	}
 
 }
