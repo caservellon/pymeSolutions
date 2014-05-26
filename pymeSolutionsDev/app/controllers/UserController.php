@@ -50,6 +50,7 @@ class UserController
 
 	public function edit($id)
 	{
+		$roles = Role::all()->lists('SEG_Roles_Nombre','SEG_Roles_ID');
 		$User = $this->User->find($id);
 
 		if (is_null($User))
@@ -57,7 +58,7 @@ class UserController
 			return Redirect::route('Auth.Usuarios.index');
 		}
 
-		return View::make('Usuarios.edit', compact('User'));
+		return View::make('Usuarios.edit', compact('User','roles'));
 
 	}
 
@@ -131,7 +132,7 @@ class UserController
 					$UserAct->SEG_Usuarios_IP1 = $ip;
 					$UserAct->SEG_Usuarios_UltimaSesion = date("Y-m-d h:i:s");
 					$UserAct->save();
-					return Redirect::route("Auth.login");
+					return View::make("hello");
 		        }
 		        return Redirect::back()->withErrors([
 		          	"errors" => ["Sus credenciales no concuerdan."]
