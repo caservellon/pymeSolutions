@@ -50,6 +50,7 @@ class UserController
 
 	public function edit($id)
 	{
+		$roles = Role::all()->lists('SEG_Roles_Nombre','SEG_Roles_ID');
 		$User = $this->User->find($id);
 
 		if (is_null($User))
@@ -57,7 +58,7 @@ class UserController
 			return Redirect::route('Auth.Usuarios.index');
 		}
 
-		return View::make('Usuarios.edit', compact('User'));
+		return View::make('Usuarios.edit', compact('User','roles'));
 
 	}
 

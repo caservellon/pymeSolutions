@@ -133,8 +133,8 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguridad <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#">Usuarios</a></li>
-							<li><a href="#">Roles</a></li>
+							<li><a href="{{ URL::to('Auth/Usuarios') }}">Usuarios</a></li>
+							<li><a href="{{ URL::to('Auth/Roles') }}">Roles</a></li>
 							<li><a href="#">Logs</a></li>
 							<li class="divider"></li>
 							<li><a href="#">Configuración</a></li>

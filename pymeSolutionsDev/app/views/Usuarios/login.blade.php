@@ -1,6 +1,9 @@
 @extends('layouts.scaffold')
 
 @section("main")
+
+<div class="container-fluid">
+<h2>Autenticación</h2>
 <br>
 
   	@if ($errors->any())
@@ -10,7 +13,7 @@
 		</div>
 	@endif
 
-<div class="container-fluid">
+
   	<div class="form-group">
 		{{ Form::open() }}
 		<div class="form-group">
