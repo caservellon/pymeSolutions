@@ -164,6 +164,8 @@ Route::group(array('prefix' => 'Compras'), function(){
 
 
         Route::get('SolicitudCotizacion/Crear/CualquierProducto', array('as'=>'cualquierProducto', 'uses'=> 'SolicitudCotizacionsController@vistacrear'));
+	Route::get('SolicitudCotizacion/Imprimir', array('as'=>'Compras.SolicitudCotizacions.Imprimir', 'uses'=> 'SolicitudCotizacionsController@indexImprimir'));
+	Route::get('SolicitudCotizacion/Impresion', array('as'=>'Compras.SolicitudCotizacions.impresion', 'uses'=> 'SolicitudCotizacionsController@imprimir'));
         Route::get('SolicitudCotizacion/Crear/Reorden', array('as'=>'reOrden', 'uses'=> 'SolicitudCotizacionsController@vistaReorden'));
         Route::get('SolicitudCotizacion/Crear/MostrarDetalle', array('as'=>'detalle', 'uses'=> 'SolicitudCotizacionsController@detalle'));
         Route::post('SolicitudCotizacion/Crear/detalleCualquierProducto', array('as'=>'seleccion', 'uses'=> 'SolicitudCotizacionsController@mostrarProveedor'));

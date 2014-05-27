@@ -1,8 +1,5 @@
-
-
-            
-            <?php for($i=0; $i<count($email); $i++){ $solCot= SolicitudCotizacion::find($email[$i]); ?>
-            <?php $proveedores = invCompras::ProveedorCompras($solCot->Proveedor_idProveedor); ?>
+<?php for($i=0; $i<count($email); $i++){ $solCot= SolicitudCotizacion::find($email[$i]); ?>
+<?php $proveedores = invCompras::ProveedorCompras($solCot->Proveedor_idProveedor); ?>
             <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">

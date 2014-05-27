@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_SolicitudCotizacion` (
   `COM_SolicitudCotizacion_CantidadPago` INT NULL,
   `COM_SolicitudCotizacion_PeriodoGracia` INT NULL,
   `COM_SolicitudCotizacion_Recibido` TINYINT(1) NULL,
+  `COM_SolicitudCotizacion_Imprimir` TINYINT(1) NULL,
   `COM_SolicitudCotizacion_Activo` TINYINT(1) NOT NULL,
   `COM_SolicitudCotizacion_FechaCreacion` DATE NOT NULL,
   `COM_SolicitudCotizacion_FechaModificacion` DATE NULL,
