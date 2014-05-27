@@ -293,7 +293,7 @@ class MovimientoInventariosController extends BaseController {
 			$diff += ($or->Cantidad * $or->Precio);
 		}
 		//Se llama el método para realizar la contabilidad
-		Contabilidad::invGenerarTransaccion($IdMovimiento, $diff);
+		Contabilidad::GenerarTransaccion(10, $diff);
 
 		//Modificamos el estado de la orden de compra
 		comInventario::CambiaEstadoOrden($IdOrdenCompra, 1);
@@ -384,7 +384,7 @@ class MovimientoInventariosController extends BaseController {
 		if ($cont > 0) {
 			//Se llama el método para realizar la contabilidad
 			Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
-			Contabilidad::invGenerarTransaccion($IdMovimiento, $diff);
+			Contabilidad::GenerarTransaccion(10, $diff);
 
 			//Modificamos el estado de la orden de compra
 			comInventario::CambiaEstadoOrden($IdOrdenCompra, 0);
