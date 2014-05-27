@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	
-	@foreach ($CodigosCotizacion as $CodigoCotizacion)
+	@foreach($CodigosCotizacion as $CodigoCotizacion)
 		<?php
 			$Cotizacion = Helpers::InformacionCotizacion($CodigoCotizacion);
 			$ProductosCotizacion = Helpers::InformacionProductosCotizacion($CodigoCotizacion);
@@ -103,6 +103,11 @@
 				</div>
 				
 				<div class="col-md-7" style="text-align: right">
+					<label>Impuesto: </label>
+					{{ number_format($Cotizacion[0] -> Impuesto, 2) }}
+					
+					<br><br>
+				
 					<label>Total: </label>
 					{{ number_format($Cotizacion[0] -> Total, 2) }}
 				</div>

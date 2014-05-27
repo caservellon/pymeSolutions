@@ -238,7 +238,8 @@ class Helpers {
 					  'COM_Cotizacion_Vigencia as Vigencia',
 					  'INV_FormaPago_Nombre as FormaPago',
 					  'COM_Cotizacion_CantidadPago as CantidadPagos',
-					  'COM_Cotizacion_PeriodoGracia as PeriodoGracia'
+					  'COM_Cotizacion_PeriodoGracia as PeriodoGracia',
+					  'COM_Cotizacion_ISV as Impuesto'
 					)
 			-> where('COM_Cotizacion_Codigo', '=', $CodigoCotizacion)
 			-> get();

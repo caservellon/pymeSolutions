@@ -9,6 +9,7 @@
 		$ProductosSolicitudCotizacion = Helpers::InformacionProductosSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$CamposLocalesSolicitudCotizacion = Helpers::InformacionCamposLocalesSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$CamposLocalesCotizaciones = Helpers::InformacionCamposLocalesCotizaciones();
+		$HayErrores = false;
 	?>
 	
 	<div class="row">
@@ -23,6 +24,7 @@
 	<ul type="none">
 		@foreach($errors -> all() as $mensaje)
 			<li class="alert alert-danger">{{ $mensaje }}</li>
+			<?php $HayErrores = true; ?>
 		@endforeach
     </ul>
 	
@@ -59,15 +61,47 @@
 					
 					<tbody>
 						@foreach($ProductosSolicitudCotizacion as $ProductoSolicitudCotizacion)
-							<tr>
-								<td>{{ $ProductoSolicitudCotizacion -> Codigo }}</td>
-								<td>{{ $ProductoSolicitudCotizacion -> Nombre }}</td>
-								<td>{{ $ProductoSolicitudCotizacion -> Descripcion }}</td>
-								<td>{{ $ProductoSolicitudCotizacion -> Cantidad }}</td>
-								<td>{{ $ProductoSolicitudCotizacion -> Unidad }}</td>
-								<td>{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}</td>
-								<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}</td>
-							</tr>
+							@if($HayErrores)
+								<tr>
+									<td>{{ $ProductoSolicitudCotizacion -> Codigo }}</td>
+									<td>{{ $ProductoSolicitudCotizacion -> Nombre }}</td>
+									<td>{{ $ProductoSolicitudCotizacion -> Descripcion }}</td>
+									<td>{{ $ProductoSolicitudCotizacion -> Cantidad }}</td>
+									<td>{{ $ProductoSolicitudCotizacion -> Unidad }}</td>
+									
+									<?php
+										$Input = Session::get('_old_input');
+										$PrecioUnitario['COM_DetalleCotizacion_PrecioUnitario'] = $Input[$ProductoSolicitudCotizacion -> Codigo];
+										$Validacion = Validator::make($PrecioUnitario, COM_DetalleCotizacion::$rules);
+									?>
+									
+									<td>
+										@if($Validacion -> fails())
+											<div class="form-group has-error has-feedback">
+												{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}
+												<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+											</div>
+										@else
+											<div class="form-group has-success has-feedback">
+												{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}
+												<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+											</div>
+										@endif
+									</td>
+									
+									<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}</td>
+								</tr>
+							@else
+								<tr>
+									<td>{{ $ProductoSolicitudCotizacion -> Codigo }}</td>
+									<td>{{ $ProductoSolicitudCotizacion -> Nombre }}</td>
+									<td>{{ $ProductoSolicitudCotizacion -> Descripcion }}</td>
+									<td>{{ $ProductoSolicitudCotizacion -> Cantidad }}</td>
+									<td>{{ $ProductoSolicitudCotizacion -> Unidad }}</td>
+									<td>{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}</td>
+									<td>{{ Form::text('Total' . $ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}</td>
+								</tr>
+							@endif
 						@endforeach
 					</tbody>
 				</table>
@@ -119,7 +153,28 @@
 			
 			<div class="col-md-3 align-right">
 				{{ Form::label('Impuesto', 'Impuesto') }}
-				{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
+			
+				@if($HayErrores)
+					<?php
+						$Input2 = Session::get('_old_input');
+						$Impuesto2['COM_Cotizacion_ISV'] = $Input2['ImpuestoCotizacion'];
+						$Validacion2 = Validator::make($Impuesto2, Cotizacion::$rules, Cotizacion::$messages);
+					?>
+					
+					@if($Validacion2 -> fails())
+						<div class="form-group has-error has-feedback">
+							{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
+							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+						</div>
+					@else
+						<div class="form-group has-success has-feedback">
+							{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
+							<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+						</div>
+					@endif
+				@else
+					{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
+				@endif
 				
 				<br><br>
 			
