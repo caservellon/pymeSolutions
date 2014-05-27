@@ -38,11 +38,13 @@
     </div>
     <div class='row'>
         <div class="col-md-12">
+            <div class='col-md-5'>  
             <?php for($i=0; $i< count($imprimir); $i++){ foreach ($proveedores as $prov){ if($imprimir[$i]==$prov->INV_Proveedor_ID){ ?>
-            <div class='col-md-5'>   
+             
             <h5><?php echo $prov->INV_Proveedor_Nombre; ?></h5>
-            </div>
+            
             <?php }}} ?>
+            </div>
         </div>
     </div>
     <div class='row'>
