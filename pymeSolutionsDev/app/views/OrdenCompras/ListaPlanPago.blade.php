@@ -52,7 +52,7 @@
                                         } ?>
                                         
                             @endforeach
-                            <td><a href="{{ route('DetallePlanPago', array('id'=>$orden->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">generar pago</a></td>
+                            <td><a href="{{ route('DetallePlanPago', array('id'=>$orden->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Ver Plan de pago</a></td>
                         </tr> 
                      @endforeach
               </tbody>
