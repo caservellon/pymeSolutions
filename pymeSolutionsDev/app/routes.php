@@ -187,8 +187,9 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::get('OrdenCompra/GenerarPago/ListaCotizaciones', array('as'=>'generarpagoLC','uses'=>'OrdenComprasController@generarpagoLC'));
     Route::get('OrdenCompra/GeneraPago/Detalle', array('as'=>'DetallePago','uses'=>'OrdenComprasController@DetallePago'));
     Route::post('OrdenCompra/GenerarPago/Guardar', array('as'=>'GuardaPago','uses'=>'OrdenComprasController@GuardaPago'));
-
-
+// vistas plan de pago
+	Route::get('OrdenCompra/PlanPago/Lista', array('as'=>'ListaPlanes','uses'=>'OrdenComprasController@ListaPlanes'));
+	Route::get('OrdenCompra/PlanPago/Detalle', array('as'=>'DetallePlanPago','uses'=>'OrdenComprasController@DetallePlanPago'));
     //crea oden de compra con cotizacion
     Route::get('OrdenCompra/conCotizacion/ListaCotizaciones', array('as'=>'IniOrdComCnCot','uses'=>'OrdenComprasController@OrdenCompracnCotizacion'));
     Route::post('OrdenCompra/conCotizacion/CompararCotizaciones', array('as'=>'CompararCotizaciones','uses'=>'OrdenComprasController@ComparaCotizaciones'));

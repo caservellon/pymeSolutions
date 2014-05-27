@@ -39,8 +39,6 @@
 		
 		@if($Error == 'Sin Seleccion')
 			<div class="alert alert-danger">Debe seleccionar una solicitud de cotizaci&oacute;n para poder capturar</div>
-		@elseif($Error == 'Ya Capturada')
-			<div class="alert alert-danger">La solicitud de cotizaci&oacute;n seleccionada ya ha sido capturada</div>
 		@endif
 		
 	@endif
@@ -80,14 +78,13 @@
 									@endforeach
 									
 									<th>Usuario</th>
-									<th>Estado</th>
 								</tr>
 							</thead>
 							
 							<tbody >
 								@foreach($SolicitudesCotizacion as $SolicitudCotizacion)
 									<tr>
-										<td>{{ Form::radio('Solicitud de Cotizacion', $SolicitudCotizacion -> Codigo) }}</td>
+										<td>{{ Form::radio('CodigoSolicitudCotizacion', $SolicitudCotizacion -> Codigo) }}</td>
 										<td>{{ $SolicitudCotizacion -> Codigo }}</td>
 										<td>{{ $SolicitudCotizacion -> NombreProveedor }}</td>
 										<td>{{ $SolicitudCotizacion -> FechaCreacion }}</td>
@@ -103,12 +100,6 @@
 										@endforeach
 										
 										<td>{{ $SolicitudCotizacion -> IdUsuarioCreo }}</td>
-										
-										@if(Helpers::SolicitudCotizacionCapturada($SolicitudCotizacion -> Codigo))
-											<td>Capturada</td>
-										@else
-											<td>En Espera</td>
-										@endif
 									</tr>
 								@endforeach
 							</tbody>
