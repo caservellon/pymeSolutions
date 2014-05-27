@@ -125,23 +125,25 @@
         
         <br>
         <label>Forma de Pago</label>
-         <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
-                $form=array();
-                $id=array();
-                foreach ($formapago as $forma){
-                       $id[]=$forma->INV_FormaPago_ID;
-                 }
-                 $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+         <?php 
+                 $cot= Cotizacion::find($id_cot);
+                 $mm=FormaPago::find($cot->COM_Cotizacion_IdFormaPago);
                  
                  
          ?>
-         {{ Form::select('formapago',$m) }}
+         
+         
+         {{  Form::text('formapago',$mm->INV_FormaPago_ID, array('style' => 'display:none')) }}
+         {{  $mm->INV_FormaPago_Nombre }}
          <?php $Coti=Cotizacion::find($id_cot);?>
-         <label>Periodo de Gracia</label>
+         <label>Periodo de Gracia: </label>
+           {{  $Coti->COM_Cotizacion_PeriodoGracia }}
+           {{  Form::text('COM_OrdenCompra_PeriodoGracia',$Coti->COM_Cotizacion_PeriodoGracia, array('style' => 'display:none')) }}
            <br>
-           {{  Form::text('COM_OrdenCompra_PeriodoGracia',$Coti->COM_Cotizacion_PeriodoGracia, array('readonly'=>'readonly')) }}
-           <label>Cantidad de Abonos a Realizar</label>
-           {{  Form::text('COM_OrdenCompra_CantidadPago',$Coti->COM_Cotizacion_CantidadPago, array('readonly'=>'readonly') )}}
+           <label>Cantidad de Abonos a Realizar: </label>
+           {{  $Coti->COM_Cotizacion_CantidadPago}}
+           {{  Form::text('COM_OrdenCompra_CantidadPago',$Coti->COM_Cotizacion_CantidadPago, array('style' => 'display:none') )}}
+           <br>
          
     </div>
     <div class="col-md-4">
