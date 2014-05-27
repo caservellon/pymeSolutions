@@ -122,29 +122,30 @@ function IndiceElemento(Formulario, NombreElemento){
 	return -1;
 }
 
-function AsignarTotales(NombreCampoPrecio, CantidadProducto){
+function AsignarTotales(NombreCampo, Valor){
 	Formulario = document.forms[0];
-	var IndiceCampoPrecio = IndiceElemento(Formulario, NombreCampoPrecio);
-	var NombreCampoTotal = "Total" + NombreCampoPrecio;
-	var IndiceCampoTotal = IndiceElemento(Formulario, NombreCampoTotal);
-	var Total = Formulario.elements[IndiceCampoPrecio].value * CantidadProducto;
 	
-	//Formulario.elements[IndiceCampoTotal].value = Total;
-	Total = Total.toFixed(2);
-	Total = Total.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-	Formulario.elements[IndiceCampoTotal].value = Total;
+	if(NombreCampo != "ImpuestoCotizacion"){
+		var IndiceCampo = IndiceElemento(Formulario, NombreCampo);
+		var NombreCampoTotal = "Total" + NombreCampo;
+		var IndiceCampoTotal = IndiceElemento(Formulario, NombreCampoTotal);
+		var Total = Formulario.elements[IndiceCampo].value * Valor;
 	
+		Total = Total.toFixed(2);
+		Total = Total.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+		Formulario.elements[IndiceCampoTotal].value = Total;
+	}
 	
 	var NombreCampoTotalFinal = "TotalFinal";
 	var IndiceCampoTotalFinal = IndiceElemento(Formulario, NombreCampoTotalFinal);
 	var NombreCampo;
-	var IndiceCampo;
 	var ValorCampo;
 	var TotalFinal = 0;
 	
 	for(var i = 0; i < Formulario.length; i++){
 		NombreCampo = Formulario.elements[i].name;
-		if(NombreCampo.match("Total.") != null && NombreCampo != NombreCampoTotalFinal){
+		
+		if((NombreCampo.match("Total.") != null || NombreCampo == "ImpuestoCotizacion") && NombreCampo != NombreCampoTotalFinal){
 			IndiceCampo = IndiceElemento(Formulario, NombreCampo);
 			ValorCampo = Formulario.elements[IndiceCampo].value;
 			TotalFinal += Number(ValorCampo.replace(",", ""));
@@ -153,5 +154,5 @@ function AsignarTotales(NombreCampoPrecio, CantidadProducto){
 	
 	TotalFinal = TotalFinal.toFixed(2);
 	TotalFinal = TotalFinal.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	//Formulario.elements[IndiceCampoTotalFinal].value = TotalFinal;
+	Formulario.elements[IndiceCampoTotalFinal].value = TotalFinal;
 }

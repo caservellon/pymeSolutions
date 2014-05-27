@@ -39,6 +39,19 @@ class SolicitudCotizacionsController extends BaseController {
             $reOrden = invCompras::ProductoReorden();
             return View::make('SolicitudCotizacions.reOrden', compact('reOrden'));
         }
+		
+        public function indexImprimir(){
+            $SolicitudCotizacions = SolicitudCotizacion::paginate();
+			$CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
+            return View::make('SolicitudCotizacions.indexImprimir', compact('SolicitudCotizacions', 'CamposLocales'));
+        }
+		
+        public function imprimir(){
+            
+            $imprimir= SolicitudCotizacion::find(Input::get('solCot'));
+            //return $imprimir;
+            return View::make('SolicitudCotizacions.imprimir', compact('imprimir'));
+        }
         
         public function mostrarProveedor(){
             
@@ -162,8 +175,8 @@ class SolicitudCotizacionsController extends BaseController {
                 
 		if($validation->passes()){
                 
-                for($i=0; $i < count($proveedor); $i++){
-                    $email=array();
+        	for($i=0; $i < count($proveedor); $i++){
+            		$email=array();
                     $cont = SolicitudCotizacion::all();
                     $detalle=$cont->count()+1;
                     $solicitudCotizacion = new SolicitudCotizacion();
@@ -174,6 +187,7 @@ class SolicitudCotizacionsController extends BaseController {
                     $solicitudCotizacion->COM_SolicitudCotizacion_DireccionEntrega= 'Los Llanos';
                     $solicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago'.$nombret);
                     $solicitudCotizacion->COM_SolicitudCotizacion_Recibido=0;
+					
                     $solicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d H:i:s');
                     $solicitudCotizacion->COM_Usuario_idUsuarioCreo=1;
@@ -192,32 +206,24 @@ class SolicitudCotizacionsController extends BaseController {
                                     $valorcampolocal->save();
                                     
                                   
-                                }
+                    }
                     
                     $prov_prod = invCompras::ProveedorProducto($proveedor[$i]);
                     foreach($prov_prod as $key){
                         
                             for($j=0; $j < count($cualquierProducto); $j++){
                                 if($cualquierProducto[$j]==$key->INV_Producto_ID){
-                                $detallesolicitud= new DetalleSolicitudCotizacion();
-                                $temp = invCompras::ProductoCompras($cualquierProducto[$j]);
-                                $nombre = str_replace(' ', '', $temp->INV_Producto_Nombre);
+                                	$detallesolicitud= new DetalleSolicitudCotizacion();
+                                	$temp = invCompras::ProductoCompras($cualquierProducto[$j]);
+                                	$nombre = str_replace(' ', '', $temp->INV_Producto_Nombre);
                                 
-                                $detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$nombret.$nombre);
+                                	$detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$nombret.$nombre);
                                 
-                                $detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
-                                $detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
-                                $detallesolicitud->COM_Usuario_idUsuarioCreo=1;
-                                $detallesolicitud->save();
-                                
-                                 
-                                
-                                    
-                                   
-                                    
-                                
-                                
-                                }
+                                	$detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
+                                	$detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
+                                	$detallesolicitud->COM_Usuario_idUsuarioCreo=1;
+                                	$detallesolicitud->save();
+								}
                             }
                         
                         
@@ -228,20 +234,28 @@ class SolicitudCotizacionsController extends BaseController {
                     $email[]=$detalle;
                     //captura el id del proveedor a quien se lo quiere mandar
                     $enviar= invCompras::ProveedorCompras($proveedor[$i]);
+		    $solicitud = SolicitudCotizacion::find($detalle);
                     if($enviar->INV_Proveedor_Email == NULL){
                     //guarda al que no se manda
-                    $imprimir[]= $proveedor[$i];
+						$solicitud->COM_SolicitudCotizacion_Imprimir=0;
+						$solicitud->save();
+                    	$imprimir[]= $proveedor[$i];
                     }else{
+						
+						$solicitud->COM_SolicitudCotizacion_Imprimir=1;
+						$solicitud->save();
                         //manda para imprimir a los que se les manda correo, use para agarrar array de proveedores
                         $correo[]= $proveedor[$i];
                         //metodo de enviar el correo, 'emailscompra' es el view,  
-                         Mail::later(10,'emailsCompras', array('email'=>$email) , function ($message) use($enviar){
-                        $message->subject('Solicitud ');
+                    	Mail::later(10,'emailsCompras', array('email'=>$email) , function ($message) use($enviar){
+                        	 $message->subject('Solicitud ');
                             $message->to($enviar->INV_Proveedor_Email);
-                    });
+                    	});
                          
                     }
                     
+					
+					
                     
                }
                 $mensaje = Mensaje::find(2);
@@ -306,7 +320,12 @@ class SolicitudCotizacionsController extends BaseController {
                 $input = Input::except('_method');
                 //$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
 		$res = SolicitudCotizacion::$rules;
-                
+                if(Input::get('COM_SolicitudCotizacion_CantidadPago')==''){
+                    $res = array_merge($res,array( 'COM_SolicitudCotizacion_CantidadPago'=> 'Required|'));
+                }
+                if(Input::get('COM_SolicitudCotizacion_PeriodoGracia')==''){
+                    $res = array_merge($res,array( 'COM_SolicitudCotizacion_PeriodoGracia'=> 'Required|'));
+                }
                 $validation = Validator::make($input, $res);
                 
                 
@@ -317,6 +336,10 @@ class SolicitudCotizacionsController extends BaseController {
                         $temprod = invCompras::ProveedorCompras($SolicitudCotizacion->Proveedor_idProveedor);
                         $SolicitudCotizacion->COM_SolicitudCotizacion_Recibido=Input::get('COM_SolicitudCotizacion_Recibido');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
+                        if($SolicitudCotizacion->COM_SolicitudCotizacion_Imprimir==0){
+                            $SolicitudCotizacion->COM_SolicitudCotizacion_Imprimir= 1;
+                        }
+                        
                         $SolicitudCotizacion->Usuario_idUsuarioModifico = 2;
                         $SolicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago'.$temprod->INV_Proveedor_Nombre);
                         $SolicitudCotizacion->COM_SolicitudCotizacion_CantidadPago=Input::get('COM_SolicitudCotizacion_CantidadPago');
@@ -383,6 +406,44 @@ class SolicitudCotizacionsController extends BaseController {
          return View::make('SolicitudCotizacions.cualquierProducto', compact('cualquierProducto'));
         //return View::make('Proveedor.index', compact('Proveedor'));
     }
+    
+    public function buscarCualquierProveedor(){
+        $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
+        
+         $val= '%'.Input::get('search').'%';  
+        $SolicitudCotizacions = DB::table('COM_SolicitudCotizacion')->where('COM_SolicitudCotizacion_Codigo', 'LIKE', '%'.$val.'%')
+        ->paginate();
+
+        $queryPoveedor= Proveedor::where('INV_Proveedor_Nombre','LIKE', '%'.$val.'%')
+           ->get();
+        
+        if(!empty($queryPoveedor)){
+            $temp = array();
+            
+            //hago la primer revision para saber que productos distribuye ese proveedor
+            foreach ($queryPoveedor as $qP) {
+                array_push($temp, $qP->INV_Proveedor_ID);
+                
+            }
+            // ahora extraigo esos productos de ese proveedor especifico
+            if (sizeof($temp)>0) {
+                
+              //$SolicitudCotizacions = array_merge($SolicitudCotizacions,$temp);
+              //return $SolicitudCotizacions;
+            //remplazo el arreglo origian con el nuevo de los productos que pertenecen a un proveedor en especial
+            $SolicitudCotizacions=  SolicitudCotizacion::wherein('Proveedor_idProveedor',$temp)->paginate();
+            
+            }
+            
+        }
+        
+        return View::make('SolicitudCotizacions.indexImprimir', compact('SolicitudCotizacions','CamposLocales'));
+        
+        
+        
+        
+         
+    }
         
         public function search_index(){
             
@@ -390,7 +451,7 @@ class SolicitudCotizacionsController extends BaseController {
             
         $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
         //Querys de las columnas propias del Producto
-        $repetidos=array();
+        
         $val= Input::get('search');  
         if(($val == 'Recibido')||($val== 'recibido'))
             $val=1;
