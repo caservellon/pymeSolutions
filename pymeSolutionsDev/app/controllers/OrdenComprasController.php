@@ -530,7 +530,30 @@ class OrdenComprasController extends BaseController {
             return View::make('OrdenCompras.HistorialOrden',array('historial'=>$trans));
         
         }
-        //genero pago de orden compra
+//Lista las ordenes con plan de pago
+         public function ListaPlanes(){
+            $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
+            //return var_dump($ordenPago);
+            if(sizeof($ordenPago)>0){
+            $ordenCompra=OrdenCompra::whereIn('COM_OrdenCompra_IdOrdenCompra',$ordenPago)->get();
+            return View::make('OrdenCompras.ListaPlanPago',array('Ordenes'=>$ordenCompra));
+        }else{
+            return 'no hay planes de pagos';
+            }
+        }
+        public function DetallePlanPago(){
+                       $input=Input::all();
+             $id=Input::get('id');
+             $ordenCompra= OrdenCompra::find($id);
+             $Detalles=  COMDetalleOrdenCompra::where('COM_DetalleOrdenCompra_idOrdenCompra','=',$id)->get();
+             $proveedor=$ordenCompra->COM_Proveedor_IdProveedor;
+             $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$id)->get();
+             
+            return View::make('OrdenCompras.detallePlanPago',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
+
+        }
+
+//genero pago de orden compra
          public function generarpagoLC(){
             $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
             //return var_dump($ordenPago);
