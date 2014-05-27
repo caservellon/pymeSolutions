@@ -108,7 +108,7 @@ class Helpers {
 			
 		return $Consulta;
 	}
-	
+
 	public static function InformacionSolicitudCotizacionDeCotizacion($CodigoCotizacion){
 		$Consulta = DB::table('COM_Cotizacion')
 			-> join('COM_SolicitudCotizacion', 'COM_Cotizacion_idSolicitudCotizacion', '=', 'COM_SolicitudCotizacion_IdSolicitudCotizacion')
@@ -117,6 +117,20 @@ class Helpers {
 			-> get();
 			
 			return $Consulta;
+	}
+
+	public static function SolicitudCotizacionCapturada($CodigoSolicitudCotizacion){
+		$Consulta = DB::table('COM_Cotizacion')
+			-> join('COM_SolicitudCotizacion', 'COM_Cotizacion_idSolicitudCotizacion', '=', 'COM_SolicitudCotizacion_IdSolicitudCotizacion')
+			-> select('COM_Cotizacion_IdCotizacion')
+			-> where('COM_SolicitudCotizacion_Codigo', '=', $CodigoSolicitudCotizacion)
+			-> get();
+			
+		if (count($Consulta) == 0){
+			return false;
+		}
+			
+		return true;
 	}
 	
 	public static function BusquedaSolicitudesCotizacion($Busqueda){
@@ -127,29 +141,25 @@ class Helpers {
 					  'COM_SolicitudCotizacion_FechaCreacion as FechaCreacion',
 					  'COM_Usuario_idUsuarioCreo as IdUsuarioCreo'
 					)
-			-> where(function($Consulta){
-					$Consulta
-						-> where('COM_SolicitudCotizacion_Activo', '=', '1')
-						-> where('COM_SolicitudCotizacion_Recibido', '=', '1');
-			});
+			-> where('COM_SolicitudCotizacion_Activo', '=', '1')
+			-> where('COM_SolicitudCotizacion_Recibido', '=', '1');
 			
-				
 		if($Busqueda == 'Capturada'){
 			$Consulta = $Consulta
 				-> whereExists(function($Consulta){
-						$Consulta
-							-> select('COM_Cotizacion_idSolicitudCotizacion')
-							-> from('COM_Cotizacion')
-							-> whereRaw('COM_SolicitudCotizacion_IdSolicitudCotizacion = COM_Cotizacion_idSolicitudCotizacion');
+					$Consulta
+						-> select('COM_Cotizacion_idSolicitudCotizacion')
+						-> from('COM_Cotizacion')
+						-> whereRaw('COM_SolicitudCotizacion_IdSolicitudCotizacion = COM_Cotizacion_idSolicitudCotizacion');
 				});
 				
 		}elseif($Busqueda == 'En Espera'){
 			$Consulta = $Consulta
 				-> whereNotExists(function($Consulta){
-						$Consulta
-							-> select('COM_Cotizacion_idSolicitudCotizacion')
-							-> from('COM_Cotizacion')
-							-> whereRaw('COM_SolicitudCotizacion_IdSolicitudCotizacion = COM_Cotizacion_idSolicitudCotizacion');
+					$Consulta
+						-> select('COM_Cotizacion_idSolicitudCotizacion')
+						-> from('COM_Cotizacion')
+						-> whereRaw('COM_SolicitudCotizacion_IdSolicitudCotizacion = COM_Cotizacion_idSolicitudCotizacion');
 				});
 		
 		}else{
@@ -161,15 +171,39 @@ class Helpers {
 						-> orWhere('COM_SolicitudCotizacion_FechaCreacion', 'LIKE', '%' . $Busqueda . '%')
 						-> orWhere('COM_SolicitudCotizacion.COM_Usuario_idUsuarioCreo', 'LIKE', '%' . $Busqueda . '%');
 				});
+		}
+			
+		if(in_array($Busqueda, array('Capturada', 'En Espera'))){
+			$Consulta = $Consulta
+				-> orderBy('COM_SolicitudCotizacion_FechaCreacion', 'DESC')
+				-> orderBy('COM_SolicitudCotizacion_Codigo')
+				-> get();
 				
+			return $Consulta;
 		}
 		
-		$Consulta = $Consulta
+		$Consulta2 = DB::table('COM_SolicitudCotizacion')
+			-> join('INV_Proveedor', 'Proveedor_idProveedor', '=', 'INV_Proveedor_ID')
+			-> join('COM_ValorCampoLocal', 'COM_SolicitudCotizacion.COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'COM_ValorCampoLocal.COM_SolicitudCotizacion_IdSolicitudCotizacion')
+			-> join('GEN_CampoLocal', 'COM_CampoLocal_IdCampoLocal', '=', 'GEN_CampoLocal_ID')
+			-> select('COM_SolicitudCotizacion_Codigo as Codigo',
+					  'INV_Proveedor_Nombre as NombreProveedor',
+					  'COM_SolicitudCotizacion_FechaCreacion as FechaCreacion',
+					  'COM_SolicitudCotizacion.COM_Usuario_idUsuarioCreo as IdUsuarioCreo'
+					)
+			-> where('COM_SolicitudCotizacion_Activo', '=', '1')
+			-> where('COM_SolicitudCotizacion_Recibido', '=', '1')
+			-> where('GEN_CampoLocal_Activo', '=', '1')
+			-> where('GEN_CampoLocal_ParametroBusqueda', '=', '1')
+			-> where('COM_ValorCampoLocal_Valor', 'LIKE', '%' . $Busqueda . '%');
+			
+		$Consulta2 = $Consulta2
+			-> union($Consulta)
 			-> orderBy('COM_SolicitudCotizacion_FechaCreacion', 'DESC')
 			-> orderBy('COM_SolicitudCotizacion_Codigo')
 			-> get();
 			
-		return $Consulta;
+		return $Consulta2;
 		
 	}
 	
@@ -339,12 +373,11 @@ class Helpers {
 			-> where('GEN_CampoLocal_ParametroBusqueda', '=', '1')
 			-> where('COM_ValorCampoLocal_Valor', 'LIKE', '%' . $Busqueda . '%');
 			
-			
-			$Consulta2 = $Consulta2
-				-> union($Consulta)
-				-> orderBy('COM_Cotizacion_FechaCreacion', 'DESC')
-				-> orderBy('COM_Cotizacion_Codigo')
-				-> get();
+		$Consulta2 = $Consulta2
+			-> union($Consulta)
+			-> orderBy('COM_Cotizacion_FechaCreacion', 'DESC')
+			-> orderBy('COM_Cotizacion_Codigo')
+			-> get();
 			
 		return $Consulta2;
 	}
@@ -403,20 +436,6 @@ class Helpers {
 			-> get();
 			
 		return $Consulta;
-	}
-	
-	public static function CotizacionCapturada($CodigoSolicitudCotizacion){
-		$Consulta = DB::table('COM_Cotizacion')
-			-> join('COM_SolicitudCotizacion', 'COM_Cotizacion_idSolicitudCotizacion', '=', 'COM_SolicitudCotizacion_IdSolicitudCotizacion')
-			-> select('COM_Cotizacion_IdCotizacion')
-			-> where('COM_SolicitudCotizacion_Codigo', '=', $CodigoSolicitudCotizacion)
-			-> get();
-			
-		if (count($Consulta) == 0){
-			return false;
-		}
-			
-		return true;
 	}
 	
 	public static function EstadoActualOrdenCompra($CodigoOrdenCompra){
