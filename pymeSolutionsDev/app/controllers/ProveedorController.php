@@ -113,6 +113,24 @@ class ProveedorController extends BaseController {
 
 		return View::make('Proveedor.f2p', compact('fpagos', 'proveedor'));
 	}
+
+
+	public function FDP(){
+		if (Request::ajax()) {
+			$input = Input::all();
+			$Query = DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', Proveedor::where('INV_Proveedor_Nombre', $input['id'])->first()->INV_Proveedor_ID)->get();
+			if(!empty($Query)) {
+				$temp = array();
+				foreach($Query as $Q){
+					array_push($temp, $Q->INV_FormaPago_ID);
+				}
+				return $fpagos = FormaPago::whereNotIn('INV_FormaPago_ID',$temp)->get()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+			} else {
+				return $fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+			}
+		}
+	}
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -155,7 +173,11 @@ class ProveedorController extends BaseController {
 			foreach ($campos as $campo) {
 				DB::table('INV_Proveedor_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Proveedor_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'INV_Proveedor_INV_Proveedor_ID' => $prove->INV_Proveedor_ID, 'INV_Proveedor_INV_Ciudad_ID' => $prove->INV_Ciudad_ID));
 			}
-			return Redirect::route('Inventario.Proveedor.index');
+
+			$proveedor = Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->get()->lists('INV_Proveedor_Nombre', 'INV_Proveedor_Nombre');
+			$fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+			return View::make('Proveedor.f2p', compact('fpagos', 'proveedor'));
+			//return Redirect::route('Inventario.Proveedor.index');
 		}
 
 		return Redirect::route('Inventario.Proveedor.create')

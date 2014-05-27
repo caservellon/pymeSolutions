@@ -11,10 +11,11 @@
 </div>
 
 <div id="p2p-view"></div>
+<div id="f2p-view"></div>
     {{ Form::open(array('route' => 'Proveedor.save2', 'class' => 'form-horizontal', 'role' => 'form' )) }}
     <div class="form-group">
         {{ Form::label('INV_Proveedor_Nombre', 'Proveedor:',array('class' => 'col-md-2 control-label')) }}
-        <div class="col-md-4">
+        <div class="col-md-4 proveedor">
             {{ Form::select('INV_Proveedor_Nombre', $proveedor, null, array( 'id' => 'INV_Proveedor_Nombre')) }}
         </div>
     </div>

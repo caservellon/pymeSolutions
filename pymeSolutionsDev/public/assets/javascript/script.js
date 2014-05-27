@@ -524,9 +524,33 @@ $(document).ready(function(){
 
     // ----------------------------- Inventario
 
+    
+
     if($('#p2p-view').length){
     	$(function(){
 		    $('select').combobox();
+		    if($('#f2p-view').length){
+		    	$("#INV_FormaPago_Nombre").combobox("destroy");
+		    	$("#INV_Proveedor_Nombre").combobox({
+	            	selected: function (event, ui) {
+	                	$.post("/Inventario/Proveedor/FDP", {
+							"id" : $( "#INV_Proveedor_Nombre option:selected" ).val()
+						}).success(function(data){
+							var s = document.getElementById('INV_FormaPago_Nombre');
+							while (s.firstChild) {
+							    s.removeChild(s.firstChild);
+							}
+
+							$.each(data, function(i, value){
+								var t = document.createElement("option")
+							   	t.value = value;
+							   	t.textContent = value;
+							   	s.appendChild(t)
+							});
+						});
+	            	}
+       		 	});
+    		}
 		});
 
 		(function ($) {
@@ -642,5 +666,7 @@ $(document).ready(function(){
         });
     })(jQuery);
 	};
+
+
 
 });
