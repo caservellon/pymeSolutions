@@ -46,6 +46,7 @@
 
 		<tbody>
 			@foreach ($SolicitudCotizacions as $editars)
+                        
 				<tr>
 					<td>{{{ $editars->COM_SolicitudCotizacion_Codigo }}}</td>
                                         <?php $proveedor= invCompras::ProveedorCompras($editars->Proveedor_idProveedor) ?>
@@ -87,6 +88,7 @@
 
         
                                 </tr>
+                                
                 @endforeach
                 
             
