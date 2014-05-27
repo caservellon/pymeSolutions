@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_CampoLocal` (
   `GEN_CampoLocal_Tipo` VARCHAR(45) NOT NULL,
   `GEN_CampoLocal_Requerido` TINYINT(1) NOT NULL,
   `GEN_CampoLocal_ParametroBusqueda` TINYINT(1) NOT NULL,
-  `GEN_Usuario_idUsuarioCreo` INT NOT NULL,
+  `GEN_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `GEN_CampoLocal_TimeStamp` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-  `Usuario_idUsuarioModifico` INT NULL DEFAULT NULL,
+  `Usuario_idUsuarioModifico` VARCHAR(64) NULL DEFAULT NULL,
   PRIMARY KEY (`GEN_CampoLocal_ID`),
   UNIQUE INDEX `COM_CampoLocal_Codigo_UNIQUE` (`GEN_CampoLocal_Codigo` ASC))
 ENGINE = InnoDB;
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`GEN_Notificaciones` (
   `GEN_Notificaciones_Activo` BIT NOT NULL,
   `GEN_Notificaciones_FechaCreacion` DATE NOT NULL,
   `GEN_Notificaciones_IdProceso` INT NOT NULL,
-  `GEN_Notificaciones_UsuarioNotificar` INT NOT NULL,
+  `GEN_Notificaciones_UsuarioNotificar` VARCHAR(64) NOT NULL,
   `GEN_Notificaciones_GEN_idMensajes` INT NOT NULL,
   PRIMARY KEY (`GEN_Notificaciones_IDNotificaciones`),
   INDEX `fk_GEN_Notificaciones_GEN_Mensajes1_idx` (`GEN_Notificaciones_GEN_idMensajes` ASC),
