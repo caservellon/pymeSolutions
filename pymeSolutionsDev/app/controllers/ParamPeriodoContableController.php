@@ -9,7 +9,7 @@ class ParamPeriodoContableController extends BaseController {
 	 */
 
 	protected $ClasificacionPeriodo, $PeriodoContable;
-	protected $CantidadDias=array("15","30","60","90","120","180","365","366");
+	protected $CantidadDias=array("15","30","60","90","120","180","360","365","366");
 	public function __construct(ClasificacionPeriodo $ClasificacionPeriodo, PeriodoContable $PeriodoContable){
 		$this->ClasificacionPeriodo = $ClasificacionPeriodo;
 		$this->PeriodoContable = $PeriodoContable;

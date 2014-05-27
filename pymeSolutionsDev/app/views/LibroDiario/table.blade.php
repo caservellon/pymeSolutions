@@ -2,7 +2,7 @@
 
 
 @if ($LibroDiario!=array())
-	<table class="table table-bordered">
+	<table class="table table-bordered table-responsive"> 
 		<thead>
 			<tr>
 				<th>No. Asiento</th>
@@ -18,14 +18,14 @@
 		<tbody>
 				<?php $flag=0; ?>
 				@foreach ($LibroDiario as $Libro)
-					<tr class="@if ($flag) {{'active'}} @endif">	
-						<td>{{{$Libro[0]['no']}}}</td>
-						<td>{{{strstr($Libro[0]['fecha'],' ',true)}}}</td>
+					<tr class="@if ($flag) {{'active'}} @endif" >	
+						<td style="vertical-align:middle;" rowspan="2">{{{$Libro[0]['no']}}}</td>
+						<td style="vertical-align:middle;" rowspan="2">{{{strstr($Libro[0]['fecha'],' ',true)}}}</td>
 						<td><p class="pull-left">{{{$Libro[0]['cuenta']}}}</p></td>
 						<td class="align-right">L. {{{$Libro[0]['monto']}}}</td>
 	                  	<td></td>
-	                  	<td>{{{ $Libro[0]['observacion'] }}}</td>
-	                  	<td>
+	                  	<td style="vertical-align:middle;" rowspan="2">{{{ $Libro[0]['observacion'] }}}</td>
+	                  	<td style="vertical-align:middle;" rowspan="2">
 	                  	@if ($Libro[0]['reversion']==1 || $Libro[0]['revertido']==1)
 	                  		@else
 	                  		<button class="btn btn-primary revertir" id="{{{$Libro[0]['no']}}}">Revertir</button>
@@ -33,13 +33,12 @@
 	                  	</td>
 					</tr>
 					<tr class="@if ($flag) {{'active'}} @endif">
-						<td></td>
-						<td></td>
+						
+						
 						<td>{{{$Libro[1]['cuenta']}}}</td>
 						<td></td>
 						<td class="align-right">L. {{{$Libro[1]['monto']}}}</td>
-						<td></td>
-						<td></td>
+					
 					</tr>
 					<?php if($flag) $flag=0; else $flag=1; ?>
 				@endforeach

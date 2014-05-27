@@ -1019,3 +1019,35 @@ END$$
 DELIMITER ;
 
 
+-- Creacion de periodo contable
+
+INSERT INTO `pymeERP`.`CON_ClasificacionPeriodo`
+(`CON_ClasificacionPeriodo_ID`,
+`CON_ClasificacionPeriodo_Nombre`,
+`CON_ClasificacionPeriodo_CatidadDias`,
+`CON_ClasificacionPeriodo_FechaCreacion`,
+`CON_ClasificacionPeriodo_FechaModificacion`)
+VALUES
+(1,
+"Anio Fiscal",
+360,
+Now(),
+Now());
+
+
+INSERT INTO `pymeERP`.`CON_PeriodoContable`
+(`CON_PeriodoContable_ID`,
+`CON_PeriodoContable_FechaInicio`,
+`CON_PeriodoContable_FechaFinal`,
+`CON_PeriodoContable_FechaCreacion`,
+`CON_PeriodoContable_FechaModificacion`,
+`CON_ClasificacionPeriodo_ID`)
+VALUES
+(1,
+Now(),
+date_add(Now(),INTERVAL 360 DAY),
+Now(),
+Now(),
+1);
+
+
