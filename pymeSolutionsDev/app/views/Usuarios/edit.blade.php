@@ -48,7 +48,7 @@
 		<div class="form-group">
 			{{ Form::label('SEG_Roles_SEG_Roles_ID', 'Role: *', array('class' => 'col-md-2 control-label')) }}
 			<div class="col-md-5">
-        	{{ Form::select('SEG_Roles_SEG_Roles_ID', $roles, '1', array('class' => 'value-input form-control', 'id' => 'SEG_Roles_SEG_Roles_ID')) }}
+        	{{ Form::select('SEG_Roles_SEG_Roles_ID', $roles, $User->SEG_Roles_SEG_Roles_ID, array('class' => 'value-input form-control', 'id' => 'SEG_Roles_SEG_Roles_ID')) }}
         	</div>
 		</div> 
 
