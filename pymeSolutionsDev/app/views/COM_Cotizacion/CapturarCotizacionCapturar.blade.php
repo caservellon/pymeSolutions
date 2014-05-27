@@ -77,7 +77,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				@foreach($FormasPago as $FormaPago)
-					<?php $FormasPago2[$FormaPago -> IdFormaPago] = $FormaPago -> Nombre ?>
+					<?php $FormasPago2[$FormaPago -> IdFormaPago] = $FormaPago -> Nombre; ?>
 				@endforeach
 				{{ Form::label('FormaPago', 'Forma de Pago:') }}
 				{{ $SolicitudCotizacion[0] -> FormaPago }}
@@ -118,7 +118,12 @@
 			</div>
 			
 			<div class="col-md-3 align-right">
-				{{ Form::label('Total', 'Total: ', array('class' => 'control-label')) }}
+				{{ Form::label('Impuesto', 'Impuesto') }}
+				{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
+				
+				<br><br>
+			
+				{{ Form::label('Total', 'Total:') }}
 				{{ Form::text('TotalFinal', null, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}
 			</div>
 			
