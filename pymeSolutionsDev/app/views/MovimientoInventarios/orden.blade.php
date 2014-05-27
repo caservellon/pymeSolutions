@@ -39,26 +39,26 @@
 	<h3>Orden de Compra</h3>
 	<div class="col-md-8">
 		<div class="col-md-13">
-	      <h5 class="col-md-6"><strong>Código Orden:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;">{{{ $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_Codigo }}}</h5>
+	      <h5 class="col-md-6"><strong>Código Orden:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;">{{{ $ordenes[$idOrden - 1]->COM_OrdenCompra_Codigo }}}</h5>
 	    </div>
 	    <div class="col-md-13">
-	      <h5 class="col-md-6"><strong>Proveedor:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $proveedores[$ordenes[$CodigoOrdenCompra - 1]->COM_Proveedor_IdProveedor - 1]->INV_Proveedor_Nombre }}}</h5>
+	      <h5 class="col-md-6"><strong>Proveedor:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $proveedores[$ordenes[$idOrden - 1]->COM_Proveedor_IdProveedor - 1]->INV_Proveedor_Nombre }}}</h5>
 	    </div>
 	    <div class="col-md-13">
-	      <h5 class="col-md-6"><strong>Fecha de Emisión:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_FechaEmision }}}</h5>
+	      <h5 class="col-md-6"><strong>Fecha de Emisión:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $ordenes[$idOrden - 1]->COM_OrdenCompra_FechaEmision }}}</h5>
 	    </div>
 	    <div class="col-md-13">
-	      <h5 class="col-md-6"><strong>Fecha de Entrega:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_FechaEntrega }}}</h5>
+	      <h5 class="col-md-6"><strong>Fecha de Entrega:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $ordenes[$idOrden - 1]->COM_OrdenCompra_FechaEntrega }}}</h5>
 	    </div>
 	    <div class="col-md-13">
-	      <h5 class="col-md-6"><strong>Dirección:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_DireccionEntrega }}}</h5>
+	      <h5 class="col-md-6"><strong>Dirección:</strong></h5> <h5 class="col-md-6" style="margin-left:-15%;"> {{{ $ordenes[$idOrden - 1]->COM_OrdenCompra_DireccionEntrega }}}</h5>
 	    </div>
     </div>
 
     <div class="col-md-4" style="text-align:right;">
     	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Recibida')) }}
 			{{ Form::hidden('COM_OrdenCompra_Codigo', $CodigoOrdenCompra) }}
-			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
+			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$idOrden - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Recibida') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
 			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
@@ -90,7 +90,7 @@
     <div class="col-md-4" style="text-align:right;">
     	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Errores')) }}
     		{{ Form::hidden('COM_OrdenCompra_Codigo', $CodigoOrdenCompra) }}
-    		{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
+    		{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$idOrden - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Recibida Con Errores') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
 			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
@@ -146,7 +146,7 @@
     <div class="col-md-4" style="text-align:right;">
     	{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.Rechazada')) }}
     		{{ Form::hidden('COM_OrdenCompra_Codigo', $CodigoOrdenCompra) }}
-    		{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$CodigoOrdenCompra - 1]->COM_OrdenCompra_IdOrdenCompra) }}
+    		{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$idOrden - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Rechazada') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
 			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}

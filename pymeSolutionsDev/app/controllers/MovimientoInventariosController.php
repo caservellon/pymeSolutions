@@ -204,7 +204,8 @@ class MovimientoInventariosController extends BaseController {
 		//*/
 		$orden = comInventario::InformacionProductosOrdenCompra($CodigoOrdenCompra);
 		if ($orden) {
-			return View::make('MovimientoInventarios.orden', compact('orden', 'ordenes', 'proveedores', 'CodigoOrdenCompra'));
+			$idOrden = $orden[0]->idOrden;
+			return View::make('MovimientoInventarios.orden', compact('orden', 'ordenes', 'proveedores', 'CodigoOrdenCompra', 'idOrden'));
 		}
 		//return $orden;
 		return Redirect::route('Inventario.MovimientoInventario.Orden')

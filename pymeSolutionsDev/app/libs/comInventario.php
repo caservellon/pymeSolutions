@@ -15,7 +15,8 @@ class comInventario {
 					  'INV_Producto_Nombre as Nombre',
 					  'INV_Producto_Descripcion as Descripcion',
 					  'COM_DetalleOrdenCompra_Cantidad as Cantidad',
-					  'COM_DetalleOrdenCompra_PrecioUnitario as Precio'
+					  'COM_DetalleOrdenCompra_PrecioUnitario as Precio',
+					  'COM_OrdenCompra_IdOrdenCompra as idOrden'
 					  )
 			-> where('COM_OrdenCompra_Codigo', '=', $CodigoOrdenCompra)
 			-> orderBy('COM_DetalleOrdenCompra_Cantidad', 'desc')
