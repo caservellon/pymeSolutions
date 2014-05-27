@@ -37,9 +37,6 @@ class CotizacionController extends BaseController {
 	
 	public function CapturarCotizacion(){
 		$Input = Input::except(array('_token', 'Capturar'));
-		//$Prueba = Helpers::BusquedaSolicitudCotizacion('Capturada');
-		//return var_dump($Prueba);
-		//return var_dump($Input);
 		
 		$SolicitudCotizacionSeleccionada = false;
 		
@@ -50,7 +47,7 @@ class CotizacionController extends BaseController {
 			}
 			
 			if($SolicitudCotizacionSeleccionada){
-				if(!Helpers::CotizacionCapturada($CodigoSolicitudCotizacion)){
+				if(!Helpers::SolicitudCotizacionCapturada($CodigoSolicitudCotizacion)){
 					return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion));
 				}else{
 					return Redirect::route('CotizacionesCapturarCotizacion', array('Error' => 'Ya Capturada'));
@@ -211,7 +208,6 @@ class CotizacionController extends BaseController {
 		$Cotizacion -> save();
 		
 		return Redirect::route('CotizacionesCapturarCotizacionCapturarMensajeCotizacionCapturada');
-		
 	}
 	
 	public function TodasCotizaciones(){
@@ -258,33 +254,30 @@ class CotizacionController extends BaseController {
 	}
 	
 	public function HabilitarInhabilitar(){
-		//$CotizacionesBusqueda = Helpers::BusquedaCotizaciones(Input::get('Busqueda'));
+		//if(!Input::has('Busqueda')){
+			$Cotizaciones = Cotizacion::all();
+		//}else{
+			//$Cotizaciones = Helpers::BusquedaCotizaciones(Input::get('Busqueda'));
+		//}
+		
 		//return var_dump($Cot);
 		
-		//return var_dump(Input::all());
-		//return var_dump($Cotizaciones);
-		
-		$Cotizaciones = Cotizacion::all();
+		//return var_dump(Input::get('Busqueda'));
+		//return var_dump(Cache::get('Cotizaciones'));
 		
 		if (Input::has('Actualizar')){
-			//return var_dump(Input::all());
-			if(Input::has('')){
-				return var_dump(Input::all());
-				foreach ($Cotizaciones as $Cotizacion){
-					if ($Cotizacion -> COM_Cotizacion_Activo){
-						if (!Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
-							$Cotizacion -> COM_Cotizacion_Activo = 0;
-							$Cotizacion -> save();
-						}
-					}else{
-						if (Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
-							$Cotizacion -> COM_Cotizacion_Activo = 1;
-							$Cotizacion -> save();
-						}
-					}	
-				}
-			}else{
-			
+			foreach($Cotizaciones as $Cotizacion){
+				if($Cotizacion -> COM_Cotizacion_Activo){
+					if (!Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
+						$Cotizacion -> COM_Cotizacion_Activo = 0;
+						$Cotizacion -> save();
+					}
+				}else{
+					if(Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
+						$Cotizacion -> COM_Cotizacion_Activo = 1;
+						$Cotizacion -> save();
+					}
+				}	
 			}
 			
 			return Redirect::route('CotizacionesHabilitarInhabilitarMensajeEstadoCotizacionCambiado');

@@ -26,6 +26,7 @@ class UserController
 
 	public function store()
 	{
+		
 		$input = Input::all();
 		return var_dump($input);
 		$validation = Validator::make($input, User::$rules);
