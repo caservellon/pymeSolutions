@@ -10,6 +10,7 @@
 	
 	<?php $CamposLocalesSolicitudesCotizacion = Helpers::InformacionCamposLocalesSolicitudesCotizacion(); ?>
 	
+	
 	<div class="row">
 		<div class="page-header clearfix">
 			<h3 class="pull-left">&nbsp;Cotizaciones &gt; Capturar Cotizaci&oacute;n</h3>
@@ -19,61 +20,52 @@
 		</div>
 	</div>
 	
-	{{ Form::open(array('route' => 'CotizacionesCapturarCotizacion')) }}
-		<div class="row">
-			<div class="col-md-1">
-				{{ Form::label('Busqueda', 'Busqueda:', array('class' => 'control-label')) }}
-			</div>
-			<div class="col-md-6">
-				{{ Form::text('Busqueda', null, array('class' => 'form-control', 'placeholder'=>'')) }}
-			</div>
-			<div class="col-md-2">
-				{{ Form::submit('Buscar', array('name' => 'Buscar', 'class' => 'btn btn-success btn-sm')) }}
-			</div>
-			
-			@if(Input::has('Busqueda'))
-				<div class="col-md-2">
-					{{ Form::submit('Restablecer', array('name' => 'Restablecer', 'class' => 'btn btn-info btn-sm')) }}
-				</div>
-			@endif
-		</div>		
+	
+	{{ Form::open(array('route' => 'CotizacionesCapturarCotizacion', 'class' => 'form-inline')) }}
+		{{ Form::label('Busqueda', 'Busqueda:', array('class' => 'control-label')) }}
+		{{ Form::text('Busqueda', null, array('class' => 'form-control', 'placeholder'=>'')) }}
+		{{ Form::submit('Buscar', array('name' => 'Buscar', 'class' => 'btn btn-info btn-sm')) }}
+		
+		@if(Input::has('Busqueda'))
+			{{ Form::submit('Restablecer', array('name' => 'Restablecer', 'class' => 'btn btn-warning btn-sm')) }}
+		@endif
 	{{ Form::close() }}
 	
-	<br>
 	
 	@if(Input::has('Error'))
 		<?php $Error = Input::get('Error') ?>
 		
-		<ul>
-			@if($Error == 'Sin Seleccion')
-				<li class="alert alert-danger">Debe seleccionar una solicitud de cotizaci&oacute;n para poder capturar</li>
-			@elseif($Error == 'Ya Capturada')
-				<li class="alert alert-danger">La solicitud de cotizaci&oacute;n seleccionada ya ha sido capturada</li>
-			@endif
-		</ul>
+		<br>
+		
+		@if($Error == 'Sin Seleccion')
+			<div class="alert alert-danger">Debe seleccionar una solicitud de cotizaci&oacute;n para poder capturar</div>
+		@elseif($Error == 'Ya Capturada')
+			<div class="alert alert-danger">La solicitud de cotizaci&oacute;n seleccionada ya ha sido capturada</div>
+		@endif
+		
 	@endif
 	
+	
 	@if(Input::has('Busqueda') && count($SolicitudesCotizacion) == 0)
-		<li class="alert alert-danger">No se encontraron solicitudes de cotizaci&oacute;n bajo ese criterio de b&uacute;squeda</li>
+		<br>
+		<div class="alert alert-danger">No se encontraron solicitudes de cotizaci&oacute;n bajo ese criterio de b&uacute;squeda</div>
 	
 	@elseif(!Input::has('Busqueda') && count($SolicitudesCotizacion) == 0)
-		<li class="alert alert-danger">No hay solicitudes de cotizaci&oacute;n disponibles para capturar</li>
+		<br>
+		<div class="alert alert-danger">No hay solicitudes de cotizaci&oacute;n disponibles para capturar</div>
 	
 	@else
 		{{ Form::open(array('route' => 'CotizacionesCapturarCotizacion')) }}
 			<div class="row">
-				<div class=" col-lg-12">
-					<div  class="col-md-9">
-						<div class="col-xs-5 col-sm-6 col-md-12">
-						</div>
-					</div>
-					
-					<div class="col-md-3">
-						{{ Form::submit('Capturar', array('name' => 'Capturar', 'class' => 'btn btn-default btn-block col-md-6')) }}
-					</div>
+				<div class="col-md-2 pull-right">
+					{{ Form::submit('Capturar', array('name' => 'Capturar', 'class' => 'btn btn-success btn-block')) }}
 				</div>
+			</div>
 			
-				<div class="col-md-9" style="overflow:auto; height: 350px">
+			<br>
+		
+			<div class="row">
+				<div class="col-md-12" style="overflow:auto; height: 350px">
 					<div class="table-responsive">
 						<table class="table table-striped table-bordered">
 							<thead>
@@ -112,7 +104,7 @@
 										
 										<td>{{ $SolicitudCotizacion -> IdUsuarioCreo }}</td>
 										
-										@if(Helpers::CotizacionCapturada($SolicitudCotizacion -> Codigo))
+										@if(Helpers::SolicitudCotizacionCapturada($SolicitudCotizacion -> Codigo))
 											<td>Capturada</td>
 										@else
 											<td>En Espera</td>

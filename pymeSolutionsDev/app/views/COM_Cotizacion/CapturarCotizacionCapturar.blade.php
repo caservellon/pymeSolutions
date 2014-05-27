@@ -20,9 +20,9 @@
 		</div>
 	</div>
 	
-	<ul>
+	<ul type="none">
 		@foreach($errors -> all() as $mensaje)
-			<li class="alert alert-danger">{{$mensaje}}</li>
+			<li class="alert alert-danger">{{ $mensaje }}</li>
 		@endforeach
     </ul>
 	
@@ -111,7 +111,7 @@
 				<br><br>
 				
 				
-				{{ Form::submit('Guardar', array('class' => 'btn btn-sm btn-primary')) }}
+				{{ Form::submit('Guardar', array('class' => 'btn btn-success')) }}
 			</div>
 			
 			<div class="col-md-5">
