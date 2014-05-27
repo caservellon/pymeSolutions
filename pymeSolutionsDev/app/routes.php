@@ -20,6 +20,7 @@ Route::get('/', function(){
 Route::get('/403', function(){
 	return View::make('Roles.403');
 });
+Route::any('login', array('as' => 'Auth.login', 'uses' => 'UserController@login'));
 
 Route::group(array('prefix' => 'Auth'), function()
 {
@@ -453,7 +454,7 @@ Route::group(array('prefix' => 'CRM'), function(){
 
 
 
-Route::group(array('prefix' => 'Ventas'), function(){
+Route::group(array('prefix' => 'Ventas', 'before' => 'auth'), function(){
 
 	Route::get('/', function()
 	{
