@@ -135,12 +135,14 @@ class SolicitudCotizacionsController extends BaseController {
                 
                 for ($k=0; $k< count($cualquierProducto); $k++){
                     
-                   
+                   $cualquierProducto1 = invCompras::ProductoCompras($cualquierProducto[$k]);
                     $temp = invCompras::ProveedorProducto($temprod->INV_Proveedor_ID);
                     foreach ($temp as $prod){
+                        if($cualquierProducto1->INV_Producto_ID == $prod->INV_Producto_ID){
                         $nombre = str_replace(' ', '', $prod->INV_Producto_Nombre);
                     
                         $res=array_merge($res,array('CantidadSolicitar'.$nombret.$nombre => 'Required|Integer|min:1'));
+                        }
                     }
                     
                     
@@ -233,7 +235,7 @@ class SolicitudCotizacionsController extends BaseController {
                         //manda para imprimir a los que se les manda correo, use para agarrar array de proveedores
                         $correo[]= $proveedor[$i];
                         //metodo de enviar el correo, 'emailscompra' es el view,  
-                         Mail::queue('emailsCompras', array('email'=>$email) , function ($message) use($enviar){
+                         Mail::later(10,'emailsCompras', array('email'=>$email) , function ($message) use($enviar){
                         $message->subject('Solicitud ');
                             $message->to($enviar->INV_Proveedor_Email);
                     });
@@ -439,7 +441,7 @@ class SolicitudCotizacionsController extends BaseController {
 				if($valorLista) {
                                         //return $val;
 					$SolicitudCotizacions = array_merge($SolicitudCotizacions,DB::table('COM_ValorCampoLocal')->whereIn('COM_CampoLocal_IdCampoLocal',$listas)->whereIn('COM_ValorCampoLocal_Valor',$valorLista)->lists('COM_SolicitudCotizacion_IdSolicitudCotizacion'));
-                                        
+                                        //return $SolicitudCotizacions;
 				}
 			}
 			
@@ -461,7 +463,9 @@ class SolicitudCotizacionsController extends BaseController {
             }
             // ahora extraigo esos productos de ese proveedor especifico
             if (sizeof($temp)>0) {
-              
+                
+              //$SolicitudCotizacions = array_merge($SolicitudCotizacions,$temp);
+              //return $SolicitudCotizacions;
             //remplazo el arreglo origian con el nuevo de los productos que pertenecen a un proveedor en especial
             $SolicitudCotizacions=  SolicitudCotizacion::wherein('Proveedor_idProveedor',$temp)->paginate();
             
@@ -480,13 +484,16 @@ class SolicitudCotizacionsController extends BaseController {
             if (sizeof($temp)>0) {
               
             //remplazo el arreglo origian con el nuevo de los productos que pertenecen a un proveedor en especial
+            //$SolicitudCotizacions = array_merge($SolicitudCotizacions,$temp);
             $SolicitudCotizacions=  SolicitudCotizacion::wherein('COM_SolicitudCotizacion_FormaPago',$temp)->paginate();
             }
             
         } 
-            if(!empty($SolicitudCotizacions))
+            if(!empty($SolicitudCotizacions)){
+                //return $SolicitudCotizacions;
+                //$SolicitudCotizacions= SolicitudCotizacion::wherein('COM_SolicitudCotizacion_IdSolicitudCotizacion',$SolicitudCotizacions)->paginate();
                 return View::make('SolicitudCotizacions.index', compact('SolicitudCotizacions','CamposLocales'));
-            else{
+            }else{
                 $ruta = route('Compras.SolicitudCotizacions.index');
  			   	$mensaje = Mensaje::find(4);
                 return View::make('MensajeCompra', compact('mensaje', 'ruta'));
