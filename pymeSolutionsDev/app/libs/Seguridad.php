@@ -248,7 +248,7 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_DetallePago;
 		}
 		
-		public static function GuardarPago()){
+		public static function GuardarPago(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarPago;
 		}
 		
@@ -258,10 +258,6 @@
 		
 		public static function Search_Cotizacion(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_Search_Cotizacion;
-		}
-		
-		public static function indexCampoLocal(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexCampoLocal;
 		}
 		
 		public static function indexCampoLocal(){
@@ -360,210 +356,210 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VistaTodasOrdenesCompra;
 		}
 		
-		public static function VistaDetallesOrdenCompra()){
+		public static function VistaDetallesOrdenCompra(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VistaDetallesOrdenCompra;
 		}
 		
-		public static function VistaNuevaOrdenCompra()){
+		public static function VistaNuevaOrdenCompra(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VistaNuevaOrdenCompra;
 		}
 		
-		public static function DetallesOrdenCompra()){
+		public static function DetallesOrdenCompra(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_DetallesOrdenCompra;
 		}
 
 		
 
 		//Inventario
-		public static function crearProducto()){
+		public static function crearProducto(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearProducto;
 		}
 
-		public static function editarProducto()){
+		public static function editarProducto(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarProducto;
 		}
 
-		public static function eliminarProducto()){
+		public static function eliminarProducto(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarProducto;
 		}
 
-		public static function listarProducto()){
+		public static function listarProducto(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarProducto;
 		}
 
-		public static function crearProveedor()){
+		public static function crearProveedor(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearProveedor;
 		}
 
-		public static function editarProveedor()){
+		public static function editarProveedor(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarProveedor;
 		}
 
-		public static function eliminarProveedor()){
+		public static function eliminarProveedor(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarProveedor;
 		}
 
-		public static function listarProveedor()){
+		public static function listarProveedor(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarProveedor;
 		}
 
-		public static function crearAtributo()){
+		public static function crearAtributo(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearAtributo;
 		}
 
-		public static function editarAtributo()){
+		public static function editarAtributo(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarAtributo;
 		}
 
-		public static function eliminarAtributo()){
+		public static function eliminarAtributo(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarAtributo;
 		}
 
-		public static function listarAtributo()){
+		public static function listarAtributo(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarAtributo;
 		}
 
-		public static function crearCategoria()){
+		public static function crearCategoria(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearCategoria;
 		}
 
-		public static function editarCategoria()){
+		public static function editarCategoria(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarCategoria;
 		}
 
-		public static function eliminarCategoria()){
+		public static function eliminarCategoria(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarCategoria;
 		}
 
-		public static function listarCategoria()){
+		public static function listarCategoria(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarCategoria;
 		}
 
-		public static function crearUnidadMedida()){
+		public static function crearUnidadMedida(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearUnidadMedida;
 		}
 
-		public static function editarUnidadMedida()){
+		public static function editarUnidadMedida(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarUnidadMedida;
 		}
 
-		public static function eliminarUnidadMedida()){
+		public static function eliminarUnidadMedida(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarUnidadMedida;
 		}
 
-		public static function listarUnidadMedida()){
+		public static function listarUnidadMedida(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarUnidadMedida;
 		}
 
-		public static function crearCiudad()){
+		public static function crearCiudad(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearCiudad;
 		}
 
-		public static function editarCiudad()){
+		public static function editarCiudad(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarCiudad;
 		}
 
-		public static function eliminarCiudad()){
+		public static function eliminarCiudad(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarCiudad;
 		}
 
-		public static function listarCiudad()){
+		public static function listarCiudad(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarCiudad;
 		}
 
-		public static function crearHorario()){
+		public static function crearHorario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearHorario;
 		}
 
-		public static function editarHorario()){
+		public static function editarHorario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarHorario;
 		}
 
-		public static function eliminarHorario()){
+		public static function eliminarHorario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarHorario;
 		}
 
-		public static function listarHorario()){
+		public static function listarHorario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarHorario;
 		}
 
-		public static function crearFormaPago()){
+		public static function crearFormaPago(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearFormaPago;
 		}
 
-		public static function eliminarFormaPago()){
+		public static function eliminarFormaPago(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarFormaPago;
 		}
 
-		public static function listarFormaPago()){
+		public static function listarFormaPago(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarFormaPago;
 		}
 
-		public static function registrarEntradaInventario()){
+		public static function registrarEntradaInventario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_registrarEntradaInventario;
 		}
 
-		public static function registrarSalidaInventario()){
+		public static function registrarSalidaInventario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_registrarSalidaInventario;
 		}
 
-		public static function listarEntradaInventario()){
+		public static function listarEntradaInventario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarEntradaInventario;
 		}
 
-		public static function listarSalidaInventario()){
+		public static function listarSalidaInventario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarSalidaInventario;
 		}
 
-		public static function crearMotivoMovimientoInventario()){
+		public static function crearMotivoMovimientoInventario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearMotivoMovimientoInventario;
 		}
 
-		public static function editarMotivoMovimientoInventario()){
+		public static function editarMotivoMovimientoInventario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarMotivoMovimientoInventario;
 		}
 
-		public static function eliminarMotivoMovimientoInventario()){
+		public static function eliminarMotivoMovimientoInventario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarMotivoMovimientoInventario;
 		}
 
-		public static function listarMotivoMovimientoInventario()){
+		public static function listarMotivoMovimientoInventario(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarMotivoMovimientoInventario;
 		}
 
-		public static function crearCampoLocal()){
+		public static function crearCampoLocal(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_crearCampoLocal;
 		}
 
-		public static function editarCampoLocal()){
+		public static function editarCampoLocal(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_editarCampoLocal;
 		}
 
-		public static function eliminarCampoLocal()){
+		public static function eliminarCampoLocal(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_eliminarCampoLocal;
 		}
 
-		public static function listarCampoLocal()){
+		public static function listarCampoLocal(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_listarCampoLocal;
 		}
 
-		public static function agregarProveedorProducto()){
+		public static function agregarProveedorProducto(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_agregarProveedorProducto;
 		}
 
-		public static function quitarProveedorProducto()){
+		public static function quitarProveedorProducto(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_quitarProveedorProducto;
 		}
 
-		public static function cambiarEstadoOrdenCompra()){
+		public static function cambiarEstadoOrdenCompra(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_cambiarEstadoOrdenCompra;
 		}
 
-		public static function agregarProveedorProducto()){
+		public static function agregarProveedorFormaPago(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_agregarProveedorFormaPago;
 		}
 
-		public static function quitarProveedorFormaPago()){
+		public static function quitarProveedorFormaPago(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_quitarProveedorFormaPago;
 		}
 
