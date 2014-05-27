@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_OrdenPago` (
   `COM_OrdenPago_Codigo` VARCHAR(16) NOT NULL,
   `COM_OrdenPago_Observacion` INT NULL,
   `COM_OrdenCompra_idOrdenCompra` INT NOT NULL,
-  `COM_OrdenPago_Activo` BIT NOT NULL,
+  `COM_OrdenPago_Activo` INT NOT NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `COM_OrdenCompra_FechaCreo` DATETIME NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
