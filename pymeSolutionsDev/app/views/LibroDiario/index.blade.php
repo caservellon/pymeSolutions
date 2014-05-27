@@ -91,8 +91,10 @@
 					$('#lbl-filtro')[0].textContent='Espere...';
 					return true;
 				},
-				error:function(error){
+				error:function(error,xhr){
 					$('#lbl-filtro')[0].textContent='Se produjo un error';
+					console.log(error.responseText);
+					console.log(xhr);
 				}
 				});
 			});

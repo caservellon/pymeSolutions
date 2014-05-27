@@ -350,7 +350,6 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('detalleasientos', 'DetalleAsientosController');
 			Route::resource('cuentamotivos', 'CuentaMotivosController');
 			Route::resource('asientocontable','AsientosController');
-			Route::resource('librodiario','LibroDiarioController');
 			//Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::resource('estadoresultados', 'EstadoresultadosController');
 
