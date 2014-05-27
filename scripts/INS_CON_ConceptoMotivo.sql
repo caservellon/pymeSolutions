@@ -79,3 +79,12 @@ VALUES
 (9,
 'Compra Cuentas por pagar',
 12); 
+
+INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
+(`CON_ConceptoMotivo_ID`,
+`CON_ConceptoMotivo_Concepto`,
+`CON_MotivoTransaccion_ID`)
+VALUES
+(10,
+'Devolucion sobre compras',
+13); 
