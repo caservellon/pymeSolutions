@@ -34,10 +34,14 @@
 		public static function ProductoProveedor($idProducto){ //foreach 
 			$ProductoProveedor = DB::table('INV_Producto_Proveedor')->whereRaw('INV_Producto_ID =' .$idProducto)->get();
 			$temp = array();
+                        
 			foreach($ProductoProveedor as $PP){
 				array_push($temp, $PP->INV_Proveedor_ID);
 			}
+                        
 			return Proveedor::whereIn('INV_Proveedor_ID', $temp)->get();
+                        
+                            
 		}
 
 		public static function ProveedorProducto($idProveedor){ //foreach 
@@ -46,7 +50,8 @@
 			foreach($ProveedorProducto as $PP){
 				array_push($temp, $PP->INV_Producto_ID);
 			}
-			return Producto::whereIn('INV_Producto_ID', $temp)->get();
+                        
+                            return Producto::whereIn('INV_Producto_ID', $temp)->get();
 		}
 
 		public static function ProveedorFormaPago($idProveedor){ // ->INV_FormaPago_DiasCredito() | ->INV_FormaPago_Nombre()
@@ -55,7 +60,8 @@
 			foreach($PFP as $FP){
 				array_push($temp, $FP->INV_FormaPago_ID);
 			}
-			return FormaPago::whereIn('INV_FormaPago_ID', $temp)->get();
+                        
+                            return FormaPago::whereIn('INV_FormaPago_ID', $temp)->get();
 		}
 
 	}

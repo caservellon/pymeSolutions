@@ -341,6 +341,7 @@ Route::group(array('prefix' => 'Compras'), function(){
 Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::get('/',array('as'=>'con.principal' ,'uses'=>function ()
 			{
+				//Contabilidad::GenerarTransaccionCmp(8,3000,1);
 				return View::make('Menus.contabilidad');
 			}));
 			

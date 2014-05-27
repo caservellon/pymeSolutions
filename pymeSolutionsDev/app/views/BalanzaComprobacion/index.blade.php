@@ -15,13 +15,13 @@
 	<div class="col-sm-3 form-group">
 		{{Form::label('CP','Clasificacion de Periodo:')}}
 		<div>
-		{{Form::select('CP',$Periodos,array('class'=>'form-control'))}}
+		{{Form::select('CP',$Periodos,NULL,array('class'=>'form-control'))}}
 		</div>
 	</div>
 	<div class="col-sm-3 form-group">
 		<label>Periodo:</label>
 		<div id="periodos">
-			<select id="PC"></select>
+			<select id="PC" class="form-control"></select>
 		</div>
 	</div>
 </div>
@@ -48,6 +48,7 @@
 							$.post('{{URL::route("con.bltable")}}',{id:this.value})
 									.success(function(data){
 										$("#table").html(data);
+										$(".date").html("Para el "+$("#PC option:selected").text().split("-")[1]);
 									});
 						});
 						$('#PC').change();
