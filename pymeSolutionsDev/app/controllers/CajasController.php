@@ -21,6 +21,7 @@ class CajasController extends BaseController {
 	 */
 	public function index()
 	{
+
 		if (Seguridad::VerCaja()) {
 			$Cajas = $this->Caja->where('VEN_Caja_Estado',1)->get();
 			return View::make('Cajas.index', compact('Cajas'));
