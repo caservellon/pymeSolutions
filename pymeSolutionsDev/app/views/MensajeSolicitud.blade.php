@@ -4,6 +4,7 @@
 
 <?php $proveedores = Proveedor::all(); ?>
 <div style='text-align: center; margin-top: 25%'>
+    @if(!empty($correo))
     <div class='row'>
         <div class="col-md-12">
             <h3 class="is-hidden">
@@ -14,14 +15,18 @@
     </div>
     <div class='row'>
         <div class="col-md-12">
-            <?php for($j=0; $j< count($correo); $j++){ foreach ($proveedores as $prov){ if($correo[$j]==$prov->INV_Proveedor_ID){ ?>
             <div class="col-md-5">
+            <?php for($j=0; $j< count($correo); $j++){ foreach ($proveedores as $prov){ if($correo[$j]==$prov->INV_Proveedor_ID){ ?>
+            
                <h5><?php echo $prov->INV_Proveedor_Nombre; ?></h5> 
-            </div>   
+            
             
             <?php }}} ?>
+            </div>   
         </div>
     </div>
+    @endif
+    @if(!empty($imprimir))
     <div class='row'>
         <div class='row'>
         <div class="col-md-12">
@@ -45,6 +50,8 @@
             <a href="{{{ $ruta }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-ok btn-sm"></span></a>
         </div>  
     </div>
+</div>
+    @endif
 </div>
 
 
