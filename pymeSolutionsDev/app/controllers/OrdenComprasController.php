@@ -109,7 +109,7 @@ class OrdenComprasController extends BaseController {
                 }
                 $contador++;
             }
-            return 'valido';
+            //return 'valido';
 //se extrae las reglas de un modelo relacionado
                 $validacionCampos = OrdenCompra::$rule;
                 
@@ -164,6 +164,7 @@ class OrdenComprasController extends BaseController {
              $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
              $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
              $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
+			 
              $OrdenCompras->COM_OrdenCompra_Total=Input::get('totalGeneral');
              $OrdenCompras->COM_OrdenCompra_CantidadPago=Input::get('COM_OrdenCompra_CantidadPago');
              $OrdenCompras->COM_OrdenCompra_PeriodoGracia=Input::get('COM_OrdenCompra_PeriodoGracia');
@@ -212,8 +213,8 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
-                       Contabilidad::GenerarTransaccionCmp(8,Input::get('totalGeneral'),Input::get('COM_Proveedor_IdProveedor'));
-                      Contabilidad::GenerarTransaccionCmp(9,Input::get('totalGeneral'),Input::get('COM_Proveedor_IdProveedor'));
+					  
+                       
                     $ruta = route('ListaOrdenes');
                     $mensaje = Mensaje::find(12);
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
@@ -374,8 +375,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
-                      Contabilidad::GenerarTransaccionCmp(8,Input::get('totalG'),Input::get('COM_Proveedor_IdProveedor'));
-                      Contabilidad::GenerarTransaccionCmp(9,Input::get('totalG'),Input::get('COM_Proveedor_IdProveedor'));
+                      
             $ruta = route('ListaOrdenes');
                     $mensaje = Mensaje::find(12);
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
@@ -416,8 +416,13 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=$tran->COM_EstadoOrdenCompra_IdEstAct;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=4;
                       $historial->save();
+                      
                    } 
              }
+			 
+             Contabilidad::GenerarTransaccionCmp(8,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
+             Contabilidad::GenerarTransaccionCmp(9,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
+			 
              $ruta = route('ListaOrdenes');
                     $mensaje = Mensaje::find(1);;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
