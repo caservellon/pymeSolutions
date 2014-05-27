@@ -9,8 +9,6 @@
 
 
 <div class="well" style="max-width: 400px; margin:10px; //background-color:#7fb87f;">
-	<a href="{{URL::to('contabilidad/crear/asientocontable')}}" class="btn btn-default btn-lg btn-block">
-	<span class="glyphicon glyphicon-edit"></span><br> Crear Asiento</a>
 	<a href="{{URL::to('contabilidad/librodiario')}}" class="btn btn-default btn-lg btn-block">
 	<span class="glyphicon glyphicon-book"></span><br> Libro Diario</a>
 	<a href="{{URL::route('con.cierreperiodo')}}" class="btn btn-default btn-lg btn-block">

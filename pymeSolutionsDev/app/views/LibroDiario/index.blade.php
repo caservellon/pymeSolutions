@@ -4,15 +4,22 @@
 
 <div class="page-header" style="padding-top:1%;">
 	<div class="row">
-	<div class="col-sm-10">
-	      <h3 class="pull-lef">LibroDiario &gt; <small>Ver Asientos</small></h3>
-	</div>
-	<div class="col-sm-2">
-	        <a href="{{{ URL::to('contabilidad') }}}" class="btn btn-sm btn-primary">
-	        	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
-	</div>
+		<div class="col-sm-10">
+		      <h3 class="pull-lef">LibroDiario &gt; <small>Ver Asientos</small></h3>
+		</div>
+		
+		<div class="col-sm-2">
+		        <a href="{{{ URL::to('contabilidad') }}}" class="btn btn-sm btn-primary">
+		        	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+		</div>
 	</div>
 </div>
+
+<div>
+	<a href="{{URL::to('contabilidad/crear/asientocontable')}}" class="btn btn-info">
+	<span class="glyphicon glyphicon-edit"></span> Crear Asiento</a>
+</div>
+<br>
 
 @if($PeriodoContable!=null && $PeriodoContable->count())
       <div class="well table form-inline">
