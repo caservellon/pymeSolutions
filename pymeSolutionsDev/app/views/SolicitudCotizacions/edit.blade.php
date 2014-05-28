@@ -46,9 +46,9 @@
                    }
                    $m= invCompras::FormaPagolista($id);
                    $formas = invCompras::FormaPagoCompras($Solicitud->COM_SolicitudCotizacion_FormaPago);
-                 
+                   
            ?>
-           {{ Form::select('formapago'.$proveedores->INV_Proveedor_Nombre,$m, $formas->INV_FormaPago_Nombre , array('class' => 'col-md-4 form-control')) }}
+           {{ Form::select('formapago',$m, $formas->INV_FormaPago_Nombre , array('class' => 'col-md-4 form-control')) }}
                      </div>
                      
                      
