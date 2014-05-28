@@ -4,7 +4,7 @@
 
 
 
-<h2 class="sub-header">Todas las Solicitudes de Cotizacion</h2>
+<h2 class="sub-header">Solicitudes de Cotizacion para Imprimir</h2>
 <div class="pull-right">
         <a href="{{{ URL::to('Compras/SolicitudCotizacion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
@@ -102,8 +102,19 @@
 
 
 @endif
+
+
 <div>
                 <h6>{{$SolicitudCotizacions->links()}}</h6>
             </div>
+<br>
+<br>
+<br>
+
+    @if(!$SolicitudCotizacions->count())
+<div class="alert alert-danger">
+    <strong>Oh no!</strong> No hay Solicitudes para Imprimir disponibles :(
+</div>
+@endif
 
 @stop

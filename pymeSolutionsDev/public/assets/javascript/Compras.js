@@ -78,7 +78,9 @@ function subTotal(){
 	
 }
 function impuesto(){
-	var imp=parseFloat(document.getElementById('subtotal').value*0.15);
+	valor=document.forms[0];
+	var toge=encuentraOtros(valor,'pISV');
+	var imp=parseFloat(document.getElementById('subtotal').value*(valor.elements[toge].value/100));
 	document.getElementById('isv').value=imp.toFixed(2);
 	
 }
@@ -109,6 +111,22 @@ function eliminar(){
 	impuesto();
 	total();
 }
+function mostrarVentanaISV()
+{
+    var ventana = document.getElementById('Porcentaje');
+    ventana.style.marginTop = "100px";
+    ventana.style.left = ((document.body.clientWidth-350) / 2) +  "px";
+	ventana.style.backgroundColor=' rgba(0,0,0,0.6)';
+    ventana.style.display = 'block';
+}
+function ocultarVentanaISV()
+{	
+	
+	impuesto();
+	total();
+    var ventana = document.getElementById('Porcentaje');
+    ventana.style.display = 'none';
+}
 
 
 //Funciones para Cotizacion
@@ -131,27 +149,41 @@ function AsignarTotales(NombreCampo, Valor){
 		var IndiceCampoTotal = IndiceElemento(Formulario, NombreCampoTotal);
 		var Total = Formulario.elements[IndiceCampo].value * Valor;
 	
-		Total = Total.toFixed(2);
-		Total = Total.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-		Formulario.elements[IndiceCampoTotal].value = Total;
+		//if(IsNumeric(Total)){
+			Total = Total.toFixed(2);
+			Total = Total.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+			Formulario.elements[IndiceCampoTotal].value = Total;
+		//}
 	}
 	
 	var NombreCampoTotalFinal = "TotalFinal";
 	var IndiceCampoTotalFinal = IndiceElemento(Formulario, NombreCampoTotalFinal);
 	var NombreCampo;
 	var ValorCampo;
+	var Impuesto = -1;
 	var TotalFinal = 0;
 	
 	for(var i = 0; i < Formulario.length; i++){
 		NombreCampo = Formulario.elements[i].name;
 		
-		if((NombreCampo.match("Total.") != null || NombreCampo == "ImpuestoCotizacion") && NombreCampo != NombreCampoTotalFinal){
+		if(NombreCampo == "ImpuestoCotizacion"){
+			IndiceCampo = IndiceElemento(Formulario, NombreCampo);
+			
+			//if(IsNumeric(Formulario.elements[IndiceCampo].value)){
+				Impuesto = Formulario.elements[IndiceCampo].value;
+			//}
+		}
+		
+		if(NombreCampo.match("Total.") != null && NombreCampo != NombreCampoTotalFinal){
 			IndiceCampo = IndiceElemento(Formulario, NombreCampo);
 			ValorCampo = Formulario.elements[IndiceCampo].value;
 			TotalFinal += Number(ValorCampo.replace(",", ""));
 		}
 	}
 	
+	//if(Impuesto != -1){
+		TotalFinal = TotalFinal + (TotalFinal * (Impuesto / 100))
+	//}
 	TotalFinal = TotalFinal.toFixed(2);
 	TotalFinal = TotalFinal.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	Formulario.elements[IndiceCampoTotalFinal].value = TotalFinal;

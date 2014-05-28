@@ -666,6 +666,11 @@ $(document).ready(function(){
         });
     })(jQuery);
 	};
+        
+        //compras
+        $('.imprimir-solicitud').on('click', function(){
+            window.print();
+        });
 
 
 

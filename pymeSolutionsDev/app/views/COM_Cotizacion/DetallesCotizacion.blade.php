@@ -49,11 +49,6 @@
 								<th>Descripcion</th>
 								<th>Cantidad</th>
 								<th>Unidad</th>
-								
-								@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
-									<th>{{ $CampoLocalSolicitudCotizacion -> Nombre }}</th>
-								@endforeach
-								
 								<th>Precio Unitario</th>
 								<th>Total</th>
 							</tr>
@@ -67,11 +62,6 @@
 									<td>{{ $ProductoCotizacion -> Descripcion }}</td>
 									<td>{{ number_format($ProductoCotizacion -> Cantidad) }}</td>
 									<td>{{ $ProductoCotizacion -> Unidad }}</td>
-									
-									@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
-										<td>{{ $CampoLocalSolicitudCotizacion -> Valor }}</td>
-									@endforeach
-									
 									<td>{{ number_format($ProductoCotizacion -> Precio, 2) }}</td>
 									<td>{{ number_format($ProductoCotizacion -> Cantidad * $ProductoCotizacion -> Precio, 2) }}</td>
 								</tr>

@@ -57,6 +57,8 @@ class COMTransicionEstadoController extends BaseController {
                         }else{
                             $model->COM_OrdenCompra_TransicionEstado_Activo=0;
                         }
+                        $model->COM_TansicionEstado_FechaCreacion=date('Y-m-d');
+                        $model->COM_Usuario_idUsuarioCreo=1;
                         $model->save();
                         return 'Transicion Creada';
                 }
@@ -90,6 +92,8 @@ class COMTransicionEstadoController extends BaseController {
                 }else{
                      $model->COM_OrdenCompra_TransicionEstado_Activo=0;
                 }
+                $model->COM_TansicionEstado_FechaModificacion=date('Y-m-d');
+                $model->COM_Usuario_idUsuarioModifico=1;
                 $model->update();
                 return 'Datos Actualizados';
             }

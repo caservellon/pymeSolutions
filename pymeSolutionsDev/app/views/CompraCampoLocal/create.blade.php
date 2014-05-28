@@ -12,10 +12,19 @@
 
 {{ Form::open(array('route' => 'Compras.Configuracion.CampoLocal.store', 'class' => 'form-horizontal', 'role' => 'form' )) }}
 @if ($errors->any())
-<div class="alert alert-danger">
-    {{ implode('', $errors->all('<li >:message</li>')) }}
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
 </div>
-@endif
+@endif 
 <div class="form-group">
     {{ Form::label('GEN_CampoLocal_Nombre', 'Nombre:',array('class' => 'col-md-2 control-label')) }}
     <div class="col-md-4">

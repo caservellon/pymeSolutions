@@ -33,7 +33,7 @@
 	
 	
 	@if(Input::has('Error'))
-		<?php $Error = Input::get('Error') ?>
+		<?php $Error = Input::get('Error'); ?>
 		
 		<br>
 		

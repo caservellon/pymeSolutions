@@ -47,13 +47,14 @@
             </div>
         </div>
     </div>
+    
+</div>
+    @endif
     <div class='row'>
         <div class="col-md-12">
             <a href="{{{ $ruta }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-ok btn-sm"></span></a>
         </div>  
     </div>
-</div>
-    @endif
 </div>
 
 

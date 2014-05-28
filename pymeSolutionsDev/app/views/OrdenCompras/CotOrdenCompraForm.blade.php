@@ -1,6 +1,12 @@
 @extends('layouts.scaffold')
 
 @section('main')
+ction('main')
+    <script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+    <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
+    
 <div class="row">
     <div class="page-header clearfix">
       <h3 class="pull-left">Crear Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
@@ -155,11 +161,22 @@
     </div>
     <div class="col-md-4" style="text-align: right">
         
-        
+        <?php 
+            $cot=Cotizacion::find($id_cot);
+        $isv=$cot->COM_Cotizacion_ISV;
+          $isv1=$totalGeneral*($isv/100);
+          ?>
+        <label>Subtotal: Lps. {{$totalGeneral}}</label>
+        <br>
+        <label>I.S.V.: Lps. {{$isv1}}</label>
+        <br>
+        <?php $totalGeneral=$totalGeneral+$isv1?>
         <label>Total: Lps. {{$totalGeneral}}</label>
         
         <input type="text" id="total" value="<?echo $totalGeneral;?>" style='display:none'>
         {{Form::text('totalG',$totalGeneral, array('style' => 'display:none'))}}
+        {{Form::text('isv',$isv, array('style' => 'display:none'))}}
+        
     </div>
 </div>
 <div class="row" >
