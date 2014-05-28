@@ -5,9 +5,12 @@
 
 
 <h2 class="sub-header">Todas las Solicitudes de Cotizacion</h2>
-<div class="pull-right">
-        <a href="{{{ URL::to('Compras/SolicitudCotizacion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
-      </div>
+<div class="btn-agregar">
+    <a type="button" href="{{ URL::to('/Compras/SolicitudCotizacion/Crear') }}" class="btn btn-default">
+        <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Solicitudes de Cotizacion
+    </a>
+</div>
+
           <div  class="col-md-9" >
                           
                                  <div class="col-xs-5 col-sm-6 col-md-12">

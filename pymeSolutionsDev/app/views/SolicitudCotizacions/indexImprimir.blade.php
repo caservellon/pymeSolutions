@@ -4,7 +4,7 @@
 
 
 
-<h2 class="sub-header">Todas las Solicitudes de Cotizacion</h2>
+<h2 class="sub-header">Solicitudes de Cotizacion para Imprimir</h2>
 <div class="pull-right">
         <a href="{{{ URL::to('Compras/SolicitudCotizacion') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
