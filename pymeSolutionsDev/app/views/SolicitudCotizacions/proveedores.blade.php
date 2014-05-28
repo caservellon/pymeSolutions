@@ -16,10 +16,19 @@
 
         
 @if ($errors->any())
-<div class="alert alert-danger">
-    {{ implode('', $errors->all('<li >:message</li>')) }}
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
 </div>
-@endif      
+@endif     
 
 
 
@@ -77,9 +86,12 @@
                                         
 					<td>{{{ $cualquierProducto1->INV_Producto_Nombre }}}</td>
 					<td>{{{ $cualquierProducto1->INV_Producto_Descripcion }}}</td>
-                                        <?php $nombre = str_replace(' ', '', $cualquierProducto1->INV_Producto_Nombre ); ?>
+                                        <?php $nombre = str_replace(' ', '', $cualquierProducto1->INV_Producto_Nombre ); if(empty($Input)){ ?>
+                                       
                                         <td>{{ Form::text('CantidadSolicitar'.$nombret.$nombre, null, array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
-					
+                                        <?php }else{ ?>
+                                        <td>{{ Form::text('CantidadSolicitar'.$nombret.$nombre, $Input['CantidadSolicitar'.$nombret.$nombre], array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
+                                        <?php } ?>
                                         
                                         <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>
                                         <td>{{{ $unidad->INV_UnidadMedida_Nombre }}}</td>

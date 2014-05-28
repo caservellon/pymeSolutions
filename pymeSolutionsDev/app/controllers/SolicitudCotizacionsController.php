@@ -32,6 +32,8 @@ class SolicitudCotizacionsController extends BaseController {
         
         public function vistacrear(){
             $cualquierProducto = invCompras::CualquierProducto();
+            
+            
             return View::make('SolicitudCotizacions.cualquierProducto', compact('cualquierProducto'));
         }
         
@@ -41,7 +43,7 @@ class SolicitudCotizacionsController extends BaseController {
         }
 		
         public function indexImprimir(){
-            $SolicitudCotizacions = SolicitudCotizacion::paginate();
+            $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Imprimir', '=', 0)->paginate();
 			$CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
             return View::make('SolicitudCotizacions.indexImprimir', compact('SolicitudCotizacions', 'CamposLocales'));
         }
@@ -56,7 +58,7 @@ class SolicitudCotizacionsController extends BaseController {
         public function mostrarProveedor(){
             
             $cualquierProducto=array();
-            
+            $Input = array();
                 for ($i = 1; $i <=count(Input::all()); $i++) {
                     if (Input::get('Incluir'.$i)==1){
                         $cualquierProducto[] = Input::get('id'.$i);
@@ -74,8 +76,10 @@ class SolicitudCotizacionsController extends BaseController {
                 }
                 $provfinal = array_unique($prov); 
                 $proveedor= array_values($provfinal);
+                
+                
                 //$iguales='';
-            return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'));
+            return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor','Input'));
             //return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'))->withInput();
 			
         }
@@ -267,7 +271,7 @@ class SolicitudCotizacionsController extends BaseController {
               }
               
               return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
-                     ->withInput($Input)
+                     ->with('Input',$Input)
                      ->withErrors($validation)
                      ->with('message', 'There were validation errors.');
 	}

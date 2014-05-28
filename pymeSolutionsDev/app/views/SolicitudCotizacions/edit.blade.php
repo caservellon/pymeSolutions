@@ -10,9 +10,18 @@
 
 
              {{ Form::model($Solicitud, array('method' => 'PATCH', 'route' => array('Compras.SolicitudCotizacions.update', $Solicitud->COM_SolicitudCotizacion_IdSolicitudCotizacion), 'class' => 'form-horizontal', 'role' => 'form' )) }}
-            @if ($errors->any())
-            <div class="alert alert-danger">
-    {{ implode('', $errors->all('<li >:message</li>')) }}
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
 </div>
 @endif   
              

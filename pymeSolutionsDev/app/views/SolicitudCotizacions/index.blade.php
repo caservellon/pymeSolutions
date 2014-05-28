@@ -108,6 +108,15 @@
 
 
 @endif
+<br>
+<br>
+<br>
+
+@if(!$SolicitudCotizacions->count())
+<div class="alert alert-danger">
+    <strong>Oh no!</strong> No hay Solicitudes de Cotizacion disponibles :(
+</div>
+@endif
 <div>
                 <h6>{{$SolicitudCotizacions->links()}}</h6>
             </div>
