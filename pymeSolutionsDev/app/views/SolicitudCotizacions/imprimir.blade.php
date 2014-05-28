@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Solicitud Cotizacion &gt; <small>Imprimir</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('Compras/SolicitudCotizacion/Imprimir') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
+        <a href="{{{ URL::to('Compras/SolicitudCotizacion/Imprimir') }}}" class="btn btn-sm btn-primary no-print"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
       </div>
 </div>  
 <?php 
@@ -13,9 +13,9 @@
  
 
 $proveedores = invCompras::ProveedorCompras($imprimir->Proveedor_idProveedor); ?>
-{{ Form::open(array('route' => array('Compras.SolicitudCotizacions.store'), 'class' => "form-horizontal" , 'role' => 'form' )) }}
+
 <div class="row">
-    <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Imprimir', array('class' => 'btn btn-default btn-md')) }}</div>
+    <div class="col-md-1 col-md-offset-10"> <button type="button" class="btn btn-default no-print imprimir-solicitud">Imprimir</button></div>
 </div> 
             <div class="row">
     <div class="col-md-4 " ></div>
@@ -102,5 +102,7 @@ $proveedores = invCompras::ProveedorCompras($imprimir->Proveedor_idProveedor); ?
                 <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
             </div>
             <hr>
-            {{Form::close()}}
+            
+            
+            
 @stop
