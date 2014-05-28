@@ -8,7 +8,7 @@ class COMEstadoOrdenCompraController extends BaseController
 {
     public function NuevoEstadoOrden()
     {
-        $data1 = COM_EstadoOrdenCompra::take(5)->get();
+        $data1 = COM_EstadoOrdenCompra::skip(2)->take(10)->get();
         return View::make('COM_EstadoOrdenCompras.NEOC', compact('data1'));
     }
 
@@ -34,7 +34,7 @@ class COMEstadoOrdenCompraController extends BaseController
     }
     public function index()
     {
-        $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstadoOrdenCompra', '>', 10)->paginate();
+        $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstadoOrdenCompra', '>', 12)->paginate();
          return View::make('COM_EstadoOrdenCompras.LEOC')->with('data1', $COM_EstadoOrdenCompra);
     }
 
