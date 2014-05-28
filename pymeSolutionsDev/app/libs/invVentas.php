@@ -15,6 +15,10 @@
 		}
 
 		public static function Venta($Productos){
+			$motivo = MotivoMovimiento::find('1');
+			if (!$motivo->INV_MotivoMovimiento_Activo){
+				return '0';
+			}
 			$movimiento = array();
 			$fecha = date('Y-m-d H:i:s');
 			$user = 'Admin';
@@ -61,10 +65,15 @@
 				$prod->INV_Producto_Cantidad = $prod->INV_Producto_Cantidad - $producto['VEN_DetalleDeVenta_CantidadVendida'];
 				$prod->save();
 			}
-			return 'true';
+			return '1';
 		}
+		
 
 		public static function Devolucion($Productos){
+			$motivo = MotivoMovimiento::find('3');
+			if (!$motivo->INV_MotivoMovimiento_Activo){
+				return '0';
+			}
 			$movimiento = array();
 			$fecha = date('Y-m-d H:i:s');
 			$user = 'Admin';
@@ -110,7 +119,7 @@
 				$prod->INV_Producto_Cantidad = $prod->INV_Producto_Cantidad + $producto['VEN_DetalleDeVenta_CantidadVendida'];
 				$prod->save();
 			}
-			return 'true';
+			return '1';
 		}
 	}
 

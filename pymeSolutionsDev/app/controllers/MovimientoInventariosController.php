@@ -226,6 +226,10 @@ class MovimientoInventariosController extends BaseController {
 		$IdMovimiento = $input['INV_MotivoMovimiento_INV_MotivoMovimiento_ID'];
 		$IdOrdenCompra = $input['INV_Movimiento_IDOrdenCompra'];
 		$orden = comInventario::InformacionProductosOrdenCompra($CodigoOrdenCompra);
+		$isv = 0;
+		if ($orden) {
+			$isv = $orden[0]->isv;
+		}
 		unset($input['COM_OrdenCompra_Codigo']);
 
 		//Se crea el Movimiento de Inventario para despues agregar el detalle del movimiento
@@ -272,6 +276,7 @@ class MovimientoInventariosController extends BaseController {
 			$Producto->INV_Producto_PrecioCosto = $Costo;
 			$Producto->save();
 		}
+		$monto += ($isv * $monto);
 		//Se llama el método para realizar la contabilidad
 		Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
 
@@ -288,11 +293,17 @@ class MovimientoInventariosController extends BaseController {
 		$IdMovimiento = $input['INV_MotivoMovimiento_INV_MotivoMovimiento_ID'];
 		$IdOrdenCompra = $input['INV_Movimiento_IDOrdenCompra'];
 		$orden = comInventario::InformacionProductosOrdenCompra($CodigoOrdenCompra);
-		
+		$isv = 0;
+		if ($orden) {
+			$isv = $orden[0]->isv;
+		}
+
 		$diff = 0;
 		foreach ($orden as $or) {
 			$diff += ($or->Cantidad * $or->Precio);
 		}
+		$diff += ($isv * $diff);
+
 		//Se llama el método para realizar la contabilidad
 		Contabilidad::GenerarTransaccion(10, $diff);
 
@@ -318,6 +329,12 @@ class MovimientoInventariosController extends BaseController {
 		$IdOrdenCompra = $input['INV_Movimiento_IDOrdenCompra'];
 		$orden = comInventario::InformacionProductosOrdenCompra($CodigoOrdenCompra);
 		unset($input['COM_OrdenCompra_Codigo']);
+
+		$isv = 0;
+		if ($orden) {
+			$isv = $orden[0]->isv;
+		}
+
 		//Se crea el Movimiento de Inventario para despues agregar el detalle del movimiento
 		$t['INV_Movimiento_IDOrdenCompra'] = $input['INV_Movimiento_IDOrdenCompra'];
 		$t['INV_Movimiento_Observaciones'] = $input['INV_Movimiento_Observaciones'];
@@ -383,6 +400,9 @@ class MovimientoInventariosController extends BaseController {
 			}
 		}
 		if ($cont > 0) {
+			$monto += ($isv * $monto);
+			$diff += ($isv * $diff);
+
 			//Se llama el método para realizar la contabilidad
 			Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
 			Contabilidad::GenerarTransaccion(10, $diff);

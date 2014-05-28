@@ -72,11 +72,6 @@
 
 {{ Form::close() }}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
-
 @stop
 
 

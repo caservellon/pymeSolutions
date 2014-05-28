@@ -218,7 +218,7 @@
 						<tr>
 							<td>{{{ $orden->COM_OrdenCompra_Codigo }}}</td>
 							<td>{{{ $proveedores[$orden->COM_Proveedor_IdProveedor - 1]->INV_Proveedor_Nombre }}}</td>
-							<td> En Proceso </td>
+							<td> En Camino </td>
 							<td>{{{ $orden->COM_OrdenCompra_FechaEntrega }}}</td>
 							<td>
 								{{ Form::open(array('method' => 'POST', 'route' => 'Inventario.MovimientoInventario.search')) }}
