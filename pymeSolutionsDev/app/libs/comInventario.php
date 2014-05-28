@@ -1,7 +1,7 @@
 <?php
 class comInventario {
 	public static function getOrdenes(){
-		$idOrdenes = HistorialEstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstAct','=','9')->lists('COM_TransicionEstado_IdOrdenCompra');
+		$idOrdenes = HistorialEstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstAct','=','9')->where('COM_TransicionEstado_Activo','=',1)->lists('COM_TransicionEstado_IdOrdenCompra');
 		$codOrdenes = array();
 		if ($idOrdenes)
 			$codOrdenes=OrdenCompra::wherein('COM_OrdenCompra_IdOrdenCompra',$idOrdenes)->lists('COM_OrdenCompra_IdOrdenCompra');
