@@ -26,7 +26,8 @@ mysql -u "root" "-proot" "pymeERP" < "CreateVentas.sql" >> ./logs/install.log 2>
 
 echo "Creating Security Tables " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateSeguridad.sql" >> ./logs/install.log 2>&1
-
+mysql -u "root" "-proot" "pymeERP" < "INS_CRM_Personas.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_CRM_Empresas.sql" >> ./logs/install.log 2>&1
 
 echo "****************Populating tables****************" >> ./logs/install.log
 
