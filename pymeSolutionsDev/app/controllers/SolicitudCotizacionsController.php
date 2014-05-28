@@ -265,6 +265,7 @@ class SolicitudCotizacionsController extends BaseController {
                     
                 
               }
+              
               return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor'))
                      ->withInput($Input)
                      ->withErrors($validation)

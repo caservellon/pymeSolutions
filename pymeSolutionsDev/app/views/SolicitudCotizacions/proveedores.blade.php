@@ -65,8 +65,6 @@
 
 		<tbody>
                     <?php $prov_prod = invCompras::ProveedorProducto($proveedores->INV_Proveedor_ID) ?>
-                    
-                
                     @foreach($prov_prod as $key)
                    
 			@for($i=0; $i < count($cualquierProducto); $i++)
