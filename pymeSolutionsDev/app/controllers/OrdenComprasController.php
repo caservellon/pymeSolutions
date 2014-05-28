@@ -213,8 +213,6 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Observacion='Esta es la transicion creada al inicio';
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
-                      $historial->COM_TrancicionEstado_FechaCreacion=date('Y-m-d');
-                      $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->save();
 					  
                        
@@ -378,8 +376,6 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Observacion='Esta es la transicion creada al inicio';
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
-                      $historial->COM_TrancicionEstado_FechaCreacion=date('Y-m-d');
-                      $historial->COM_Usuario_idUsuarioCreo=1;
                       $historial->save();
                       
             $ruta = route('ListaOrdenes');
