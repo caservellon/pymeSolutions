@@ -13,6 +13,10 @@
  
 
 $proveedores = invCompras::ProveedorCompras($imprimir->Proveedor_idProveedor); ?>
+{{ Form::open(array('route' => array('Compras.SolicitudCotizacions.store'), 'class' => "form-horizontal" , 'role' => 'form' )) }}
+<div class="row">
+    <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Imprimir', array('class' => 'btn btn-default btn-md')) }}</div>
+</div> 
             <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
@@ -98,4 +102,5 @@ $proveedores = invCompras::ProveedorCompras($imprimir->Proveedor_idProveedor); ?
                 <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
             </div>
             <hr>
+            {{Form::close()}}
 @stop
