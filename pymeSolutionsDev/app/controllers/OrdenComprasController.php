@@ -155,6 +155,7 @@ class OrdenComprasController extends BaseController {
              $OrdenCompras->COM_OrdenCompra_Codigo='COM_OC_'.($ultimoI+1);
              $OrdenCompras->COM_OrdenCompra_FechaEmision= date('Y/m/d H:i:s');
              $OrdenCompras->COM_OrdenCompra_FechaEntrega=  Input::get('COM_OrdenCompra_FechaEntrega');
+             $OrdenCompras->COM_OrdenCompra_ISV=  Input::get('pISV');
              if(Input::has('COM_OrdenCompra_Activo')){
                     $OrdenCompras->COM_OrdenCompra_Activo=1;
              }else{
@@ -314,6 +315,7 @@ class OrdenComprasController extends BaseController {
              $OrdenCompras->COM_OrdenCompra_Codigo='COM_OC_'.($ultimoI+1);
              $OrdenCompras->COM_OrdenCompra_FechaEmision= date('Y/m/d H:i:s');
              $OrdenCompras->COM_OrdenCompra_FechaEntrega=  Input::get('COM_OrdenCompra_FechaEntrega');
+             $OrdenCompras->COM_OrdenCompra_ISV=  Input::get('isv');
              if(Input::has('COM_OrdenCompra_Activo')){
                     $OrdenCompras->COM_OrdenCompra_Activo=1;
              }else{

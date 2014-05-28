@@ -1,6 +1,12 @@
 @extends('layouts.scaffold')
 
 @section('main')
+ction('main')
+    <script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+    <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
+    
 <div class="row">
     <div class="page-header clearfix">
       <h3 class="pull-left">Crear Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
