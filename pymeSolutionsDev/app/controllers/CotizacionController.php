@@ -249,18 +249,21 @@ class CotizacionController extends BaseController {
 	}
 	
 	public function HabilitarInhabilitar(){
-		//if(!Input::has('Busqueda')){
-			$Cotizaciones = Cotizacion::all();
-		//}else{
-			//$Cotizaciones = Helpers::BusquedaCotizaciones(Input::get('Busqueda'));
-		//}
-		
-		//return var_dump($Cot);
-		
-		//return var_dump(Input::get('Busqueda'));
-		//return var_dump(Cache::get('Cotizaciones'));
-		
 		if (Input::has('Actualizar')){
+			if(!Input::has('Busqueda')){
+				$Cotizaciones = Cotizacion::all();
+			}else{
+				$BusquedaCotizaciones = Session::get('BusquedaCotizaciones');
+				$CodigosCotizacion = array();
+				
+				foreach($BusquedaCotizaciones as $BusquedaCotizacion){ 
+					array_push($CodigosCotizacion, $BusquedaCotizacion -> Codigo);
+				}
+				
+				$Cotizaciones = Cotizacion::whereIn('COM_Cotizacion_Codigo', $CodigosCotizacion) -> get();
+			}
+				
+				
 			foreach($Cotizaciones as $Cotizacion){
 				if($Cotizacion -> COM_Cotizacion_Activo){
 					if (!Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
@@ -272,7 +275,7 @@ class CotizacionController extends BaseController {
 						$Cotizacion -> COM_Cotizacion_Activo = 1;
 						$Cotizacion -> save();
 					}
-				}	
+				}
 			}
 			
 			return Redirect::route('CotizacionesHabilitarInhabilitarMensajeEstadoCotizacionCambiado');

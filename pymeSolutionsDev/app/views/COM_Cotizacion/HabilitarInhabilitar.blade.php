@@ -4,9 +4,8 @@
 	
 	@if(Input::has('Busqueda'))
 		<?php
-		$Cotizaciones = Helpers::BusquedaCotizaciones(Input::get('Busqueda'));
-		//$Cotizaciones = Session::get('CotizacionesBusqueda');
-		//return var_dump($Cotizaciones);
+			$Cotizaciones = Helpers::BusquedaCotizaciones(Input::get('Busqueda'));
+			Session::put('BusquedaCotizaciones', $Cotizaciones)
 		?>
 	@else
 		<?php $Cotizaciones = Helpers::InformacionCotizaciones(); ?>
@@ -44,6 +43,10 @@
 	
 	@else
 		{{ Form::open(array('action' => array('CotizacionController@HabilitarInhabilitar', $Cot))) }}
+			@if(Input::has('Busqueda'))
+				<?php $Busqueda = Input::get('Busqueda'); ?>
+				{{ Form::text('Busqueda', $Busqueda, array('class' => 'hidden')) }}
+			@endif
 			<div class="row">
 				<div class="col-md-2 pull-right">
 					{{ Form::submit('Actualizar', array('name' => 'Actualizar', 'class' => 'btn btn-success btn-block')) }}

@@ -29,7 +29,7 @@
     </ul>
 	
 	{{ Form::open(array('route' => 'CotizacionesCapturarCotizacionCapturar')) }}
-		{{Form::text('CodigoSolicitudCotizacion', $CodigoSolicitudCotizacion, array('class' => 'hidden'))}}
+		{{ Form::text('CodigoSolicitudCotizacion', $CodigoSolicitudCotizacion, array('class' => 'hidden')) }}
 
 		<div class="row">
 			<div class="col-md-4 " ></div>
