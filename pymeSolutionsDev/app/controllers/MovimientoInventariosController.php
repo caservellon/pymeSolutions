@@ -276,7 +276,7 @@ class MovimientoInventariosController extends BaseController {
 			$Producto->INV_Producto_PrecioCosto = $Costo;
 			$Producto->save();
 		}
-		$monto += ($isv * $monto);
+		$monto += (($isv/100) * $monto);
 		//Se llama el método para realizar la contabilidad
 		Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
 
@@ -302,7 +302,7 @@ class MovimientoInventariosController extends BaseController {
 		foreach ($orden as $or) {
 			$diff += ($or->Cantidad * $or->Precio);
 		}
-		$diff += ($isv * $diff);
+		$diff += (($isv/100) * $diff);
 
 		//Se llama el método para realizar la contabilidad
 		Contabilidad::GenerarTransaccion(10, $diff);
@@ -400,8 +400,8 @@ class MovimientoInventariosController extends BaseController {
 			}
 		}
 		if ($cont > 0) {
-			$monto += ($isv * $monto);
-			$diff += ($isv * $diff);
+			$monto += (($isv/100) * $monto);
+			$diff += (($isv/100) * $diff);
 
 			//Se llama el método para realizar la contabilidad
 			Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
