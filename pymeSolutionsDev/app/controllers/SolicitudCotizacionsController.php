@@ -319,6 +319,7 @@ class SolicitudCotizacionsController extends BaseController {
 	public function update($id)
 	{
                 $input = Input::except('_method');
+                
                 //$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
 		$res = SolicitudCotizacion::$rules;
                 if(Input::get('COM_SolicitudCotizacion_CantidadPago')==''){
@@ -335,6 +336,7 @@ class SolicitudCotizacionsController extends BaseController {
 		
                         $SolicitudCotizacion = SolicitudCotizacion::find($id);
                         $temprod = invCompras::ProveedorCompras($SolicitudCotizacion->Proveedor_idProveedor);
+                        //return Input::get('formapago');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_Recibido=Input::get('COM_SolicitudCotizacion_Recibido');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
                         if($SolicitudCotizacion->COM_SolicitudCotizacion_Imprimir==0){
@@ -342,7 +344,7 @@ class SolicitudCotizacionsController extends BaseController {
                         }
                         
                         $SolicitudCotizacion->Usuario_idUsuarioModifico = 2;
-                        $SolicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago'.$temprod->INV_Proveedor_Nombre);
+                        $SolicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_CantidadPago=Input::get('COM_SolicitudCotizacion_CantidadPago');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_PeriodoGracia=Input::get('COM_SolicitudCotizacion_PeriodoGracia');
                         if(Input::has('COM_SolicitudCotizacion_Activo')){
