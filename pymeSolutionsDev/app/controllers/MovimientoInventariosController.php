@@ -394,7 +394,7 @@ class MovimientoInventariosController extends BaseController {
 				DetalleMovimiento::create($detalle);
 
 				//Actualizamos el Inventario
-				$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $or->Cantidad;
+				$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $input['Cant'.$or->ID];
 				$Producto->INV_Producto_PrecioCosto = $Costo;
 				$Producto->save();
 			}
