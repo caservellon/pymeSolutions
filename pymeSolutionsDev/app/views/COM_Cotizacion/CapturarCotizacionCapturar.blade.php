@@ -7,8 +7,9 @@
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$FormasPago = Helpers::InformacionFormasPago();
 		$ProductosSolicitudCotizacion = Helpers::InformacionProductosSolicitudCotizacion($CodigoSolicitudCotizacion);
-		$CamposLocalesSolicitudCotizacion = Helpers::InformacionCamposLocalesSolicitudCotizacion($CodigoSolicitudCotizacion);
 		$CamposLocalesCotizaciones = Helpers::InformacionCamposLocalesCotizaciones();
+		
+		$Input = Session::get('_old_input');
 		$HayErrores = false;
 	?>
 	
@@ -22,10 +23,16 @@
 	</div>
 	
 	<ul type="none">
-		@foreach($errors -> all() as $mensaje)
-			<li class="alert alert-danger">{{ $mensaje }}</li>
-			<?php $HayErrores = true; ?>
-		@endforeach
+		@if(Input::has('Errores'))
+			<?php
+				$Errores = Session::get('Errores');
+				$HayErrores = true;
+			?>
+			
+			@foreach($Errores as $Error)
+				<li class="alert alert-danger">{{ $Error }}</li>
+			@endforeach
+		@endif
     </ul>
 	
 	{{ Form::open(array('route' => 'CotizacionesCapturarCotizacionCapturar')) }}
@@ -70,19 +77,25 @@
 									<td>{{ $ProductoSolicitudCotizacion -> Unidad }}</td>
 									
 									<?php
-										$Input = Session::get('_old_input');
-										$PrecioUnitario['COM_DetalleCotizacion_PrecioUnitario'] = $Input[$ProductoSolicitudCotizacion -> Codigo];
-										$Validacion = Validator::make($PrecioUnitario, COM_DetalleCotizacion::$rules);
+										$PrecioUnitario = $Input[$ProductoSolicitudCotizacion -> Codigo];
+										
+										$HayError = false;
+										
+										if($PrecioUnitario == '' || !Helpers::EsDecimalMayorCero($PrecioUnitario)){
+											$HayError = true;
+										}
 									?>
 									
 									<td>
-										@if($Validacion -> fails())
+										@if($HayError)
 											<div class="form-group has-error has-feedback">
+												<label class="control-label" for="inputError2">.</label>
 												{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}
 												<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 											</div>
 										@else
 											<div class="form-group has-success has-feedback">
+												<label class="control-label" for="inputSuccess2">.</label>
 												{{ Form::text($ProductoSolicitudCotizacion -> Codigo, null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("' . $ProductoSolicitudCotizacion -> Codigo . '",' . $ProductoSolicitudCotizacion -> Cantidad . ')')) }}
 												<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 											</div>
@@ -127,9 +140,35 @@
 				{{ $SolicitudCotizacion[0] -> PeriodoGracia }}
 				
 				<br><br>
+				@if($HayErrores)
+					<?php
+						$Fecha = $Input['VigenciaCotizacion'];
+						
+						$HayError = false;
+										
+						if($Fecha == '' ){
+							$HayError = true;
+						}
+					?>
+					
+					@if($HayError)
+						<div class="form-group has-error has-feedback">
+							<label class="control-label" for="inputError2">Fecha de Vigencia</label>
+							{{ Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Hacer clic para agregar fecha')) }}
+							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+						</div>
+					@else
+						<div class="form-group has-success has-feedback">
+							<label class="control-label" for="inputSuccess2">Fecha de Vigencia</label>
+							{{ Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Hacer clic para agregar fecha')) }}
+							<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+						</div>
+					@endif
+				@else
+					{{ Form::label('FechaVigencia', 'Fecha de Vigencia') }}
+					{{ Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Hacer clic para agregar fecha')) }}
+				@endif
 				
-				{{ Form::label('FechaVigencia', 'Fecha de Vigencia') }}
-				{{ Form::text('VigenciaCotizacion', null, array('id' => 'VigenciaCotizacion', 'class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Hacer clic para agregar fecha')) }}
 				<script>
 					$('#VigenciaCotizacion').appendDtpicker({
 						"dateFormat": "YYYY-MM-DD h:m",
@@ -144,7 +183,6 @@
 				
 				<br><br>
 				
-				
 				{{ Form::submit('Guardar', array('class' => 'btn btn-success')) }}
 			</div>
 			
@@ -152,27 +190,32 @@
 			</div>
 			
 			<div class="col-md-3 align-right">
-				{{ Form::label('Impuesto', 'Impuesto') }}
-			
 				@if($HayErrores)
 					<?php
-						$Input2 = Session::get('_old_input');
-						$Impuesto2['COM_Cotizacion_ISV'] = $Input2['ImpuestoCotizacion'];
-						$Validacion2 = Validator::make($Impuesto2, Cotizacion::$rules, Cotizacion::$messages);
+						$Impuesto = $Input['ImpuestoCotizacion'];
+						
+						$HayError = false;
+										
+						if($Impuesto == '' || !Helpers::EsDecimalMayorCero($Impuesto)){
+							$HayError = true;
+						}
 					?>
 					
-					@if($Validacion2 -> fails())
+					@if($HayError)
 						<div class="form-group has-error has-feedback">
+							<label class="control-label" for="inputError2">Impuesto</label>
 							{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
 							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 						</div>
 					@else
 						<div class="form-group has-success has-feedback">
+							<label class="control-label" for="inputSuccess2">Impuesto</label>
 							{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
 							<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 						</div>
 					@endif
 				@else
+					{{ Form::label('Impuesto', 'Impuesto') }}
 					{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
 				@endif
 				
@@ -186,50 +229,105 @@
 			
 			<div class="col-md-5 pull-right" style="text-align: right">
 				<div class="form-group" id="campos Locales">
-					{{--
-					<h4 class="text-center">Campos de Solicitud de Cotizaci&oacute;n</h4>
-					
-					@foreach($CamposLocalesSolicitudCotizacion as $CampoLocalSolicitudCotizacion)
-						<br>
-						<label class="pull-left">{{ $CampoLocalSolicitudCotizacion -> Nombre }}</label>
-						{{ Form::text($CampoLocalSolicitudCotizacion -> Valor, $CampoLocalSolicitudCotizacion -> Valor, array('class' => 'form-control', 'disabled')) }}
-					@endforeach
-					--}}
 					<br><br>
 				
-					@if(count($CamposLocalesCotizaciones) != 0)
-						<h4 class="text-center">Campos de Cotizaci&oacute;n</h4>
-					@endif
-					
-					@foreach($CamposLocalesCotizaciones as $CampoLocalCotizaciones)
-						<br>
-						<label class="pull-left">{{{ $CampoLocalCotizaciones -> Nombre }}}</label>
+					@if(Helpers::ExistenCamposLocalesCotizaciones())
+						<h4 class="text-center">Campos Locales</h4>
 						
-						@if($CampoLocalCotizaciones -> Requerido)
-							<label class="pull-left">&nbsp; *</label>
-						@endif
-						
-						@if($CampoLocalCotizaciones -> Tipo == 'TXT')
-							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
-						@endif
-						
-						@if($CampoLocalCotizaciones -> Tipo == 'INT')
-							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
-						@endif
-						
-						@if($CampoLocalCotizaciones -> Tipo == 'FLOAT')
-							{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
-						@endif
-						
-						@if($CampoLocalCotizaciones -> Tipo == 'LIST')
-							<?php $ElementosCampoLocalListaCotizaciones = Helpers::InformacionCampoLocalListaCotizaciones($CampoLocalCotizaciones -> Id);?>
+						@foreach($CamposLocalesCotizaciones as $CampoLocalCotizaciones)
+							<br>
 							
-							@foreach($ElementosCampoLocalListaCotizaciones as $ElementoCampoLocalListaCotizaciones)
-								<?php $ElementosCampoLocalListaCotizaciones2[$ElementoCampoLocalListaCotizaciones -> Valor] = $ElementoCampoLocalListaCotizaciones -> Valor ?>
-							@endforeach
-							{{ Form::select($CampoLocalCotizaciones -> Codigo, $ElementosCampoLocalListaCotizaciones2, null, array('class' => 'form-control')) }}
-						@endif
-					@endforeach
+							@if($HayErrores)
+								<?php
+									$ValorCampoLocal = $Input[$CampoLocalCotizaciones -> Codigo];
+									
+									$HayError = false;
+													
+									if($ValorCampoLocal == ''){
+										if($CampoLocalCotizaciones -> Requerido){
+											$HayError = true;
+										}
+									}else{
+										switch($CampoLocalCotizaciones -> Tipo){
+											case 'TXT':
+												if(Helpers::EsAlfaEspacio($ValorCampoLocal)){
+													$HayError = true;
+												}
+											break;
+											
+											case 'INT':
+												if(!Helpers::EsEntero($ValorCampoLocal)){
+													$HayError = true;
+												}
+											break;
+												
+											case 'FLOAT':
+												if(!Helpers::EsDecimal($ValorCampoLocal)){
+													$HayError = true;
+												}
+											break;
+											
+											default:
+											break;
+										}
+									}
+								?>
+								
+								@if($HayError)
+									@if($CampoLocalCotizaciones -> Tipo == 'TXT' || $CampoLocalCotizaciones -> Tipo == 'INT' || $CampoLocalCotizaciones -> Tipo == 'FLOAT')
+										<div class="form-group has-error has-feedback">
+											<label class="control-label pull-left" for="inputError2">{{ $CampoLocalCotizaciones -> Nombre }}</label>
+											{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+											<span class="glyphicon glyphicon-remove form-control-feedback"></span>
+										</div>
+									@endif
+								@else
+									@if($CampoLocalCotizaciones -> Tipo == 'TXT' || $CampoLocalCotizaciones -> Tipo == 'INT' || $CampoLocalCotizaciones -> Tipo == 'FLOAT')
+										<div class="form-group has-success has-feedback">
+											<label class="control-label pull-left" for="inputSuccess2">{{ $CampoLocalCotizaciones -> Nombre }}</label>
+											{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+											<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+										</div>
+									@endif
+								@endif
+								
+								@if($CampoLocalCotizaciones -> Tipo == 'LIST')
+									<?php $ElementosCampoLocalListaCotizaciones = Helpers::InformacionCampoLocalListaCotizaciones($CampoLocalCotizaciones -> Id);?>
+									
+									@foreach($ElementosCampoLocalListaCotizaciones as $ElementoCampoLocalListaCotizaciones)
+										<?php $ElementosCampoLocalListaCotizaciones2[$ElementoCampoLocalListaCotizaciones -> Valor] = $ElementoCampoLocalListaCotizaciones -> Valor ?>
+									@endforeach
+									
+									<div class="form-group has-success has-feedback">
+										<label class="control-label pull-left" for="inputSuccess2">{{ $CampoLocalCotizaciones -> Nombre }}</label>
+										{{ Form::select($CampoLocalCotizaciones -> Codigo, $ElementosCampoLocalListaCotizaciones2, null, array('class' => 'form-control')) }}
+										<span class="glyphicon glyphicon-ok form-control-feedback"></span>
+									</div>
+								@endif
+								
+							@else
+								<label class="pull-left">{{{ $CampoLocalCotizaciones -> Nombre }}}</label>
+								
+								@if($CampoLocalCotizaciones -> Requerido)
+									<label class="pull-left">&nbsp; *</label>
+								@endif
+								
+								@if($CampoLocalCotizaciones -> Tipo == 'TXT' || $CampoLocalCotizaciones -> Tipo == 'INT' || $CampoLocalCotizaciones -> Tipo == 'FLOAT')
+									{{ Form::text($CampoLocalCotizaciones -> Codigo, null, array('class' => 'form-control', 'id' => $CampoLocalCotizaciones -> Codigo)) }}
+								@endif
+								
+								@if($CampoLocalCotizaciones -> Tipo == 'LIST')
+									<?php $ElementosCampoLocalListaCotizaciones = Helpers::InformacionCampoLocalListaCotizaciones($CampoLocalCotizaciones -> Id);?>
+									
+									@foreach($ElementosCampoLocalListaCotizaciones as $ElementoCampoLocalListaCotizaciones)
+										<?php $ElementosCampoLocalListaCotizaciones2[$ElementoCampoLocalListaCotizaciones -> Valor] = $ElementoCampoLocalListaCotizaciones -> Valor ?>
+									@endforeach
+									
+									{{ Form::select($CampoLocalCotizaciones -> Codigo, $ElementosCampoLocalListaCotizaciones2, null, array('class' => 'form-control')) }}
+								@endif
+							@endif
+						@endforeach
+					@endif
 				</div>
 			</div>
 		</div>

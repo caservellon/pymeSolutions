@@ -10,7 +10,7 @@ class Cotizacion extends Eloquent {
 
 	public static $rules = array(
 		'COM_Cotizacion_Vigencia' => 'required',
-		'COM_Cotizacion_ISV' => 'required | decimal'
+		'COM_Cotizacion_ISV' => 'required'
 	);
 	
 	public static $messages = array(

@@ -281,6 +281,30 @@ class Helpers {
 		return $Consulta;
 	}
 	
+	public static function ExistenCamposLocalesCotizaciones(){
+		$Consulta = DB::table('GEN_CampoLocal')
+			-> select('GEN_CampoLocal_Codigo as Codigo')
+			-> where('GEN_CampoLocal_Activo', "=", '1')
+			-> where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')
+			-> get();
+			
+		return $Consulta;
+	}
+	
+	public static function ExisteCampoLocalCotizaciones($CodigoCampoLocal){
+		$Consulta = DB::table('GEN_CampoLocal')
+			-> select('GEN_CampoLocal_Codigo as Codigo')
+			-> where('GEN_CampoLocal_Activo', "=", '1')
+			-> where('GEN_CampoLocal_Codigo', '=', $CodigoCampoLocal)
+			-> get();
+			
+		if(count($Consulta) == 0){
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public static function InformacionCampoLocalCotizacion($CodigoCampoLocal, $CodigoCotizacion){
 		$Consulta = DB::table('GEN_CampoLocal')
 			-> join('COM_ValorCampoLocal', 'GEN_CampoLocal_ID', '=', 'COM_CampoLocal_IdCampoLocal')
@@ -462,4 +486,54 @@ class Helpers {
 			
 			return $Consulta;
 	}
+	
+	
+	
+	//************************ VALIDACIONES
+	
+	public static function EsAlfaEspacio($Valor){
+		$EsTextoValido = false;
+	
+		if(preg_match('/^([a-z]|[A-Z])([a-z]|[A-Z]|\s)*([a-z]|[A-Z])$/', $Valor)){
+			$EsTextoValido = true;
+		}
+		
+		return $EsTextoValido;
+	}
+	
+	public static function EsEntero($Valor){
+		$EsEnteroValido = false;
+	
+		if(preg_match('/^(\+|-)?\d+$/', $Valor)){
+			$EsEnteroValido = true;
+		}
+		
+		return $EsEnteroValido;
+	}
+	
+	public static function EsDecimal($Valor){
+		$EsDecimalValido = false;
+	
+		if(preg_match('/^(\+|-)?\d+(\.\d+)?$/', $Valor)){
+			$EsDecimalValido = true;
+		}
+		
+		return $EsDecimalValido;
+	}
+	
+	public static function EsDecimalMayorCero($Valor){
+		$EsDecimalValido = false;
+		$EsMayorCero = false;
+	
+		if(preg_match('/^\d+(\.\d{1,2})?$/', $Valor)){
+			$EsDecimalValido = true;
+			
+			if($Valor > 0){
+				$EsMayorCero = true;
+			}
+		}
+		
+		return $EsDecimalValido && $EsMayorCero;
+	}
+	
 }
