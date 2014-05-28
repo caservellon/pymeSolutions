@@ -4,7 +4,7 @@
 
 <div class='page-header clearfix'>
 <h2>Concepto Motivo> <small>Listar</small>
-    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
+    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad/configuracion')}}">
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>    
 </div>
 

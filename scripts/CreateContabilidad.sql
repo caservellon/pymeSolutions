@@ -697,6 +697,8 @@ BEGIN
         ELSEIF Haber>Debe THEN
             SET SaldoFinal=Haber-Debe;
             SET Deudor_Acreedor=1;
+        ELSE
+          SET SaldoFinal=0;
         END IF;
 
         INSERT INTO 
