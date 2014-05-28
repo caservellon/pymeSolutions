@@ -202,6 +202,10 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_EstadoOrdenCompra` (
   `COM_EstadoOrdenCompra_Nombre` VARCHAR(45) NOT NULL ,
   `COM_EstadoOrdenCompra_Observacion` TEXT NOT NULL ,
   `COM_EstadoOrdenCompra_Activo` TINYINT(1) NOT NULL ,
+  `COM_EstadoOrdenCompra_FechaCreacion` DATE NOT NULL,
+  `COM_EstadoOrdenCompra_FechaModificacion` DATE NULL,
+  `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
+  `COM_Usuario_idUsuarioModifico` VARCHAR(64) NULL,
   PRIMARY KEY (`COM_EstadoOrdenCompra_IdEstadoOrdenCompra`) )
 ENGINE = InnoDB;
 
@@ -216,6 +220,10 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_TransicionEstado` (
   `COM_TransicionEstado_Observacion` TEXT NULL DEFAULT NULL ,
   `COM_EstadoOrdenCompra_IdEstAnt` INT(11) NOT NULL ,
   `COM_EstadoOrdenCompra_IdEstAct` INT(11) NOT NULL ,
+  `COM_TrancicionEstado_FechaCreacion` DATE NOT NULL,
+  `COM_TrancicionEstado_FechaModificacion` DATE NULL,
+  `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
+  `COM_Usuario_idUsuarioModifico` VARCHAR(64) NULL,
   PRIMARY KEY (`COM_TransicionEstado_Id`) ,
   INDEX `fk_TransicionEstado_OrdenCompra1_idx` (`COM_TransicionEstado_IdOrdenCompra` ASC) ,
   UNIQUE INDEX `COM_TransicionEstado_Codigo_UNIQUE` (`COM_TransicionEstado_Codigo` ASC) ,
@@ -246,6 +254,10 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_OrdenCompra_TransicionEstado` (
   `COM_OrdenCompra_TransicionEstado_EstadoPrevio` INT(11) NOT NULL ,
   `COM_OrdenCompra_TransicionEstado_EstadoPosterior` INT(11) NOT NULL ,
   `COM_TransicionEstado_Activo` TINYINT(1) NOT NULL ,
+  `COM_TansicionEstado_FechaCreacion` DATE NOT NULL,
+  `COM_TansicionEstado_FechaModificacion` DATE NULL,
+  `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
+  `COM_Usuario_idUsuarioModifico` VARCHAR(64) NULL,
   INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra1_idx` (`COM_OrdenCompra_TransicionEstado_EstadoPrevio` ASC) ,
   INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra2_idx` (`COM_OrdenCompra_TransicionEstado_EstadoPosterior` ASC) ,
   INDEX `fk_OrdenCompra_TransicionEstado_EstadoOrdenCompra3_idx` (`COM_OrdenCompra_TransicionEstado_EstadoActual` ASC) ,
