@@ -78,7 +78,9 @@ function subTotal(){
 	
 }
 function impuesto(){
-	var imp=parseFloat(document.getElementById('subtotal').value*0.15);
+	valor=document.forms[0];
+	var toge=encuentraOtros(valor,'pISV');
+	var imp=parseFloat(document.getElementById('subtotal').value*(valor.elements[toge].value/100));
 	document.getElementById('isv').value=imp.toFixed(2);
 	
 }
@@ -108,6 +110,22 @@ function eliminar(){
 	subTotal();
 	impuesto();
 	total();
+}
+function mostrarVentanaISV()
+{
+    var ventana = document.getElementById('Porcentaje');
+    ventana.style.marginTop = "100px";
+    ventana.style.left = ((document.body.clientWidth-350) / 2) +  "px";
+	ventana.style.backgroundColor=' rgba(0,0,0,0.6)';
+    ventana.style.display = 'block';
+}
+function ocultarVentanaISV()
+{	
+	
+	impuesto();
+	total();
+    var ventana = document.getElementById('Porcentaje');
+    ventana.style.display = 'none';
 }
 
 

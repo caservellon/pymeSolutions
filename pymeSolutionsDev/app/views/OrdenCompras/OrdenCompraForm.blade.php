@@ -1,7 +1,10 @@
 @extends('layouts.scaffold')
 
 @section('main')
-
+    <script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+    <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
 <? 
   $subTotal=0;
   $totalGeneral=0;
@@ -111,6 +114,11 @@
             <span class="bold-span">Descuento: </span> <span class="bold-span"><label style="margin-left:14px; text-align:right;">Lps.</label> <input type="text"  id="descuento" value="0.00" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:90px; text-align:right;"/></span>
         </div>
         <div>
+          <div id='Porcentaje' style="position: fixed; width: 350px; height: 190px; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; border: #333333 3px solid; background-color: #FAFAFA; color: #000000; display:none;">
+            <label>Introduzca el Porcentaje del Impuesto Sobre la Venta</label>
+            {{Form::text('pISV',15, array('id' => 'pISV'))}}
+            <button type="button" class="btn btn-info cancel-venta" onClick="ocultarVentanaISV()" >Cambiar</button>
+          </div>
             <span class="bold-span">ISV: </span> <span class="bold-span"><label style="margin-left:68px; text-align:right;">Lps.</label> <input type="text"  id="isv" value="{{$subTotal*0.15}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:90px; text-align:right;"/></span>
         </div>
         <hr>
@@ -129,6 +137,7 @@
 
 					<!--<a href="{{ route('HistorialOrden', array('id'=>' <script type="text/javascript"> alert("hola") ;</script> '))}}" ><button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregar-Producto" >Agregar Producto</button></a>-->
 					<button type="button" class="btn btn-info editar-prod" onClick="mostrarVentana()" >Editar Cantidad</button>
+          <button type="button" class="btn btn-info editar-prod" onClick="mostrarVentanaISV()" >Introducir el ISV</button>
 					<button type="button" class="btn btn-warning eliminar-prod" onClick="eliminar();" >Eliminar Producto</button>
 					<!--<button type="reset" class="btn btn-danger cancel-venta" onclick="window.history.back()" >Cancelar Cambios</button>-->
        
