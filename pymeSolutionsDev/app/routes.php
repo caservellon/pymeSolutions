@@ -233,7 +233,7 @@ Route::group(array('prefix' => 'Compras'), function(){
     //devoluciones
      Route::get('DevolucionCompra/Lista', array('as'=>'ListaDevolucion','uses'=>'DevolucionCompraController@ListaDevolucion'));
      Route::get('DevolucionCompra/Detalle', array('as'=>'DevolucionCompra','uses'=>'DevolucionCompraController@DevolucionCompraDetalle'));
-
+      Route::post('DevolucionCompra/Guardado', array('as'=>'guardaDevolucion','uses'=>'DevolucionCompraController@guardaDevolucion'));
     
 
     Route::resource('Cotizacions', 'CotizacionsController');

@@ -30,12 +30,12 @@
     $proveedor=1;
     $id_cot=1;
 ?>
-{{Form::open(array('route'=>'GuardaOCcnCot'),array('id'=>'formu'))}}
+{{Form::open(array('route'=>'guardaDevolucion'),array('id'=>'formu'))}}
 <div class="row">
     <div class="col-md-4">
         <h4>Para:</h4>
         {{Form::text('COM_Proveedor_IdProveedor',$proveedor, array('style' => 'display:none'))}}
-        {{Form::text('Id_Cot',$id_cot, array('style' => 'display:none'))}}
+        {{Form::text('Id_Orden',$id_cot, array('style' => 'display:none'))}}
         <?php $proveedora=  Proveedor::find($proveedor)?>
         <h5>{{$proveedora->INV_Proveedor_Nombre}}</h5>
         <h5>{{$proveedora->INV_Proveedor_Email}}</h5>

@@ -64,6 +64,44 @@ class DevolucionCompraController extends BaseController {
             
             
         }
+          public function guardaDevolucion(){
+//Recibo los datos y los Compruebo
+            $input=Input::all();
+            $contador=0;
+//selecciono los Datos que eviaron en el formulario
+            $idproveedor= Input::get('COM_Proveedor_IdProveedor');
+            $id_Orden= Input::get('Id_Orden');
+            $isv=Input::get('isv');
+            $total=Input::get('totalG');
+//Creado el header de la devolucion
+            $ultimo= DevolucionCompra::count();
+            $devolucion= new DevolucionCompra();
+            $devolucion->COM_DevolucionCompra_Codigo='COM_DOC_'.($ultimo+1);
+            $devolucion->COM_DevolucionCompra_FechaEmision=date('Y/m/d H:i:s');
+            $devolucion->COM_DevolucionCompra_Activo=1;
+            $devolucion->COM_DevolucionCompra_Total=$total;
+            $devolucion->COM_DevolucionCompra_UsuarioCreo=1;
+            $devolucion->COM_OrdenCompra_COM_OrdenCompra_IdOrdenCompra=$id_Orden;
+            $devolucion->COM_Proveedor_IdProveedor=$idproveedor;
+            $devolucion->save();
+            $ultOrd= DevolucionCompra::count();
+//Recibiendo el Detalle
+            foreach($input as $Elemento){
+                if(Input::has('COM_Producto_idProducto'.$contador)){
+                    $ultdet= DetalleDevolucionCompra::count();
+                     $detalle1=new DetalleDevolucionCompra();
+                     $detalle1->COM_DetalleDevolucionCompra_Codigo='COM_DDOC_'.($ultdet+1)
+                     $detalle1->COM_Usuario_idUsuarioCreo=1;
+                     $detalle1->COM_DetalleDevolucionCompra_FechaCreo=date('Y/m/d H:i:s');
+                     $detalle1->COM_DevolucionCompra_ID=$ultOrd;
+                     $detalle1->COM_DetalleDevolucionCompra_Cantidad=Input::get('COM_DetalleOrdenCompra_Cantidad'.$contador);
+                     $detalle1->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('COM_DetalleDevolucionCompra_PrecioUnitario'.$contador);
+                     $detalle1->save();
+                }
+            }
+            return var_dump($input);
+            
+        }
         
  }
 ?>
