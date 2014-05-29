@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="/assets/javascript/jquery.min.js"></script>
 		<!--Load Script and Stylesheet -->
 		<link rel="stylesheet" type="text/css" href="/assets/css/general.css">
+		<link rel="stylesheet" type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css">
 		<script type="text/javascript" src="/assets/javascript/Compras.js"></script>
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
 	</head>

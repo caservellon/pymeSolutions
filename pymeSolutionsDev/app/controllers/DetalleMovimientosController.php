@@ -276,4 +276,22 @@ class DetalleMovimientosController extends BaseController {
 		return View::make('DetalleMovimientos.create', compact('Productos', 'Motivo', 'id', 'results', 'Categorias'));
 	}
 
+		public function search_index(){
+
+			$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->get();
+			return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
+
+	}
+
+	public function history($id){
+		$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->get();
+		if (!$DetalleMovimientos->isEmpty()) {
+			return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
+		} else {
+			return Redirect::route('Inventario.Productos.index');
+		}
+	}
+		
+		
+
 }

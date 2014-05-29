@@ -112,6 +112,18 @@ class ProductosController extends BaseController {
 		return View::make('Productos.show', compact('Producto'));
 	}
 
+	public function search_index(){
+
+		try{
+			
+			$Productos = Producto::where('INV_Producto_Nombre', 'like', '%'.Input::get('search').'%') ->get();
+			return View::make('Productos.index', compact('Productos'));
+
+		}catch(Exception $e){
+			return View::make('Productos.index', compact('Productos'));
+		}
+	}
+
 	public function campolocalsave()
 	{
 		$nombreCampo = Input::get('nombre');
