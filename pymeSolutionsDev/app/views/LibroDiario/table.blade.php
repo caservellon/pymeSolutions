@@ -2,6 +2,7 @@
 
 
 @if ($LibroDiario!=array())
+	<?php echo $Pages->links(); ?>
 	<table class="table table-bordered table-responsive"> 
 		<thead>
 			<tr>
@@ -44,9 +45,12 @@
 				@endforeach
 		</tbody>
 	</table>
+	<?php echo $Pages->links(); ?>
 @else
 	<h4>No se encontraron asientos en el libro diario</h4>
 @endif
+
+
 
 
 	

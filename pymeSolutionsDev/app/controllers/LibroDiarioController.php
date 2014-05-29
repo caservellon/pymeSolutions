@@ -4,21 +4,23 @@ class LibroDiarioController extends BaseController {
 	
 	public function index()
 	{
-		
+		$nPag=2;
 		if(Request::Ajax()){
 			$LibroDiario = LibroDiario::where('CON_LibroDiario_FechaCreacion','>=',Input::get('date1'))
 				->where('CON_LibroDiario_FechaCreacion','<=',Input::get('date2'))
-				->get();
+				->paginate($nPag);
 			$Asientos=$this->getAsientos($LibroDiario);
 			return View::make('LibroDiario.table')
-				->with('LibroDiario',$Asientos);
+				->with('LibroDiario',$Asientos)
+				->with('Pages',$LibroDiario);
 		}else{
-			$LibroDiario = LibroDiario::all();
+			$LibroDiario = LibroDiario::paginate($nPag);
 			$Asientos=$this->getAsientos($LibroDiario);
 			$PeriodoContable = PeriodoContable::orderBy('CON_PeriodoContable_FechaInicio')->first();
 			return View::make('LibroDiario.index')
 				->with('PeriodoContable',$PeriodoContable)
-				->with('LibroDiario',$Asientos);
+				->with('LibroDiario',$Asientos)
+				->with('Pages',$LibroDiario);
 		}
 	}
 

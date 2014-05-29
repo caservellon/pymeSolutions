@@ -8,8 +8,6 @@
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>    
 </div>
 
-<a class="btn btn-info form-group" href="{{ URL::to('contabilidad/crear/conceptomotivos') }}">Crear Nuevo</a>
-
 
 @if ($ConceptoMotivos->count())
 	<table class="table table-striped table-bordered">
@@ -17,6 +15,7 @@
 			<tr>
 				<th>Nombre del Concepto</th>
 				<th>Motivo Transaccion</th>
+				<th>Accion</th>
 			</tr>
 		</thead>
 
@@ -29,6 +28,7 @@
 						<td>{{{ $M->CON_MotivoTransaccion_Descripcion }}}</td>
 						@endif
 					@endforeach
+					<td><a class="btn btn-success" href="{{URL::to('contabilidad/conceptomotivo/'.$ConceptoMotivo->CON_ConceptoMotivo_ID.'/edit')}}">Editar</a></td>
 				</tr>
 			@endforeach
 		</tbody>

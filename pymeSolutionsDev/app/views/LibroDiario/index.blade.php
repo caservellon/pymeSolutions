@@ -34,7 +34,6 @@
       <p class="result"></p>
 <div id="LibroDiario">
 	@include('LibroDiario.table')
-
 </div>
 
 

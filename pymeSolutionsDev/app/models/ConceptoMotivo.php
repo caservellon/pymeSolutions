@@ -7,7 +7,7 @@ class ConceptoMotivo extends Eloquent {
 	protected $primaryKey = 'CON_ConceptoMotivo_ID';
 
 	public static $rules = array(
-		'CON_ConceptoMotivo_Concepto' => 'required|unique:CON_ConceptoMotivo,CON_ConceptoMotivo_Concepto',
-		'CON_MotivoTransaccion_ID' => 'required'
+		'CON_ConceptoMotivo_Concepto' => 'required|unique:CON_ConceptoMotivo,CON_ConceptoMotivo_Concepto,:Concepto,CON_ConceptoMotivo_Concepto',
+		//'CON_MotivoTransaccion_ID' => 'required'
 	);
 }

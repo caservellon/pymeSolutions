@@ -523,13 +523,14 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `pymeERP`.`CON_Pago`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `pymeERP`.`CON_Pago` ;
+-- DROP TABLE IF EXISTS `pymeERP`.`CON_Pago` ;
 
-CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Pago` (
-  `CON_Pago_ID` INT NOT NULL,
-  `CON_Pago_PorPagar` DECIMAL(17,2) NOT NULL,
-  PRIMARY KEY (`CON_Pago_ID`))
-ENGINE = InnoDB;
+-- CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Pago` (
+  -- `CON_Pago_ID` INT NOT NULL,
+  -- `CON_Pago_PorPagar` DECIMAL(17,2) NOT NULL,
+  -- `CON_Pago_FechaCreacion` DATETIME NOT NULL, 
+  -- PRIMARY KEY (`CON_Pago_ID`))
+-- ENGINE = InnoDB;
 
 DROP TABLE IF EXISTS `pymeERP`.`CON_ConceptoMotivo` ;
 
@@ -537,6 +538,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_ConceptoMotivo` (
   `CON_ConceptoMotivo_ID` INT NOT NULL AUTO_INCREMENT,
   `CON_ConceptoMotivo_Concepto` VARCHAR(45) NOT NULL,
   `CON_MotivoTransaccion_ID` INT NOT NULL,
+  `CON_ConceptoMotivo_FechaCreacion` DATETIME NOT NULL,
+  `CON_ConceptoMotivo_FechaModificacion` DATETIME NOT NULL,
   PRIMARY KEY (`CON_ConceptoMotivo_ID`),
   INDEX `fk_CON_ConceptoMotivo_CON_MotivoTransaccion1_idx` (`CON_MotivoTransaccion_ID` ASC),
   CONSTRAINT `fk_CON_ConceptoMotivo_CON_MotivoTransaccion1`
@@ -552,6 +555,8 @@ CREATE TABLE `pymeERP`.`CON_MotivoInventario` (
 `CON_MotivoInventario_ID` INT NOT NULL,
 
   `CON_MotivoTransaccion_ID` INT NULL,
+  `CON_MotivoTransaccion_FechaCreacion` DATETIME NOT NULL,
+  `CON_MotivoTransaccion_Modificacion` DATETIME NOT NULL,
 
   PRIMARY KEY (`CON_MotivoInventario_ID`),
 
