@@ -37,6 +37,11 @@ class DevolucionCompraController extends BaseController {
             
             return View::make('DevolucionCompra.DevolucionCompraForm');
         }
+        public function ListaDevolucion(){
+            return var_dump(getProductosRechazados());
+            $Ordenes= OrdenCompra::all();
+            return View::make('DevolucionCompra.ListaDevoluciones',array('ordenes'=> $Ordenes));
+        }
         
  }
 ?>

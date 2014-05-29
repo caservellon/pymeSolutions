@@ -231,7 +231,9 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::resource('OrdenCompras', 'OrdencomprasController');
     
     //devoluciones
+     Route::get('DevolucionCompra/Lista', array('as'=>'ListaDevolucion','uses'=>'DevolucionCompraController@ListaDevolucion'));
      Route::get('DevolucionCompra/Detalle', array('as'=>'DevolucionCompra','uses'=>'DevolucionCompraController@DevolucionCompraDetalle'));
+
     
 
     Route::resource('Cotizacions', 'CotizacionsController');
