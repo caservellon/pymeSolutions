@@ -6,12 +6,12 @@ echo "***Creating database*** " >> ./logs/install.log
 mysql -u "root" "-proot" < "CreateDB.sql" >> ./logs/install.log 2>&1
 echo "Creating General Tables " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateGeneral.sql" >> ./logs/install.log 2>&1
+echo "Creating Compras " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "CreateCompras.sql" >> ./logs/install.log 2>&1
 echo "Creating Inventario " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateInventario.sql" >> ./logs/install.log 2>&1
 echo "Creating Ventas " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateVentas.sql" >> ./logs/install.log 2>&1
-echo "Creating Compras " >> ./logs/install.log
-mysql -u "root" "-proot" "pymeERP" < "CreateCompras.sql" >> ./logs/install.log 2>&1
 echo "Creating Contabilidad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateContabilidad.sql" >> ./logs/install.log 2>&1
 echo "Creating CRM " >> ./logs/install.log
