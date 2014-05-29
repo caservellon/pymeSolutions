@@ -6,7 +6,7 @@
 
 <h2 class="sub-header">Orden Compra para Imprimir</h2>
 <div class="pull-right">
-        <a href="{{{ URL::to('/Compras/OrdenCompra/Historial/ListarOrdenes') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="{{{ URL::to('/Compras/OrdenCompra') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
           <div  class="col-md-9" >
                           

@@ -8,7 +8,7 @@
     <div class='row'>
         <div class="col-md-12">
             <h3 class="is-hidden">
-                {{{ $mensaje->GEN_Mensajes_Mensaje}}}
+                {{{ $mensaje}}}
             </h3>
         </div>
         
@@ -31,7 +31,7 @@
         <div class='row'>
         <div class="col-md-12">
             <h3 class="is-hidden">
-                {{{ $mensaje2->GEN_Mensajes_Mensaje}}}
+                {{{ $mensaje2}}}
             </h3>
         </div>
         

@@ -95,11 +95,11 @@
 <div class='row'>
     <div style="text-align:left;" >
     <div>
-        <label>Plan de Pago: </labe><label><?php echo $imprimir->COM_OrdenCompra_PeriodoGracia; ?></label>
+        <label>Plan de Pago: </labe><label><?php echo $imprimir->COM_OrdenCompra_CantidadPago; ?></label>
     </div>
         <div>
             
-           <label>Periodo Gracia: </labe><label><?php echo $imprimir->COM_OrdenCompra_CantidadPago; ?></label> 
+           <label>Periodo Gracia: </labe><label><?php echo $imprimir->COM_OrdenCompra_PeriodoGracia; ?></label> 
         </div>
         
       
