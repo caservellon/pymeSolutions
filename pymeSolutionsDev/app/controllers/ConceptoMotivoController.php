@@ -159,13 +159,15 @@ class ConceptoMotivoController extends BaseController {
 	public function edit($id)
 	{
         $CM = $this->ConceptoMotivo->find($id);
-
+        $MT = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+        //return $MT;
 		if (is_null($CM))
 		{
 			return Redirect::action('ConceptoMotivoController@index');
 		}
         return View::make('ConceptoMotivo.edit')
-        	->with('ConceptoMotivos',$CM);
+        	->with('ConceptoMotivos',$CM)
+        	->with('ListaMotivos',$MT);
 	}
 
 	/**
@@ -177,12 +179,15 @@ class ConceptoMotivoController extends BaseController {
 	public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, ConceptoMotivo::$rules);
+		$Concepto = ConceptoMotivo::findOrFail($id);
+		$var = $Concepto->CON_ConceptoMotivo_Concepto;
+		$rules=str_replace(":Concepto", $var, ConceptoMotivo::$rules);
+		//return $rules;
+		$validation = Validator::make($input, $rules);
 
 		if ($validation->passes())
 		{
-			$moti = $this->ConceptoMotivo->find($id);
-			$moti->update($input);
+			$Concepto->update($input);
 
 			return Redirect::action('ConceptoMotivoController@index');
 		}

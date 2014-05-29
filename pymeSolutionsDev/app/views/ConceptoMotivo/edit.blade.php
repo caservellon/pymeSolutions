@@ -5,7 +5,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Concepto Motivo &gt; <small>Editar Concepto</small></h3>
       <div class="pull-right">
-        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+        <a href="{{{ URL::to('contabilidad/conceptomotivo') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
       </div>
 </div>
 
@@ -23,7 +23,7 @@
 <div class="form-group">
             {{ Form::label('CON_MotivoTransaccion_ID', 'Motivo del Concepto:') }}
             <div class="col-md-3">
-            {{ Form::select('CON_MotivoTransaccion_ID') }}
+            {{ Form::select('CON_MotivoTransaccion_ID',$ListaMotivos) }}
 </div></div>
 
 <div class="col-md-5">
