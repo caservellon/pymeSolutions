@@ -33,6 +33,13 @@ class OrdenComprasController extends BaseController {
      * @param  int  $id
      * @return Response
      */
+    
+        public function index(){
+            $OrdenCompra = OrdenCompra::paginate();
+            //return $ordencompra; 
+            $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get();
+            return View::make('OrdenCompras.index', compact('OrdenCompra', 'CamposLocales'));
+        }
         public function indexImprimir(){
             $ordencompra = OrdenCompra::where('COM_OrdenCompra_Imprimir', '=', 0)->paginate();
             //return $ordencompra; 
@@ -233,6 +240,8 @@ class OrdenComprasController extends BaseController {
                     
                     //captura el id del proveedor a quien se lo quiere mandar
                     $ordenemail = OrdenCompra::find($ultimoI+1);
+                    $email=array();
+                    $email[]=$ordenemail->COM_OrdenCompra_IdOrdenCompra;
                     $enviar= invCompras::ProveedorCompras($ordenemail->COM_Proveedor_IdProveedor);
 		    
                     if($enviar->INV_Proveedor_Email == NULL){
@@ -247,16 +256,19 @@ class OrdenComprasController extends BaseController {
                         //manda para imprimir a los que se les manda correo, use para agarrar array de proveedores
                         $correo[]= $enviar->INV_Proveedor_ID;
                         //metodo de enviar el correo, 'emailscompra' es el view,  
-                    	Mail::later(10,'emailsOrdenCompras', array('email'=>$ordenemail) , function ($message) use($enviar){
-                        	 $message->subject('Solicitud ');
+                        
+                    	Mail::later(10,'emailsOrdenCompras', array('email'=>$email) , function ($message) use($enviar){
+                        	 $message->subject('Orden de Compra');
                             $message->to($enviar->INV_Proveedor_Email);
                     	});
                          
                     }
                        
-                    $ruta = route('ListaOrdenes');
-                    $mensaje = Mensaje::find(2);
-                    $mensaje2 = Mensaje::find(3);
+                    $ruta = route('Compras.OrdenCompra.index');
+                    $imprimir3 = Mensaje::find(2);
+                    $imprimir2 = Mensaje::find(3);
+                    $mensaje = 'La Orden de Compra'.' '.$imprimir3->GEN_Mensajes_Mensaje;
+                    $mensaje2 = 'La Orden de Compra'.' '.$imprimir2->GEN_Mensajes_Mensaje;
                     return View::make('MensajeSolicitud', compact('mensaje', 'mensaje2' ,'ruta', 'imprimir', 'correo'));
                 
 
@@ -273,6 +285,7 @@ class OrdenComprasController extends BaseController {
          public function ComparaCotizaciones(){
              $contador=0;
              $cotizaciones=array();
+             
              $input=Input::all();
              
                 foreach ($input as $in){
@@ -310,6 +323,8 @@ class OrdenComprasController extends BaseController {
          public function guardarOCcnCOT(){
              $input=Input::all();
              $contador=0;
+             $imprimir=array();
+             $correo= array();
               $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_OC%')->get();
 
              //se extrae las reglas de un modelo relacionado
@@ -417,9 +432,37 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_EstadoOrdenCompra_IdEstAct=3;
                       $historial->save();
                       
-            $ruta = route('ListaOrdenes');
-                    $mensaje = Mensaje::find(12);
-                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+                    $ordenemail = OrdenCompra::find($ultimoI+1);
+                    $email=array();
+                    $email[]=$ordenemail->COM_OrdenCompra_IdOrdenCompra;
+                    $enviar= invCompras::ProveedorCompras($ordenemail->COM_Proveedor_IdProveedor);
+		    
+                    if($enviar->INV_Proveedor_Email == NULL){
+                    //guarda al que no se manda
+                        $ordenemail->COM_OrdenCompra_Imprimir=0;
+                        $ordenemail->save();
+                    	$imprimir[]=$enviar->INV_Proveedor_ID;
+                    }else{
+						
+			$ordenemail->COM_OrdenCompra_Imprimir=1;
+			$ordenemail->save();
+                        //manda para imprimir a los que se les manda correo, use para agarrar array de proveedores
+                        $correo[]= $enviar->INV_Proveedor_ID;
+                        //metodo de enviar el correo, 'emailscompra' es el view,  
+                        
+                    	Mail::later(10,'emailsOrdenCompras', array('email'=>$email) , function ($message) use($enviar){
+                        	 $message->subject('Orden de Compra');
+                            $message->to($enviar->INV_Proveedor_Email);
+                    	});
+                         
+                    }
+                       
+                    $ruta = route('Compras.OrdenCompra.index');
+                    $imprimir3 = Mensaje::find(2);
+                    $imprimir2 = Mensaje::find(3);
+                    $mensaje = 'La Orden de Compra'.' '.$imprimir3->GEN_Mensajes_Mensaje;
+                    $mensaje2 = 'La Orden de Compra'.' '.$imprimir2->GEN_Mensajes_Mensaje;
+                    return View::make('MensajeSolicitud', compact('mensaje', 'mensaje2' ,'ruta', 'imprimir', 'correo'));
         }
         
         //funciones hechas para autorizar ordenes de compra

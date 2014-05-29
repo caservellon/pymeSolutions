@@ -35,15 +35,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="/Compras/SolicitudCotizacion">Solicitudes de Cotización</a></li>
 							<li><a href="/Compras/Cotizaciones">Cotizaciones</a></li>
-							<li><a href="#">**Ordenes de Compras</a></li>
-							<li><a href="/Compras/OrdenCompra/sinCotizacion/ListaProductos" >Crear Orden Compra sin Cotizacion</a></li>
-							<li><a href="/Compras/OrdenCompra/conCotizacion/ListaCotizaciones" >Comparar Cotizaciones</a></li>
-                                                        <li><a href="/Compras/OrdenCompra/Imprimir" > Imprimir Orden Compra</a></li>
-							<li><a href="/Compras/OrdenCompra/Autorizacion/ListaOrdenes" > Autorizar Orden Compra</a></li>
-							<li><a href="/Compras/OrdenCompra/Autorizacion/ListarOrdenes" > Administrar Orden Compra</a></li>
-							<li><a href="/Compras/OrdenCompra/GenerarPago/ListaCotizaciones" > generar pago Ordenes de  Compras</a></li>
-							<li><a href="/Compras/OrdenCompra/PlanPago/Lista" > Ver Plan de Pago para Las Ordenes de Compra</a></li>
-							<li><a href="/Compras/OrdenCompra/Historial/ListarOrdenes" > Historial Ordenes de  Compras</a></li>
+							<li><a href="/Compras/OrdenCompra" >Ordenes de Compras</a></li>
 							<li class="divider"></li>
 							<li><a href="/Compras">Configuración</a></li>
 						</ul>

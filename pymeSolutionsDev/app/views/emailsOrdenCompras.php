@@ -44,7 +44,7 @@
 		<tbody>
                     
                     
-                 <?php $detalle = COMDetalleOrdenCompra::all(); 
+                 <?php $detalle = COMDetalleOrdenCompra::where('COM_DetalleOrdenCompra_idOrdenCompra','=', $orden->COM_OrdenCompra_IdOrdenCompra)->get();  
                        $subTotal=0;
                  ?>
                     <?php 
@@ -63,7 +63,7 @@
                                         
                                         <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>
                                         <td><?php echo $unidad->INV_UnidadMedida_Nombre ?></td>
-                                        <?php $forma= invCompras::FormaPagoCompras($solCot->COM_SolicitudCotizacion_FormaPago) ?>
+                                        <?php $forma= invCompras::FormaPagoCompras($orden->COM_OrdenCompra_FormaPago) ?>
                                         <td><?php echo $forma->INV_FormaPago_Nombre ?></td>
                                         <?php foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get() as $campo){ 
 					    if (DB::table('COM_ValorCampoLocal')->where('COM_CampoLocal_IdCampoLocal',$campo->GEN_CampoLocal_ID)->where('COM_OrdenCompra_IdOrdenCompra',$orden->COM_OrdenCompra_IdOrdenCompra)->count() > 0 ){ ?>
@@ -80,16 +80,25 @@
                 </tbody> 
              </table>
           </div>
+<div class='row'>
+    <div style="text-align:left;" >
+    <div>
+        <label>Plan de Pago: </labe><label><?php echo $orden->COM_OrdenCompra_CantidadPago; ?></label>
+    </div>
+        <div>
+            
+           <label>Periodo Gracia: </labe><label><?php echo $orden->COM_OrdenCompra_PeriodoGracia; ?></label> 
+        </div>
+        
+      
+</div>
 <div class="venta-info" style="text-align:right;" >
     <div>
         <label>Sub Total: </labe><label><?php echo $subTotal; ?></label>
         </div>
         <div>
-            <?php $ISV=($orden->COM_OrdenCompra_ISV/100); ?>
+            <?php $ISV=($orden->COM_OrdenCompra_ISV/100)*$subTotal; ?>
            <label>ISV: </labe><label><?php echo $ISV; ?></label> 
-        </div>
-        <div>
-         <span class="bold-span">ISV: </span> <span class="bold-span"><label style="margin-left:68px; text-align:right;">Lps.</label> <input type="text"  id="isv" value="{{$subTotal*0.15}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:90px; text-align:right;"/></span>
         </div>
         <hr>
         <div>
@@ -97,6 +106,8 @@
               
         </div>
 </div>
+
+
             <div class="row" >
                 <div class="col-md-6" ><label></label></div>
                 <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>

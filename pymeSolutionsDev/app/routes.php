@@ -134,7 +134,17 @@ Route::group(array('prefix' => 'Compras'), function(){
         
         Route::get('/SolicitudCotizacion/Crear', function()
 	{
-		return View::make('SolicitudCotizacions.crearindex');
+		return View::make('SolicitudCotizacions.crearIndex');
+	});
+        
+        Route::get('/OrdenCompra', function()
+	{
+		return View::make('Menus.OrdenCompra');
+	});
+        
+        Route::get('/OrdenCompra/Crear', function()
+	{
+		return View::make('OrdenCompras.menuordencompra');
 	});
         
         Route::group(array('prefix' => 'Configuracion'), function(){
@@ -218,7 +228,11 @@ Route::group(array('prefix' => 'Compras'), function(){
     //orden compra imprimir
     Route::get('OrdenCompra/Imprimir', array('as'=>'ImprimirOrden', 'uses'=> 'OrdenComprasController@indexImprimir'));
     Route::get('OrdenCompra/Impresion', array('as'=>'impresionOrden', 'uses'=> 'OrdenComprasController@imprimir'));
+    //index
+    Route::get('OrdenCompra/index', array('as'=>'Compras.OrdenCompra.index', 'uses'=> 'OrdenComprasController@index'));
 
+    
+    
     
     Route::resource('COMEstadoOrdenCompras', 'COMEstadoOrdenCompraController');
     Route::resource('COMTransicionEstado', 'COMTransicionEstadoController');
