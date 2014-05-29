@@ -301,11 +301,26 @@ class MovimientoInventariosController extends BaseController {
 		$diff = 0;
 		foreach ($orden as $or) {
 			$diff += ($or->Cantidad * $or->Precio);
+			$prod = Producto::find($or->ID);
+			$producto = array();
+			$producto['INV_ProductoRechazado_IDOrdenCompra'] = $IdOrdenCompra;
+			$producto['INV_ProductoRechazado_IDProducto'] = $or->ID;
+			$producto['INV_ProductoRechazado_Cantidad'] = $or->Cantidad;
+			$producto['INV_ProductoRechazado_PrecioCosto'] = $or->Precio;
+			$producto['INV_ProductoRechazado_PrecioVenta'] = $prod->INV_Producto_PrecioVenta;
+			$producto['INV_ProductoRechazado_Activo'] = 1;
+			$producto['INV_ProductoRechazado_Observaciones'] = $input['INV_Movimiento_Observaciones'];
+			$producto['INV_ProductoRechazado_FechaCreacion'] = date('Y-m-d H:i:s');
+			$producto['INV_ProductoRechazado_UsuarioCreacion'] = 'Admin';
+			$producto['INV_ProductoRechazado_FechaModificacion'] = date('Y-m-d H:i:s');
+			$producto['INV_ProductoRechazado_UsuarioModificacion'] = 'Admin';
+			//return $producto;
+			ProductoRechazado::create($producto);
 		}
 		$diff += (($isv/100) * $diff);
 
 		//Se llama el método para realizar la contabilidad
-		Contabilidad::GenerarTransaccion(10, $diff);
+		//Contabilidad::GenerarTransaccion(10, $diff);
 
 		//Modificamos el estado de la orden de compra
 		comInventario::CambiaEstadoOrden($IdOrdenCompra, 1);
@@ -348,21 +363,26 @@ class MovimientoInventariosController extends BaseController {
 		//Buscamos el moviemiento que acabamos de crear para poder obtener su id
 		$temp = MovimientoInventario::where('INV_Movimiento_IDOrdenCompra', $input['INV_Movimiento_IDOrdenCompra'])->orderBy('INV_Movimiento_ID', 'DESC')->get();
 		$Movimiento = $temp[0];
-		//se procede a llenar los detalles de Movimiento de Inventario
-		$cont = 0;
-		$monto = 0;
-		$diff = 0;
-		//return $input;
+
 		foreach ($orden as $or) {
-			//Buscamos el Producto a Agregar
-			$Producto = Producto::find($or->ID);
 			if ($input['Cant'.$or->ID] < 0) {
 				return Redirect::route('Inventario.MovimientoInventario.Orden')
 					->withErrors('Ingrese Solo Valores Positivos');
 			}elseif ($input['Cant'.$or->ID] > $or->Cantidad) {
 				return Redirect::route('Inventario.MovimientoInventario.Orden')
 					->withErrors('No puede ingresar un valor mayor a la cantidad de la Orden');
-			}elseif ($input['Cant'.$or->ID] > 0) {
+			}
+		}
+		//se procede a llenar los detalles de Movimiento de Inventario
+		$cont = 0;
+		$monto = 0;
+		$diff = 0;
+		//return $input;
+		foreach ($orden as $or) {
+			if ($input['Cant'.$or->ID] > 0) {
+
+				//Buscamos el Producto a Agregar
+				$Producto = Producto::find($or->ID);
 				//return $Producto;
 				$cont++;
 				//Calculando Precio Costo con Promedio Ponderado
@@ -398,6 +418,22 @@ class MovimientoInventariosController extends BaseController {
 				$Producto->INV_Producto_PrecioCosto = $Costo;
 				$Producto->save();
 			}
+			if ($input['Cant'.$or->ID] != $or->Cantidad) {
+				$producto = array();
+				$producto['INV_ProductoRechazado_IDOrdenCompra'] = $IdOrdenCompra;
+				$producto['INV_ProductoRechazado_IDProducto'] = $or->ID;
+				$producto['INV_ProductoRechazado_Cantidad'] = ($or->Cantidad - $input['Cant'.$or->ID]);
+				$producto['INV_ProductoRechazado_PrecioCosto'] = $or->Precio;
+				$producto['INV_ProductoRechazado_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
+				$producto['INV_ProductoRechazado_Activo'] = 1;
+				$producto['INV_ProductoRechazado_Observaciones'] = $input['INV_Movimiento_Observaciones'];
+				$producto['INV_ProductoRechazado_FechaCreacion'] = date('Y-m-d H:i:s');
+				$producto['INV_ProductoRechazado_UsuarioCreacion'] = 'Admin';
+				$producto['INV_ProductoRechazado_FechaModificacion'] = date('Y-m-d H:i:s');
+				$producto['INV_ProductoRechazado_UsuarioModificacion'] = 'Admin';
+				//return $producto;
+				ProductoRechazado::create($producto);
+			}
 		}
 		if ($cont > 0) {
 			$monto += (($isv/100) * $monto);
@@ -405,7 +441,7 @@ class MovimientoInventariosController extends BaseController {
 
 			//Se llama el método para realizar la contabilidad
 			Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
-			Contabilidad::GenerarTransaccion(10, $diff);
+			//Contabilidad::GenerarTransaccion(10, $diff);
 
 			//Modificamos el estado de la orden de compra
 			comInventario::CambiaEstadoOrden($IdOrdenCompra, 0);

@@ -6,12 +6,12 @@ echo "***Creating database*** " >> ./logs/install.log
 mysql -u "root" "-proot" < "CreateDB.sql" >> ./logs/install.log 2>&1
 echo "Creating General Tables " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateGeneral.sql" >> ./logs/install.log 2>&1
+echo "Creating Compras " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "CreateCompras.sql" >> ./logs/install.log 2>&1
 echo "Creating Inventario " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateInventario.sql" >> ./logs/install.log 2>&1
 echo "Creating Ventas " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateVentas.sql" >> ./logs/install.log 2>&1
-echo "Creating Compras " >> ./logs/install.log
-mysql -u "root" "-proot" "pymeERP" < "CreateCompras.sql" >> ./logs/install.log 2>&1
 echo "Creating Contabilidad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateContabilidad.sql" >> ./logs/install.log 2>&1
 echo "Creating CRM " >> ./logs/install.log
@@ -30,6 +30,9 @@ mysql -u "root" "-proot" "pymeERP" < "INS_INV_UnidadMedida.sql" >> ./logs/instal
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Productos.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Proveedores.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_MotivoMovimiento.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Producto_Atributo.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Producto_Proveedor.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Proveedor_FormaPago.sql" >> ./logs/install.log 2>&1
 echo "Populating Contabilidad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_ClasificacionCuenta.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_CatalogoContable.sql" >> ./logs/install.log 2>&1
