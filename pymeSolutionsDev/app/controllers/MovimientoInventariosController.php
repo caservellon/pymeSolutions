@@ -301,11 +301,26 @@ class MovimientoInventariosController extends BaseController {
 		$diff = 0;
 		foreach ($orden as $or) {
 			$diff += ($or->Cantidad * $or->Precio);
+			$prod = Producto::find($or->ID);
+			$producto = array();
+			$producto['INV_ProductoRechazado_IDOrdenCompra'] = $IdOrdenCompra;
+			$producto['INV_ProductoRechazado_IDProducto'] = $or->ID;
+			$producto['INV_ProductoRechazado_Cantidad'] = $or->Cantidad;
+			$producto['INV_ProductoRechazado_PrecioCosto'] = $or->Precio;
+			$producto['INV_ProductoRechazado_PrecioVenta'] = $prod->INV_Producto_PrecioVenta;
+			$producto['INV_ProductoRechazado_Activo'] = 1;
+			$producto['INV_ProductoRechazado_Observaciones'] = $input['INV_Movimiento_Observaciones'];
+			$producto['INV_ProductoRechazado_FechaCreacion'] = date('Y-m-d H:i:s');
+			$producto['INV_ProductoRechazado_UsuarioCreacion'] = 'Admin';
+			$producto['INV_ProductoRechazado_FechaModificacion'] = date('Y-m-d H:i:s');
+			$producto['INV_ProductoRechazado_UsuarioModificacion'] = 'Admin';
+			//return $producto;
+			ProductoRechazado::create($producto);
 		}
 		$diff += (($isv/100) * $diff);
 
 		//Se llama el método para realizar la contabilidad
-		Contabilidad::GenerarTransaccion(10, $diff);
+		//Contabilidad::GenerarTransaccion(10, $diff);
 
 		//Modificamos el estado de la orden de compra
 		comInventario::CambiaEstadoOrden($IdOrdenCompra, 1);
@@ -393,6 +408,21 @@ class MovimientoInventariosController extends BaseController {
 				//Creamos el detalle para un solo producto
 				DetalleMovimiento::create($detalle);
 
+				$producto = array();
+				$producto['INV_ProductoRechazado_IDOrdenCompra'] = $IdOrdenCompra;
+				$producto['INV_ProductoRechazado_IDProducto'] = $or->ID;
+				$producto['INV_ProductoRechazado_Cantidad'] = ($or->Cantidad - $input['Cant'.$or->ID]);
+				$producto['INV_ProductoRechazado_PrecioCosto'] = $or->Precio;
+				$producto['INV_ProductoRechazado_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
+				$producto['INV_ProductoRechazado_Activo'] = 1;
+				$producto['INV_ProductoRechazado_Observaciones'] = $input['INV_Movimiento_Observaciones'];
+				$producto['INV_ProductoRechazado_FechaCreacion'] = date('Y-m-d H:i:s');
+				$producto['INV_ProductoRechazado_UsuarioCreacion'] = 'Admin';
+				$producto['INV_ProductoRechazado_FechaModificacion'] = date('Y-m-d H:i:s');
+				$producto['INV_ProductoRechazado_UsuarioModificacion'] = 'Admin';
+				//return $producto;
+				ProductoRechazado::create($producto);
+
 				//Actualizamos el Inventario
 				$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $input['Cant'.$or->ID];
 				$Producto->INV_Producto_PrecioCosto = $Costo;
@@ -405,7 +435,7 @@ class MovimientoInventariosController extends BaseController {
 
 			//Se llama el método para realizar la contabilidad
 			Contabilidad::invGenerarTransaccion($IdMovimiento, $monto);
-			Contabilidad::GenerarTransaccion(10, $diff);
+			//Contabilidad::GenerarTransaccion(10, $diff);
 
 			//Modificamos el estado de la orden de compra
 			comInventario::CambiaEstadoOrden($IdOrdenCompra, 0);

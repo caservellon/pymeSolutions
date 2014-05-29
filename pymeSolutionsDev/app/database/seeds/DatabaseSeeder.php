@@ -70,6 +70,7 @@ class DatabaseSeeder extends Seeder {
 
 
 		$this->call('MotivoinventariosTableSeeder');
+		$this->call('ProductorechazadosTableSeeder');
 	}
 
 }

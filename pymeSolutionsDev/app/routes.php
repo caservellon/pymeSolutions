@@ -112,6 +112,8 @@ Route::group(array('prefix' => 'Inventario'), function()
 
 		Route::resource('MovimientoInventario', 'MovimientoinventariosController');
 
+		Route::resource('ProductosRechazados', 'ProductorechazadosController');
+
 		Route::post('DetalleSalida/search', array('as' => 'Inventario.DetalleSalida.search', 'uses' =>'DetalleSalidasController@search'));
 
 });
@@ -520,6 +522,7 @@ Route::resource('tipodocumentos', 'TipodocumentosController');
 Route::resource('productocampolocals', 'ProductocampolocalsController');
 
 Route::resource('proveedorcampolocals', 'ProveedorcampolocalsController');
+
 
 
 

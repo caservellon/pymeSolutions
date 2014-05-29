@@ -502,6 +502,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_ProductoRechazado` (
   `INV_ProductoRechazado_PrecioCosto` DECIMAL(19,2) NOT NULL,
   `INV_ProductoRechazado_PrecioVenta` DECIMAL(19,2) NOT NULL,
   `INV_ProductoRechazado_Activo` INT NULL,
+  `INV_ProductoRechazado_Observaciones` VARCHAR(512) NULL DEFAULT NULL,
   `INV_ProductoRechazado_FechaCreacion` DATETIME NULL,
   `INV_ProductoRechazado_UsuarioCreacion` VARCHAR(64) NULL,
   `INV_ProductoRechazado_FechaModificacion` DATETIME NULL,

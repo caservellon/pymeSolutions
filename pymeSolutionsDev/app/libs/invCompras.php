@@ -64,6 +64,32 @@
                             return FormaPago::whereIn('INV_FormaPago_ID', $temp)->get();
 		}
 
+
+		public static function getProductosRechazados()
+		{
+			return ProductoRechazado::where('INV_ProductoRechazado_Activo', '1')->get();
+		}
+
+
+		public static function getOrdenRechazada($id)
+		{
+			return ProductoRechazado::where('INV_ProductoRechazado_Activo', '1')->where('INV_ProductoRechazado_IDOrdenCompra', $id)->get();
+		}
+
+
+		public static function setOrdenRechazada($id)
+		{
+			$detalle = ProductoRechazado::where('INV_ProductoRechazado_IDOrdenCompra', $id)->get();
+			foreach ($detalle as $det) {
+				$prod = ProductoRechazado::find($det->INV_ProductoRechazado_ID);
+				$prod->INV_ProductoRechazado_Activo = 0;
+				$prod->INV_ProductoRechazado_FechaModificacion = date('Y-m-d H:i:s');
+				//$prod->INV_ProductoRechazado_UsuarioModificacion = Auth::user()->id;
+				$prod->save();
+			}
+			return '1';
+		}
+
 	}
 
 ?>
