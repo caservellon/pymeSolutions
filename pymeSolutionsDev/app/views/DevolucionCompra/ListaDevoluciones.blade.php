@@ -45,7 +45,7 @@
                                         ?><td>{{$t->COM_EstadoOrdenCompra_Nombre}}</td><?php
                                         } 
                             @endforeach*/?>
-                            <td><a href="{{ route('AutOrdComForm', array('id'=>$orden->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Devolver</a></td>
+                            <td><a href="{{ route('DevolucionCompra', array('id'=>$orden->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Devolver</a></td>
                         </tr> 
                         
                      @endforeach

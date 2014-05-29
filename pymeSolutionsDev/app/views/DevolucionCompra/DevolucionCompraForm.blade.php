@@ -1,7 +1,6 @@
 @extends('layouts.scaffold')
 
 @section('main')
-ction('main')
     <script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
     <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
     <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
@@ -51,7 +50,7 @@ ction('main')
                 <tr>
                   <th>Codigo</th>
                   <th>Nombre</th>
-                  <th>Descripcion</th>
+                  
                   <th>Cantidad</th>
 		  <th>Precio Unitario</th>
                   <th>Total</th>
@@ -63,41 +62,34 @@ ction('main')
                         $total=0;
                         $elemento=3;
                         $totalGeneral=0;
+                        $contados=1;
                       ?>
-                      <? /*@foreach ($productos as $product)
-                      <?php $product1=  Producto::find($productos[$contador]);
-                            $detcot=DB::select('SELECT * FROM COM_DetalleCotizacion WHERE  COM_DetalleCotizacion_IdCotizacion = ?', array($id_cot));
-                            $cantidad=null;
-                            $precioUnitario=null;
-                            foreach ($detcot as $det){
-                                if($det->COM_Producto_Id_Producto==$product){
-                                        
-                                        $cantidad=$det->COM_DetalleCotizacion_Cantidad;
-                                        $precioUnitario=$det->COM_DetalleCotizacion_PrecioUnitario;
-                                }
-                            }
-                           
+                      @foreach ($detalle as $Elemento)
+                      <?php $product1=  Producto::find($Elemento->COM_Producto_idProducto);
+                            
+                            
                             ?>
                             
                       <tr>
-                          {{Form::text('COM_Producto_idProducto'.$contador,$productos[$contador], array('style' => 'display:none'))}}
+                          {{Form::text('COM_Producto_idProducto'.$contador,$Elemento->COM_Producto_idProducto, array('style' => 'display:none'))}}
                           <td>{{ $product1->INV_Producto_Codigo}}<script></script></td>
                         <td>{{ $product1->INV_Producto_Nombre}}</td>
-                        <td>{{ $product1->INV_Producto_Descripcion}}</td>
+                        
                         <?//esta es la forma para llamar a java script desde laravel?>
-                        {{Form::text('COM_DetalleOrdenCompra_Cantidad'.$contador,$cantidad, array('style' => 'display:none'))}}
-                        <td>{{$cantidad}}</td>
-                        {{Form::text('COM_DetalleOrdenCompra_PrecioUnitario'.$contador,$precioUnitario, array('style' => 'display:none'))}}
-                        <td>{{$precioUnitario}}</td>
-                        <td>{{$cantidad*$precioUnitario}}</td>
+                        {{Form::text('COM_DetalleOrdenCompra_Cantidad'.$contador,$cantidades[0], array('style' => 'display:none'))}}
+                        <td>{{$cantidades[0]}}</td>
+                        {{Form::text('COM_DetalleOrdenCompra_PrecioUnitario'.$contador,$Elemento->COM_DetalleOrdenCompra_PrecioUnitario, array('style' => 'display:none'))}}
+                        <td>{{$Elemento->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
+                        <td>{{$cantidades[0]*$Elemento->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
                         <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);
-                            $totalGeneral+=$cantidad*$precioUnitario;
+                            $totalGeneral+=$cantidades[0]*$Elemento->COM_DetalleOrdenCompra_PrecioUnitario;
                         ?>
-			<td>{{$medida->INV_UnidadMedida_Nombre}}</td>
+			                 <td></td>
                   
                       </tr> 
-                      <?php $contador++; ?>
-                      @endforeach*/?>
+                      <?php $contador++;
+                            $contados++; ?>
+                      @endforeach
               </tbody>
             </table>
           </div>
@@ -105,70 +97,17 @@ ction('main')
 <div class="row">
     <div class="col-md-4">
         
-        <label>Fecha Emision</label>
-        {{date('Y/m/d H:i:s')}}
+       
         
-        <label>Fecha Entrega *</label>
-         {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega','value'=>'','required '=>'required '))}}
-		 <?php $horaInicio="08:30";
-		 $horaFinal="19:00";
-		?>
-         <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
-                        "autodateOnStart": false,
-                        "futureOnly": true,
-                        "locale":"es",
-                        "minTime": "{{$horaInicio}}",
-                        "maxTime": "{{$horaFinal}}",
-                        "dateFormat": "YYYY/MM/DD hh:mm"
-                    });
-            </script>
-             <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
-          
-          <hr>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-        
-        <br>
-        <label>Forma de Pago</label>
-        <?/*
-         <?php 
-                 $cot= Cotizacion::find($id_cot);
-                 $mm=FormaPago::find($cot->COM_Cotizacion_IdFormaPago);
-                 
-                 
-         ?>
-         
-         
-         {{  Form::text('formapago',$mm->INV_FormaPago_ID, array('style' => 'display:none')) }}
-         {{  $mm->INV_FormaPago_Nombre }}
-         <?php $Coti=Cotizacion::find($id_cot);?>
-         <label>Periodo de Gracia: </label>
-           {{  $Coti->COM_Cotizacion_PeriodoGracia }}
-           {{  Form::text('COM_OrdenCompra_PeriodoGracia',$Coti->COM_Cotizacion_PeriodoGracia, array('style' => 'display:none')) }}
-           <br>
-           <label>Cantidad de Abonos a Realizar: </label>
-           {{  $Coti->COM_Cotizacion_CantidadPago}}
-           {{  Form::text('COM_OrdenCompra_CantidadPago',$Coti->COM_Cotizacion_CantidadPago, array('style' => 'display:none') )}}
-           <br>
-         */?>
+             
+       
     </div>
     <div class="col-md-4">
-        <label>Direccion de Entrega*:</label>
-        <br>
-         {{Form::radio('COM_OrdenCompra_Direccion','uno',true)}}Colonia America
-         <br>
-         {{Form::radio('COM_OrdenCompra_Direccion','uno',false)}}Colonia Carrizal
+      
     </div>
     <div class="col-md-4" style="text-align: right">
-        <?/*
-        <?php 
-            $cot=Cotizacion::find($id_cot);
-        $isv=$cot->COM_Cotizacion_ISV;
+        
+        <?php
           $isv1=$totalGeneral*($isv/100);
           ?>
         <label>Subtotal: Lps. {{$totalGeneral}}</label>
@@ -186,77 +125,10 @@ ction('main')
 </div>
 <div class="row" >
     <div class="col-md-6" >
-        {{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}<label>Activo</label>
+       
           <div class="form-group" id="campos Locales otros"> 
      
-      <?/* usar lo q se ocupa */?>
-      <h5>Campos Locales de Solicitud de Cotizacion</h5>
-       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
-              <br>
-              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
-              <br>      
-              <?php 
-                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
-              ?>
-              {{$valores->COM_ValorCampoLocal_Valor}}
-              
-        @endforeach
-        <hr>
-        <h5>Campos Locales de Cotizacion</h5>
-       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get() as $campo)
-              <br>
-              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
-              <br>      
-              <?php 
-                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
-              ?>
-              {{$valores->COM_ValorCampoLocal_Valor}}
-              
-        @endforeach                   
-  </div>
-    </div>
-    <div class="col-md-6" style="text-align: right">
-          <div class="form-group" id="campos Locales compras"> 
-     
-      <?/* usar lo q se ocupa */?>
-
-       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get() as $campo)
-              <br>
-              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
-              <br>      
-              @if ($campo->GEN_CampoLocal_Requerido)
-                                                             
-                @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-                        <td>*{{  Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-                        <td>*{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-                       <td>* {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
-                    @endif
-                    @else
-                        @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-                        <td>{{ Form::text($campo->GEN_CampoLocal_Codigo,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo)) }}</td>
-                    @endif
-                    @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-                       <td> {{ Form::select($campo->GEN_CampoLocal_Codigo, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}</td>
-                    @endif
-
-               @endif
-            
-        @endforeach                   
-  </div>
-
+   
         <h5>Nombre del Oficial de Compras</h5>
     </div>
 </div>
