@@ -2,6 +2,11 @@
 
 @section('main')
 
+	<script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+    <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
+
 	<?php
 		$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
