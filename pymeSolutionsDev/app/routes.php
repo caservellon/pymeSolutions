@@ -136,7 +136,17 @@ Route::group(array('prefix' => 'Compras'), function(){
         
         Route::get('/SolicitudCotizacion/Crear', function()
 	{
-		return View::make('SolicitudCotizacions.crearindex');
+		return View::make('SolicitudCotizacions.crearIndex');
+	});
+        
+        Route::get('/OrdenCompra', function()
+	{
+		return View::make('Menus.OrdenCompra');
+	});
+        
+        Route::get('/OrdenCompra/Crear', function()
+	{
+		return View::make('OrdenCompras.menuordencompra');
 	});
         
         Route::group(array('prefix' => 'Configuracion'), function(){
@@ -217,7 +227,15 @@ Route::group(array('prefix' => 'Compras'), function(){
     //Historial de Ordenes de Compra
     Route::get('OrdenCompra/Historial/ListarOrdenes', array('as'=>'ListaOrdenes','uses'=>'OrdenComprasController@HistorialOrdenes'));
     Route::get('OrdenCompra/Historial/Orden', array('as'=>'HistorialOrden','uses'=>'OrdenComprasController@HistorialOrden'));
+    //orden compra imprimir
+    Route::get('OrdenCompra/Imprimir', array('as'=>'ImprimirOrden', 'uses'=> 'OrdenComprasController@indexImprimir'));
+    Route::get('OrdenCompra/Impresion', array('as'=>'impresionOrden', 'uses'=> 'OrdenComprasController@imprimir'));
+    //index
+    Route::get('OrdenCompra/index', array('as'=>'Compras.OrdenCompra.index', 'uses'=> 'OrdenComprasController@index'));
 
+    
+    
+    
     Route::resource('COMEstadoOrdenCompras', 'COMEstadoOrdenCompraController');
     Route::resource('COMTransicionEstado', 'COMTransicionEstadoController');
 
@@ -228,10 +246,15 @@ Route::group(array('prefix' => 'Compras'), function(){
     Route::resource('Cotizacions', 'CotizacionsController');
     Route::resource('OrdenCompras', 'OrdencomprasController');
     
+    //devoluciones
+     Route::get('DevolucionCompra/Lista', array('as'=>'ListaDevolucion','uses'=>'DevolucionCompraController@ListaDevolucion'));
+     Route::get('DevolucionCompra/Detalle', array('as'=>'DevolucionCompra','uses'=>'DevolucionCompraController@DevolucionCompraDetalle'));
+      Route::post('DevolucionCompra/Guardado', array('as'=>'guardaDevolucion','uses'=>'DevolucionCompraController@guardaDevolucion'));
     
 
     Route::resource('Cotizacions', 'CotizacionsController');
     Route::resource('OrdenCompras', 'OrdencomprasController');
+    Route::resource('DevolucionCompra', 'DevolucionCompraController');
 	
 	
 	

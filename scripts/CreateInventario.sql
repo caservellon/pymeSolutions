@@ -487,8 +487,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_DetalleMovimiento` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
-
 -- -----------------------------------------------------
 -- Table `pymeERP`.`INV_ProductoRechazado`
 -- -----------------------------------------------------
@@ -521,3 +519,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_ProductoRechazado` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+

@@ -77,6 +77,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_OrdenCompra` (
   `COM_OrdenCompra_FormaPago` INT NOT NULL,
   `COM_OrdenCompra_CantidadPago` INT NOT NULL,
   `COM_OrdenCompra_PeriodoGracia` INT NOT NULL,
+  `COM_OrdenCompra_Imprimir` TINYINT(1) NULL,
   `COM_OrdenCompra_FechaModificacion` DATETIME NULL,
   `COM_OrdenCompra_IdCotizacion` INT NULL,
   `COM_Usuario_IdUsuarioCreo` VARCHAR(64) NOT NULL,
@@ -134,6 +135,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleSolicitudCotizacion` (
   `cantidad` INT NOT NULL,
   `SolicitudCotizacion_idSolicitudCotizacion` INT NOT NULL,
   `Producto_idProducto` INT NOT NULL,
+  `COM_DetalleSolicitudCotizacion_FechaCreo` DATETIME NOT NULL,
+  `COM_DetalleSolicitudCotizacion_FechaModificacion` DATETIME NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
   PRIMARY KEY (`idDetalleSolicitudCotizacion`),
@@ -320,6 +323,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_ValorCampoLocal` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
 CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_DevolucionCompra` (
   `COM_DevolucionCompra_ID` INT(11) NOT NULL AUTO_INCREMENT ,
   `COM_DevolucionCompra_Codigo` VARCHAR(16) NOT NULL ,
@@ -342,9 +346,6 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_DevolucionCompra` (
 ENGINE = InnoDB
 
 
-
-
-
 CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleDevolucionCompra` (
   `COM_DetalleDevolucionCompra_IdDetalleDevolucionCompra` INT(11) NOT NULL AUTO_INCREMENT ,
   `COM_DetalleDevolucionCompra_Codigo` VARCHAR(16) NOT NULL ,
@@ -365,7 +366,3 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleDevolucionCompra` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-
-
-
-

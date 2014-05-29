@@ -199,14 +199,16 @@ class CotizacionController extends BaseController {
 		
 		$Total = 0;
 		
-		foreach($CamposLocalesCotizacion as $CampoLocalCotizacion){
-			$ValorCampoLocal = new ValorCampoLocal;
-			$ValorCampoLocal -> COM_ValorCampoLocal_Valor = Input::get($CampoLocalCotizacion -> Codigo);
-			$ValorCampoLocal -> COM_CampoLocal_IdCampoLocal = $CampoLocalCotizacion -> Id;
-			$ValorCampoLocal -> COM_Cotizacion_IdCotizacion = $RegistroActualCotizacion;
-			$ValorCampoLocal -> COM_Usuario_idUsuarioCreo = 1;
-			$ValorCampoLocal -> save();             
-        }
+		if(Helpers::ExistenCamposLocalesCotizaciones()){
+			foreach($CamposLocalesCotizacion as $CampoLocalCotizacion){
+				$ValorCampoLocal = new ValorCampoLocal;
+				$ValorCampoLocal -> COM_ValorCampoLocal_Valor = Input::get($CampoLocalCotizacion -> Codigo);
+				$ValorCampoLocal -> COM_CampoLocal_IdCampoLocal = $CampoLocalCotizacion -> Id;
+				$ValorCampoLocal -> COM_Cotizacion_IdCotizacion = $RegistroActualCotizacion;
+				$ValorCampoLocal -> COM_Usuario_idUsuarioCreo = 1;
+				$ValorCampoLocal -> save();             
+			}
+		}
 		
 		
 		for($i = 0; $i < count($CodigosProducto); $i++){
