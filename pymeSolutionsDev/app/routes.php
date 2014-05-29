@@ -215,7 +215,11 @@ Route::group(array('prefix' => 'Compras'), function(){
     //Historial de Ordenes de Compra
     Route::get('OrdenCompra/Historial/ListarOrdenes', array('as'=>'ListaOrdenes','uses'=>'OrdenComprasController@HistorialOrdenes'));
     Route::get('OrdenCompra/Historial/Orden', array('as'=>'HistorialOrden','uses'=>'OrdenComprasController@HistorialOrden'));
+    //orden compra imprimir
+    Route::get('OrdenCompra/Imprimir', array('as'=>'ImprimirOrden', 'uses'=> 'OrdenComprasController@indexImprimir'));
+    Route::get('OrdenCompra/Impresion', array('as'=>'impresionOrden', 'uses'=> 'OrdenComprasController@imprimir'));
 
+    
     Route::resource('COMEstadoOrdenCompras', 'COMEstadoOrdenCompraController');
     Route::resource('COMTransicionEstado', 'COMTransicionEstadoController');
 
