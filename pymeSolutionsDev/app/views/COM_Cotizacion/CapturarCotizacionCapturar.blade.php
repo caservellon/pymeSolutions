@@ -2,6 +2,11 @@
 
 @section('main')
 
+	<script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+    <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
+
 	<?php
 		$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
@@ -203,19 +208,19 @@
 					
 					@if($HayError)
 						<div class="form-group has-error has-feedback">
-							<label class="control-label" for="inputError2">Impuesto</label>
+							<label class="control-label" for="inputError2">Impuesto(%)</label>
 							{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
 							<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 						</div>
 					@else
 						<div class="form-group has-success has-feedback">
-							<label class="control-label" for="inputSuccess2">Impuesto</label>
+							<label class="control-label" for="inputSuccess2">Impuesto(%)</label>
 							{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
 							<span class="glyphicon glyphicon-ok form-control-feedback"></span>
 						</div>
 					@endif
 				@else
-					{{ Form::label('Impuesto', 'Impuesto') }}
+					{{ Form::label('Impuesto', 'Impuesto(%)') }}
 					{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
 				@endif
 				
