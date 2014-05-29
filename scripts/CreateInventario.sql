@@ -487,3 +487,37 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_DetalleMovimiento` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`INV_ProductoRechazado`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`INV_ProductoRechazado` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_ProductoRechazado` (
+  `INV_ProductoRechazado_ID` INT NOT NULL AUTO_INCREMENT,
+  `INV_ProductoRechazado_IDOrdenCompra` INT NOT NULL,
+  `INV_ProductoRechazado_IDProducto` INT NOT NULL,
+  `INV_ProductoRechazado_Cantidad` INT NOT NULL,
+  `INV_ProductoRechazado_Activo` INT NOT NULL,
+  `INV_ProductoRechazado_PrecioCosto` DECIMAL(19,2) NOT NULL,
+  `INV_ProductoRechazado_PrecioVenta` DECIMAL(19,2) NOT NULL,
+  `INV_ProductoRechazado_FechaCreacion` TIMESTAMP NULL,
+  `INV_ProductoRechazado_UsuarioCreacion` VARCHAR(64) NULL,
+  `INV_ProductoRechazado_FechaModificacion` TIMESTAMP NULL,
+  `INV_ProductoRechazado_UsuarioModificacion` VARCHAR(64) NULL,
+  PRIMARY KEY (`INV_ProductoRechazado_ID`),
+  UNIQUE INDEX `INV_ProductoRechazado_ID_UNIQUE` (`INV_ProductoRechazado_ID` ASC),
+  INDEX `OrdenCompra_Rechazado_idx` (`INV_ProductoRechazado_IDOrdenCompra` ASC),
+  INDEX `Producto_Rechazado_idx` (`INV_ProductoRechazado_IDProducto` ASC),
+  CONSTRAINT `OrdenCompra_Rechazado`
+    FOREIGN KEY (`INV_ProductoRechazado_IDOrdenCompra`)
+    REFERENCES `pymeERP`.`COM_OrdenCompra` (`COM_OrdenCompra_IdOrdenCompra`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `Producto_Rechazado`
+    FOREIGN KEY (`INV_ProductoRechazado_IDProducto`)
+    REFERENCES `pymeERP`.`INV_Producto` (`INV_Producto_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;

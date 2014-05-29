@@ -44,6 +44,10 @@ mysql -u "root" "-proot" "pymeERP" < "INS_INV_FormaPago.sql" >> ./logs/install.l
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_UnidadMedida.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Productos.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Proveedores.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_MotivoMovimiento.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Producto_Atributo.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Producto_Proveedor.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Proveedor_FormaPago.sql" >> ./logs/install.log 2>&1
 
 echo "Populating Contabilidad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_ClasificacionCuenta.sql" >> ./logs/install.log 2>&1
