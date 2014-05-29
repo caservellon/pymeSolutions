@@ -137,7 +137,7 @@
 
 					<!--<a href="{{ route('HistorialOrden', array('id'=>' <script type="text/javascript"> alert("hola") ;</script> '))}}" ><button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregar-Producto" >Agregar Producto</button></a>-->
 					<button type="button" class="btn btn-info editar-prod" onClick="mostrarVentana()" >Editar Cantidad</button>
-          <button type="button" class="btn btn-info editar-prod" onClick="mostrarVentanaISV()" >Introducir el ISV</button>
+          <button type="button" class="btn btn-info editar-prod" onClick="mostrarVentanaISV()" >% de Impuesto Sugerido</button>
 					<button type="button" class="btn btn-warning eliminar-prod" onClick="eliminar();" >Eliminar Producto</button>
 					<!--<button type="reset" class="btn btn-danger cancel-venta" onclick="window.history.back()" >Cancelar Cambios</button>-->
        
