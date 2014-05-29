@@ -524,7 +524,11 @@ $(document).ready(function(){
 
     // ----------------------------- Inventario
 
-    
+    if($('.detalle-movi').length){
+    	$('#FechaInc').appendDtpicker();
+
+		$('#FechaFin').appendDtpicker();
+    }
 
     if($('#p2p-view').length){
     	$(function(){
