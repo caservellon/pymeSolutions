@@ -363,21 +363,26 @@ class MovimientoInventariosController extends BaseController {
 		//Buscamos el moviemiento que acabamos de crear para poder obtener su id
 		$temp = MovimientoInventario::where('INV_Movimiento_IDOrdenCompra', $input['INV_Movimiento_IDOrdenCompra'])->orderBy('INV_Movimiento_ID', 'DESC')->get();
 		$Movimiento = $temp[0];
-		//se procede a llenar los detalles de Movimiento de Inventario
-		$cont = 0;
-		$monto = 0;
-		$diff = 0;
-		//return $input;
+
 		foreach ($orden as $or) {
-			//Buscamos el Producto a Agregar
-			$Producto = Producto::find($or->ID);
 			if ($input['Cant'.$or->ID] < 0) {
 				return Redirect::route('Inventario.MovimientoInventario.Orden')
 					->withErrors('Ingrese Solo Valores Positivos');
 			}elseif ($input['Cant'.$or->ID] > $or->Cantidad) {
 				return Redirect::route('Inventario.MovimientoInventario.Orden')
 					->withErrors('No puede ingresar un valor mayor a la cantidad de la Orden');
-			}elseif ($input['Cant'.$or->ID] > 0) {
+			}
+		}
+		//se procede a llenar los detalles de Movimiento de Inventario
+		$cont = 0;
+		$monto = 0;
+		$diff = 0;
+		//return $input;
+		foreach ($orden as $or) {
+			if ($input['Cant'.$or->ID] > 0) {
+
+				//Buscamos el Producto a Agregar
+				$Producto = Producto::find($or->ID);
 				//return $Producto;
 				$cont++;
 				//Calculando Precio Costo con Promedio Ponderado
@@ -408,6 +413,12 @@ class MovimientoInventariosController extends BaseController {
 				//Creamos el detalle para un solo producto
 				DetalleMovimiento::create($detalle);
 
+				//Actualizamos el Inventario
+				$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $input['Cant'.$or->ID];
+				$Producto->INV_Producto_PrecioCosto = $Costo;
+				$Producto->save();
+			}
+			if ($input['Cant'.$or->ID] != $or->Cantidad) {
 				$producto = array();
 				$producto['INV_ProductoRechazado_IDOrdenCompra'] = $IdOrdenCompra;
 				$producto['INV_ProductoRechazado_IDProducto'] = $or->ID;
@@ -422,11 +433,6 @@ class MovimientoInventariosController extends BaseController {
 				$producto['INV_ProductoRechazado_UsuarioModificacion'] = 'Admin';
 				//return $producto;
 				ProductoRechazado::create($producto);
-
-				//Actualizamos el Inventario
-				$Producto->INV_Producto_Cantidad = $Producto->INV_Producto_Cantidad + $input['Cant'.$or->ID];
-				$Producto->INV_Producto_PrecioCosto = $Costo;
-				$Producto->save();
 			}
 		}
 		if ($cont > 0) {
