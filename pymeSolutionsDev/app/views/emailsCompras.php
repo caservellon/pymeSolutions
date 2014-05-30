@@ -43,12 +43,12 @@
 		<tbody>
                     
                     
-                 <?php $detalle = DetalleSolicitudCotizacion::all(); ?>
+                 <?php $detalle = DetalleSolicitudCotizacion::where('SolicitudCotizacion_idSolicitudCotizacion','=', $solCot->COM_SolicitudCotizacion_IdSolicitudCotizacion)->get() ?>
                     <?php 
                     foreach($detalle as $key){ 
                        
-                    if($solCot->COM_SolicitudCotizacion_IdSolicitudCotizacion == $key->SolicitudCotizacion_idSolicitudCotizacion){
-                    $cualquierProducto1= Producto::find($key->Producto_idProducto) ?>
+                    
+                    $cualquierProducto1= invCompras::ProductoCompras($key->Producto_idProducto) ?>
                                     <tr>
 					
                                        
@@ -73,7 +73,7 @@
                                         
                                         
                                 </tr>
-                    <?php }}?>
+                    <?php }?>
                 </tbody> 
              </table>
           </div>
