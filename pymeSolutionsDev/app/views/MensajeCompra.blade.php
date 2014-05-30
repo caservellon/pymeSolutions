@@ -7,7 +7,7 @@
     <div class='row'>
         <div class="col-md-12">
             <h3 class="is-hidden">
-                {{{ $mensaje->GEN_Mensajes_Mensaje}}}
+                {{ $mensaje}}
             </h3>
         </div>
     </div>

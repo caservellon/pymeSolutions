@@ -8,7 +8,14 @@
 	<a type="button" href="{{ URL::route('Inventario.Productos.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Producto
 	</a>
+	<a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
 </div>
+
+{{ Form::open(array('route' => 'Productos.search_index')) }}
+{{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+{{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Busque producto..')) }}
+{{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
+{{ Form::close() }}
 
 @if ($Productos->count())
 	
@@ -87,6 +94,13 @@
 						<td></td>
 					@endif	
                     <td>{{ link_to_route('Inventario.Productos.edit', 'Editar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>
+                   
+                    <td>
+                     	{{ Form::open(array('route' => array('DetalleMovimientos.history', $Producto->INV_Producto_ID))) }}
+                        {{ Form::submit('Historial', array('class' => 'btn btn-success')) }}
+                        {{ Form::close() }}
+                    </td>
+
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Productos.destroy', $Producto->INV_Producto_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}

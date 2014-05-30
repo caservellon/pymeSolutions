@@ -63,6 +63,8 @@
                         
                             return FormaPago::whereIn('INV_FormaPago_ID', $temp)->get();
 		}
+		
+
 
 
 		public static function getProductosRechazados()

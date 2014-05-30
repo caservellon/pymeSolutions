@@ -107,6 +107,8 @@ class SolicitudCotizacionsController extends BaseController {
                 $campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
 		$res = SolicitudCotizacion::$rules;
                 
+                
+                
                 $cualquierProducto=Input::get('cualquiera');
 //                for ($j=0; $j< count($proveedor); $j++){
 //                    $temprod = invCompras::ProveedorCompras($proveedor[$j]);
@@ -262,8 +264,11 @@ class SolicitudCotizacionsController extends BaseController {
 					
                     
                }
-                $mensaje = Mensaje::find(2);
-                $mensaje2 = Mensaje::find(3);
+               
+                $imprimir3 = Mensaje::find(2);
+                $imprimir2 = Mensaje::find(3);
+                $mensaje = 'Las Solicitudes de Cotizacion'.' '.$imprimir3->GEN_Mensajes_Mensaje;
+                $mensaje2 = 'Las Solicitudes de Cotizacion'.' '.$imprimir2->GEN_Mensajes_Mensaje;
                 return View::make('MensajeSolicitud', compact('mensaje', 'mensaje2' ,'ruta', 'imprimir', 'correo'));
                        
                     
@@ -323,6 +328,8 @@ class SolicitudCotizacionsController extends BaseController {
 	public function update($id)
 	{
                 $input = Input::except('_method');
+                $imprimir = Mensaje::find(1);
+                $mensaje = $imprimir->GEN_Mensajes_Mensaje;
                 
                 //$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_SC%')->get();
 		$res = SolicitudCotizacion::$rules;
@@ -360,7 +367,7 @@ class SolicitudCotizacionsController extends BaseController {
 			$SolicitudCotizacion->update();
 
                          $ruta = route('Compras.SolicitudCotizacions.index');
-			 $mensaje = Mensaje::find(1);
+			 
                          return View::make('MensajeCompra', compact('mensaje', 'ruta'));
                         }
                         
