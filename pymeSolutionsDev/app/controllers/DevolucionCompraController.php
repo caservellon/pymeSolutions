@@ -90,14 +90,15 @@ class DevolucionCompraController extends BaseController {
                 if(Input::has('COM_Producto_idProducto'.$contador)){
                     $ultdet= DetalleDevolucionCompra::count();
                      $detalle1=new DetalleDevolucionCompra();
-                     $detalle1->COM_DetalleDevolucionCompra_Codigo='COM_DDOC_'.($ultdet+1)
+                     $detalle1->COM_DetalleDevolucionCompra_Codigo='COM_DDOC_'.($ultdet+1);
                      $detalle1->COM_Usuario_idUsuarioCreo=1;
                      $detalle1->COM_DetalleDevolucionCompra_FechaCreo=date('Y/m/d H:i:s');
                      $detalle1->COM_DevolucionCompra_ID=$ultOrd;
                      $detalle1->COM_DetalleDevolucionCompra_Cantidad=Input::get('COM_DetalleOrdenCompra_Cantidad'.$contador);
-                     $detalle1->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('COM_DetalleDevolucionCompra_PrecioUnitario'.$contador);
+                     $detalle1->COM_DetalleDevolucionCompra_PrecioUnitario=Input::get('COM_DetalleOrdenCompra_PrecioUnitario'.$contador);
                      $detalle1->save();
                 }
+                $contador++;
             }
             return var_dump($input);
             

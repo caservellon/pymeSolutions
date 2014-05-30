@@ -337,6 +337,7 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_DevolucionCompra` (
   `COM_DevolucionCompra_UsuarioModifico` VARCHAR(64) NULL DEFAULT NULL ,
   `COM_DevolucionCompra_FechaModifico` DATETIME NULL DEFAULT NULL ,
   `COM_OrdenCompra_COM_OrdenCompra_IdOrdenCompra` INT(11) NOT NULL ,
+  `COM_Proveedor_IdProveedor` INT NOT NULL,
   PRIMARY KEY (`COM_DevolucionCompra_ID`) ,
   INDEX `fk_COM_DevolucionCompra_COM_OrdenCompra1_idx` (`COM_OrdenCompra_COM_OrdenCompra_IdOrdenCompra` ASC) ,
   UNIQUE INDEX `COM_DevolucionCompra_Codigo_UNIQUE` (`COM_DevolucionCompra_Codigo` ASC) ,
