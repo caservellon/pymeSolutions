@@ -36,6 +36,7 @@
 
       </table>
     </div>
+    <div class="text-center"><?php echo $Ventas->links(); ?></div>
 @else
     <div class="alert alert-danger">
       <strong>Oh no!</strong> Aún no hay ninguna venta :(

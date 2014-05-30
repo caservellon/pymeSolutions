@@ -194,7 +194,7 @@ class VentasController extends BaseController {
 
 	public function Listar() {
 		if (Seguridad::ListarVentas()) {
-			$Ventas = DB::table('VEN_Venta')->get();
+			$Ventas = DB::table('VEN_Venta')->paginate(10);
 
 			if ($Ventas) {
 				return View::make('Ventas.lista')->with('Ventas', $Ventas);
@@ -224,7 +224,7 @@ class VentasController extends BaseController {
 
 	public function Devs() {
 		if (Seguridad::ListarVentas()) {
-			$Devs = DB::table('VEN_Devolucion')->get();
+			$Devs = DB::table('VEN_Devolucion')->paginate(10);
 
 			if ($Devs) {
 				return View::make('Ventas.devs')->with('Devs', $Devs);

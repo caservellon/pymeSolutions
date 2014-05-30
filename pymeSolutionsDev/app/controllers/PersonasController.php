@@ -49,7 +49,7 @@ class PersonasController extends BaseController {
 	public function index()
 	{
 		//$Personas = $this->Persona->all();
-		$Personas = $this->Persona->whereNull('CRM_Personas_Eliminado')->get();
+		$Personas = $this->Persona->whereNull('CRM_Personas_Eliminado')->paginate(10);
 
 		return View::make('Personas.index', compact('Personas'));
 	}

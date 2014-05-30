@@ -51,7 +51,7 @@ class EmpresasController extends BaseController {
 	public function index()
 	{
 		//$Empresas = $this->Empresa->all();
-		$Empresas = $this->Empresa->whereNull('CRM_Empresas_Eliminados')->get();
+		$Empresas = $this->Empresa->whereNull('CRM_Empresas_Eliminados')->paginate(10);
 
 		return View::make('Empresas.index', compact('Empresas'));
 	}
