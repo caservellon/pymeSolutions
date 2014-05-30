@@ -176,6 +176,13 @@ class MovimientoInventariosController extends BaseController {
 	}
 
 	public function search(){
+		$Motivo = MotivoMovimiento::find('2');
+		if ($Motivo) {
+			if ($Motivo->INV_MotivoMovimiento_Activo == 0) {
+				return Redirect::route('Inventario.MovimientoInventario.Orden')
+							->withErrors('No se ha Activado el Concepto Compra!');
+			}
+		}
 		$CodigoOrdenCompra = Input::get('search');
 		//$orden = Helper::InformacionProductosOrdenCompra('1');
 		//return $orden;
