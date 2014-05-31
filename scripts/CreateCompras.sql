@@ -371,3 +371,21 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleDevolucionCompra` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_ReembosoDevolucionCompras` (
+  `COM_ReembosoDevolucionCompras_ID` INT(11) NOT NULL AUTO_INCREMENT ,
+  `COM_ReembosoDevolucionCompras_FechaCreacion` DATETIME NOT NULL ,
+  `COM_ReembosoDevolucionCompras_UsuarioCreo` VARCHAR(64) NOT NULL ,
+  `COM_ReembosoDevolucionCompras_FechaModificacion` DATETIME NULL DEFAULT NULL ,
+  `COM_ReembosoDevolucionComprasUsuarioModifico` VARCHAR(64) NULL DEFAULT NULL ,
+  `COM_ReembosoDevolucionCompras_Monto` DECIMAL(19,2) NOT NULL ,
+  `COM_ReembosoDevolucionCompras_Proveedor` INT(11) NOT NULL ,
+  `COM_DevolucionCompra_COM_DevolucionCompra_ID` INT(11) NOT NULL ,
+  PRIMARY KEY (`COM_ReembosoDevolucionCompras_ID`) ,
+  INDEX `fk_COM_ReembosoDevolucionCompras_COM_DevolucionCompra1_idx` (`COM_DevolucionCompra_COM_DevolucionCompra_ID` ASC) ,
+  CONSTRAINT `fk_COM_ReembosoDevolucionCompras_COM_DevolucionCompra1`
+    FOREIGN KEY (`COM_DevolucionCompra_COM_DevolucionCompra_ID` )
+    REFERENCES `pymeERP`.`COM_DevolucionCompra` (`COM_DevolucionCompra_ID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
