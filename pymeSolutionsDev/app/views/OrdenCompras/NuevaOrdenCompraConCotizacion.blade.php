@@ -64,6 +64,7 @@
                         
               </tbody>
             </table>
+            <label>{{$$cotizaciones->links()}}</label>
           </div>
         </div>
       

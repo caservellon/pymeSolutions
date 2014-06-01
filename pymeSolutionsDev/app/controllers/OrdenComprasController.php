@@ -279,7 +279,7 @@ class OrdenComprasController extends BaseController {
         
         //funciones hechas para crear una orden de Compra Con Cotizacion
         public function OrdenCompracnCotizacion(){
-             $cotizaciones = Cotizacion::where('COM_Cotizacion_Vigente','=',1)->get();
+             $cotizaciones = Cotizacion::where('COM_Cotizacion_Vigente','=',1)->paginate(10);
             return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion',array('cotizaciones'=> $cotizaciones));
         }
          public function ComparaCotizaciones(){
