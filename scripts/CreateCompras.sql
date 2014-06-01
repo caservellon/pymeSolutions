@@ -374,6 +374,7 @@ ENGINE = InnoDB;
 
 CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_ReembosoDevolucionCompras` (
   `COM_ReembosoDevolucionCompras_ID` INT(11) NOT NULL AUTO_INCREMENT ,
+  `COM_ReembosoDevolucionCompras_Activo` TINYINT(1) NOT NULL ,
   `COM_ReembosoDevolucionCompras_FechaCreacion` DATETIME NOT NULL ,
   `COM_ReembosoDevolucionCompras_UsuarioCreo` VARCHAR(64) NOT NULL ,
   `COM_ReembosoDevolucionCompras_FechaModificacion` DATETIME NULL DEFAULT NULL ,

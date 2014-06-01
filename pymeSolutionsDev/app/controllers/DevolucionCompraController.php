@@ -139,6 +139,7 @@ class DevolucionCompraController extends BaseController {
                  }
                 $ultimod=DevolucionCompra::count();
                 $reembolso= new ReembolsoDevolucionCompra();
+                $reembolso->COM_ReembosoDevolucionCompras_Activo=1;
                 $reembolso->COM_ReembosoDevolucionCompras_FechaCreacion=date('Y/m/d H:i:s');
                 $reembolso->COM_ReembosoDevolucionCompras_UsuarioCreo=1;
                 $reembolso->COM_ReembosoDevolucionCompras_Monto=($total-$saldo);
