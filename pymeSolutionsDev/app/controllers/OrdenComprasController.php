@@ -619,7 +619,7 @@ class OrdenComprasController extends BaseController {
             $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
             //return var_dump($ordenPago);
             if(sizeof($ordenPago)>0){
-            $ordenCompra=OrdenCompra::whereIn('COM_OrdenCompra_IdOrdenCompra',$ordenPago)->get();
+            $ordenCompra=OrdenCompra::whereIn('COM_OrdenCompra_IdOrdenCompra',$ordenPago)->paginate();
             return View::make('OrdenCompras.ListaPlanPago',array('Ordenes'=>$ordenCompra));
         }else{
             return 'no hay planes de pagos';
