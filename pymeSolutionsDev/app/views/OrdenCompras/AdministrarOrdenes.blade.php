@@ -13,7 +13,7 @@
 			
     </div>
     
-	<div class="col-md-9" style="overflow:auto; height: 350px">
+	<div class="col-md-9" >
             <form action="" method=GET>
         <div class="table-responsive">
             <table class="table table-striped table-bordered" >
@@ -28,11 +28,11 @@
               </thead>
                   <tbody >
                       
-                      <?php $ordenes= OrdenCompra::where('COM_OrdenCompra_Activo','=',1)->lists('COM_OrdenCompra_IdOrdenCompra','COM_OrdenCompra_Codigo','COM_OrdenCompra_FechaEmision','COM_Proveedor_IdProveedor');
+                      <?php $ordenes= OrdenCompra::where('COM_OrdenCompra_Activo','=',1)->paginate();
                             
                       ?>
                       @foreach($ordenes as $orden)
-                      <?php $or=  OrdenCompra::find($orden);
+                      <?php $or=  OrdenCompra::find($orden->COM_OrdenCompra_IdOrdenCompra);
                             $proveedor= Proveedor::find($or->COM_Proveedor_IdProveedor);
                             $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
                                 
@@ -57,8 +57,10 @@
                             <td><a href="{{ route('AdministraOrCOm', array('id'=>$or->COM_OrdenCompra_IdOrdenCompra,)) }}" class="btn btn-info">Administrar</a></td>
                         </tr> 
                      @endforeach
+                       
               </tbody>
             </table>
+            <label>{{$ordenes->links()}}</label>
           </div>
         </div>
       

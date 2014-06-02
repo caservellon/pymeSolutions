@@ -224,7 +224,7 @@ Route::group(array('prefix' => 'Compras'), function(){
 
 
     //Administrar Ordenes de Compra
-    Route::get('OrdenCompra/Autorizacion/ListarOrdenes', array('as'=>'AutOrdCom','uses'=>'OrdenComprasController@ListarOrdenCompra'));
+    Route::get('OrdenCompra/Autorizacion/ListarOrdenes', array('as'=>'AdminOrdCom','uses'=>'OrdenComprasController@ListarOrdenCompra'));
     Route::get('OrdenCompra/Autorizacion/Administrar', array('as'=>'AdministraOrCOm','uses'=>'OrdenComprasController@AdministraDetalles'));
     Route::post('OrdenCompra/Autorizacion/Administrada', array('as'=>'cambioAdministracio','uses'=>'OrdenComprasController@AndministrarOC'));
 
