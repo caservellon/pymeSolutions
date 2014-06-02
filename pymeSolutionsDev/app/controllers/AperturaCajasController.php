@@ -38,13 +38,10 @@ class AperturaCajasController extends BaseController {
 			$AperturaActual->save();
 
 			return Redirect::route('Ventas.AperturaCajas.index');
-
 		} else {
 			return Redirect::route('Ventas.AperturaCajas.index')->withInput()
 			->withErrors("La caja no se puede abrir. El periodo de tiempo no es el correcto.")->with('message', 'La caja no se puede abrir.');;
 		}
-		
-
 	}
 
 
