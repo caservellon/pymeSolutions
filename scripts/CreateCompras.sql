@@ -131,16 +131,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`COM_DetalleSolicitudCotizacion` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleSolicitudCotizacion` (
-  `idDetalleSolicitudCotizacion` INT NOT NULL AUTO_INCREMENT,
-  `cantidad` INT NOT NULL,
-  `SolicitudCotizacion_idSolicitudCotizacion` INT NOT NULL,
+  `COM_DetalleSolicitudCotizacio_idDetalleSolicitudCotizacion` INT NOT NULL AUTO_INCREMENT,
+  `COM_DetalleSolicitudCotizacio_cantidad` INT NOT NULL,
+  `COM_DetalleSolicitudCotizacio_idSolicitudCotizacion` INT NOT NULL,
   `Producto_idProducto` INT NOT NULL,
   `COM_DetalleSolicitudCotizacion_FechaCreo` DATETIME NOT NULL,
   `COM_DetalleSolicitudCotizacion_FechaModificacion` DATETIME NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
-  `COM_DetalleSolicitudCotizacion_FechaCreacion` DATETIME NOT NULL,
-  `COM_DetalleSolicitudCotizacio_FechaModificacion` DATETIME NULL,
   PRIMARY KEY (`idDetalleSolicitudCotizacion`),
   INDEX `fk_DetalleSolicitudCotizacion_SolicitudCotizacion_idx` (`SolicitudCotizacion_idSolicitudCotizacion` ASC),
   CONSTRAINT `fk_DetalleSolicitudCotizacion_SolicitudCotizacion`
