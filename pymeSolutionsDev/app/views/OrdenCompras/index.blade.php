@@ -60,7 +60,12 @@
 					
                                            <td>Admin</td>
                                            <!--ayudarme con la parte del estado de la orden-->
-                                           <td>Autorizada</td>
+                                           <?php 
+                                              $historial= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$editars->COM_OrdenCompra_IdOrdenCompra)->where('COM_TransicionEstado_Activo','=','1')->first();
+                                              $estadoa= COM_EstadoOrdenCompra::find($historial->COM_EstadoOrdenCompra_IdEstAct);
+                                              
+                                           ?>
+                                           <td>{{$estadoa->COM_EstadoOrdenCompra_Nombre}}</td>
                                          <?php $forma= invCompras::FormaPagoCompras($editars->COM_OrdenCompra_FormaPago) ?>
                                         <td>{{{ $forma->INV_FormaPago_Nombre }}}</td>
                                         <td>{{{ $editars->COM_OrdenCompra_CantidadPago }}}</td>

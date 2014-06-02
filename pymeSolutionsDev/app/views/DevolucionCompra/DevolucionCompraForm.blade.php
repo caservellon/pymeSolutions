@@ -115,11 +115,16 @@
         <label>I.S.V.: Lps. {{$isv1}}</label>
         <br>
         <?php $totalGeneral=$totalGeneral+$isv1?>
-        <label>Total: Lps. {{$totalGeneral}}</label>
+        <label>Total Devolucion: Lps. {{$totalGeneral}}</label>
+        <br>
+        <label>Saldo Anterior: Lps.{{$saldo}}</label>
+        <br>
+        <label>Total: Lps. {{$saldo-$totalGeneral}}</label>
         
-        <input type="text" id="total" value="<?echo $totalGeneral;?>" style='display:none'>
+        
         {{Form::text('totalG',$totalGeneral, array('style' => 'display:none'))}}
         {{Form::text('isv',$isv, array('style' => 'display:none'))}}
+        {{Form::text('saldo',$saldo, array('style' => 'display:none'))}}
         
     </div>
 </div>
