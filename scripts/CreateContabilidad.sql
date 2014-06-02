@@ -571,6 +571,22 @@ REFERENCES `pymeERP`.`CON_MotivoTransaccion` (`CON_MotivoTransaccion_ID`)
  ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+CREATE TABLE IF NOT EXISTS `pymeERP`.`CON_Proveedores` (
+  `INV_Proveedores_ID` INT NOT NULL,
+  `CON_CatalogoContable_ID` INT NOT NULL,
+  `CON_Proveedores_FechaCreacion` DATETIME NULL,
+  `CON_Proveedores_FechaModificacion` DATETIME NULL,
+  PRIMARY KEY (`INV_Proveedores_ID`),
+  INDEX `fk_CON_Proveedores_CON_CatalogoContable1_idx` (`CON_CatalogoContable_ID` ASC),
+  UNIQUE INDEX `CON_CatalogoContable_ID_UNIQUE` (`CON_CatalogoContable_ID` ASC),
+  UNIQUE INDEX `INV_Proveedores_ID_UNIQUE` (`INV_Proveedores_ID` ASC),
+  CONSTRAINT `fk_CON_Proveedores_CON_CatalogoContable1`
+    FOREIGN KEY (`CON_CatalogoContable_ID`)
+    REFERENCES `pymeERP`.`CON_CatalogoContable` (`CON_CatalogoContable_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 
 
 DROP PROCEDURE IF EXISTS pymeERP.CON_Mayorizacion;
