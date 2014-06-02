@@ -302,6 +302,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_ValorCampoLocal` (
   `COM_Cotizacion_IdCotizacion` INT NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
+  `COM_ValorCampoLocal_FechaCreacion` DATETIME NOT NULL,
+  `COM_ValorCampoLocal_FechaModificacion` DATETIME NULL,
   PRIMARY KEY (`COM_ValorCampoLocal_IdValorCampoLocal`),
   INDEX `fk_ValorCampoLocal_CampoLocal1_idx` (`COM_CampoLocal_IdCampoLocal` ASC),
   INDEX `fk_ValorCampoLocal_OrdenCompra1_idx` (`COM_OrdenCompra_IdOrdenCompra` ASC),
