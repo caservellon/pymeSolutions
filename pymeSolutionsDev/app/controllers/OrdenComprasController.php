@@ -36,6 +36,7 @@ class OrdenComprasController extends BaseController {
     
         public function index(){
             $OrdenCompra = OrdenCompra::paginate();
+            
             //return $ordencompra; 
             $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get();
             return View::make('OrdenCompras.index', compact('OrdenCompra', 'CamposLocales'));
