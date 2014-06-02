@@ -279,7 +279,7 @@ class OrdenComprasController extends BaseController {
         
         //funciones hechas para crear una orden de Compra Con Cotizacion
         public function OrdenCompracnCotizacion(){
-             $cotizaciones = Cotizacion::where('COM_Cotizacion_Vigente','=',1)->paginate(10);
+             $cotizaciones = Cotizacion::where('COM_Cotizacion_Vigente','=',1)->get();
             return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion',array('cotizaciones'=> $cotizaciones));
         }
          public function ComparaCotizaciones(){
@@ -507,7 +507,7 @@ class OrdenComprasController extends BaseController {
              Contabilidad::GenerarTransaccionCmp(8,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
              Contabilidad::GenerarTransaccionCmp(9,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
 			 
-             $ruta = route('ListaOrdenes');
+             $ruta = route('AutOrdCom');
                     $mensaje = Mensaje::find(1);;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
@@ -639,13 +639,22 @@ class OrdenComprasController extends BaseController {
 
 //genero pago de orden compra
          public function generarpagoLC(){
+            
             $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
-            //return var_dump($ordenPago);
-            if(sizeof($ordenPago)>0){
-            $ordenCompra=OrdenCompra::whereNotIn('COM_OrdenCompra_IdOrdenCompra',$ordenPago)->get();
-        }else{
-            $ordenCompra= OrdenCompra::all();
-        }
+            
+            $autorizadas= HistorialEstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstAct','=','4')->lists('COM_TransicionEstado_IdOrdenCompra');
+
+            if(sizeof($ordenPago)>0 && sizeof($autorizadas)>0){
+                    $ordenCompra= OrdenCompra::whereNotIn('COM_OrdenCompra_IdOrdenCompra',$ordenPago)->wherein('COM_OrdenCompra_idOrdenCompra',$autorizadas)->paginate();
+            }else{
+
+                if(sizeof($autorizadas)>0){
+                    $ordenCompra= OrdenCompra::wherein('COM_OrdenCompra_idOrdenCompra',$autorizadas)->paginate();
+                }else{
+                    $ordenCompra= OrdenCompra::where('COM_OrdenCompra_activo','=',0)->paginate();
+                }
+
+            }
             return View::make('OrdenCompras.ListaOrdenCompraPago',array('Ordenes'=>$ordenCompra));
         }
         
@@ -718,7 +727,7 @@ class OrdenComprasController extends BaseController {
 
             }
            
-            $ruta = route('ListaOrdenes');
+            $ruta = route('generarpagoLC');
                     $mensaje = Mensaje::find(14);
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
