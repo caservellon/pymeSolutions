@@ -349,7 +349,7 @@ class SolicitudCotizacionsController extends BaseController {
 		
                         $SolicitudCotizacion = SolicitudCotizacion::find($id);
                         //$temprod = invCompras::ProveedorCompras($SolicitudCotizacion->Proveedor_idProveedor);
-                        $detallesolicitud = DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacio_idSolicitudCotizacion', '=', $SolicitudCotizacion->COM_SolicitudCotizacion_IdSolicitudCotizacion)->get();
+                        $detallesolicitud = DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacion_idSolicitudCotizacion', '=', $SolicitudCotizacion->COM_SolicitudCotizacion_IdSolicitudCotizacion)->get();
                         //return $detallesolicitud;
                         //return Input::get('formapago');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_Recibido=Input::get('COM_SolicitudCotizacion_Recibido');
