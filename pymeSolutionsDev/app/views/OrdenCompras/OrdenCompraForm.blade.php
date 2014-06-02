@@ -1,7 +1,10 @@
 @extends('layouts.scaffold')
 
 @section('main')
-
+    <script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+    <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
 <? 
   $subTotal=0;
   $totalGeneral=0;
@@ -16,7 +19,7 @@
       <div class="page-header clearfix">
         <h3 class="pull-left">Crear Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
         <div class="pull-right">
-          <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+          <a href="/Compras/OrdenCompra/sinCotizacion/ListaProductos" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
         </div>
   </div>
   </div>
@@ -111,6 +114,11 @@
             <span class="bold-span">Descuento: </span> <span class="bold-span"><label style="margin-left:14px; text-align:right;">Lps.</label> <input type="text"  id="descuento" value="0.00" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:90px; text-align:right;"/></span>
         </div>
         <div>
+          <div id='Porcentaje' style="position: fixed; width: 350px; height: 190px; top: 0; left: 0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; border: #333333 3px solid; background-color: #FAFAFA; color: #000000; display:none;">
+            <label>Introduzca el Porcentaje del Impuesto Sobre la Venta</label>
+            {{Form::text('pISV',15, array('id' => 'pISV'))}}
+            <button type="button" class="btn btn-info cancel-venta" onClick="ocultarVentanaISV()" >Cambiar</button>
+          </div>
             <span class="bold-span">ISV: </span> <span class="bold-span"><label style="margin-left:68px; text-align:right;">Lps.</label> <input type="text"  id="isv" value="{{$subTotal*0.15}}" readonly="readonly" style="border-width:0;  background-color:rgba(0,0,0,0); max-width:90px; text-align:right;"/></span>
         </div>
         <hr>
@@ -129,6 +137,7 @@
 
 					<!--<a href="{{ route('HistorialOrden', array('id'=>' <script type="text/javascript"> alert("hola") ;</script> '))}}" ><button type="button" class="btn btn-success" data-toggle="modal" data-target="#agregar-Producto" >Agregar Producto</button></a>-->
 					<button type="button" class="btn btn-info editar-prod" onClick="mostrarVentana()" >Editar Cantidad</button>
+          <button type="button" class="btn btn-info editar-prod" onClick="mostrarVentanaISV()" >% de Impuesto Sugerido</button>
 					<button type="button" class="btn btn-warning eliminar-prod" onClick="eliminar();" >Eliminar Producto</button>
 					<!--<button type="reset" class="btn btn-danger cancel-venta" onclick="window.history.back()" >Cancelar Cambios</button>-->
        
@@ -145,10 +154,29 @@
           <label>Fecha Entrega * </label>
 		       <?/*<a href="javascript:NewCal('COM_OrdenCompra_FechaEntrega','ddmmmyyyy',true,24)">Click Aqui <img  src="/images/cal.gif" width="16" height="16" border="0" alt="Pick a date"></a>*/?>
           <br>
-              {{Form::custom('datetime-local','COM_OrdenCompra_FechaEntrega','2014/03/17',array('format'=>'AAAA/MM/DD','required '=>'required '))}}
+              {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega'))}}
+              <? 
+                $horaInicio='09:00';
+                $horaFinal='19:01';
+              ?>
+          <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
+                        "autodateOnStart": false,
+                        "futureOnly": true,
+                        "locale":"es",
+                        "minTime": "{{$horaInicio}}",
+                        "maxTime": "{{$horaFinal}}",
+                        "dateFormat": "YYYY/MM/DD hh:mm"
+                    });
+            </script>
              <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
           
           <hr>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
           <br>
           <label>Forma de Pago</label>
            <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
@@ -162,7 +190,11 @@
                  
            ?>
            {{ Form::select('formapago',$m) }}
-           
+           <label>Periodo de Gracia</label>
+           <br>
+           {{  Form::text('COM_OrdenCompra_PeriodoGracia',null) }}
+           <label>Cantidad de Abonos a Realizar</label>
+           {{  Form::text('COM_OrdenCompra_CantidadPago',null)}}
 		</div>
 		<div class="col-md-4">
         <label>Direccion de Entrega*:</label>
@@ -177,7 +209,33 @@
 	  {{Form::checkbox('COM_OrdenCompra_Activo','1',true)}}
       
       <label>Activo</label>
-      
+                <div class="form-group" id="campos Locales otros"> 
+     
+      <?/* usar lo q se ocupa */?>
+      <h5>Campos Locales de Solicitud de Cotizacion</h5>
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              <?php 
+                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
+              ?>
+              {{$valores->COM_ValorCampoLocal_Valor}}
+              
+        @endforeach
+        <hr>
+        <h5>Campos Locales de Cotizacion</h5>
+       @foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get() as $campo)
+              <br>
+              <label >{{{ $campo->GEN_CampoLocal_Nombre }}}</label> 
+              <br>      
+              <?php 
+                  $valores=ValorCampoLocal::where('COM_CampoLocal_IdCampoLocal','=',$campo->GEN_CampoLocal_ID)->first();
+              ?>
+              {{$valores->COM_ValorCampoLocal_Valor}}
+              
+        @endforeach                   
+  </div>
       </div>
 
       <div class="col-md-6" style="text-align: right">
@@ -223,6 +281,7 @@
   </div>
       <h5>Nombre del Oficial de Compras</h5></div>
   </div>
+ 
   
   <script type="text/javascript">setExistentes("<?php echo $contadorDetalle; ?>")</script> 
 	<div class="row">  

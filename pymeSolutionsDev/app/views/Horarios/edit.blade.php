@@ -7,11 +7,18 @@
         <a href="{{{ URL::to('Inventario/Horarios') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
+
+@if ($errors->any())
+  <ul>
+    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+  </ul>
+@endif
+
 {{ Form::model($Horario, array('method' => 'PATCH', 'route' => array('Inventario.Horarios.update', $Horario->INV_Horario_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
         {{ Form::label('INV_Horario_Nombre', 'Nombre: *', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
-            {{ Form::text('INV_Horario_Nombre', $Horario->INV_Horario_Nombre, array('class' => 'form-control', 'id' => 'INV_Horario_Nombre', 'placeholder'=>'Name')) }}
+            {{ Form::text('INV_Horario_Nombre', $Horario->INV_Horario_Nombre, array('class' => 'form-control', 'id' => 'INV_Horario_Nombre', 'placeholder'=>'Name', 'maxlength'=>'128')) }}
         </div>
     </div>
     <div class="form-group">
@@ -39,11 +46,5 @@
       </div>
     </div>
 {{ Form::close() }}
-
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
 @stop

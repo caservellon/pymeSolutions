@@ -1,11 +1,17 @@
 @extends('layouts.scaffold')
 
 @section('main')
+ction('main')
+    <script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+    <link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+    <script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
+    
 <div class="row">
     <div class="page-header clearfix">
       <h3 class="pull-left">Crear Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
       <div class="pull-right">
-        <a href="" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="/Compras/OrdenCompra/conCotizacion/ListaCotizaciones" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
 </div>
 </div>
@@ -75,8 +81,9 @@
                         <td>{{ $product1->INV_Producto_Nombre}}</td>
                         <td>{{ $product1->INV_Producto_Descripcion}}</td>
                         <?//esta es la forma para llamar a java script desde laravel?>
-                        
+                        {{Form::text('COM_DetalleOrdenCompra_Cantidad'.$contador,$cantidad, array('style' => 'display:none'))}}
                         <td>{{$cantidad}}</td>
+                        {{Form::text('COM_DetalleOrdenCompra_PrecioUnitario'.$contador,$precioUnitario, array('style' => 'display:none'))}}
                         <td>{{$precioUnitario}}</td>
                         <td>{{$cantidad*$precioUnitario}}</td>
                         <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);
@@ -97,22 +104,52 @@
         <label>Fecha Emision</label>
         {{date('Y/m/d H:i:s')}}
         
-        <label>Fecha Entrega</label>
-        {{Form::custom('datetime-local','COM_OrdenCompra_FechaEntrega','2014/03/17',array('format'=>'AAAA/MM/DD','required '=>'required '))}}
+        <label>Fecha Entrega *</label>
+         {{Form::text('COM_OrdenCompra_FechaEntrega',null,array('id'=>'COM_OrdenCompra_FechaEntrega','value'=>'','required '=>'required '))}}
+		 <?php $horaInicio="08:30";
+		 $horaFinal="19:00";
+		?>
+         <script>  $('#COM_OrdenCompra_FechaEntrega').appendDtpicker({
+                        "autodateOnStart": false,
+                        "futureOnly": true,
+                        "locale":"es",
+                        "minTime": "{{$horaInicio}}",
+                        "maxTime": "{{$horaFinal}}",
+                        "dateFormat": "YYYY/MM/DD hh:mm"
+                    });
+            </script>
+             <?/*{{Form::text('COM_OrdenCompra_FechaEntrega',null, array('readonly' => 'readonly', 'id'=>'COM_OrdenCompra_FechaEntrega'))}}*/?>
+          
+          <hr>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
         
         <br>
         <label>Forma de Pago</label>
-         <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedor)->get();
-                $form=array();
-                $id=array();
-                foreach ($formapago as $forma){
-                       $id[]=$forma->INV_FormaPago_ID;
-                 }
-                 $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+         <?php 
+                 $cot= Cotizacion::find($id_cot);
+                 $mm=FormaPago::find($cot->COM_Cotizacion_IdFormaPago);
                  
                  
          ?>
-         {{ Form::select('formapago',$m) }}
+         
+         
+         {{  Form::text('formapago',$mm->INV_FormaPago_ID, array('style' => 'display:none')) }}
+         {{  $mm->INV_FormaPago_Nombre }}
+         <?php $Coti=Cotizacion::find($id_cot);?>
+         <label>Periodo de Gracia: </label>
+           {{  $Coti->COM_Cotizacion_PeriodoGracia }}
+           {{  Form::text('COM_OrdenCompra_PeriodoGracia',$Coti->COM_Cotizacion_PeriodoGracia, array('style' => 'display:none')) }}
+           <br>
+           <label>Cantidad de Abonos a Realizar: </label>
+           {{  $Coti->COM_Cotizacion_CantidadPago}}
+           {{  Form::text('COM_OrdenCompra_CantidadPago',$Coti->COM_Cotizacion_CantidadPago, array('style' => 'display:none') )}}
+           <br>
          
     </div>
     <div class="col-md-4">
@@ -124,11 +161,22 @@
     </div>
     <div class="col-md-4" style="text-align: right">
         
-        
+        <?php 
+            $cot=Cotizacion::find($id_cot);
+        $isv=$cot->COM_Cotizacion_ISV;
+          $isv1=$totalGeneral*($isv/100);
+          ?>
+        <label>Subtotal: Lps. {{$totalGeneral}}</label>
+        <br>
+        <label>I.S.V.: Lps. {{$isv1}}</label>
+        <br>
+        <?php $totalGeneral=$totalGeneral+$isv1?>
         <label>Total: Lps. {{$totalGeneral}}</label>
         
         <input type="text" id="total" value="<?echo $totalGeneral;?>" style='display:none'>
         {{Form::text('totalG',$totalGeneral, array('style' => 'display:none'))}}
+        {{Form::text('isv',$isv, array('style' => 'display:none'))}}
+        
     </div>
 </div>
 <div class="row" >

@@ -9,7 +9,7 @@
 	  <span class="glyphicon glyphicon-save"></span> Nueva Entrada Inventario
 	</a>
 	<div class="pull-right">
-    	<a href="{{{ URL::to('Inventario/MovimientoInventario') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+    	<a href="{{{ URL::to('Inventario/MovimientoInventario') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
     </div>
 </div>
 
@@ -25,7 +25,7 @@
 				<th>Usuario Creacion</th>
 				<th>Fecha Modificacion</th>
 				<th>Usuario Modificacion</th>
-				<th>Motivo Movimiento</th>
+				<th>Concepto Movimiento</th>
 			</tr>
 		</thead>
 

@@ -67,6 +67,7 @@
 		</tbody>
 	</table>
 	</div>
+	<div class="text-center"><?php echo $Empresas->links(); ?></div>
 @else
 	<div class="alert alert-danger">
      	<strong>Oh no!</strong> No hay empresas disponibles :(

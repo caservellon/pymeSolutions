@@ -3,7 +3,7 @@
 @section('main')
 
 <div class='page-header clearfix'>
-<h2>Asiento Contable > <small>Crear</small>
+<h2>Concepto Motivo> <small>Crear</small>
     <a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
     
@@ -69,7 +69,7 @@
     </div> 
     
       <div class='col-md-3'>
-			{{ Form::submit('Crear asiento contable', array('class' => 'btn btn-success')) }}
+			{{ Form::submit('Crear concepto motivo', array('class' => 'btn btn-success')) }}
       </div>
 		
 	

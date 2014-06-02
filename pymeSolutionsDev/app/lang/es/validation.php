@@ -68,7 +68,6 @@ return array(
     ),
     "unique"           => "El :attribute ya ha sido utilizado.",
     "url"              => "El formato de :attribute es inválido.",
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines

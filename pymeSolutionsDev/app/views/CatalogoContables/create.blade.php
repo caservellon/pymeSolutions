@@ -27,7 +27,7 @@
             <div class="form-group">
                 {{ Form::label('CON_CatalogoContable_Nombre', 'Nombre de la Cuenta:*') }}
             <div class ="col-md-3">
-                {{ Form::text('CON_CatalogoContable_Nombre','',array('maxlength'=>'100')) }}
+                {{ Form::text('CON_CatalogoContable_Nombre','',array('maxlength'=>'120')) }}
             </div>
             </div>
 

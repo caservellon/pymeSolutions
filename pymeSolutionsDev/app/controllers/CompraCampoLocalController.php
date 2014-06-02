@@ -60,7 +60,8 @@ class CompraCampoLocalController extends BaseController {
 				}
 			}
                         $ruta = route('Compras.Configuracion.CampoLocal.index');
-			 $mensaje = Mensaje::find(1);
+			 $imprimir = Mensaje::find(1);
+                        $mensaje = $imprimir->GEN_Mensajes_Mensaje;
                          return View::make('MensajeCompra', compact('mensaje', 'ruta'));
 		}
 
@@ -128,7 +129,10 @@ class CompraCampoLocalController extends BaseController {
 				}
 			}
                          $ruta = route('Compras.Configuracion.CampoLocal.index');
-                         $mensaje = Mensaje::find(1);
+                         //Trae el mensaje de la base de datos
+                         $imprimir = Mensaje::find(1);
+                         $mensaje = $imprimir->GEN_Mensajes_Mensaje;
+                         
                          return View::make('MensajeCompra', compact('mensaje', 'ruta'));
 		}
 

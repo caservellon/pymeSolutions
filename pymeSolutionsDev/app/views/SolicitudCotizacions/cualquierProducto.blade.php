@@ -6,7 +6,20 @@
       <div class="pull-right">
         <a href="{{{ URL::to('Compras/SolicitudCotizacion/Crear') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
       </div>
-</div>   
+</div>  
+
+<div  class="col-md-9" >
+                          
+                                 <div class="col-xs-5 col-sm-6 col-md-12">
+                                    {{ Form::open(array('route' => 'SolicitudCotizacions.buscarCualquierProducto')) }}
+                                    {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
+                                    {{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Buscar por nombre, ciudad, codigo..')) }}
+                                    {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
+                                    {{ Form::close() }}
+                                </div>
+             
+             
+          </div>
             {{ Form::open(array('route' => 'seleccion', 'class' => "form-horizontal" , 'role' => 'form' )) }}
             <div class="row">
                 
@@ -30,7 +43,7 @@
 		<tbody>
                     
 			@foreach ($cualquierProducto as $value)
-                            <?php $prov_prod = DB::table('INV_Producto_Proveedor')->get(); ?>
+                            <?php $prov_prod = invCompras::ProductoProveedor($value->INV_Producto_ID); ?>
 				<tr>
 					<td>{{{ $value->INV_Producto_Codigo }}}</td>
 					<td>{{{ $value->INV_Producto_Nombre }}}</td>
@@ -38,13 +51,10 @@
 					<td>{{{ $value->INV_Producto_Cantidad }}}</td>
                                         <td>{{{ $value->INV_Producto_PuntoReorden }}}</td>
                                         <td>@foreach($prov_prod as $key)
-                                        @if($value->INV_Producto_ID==$key->INV_Producto_ID)
-                                        <?php $proveedor = Proveedor::find($key->INV_Proveedor_ID); 
-                                          
-                                        ?>
-                                        <a>{{{$proveedor->INV_Proveedor_Codigo}}}</a>
-                                        {{form::text('idP'.$proveedor->INV_Proveedor_ID, $proveedor->INV_Proveedor_ID, array('style'=>'display:none'))}}
-                                        @endif
+                                  
+                                        <a>{{{$key->INV_Proveedor_Codigo}}}</a>
+                                        {{form::text('idP'.$key->INV_Proveedor_ID, $key->INV_Proveedor_ID, array('style'=>'display:none'))}}
+                                        
                                         @endforeach</td>
                                          
                                         <!--<td>{{ link_to_route('seleccion', 'Incluir', array('id'=>$value->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>-->

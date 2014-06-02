@@ -4,7 +4,7 @@
 
 <div class='page-header clearfix'>
 <h2>Asiento Contable > <small>Crear</small>
-    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
+    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::route('con.librodiario')}}">
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
     
 </div>
@@ -100,7 +100,7 @@
               $('#div_crearmotivo').html(data);
             });
          });
-
+         $('#CON_MotivoTransaccion_ID').click();
     });
 </script>
 

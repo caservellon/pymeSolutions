@@ -9,11 +9,11 @@ mysql -u "root" "-proot" < "CreateDB.sql" >> ./logs/install.log 2>&1
 echo "Creating General Tables " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateGeneral.sql" >> ./logs/install.log 2>&1
 
-echo "Creating Inventario " >> ./logs/install.log
-mysql -u "root" "-proot" "pymeERP" < "CreateInventario.sql" >> ./logs/install.log 2>&1
-
 echo "Creating Compras " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateCompras.sql" >> ./logs/install.log 2>&1
+
+echo "Creating Inventario " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "CreateInventario.sql" >> ./logs/install.log 2>&1
 
 echo "Creating Contabilidad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateContabilidad.sql" >> ./logs/install.log 2>&1
@@ -28,6 +28,8 @@ echo "****************Populating tables****************" >> ./logs/install.log
 
 echo "Populating CRM " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_CRM_TipoDocumento.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_CRM_Personas.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_CRM_Empresas.sql" >> ./logs/install.log 2>&1
 
 echo "Populating Compras " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_COM_EstadoOrdencompra.sql" >> ./logs/install.log 2>&1
@@ -42,6 +44,10 @@ mysql -u "root" "-proot" "pymeERP" < "INS_INV_FormaPago.sql" >> ./logs/install.l
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_UnidadMedida.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Productos.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_INV_Proveedores.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_MotivoMovimiento.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Producto_Atributo.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Producto_Proveedor.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_INV_Proveedor_FormaPago.sql" >> ./logs/install.log 2>&1
 
 echo "Populating Contabilidad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_ClasificacionCuenta.sql" >> ./logs/install.log 2>&1

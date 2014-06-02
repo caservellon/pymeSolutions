@@ -13,18 +13,28 @@
     <div class="col-md-1 col-md-offset-10"> {{ Form::submit('Confirmar', array('class' => 'btn btn-default btn-md')) }}</div>
 </div> 
 
+
         
 @if ($errors->any())
-<div class="alert alert-danger">
-    {{ implode('', $errors->all('<li >:message</li>')) }}
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
 </div>
-@endif      
+@endif     
 
 
 
 
 @for($j=0; $j < count($proveedor); $j++)
-<?php $proveedores = Proveedor::find($proveedor[$j]); ?>
+<?php $proveedores = invCompras::ProveedorCompras($proveedor[$j]); ?>
 <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
@@ -63,14 +73,12 @@
 		</thead>
 
 		<tbody>
-                    <?php $prov_prod = DB::table('INV_Producto_Proveedor')->get(); ?>
-                    
-                
+                    <?php $prov_prod = invCompras::ProveedorProducto($proveedores->INV_Proveedor_ID) ?>
                     @foreach($prov_prod as $key)
-                    @if($proveedores->INV_Proveedor_ID == $key->INV_Proveedor_ID)
+                   
 			@for($i=0; $i < count($cualquierProducto); $i++)
                         
-                                    <?php $cualquierProducto1= Producto::find($cualquierProducto[$i]);  ?>
+                                    <?php $cualquierProducto1= invCompras::ProductoCompras($cualquierProducto[$i]);  $nombret = str_replace(' ', '', $proveedores->INV_Proveedor_Nombre);?>
                                     @if($cualquierProducto1->INV_Producto_ID == $key->INV_Producto_ID)
                                     <tr>
 					
@@ -78,10 +86,14 @@
                                         
 					<td>{{{ $cualquierProducto1->INV_Producto_Nombre }}}</td>
 					<td>{{{ $cualquierProducto1->INV_Producto_Descripcion }}}</td>
-                                        <td>{{Form::text('CantidadSolicitar'.$cualquierProducto1->INV_Producto_ID, null,array('placeholder'=>'##'))}}</td>
-					
+                                        <?php $nombre = str_replace(' ', '', $cualquierProducto1->INV_Producto_Nombre ); if(empty($Input)){ ?>
+                                       
+                                        <td>{{ Form::text('CantidadSolicitar'.$nombret.$nombre, null, array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
+                                        <?php }else{ ?>
+                                        <td>{{ Form::text('CantidadSolicitar'.$nombret.$nombre, $Input['CantidadSolicitar'.$nombret.$nombre], array('class' => 'form-control', 'placeholder'=>'##', 'id' => 'CantidadSolicitar'.$proveedores->INV_Proveedor_Nombre.$cualquierProducto1->INV_Producto_Nombre ))}}</td>
+                                        <?php } ?>
                                         
-                                        <?php $unidad= UnidadMedida::find($cualquierProducto1->INV_UnidadMedida_ID) ?>
+                                        <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>
                                         <td>{{{ $unidad->INV_UnidadMedida_Nombre }}}</td>
                                         
                                        
@@ -91,7 +103,7 @@
                                @endif 
                            
                           @endfor
-                    @endif
+                    
                     @endforeach
                 </tbody> 
              </table>
@@ -107,19 +119,19 @@
         @endif
         <div class="col-md-5">
             @if ($campo->GEN_CampoLocal_Tipo == 'TXT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID)) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$nombret,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$nombret)) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'INT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID, 'placeholder'=>'##')) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$nombret,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$nombret, 'placeholder'=>'##')) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'FLOAT')
-            {{ Form::text($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$cualquierProducto1->INV_Producto_ID, 'placeholder'=>'#.##')) }}
+            {{ Form::text($campo->GEN_CampoLocal_Codigo.$nombret,null, array('class' => 'form-control', 'id' => $campo->GEN_CampoLocal_Codigo.$nombret, 'placeholder'=>'#.##')) }}
             
             @endif
             @if ($campo->GEN_CampoLocal_Tipo == 'LIST')
-            {{ Form::select($campo->GEN_CampoLocal_Codigo.$proveedores->INV_Proveedor_Nombre, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}
+            {{ Form::select($campo->GEN_CampoLocal_Codigo.$nombret, DB::table('GEN_CampoLocalLista')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->lists('GEN_CampoLocalLista_Valor','GEN_CampoLocalLista_Valor')) }}
             
             @endif
         </div>
@@ -129,18 +141,21 @@
 </div>
 <div class="col-md-4">
 <label>Forma de Pago</label>
-           <?php $formapago=DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', '=',$proveedores->INV_Proveedor_ID)->get();
+           <?php $formapago=  invCompras::ProveedorFormaPago($proveedores->INV_Proveedor_ID);
                   $form=array();
                   $id=array();
                   foreach ($formapago as $forma){
                          $id[]=$forma->INV_FormaPago_ID;
                    }
-                   $m=  FormaPago::find($id)->Lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+                   $m= invCompras::FormaPagolista($id);
                   
                  
            ?>
-           {{ Form::select('formapago'.$proveedores->INV_Proveedor_Nombre,$m) }}
+           {{ Form::select('formapago'.$nombret,$m) }}
            
+</div>	
+<div class="col-md-4">
+    <p>Por favor mandar la cantidad de pagos a realizar y el periodo de gracia para realizar el primer pago a partir de enviar la cotizacion</p>
 </div>	
 
 <div class="row" >

@@ -69,6 +69,8 @@ class DatabaseSeeder extends Seeder {
 		$this->call('EstadoresultadosTableSeeder');
 
 
+		$this->call('MotivoinventariosTableSeeder');
+		$this->call('ProductorechazadosTableSeeder');
 	}
 
 }

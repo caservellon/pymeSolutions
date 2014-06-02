@@ -17,8 +17,11 @@ class ConceptoMotivoController extends BaseController {
 
 	public function index()
 	{
-		$Asientos = ConceptoMotivo::all();
-        return Redirect::action('ConceptoMotivoController@create');
+		$conceptos = ConceptoMotivo::all();
+		$Motiv     = MotivoTransaccion::all();
+        return View::make('ConceptoMotivo.index')
+        -> with('ConceptoMotivos',$conceptos)
+        -> with('Moti',$Motiv);
     }
 
 	/**
@@ -123,8 +126,8 @@ class ConceptoMotivoController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$input['CON_ConceptoMotivo_FechaCreacion']= date('Y-m-d');
-			$input['CON_ConceptoMotivo_FechaModificacion'] =date('Y-m-d');
+			//$input['CON_ConceptoMotivo_FechaCreacion']= date('Y-m-d');
+			//$input['CON_ConceptoMotivo_FechaModificacion'] =date('Y-m-d');
 			$this->ConceptoMotivo->create($input);
 
 			return Redirect::action('ConceptoMotivoController@index');
@@ -155,7 +158,16 @@ class ConceptoMotivoController extends BaseController {
 	 */
 	public function edit($id)
 	{
-        return View::make('Asientos.edit');
+        $CM = $this->ConceptoMotivo->find($id);
+        $MT = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+        //return $MT;
+		if (is_null($CM))
+		{
+			return Redirect::action('ConceptoMotivoController@index');
+		}
+        return View::make('ConceptoMotivo.edit')
+        	->with('ConceptoMotivos',$CM)
+        	->with('ListaMotivos',$MT);
 	}
 
 	/**
@@ -166,7 +178,24 @@ class ConceptoMotivoController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$input = array_except(Input::all(), '_method');
+		$Concepto = ConceptoMotivo::findOrFail($id);
+		$var = $Concepto->CON_ConceptoMotivo_Concepto;
+		$rules=str_replace(":Concepto", $var, ConceptoMotivo::$rules);
+		//return $rules;
+		$validation = Validator::make($input, $rules);
+
+		if ($validation->passes())
+		{
+			$Concepto->update($input);
+
+			return Redirect::action('ConceptoMotivoController@index');
+		}
+
+		return Redirect::action('ConceptoMotivoController@edit', $id)
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');//
 	}
 
 	/**

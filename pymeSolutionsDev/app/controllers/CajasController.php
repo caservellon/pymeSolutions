@@ -18,10 +18,14 @@ class CajasController extends BaseController {
 	public function index()
 	{
 
-		$Cajas = $this->Caja->where('VEN_Caja_Estado','<>',2)->get();
 
-		//return $Cajas;
-		return View::make('Cajas.index', compact('Cajas'));
+		if (Seguridad::VerCaja()) {
+			$Cajas = $this->Caja->where('VEN_Caja_Estado',1)->get();
+			return View::make('Cajas.index', compact('Cajas'));
+		} else {
+			return Redirect::to('/403');
+		}
+		
 	}
 
 	/**
@@ -31,8 +35,13 @@ class CajasController extends BaseController {
 	 */
 	public function create()
 	{
-		$periodos = PeriodoCierreDeCaja::lists('VEN_PeriodoCierreDeCaja_Codigo', 'VEN_PeriodoCierreDeCaja_id');
-		return View::make('Cajas.create', compact('periodos'));
+		if (Seguridad::CrearCaja()) {
+			$periodos = PeriodoCierreDeCaja::lists('VEN_PeriodoCierreDeCaja_Codigo', 'VEN_PeriodoCierreDeCaja_id');
+			return View::make('Cajas.create', compact('periodos'));
+		} else {
+			return Redirect::to('/403');
+		}
+		
 	}
 
 	/**
@@ -42,21 +51,25 @@ class CajasController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, Caja::$rules);
+		if (Seguridad::CrearCaja()) {
+			$input = Input::all();
+			$validation = Validator::make($input, Caja::$rules);
 
-		if ($validation->passes())
-		{
-			$this->Caja->VEN_Caja_Estado = 1;
-			$this->Caja->create($input);
+			if ($validation->passes())
+			{
+			
+				$this->Caja->create($input);
 
-			return Redirect::route('Ventas.Cajas.index');
+				return Redirect::route('Ventas.Cajas.index');
+			}
+
+			return Redirect::route('Ventas.Cajas.create')
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Ventas.Cajas.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -67,9 +80,12 @@ class CajasController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$Caja = $this->Caja->findOrFail($id);
-
-		return View::make('Cajas.show', compact('Caja'));
+		if (Seguridad::VerCaja()) {
+			$Caja = $this->Caja->findOrFail($id);
+			return View::make('Cajas.show', compact('Caja'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -80,15 +96,20 @@ class CajasController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$Caja = $this->Caja->find($id);
-		$periodos = PeriodoCierreDeCaja::lists('VEN_PeriodoCierreDeCaja_Codigo', 'VEN_PeriodoCierreDeCaja_id');
+		if (Seguridad::EditarCaja()) {
+			$Caja = $this->Caja->find($id);
+			$periodos = PeriodoCierreDeCaja::lists('VEN_PeriodoCierreDeCaja_Codigo', 'VEN_PeriodoCierreDeCaja_id');
 
-		if (is_null($Caja))
-		{
-			return Redirect::route('Ventas.Cajas.index');
+			if (is_null($Caja))
+			{
+				return Redirect::route('Ventas.Cajas.index');
+			}
+
+			return View::make('Cajas.edit', compact('Caja', 'periodos'));
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return View::make('Cajas.edit', compact('Caja', 'periodos'));
+		
 	}
 
 	/**
@@ -99,21 +120,26 @@ class CajasController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Caja::$rulesUpdate);
+		if (Seguridad::EditarCaja()) {
+			$input = array_except(Input::all(), '_method');
+			$validation = Validator::make($input, Caja::$rulesUpdate);
 
-		if ($validation->passes())
-		{
-			$Caja = $this->Caja->find($id);
-			$Caja->update($input);
+			if ($validation->passes())
+			{
+				$Caja = $this->Caja->find($id);
+				$Caja->update($input);
 
-			return Redirect::route('Ventas.Cajas.index');
+				return Redirect::route('Ventas.Cajas.index');
+			}
+
+			return Redirect::route('Ventas.Cajas.edit', $id)
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Ventas.Cajas.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+		
 	}
 
 	/**
@@ -125,12 +151,15 @@ class CajasController extends BaseController {
 	public function destroy($id)
 	{
 
-		$box = Caja::find($id);
-		$box->VEN_Caja_Estado = 2;
-		$box->save();
-
-
-		return Redirect::route('Ventas.Cajas.index');
+		if (Seguridad::BorrarCaja()) {
+			$box = Caja::find($id);
+			$box->VEN_Caja_Estado = 0;
+			$box->save();
+			return Redirect::route('Ventas.Cajas.index');
+		} else {
+			return Redirect::to('/403');
+		}
+		
 	}
 
 }

@@ -36,111 +36,140 @@ class CotizacionController extends BaseController {
 	}
 	
 	public function CapturarCotizacion(){
-		$Input = Input::except(array('_token', 'Capturar'));
-		
-		$SolicitudCotizacionSeleccionada = false;
-		$CantidadSeleccionadas = 0;
-		
-		if (Input::has('Capturar')){
-			foreach ($Input as $Codigo){
-					$CodigoSolicitudCotizacion = $Codigo;
-					$SolicitudCotizacionSeleccionada = true;
-					$CantidadSeleccionadas += 1;
-			}
+		if(Input::has('Capturar')){
+			if(Input::has('CodigoSolicitudCotizacion')){
+				$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
+
+				return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion));
 			
-			if ($SolicitudCotizacionSeleccionada){
-				if ($CantidadSeleccionadas == 1){
-					if (!Helpers::CotizacionCapturada($CodigoSolicitudCotizacion)){
-						return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion));
-					}else{
-						return Redirect::route('CotizacionesCapturarCotizacion', array('Error' => 'Ya Capturada'));
-					}
-				}else{
-					return Redirect::route('CotizacionesCapturarCotizacion', array('Error' => 'Seleccion Multiple'));
-				}
 			}else{
 				return Redirect::route('CotizacionesCapturarCotizacion', array('Error' => 'Sin Seleccion'));
 			}
 			
-		}elseif (Input::has('Buscar')){
+		}elseif(Input::has('Buscar')){
+			return Redirect::route('CotizacionesCapturarCotizacion', array('Busqueda' => Input::get('Busqueda'))) -> withInput();
 			
-		}else{
-			return View::make('COM_Cotizacion.CapturarCotizacion');
+		}elseif(Input::has('Restablecer')){
+			return Redirect::route('CotizacionesCapturarCotizacion');
 		}
 		
 	}
 	
+	
+	
+	
 	public function CapturarCotizacionCapturar(){
-		$Input = Input::except(array('_token', 'CodigoSolicitudCotizacion', 'VigenciaCotizacion'));
+		$Input = Input::all();
+		
+		$Cadena = 'Cualquier';
+		/*
+		if(Helpers::EsAlfaEspacio($Cadena)){
+			return "Es";
+		}else{
+			return "No es";
+		}
+		*/
 		//return var_dump(Input::all());
-		$HayErrores = false;
-		
-		$CodigoProducto = array_keys($Input);
-		
-		reset($CodigoProducto);
-		
-		foreach ($Input as $Precio){
-			if (count(Helpers::InformacionProductoSolicitudCotizacion(current($CodigoProducto), Input::get('CodigoSolicitudCotizacion'))) <> 0){
-				$PrecioUnitario['COM_DetalleCotizacion_PrecioUnitario'] = $Precio;
-				$Validacion = Validator::make($PrecioUnitario, COM_DetalleCotizacion::$rules, COM_DetalleCotizacion::$messages);
-				
-				if($Validacion->fails()){
-					$HayErrores = true;
-					break;
-				}
-			}
-			next($CodigoProducto);
-		}
-		
-		if ($HayErrores){
-			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
-			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($Validacion);
-		}
-		
-		$Cotizacion['COM_Cotizacion_Vigencia'] = Input::get('VigenciaCotizacion');
-		$Validacion = Validator::make($Cotizacion, Cotizacion::$rules, Cotizacion::$messages);
-		
-		if($Validacion->fails()){
-			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
-			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($Validacion);
-		}
-		
-		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'COM_COT%')->get();
-		$res = Cotizacion::$rule;
-                
-        foreach ($campos as $campo) {
-			$val = '';
-			
-			if ($campo->GEN_CampoLocal_Requerido) {
-				$val = $val.'Required|';
-			}
-			
-			switch ($campo->GEN_CampoLocal_Tipo) {
-				case 'TXT':
-					$val = $val.'alpha_spaces|';
-					break;				
-				case 'INT':
-					$val = $val.'Integer|';
-					break;
-				case 'FLOAT':
-					$val = $val.'Numeric|';
-					break;				
-				default:
-					break;
-			}
-			
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val)); 
-		}       
-                
-        $validation = Validator::make($Input, $res);
-		
-		if($validation->fails()){
-			$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
-			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion))->withInput()->withErrors($validation);
-		} 
-		
+		$Indice = array_keys($Input);
+		$Valor = array_values($Input);
+		$CodigosProducto = array();
+		$PreciosProducto = array();
 		
 		$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
+		
+		for($i = 0; $i < count($Input); $i++){
+			if(Helpers::ExisteProductoSolicitudCotizacion($Indice[$i], $CodigoSolicitudCotizacion)){
+				array_push($CodigosProducto, $Indice[$i]);
+				array_push($PreciosProducto, $Valor[$i]);
+			}
+		}
+		
+		$Errores = array();
+		$HayErrores = false;
+		
+		foreach($PreciosProducto as $PrecioProducto){
+			if($PrecioProducto == ''){
+				array_push($Errores, 'El Precio Unitario es requerido');
+				$HayErrores = true;
+			}elseif(!Helpers::EsDecimalMayorCero($PrecioProducto)){
+				array_push($Errores, 'El Precio Unitario debe ser un número decimal, sin signo, mayor a cero, y con un máximo de dos dígitos después del punto');
+				$HayErrores = true;
+			}
+		}
+		
+		if(Input::get('VigenciaCotizacion') == ''){
+			array_push($Errores, 'La Fecha de Vigencia es requerida');
+			$HayErrores = true;
+		}
+		
+		if(Input::get('ImpuestoCotizacion') == ''){
+			array_push($Errores, 'El Impuesto es requerido');
+			$HayErrores = true;
+		}elseif(!Helpers::EsDecimalMayorCero(Input::get('ImpuestoCotizacion'))){
+			array_push($Errores, 'El Impuesto debe ser un número decimal, sin signo, mayor a cero, y con un máximo de dos dígitos después del punto');
+			$HayErrores = true;
+		}
+		
+		
+		if(Helpers::ExistenCamposLocalesCotizaciones()){
+			$CamposLocalesCotizacion = Helpers::InformacionCamposLocalesCotizaciones();
+        
+			$CodigosCampolocal = array();
+			$ValoresCampoLocal = array();
+			
+			for($i = 0; $i < count($Input); $i++){
+				if(Helpers::ExisteCampoLocalCotizaciones($Indice[$i])){
+					array_push($CodigosCampolocal, $Indice[$i]);
+					array_push($ValoresCampoLocal, $Valor[$i]);
+				}
+			}
+			
+			foreach($CamposLocalesCotizacion as $CampoLocalCotizacion){
+				if(in_array($CampoLocalCotizacion -> Codigo, $CodigosCampolocal)){
+					$IndiceCodigoCampoLocal = array_search($CampoLocalCotizacion -> Codigo, $CodigosCampolocal);
+					
+					if($ValoresCampoLocal[$IndiceCodigoCampoLocal] == ''){
+						if($CampoLocalCotizacion -> Requerido){
+							array_push($Errores, 'El(La) ' . $CampoLocalCotizacion -> Nombre . ' es requerido(a)');
+							$HayErrores = true;
+						}
+					}else{
+						switch($CampoLocalCotizacion -> Tipo){
+							case 'TXT':
+								//if(Helpers::EsAlfaEspacio($ValoresCampoLocal[$IndiceCodigoCampoLocal])){
+									//array_push($Errores, 'El(La) ' . $CampoLocalCotizacion -> Nombre . ' solo puede contener letras y espacios');
+									//$HayErrores = true;
+								//}
+							break;
+							
+							case 'INT':
+								if(!Helpers::EsEntero($ValoresCampoLocal[$IndiceCodigoCampoLocal])){
+									array_push($Errores, 'El(La) ' . $CampoLocalCotizacion -> Nombre . ' debe ser un número entero');
+									$HayErrores = true;
+								}
+							break;
+								
+							case 'FLOAT':
+								if(!Helpers::EsDecimal($ValoresCampoLocal[$IndiceCodigoCampoLocal])){
+									array_push($Errores, 'El(La) ' . $CampoLocalCotizacion -> Nombre . ' debe ser un número decimal');
+									$HayErrores = true;
+								}
+							break;
+							
+							default:
+							break;
+						}
+					}
+				}
+			}  
+		}
+		
+		if($HayErrores){
+			$Errores = array_unique($Errores);
+			return Redirect::route('CotizacionesCapturarCotizacionCapturar', array('CodigoSolicitudCotizacion' => $CodigoSolicitudCotizacion, 'Errores' => '1')) -> withInput() -> with('Errores', $Errores);
+		}
+		
+		
 		$SolicitudCotizacion = Helpers::InformacionSolicitudCotizacion($CodigoSolicitudCotizacion);
 		
 		$RegistroActualCotizacion = Cotizacion::all() -> count() + 1;
@@ -150,8 +179,12 @@ class CotizacionController extends BaseController {
 		$Cotizacion -> COM_Cotizacion_Codigo = 'COM_COT_'.$RegistroActualCotizacion;
 		$Cotizacion -> COM_Cotizacion_Activo = 1;
 		$Cotizacion -> COM_Cotizacion_Vigencia = Input::get('VigenciaCotizacion');
+		$Cotizacion -> COM_Cotizacion_IdFormaPago = $SolicitudCotizacion[0] -> IdFormaPago;
+		$Cotizacion -> COM_Cotizacion_CantidadPago = $SolicitudCotizacion[0] -> CantidadPagos;
+		$Cotizacion -> COM_Cotizacion_PeriodoGracia = $SolicitudCotizacion[0] -> PeriodoGracia;
+		$Cotizacion -> COM_Cotizacion_ISV = Input::get('ImpuestoCotizacion');
 		
-		if (date_diff(date_create(date("Y-m-d")), date_create(date_format(date_create(Input::get('VigenciaCotizacion')), 'Y-m-d'))) -> format("%R%a") >= 0){
+		if (date_diff(date_create(date("Y-m-d G:i")), date_create(date_format(date_create(Input::get('VigenciaCotizacion')), 'Y-m-d G:i'))) -> format("%R%a") >= 0){
 			$Cotizacion -> COM_Cotizacion_Vigente = 1;
 		}else{
 			$Cotizacion -> COM_Cotizacion_Vigente = 0;
@@ -166,46 +199,47 @@ class CotizacionController extends BaseController {
 		
 		$Total = 0;
 		
-		foreach($campos as $campo){
-			$valorcampolocal = new ValorCampoLocal;
-			$valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
-			$valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
-			$valorcampolocal->COM_Cotizacion_IdCotizacion=$RegistroActualCotizacion;
-			$valorcampolocal->COM_Usuario_idUsuarioCreo=1;
-			$valorcampolocal->save();             
-        }
-		
-		reset($Input);
-		
-		while (is_numeric(current($Input))){
-			$ProductoSolicitudCotizacion = Helpers::InformacionProductoSolicitudCotizacion(key($Input), $CodigoSolicitudCotizacion);
-			
-			if ($ProductoSolicitudCotizacion != null){
-			
-				$DetalleCotizacion = new COM_DetalleCotizacion;
-				$DetalleCotizacion -> COM_DetalleCotizacion_Codigo = 'DC' . $RegistroActualDetalleCotizacion;
-				$DetalleCotizacion -> COM_DetalleCotizacion_Cantidad = $ProductoSolicitudCotizacion[0] -> Cantidad;
-				$DetalleCotizacion -> COM_DetalleCotizacion_PrecioUnitario = current($Input);
-				$DetalleCotizacion -> COM_DetalleCotizacion_IdCotizacion = $RegistroActualCotizacion;
-				$DetalleCotizacion -> COM_Producto_Id_Producto = $ProductoSolicitudCotizacion[0] -> Id;
-				$DetalleCotizacion -> COM_Usuario_idUsuarioCreo = 1;
-				$DetalleCotizacion -> save();
-				
-				$RegistroActualDetalleCotizacion += 1;
-				
-				$Total += $ProductoSolicitudCotizacion[0] -> Cantidad * current($Input);
+		if(Helpers::ExistenCamposLocalesCotizaciones()){
+			foreach($CamposLocalesCotizacion as $CampoLocalCotizacion){
+				$ValorCampoLocal = new ValorCampoLocal;
+				$ValorCampoLocal -> COM_ValorCampoLocal_Valor = Input::get($CampoLocalCotizacion -> Codigo);
+				$ValorCampoLocal -> COM_CampoLocal_IdCampoLocal = $CampoLocalCotizacion -> Id;
+				$ValorCampoLocal -> COM_Cotizacion_IdCotizacion = $RegistroActualCotizacion;
+				$ValorCampoLocal -> COM_Usuario_idUsuarioCreo = 1;
+				$ValorCampoLocal -> save();             
 			}
-				next($Input);
 		}
 		
-		$Cotizacion -> COM_Cotizacion_Total = $Total;
+		
+		for($i = 0; $i < count($CodigosProducto); $i++){
+			$ProductoSolicitudCotizacion = Helpers::InformacionProductoSolicitudCotizacion($CodigosProducto[$i], $CodigoSolicitudCotizacion);
+			
+			$DetalleCotizacion = new COM_DetalleCotizacion;
+			$DetalleCotizacion -> COM_DetalleCotizacion_Codigo = 'DC' . $RegistroActualDetalleCotizacion;
+			$DetalleCotizacion -> COM_DetalleCotizacion_Cantidad = $ProductoSolicitudCotizacion[0] -> Cantidad;
+			$DetalleCotizacion -> COM_DetalleCotizacion_PrecioUnitario = $PreciosProducto[$i];
+			$DetalleCotizacion -> COM_DetalleCotizacion_IdCotizacion = $RegistroActualCotizacion;
+			$DetalleCotizacion -> COM_Producto_Id_Producto = $ProductoSolicitudCotizacion[0] -> Id;
+			$DetalleCotizacion -> COM_Usuario_idUsuarioCreo = 1;
+			$DetalleCotizacion -> save();
+			
+			$RegistroActualDetalleCotizacion += 1;
+			
+			$Total += $ProductoSolicitudCotizacion[0] -> Cantidad * $PreciosProducto[$i];
+		}
+		
+		$Cotizacion -> COM_Cotizacion_Total = $Total + ($Total * (Input::get('ImpuestoCotizacion') / 100));
 		$Cotizacion -> save();
 		
 		return Redirect::route('CotizacionesCapturarCotizacionCapturarMensajeCotizacionCapturada');
-		
 	}
 	
+	
+	
+	
 	public function TodasCotizaciones(){
+		$Input = Input::except(array('_token', 'Detalle'));
+		
 		$Cotizaciones = Cotizacion::all();
 	
 		foreach ($Cotizaciones as $Cotizacion){
@@ -219,20 +253,14 @@ class CotizacionController extends BaseController {
 				$Cotizacion -> save();
 			}
 		}
-	
-		return View::make('COM_Cotizacion.TodasCotizaciones');
-	}
-	
-	public function DetallesCotizacion(){ 
-		$Input = Input::except(array('_token', 'Detalle'));
 		
-		$CotizacionSeleccionada = False;
+		$CotizacionSeleccionada = false;
 		$IndiceActual = 0;
 		
 		if (Input::has('Detalle')){
 			foreach ($Input as $Codigo){
 				$CodigosCotizacion[$IndiceActual] = $Codigo;
-				$CotizacionSeleccionada = True;
+				$CotizacionSeleccionada = true;
 				$IndiceActual += 1;
 			}
 			
@@ -243,38 +271,60 @@ class CotizacionController extends BaseController {
 			}
 			
 		}elseif (Input::has('Buscar')){
-			
+			return Redirect::route('CotizacionesTodasCotizaciones', array('Busqueda' => Input::get('Busqueda'))) -> withInput();
+		
+		}elseif(Input::has('Restablecer')){
+			return Redirect::route('CotizacionesTodasCotizaciones');
 		}
 		
+		return View::make('COM_Cotizacion.TodasCotizaciones');
 	}
 	
+	
+	
+	
 	public function HabilitarInhabilitar(){
-		$Cotizaciones = Cotizacion::all();
-		
 		if (Input::has('Actualizar')){
-			foreach ($Cotizaciones as $Cotizacion){
-				if ($Cotizacion -> COM_Cotizacion_Activo){
+			if(!Input::has('Busqueda')){
+				$Cotizaciones = Cotizacion::all();
+			}else{
+				$BusquedaCotizaciones = Session::get('BusquedaCotizaciones');
+				$CodigosCotizacion = array();
+				
+				foreach($BusquedaCotizaciones as $BusquedaCotizacion){ 
+					array_push($CodigosCotizacion, $BusquedaCotizacion -> Codigo);
+				}
+				
+				$Cotizaciones = Cotizacion::whereIn('COM_Cotizacion_Codigo', $CodigosCotizacion) -> get();
+			}
+				
+				
+			foreach($Cotizaciones as $Cotizacion){
+				if($Cotizacion -> COM_Cotizacion_Activo){
 					if (!Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
 						$Cotizacion -> COM_Cotizacion_Activo = 0;
 						$Cotizacion -> save();
 					}
 				}else{
-					if (Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
+					if(Input::has($Cotizacion -> COM_Cotizacion_Codigo)){
 						$Cotizacion -> COM_Cotizacion_Activo = 1;
 						$Cotizacion -> save();
 					}
-				}	
+				}
 			}
 			
 			return Redirect::route('CotizacionesHabilitarInhabilitarMensajeEstadoCotizacionCambiado');
 			
-		}elseif (Input::has('Buscar')){
+		}elseif(Input::has('Buscar')){
+			//return Redirect::route('CotizacionesHabilitarInhabilitar', array('Busqueda' => Input::get('Busqueda'))) -> with('CotizacionesBusqueda', $CotizacionesBusqueda);
+			return Redirect::route('CotizacionesHabilitarInhabilitar', array('Busqueda' => Input::get('Busqueda')));
 			
+		}elseif(Input::has('Restablecer')){
+			return Redirect::route('CotizacionesHabilitarInhabilitar');
 		}
 		
 	}
-	
-	
+	/*
 	public function search_index(){
 
 		//Querys de las columnas propias de Proveedor
@@ -309,5 +359,5 @@ class CotizacionController extends BaseController {
 
 		return View::make('Proveedor.index', compact('Proveedor'));
 	}
-	
+	*/
 }

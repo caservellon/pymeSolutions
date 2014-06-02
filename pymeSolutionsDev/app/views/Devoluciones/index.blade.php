@@ -4,7 +4,6 @@
 
 <h1>All Devoluciones</h1>
 
-<p>{{ link_to_route('Ventas.Devoluciones.create', 'Add new Devolucion') }}</p>
 
 @if ($Devoluciones->count())
 	<table class="table table-striped table-bordered">

@@ -8,14 +8,25 @@
       </div>
 </div>
 
+
              {{ Form::model($Solicitud, array('method' => 'PATCH', 'route' => array('Compras.SolicitudCotizacions.update', $Solicitud->COM_SolicitudCotizacion_IdSolicitudCotizacion), 'class' => 'form-horizontal', 'role' => 'form' )) }}
-            @if ($errors->any())
-	<div class="alert alert-danger">
-    {{ implode('', $errors->all('<li >:message</li>')) }}
+@if ($errors->any())
+<div class="alert alert-danger fade in">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      @if($errors->count() > 1)
+      <h4>Oh no! Se encontraron errores!</h4>
+      @else
+      <h4>Oh no! Se encontró un error!</h4>
+      @endif
+      <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+      </ul>
+      
 </div>
 @endif   
              
-             
+             <?php $proveedores= invCompras::ProveedorCompras($Solicitud->Proveedor_idProveedor);
+                    ?>
                  <div class="form-group">
                      {{ Form::label('COM_SolicitudCotizacion_Codigo', 'Codigo', array('class' => 'col-md-2 control-label')) }}
                      <div class="col-md-4">
@@ -30,6 +41,39 @@
                          {{ Form::select('COM_SolicitudCotizacion_Recibido', array('1' => 'Recibido', '0' => 'En Espera'), $Solicitud->COM_SolicitudCotizacion_Recibido, array('class' => 'col-md-4 form-control')) }}
                      </div>
                      
+                     
+                 </div>
+                 <div class="form-group" >
+                     
+                     {{ Form::label('COM_SolicitudCotizacion_FormaPago', 'Forma Pago', array('class' => 'col-md-2 control-label')) }}
+                     <div class="col-md-5">
+                         <?php $formapago=invCompras::ProveedorFormaPago($proveedores->INV_Proveedor_ID);
+                  $form=array();
+                  $id=array();
+                  foreach ($formapago as $forma){
+                         $id[]=$forma->INV_FormaPago_ID;
+                   }
+                   $m= invCompras::FormaPagolista($id);
+                   $formas = invCompras::FormaPagoCompras($Solicitud->COM_SolicitudCotizacion_FormaPago);
+                   
+           ?>
+           {{ Form::select('formapago',$m, $formas->INV_FormaPago_Nombre , array('class' => 'col-md-4 form-control')) }}
+                     </div>
+                     
+                     
+                 </div>
+                 <div class="form-group">
+                     {{ Form::label('COM_SolicitudCotizacion_CantidadPago', 'Plan de Pago', array('class' => 'col-md-2 control-label')) }}
+                     <div class="col-md-4">
+                         {{ Form::text('COM_SolicitudCotizacion_CantidadPago', null, array('class' => 'col-md-4 form-control')) }}
+                     </div>
+                     
+                 </div>
+                 <div class="form-group">
+                     {{ Form::label('COM_SolicitudCotizacion_PeriodoGracia', 'Periodo Gracia', array('class' => 'col-md-2 control-label')) }}
+                     <div class="col-md-4">
+                         {{ Form::text('COM_SolicitudCotizacion_PeriodoGracia', null, array('class' => 'col-md-4 form-control')) }}
+                     </div>
                      
                  </div>
                  <div class="form-group">

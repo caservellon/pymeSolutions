@@ -27,38 +27,60 @@ class ProveedorController extends BaseController {
 	}
 
 	public function search_index(){
-
 		//Querys de las columnas propias de Proveedor
 		$Proveedor = Proveedor::where('INV_Proveedor_Nombre', '=', Input::get('search')) 
 		->orWhere('INV_Proveedor_Codigo', '=', Input::get('search'))
 		->orWhere('INV_Proveedor_RepresentanteVentas', '=', Input::get('search'))	
 		->get();	
 
-		//Querys de las columnas que tiene relacion con la tabla Proveedor
-		$queryCiudad = DB::select('SELECT INV_Ciudad_ID FROM INV_Ciudad WHERE INV_Ciudad_Nombre = ?', array(Input::get('search')));
-		$queryProducto = DB::select('SELECT INV_Proveedor_ID FROM INV_Producto_Proveedor WHERE INV_Producto_ID = (SELECT INV_Producto_ID FROM INV_Producto WHERE INV_Producto_Nombre = ?)', array(Input::get('search')));
+		try {
+			
 
-		//Se evalua si la Query trae algo
-		if(!empty($queryCiudad)){
-			$temp = array();
-			//En un arreglo 'temp' se capturan los ID de esas columnas que devolvio la Query
-			foreach ($queryCiudad as $qC) {
-				array_push($temp, $qC->INV_Ciudad_ID);
+			//Querys de las columnas que tiene relacion con la tabla Proveedor
+			$queryCiudad = DB::select('SELECT INV_Ciudad_ID FROM INV_Ciudad WHERE INV_Ciudad_Nombre = ?', array(Input::get('search')));
+			$queryProducto = DB::select('SELECT INV_Proveedor_ID FROM INV_Producto_Proveedor WHERE INV_Producto_ID = (SELECT INV_Producto_ID FROM INV_Producto WHERE INV_Producto_Nombre = ?)', array(Input::get('search')));
+			$IDProveedor = DB::select('SELECT INV_Proveedor_INV_Proveedor_ID FROM INV_Proveedor_CampoLocal WHERE INV_Proveedor_CampoLocal_Valor = ?', array(Input::get('search'))); 
+			$GENSID = DB::select('SELECT GEN_CampoLocal_GEN_CampoLocal_ID FROM INV_Proveedor_CampoLocal WHERE INV_Proveedor_CampoLocal_Valor = ?', array(Input::get('search')));
+			
+			//Se evalua si la Query trae algo
+			if(!empty($queryCiudad)){
+				$temp = array();
+				//En un arreglo 'temp' se capturan los ID de esas columnas que devolvio la Query
+				foreach ($queryCiudad as $qC) {
+					array_push($temp, $qC->INV_Ciudad_ID);
+				}
+				$Proveedor = Proveedor::whereIn('INV_Ciudad_ID', $temp)->get();
 			}
-			$Proveedor = Proveedor::whereIn('INV_Ciudad_ID', $temp)->get();
-		}
-		
-		//Se evalua si la Query trae algo
-		if(!empty($queryProducto)){
-			$temp = array();
-			//En un arreglo 'temp' se capturan los ID de esas columnas que devolvio la Query
-			foreach ($queryProducto as $qP) {
-				array_push($temp, $qP->INV_Proveedor_ID);
+			
+			//Se evalua si la Query trae algo
+			if(!empty($queryProducto)){
+				$temp = array();
+				//En un arreglo 'temp' se capturan los ID de esas columnas que devolvio la Query
+				foreach ($queryProducto as $qP) {
+					array_push($temp, $qP->INV_Proveedor_ID);
+				}
+				$Proveedor =  Proveedor::whereIn('INV_Proveedor_ID', $temp)->get();	
 			}
-			$Proveedor =  Proveedor::whereIn('INV_Proveedor_ID', $temp)->get();	
-		}
 
-		return View::make('Proveedor.index', compact('Proveedor'));
+			if(!empty($GENSID)){ 
+
+				$temp = array();
+				foreach ($GENSID as $GENID){
+					$PB = DB::select('SELECT GEN_CampoLocal_ParametroBusqueda FROM GEN_CampoLocal WHERE GEN_CampoLocal_ID = ?', array($GENID->GEN_CampoLocal_GEN_CampoLocal_ID)); 
+
+					if($PB[0]->GEN_CampoLocal_ParametroBusqueda == 1){ 
+	          	  		
+	          	  		$ID = DB::select('SELECT INV_Proveedor_INV_Proveedor_ID FROM INV_Proveedor_CampoLocal WHERE GEN_CampoLocal_GEN_CampoLocal_ID = ?', array($GENID->GEN_CampoLocal_GEN_CampoLocal_ID));
+						array_push($temp, $ID[0]->INV_Proveedor_INV_Proveedor_ID);
+	            	} 	
+				}
+				$Proveedor =  Proveedor::whereIn('INV_Proveedor_ID', $temp)->get(); 
+	        } 
+
+			return View::make('Proveedor.index', compact('Proveedor'));
+		} catch (Exception $e) {
+			return View::make('Proveedor.index', compact('Proveedor'));
+		}
 	}
 
 
@@ -71,8 +93,42 @@ class ProveedorController extends BaseController {
 	{
 		$ciudades = Ciudad::all()->lists('INV_Ciudad_Nombre', 'INV_Ciudad_ID');
 		//$valores = CampoLocalLista::all()->lists('GEN_CampoLocalLista_Valor', 'GEN_CampoLocalLista_ID');
-		//$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_ID');
-		return View::make('Proveedor.create', compact('ciudades'));
+		$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_ID');
+		$fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
+		return View::make('Proveedor.create', compact('ciudades','productos', 'fpagos'));
+	}
+
+	public function create2(){
+
+		$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_Nombre');
+		$proveedor = Proveedor::all()->lists('INV_Proveedor_Nombre', 'INV_Proveedor_Nombre');
+
+		return View::make('Proveedor.p2p', compact('productos', 'proveedor'));
+	}
+
+	public function create3(){
+
+		$fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+		$proveedor = Proveedor::all()->lists('INV_Proveedor_Nombre', 'INV_Proveedor_Nombre');
+
+		return View::make('Proveedor.f2p', compact('fpagos', 'proveedor'));
+	}
+
+
+	public function FDP(){
+		if (Request::ajax()) {
+			$input = Input::all();
+			$Query = DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', Proveedor::where('INV_Proveedor_Nombre', $input['id'])->first()->INV_Proveedor_ID)->get();
+			if(!empty($Query)) {
+				$temp = array();
+				foreach($Query as $Q){
+					array_push($temp, $Q->INV_FormaPago_ID);
+				}
+				return $fpagos = FormaPago::whereNotIn('INV_FormaPago_ID',$temp)->get()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+			} else {
+				return $fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+			}
+		}
 	}
 
 	/**
@@ -113,11 +169,15 @@ class ProveedorController extends BaseController {
 		if ($validation->passes())
 		{
 
-			$prove = $this->Proveedor->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo')));
+			$prove = $this->Proveedor->create(Input::except(array_merge(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo'),array('INV_Producto_ID', 'INV_FormaPago_ID'))));
 			foreach ($campos as $campo) {
 				DB::table('INV_Proveedor_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Proveedor_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'INV_Proveedor_INV_Proveedor_ID' => $prove->INV_Proveedor_ID, 'INV_Proveedor_INV_Ciudad_ID' => $prove->INV_Ciudad_ID));
 			}
-			return Redirect::route('Inventario.Proveedor.index');
+
+			$proveedor = Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->get()->lists('INV_Proveedor_Nombre', 'INV_Proveedor_Nombre');
+			$fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+			return View::make('Proveedor.f2p', compact('fpagos', 'proveedor'));
+			//return Redirect::route('Inventario.Proveedor.index');
 		}
 
 		return Redirect::route('Inventario.Proveedor.create')
@@ -138,6 +198,34 @@ class ProveedorController extends BaseController {
 			->update(array('INV_Proveedor_CampoLocal_Valor' => $valorCampo));
 
 		return $valorCampo;
+	}
+
+	public function save()
+	{
+		$oneList = Input::get('value-list-array');
+		$valueList = explode(";", $oneList);
+		$PROVID = Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->first()->INV_Proveedor_ID;
+		foreach ($valueList as $value ) {
+			$PRODID = Producto::where('INV_Producto_Nombre', $value)->first()->INV_Producto_ID;
+			DB::table('INV_Producto_Proveedor')->insert(array('INV_Proveedor_ID' => $PROVID, 'INV_Producto_ID' => $PRODID));
+		}
+
+
+		return Redirect::route('Inventario.Proveedor.index');
+	}
+
+	public function save2()
+	{
+		$oneList = Input::get('value-list-array');
+		$valueList = explode(";", $oneList);
+		$PROVID = Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->first()->INV_Proveedor_ID;
+		foreach ($valueList as $value ) {
+			$FPID = FormaPago::where('INV_FormaPago_Nombre', $value)->first()->INV_FormaPago_ID;
+			DB::table('INV_Proveedor_FormaPago')->insert(array('INV_Proveedor_ID' => $PROVID, 'INV_FormaPago_ID' => $FPID));
+		}
+
+
+		return Redirect::route('Inventario.Proveedor.index');
 	}
 
 	/**
@@ -163,13 +251,15 @@ class ProveedorController extends BaseController {
 	{
 		$Proveedor = $this->Proveedor->find($id);
 		$ciudades = Ciudad::all()->lists('INV_Ciudad_Nombre', 'INV_Ciudad_ID');
+		$productos = Producto::all()->lists('INV_Producto_Nombre','INV_Producto_ID');
+		$fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_ID');
 		
 		if (is_null($Proveedor))
 		{
 			return Redirect::route('Inventario.Proveedor.index', compact('ciudades'));
 		}
 
-		return View::make('Proveedor.edit', compact('Proveedor', 'ciudades'));
+		return View::make('Proveedor.edit', compact('Proveedor', 'ciudades', 'productos', 'fpagos'));
 	}
 
 	/**
@@ -210,12 +300,14 @@ class ProveedorController extends BaseController {
 		if ($validation->passes())
 		{
 			$Proveedor = $this->Proveedor->find($id);
-			$Proveedor->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo')));
+			$Proveedor->update(Input::except(array_merge(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->lists('GEN_CampoLocal_Codigo'),array('INV_Producto_ID', 'INV_FormaPago_ID'))));
 			foreach ($campos as $campo) {
 				if (DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->count() > 0 ) {
 				    DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->update(array('INV_Proveedor_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
 				}
 			}
+			DB::table('INV_Producto_Proveedor')->update(array('INV_Producto_ID' => Input::get('INV_Producto_ID'), 'INV_Proveedor_ID' => $Proveedor->INV_Proveedor_ID));
+			DB::table('INV_Proveedor_FormaPago')->update(array('INV_FormaPago_ID' => Input::get('INV_FormaPago_ID'), 'INV_Proveedor_ID' => $Proveedor->INV_Proveedor_ID));
 			return Redirect::route('Inventario.Proveedor.index', $id);
 		}
 

@@ -3,11 +3,11 @@
 use Mockery as m;
 use Way\Tests\Factory;
 
-class LibrodiariosTest extends TestCase {
+class ProductorechazadosTest extends TestCase {
 
 	public function __construct()
 	{
-		$this->mock = m::mock('Eloquent', 'LibroDiario');
+		$this->mock = m::mock('Eloquent', 'ProductoRechazado');
 		$this->collection = m::mock('Illuminate\Database\Eloquent\Collection')->shouldDeferMissing();
 	}
 
@@ -15,8 +15,8 @@ class LibrodiariosTest extends TestCase {
 	{
 		parent::setUp();
 
-		$this->attributes = Factory::LibroDiario(['id' => 1]);
-		$this->app->instance('LibroDiario', $this->mock);
+		$this->attributes = Factory::ProductoRechazado(['id' => 1]);
+		$this->app->instance('ProductoRechazado', $this->mock);
 	}
 
 	public function tearDown()
@@ -27,14 +27,14 @@ class LibrodiariosTest extends TestCase {
 	public function testIndex()
 	{
 		$this->mock->shouldReceive('all')->once()->andReturn($this->collection);
-		$this->call('GET', 'LibroDiarios');
+		$this->call('GET', 'ProductoRechazados');
 
-		$this->assertViewHas('LibroDiarios');
+		$this->assertViewHas('ProductoRechazados');
 	}
 
 	public function testCreate()
 	{
-		$this->call('GET', 'LibroDiarios/create');
+		$this->call('GET', 'ProductoRechazados/create');
 
 		$this->assertResponseOk();
 	}
@@ -43,18 +43,18 @@ class LibrodiariosTest extends TestCase {
 	{
 		$this->mock->shouldReceive('create')->once();
 		$this->validate(true);
-		$this->call('POST', 'LibroDiarios');
+		$this->call('POST', 'ProductoRechazados');
 
-		$this->assertRedirectedToRoute('LibroDiarios.index');
+		$this->assertRedirectedToRoute('ProductoRechazados.index');
 	}
 
 	public function testStoreFails()
 	{
 		$this->mock->shouldReceive('create')->once();
 		$this->validate(false);
-		$this->call('POST', 'LibroDiarios');
+		$this->call('POST', 'ProductoRechazados');
 
-		$this->assertRedirectedToRoute('LibroDiarios.create');
+		$this->assertRedirectedToRoute('ProductoRechazados.create');
 		$this->assertSessionHasErrors();
 		$this->assertSessionHas('message');
 	}
@@ -66,9 +66,9 @@ class LibrodiariosTest extends TestCase {
 				   ->once()
 				   ->andReturn($this->attributes);
 
-		$this->call('GET', 'LibroDiarios/1');
+		$this->call('GET', 'ProductoRechazados/1');
 
-		$this->assertViewHas('LibroDiario');
+		$this->assertViewHas('ProductoRechazado');
 	}
 
 	public function testEdit()
@@ -79,9 +79,9 @@ class LibrodiariosTest extends TestCase {
 				   ->once()
 				   ->andReturn($this->collection);
 
-		$this->call('GET', 'LibroDiarios/1/edit');
+		$this->call('GET', 'ProductoRechazados/1/edit');
 
-		$this->assertViewHas('LibroDiario');
+		$this->assertViewHas('ProductoRechazado');
 	}
 
 	public function testUpdate()
@@ -91,18 +91,18 @@ class LibrodiariosTest extends TestCase {
 				   ->andReturn(m::mock(['update' => true]));
 
 		$this->validate(true);
-		$this->call('PATCH', 'LibroDiarios/1');
+		$this->call('PATCH', 'ProductoRechazados/1');
 
-		$this->assertRedirectedTo('LibroDiarios/1');
+		$this->assertRedirectedTo('ProductoRechazados/1');
 	}
 
 	public function testUpdateFails()
 	{
 		$this->mock->shouldReceive('find')->with(1)->andReturn(m::mock(['update' => true]));
 		$this->validate(false);
-		$this->call('PATCH', 'LibroDiarios/1');
+		$this->call('PATCH', 'ProductoRechazados/1');
 
-		$this->assertRedirectedTo('LibroDiarios/1/edit');
+		$this->assertRedirectedTo('ProductoRechazados/1/edit');
 		$this->assertSessionHasErrors();
 		$this->assertSessionHas('message');
 	}
@@ -111,7 +111,7 @@ class LibrodiariosTest extends TestCase {
 	{
 		$this->mock->shouldReceive('find')->with(1)->andReturn(m::mock(['delete' => true]));
 
-		$this->call('DELETE', 'LibroDiarios/1');
+		$this->call('DELETE', 'ProductoRechazados/1');
 	}
 
 	protected function validate($bool)
