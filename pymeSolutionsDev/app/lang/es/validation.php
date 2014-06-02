@@ -100,6 +100,7 @@ return array(
     "alphanum_spaces" => "El :attribute puede contener sólo letras, números y espacios.",
     "alphanumdotspaces" => "El :attribute puede contener sólo letras, números, espacios y puntos.",
     "is_time" => "Debe ingresar una hora válida",
+    "HigherDate" => "La fecha debe ser mayor",
     "num_decimal"=>"El :attribute  Debe ser un numero decimal mayor que 0",
     
 

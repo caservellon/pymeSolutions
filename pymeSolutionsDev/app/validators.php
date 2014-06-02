@@ -33,7 +33,11 @@ Validator::extend('alphanumdotspaces', function($attribute, $value, $parameters)
     return preg_match('/^([.-a-z0-9,_-áéíóúûü-\s])+$/i', $value);
     
 });
-
+Validator::extend('HigherDate', function($attribute, $value, $parameters)
+{
+	var_dump($value);
+	return $value > date("Y-m-d H:i:s"); 
+});
 Validator::extend('is_valid_validation_mask', function($attribute, $value, $parameters){
 	return preg_match_all('/[#\/_\-\.L]*/', $value) == 2;
 });
