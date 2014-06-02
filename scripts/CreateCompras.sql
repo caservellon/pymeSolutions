@@ -131,18 +131,18 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`COM_DetalleSolicitudCotizacion` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleSolicitudCotizacion` (
-  `COM_DetalleSolicitudCotizacio_idDetalleSolicitudCotizacion` INT NOT NULL AUTO_INCREMENT,
-  `COM_DetalleSolicitudCotizacio_cantidad` INT NOT NULL,
-  `COM_DetalleSolicitudCotizacio_idSolicitudCotizacion` INT NOT NULL,
+  `COM_DetalleSolicitudCotizacion_idDetalleSolicitudCotizacion` INT NOT NULL AUTO_INCREMENT,
+  `COM_DetalleSolicitudCotizacion_cantidad` INT NOT NULL,
+  `COM_DetalleSolicitudCotizacion_idSolicitudCotizacion` INT NOT NULL,
   `Producto_idProducto` INT NOT NULL,
   `COM_DetalleSolicitudCotizacion_FechaCreo` DATETIME NOT NULL,
   `COM_DetalleSolicitudCotizacion_FechaModificacion` DATETIME NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
-  PRIMARY KEY (`idDetalleSolicitudCotizacion`),
-  INDEX `fk_DetalleSolicitudCotizacion_SolicitudCotizacion_idx` (`SolicitudCotizacion_idSolicitudCotizacion` ASC),
+  PRIMARY KEY (`COM_DetalleSolicitudCotizacion_idDetalleSolicitudCotizacion`),
+  INDEX `fk_DetalleSolicitudCotizacion_SolicitudCotizacion_idx` (`COM_DetalleSolicitudCotizacion_idSolicitudCotizacion` ASC),
   CONSTRAINT `fk_DetalleSolicitudCotizacion_SolicitudCotizacion`
-    FOREIGN KEY (`SolicitudCotizacion_idSolicitudCotizacion`)
+    FOREIGN KEY (`COM_DetalleSolicitudCotizacion_idSolicitudCotizacion`)
     REFERENCES `pymeERP`.`COM_SolicitudCotizacion` (`COM_SolicitudCotizacion_IdSolicitudCotizacion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

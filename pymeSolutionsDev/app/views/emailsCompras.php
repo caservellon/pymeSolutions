@@ -43,7 +43,7 @@
 		<tbody>
                     
                     
-                 <?php $detalle = DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacio_idSolicitudCotizacion','=', $solCot->COM_SolicitudCotizacion_IdSolicitudCotizacion)->get() ?>
+                 <?php $detalle = DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacion_idSolicitudCotizacion','=', $solCot->COM_SolicitudCotizacion_IdSolicitudCotizacion)->get() ?>
                     <?php 
                     foreach($detalle as $key){ 
                        
@@ -55,7 +55,7 @@
                                         
 					<td><?php echo $cualquierProducto1-> INV_Producto_Nombre; ?></td>
 					<td><?php echo $cualquierProducto1->INV_Producto_Descripcion ?></td>
-                                        <td><?php echo $key->COM_DetalleSolicitudCotizacio_cantidad ?></td>
+                                        <td><?php echo $key->COM_DetalleSolicitudCotizacion_cantidad ?></td>
 					
                                         
                                         <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>

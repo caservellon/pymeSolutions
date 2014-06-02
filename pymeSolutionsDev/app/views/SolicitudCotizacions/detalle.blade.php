@@ -69,7 +69,7 @@
                                         
 					<td>{{{ $cualquierProducto1->INV_Producto_Nombre }}}</td>
 					<td>{{{ $cualquierProducto1->INV_Producto_Descripcion }}}</td>
-                                        <td>{{{$key->COM_DetalleSolicitudCotizacio_cantidad}}}</td>
+                                        <td>{{{$key->COM_DetalleSolicitudCotizacion_cantidad}}}</td>
 					
                                         
                                         <?php $unidad= invCompras::UnidadCompras($cualquierProducto1->INV_UnidadMedida_ID) ?>
