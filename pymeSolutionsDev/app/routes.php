@@ -127,7 +127,7 @@ Route::group(array('prefix' => 'Inventario'), function()
    
 
 
-Route::group(array('prefix' => 'Compras'), function(){
+Route::group(array('prefix' => 'Compras', 'before' => 'auth'), function(){
 
     //crea un nuevo estado de orden de compras
     Route::get('/', function()
