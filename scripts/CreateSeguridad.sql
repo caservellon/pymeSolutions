@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_CON_AgregarAsiento` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_AgregarMotivo` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_LibroDiario` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_CON_RevertirAsiento` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CON_RevertirAsiento` TINYINT(1) NULL DEFAULT 0 COMMENT '		',
   `SEG_Roles_CON_FiltrarAsientos` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_CierreDePeriodo` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_VerConfiguracion` TINYINT(1) NULL DEFAULT 0,
@@ -94,7 +94,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_CON_ListarSubcuentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_AgregarSubcuentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_VerPeriodoContable` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_CON_AgregarPeriodoContable` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CON_AgregarPeriodoContable` TINYINT(1) NULL DEFAULT 0 COMMENT  /* comment truncated */ /*
+*/,
   `SEG_Roles_CON_EditarPeriodoContable` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_VerUnidadesMonetarias` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_AgregarUnidadesMonetarias` TINYINT(1) NULL DEFAULT 0,
@@ -184,6 +185,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_VEN_GuardarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_ListarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_VerVentas` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_agregarProveedorFormaPago` TINYINT(1) NULL,
+  `SEG_Roles_INV_quitarProveedorFormaPago` VARCHAR(45) NULL,
   PRIMARY KEY (`SEG_Roles_ID`))
 ENGINE = InnoDB;
 
