@@ -27,8 +27,9 @@
     </div>
 </div>
 <? 
-    $proveedor=1;
-    $id_cot=1;
+      //$Orden=OrdenCompra::find();
+    
+    
 ?>
 {{Form::open(array('route'=>'guardaDevolucion'),array('id'=>'formu'))}}
 <div class="row">
