@@ -23,40 +23,58 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function index()
 	{
-                
+                if (Seguridad::indexSC()) {
 		$SolicitudCotizacions = SolicitudCotizacion::paginate();
                 $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
                 
 		return View::make('SolicitudCotizacions.index', compact('SolicitudCotizacions','CamposLocales'));
+                }else {
+			return Redirect::to('/403');
+		}
 	}
         
         public function vistacrear(){
+            if (Seguridad::vistaCrearSC()) {
             $cualquierProducto = invCompras::CualquierProducto();
             
             
             return View::make('SolicitudCotizacions.cualquierProducto', compact('cualquierProducto'));
+            }else {
+			return Redirect::to('/403');
+		}
         }
         
         public function vistaReorden(){
-            $reOrden = invCompras::ProductoReorden();
-            return View::make('SolicitudCotizacions.reOrden', compact('reOrden'));
+            if (Seguridad::vistaReordenSC()) {
+                $reOrden = invCompras::ProductoReorden();
+                return View::make('SolicitudCotizacions.reOrden', compact('reOrden'));
+            }else {
+			return Redirect::to('/403');
+		}
         }
 		
         public function indexImprimir(){
+            //if (Seguridad::indexImprimirSC()) {
             $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Imprimir', '=', 0)->paginate();
 			$CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
             return View::make('SolicitudCotizacions.indexImprimir', compact('SolicitudCotizacions', 'CamposLocales'));
+//            }else {
+//			return Redirect::to('/403');
+//		}
         }
 		
         public function imprimir(){
-            
+            //if (Seguridad::ImprimirSC()) {
             $imprimir= SolicitudCotizacion::find(Input::get('solCot'));
             //return $imprimir;
             return View::make('SolicitudCotizacions.imprimir', compact('imprimir'));
+//            }else {
+//			return Redirect::to('/403');
+//		}
         }
         
         public function mostrarProveedor(){
-            
+            //if (Seguridad::crearSC()) {
             $cualquierProducto=array();
             $Input = array();
                 for ($i = 1; $i <=count(Input::all()); $i++) {
@@ -81,7 +99,9 @@ class SolicitudCotizacionsController extends BaseController {
                 //$iguales='';
             return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor','Input'));
             //return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'))->withInput();
-			
+//            }else {
+//			return Redirect::to('/403');
+//		}
         }
 
         /**
@@ -97,6 +117,7 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function store()
 	{
+            //if (Seguridad::crearSC()) {
                 $Input=Input::all();
                 $imprimir= array();
                 $correo= array();
@@ -196,7 +217,7 @@ class SolicitudCotizacionsController extends BaseController {
 					
                     $solicitudCotizacion->COM_SolicitudCotizacion_Activo=1;
                     $solicitudCotizacion->COM_SolicitudCotizacion_FechaCreacion= date('Y-m-d H:i:s');
-                    $solicitudCotizacion->COM_Usuario_idUsuarioCreo=1;
+                    $solicitudCotizacion->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Username;
                     $solicitudCotizacion->Proveedor_idProveedor=$proveedor[$i];
                     $solicitudCotizacion->save();
                     
@@ -228,7 +249,7 @@ class SolicitudCotizacionsController extends BaseController {
                                 
                                 	$detallesolicitud->COM_DetalleSolicitudCotizacion_idSolicitudCotizacion=$detalle;
                                 	$detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
-                                	$detallesolicitud->COM_Usuario_idUsuarioCreo=1;
+                                	$detallesolicitud->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Username;
 									$detallesolicitud->COM_DetalleSolicitudCotizacion_FechaCreo=date('Y-m-d H:i:s');
                                 	$detallesolicitud->save();
 								}
@@ -281,13 +302,21 @@ class SolicitudCotizacionsController extends BaseController {
                      ->with('Input',$Input)
                      ->withErrors($validation)
                      ->with('message', 'There were validation errors.');
+//              }else {
+//			return Redirect::to('/403');
+//		}
+              
 	}
         
         public function detalle(){
+            if (Seguridad::detalleSC()) {
             $proveedor= invCompras::ProveedorCompras(Input::get('prov'));
             
             $solicitud= 						DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacion_idSolicitudCotizacion', '=', Input::get('solCot'))->get();
             return View::make('SolicitudCotizacions.detalle', compact('solicitud', 'proveedor'));
+            }else {
+			return Redirect::to('/403');
+		}
         }
 
 	/**
@@ -298,9 +327,11 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function show($id)
 	{
+                
 		$SolicitudCotizacion = $this->SolicitudCotizacion->findOrFail($id);
 
 		return View::make('SolicitudCotizacions.show', compact('SolicitudCotizacion'));
+                
 	}
 
 	/**
@@ -311,6 +342,7 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function edit($id)
 	{
+            if (Seguridad::editSC()) {
 		$Solicitud = SolicitudCotizacion::find($id);
 
 		if (is_null($Solicitud))
@@ -319,6 +351,9 @@ class SolicitudCotizacionsController extends BaseController {
 		}
 
 		return View::make('SolicitudCotizacions.edit', compact('Solicitud'));
+                }else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -329,6 +364,7 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function update($id)
 	{
+            if (Seguridad::editSC()) {
                 $input = Input::except('_method');
                 $imprimir = Mensaje::find(1);
                 $mensaje = $imprimir->GEN_Mensajes_Mensaje;
@@ -358,7 +394,7 @@ class SolicitudCotizacionsController extends BaseController {
                             $SolicitudCotizacion->COM_SolicitudCotizacion_Imprimir= 1;
                         }
                         
-                        $SolicitudCotizacion->Usuario_idUsuarioModifico = 2;
+                        $SolicitudCotizacion->Usuario_idUsuarioModifico = Auth::user()->SEG_Usuarios_Username;
                         $SolicitudCotizacion->COM_SolicitudCotizacion_FormaPago=Input::get('formapago');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_CantidadPago=Input::get('COM_SolicitudCotizacion_CantidadPago');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_PeriodoGracia=Input::get('COM_SolicitudCotizacion_PeriodoGracia');
@@ -372,7 +408,7 @@ class SolicitudCotizacionsController extends BaseController {
 						//$detallesolicitud = DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacio_idSolicitudCotizacion', '=', $SolicitudCotizacion->COM_SolicitudCotizacion_IdSolicitudCotizacion);
 						foreach($detallesolicitud as $value){
 							$value->COM_DetalleSolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
-							$value->Usuario_idUsuarioModifico='Admin';
+							$value->Usuario_idUsuarioModifico=Auth::user()->SEG_Usuarios_Username;
 							$value->update();
 						}
 
@@ -386,7 +422,9 @@ class SolicitudCotizacionsController extends BaseController {
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
                 
-                
+                }else {
+			return Redirect::to('/403');
+		}
 		
 	
 

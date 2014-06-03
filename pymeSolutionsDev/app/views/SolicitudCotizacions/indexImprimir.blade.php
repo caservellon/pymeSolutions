@@ -50,9 +50,9 @@
                                         <?php $proveedor= invCompras::ProveedorCompras($editars->Proveedor_idProveedor) ?>
 					<td><a>{{{ $proveedor->INV_Proveedor_Nombre }}}</a></td>
 					<td>{{{ $editars->COM_SolicitudCotizacion_FechaEmision }}}</td>
-					@if($editars->COM_Usuario_idUsuarioCreo==1)
-                                           <td>Juan</td>
-                                           @endif
+					
+                                           <td>{{$editars->COM_Usuario_idUsuarioCreo}}</td>
+                                           
 					@if($editars->COM_SolicitudCotizacion_Recibido == 1)
 							<td>Recibido</td>
 						@else
