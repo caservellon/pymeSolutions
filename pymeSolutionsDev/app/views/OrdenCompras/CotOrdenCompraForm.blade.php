@@ -51,7 +51,7 @@ ction('main')
                   <th>Cantidad</th>
 		  <th>Precio Unitario</th>
                   <th>Total</th>
-		  <th>Unidad</th>
+		  
                 </tr>
               </thead>
                   <tbody >
@@ -89,7 +89,7 @@ ction('main')
                         <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);
                             $totalGeneral+=$cantidad*$precioUnitario;
                         ?>
-			<td>{{$medida->INV_UnidadMedida_Nombre}}</td>
+			
                   
                       </tr> 
                       <?php $contador++; ?>

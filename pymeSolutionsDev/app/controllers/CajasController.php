@@ -2,11 +2,7 @@
 
 class CajasController extends BaseController {
 
-	/**
-	 * Caja Repository
-	 *
-	 * @var Caja
-	 */
+	
 	protected $Caja;
 
 	public function __construct(Caja $Caja)
@@ -21,6 +17,7 @@ class CajasController extends BaseController {
 	 */
 	public function index()
 	{
+
 
 		if (Seguridad::VerCaja()) {
 			$Cajas = $this->Caja->where('VEN_Caja_Estado',1)->get();
@@ -60,7 +57,7 @@ class CajasController extends BaseController {
 
 			if ($validation->passes())
 			{
-			
+				
 				$this->Caja->create($input);
 
 				return Redirect::route('Ventas.Cajas.index');
@@ -153,6 +150,7 @@ class CajasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
+
 		if (Seguridad::BorrarCaja()) {
 			$box = Caja::find($id);
 			$box->VEN_Caja_Estado = 0;

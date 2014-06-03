@@ -41,16 +41,19 @@
         </div>
     </div>
 
-         <div class="form-group">
+    <div class="form-group">
         {{ Form::label('VEN_PeriodoCierreDeCaja_HoraPartida', 'Hora de Partida: *',array('class' => 'col-md-2 control-label')) }}
-        <div class="col-md-4">
-            {{ Form::text('VEN_PeriodoCierreDeCaja_HoraPartida', null, array('class' => 'form-control', 'id' => 'VEN_PeriodoCierreDeCaja_HoraPartida', 'placeholder'=>'15:30')) }}
+        <div class="form-inline col-md-4">
+          {{ Form::selectRange('VEN_PeriodoCierreDeCaja_Hora', 1, 12, null, array('class' => 'form-control' )) }}
+          :
+          {{ Form::selectRange('VEN_PeriodoCierreDeCaja_Min', 0 , 59, null, array('class' => 'form-control' ))}}
+          {{ Form::select('VEN_PeriodoCierreDeCaja_PA', array('AM' => 'AM', 'PM' => 'PM'),'AM', array('class'=> 'form-control'))}}
         </div>
     </div>
 
     <div class="form-group">
       {{ Form::label('VEN_PeriodoCierreDeCaja_Estado', 'Estado de Caja: *', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
+      <div class="col-md-4">
         {{ Form::select('VEN_PeriodoCierreDeCaja_Estado', array('1' => 'Activado', '0' => 'Desactivado'),'1',array('class' => 'col-md-4 form-control')) }}
       </div>
     </div>

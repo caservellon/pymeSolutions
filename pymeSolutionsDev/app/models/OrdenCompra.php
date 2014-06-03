@@ -12,7 +12,7 @@ class OrdenCompra extends Eloquent {
 	protected $guarded = array();
     protected $table = 'COM_OrdenCompra';
 	protected $primaryKey = 'COM_OrdenCompra_IdOrdenCompra';
-	 
+	 protected $perPage = 10;
 	public $timestamps = false;
 	
 	public static $rules = array(

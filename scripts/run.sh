@@ -24,6 +24,9 @@ mysql -u "root" "-proot" "pymeERP" < "CreateCRM.sql" >> ./logs/install.log 2>&1
 echo "Creating Ventas " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "CreateVentas.sql" >> ./logs/install.log 2>&1
 
+echo "Creating Seguridad " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "CreateSeguridad.sql" >> ./logs/install.log 2>&1
+
 echo "****************Populating tables****************" >> ./logs/install.log
 
 echo "Populating CRM " >> ./logs/install.log
@@ -66,6 +69,10 @@ mysql -u "root" "-proot" "pymeERP" < "INS_VEN_PeriodoCierreDeCaja.sql" >> ./logs
 
 echo "Populating Generales " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_GEN_Mensajes.sql" >> ./logs/install.log 2>&1
+
+
+echo "Populating Seguridad " >> ./logs/install.log
+mysql -u "root" "-proot" "pymeERP" < "INS_SEG_RoleAdmin.sql" >> ./logs/install.log 2>&1
  
 
 DATE=$(date +"%Y/%m/%d %H:%M:%S")

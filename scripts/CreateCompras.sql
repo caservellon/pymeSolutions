@@ -131,18 +131,18 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`COM_DetalleSolicitudCotizacion` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleSolicitudCotizacion` (
-  `idDetalleSolicitudCotizacion` INT NOT NULL AUTO_INCREMENT,
-  `cantidad` INT NOT NULL,
-  `SolicitudCotizacion_idSolicitudCotizacion` INT NOT NULL,
+  `COM_DetalleSolicitudCotizacion_idDetalleSolicitudCotizacion` INT NOT NULL AUTO_INCREMENT,
+  `COM_DetalleSolicitudCotizacion_cantidad` INT NOT NULL,
+  `COM_DetalleSolicitudCotizacion_idSolicitudCotizacion` INT NOT NULL,
   `Producto_idProducto` INT NOT NULL,
   `COM_DetalleSolicitudCotizacion_FechaCreo` DATETIME NOT NULL,
   `COM_DetalleSolicitudCotizacion_FechaModificacion` DATETIME NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
-  PRIMARY KEY (`idDetalleSolicitudCotizacion`),
-  INDEX `fk_DetalleSolicitudCotizacion_SolicitudCotizacion_idx` (`SolicitudCotizacion_idSolicitudCotizacion` ASC),
+  PRIMARY KEY (`COM_DetalleSolicitudCotizacion_idDetalleSolicitudCotizacion`),
+  INDEX `fk_DetalleSolicitudCotizacion_SolicitudCotizacion_idx` (`COM_DetalleSolicitudCotizacion_idSolicitudCotizacion` ASC),
   CONSTRAINT `fk_DetalleSolicitudCotizacion_SolicitudCotizacion`
-    FOREIGN KEY (`SolicitudCotizacion_idSolicitudCotizacion`)
+    FOREIGN KEY (`COM_DetalleSolicitudCotizacion_idSolicitudCotizacion`)
     REFERENCES `pymeERP`.`COM_SolicitudCotizacion` (`COM_SolicitudCotizacion_IdSolicitudCotizacion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -163,6 +163,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleCotizacion` (
   `COM_Producto_Id_Producto` INT NOT NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
+  `COM_DetalleCotizacion_FechaCreacion` DATETIME NOT NULL,
+  `COM_DetalleCotizacion_FechaModificacion` DATETIME NULL,
   PRIMARY KEY (`COM_DetalleCotizacion_IdDetalleCotizacion`),
   INDEX `fk_DetalleCotizacion_Cotizacion1_idx` (`COM_DetalleCotizacion_IdCotizacion` ASC),
   UNIQUE INDEX `COM_DetalleCotizacion_Codigo_UNIQUE` (`COM_DetalleCotizacion_Codigo` ASC),
@@ -188,6 +190,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleOrdenCompra` (
   `COM_Producto_idProducto` INT NOT NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
+  `COM_DetalleOrdenCompra_FechaCreacion` DATETIME NOT NULL,
+  `COM_DetalleOrdenCompra_FechaModificacion` DATETIME NULL,
   PRIMARY KEY (`COM_DetalleOrdenCompra_IdDetalleOrdenCompra`),
   INDEX `fk_DetalleOrdenCompra_OrdenCompra1_idx` (`COM_DetalleOrdenCompra_idOrdenCompra` ASC),
   UNIQUE INDEX `COM_DetalleOrdenCompra_Codigo_UNIQUE` (`COM_DetalleOrdenCompra_Codigo` ASC),
@@ -296,6 +300,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`COM_ValorCampoLocal` (
   `COM_Cotizacion_IdCotizacion` INT NULL,
   `COM_Usuario_idUsuarioCreo` VARCHAR(64) NOT NULL,
   `Usuario_idUsuarioModifico` VARCHAR(64) NULL,
+  `COM_ValorCampoLocal_FechaCreacion` DATETIME NOT NULL,
+  `COM_ValorCampoLocal_FechaModificacion` DATETIME NULL,
   PRIMARY KEY (`COM_ValorCampoLocal_IdValorCampoLocal`),
   INDEX `fk_ValorCampoLocal_CampoLocal1_idx` (`COM_CampoLocal_IdCampoLocal` ASC),
   INDEX `fk_ValorCampoLocal_OrdenCompra1_idx` (`COM_OrdenCompra_IdOrdenCompra` ASC),
@@ -367,6 +373,25 @@ CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_DetalleDevolucionCompra` (
   INDEX `fk_COM_DetalleDevolucionCompra_COM_DevolucionCompra1_idx` (`COM_DetalleDevolucionCompra_ID` ASC) ,
   CONSTRAINT `fk_COM_DetalleDevolucionCompra_COM_DevolucionCompra1`
     FOREIGN KEY (`COM_DevolucionCompra_ID` )
+    REFERENCES `pymeERP`.`COM_DevolucionCompra` (`COM_DevolucionCompra_ID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `pymeERP`.`COM_ReembosoDevolucionCompras` (
+  `COM_ReembosoDevolucionCompras_ID` INT(11) NOT NULL AUTO_INCREMENT ,
+  `COM_ReembosoDevolucionCompras_Activo` TINYINT(1) NOT NULL ,
+  `COM_ReembosoDevolucionCompras_FechaCreacion` DATETIME NOT NULL ,
+  `COM_ReembosoDevolucionCompras_UsuarioCreo` VARCHAR(64) NOT NULL ,
+  `COM_ReembosoDevolucionCompras_FechaModificacion` DATETIME NULL DEFAULT NULL ,
+  `COM_ReembosoDevolucionComprasUsuarioModifico` VARCHAR(64) NULL DEFAULT NULL ,
+  `COM_ReembosoDevolucionCompras_Monto` DECIMAL(19,2) NOT NULL ,
+  `COM_ReembosoDevolucionCompras_Proveedor` INT(11) NOT NULL ,
+  `COM_DevolucionCompra_COM_DevolucionCompra_ID` INT(11) NOT NULL ,
+  PRIMARY KEY (`COM_ReembosoDevolucionCompras_ID`) ,
+  INDEX `fk_COM_ReembosoDevolucionCompras_COM_DevolucionCompra1_idx` (`COM_DevolucionCompra_COM_DevolucionCompra_ID` ASC) ,
+  CONSTRAINT `fk_COM_ReembosoDevolucionCompras_COM_DevolucionCompra1`
+    FOREIGN KEY (`COM_DevolucionCompra_COM_DevolucionCompra_ID` )
     REFERENCES `pymeERP`.`COM_DevolucionCompra` (`COM_DevolucionCompra_ID` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
