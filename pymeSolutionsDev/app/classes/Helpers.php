@@ -45,17 +45,17 @@ class Helpers {
 	
 	public static function InformacionProductosSolicitudCotizacion($CodigoSolicitudCotizacion){
 		$Consulta = DB::table('COM_SolicitudCotizacion')
-			-> join('COM_DetalleSolicitudCotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'SolicitudCotizacion_idSolicitudCotizacion')
+			-> join('COM_DetalleSolicitudCotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'COM_DetalleSolicitudCotizacion_idSolicitudCotizacion')
 			-> join('INV_Producto', 'Producto_idProducto', '=', 'INV_Producto_ID')
 			-> join('INV_UnidadMedida', 'INV_Producto.INV_UnidadMedida_ID', '=', 'INV_UnidadMedida.INV_UnidadMedida_ID')
 			-> select('INV_Producto_Codigo as Codigo',
 					  'INV_Producto_Nombre as Nombre',
 					  'INV_Producto_Descripcion as Descripcion',
-					  'cantidad as Cantidad',
+					  'COM_DetalleSolicitudCotizacion_cantidad as Cantidad',
 					  'INV_UnidadMedida_Nombre as Unidad'
 					)
 			-> where('COM_SolicitudCotizacion_Codigo', '=', $CodigoSolicitudCotizacion)
-			-> orderBy('cantidad', 'DESC')
+			-> orderBy('COM_DetalleSolicitudCotizacion_cantidad', 'DESC')
 			-> get();
 			
 		return $Consulta;
@@ -63,10 +63,10 @@ class Helpers {
 	
 	public static function InformacionProductoSolicitudCotizacion($CodigoProducto, $CodigoSolicitudCotizacion){
 		$Consulta = DB::table('COM_SolicitudCotizacion')
-			-> join('COM_DetalleSolicitudCotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'SolicitudCotizacion_idSolicitudCotizacion')
+			-> join('COM_DetalleSolicitudCotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'COM_DetalleSolicitudCotizacion_idSolicitudCotizacion')
 			-> join('INV_Producto', 'Producto_idProducto', '=', 'INV_Producto_ID')
 			-> select('INV_Producto_ID as Id',
-					  'cantidad as Cantidad')
+					  'COM_DetalleSolicitudCotizacion_cantidad as Cantidad')
 			-> where('COM_SolicitudCotizacion_Codigo', '=', $CodigoSolicitudCotizacion)
 			-> where('INV_Producto_Codigo', '=', $CodigoProducto)
 			-> get();
@@ -76,10 +76,10 @@ class Helpers {
 	
 	public static function ExisteProductoSolicitudCotizacion($CodigoProducto, $CodigoSolicitudCotizacion){
 		$Consulta = DB::table('COM_SolicitudCotizacion')
-			-> join('COM_DetalleSolicitudCotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'SolicitudCotizacion_idSolicitudCotizacion')
+			-> join('COM_DetalleSolicitudCotizacion', 'COM_SolicitudCotizacion_IdSolicitudCotizacion', '=', 'COM_DetalleSolicitudCotizacion_idSolicitudCotizacion')
 			-> join('INV_Producto', 'Producto_idProducto', '=', 'INV_Producto_ID')
 			-> select('INV_Producto_ID as Id',
-					  'cantidad as Cantidad')
+					  'COM_DetalleSolicitudCotizacion_cantidad as Cantidad')
 			-> where('COM_SolicitudCotizacion_Codigo', '=', $CodigoSolicitudCotizacion)
 			-> where('INV_Producto_Codigo', '=', $CodigoProducto)
 			-> get();

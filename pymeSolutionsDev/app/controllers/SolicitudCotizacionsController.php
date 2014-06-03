@@ -209,6 +209,7 @@ class SolicitudCotizacionsController extends BaseController {
                                     $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
                                     $valorcampolocal->COM_SolicitudCotizacion_IdSolicitudCotizacion=$detalle;
                                     $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
+									$valorcampolocal->COM_ValorCampoLocal_FechaCreacion= date('Y-m-d H:i:s');
                                     $valorcampolocal->save();
                                     
                                   
@@ -223,11 +224,12 @@ class SolicitudCotizacionsController extends BaseController {
                                 	$temp = invCompras::ProductoCompras($cualquierProducto[$j]);
                                 	$nombre = str_replace(' ', '', $temp->INV_Producto_Nombre);
                                 
-                                	$detallesolicitud->cantidad=Input::get('CantidadSolicitar'.$nombret.$nombre);
+                                        $detallesolicitud->COM_DetalleSolicitudCotizacion_cantidad=Input::get('CantidadSolicitar'.$nombret.$nombre);
                                 
-                                	$detallesolicitud->SolicitudCotizacion_idSolicitudCotizacion=$detalle;
+                                	$detallesolicitud->COM_DetalleSolicitudCotizacion_idSolicitudCotizacion=$detalle;
                                 	$detallesolicitud->Producto_idProducto=$cualquierProducto[$j];
                                 	$detallesolicitud->COM_Usuario_idUsuarioCreo=1;
+									$detallesolicitud->COM_DetalleSolicitudCotizacion_FechaCreo=date('Y-m-d H:i:s');
                                 	$detallesolicitud->save();
 								}
                             }
@@ -284,7 +286,7 @@ class SolicitudCotizacionsController extends BaseController {
         public function detalle(){
             $proveedor= invCompras::ProveedorCompras(Input::get('prov'));
             
-            $solicitud= DetalleSolicitudCotizacion::where('SolicitudCotizacion_idSolicitudCotizacion', '=', Input::get('solCot'))->get();
+            $solicitud= DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacion_idDetalleSolicitudCotizacion', '=', Input::get('solCot'))->get();
             return View::make('SolicitudCotizacions.detalle', compact('solicitud', 'proveedor'));
         }
 
@@ -346,7 +348,9 @@ class SolicitudCotizacionsController extends BaseController {
                         if($validation->passes()){
 		
                         $SolicitudCotizacion = SolicitudCotizacion::find($id);
-                        $temprod = invCompras::ProveedorCompras($SolicitudCotizacion->Proveedor_idProveedor);
+                        //$temprod = invCompras::ProveedorCompras($SolicitudCotizacion->Proveedor_idProveedor);
+                        $detallesolicitud = DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacion_idSolicitudCotizacion', '=', $SolicitudCotizacion->COM_SolicitudCotizacion_IdSolicitudCotizacion)->get();
+                        //return $detallesolicitud;
                         //return Input::get('formapago');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_Recibido=Input::get('COM_SolicitudCotizacion_Recibido');
                         $SolicitudCotizacion->COM_SolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
@@ -365,6 +369,12 @@ class SolicitudCotizacionsController extends BaseController {
                         }
                         
 			$SolicitudCotizacion->update();
+						//$detallesolicitud = DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacio_idSolicitudCotizacion', '=', $SolicitudCotizacion->COM_SolicitudCotizacion_IdSolicitudCotizacion);
+						foreach($detallesolicitud as $value){
+							$value->COM_DetalleSolicitudCotizacion_FechaModificacion= date('Y-m-d H:i:s');
+							$value->Usuario_idUsuarioModifico='Admin';
+							$value->update();
+						}
 
                          $ruta = route('Compras.SolicitudCotizacions.index');
 			 

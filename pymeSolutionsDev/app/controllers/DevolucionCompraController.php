@@ -38,6 +38,13 @@ class DevolucionCompraController extends BaseController {
             $orden=OrdenCompra::find($ID_Or);
             $proveedor=$orden->COM_Proveedor_IdProveedor;
             $isv=$orden->COM_OrdenCompra_ISV;
+            $pagos=COMOrdenPago::where('COM_OrdenCompra_idOrdenCompra','=',$ID_Or)->get();
+            $Saldo=0;
+            foreach ($pagos as $Elemento) {
+                if($Elemento->COM_OrdenPago_Activo==1){
+                    $Saldo+=$Elemento->COM_OrdenCompra_Monto;
+                }
+            }
             $productos = array();
             $CanProd=array();
             foreach (invCompras::getOrdenRechazada($ID_Or) as $Elemento) {
@@ -48,7 +55,7 @@ class DevolucionCompraController extends BaseController {
             
            
             
-            return View::make('DevolucionCompra.DevolucionCompraForm',array('proveedor' => $proveedor, 'detalle'=>$detalle, 'isv'=>$isv , 'id_cot'=>$ID_Or, 'cantidades'=>$CanProd));
+            return View::make('DevolucionCompra.DevolucionCompraForm',array('proveedor' => $proveedor, 'detalle'=>$detalle, 'isv'=>$isv , 'id_cot'=>$ID_Or, 'cantidades'=>$CanProd,'saldo'=>$Saldo));
         }
         public function ListaDevolucion(){
             $rechazo=invCompras::getProductosRechazados();
@@ -71,8 +78,10 @@ class DevolucionCompraController extends BaseController {
 //selecciono los Datos que eviaron en el formulario
             $idproveedor= Input::get('COM_Proveedor_IdProveedor');
             $id_Orden= Input::get('Id_Orden');
+            $Orden= OrdenCompra::find($id_Orden);
             $isv=Input::get('isv');
             $total=Input::get('totalG');
+            $saldo=Input::get('saldo');
 //Creado el header de la devolucion
             $ultimo= DevolucionCompra::count();
             $devolucion= new DevolucionCompra();
@@ -100,7 +109,52 @@ class DevolucionCompraController extends BaseController {
                 }
                 $contador++;
             }
-            return var_dump($input);
+            $Phacer=COMOrdenPago::where('COM_OrdenCompra_idOrdenCompra','=',$id_Orden)->where('COM_OrdenPago_Activo','=',1)->get();
+            $tamaño= sizeof($Phacer);
+            if($saldo > $total){
+                foreach ($Phacer as $Elemento) {
+                     $ultimo= COMOrdenPago::count();
+                   $nuevopago=  new COMOrdenPago();
+                $nuevopago->COM_OrdenPago_Codigo='COM_OPG_'.($ultimo+1);
+                $nuevopago->COM_OrdenCompra_idOrdenCompra= $id_Orden;
+                $nuevopago->COM_OrdenPago_Activo=1;
+                $nuevopago->COM_Usuario_idUsuarioCreo=1;
+                $nuevopago->COM_OrdenCompra_FechaCreo= date('Y/m/d H:i:s');
+                $nuevopago->COM_OrdenCompra_FechaPagar=$Elemento->COM_OrdenCompra_FechaPagar;
+                $nuevopago->COM_OrdenCompra_Monto=(($saldo-$total)/$tamaño);
+                $nuevopago->COM_OrdenCompra_FormaPago=$Orden->COM_OrdenCompra_FormaPago;
+                $nuevopago->COM_Proveedor_IdProveedor =$Orden->COM_Proveedor_IdProveedor;
+                $Elemento->COM_OrdenPago_Activo=0;
+                $Elemento->update();
+                $nuevopago->save();
+                   
+                }
+                Contabilidad::Devolucion($total,$Orden->COM_Proveedor_IdProveedor);
+                 $ruta = route('ListaOrdenes');
+                    $mensaje = Mensaje::find(14);
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+            }else{
+                 foreach ($Phacer as $Elemento) {
+                     $Elemento->COM_OrdenPago_Activo=0;
+                        $Elemento->update();
+                 }
+                $ultimod=DevolucionCompra::count();
+                $reembolso= new ReembolsoDevolucionCompra();
+                $reembolso->COM_ReembosoDevolucionCompras_Activo=1;
+                $reembolso->COM_ReembosoDevolucionCompras_FechaCreacion=date('Y/m/d H:i:s');
+                $reembolso->COM_ReembosoDevolucionCompras_UsuarioCreo=1;
+                $reembolso->COM_ReembosoDevolucionCompras_Monto=($total-$saldo);
+                $reembolso->COM_ReembosoDevolucionCompras_Proveedor=$Orden->COM_Proveedor_IdProveedor;
+                $reembolso->COM_DevolucionCompra_COM_DevolucionCompra_ID=$ultimod;
+                $reembolso->save();
+              $ruta = route('ListaOrdenes');
+                    $mensaje = Mensaje::find(14);
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));   
+            }if($saldo > $total){
+                 $ruta = route('ListaOrdenes');
+                    $mensaje = Mensaje::find(14);
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+            }
             
         }
         

@@ -38,8 +38,8 @@
 			</div>
     </div>
     
-    <!--diseño de ventas para el lucasfilm-->
-	<div class="col-md-9" style="overflow:auto; height: 350px">
+    
+	<div class="col-md-9" style="overflow: scroll; height: 500px;" >
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered" >
                     <thead>
@@ -77,9 +77,13 @@
                             @endif
                             
                         @endforeach
+
               </tbody>
             </table>
+
           </div>
+          
+
         </div>
 	{{Form::close()}}
 </div>
