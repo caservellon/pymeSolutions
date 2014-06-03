@@ -99,7 +99,7 @@ $proveedores = invCompras::ProveedorCompras($imprimir->Proveedor_idProveedor); ?
           </div>
             <div class="row" >
                 <div class="col-md-6" ><label></label></div>
-                <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
+                <div class="col-md-6" style="text-align: right"><h5><label>Oficial Compras</label><?php echo Auth::user()->SEG_Usuarios_Nombre; ?></h5></div>
             </div>
             <hr>
             

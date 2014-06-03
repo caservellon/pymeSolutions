@@ -56,7 +56,7 @@
 		<tbody>
                     
                     
-                
+                <?php $oficial=''; ?>
                     @foreach($solicitud as $key)
                 
 			
@@ -84,14 +84,14 @@
                                         
                                 </tr>
                                
-                    
+                     <?php $oficial=$key->COM_Usuario_idUsuarioCreo; ?>
                     @endforeach
                 </tbody> 
              </table>
           </div>
           <div class="row" >
                 <div class="col-md-6" ><label></label></div>
-                <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
+                <div class="col-md-6" style="text-align: right"><label>Oficial Compras</label><h5>{{$oficial}}</h5></div>
             </div>
             <hr>   
                 

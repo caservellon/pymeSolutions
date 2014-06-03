@@ -21,7 +21,7 @@ class Helpers {
 				})
 			-> orderBy('COM_SolicitudCotizacion_FechaCreacion', 'DESC')
 			-> orderBy('COM_SolicitudCotizacion_Codigo')
-			-> get();
+			-> paginate(10);
 			
 		return $Consulta;
 	}
@@ -199,13 +199,13 @@ class Helpers {
 			-> where('COM_ValorCampoLocal_Valor', 'LIKE', '%' . $Busqueda . '%');
 			
 			
-		$Consulta2 = $Consulta2
-			-> union($Consulta)
+		$Consulta3 = $Consulta
+			-> union($Consulta2)
 			-> orderBy('COM_SolicitudCotizacion_FechaCreacion', 'DESC')
 			-> orderBy('COM_SolicitudCotizacion_Codigo')
 			-> get();
 			
-		return $Consulta2;
+		return $Consulta3;
 		
 	}
 	
@@ -226,7 +226,7 @@ class Helpers {
 					)
 			-> orderBy('COM_Cotizacion_FechaCreacion', 'DESC')
 			-> orderBy('COM_Cotizacion_Codigo')
-			-> get();
+			-> paginate(10);
 			
 		return $Consulta;
 	}
