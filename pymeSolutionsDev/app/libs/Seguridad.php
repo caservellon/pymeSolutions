@@ -252,6 +252,14 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarPago;
 		}
 		
+		public static function indexImprimirOC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexImprimirOC;
+		}
+		
+		public static function ImprimirOC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ImprimirOC;
+		}
+		
 		public static function search_index(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_search_index;
 		}
@@ -300,8 +308,24 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexSC;
 		}
 		
+		public static function indexImprimirSC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexImprimirSC;
+		}
+		
+		public static function ImprimirSC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ImprimirSC;
+		}
+		
 		public static function search_indexSC(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_search_indexSC;
+		}
+		
+		public static function buscarCualquierProductoSC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_buscarCualquierProductoSC;
+		}
+		
+		public static function buscarCualquierProveedorSC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_buscarCualquierProveedorSC;
 		}
 		
 		public static function VistaMenuCotizaciones(){
