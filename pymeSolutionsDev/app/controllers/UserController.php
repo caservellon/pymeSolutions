@@ -105,6 +105,7 @@ class UserController
 			        "SEG_Usuarios_Contrasena" => Hash::make("hola123"),
 			        "SEG_Usuarios_Email"    => "admin@admin.com",
 			        "SEG_Usuarios_Activo" => true,
+			        "SEG_Roles_SEG_Roles_ID" => 1,
 			    ]
 		    ];
 		  
