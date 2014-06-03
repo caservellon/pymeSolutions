@@ -60,6 +60,11 @@ class DevolucionCompraController extends BaseController {
         public function ListaDevolucion(){
             $rechazo=invCompras::getProductosRechazados();
             $ordenes=array();
+            if(sizeOf($rechazo)<1){
+                 $ruta = route('ListaOrdenes');
+                    
+                    return Redirect::route('Compras.OrdenCompra.index');
+            }
             foreach ($rechazo as $Elemento) {
                 array_push($ordenes, $Elemento->INV_ProductoRechazado_IDOrdenCompra);
                 echo $Elemento->INV_ProductoRechazado_IDOrdenCompra;
@@ -109,6 +114,7 @@ class DevolucionCompraController extends BaseController {
                 }
                 $contador++;
             }
+            invCompras::setOrdenRechazada($id_Orden);
            Contabilidad::Devolucion($total,$Orden->COM_Proveedor_IdProveedor); $Phacer=COMOrdenPago::where('COM_OrdenCompra_idOrdenCompra','=',$id_Orden)->where('COM_OrdenPago_Activo','=',1)->get();
             $tamaño= sizeof($Phacer);
             if($saldo > $total){

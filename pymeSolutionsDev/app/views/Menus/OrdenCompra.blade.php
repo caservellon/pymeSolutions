@@ -17,6 +17,7 @@
 	<a href="/Compras/OrdenCompra/GenerarPago/ListaCotizaciones" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-usd"></span> generar pago Ordenes de  Compras</a>
         <a href="/Compras/OrdenCompra/PlanPago/Lista" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-search"></span> Ver Plan de Pago Ordenes</a>
         <a href="/Compras/OrdenCompra/Historial/ListarOrdenes" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-list"></span> Historial Orden Compra</a>
+         <a href="/Compras/DevolucionCompra/Lista" class="btn btn-default btn-lg btn-block"><span class="glyphicon glyphicon-list"></span> Devolucion sobre Compra</a>
 	
 
 </div>

@@ -210,6 +210,7 @@ Route::group(array('prefix' => 'Compras'), function(){
 // vistas plan de pago
 	Route::get('OrdenCompra/PlanPago/Lista', array('as'=>'ListaPlanes','uses'=>'OrdenComprasController@ListaPlanes'));
 	Route::get('OrdenCompra/PlanPago/Detalle', array('as'=>'DetallePlanPago','uses'=>'OrdenComprasController@DetallePlanPago'));
+
     //crea oden de compra con cotizacion
     Route::get('OrdenCompra/conCotizacion/ListaCotizaciones', array('as'=>'IniOrdComCnCot','uses'=>'OrdenComprasController@OrdenCompracnCotizacion'));
     Route::post('OrdenCompra/conCotizacion/CompararCotizaciones', array('as'=>'CompararCotizaciones','uses'=>'OrdenComprasController@ComparaCotizaciones'));
