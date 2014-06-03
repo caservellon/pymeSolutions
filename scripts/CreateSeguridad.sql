@@ -184,6 +184,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_VEN_GuardarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_ListarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_VerVentas` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_agregarProveedorFormaPago` TINYINT(1) NULL,
+  `SEG_Roles_INV_quitarProveedorFormaPago` VARCHAR(45) NULL,
   PRIMARY KEY (`SEG_Roles_ID`))
 ENGINE = InnoDB;
 
