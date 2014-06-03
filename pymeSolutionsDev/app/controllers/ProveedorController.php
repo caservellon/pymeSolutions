@@ -187,6 +187,13 @@ class ProveedorController extends BaseController {
 
 	}
 
+	public function editarFormaPago(){
+		
+		$proveedor = Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->get()->lists('INV_Proveedor_Nombre', 'INV_Proveedor_Nombre');
+		$fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+		return View::make('Proveedor.f2p', compact('fpagos', 'proveedor'));
+	}
+
 	public function campolocalsave()
 	{
 		$nombreCampo = Input::get('nombre');

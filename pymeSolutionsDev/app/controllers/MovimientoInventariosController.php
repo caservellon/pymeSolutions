@@ -371,14 +371,22 @@ class MovimientoInventariosController extends BaseController {
 		$temp = MovimientoInventario::where('INV_Movimiento_IDOrdenCompra', $input['INV_Movimiento_IDOrdenCompra'])->orderBy('INV_Movimiento_ID', 'DESC')->get();
 		$Movimiento = $temp[0];
 
+		$algun = 0;
 		foreach ($orden as $or) {
+			$algun++;
 			if ($input['Cant'.$or->ID] < 0) {
 				return Redirect::route('Inventario.MovimientoInventario.Orden')
 					->withErrors('Ingrese Solo Valores Positivos');
 			}elseif ($input['Cant'.$or->ID] > $or->Cantidad) {
 				return Redirect::route('Inventario.MovimientoInventario.Orden')
 					->withErrors('No puede ingresar un valor mayor a la cantidad de la Orden');
+			}elseif($input['Cant'.$or->ID] == 0){
+				$algun--;
 			}
+		}
+		if ($algun == 0) {
+			return Redirect::route('Inventario.MovimientoInventario.Orden')
+			->withErrors('Debe seleccionar por lo menos un Producto');
 		}
 		//se procede a llenar los detalles de Movimiento de Inventario
 		$cont = 0;
@@ -386,10 +394,10 @@ class MovimientoInventariosController extends BaseController {
 		$diff = 0;
 		//return $input;
 		foreach ($orden as $or) {
+			//Buscamos el Producto a Agregar
+			$Producto = Producto::find($or->ID);
 			if ($input['Cant'.$or->ID] > 0) {
 
-				//Buscamos el Producto a Agregar
-				$Producto = Producto::find($or->ID);
 				//return $Producto;
 				$cont++;
 				//Calculando Precio Costo con Promedio Ponderado
@@ -456,8 +464,6 @@ class MovimientoInventariosController extends BaseController {
 			return Redirect::route('Inventario.MovimientoInventario.index')
 				->with('message', 'Orden de Compra Recibida con Errores!');
 		}
-		return Redirect::route('Inventario.MovimientoInventario.Orden')
-			->withErrors('Debe seleccionar por lo menos un Producto');
 	}
 
 }

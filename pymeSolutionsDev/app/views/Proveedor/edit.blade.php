@@ -8,6 +8,13 @@
       </div>
 </div>
 
+    {{ Form::open(array('route' => 'Proveedor.editarFormaPago')) }}
+    {{ Form::label('FP', 'Editar: ', array('class' => 'col-md-2 control-label')) }}
+    {{ Form::hidden('INV_Proveedor_Nombre', $Proveedor->INV_Proveedor_Nombre) }}
+    {{ Form::submit('Forma de Pago', array('class' => 'btn btn-success btn-sm' )) }}
+    {{ Form::close() }}
+    <br />
+
 @if ($errors->any())
 
 <div class="alert alert-danger fade in">
@@ -137,8 +144,6 @@
 
 
 {{ Form::close() }}
-
-
 
 
 @stop
