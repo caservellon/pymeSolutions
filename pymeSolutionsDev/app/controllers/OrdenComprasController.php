@@ -506,7 +506,7 @@ class OrdenComprasController extends BaseController {
              }
 			 
              Contabilidad::GenerarTransaccionCmp(8,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
-             Contabilidad::GenerarTransaccionCmp(9,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
+             //Contabilidad::GenerarTransaccionCmp(9,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
 			 
              $ruta = route('AutOrdCom');
                     $mensaje = Mensaje::find(1);;
