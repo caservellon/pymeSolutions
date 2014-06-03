@@ -107,7 +107,11 @@
 					</div>
 				</div>
 			</div>
+			
+			@if(!Input::has('Busqueda'))
+				<label>{{ $SolicitudesCotizacion -> links() }}</label>
+			@endif
 		{{Form::close()}}
 	@endif
-
+	
 @stop
