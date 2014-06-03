@@ -36,7 +36,7 @@
 			<tr>
 				<td>{{$idop}}</td>
 				<td> {{ $prov['INV_Proveedor_Nombre'] }}</td>
-					<?php $porpagar=PagoCompras::find($idop);
+					<?php //$porpagar=PagoCompras::find($idop);
 					 $var=invContabilidad::getFormaPago($key->COM_OrdenCompra_FormaPago);?>
 				<td> {{ $var['Nombre'] }}</td>
 				<td> {{date('Y-m-d',strtotime($key->COM_OrdenCompra_FechaPagar))}} </td>
