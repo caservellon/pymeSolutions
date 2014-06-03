@@ -66,6 +66,7 @@ Route::group(array('prefix' => 'Inventario'), function()
 
 	Route::get('/Proveedor/p2p', array('as' => 'Inventario.Proveedor.save', 'uses' => 'ProveedorController@create2'));
 	Route::post('/Proveedor/p2p', array('as' => 'Proveedor.save', 'uses' => 'ProveedorController@save'));
+	Route::post('/Proveedor/editarFormaPago', array('as' => 'Proveedor.editarFormaPago', 'uses' => 'ProveedorController@editarFormaPago'));
 
 
 	Route::get('/Productos/p2p', function(){
