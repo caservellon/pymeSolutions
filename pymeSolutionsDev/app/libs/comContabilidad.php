@@ -18,4 +18,22 @@ class comContabilidad {
 	}
 
 
+	//funcion para obtener los rembolsos que estan activos para que sean registrados
+public static function Reembolsos(){
+	$estado= ReembolsoDevolucionCompra::where('COM_ReembosoDevolucionCompras_Activo','=',1)->get();
+	return $estado;
+}
+
+// funcion para cambiar los estados tanto de la devolucion y del rembolso despues de haber registrado el rembolso
+public static function CambiaEstados($id){
+	$estado= ReembolsoDevolucionCompra::find($id);
+	$estado->COM_ReembosoDevolucionCompras_Activo=0;
+	$estado->update();
+	$devolucion= DevolucionCompra::find($estado->COM_DevolucionCompra_COM_DevolucionCompra_ID);
+	$devolucion->COM_ReembosoDevolucionCompras_Activo=0;
+	$devolucion->update();
+	return null;
+}
+
+
 }

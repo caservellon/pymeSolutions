@@ -108,3 +108,25 @@ VALUES
 (10,
 'Devolucion sobre compras',
 13,Now(),Now()); 
+
+INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
+(`CON_ConceptoMotivo_ID`,
+`CON_ConceptoMotivo_Concepto`,
+`CON_MotivoTransaccion_ID`,
+`CON_ConceptoMotivo_FechaCreacion`,
+`CON_ConceptoMotivo_FechaModificacion`)
+VALUES
+(11,
+'Devolucion sobre compras con Reembolso',
+14,Now(),Now()); 
+
+INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
+(`CON_ConceptoMotivo_ID`,
+`CON_ConceptoMotivo_Concepto`,
+`CON_MotivoTransaccion_ID`,
+`CON_ConceptoMotivo_FechaCreacion`,
+`CON_ConceptoMotivo_FechaModificacion`)
+VALUES
+(12,
+'Reembolso',
+15,Now(),Now()); 

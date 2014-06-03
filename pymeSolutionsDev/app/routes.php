@@ -399,7 +399,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::get('crear/asientocontable',array('uses'=>'AsientosController@create'));
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
 			Route::get('creando/motivotransaccion',array('uses'=>'AsientosController@creandomotivo'));
-			
+			Route::get('reembolsos',array('as'=>'con.reembolsos', 'uses'=>'ReembolsosController@index'));
 			
 			Route::post('librodiario/revertirasiento',array('as'=>'revertirasiento', 'uses' => 'LibroDiarioController@reversion'));
 			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));

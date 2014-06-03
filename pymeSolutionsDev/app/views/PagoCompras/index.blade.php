@@ -61,7 +61,7 @@
 
 		$.post("{{URL::route('con.pagarcompra')}}",{id:this.id})
 			.success(function(data){
-				alert(data);
+				//alert(data);
 				location.reload();
 			})
 			.error(function(xhr,error){
