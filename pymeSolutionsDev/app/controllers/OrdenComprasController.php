@@ -77,7 +77,10 @@ class OrdenComprasController extends BaseController {
                  } 
              }
              if(sizeof($productos)<1){
-                 return 'no se puede crear una orden de Compra';
+                 $ruta = route('index');
+                 $mensajeBD = Mensaje::find(1);
+                    $mensaje= 'La Orden de Compra No se puede generar para este Proveedor ';
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
              }else{
                 $products=Producto::wherein('INV_Producto_ID',$productos)->get();
              }
@@ -509,7 +512,8 @@ class OrdenComprasController extends BaseController {
              //Contabilidad::GenerarTransaccionCmp(9,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
 			 
              $ruta = route('AutOrdCom');
-                    $mensaje = Mensaje::find(1);;
+                    $mensajeBD=Mensaje::find(1);
+                    $mensaje = 'La Orden de Compra ha sido Autorizada, '.$mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
         public function cancelarOrden(){
@@ -538,7 +542,8 @@ class OrdenComprasController extends BaseController {
                                         } 
              }
               $ruta = route('ListaOrdenes');
-                    $mensaje = Mensaje::find(12);
+                    $mensajeBD = Mensaje::find(12);
+                    $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
 
@@ -601,7 +606,8 @@ class OrdenComprasController extends BaseController {
                       $historial->save();
             }
           $ruta = route('ListaOrdenes');
-                    $mensaje = Mensaje::find(15);;
+                    $mensajeBD = Mensaje::find(15);
+                    $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
          public function HistorialOrdenes(){
@@ -729,7 +735,8 @@ class OrdenComprasController extends BaseController {
             }
            
             $ruta = route('generarpagoLC');
-                    $mensaje = Mensaje::find(14);
+                    $mensajeBD = Mensaje::find(14);
+                    $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
 

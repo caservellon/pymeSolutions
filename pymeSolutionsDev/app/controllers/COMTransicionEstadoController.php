@@ -60,7 +60,10 @@ class COMTransicionEstadoController extends BaseController {
                         $model->COM_TansicionEstado_FechaCreacion=date('Y-m-d');
                         $model->COM_Usuario_idUsuarioCreo=1;
                         $model->save();
-                        return 'Transicion Creada';
+                         $ruta = route('index');
+                 $mensajeBD = Mensaje::find(1);
+                    $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
                 }
                     
                 
@@ -95,7 +98,10 @@ class COMTransicionEstadoController extends BaseController {
                 $model->COM_TansicionEstado_FechaModificacion=date('Y-m-d');
                 $model->COM_Usuario_idUsuarioModifico=1;
                 $model->update();
-                return 'Datos Actualizados';
+                 $ruta = route('index');
+                 $mensajeBD = Mensaje::find(1);
+                    $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
             }
             $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
             $COM_OrdenCompra_TransicionEstado= COMOrdenCompraTransicionEstado::find(Input::get('COM_OrdenCompra_TransicionEstado_Id'));

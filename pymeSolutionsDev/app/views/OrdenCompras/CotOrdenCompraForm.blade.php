@@ -24,6 +24,11 @@ ction('main')
         <h5>Honduras C.A.</h5>
     </div>
     <div class="col-md-4 " style="text-align: right">
+     @if($errors->any())
+        <div class="alert alert-danger">
+              {{ implode('', $errors->all('<li >:message</li>')) }}
+        </div>
+        @endif
         <h5 >Tel.2234-9000 Fax.2234-9000</h5>
     </div>
 </div>

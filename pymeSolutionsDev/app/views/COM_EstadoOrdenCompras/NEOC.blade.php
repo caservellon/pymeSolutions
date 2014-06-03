@@ -35,9 +35,11 @@
      <div class="col-md-5 col-md-offset-0" style="width:1000px">
         {{ Form::open(array('route' => 'AlmacenaEstadoOrdenCompra')) }}
         <ul>
-            @foreach($errors->all() as $mensaje)
-            <li class="alert alert-danger">{{$mensaje}}</li>
-            @endforeach
+            @if($errors->any())
+        <div class="alert alert-danger">
+              {{ implode('', $errors->all('<li >:message</li>')) }}
+        </div>
+        @endif
         </ul>
 	<ul>
             <li>

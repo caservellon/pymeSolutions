@@ -2,7 +2,7 @@
 
 @section('main')
 <div class="page-header clearfix">
-      <h3 class="pull-left">Autorizar Orden de Compra por Cotizacion<small></small></h3>
+      <h3 class="pull-left">Lista de Devoluciones por Compras<small></small></h3>
       <div class="pull-right">
         <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
       </div>
@@ -45,7 +45,7 @@
                                         ?><td>{{$t->COM_EstadoOrdenCompra_Nombre}}</td><?php
                                         } 
                             @endforeach*/?>
-                            <td><a href="{{ route('DevolucionCompra', array('id'=>$orden->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">Devolver</a></td>
+                            <td><a href="{{ route('DevolucionCompra', array('id'=>$orden->COM_OrdenCompra_IdOrdenCompra)) }}" class="btn btn-info">ver Detalle</a></td>
                         </tr> 
                         
                      @endforeach

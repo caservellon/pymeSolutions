@@ -30,7 +30,10 @@ class COMEstadoOrdenCompraController extends BaseController
                      $estadoOrden->COM_EstadoOrdenCompra_Activo=0;
                 }
                 $estadoOrden->save();
-                return 'Datos Guardados';
+                $ruta = route('index');
+                 $mensajeBD = Mensaje::find(1);
+                    $mensaje= 'El Estado de Orden  '.$mensajeBD->GEN_Mensajes_Mensaje;
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
         }
         return Redirect::route('NuevoEstadoOrdenCompra')->withInput()->withErrors($validacion);	
     }
@@ -70,7 +73,10 @@ class COMEstadoOrdenCompraController extends BaseController
                      $COM_EstadoOrdenCompra->COM_EstadoOrdenCompra_Activo=0;
                 }
             $COM_EstadoOrdenCompra->update();
-            return 'Datos Actualizados';
+             $ruta = route('index');
+                 $mensajeBD = Mensaje::find(1);
+                    $mensaje= 'El Estado de Orden  '.$mensajeBD->GEN_Mensajes_Mensaje;
+                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
        }
        return View::make('COM_EstadoOrdenCompras.EEOC', compact('COM_EstadoOrdenCompra'))->withErrors($validacion);
     }

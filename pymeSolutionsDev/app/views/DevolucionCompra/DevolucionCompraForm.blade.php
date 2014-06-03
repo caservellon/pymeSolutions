@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
-        <h2>Orden de Compra</h2>
+        <h2>Devolucion sobre Compra</h2>
         <h5>Empresa X S.A.</h5>
         <h5>Colonia la America, Tegucigalpa,Francisco Morazán</h5>
         <h5>Honduras C.A.</h5>

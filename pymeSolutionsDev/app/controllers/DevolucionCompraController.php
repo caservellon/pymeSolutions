@@ -131,7 +131,8 @@ class DevolucionCompraController extends BaseController {
                 }
                 
                  $ruta = route('ListaOrdenes');
-                    $mensaje = Mensaje::find(14);
+                    $mensajeBD = Mensaje::find(14);
+                    $mensaje= 'La Devolucion  '.$mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
             }else{
                  foreach ($Phacer as $Elemento) {
@@ -148,11 +149,13 @@ class DevolucionCompraController extends BaseController {
                 $reembolso->COM_DevolucionCompra_COM_DevolucionCompra_ID=$ultimod;
                 $reembolso->save();
               $ruta = route('ListaOrdenes');
-                    $mensaje = Mensaje::find(14);
+                    $mensajeBD = Mensaje::find(14);
+                    $mensaje= 'La Devolucion  '.$mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));   
-            }if($saldo > $total){
+            }if($saldo = $total){
                  $ruta = route('ListaOrdenes');
-                    $mensaje = Mensaje::find(14);
+                    $mensajeBD = Mensaje::find(14);
+                    $mensaje= 'La Devolucion  '.$mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
             }
             
