@@ -2,12 +2,13 @@
 
 class Cotizacion extends Eloquent {
 	protected $guarded = array();
-        
+    
     protected $table = 'COM_Cotizacion';
 	protected $primaryKey = 'COM_Cotizacion_IdCotizacion';
-
+	protected $perPage = 10;
+	
 	public $timestamps = false;
-
+	
 	public static $rules = array(
 		'COM_Cotizacion_Vigencia' => 'required',
 		'COM_Cotizacion_ISV' => 'required'

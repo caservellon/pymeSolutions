@@ -221,7 +221,7 @@
 					@endif
 				@else
 					{{ Form::label('Impuesto', 'Impuesto(%)') }}
-					{{ Form::text('ImpuestoCotizacion', null, array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
+					{{ Form::text('ImpuestoCotizacion', '15', array('class' => 'form-control', 'onChange' => 'AsignarTotales("ImpuestoCotizacion", 0)')) }}
 				@endif
 				
 				<br><br>
