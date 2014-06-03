@@ -129,6 +129,7 @@ class DevolucionCompraController extends BaseController {
                 $nuevopago->save();
                    
                 }
+                Contabilidad::Devolucion($total,$Orden->COM_Proveedor_IdProveedor);
                  $ruta = route('ListaOrdenes');
                     $mensaje = Mensaje::find(14);
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
