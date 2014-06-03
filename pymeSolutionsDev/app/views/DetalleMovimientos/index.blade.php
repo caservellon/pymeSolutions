@@ -79,7 +79,7 @@
 			@endforeach
 		</tbody>
 	</table>
-	 <?php echo $DetalleMovimientos->links(); ?>
+	 
 @else
 	<div class="alert alert-danger">
       <strong>Oh no!</strong> No hay Historial disponible :(

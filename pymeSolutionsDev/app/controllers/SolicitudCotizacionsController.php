@@ -286,7 +286,7 @@ class SolicitudCotizacionsController extends BaseController {
         public function detalle(){
             $proveedor= invCompras::ProveedorCompras(Input::get('prov'));
             
-            $solicitud= DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacion_idDetalleSolicitudCotizacion', '=', Input::get('solCot'))->get();
+            $solicitud= 						DetalleSolicitudCotizacion::where('COM_DetalleSolicitudCotizacion_idSolicitudCotizacion', '=', Input::get('solCot'))->get();
             return View::make('SolicitudCotizacions.detalle', compact('solicitud', 'proveedor'));
         }
 

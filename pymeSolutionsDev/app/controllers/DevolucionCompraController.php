@@ -109,7 +109,7 @@ class DevolucionCompraController extends BaseController {
                 }
                 $contador++;
             }
-            $Phacer=COMOrdenPago::where('COM_OrdenCompra_idOrdenCompra','=',$id_Orden)->where('COM_OrdenPago_Activo','=',1)->get();
+           Contabilidad::Devolucion($total,$Orden->COM_Proveedor_IdProveedor); $Phacer=COMOrdenPago::where('COM_OrdenCompra_idOrdenCompra','=',$id_Orden)->where('COM_OrdenPago_Activo','=',1)->get();
             $tamaño= sizeof($Phacer);
             if($saldo > $total){
                 foreach ($Phacer as $Elemento) {
@@ -129,7 +129,7 @@ class DevolucionCompraController extends BaseController {
                 $nuevopago->save();
                    
                 }
-                Contabilidad::Devolucion($total,$Orden->COM_Proveedor_IdProveedor);
+                
                  $ruta = route('ListaOrdenes');
                     $mensaje = Mensaje::find(14);
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
