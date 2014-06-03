@@ -137,7 +137,7 @@
 		//Compras
 		
 		public static function NuevoEstadoOrden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_NuevoEstadoOrden;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_NuevoEstadoOrdenCompra;
 		}
 
 		public static function AlmacenaestadoOrden(){
@@ -145,111 +145,125 @@
 		}
 
 		public static function IndexEstadoorden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_BorrarCaja;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_IndexEstadoorden;
 		}
 
 		public static function EditEstadoorden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_EditEstadoorden;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_EditEstadoOrden;
 		}
 
-		public static function ListaTransicion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListaTransicion;
+		public static function ModificarTransicionesEstado(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ModificarTransicionesEstado;
 		}
 
-		public static function Editatransicion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_Editatransicion;
+		public static function NuevaTransicionEstado(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_NuevaTransicionEstado;
 		}
 
-		public static function ListaEstado(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListaEstado;
+		public static function detalleTransicionesEstado(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleTransicionesEstado;
 		}
 
-		public static function NuevaTransicion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_NuevaTransicion;
+		public static function detalleNuevaTransicionesEstado(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleNuevaTransicionesEstado;
+		}
+		
+
+		public static function GuardarTransicionEstado(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarTransicionEstado;
 		}
 
-		public static function AlmacenaTransicion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_AlmacenaTransicion;
+		public static function ActualizarTransicionEstado(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ActualizarTransicionEstado;
+		}
+		
+
+		public static function nuevaOrdenCompraSinCotizacion(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_nuevaOrdenCompraSinCotizacion;
 		}
 
-		public static function ActualizarTransicion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ActualizarTransicion;
+		public static function detalleNuevaOrdenCompras(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleNuevaOrdenCompras;
 		}
 
-		public static function OrdenComprasnCotizacion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_OrdenComprasnCotizacion;
+		public static function GuardarNuevaOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarNuevaOrdenCompra;
 		}
 
-		public static function FormOrdenComprasnCotizacion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_FormOrdenComprasnCotizacion;
-		}
-
-		public static function GuardarOCsnCOT(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarOCsnCOT;
-		}
-
-		public static function OrdenCompracnCotizacion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_OrdenCompracnCotizacion;
+		public static function nuevaOrdenCompraConCotizacion(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_nuevaOrdenCompraConCotizacion;
 		}
 
 		public static function CompararCotizacion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_CompararCotizacion;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_CompararCotizaciones;
 		}
 
-		public static function OrdenCompracnCotizacionForm(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_OrdenCompracnCotizacionForm;
+		public static function detalleNuevaOrdenCompraConCotizacion(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleNuevaOrdenCompraConCotizacion;
 		}
 
-		public static function OCcnCOT(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_OCcnCOT;
+		public static function guardarNuevaOrdenCompraConCotizacion(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_guardarNuevaOrdenCompraConCotizacion;
 		}
 
-		public static function ListarOrdenCompra(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListarOrdenCompra;
+		public static function ListarAutorizarOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListarAutorizarOrdenCompra;
 		}
 
-		public static function AutorizarOrdenCompra(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_AutorizarOrdenCompra;
+		public static function detalleAutorizarOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleAutorizarOrdenCompra;
 		}
 
-		public static function autorizarOrden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_autorizarOrden;
+		public static function guardarAutorizarOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_guardarAutorizarOrdenCompra;
 		}
 
-		public static function cancelarOrden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_cancelarOrden;
+		public static function cancelarOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_cancelarOrdenCompra;
 		}
 
-		public static function ListaOrdenCompra(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListaOrdenCompra;
+		public static function ListaAdministrarOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListaAdministrarOrdenCompra;
 		}
 
-		public static function AdministrarDetalle(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_AdministrarDetalle;
+		public static function AdministrarDetalleOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_AdministrarDetalleOrdenCompra;
 		}
 		
-		public static function AdministrarOC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_AdministrarOC;
+		public static function guardarAdministrarOC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_guardarAdministrarOC;
 		}
 		
-		public static function HistorialOrdenes(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_HistorialOrdenes;
+		public static function ListarHistorialOrdenes(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListarHistorialOrdenes;
 		}
 		
-		public static function HistorialOrden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_OrdenCompracnCotizacion;
+		public static function detalleHistorialOrden(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleHistorialOrden;
 		}
 		
-		public static function GenerarPagoLC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GenerarPagoLC;
+		public static function ListarPagoOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListarPagoOrdenCompra;
 		}
 		
-		public static function DetallePago(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_DetallePago;
+		public static function DetallePagoOrdenCompra(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_DetallePagoOrdenCompra;
 		}
 		
-		public static function GuardarPago(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarPago;
+		public static function GuardarPagoOrdenPago(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarPagoOrdenPago;
+		}
+		
+		public static function detalleDevolucionCompras(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleDevolucionCompras;
+		}
+		
+		public static function ListaDevolucionCompras(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ListaDevolucionCompras;
+		}
+		
+		public static function GuardarDevolucionCompras(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarDevolucionCompras;
 		}
 		
 		public static function indexImprimirOC(){
@@ -296,8 +310,8 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_vistaReordenSC;
 		}
 		
-		public static function mostrarProveedorSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_mostrarProveedoresSC;
+		public static function crearSC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_crearSC;
 		}
 		
 		public static function editSC(){
