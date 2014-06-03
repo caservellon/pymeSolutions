@@ -76,6 +76,9 @@
 								{{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
 							</li>
 							<li>
+								{{ link_to_route('Inventario.Producto.historial.index2', 'Historial de un Producto')}}
+							</li>
+							<li>
 								{{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
 							</li>
 							<li>

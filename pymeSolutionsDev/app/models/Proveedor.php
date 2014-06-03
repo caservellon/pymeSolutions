@@ -14,7 +14,7 @@ class Proveedor extends Eloquent {
 		'INV_Proveedor_Nombre' => 'required|regex:/^[a-z A-Z]?/|Between:1,128',
 		'INV_Proveedor_Direccion' => 'required|Between:1,512',
 		'INV_Proveedor_Telefono' => 'required|regex:/^\(504\)[0-9]{4}-[0-9]{4}/',
-		'INV_Proveedor_Email' => 'required|email|Between:1,128',
+		'INV_Proveedor_Email' => '', //'required|email|Between:1,128',
 		'INV_Proveedor_PaginaWeb' => 'max:128',
 		'INV_Proveedor_RepresentanteVentas' => 'required|Between:1,128|regex:/^[a-z A-Z]?/',
 		'INV_Proveedor_TelefonoRepresentanteVentas' => 'required|regex:/^\(504\)[0-9]{4}-[0-9]{4}/',

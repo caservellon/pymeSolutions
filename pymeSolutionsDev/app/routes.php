@@ -86,9 +86,11 @@ Route::group(array('prefix' => 'Inventario'), function()
 		Route::post('DetalleMovimiento/search_index', array('as' => 'DetalleMovimientos.search_index', 'uses' =>'DetalleMovimientosController@search_index'));
 		Route::post('DetalleMovimiento/history/{id}', array('as' => 'DetalleMovimientos.history', 'uses' =>'DetalleMovimientosController@history'));
 
-		
+		Route::get('/Productos/historial', array('as' => 'Inventario.Producto.historial.index2', 'uses' => "ProductosController@index2"));
 		Route::resource('Productos', 'ProductosController');
+		Route::post('Productos/historial/search_index', array('as' => 'Productos.search_index2', 'uses' =>'ProductosController@search_index2'));
 		Route::post('/Productos/campolocalsave', array('as' => 'Inventario.Productos.campolocalsave', 'uses' => 'ProductosController@campolocalsave'));
+
 
 		Route::resource('Horarios', 'HorariosController');
 		Route::resource('FormaPagos', 'FormaPagosController');

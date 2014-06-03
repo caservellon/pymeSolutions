@@ -2,11 +2,14 @@
 
 @section('main')
 
-<h1> Historial de Movimientos</h1>
-<br />
+<h2 class="sub-header">Historial de Movimientos</h2>
+<div class="btn-agregar">
+<a href="{{{ URL::to('Inventario/DetalleMovimiento') }}}" class="btn btn-sm btn-primary col-md-offset-12"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
+</div>
+
 
 {{ Form::open(array('route' => 'DetalleMovimientos.search_index')) }}
-{{ Form::label('FechaIncLabel', 'Fecha Inicial: ', array('class' => 'col-md-2 control-label')) }}
+{{ Form::label('FchaIncLabel', 'Fecha Inicial: ', array('class' => 'col-md-2 control-label')) }}
 {{ Form::text('FechaInc', null,  array('class' => 'col-md-3', 'form-control', 'id' => 'FechaInc', 'placeholder'=>'Dia/Mes/Ano')) }}
 {{ Form::label('FechaFinLabel', 'Fecha Final: ', array('class' => 'col-md-2 control-label')) }}
 {{ Form::text('FechaFin', null,  array('class' => 'col-md-3', 'form-control', 'id' => 'FechaFin', 'placeholder'=>'Dia/Mes/Ano')) }}
@@ -76,8 +79,11 @@
 			@endforeach
 		</tbody>
 	</table>
+	 <?php echo $DetalleMovimientos->links(); ?>
 @else
-	No hay Historial de dicho Producto.
+	<div class="alert alert-danger">
+      <strong>Oh no!</strong> No hay Historial disponible :(
+	</div>
 @endif
 
 @stop

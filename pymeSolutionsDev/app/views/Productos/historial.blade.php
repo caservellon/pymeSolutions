@@ -11,7 +11,7 @@
 	<a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
 </div>
 
-{{ Form::open(array('route' => 'Productos.search_index')) }}
+{{ Form::open(array('route' => 'Productos.search_index2')) }}
 {{ Form::label('SearchLabel', 'Busqueda: ', array('class' => 'col-md-2 control-label')) }}
 {{ Form::text('search', null, array('class' => 'col-md-4', 'form-control', 'id' => 'search', 'placeholder'=>'Busque producto..')) }}
 {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
@@ -93,14 +93,17 @@
 					@if($isEmpty)
 						<td></td>
 					@endif	
-                    <td>{{ link_to_route('Inventario.Productos.edit', 'Editar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>
-    
-
+                  
                     <td>
-                        {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Productos.destroy', $Producto->INV_Producto_ID))) }}
-                            {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
-                        {{ Form::close() }}
+                    	@if(DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $Producto->INV_Producto_ID)->count() != 0)
+	                     	{{ Form::open(array('route' => array('DetalleMovimientos.history', $Producto->INV_Producto_ID))) }}
+	                        {{ Form::submit('Historial', array('class' => 'btn btn-success')) }}
+	                        {{ Form::close() }}
+                        @else
+                        	<button class="btn btn-danger">No hay Historial</button>
+                        @endif
                     </td>
+                    
 				</tr>
 			@endforeach
 		</tbody>

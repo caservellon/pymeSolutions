@@ -26,6 +26,12 @@ class ProductosController extends BaseController {
 		return View::make('Productos.index', compact('Productos'));
 	}
 
+	public function index2()
+	{
+		$Productos = $this->Producto->all();
+		
+		return View::make('Productos.historial', compact('Productos'));
+	}
 	
 	public function create()
 	{
@@ -121,6 +127,18 @@ class ProductosController extends BaseController {
 
 		}catch(Exception $e){
 			return View::make('Productos.index', compact('Productos'));
+		}
+	}
+
+	public function search_index2(){
+
+		try{
+			
+			$Productos = Producto::where('INV_Producto_Nombre', 'like', '%'.Input::get('search').'%') ->get();
+			return View::make('Productos.historial', compact('Productos'));
+
+		}catch(Exception $e){
+			return View::make('Productos.historial', compact('Productos'));
 		}
 	}
 
