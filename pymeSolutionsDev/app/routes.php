@@ -400,7 +400,8 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::get('motivotransaccion',array('uses' => 'MotivoTransaccionsController@index'));
 			Route::get('creando/motivotransaccion',array('uses'=>'AsientosController@creandomotivo'));
 			Route::get('reembolsos',array('as'=>'con.reembolsos', 'uses'=>'ReembolsosController@index'));
-			
+			Route::get('reemblosos/registrar/{id}',array('as'=>'con.registrarReembolso','uses'=>'ReembolsosController@registrarReembolso'));
+
 			Route::post('librodiario/revertirasiento',array('as'=>'revertirasiento', 'uses' => 'LibroDiarioController@reversion'));
 			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
 			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));			

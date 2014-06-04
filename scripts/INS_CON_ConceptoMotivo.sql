@@ -130,3 +130,14 @@ VALUES
 (12,
 'Reembolso',
 15,Now(),Now()); 
+
+INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
+(`CON_ConceptoMotivo_ID`,
+`CON_ConceptoMotivo_Concepto`,
+`CON_MotivoTransaccion_ID`,
+`CON_ConceptoMotivo_FechaCreacion`,
+`CON_ConceptoMotivo_FechaModificacion`)
+VALUES
+(13,
+'Pago a proveedor',
+11,Now(),Now()); 

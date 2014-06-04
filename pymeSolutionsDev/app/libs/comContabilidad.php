@@ -27,10 +27,10 @@ public static function Reembolsos(){
 // funcion para cambiar los estados tanto de la devolucion y del rembolso despues de haber registrado el rembolso
 public static function CambiaEstados($id){
 	$estado= ReembolsoDevolucionCompra::find($id);
-	$estado->COM_ReembosoDevolucionCompras_Activo=0;
+	$estado->COM_ReembosoDevolucionCompras_Activo=NULL;
 	$estado->update();
 	$devolucion= DevolucionCompra::find($estado->COM_DevolucionCompra_COM_DevolucionCompra_ID);
-	$devolucion->COM_ReembosoDevolucionCompras_Activo=0;
+	$devolucion->COM_DevolucionCompra_Activo=NULL;
 	$devolucion->update();
 	return null;
 }

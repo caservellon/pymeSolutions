@@ -15,6 +15,8 @@
 	<span class="glyphicon glyphicon-time"></span><br>Cierre de Periodo</a>
 	<a href="{{URL::route('con.compras')}}" class="btn btn-default btn-lg btn-block">
 	<span class="glyphicon glyphicon-shopping-cart"></span><br>Compras - Ordenes de pago <span class="badge">{{sizeof(comContabilidad::OrdenesSinPagar())}}</span></a>
+	<a href="{{URL::route('con.reembolsos')}}" class="btn btn-default btn-lg btn-block">
+	<span class="glyphicon glyphicon-cog"></span><br>Reembolsos pendientes <span class="badge">{{sizeof(comContabilidad::Reembolsos())}}</span></a>
 	<a href="{{URL::to('contabilidad/configuracion')}}" class="btn btn-default btn-lg btn-block">
 	<span class="glyphicon glyphicon-cog"></span><br>Configuracion</a>
 	
