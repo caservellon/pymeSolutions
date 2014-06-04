@@ -302,8 +302,8 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexSC;
 		}
 		
-		public static function vistacrearSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_vistacrearSC;
+		public static function vistaCrearSC(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_vistaCrearSC;
 		}
 		
 		public static function vistaReordenSC(){

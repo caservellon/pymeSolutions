@@ -2,7 +2,7 @@
 
 @section('main')
 
-	<?php 
+	<?php
 		$CodigosCotizacion = Input::get('CodigosCotizacion');
 		$FormasPago = Helpers::InformacionFormasPago();
 	?>
