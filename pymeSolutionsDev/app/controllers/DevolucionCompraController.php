@@ -115,7 +115,7 @@ class DevolucionCompraController extends BaseController {
                 $contador++;
             }
             invCompras::setOrdenRechazada($id_Orden);
-           Contabilidad::Devolucion($total,$Orden->COM_Proveedor_IdProveedor); $Phacer=COMOrdenPago::where('COM_OrdenCompra_idOrdenCompra','=',$id_Orden)->where('COM_OrdenPago_Activo','=',1)->get();
+           $Phacer=COMOrdenPago::where('COM_OrdenCompra_idOrdenCompra','=',$id_Orden)->where('COM_OrdenPago_Activo','=',1)->get();
             $tamaño= sizeof($Phacer);
             if($saldo > $total){
                 foreach ($Phacer as $Elemento) {
@@ -133,12 +133,13 @@ class DevolucionCompraController extends BaseController {
                 $Elemento->COM_OrdenPago_Activo=0;
                 $Elemento->update();
                 $nuevopago->save();
-                   
-                }
                 
+                }
+                Contabilidad::GenerarTransaccionCmp(10,$total,$Orden->COM_Proveedor_IdProveedor); 
                  $ruta = route('ListaOrdenes');
                     $mensajeBD = Mensaje::find(14);
                     $mensaje= 'La Devolucion  '.$mensajeBD->GEN_Mensajes_Mensaje;
+
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
             }else{
                  foreach ($Phacer as $Elemento) {
@@ -155,10 +156,12 @@ class DevolucionCompraController extends BaseController {
                 $reembolso->COM_DevolucionCompra_COM_DevolucionCompra_ID=$ultimod;
                 $reembolso->save();
               $ruta = route('ListaOrdenes');
+              Contabilidad::GenerarTransaccionCmp(11,($total-$saldo),$Orden->COM_Proveedor_IdProveedor); 
                     $mensajeBD = Mensaje::find(14);
                     $mensaje= 'La Devolucion  '.$mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));   
             }if($saldo = $total){
+                Contabilidad::GenerarTransaccionCmp(10,$total,$Orden->COM_Proveedor_IdProveedor); 
                  $ruta = route('ListaOrdenes');
                     $mensajeBD = Mensaje::find(14);
                     $mensaje= 'La Devolucion  '.$mensajeBD->GEN_Mensajes_Mensaje;
