@@ -188,9 +188,14 @@ class ProveedorController extends BaseController {
 	}
 
 	public function editarFormaPago(){
-		
 		$proveedor = Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->get()->lists('INV_Proveedor_Nombre', 'INV_Proveedor_Nombre');
-		$fpagos = FormaPago::all()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+		$Query = DB::table('INV_Proveedor_FormaPago')->where('INV_Proveedor_ID', Proveedor::where('INV_Proveedor_Nombre', Input::get('INV_Proveedor_Nombre'))->first()->INV_Proveedor_ID)->get();
+		$temp = array();
+			foreach($Query as $Q){
+				array_push($temp, $Q->INV_FormaPago_ID);
+			}
+		$fpagos = FormaPago::whereNotIn('INV_FormaPago_ID',$temp)->get()->lists('INV_FormaPago_Nombre','INV_FormaPago_Nombre');
+
 		return View::make('Proveedor.f2p', compact('fpagos', 'proveedor'));
 	}
 
