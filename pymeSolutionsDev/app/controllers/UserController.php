@@ -28,7 +28,6 @@ class UserController
 	{
 		
 		$input = Input::all();
-		return var_dump($input);
 		$validation = Validator::make($input, User::$rules);
 		//return var_dump($input);
 		if ($validation->passes())
