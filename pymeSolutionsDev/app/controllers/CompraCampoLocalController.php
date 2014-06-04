@@ -9,6 +9,7 @@ class CompraCampoLocalController extends BaseController {
 	}
 
 	public function index(){
+		if(Seguridad::indexCampoLocal()){
 		$CampoSolicitud = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
 		$CampoCotizacion = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_COT%')->get();
                 $CampoOrden = $this->CampoLocal->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get();
@@ -17,15 +18,24 @@ class CompraCampoLocalController extends BaseController {
 			'CampoCotizacion' => $CampoCotizacion,
                         'CampoOrden' => $CampoOrden
 			));
+		}else {
+            return Redirect::to('/403');
+        }
 	}
 
 	public function create()
+
 	{
+		if(Seguridad::createCampoLocal()){
 		return View::make('CompraCampoLocal.create');
+		}else {
+            return Redirect::to('/403');
+        }
 	}
 
 	public function store()
 	{
+		if(Seguridad::createCampoLocal()){
 		$input = Input::all();
  		$validation = Validator::make($input, CampoLocal::$rules);
 		$Campo = new CampoLocal;
@@ -68,6 +78,9 @@ class CompraCampoLocalController extends BaseController {
 		return Redirect::route('Compras.Configuracion.CampoLocal.create')
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
+			}else {
+            return Redirect::to('/403');
+        }
 	}
 
 
@@ -80,6 +93,7 @@ class CompraCampoLocalController extends BaseController {
 
 	public function edit($id)
 	{
+		if(Seguridad::editCampoLocal()){
 		$CampoLocal = $this->CampoLocal->find($id);
 
 		if (is_null($CampoLocal))
@@ -98,9 +112,13 @@ class CompraCampoLocalController extends BaseController {
 			$stringConcat = rtrim($stringConcat,";");
 		}
 		return View::make('CompraCampoLocal.edit', array('stringConcat'=> $stringConcat,'CampoLocal' => $CampoLocal, 'tipoDePerfil' => $tipoDePerfil, 'CampoLocalLista'=> $CampoLocalLista));
+		}else {
+            return Redirect::to('/403');
+        }
 	}
 
 	public function update($id){
+		if(Seguridad::editCampoLocal()){
                 $input = Input::all();
 		$validation = Validator::make($input, CampoLocal::$rules);
 		$Campo = CampoLocal::find($id);
@@ -140,15 +158,22 @@ class CompraCampoLocalController extends BaseController {
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
+			}else {
+            return Redirect::to('/403');
+        }
 	}
 
 	public function destroy($id)
 	{
+		if(Seguridad::destroyCampoLocal()){
 		$CampoLocal = CampoLocal::find($id);
 		$CampoLocal->GEN_CampoLocal_Activo = 0;
 		$CampoLocal->save();
 
 		return Redirect::route('Compras.Configuracion.CampoLocal.index');
+		}else {
+            return Redirect::to('/403');
+        }
 	}
 
 }

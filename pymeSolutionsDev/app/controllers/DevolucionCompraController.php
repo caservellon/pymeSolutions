@@ -34,6 +34,7 @@ class DevolucionCompraController extends BaseController {
      * @return Response
      */
     public function DevolucionCompraDetalle(){
+        if(Seguridad::detalleDevolucionCompras()){
             $ID_Or=Input::get('id');
             $orden=OrdenCompra::find($ID_Or);
             $proveedor=$orden->COM_Proveedor_IdProveedor;
@@ -56,8 +57,12 @@ class DevolucionCompraController extends BaseController {
            
             
             return View::make('DevolucionCompra.DevolucionCompraForm',array('proveedor' => $proveedor, 'detalle'=>$detalle, 'isv'=>$isv , 'id_cot'=>$ID_Or, 'cantidades'=>$CanProd,'saldo'=>$Saldo));
+            }else {
+            return Redirect::to('/403');
+        }
         }
         public function ListaDevolucion(){
+            if(Seguridad::ListaDevolucionCompras()){
             $rechazo=invCompras::getProductosRechazados();
             $ordenes=array();
             if(sizeOf($rechazo)<1){
@@ -72,11 +77,16 @@ class DevolucionCompraController extends BaseController {
            if(sizeof($ordenes)>0){
                 $Ordenes= OrdenCompra::wherein('COM_OrdenCompra_IdOrdenCompra',$ordenes)->get();
             return View::make('DevolucionCompra.ListaDevoluciones',array('ordenes'=> $Ordenes));
+
            }
+             }else {
+            return Redirect::to('/403');
+        }
             
             
         }
           public function guardaDevolucion(){
+            if(Seguridad::GuardarDevolucionCompras()){
 //Recibo los datos y los Compruebo
             $input=Input::all();
             $contador=0;
@@ -167,7 +177,9 @@ class DevolucionCompraController extends BaseController {
                     $mensaje= 'La Devolucion  '.$mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
             }
-            
+            }else {
+                return Redirect::to('/403');
+            }
         }
         
  }

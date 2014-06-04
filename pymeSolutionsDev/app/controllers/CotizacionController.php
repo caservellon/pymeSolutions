@@ -3,39 +3,72 @@
 class CotizacionController extends BaseController {
 
 	public function VistaMenuCotizaciones(){
+		if(Seguridad::VistaMenuCotizaciones()){
 		return View::make('Menus.Cotizaciones');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 
 	public function VistaCapturarCotizacion(){
+		if(Seguridad::VistaCapturarCotizacion()){
 		return View::make('COM_Cotizacion.CapturarCotizacion');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 	
 	public function VistaCapturarCotizacionCapturar(){
+		if(Seguridad::VistaCapturarCotizacionCapturar()){
 	
 		return View::make('COM_Cotizacion.CapturarCotizacionCapturar');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 	
 	public function VistaCapturarCotizacionCapturarMensajeCotizacionCapturada(){
+		if(Seguridad::VCCCMCC()){
 		return View::make('COM_Cotizacion.MensajeCotizacionCapturada');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 	
 	public function VistaTodasCotizaciones(){
+		if(Seguridad::VistaTodasCotizaciones()){
 		return View::make('COM_Cotizacion.TodasCotizaciones');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
-	
+
 	public function VistaDetallesCotizacion(){
+		if(Seguridad::VistaDetallesCotizacion()){
 		return View::make('COM_Cotizacion.DetallesCotizacion');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 	
 	public function VistaHabilitarInhabilitar(){
+		if(Seguridad::VistaHabilitarInhabilitar()){
 		return View::make('COM_Cotizacion.HabilitarInhabilitar');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 	
 	public function VistaHabilitarInhabilitarMensajeEstadoCotizacionCambiado(){
+		if(Seguridad::VHIMECC()){
 		return View::make('COM_Cotizacion.MensajeEstadoCotizacionCambiado');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 	
 	public function CapturarCotizacion(){
+		if(Seguridad::CapturarCotizacion()){
 		if(Input::has('Capturar')){
 			if(Input::has('CodigoSolicitudCotizacion')){
 				$CodigoSolicitudCotizacion = Input::get('CodigoSolicitudCotizacion');
@@ -52,6 +85,9 @@ class CotizacionController extends BaseController {
 		}elseif(Input::has('Restablecer')){
 			return Redirect::route('CotizacionesCapturarCotizacion');
 		}
+		  }else {
+            return Redirect::to('/403');
+        }
 		
 	}
 	
@@ -59,6 +95,7 @@ class CotizacionController extends BaseController {
 	
 	
 	public function CapturarCotizacionCapturar(){
+		if(Seguridad::CapturarCotizacionCapturar()){
 		$Input = Input::all();
 		
 		$Cadena = 'Cualquier';
@@ -232,12 +269,16 @@ class CotizacionController extends BaseController {
 		$Cotizacion -> save();
 		
 		return Redirect::route('CotizacionesCapturarCotizacionCapturarMensajeCotizacionCapturada');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 	
 	
 	
 	
 	public function TodasCotizaciones(){
+		if(Seguridad::TodasCotizaciones()){
 		$Input = Input::except(array('_token', 'Detalle'));
 		
 		$Cotizaciones = Cotizacion::all();
@@ -278,12 +319,16 @@ class CotizacionController extends BaseController {
 		}
 		
 		return View::make('COM_Cotizacion.TodasCotizaciones');
+		  }else {
+            return Redirect::to('/403');
+        }
 	}
 	
 	
 	
 	
 	public function HabilitarInhabilitar(){
+		if(Seguridad::HabilitarInhabilitar()){
 		if (Input::has('Actualizar')){
 			if(!Input::has('Busqueda')){
 				$Cotizaciones = Cotizacion::all();
@@ -322,6 +367,9 @@ class CotizacionController extends BaseController {
 		}elseif(Input::has('Restablecer')){
 			return Redirect::route('CotizacionesHabilitarInhabilitar');
 		}
+		  }else {
+            return Redirect::to('/403');
+        }
 		
 	}
 	/*
