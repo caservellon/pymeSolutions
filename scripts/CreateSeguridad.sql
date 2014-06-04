@@ -94,8 +94,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_CON_ListarSubcuentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_AgregarSubcuentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_VerPeriodoContable` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_CON_AgregarPeriodoContable` TINYINT(1) NULL DEFAULT 0 COMMENT  /* comment truncated */ /*
-*/,
+  `SEG_Roles_CON_AgregarPeriodoContable` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_EditarPeriodoContable` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_VerUnidadesMonetarias` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_AgregarUnidadesMonetarias` TINYINT(1) NULL DEFAULT 0,

@@ -54,27 +54,27 @@ class SolicitudCotizacionsController extends BaseController {
         }
 		
         public function indexImprimir(){
-            //if (Seguridad::indexImprimirSC()) {
+            if (Seguridad::indexImprimirSC()) {
             $SolicitudCotizacions = SolicitudCotizacion::where('COM_SolicitudCotizacion_Imprimir', '=', 0)->paginate();
 			$CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_SC%')->get();
             return View::make('SolicitudCotizacions.indexImprimir', compact('SolicitudCotizacions', 'CamposLocales'));
-//            }else {
-//			return Redirect::to('/403');
-//		}
+            }else {
+			return Redirect::to('/403');
+		}
         }
 		
         public function imprimir(){
-            //if (Seguridad::ImprimirSC()) {
+            if (Seguridad::ImprimirSC()) {
             $imprimir= SolicitudCotizacion::find(Input::get('solCot'));
             //return $imprimir;
             return View::make('SolicitudCotizacions.imprimir', compact('imprimir'));
-//            }else {
-//			return Redirect::to('/403');
-//		}
+            }else {
+			return Redirect::to('/403');
+		}
         }
         
         public function mostrarProveedor(){
-            //if (Seguridad::crearSC()) {
+            if (Seguridad::crearSC()) {
             $cualquierProducto=array();
             $Input = array();
                 for ($i = 1; $i <=count(Input::all()); $i++) {
@@ -99,9 +99,9 @@ class SolicitudCotizacionsController extends BaseController {
                 //$iguales='';
             return View::make('SolicitudCotizacions.proveedores', compact('cualquierProducto', 'proveedor','Input'));
             //return Redirect::route('seleccion', compact('cualquierProducto', 'proveedor'))->withInput();
-//            }else {
-//			return Redirect::to('/403');
-//		}
+            }else {
+			return Redirect::to('/403');
+		}
         }
 
         /**
@@ -117,7 +117,7 @@ class SolicitudCotizacionsController extends BaseController {
 	 */
 	public function store()
 	{
-            //if (Seguridad::crearSC()) {
+            if (Seguridad::crearSC()) {
                 $Input=Input::all();
                 $imprimir= array();
                 $correo= array();
@@ -302,9 +302,9 @@ class SolicitudCotizacionsController extends BaseController {
                      ->with('Input',$Input)
                      ->withErrors($validation)
                      ->with('message', 'There were validation errors.');
-//              }else {
-//			return Redirect::to('/403');
-//		}
+              }else {
+			return Redirect::to('/403');
+		}
               
 	}
         
