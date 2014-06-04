@@ -4,17 +4,26 @@ class COMTransicionEstadoController extends BaseController {
 
 	public function ListaTransiciones()
 	{
+        if(Seguridad::ModificarTransicionesEstado()){
            $data1 = COMOrdenCompraTransicionEstado::paginate();
            return View::make('COM_OrdenCompra_TransicionEstado.ListarEstadoCompra', compact('data1'));
+           }else {
+            return Redirect::to('/403');
+        }
 	}
         public function ListaEstados()
 	{
+        if(Seguridad::NuevaTransicionEstado()){
            $data1 = COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->paginate();
            return View::make('COM_OrdenCompra_TransicionEstado.ListaEstados', compact('data1'));
+           }else {
+            return Redirect::to('/403');
+        }
 	}
         
         public function NuevaTransicionEstado()
         {
+            if(Seguridad::detalleNuevaTransicionesEstado()){
             $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::find(Input::get('id'));
             $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
 
@@ -24,10 +33,14 @@ class COMTransicionEstadoController extends BaseController {
 		}
 
 		return View::make('COM_OrdenCompra_TransicionEstado.NuevaTransicionEstado',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra ,'Eanterior'=>$Eanterior,'Esiguiente'=>$Eanterior));
+        }else {
+            return Redirect::to('/403');
+        }
         }
 	 
 	public function AlmacenaTransicion()
 	{
+        if(Seguridad::GuardarTransicionEstado()){
             $input=Input::all();
             $validacion=Validator::make($input,  COMOrdenCompraTransicionEstado::$reglas);
             if($validacion->passes()){
@@ -71,18 +84,26 @@ class COMTransicionEstadoController extends BaseController {
             $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
             $COM_EstadoOrdenCompra=COM_EstadoOrdenCompra::find(Input::get('COM_OrdenCompra_TransicionEstado_EstadoActual'));
             return View::make('COM_OrdenCompra_TransicionEstado.NuevaTransicionEstado',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra ,'Eanterior'=>$Eanterior,'Esiguiente'=>$Eanterior))->withErrors($validacion);
+            }else {
+            return Redirect::to('/403');
+        }
 	}
 
 	public function EditarTransicion()
 	{
+        if(Seguridad::detalleTransicionesEstado()){
             $Eanterior=COM_EstadoOrdenCompra::where('COM_EstadoOrdenCompra_Activo','=',1)->lists('COM_EstadoOrdenCompra_Nombre','COM_EstadoOrdenCompra_IdEstadoOrdenCompra');
             $COM_OrdenCompra_TransicionEstado= COMOrdenCompraTransicionEstado::find(Input::get('id'));
             $COM_EstadoOrdenCompra = COM_EstadoOrdenCompra::find($COM_OrdenCompra_TransicionEstado->COM_OrdenCompra_TransicionEstado_EstadoActual);
             return View::make('COM_OrdenCompra_TransicionEstado.EditarTransicion',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra ,'Eanterior'=>$Eanterior,'COM_OrdenCompra_TransicionEstado'=>$COM_OrdenCompra_TransicionEstado));
+            }else {
+            return Redirect::to('/403');
+        }
 	}
 
 	public function ActualizarTransicion()
 	{
+        if(Seguridad::ActualizarTransicionEstado()){
             $input=Input::all();
             $validacion=Validator::make($input, COMOrdenCompraTransicionEstado::$reglas);
             if($validacion->passes()){
@@ -107,6 +128,9 @@ class COMTransicionEstadoController extends BaseController {
             $COM_OrdenCompra_TransicionEstado= COMOrdenCompraTransicionEstado::find(Input::get('COM_OrdenCompra_TransicionEstado_Id'));
             $COM_EstadoOrdenCompra=COM_EstadoOrdenCompra::find($COM_OrdenCompra_TransicionEstado->COM_OrdenCompra_TransicionEstado_EstadoActual);
             return View::make('COM_OrdenCompra_TransicionEstado.EditarTransicion',array('COM_EstadoOrdenCompra'=>$COM_EstadoOrdenCompra,'Eanterior'=>$Eanterior,'COM_OrdenCompra_TransicionEstado'=>$COM_OrdenCompra_TransicionEstado))->withErrors($validacion);
+            }else {
+            return Redirect::to('/403');
+        }
             
 	}
         public function noRepetido($anterior,$actual,$siguiente){

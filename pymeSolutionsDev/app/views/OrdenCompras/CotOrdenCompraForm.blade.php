@@ -38,7 +38,7 @@ ction('main')
         <h4>Para:</h4>
         {{Form::text('COM_Proveedor_IdProveedor',$proveedor, array('style' => 'display:none'))}}
         {{Form::text('Id_Cot',$id_cot, array('style' => 'display:none'))}}
-        <?php $proveedora=  Proveedor::find($proveedor)?>
+        <?php $proveedora= invCompras::ProveedorCompras($proveedor); // Proveedor::find($proveedor)?>
         <h5>{{$proveedora->INV_Proveedor_Nombre}}</h5>
         <h5>{{$proveedora->INV_Proveedor_Email}}</h5>
         <h5>{{$proveedora->INV_Proveedor_Direccion}}</h5>
@@ -91,7 +91,7 @@ ction('main')
                         {{Form::text('COM_DetalleOrdenCompra_PrecioUnitario'.$contador,$precioUnitario, array('style' => 'display:none'))}}
                         <td>{{$precioUnitario}}</td>
                         <td>{{$cantidad*$precioUnitario}}</td>
-                        <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);
+                        <?php $medida= invCompras::UnidadCompras($product1->INV_UnidadMedida_ID); //UnidadMedida::find($product1->INV_UnidadMedida_ID);
                             $totalGeneral+=$cantidad*$precioUnitario;
                         ?>
 			
@@ -138,7 +138,7 @@ ction('main')
         <label>Forma de Pago</label>
          <?php 
                  $cot= Cotizacion::find($id_cot);
-                 $mm=FormaPago::find($cot->COM_Cotizacion_IdFormaPago);
+                 $mm= invCompras::FormaPagoCompras($cot->COM_Cotizacion_IdFormaPago); //FormaPago::find($cot->COM_Cotizacion_IdFormaPago);
                  
                  
          ?>

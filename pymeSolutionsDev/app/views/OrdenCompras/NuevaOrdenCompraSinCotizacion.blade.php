@@ -63,9 +63,9 @@
                                     <td>{{$producto->INV_Producto_Descripcion}}</td>
                                     <td>{{$producto->INV_Producto_Cantidad}}</td>
                                     <td>
-                                        <?php $proveedores = DB::table('INV_Producto_Proveedor')->where('INV_Producto_ID', '=',$producto->INV_Producto_ID )->get();?>                                    
+                                        <?php $proveedores = invCompras::ProductoProveedor($producto->INV_Producto_ID);//DB::table('INV_Producto_Proveedor')->where('INV_Producto_ID', '=',$producto->INV_Producto_ID )->get();?>                                    
                                         @foreach($proveedores as $proveedor)
-                                        <?php $provedor1=  Proveedor::find($proveedor->INV_Proveedor_ID)?>
+                                        <?php $provedor1=  invCompras::ProveedorCompras($proveedor->INV_Proveedor_ID);//Proveedor::find($proveedor->INV_Proveedor_ID)?>
                                             <a href="">{{$provedor1->INV_Proveedor_Nombre}} </a>
                                         @endforeach
                                         

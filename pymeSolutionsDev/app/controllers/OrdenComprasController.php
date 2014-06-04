@@ -35,31 +35,49 @@ class OrdenComprasController extends BaseController {
      */
     
         public function index(){
-            $OrdenCompra = OrdenCompra::paginate();
-            
-            //return $ordencompra; 
-            $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get();
-            return View::make('OrdenCompras.index', compact('OrdenCompra', 'CamposLocales'));
+            if(Seguridad::indexOC()){
+                $OrdenCompra = OrdenCompra::paginate();
+                
+                //return $ordencompra; 
+                $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get();
+                return View::make('OrdenCompras.index', compact('OrdenCompra', 'CamposLocales'));
+            }else {
+            return Redirect::to('/403');
+        }
         }
         public function indexImprimir(){
+            if(Seguridad::indexImprimirOC()){
             $ordencompra = OrdenCompra::where('COM_OrdenCompra_Imprimir', '=', 0)->paginate();
             //return $ordencompra; 
             $CamposLocales = CampoLocal::where('GEN_CampoLocal_Codigo','LIKE','COM_OC%')->get();
             return View::make('OrdenCompras.indexImprimir', compact('ordencompra', 'CamposLocales'));
+            }else {
+            return Redirect::to('/403');
+        }
         }
 		
         public function imprimir(){
-            
+            if(Seguridad::ImprimirOC()){
             $imprimir= OrdenCompra::find(Input::get('ordImp'));
             //return $imprimir;
             return View::make('OrdenCompras.imprimir', compact('imprimir'));
+            }else {
+            return Redirect::to('/403');
+        }
         }
         //funciones hechas para crear una orden de compra sin cotizacion
         public function OrdenComprasnCotizacion(){
+
+            if(Seguridad::nuevaOrdenCompraSinCotizacion()){
             $inventario= invCompras::CualquierProducto();
             return View::make('OrdenCompras.NuevaOrdenCompraSinCotizacion',array('inventario'=>$inventario,'proveedor'=> 1));
+            }else {
+            return Redirect::to('/403');
+        }
         }
          public function FormOrdenComprasnCotizacion(){
+            if(Seguridad::detalleNuevaOrdenCompras()){
+            
              $input=Input::all();
              $contador=0;
              $productos=array();
@@ -87,10 +105,14 @@ class OrdenComprasController extends BaseController {
              
             
             return View::make('OrdenCompras.OrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$products));
+            }else {
+            return Redirect::to('/403');
+        }
         }
         
 //funcion para guardar la orden de compra sin cotizacion
         public function guardarOCsnCOT(){
+            if(Seguridad::GuardarNuevaOrdenCompra()){
              $input=Input::all();
              $contador=0;
              $contador2=0;
@@ -274,6 +296,9 @@ class OrdenComprasController extends BaseController {
                     $mensaje = 'La Orden de Compra'.' '.$imprimir3->GEN_Mensajes_Mensaje;
                     $mensaje2 = 'La Orden de Compra'.' '.$imprimir2->GEN_Mensajes_Mensaje;
                     return View::make('MensajeSolicitud', compact('mensaje', 'mensaje2' ,'ruta', 'imprimir', 'correo'));
+                    }else {
+            return Redirect::to('/403');
+        }
                 
 
         }
@@ -283,10 +308,15 @@ class OrdenComprasController extends BaseController {
         
         //funciones hechas para crear una orden de Compra Con Cotizacion
         public function OrdenCompracnCotizacion(){
+            if(Seguridad::nuevaOrdenCompraConCotizacion()){
              $cotizaciones = Cotizacion::where('COM_Cotizacion_Vigente','=',1)->get();
             return View::make('OrdenCompras.NuevaOrdenCompraConCotizacion',array('cotizaciones'=> $cotizaciones));
+            }else {
+            return Redirect::to('/403');
+        }
         }
          public function ComparaCotizaciones(){
+            if(Seguridad::CompararCotizacion()){
              $contador=0;
              $cotizaciones=array();
              
@@ -311,6 +341,7 @@ class OrdenComprasController extends BaseController {
             return View::make('OrdenCompras.CompararCotizaciones');
         }
         public function FormOrdenCompracnCotizacion(){
+            if(Seguridad::detalleNuevaOrdenCompraConCotizacion()){
             $cotizacion= Cotizacion::find(Input::get('id'));
             //return Input::get('id');
             $detalles= COM_DetalleCotizacion::where('COM_DetalleCotizacion_IdCotizacion','=',$cotizacion->COM_Cotizacion_IdCotizacion)->get();
@@ -325,6 +356,7 @@ class OrdenComprasController extends BaseController {
         }
 
          public function guardarOCcnCOT(){
+            if(Seguridad::guardarNuevaOrdenCompraConCotizacion()){
              $input=Input::all();
              $contador=0;
              $imprimir=array();
@@ -467,25 +499,41 @@ class OrdenComprasController extends BaseController {
                     $mensaje = 'La Orden de Compra'.' '.$imprimir3->GEN_Mensajes_Mensaje;
                     $mensaje2 = 'La Orden de Compra'.' '.$imprimir2->GEN_Mensajes_Mensaje;
                     return View::make('MensajeSolicitud', compact('mensaje', 'mensaje2' ,'ruta', 'imprimir', 'correo'));
+                    }else {
+            return Redirect::to('/403');
+        }
         }
         
         //funciones hechas para autorizar ordenes de compra
          public function ListaOrdenCompra(){
+            if(Seguridad::ListarAutorizarOrdenCompra()){
             return View::make('OrdenCompras.AutorizacionOrdenes');
+            }else {
+            return Redirect::to('/403');
+        }
         }
          public function FormAutorizarOrdenCompra(){
+            if(Seguridad::ListarAutorizarOrdenCompra()){
             return View::make('OrdenCompras.AutorizarOrdenCompraForm');
+            }else {
+            return Redirect::to('/403');
+        }
         }
         
          public function AutorizandoOrdenCompra(){
+            if(Seguridad::detalleAutorizarOrdenCompra()){
              $input=Input::all();
              $id=Input::get('id');
              $ordenCompra= OrdenCompra::find($id);
              $Detalles=  COMDetalleOrdenCompra::where('COM_DetalleOrdenCompra_idOrdenCompra','=',$id)->get();
              $proveedor=$ordenCompra->COM_Proveedor_IdProveedor;             
             return View::make('OrdenCompras.OrdenCompraDetalles',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra));
+            }else {
+            return Redirect::to('/403');
+        }
         }
          public function AutorizarOrden(){
+            if(Seguridad::guardarAutorizarOrdenCompra()){
              $id=Input::get('id');
              $or=  OrdenCompra::find($id);
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
@@ -506,6 +554,7 @@ class OrdenComprasController extends BaseController {
                       $historial->save();
                       
                    } 
+
              }
 			 
              Contabilidad::GenerarTransaccionCmp(8,$or->COM_OrdenCompra_Total,$or->COM_Proveedor_IdProveedor);
@@ -515,8 +564,12 @@ class OrdenComprasController extends BaseController {
                     $mensajeBD=Mensaje::find(1);
                     $mensaje = 'La Orden de Compra ha sido Autorizada, '.$mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+                    }else {
+            return Redirect::to('/403');
+        }
         }
         public function cancelarOrden(){
+            if(Seguridad::cancelarOrdenCompra()){
             $id=Input::get('id');
              $or=  OrdenCompra::find($id);
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
@@ -545,13 +598,21 @@ class OrdenComprasController extends BaseController {
                     $mensajeBD = Mensaje::find(12);
                     $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+                    }else {
+            return Redirect::to('/403');
+        }
         }
 
         //administracion de ordenes de compra
         public function ListarOrdenCompra(){
+            if(Seguridad::ListaAdministrarOrdenCompra()){
             return View::make('OrdenCompras.AdministrarOrdenes');
+            }else {
+            return Redirect::to('/403');
+        }
         }
         public function AdministraDetalles(){
+            if(Seguridad::AdministrarDetalleOrdenCompra()){
              $input=Input::all();
              $id=Input::get('id');
              $ordenCompra= OrdenCompra::find($id);
@@ -560,9 +621,12 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$id)->get();
              
             return View::make('OrdenCompras.AdministrarOrdenCompraDetalles',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
+            }else {
+            return Redirect::to('/403');
+        }
         }
         public function AndministrarOC(){
-            
+            if(Seguridad::guardarAdministrarOC()){
             $input= Input::all();
             $eact=Input::get('id_actual');
             $eant=Input::get('COM_TransicionEstado_EstadoPrevio');
@@ -609,20 +673,32 @@ class OrdenComprasController extends BaseController {
                     $mensajeBD = Mensaje::find(15);
                     $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+                    }else {
+            return Redirect::to('/403');
+        }
         }
          public function HistorialOrdenes(){
+            if(Seguridad::ListarHistorialOrdenes()){
             return View::make('OrdenCompras.listaHistorialOrdenes');
+            }else {
+            return Redirect::to('/403');
+        }
         }
         public function HistorialOrden(){
+            if(Seguridad::detalleHistorialOrden()){
              $input=Input::all();
              $id=Input::get('id');
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$id)->paginate();
             
             return View::make('OrdenCompras.HistorialOrden',array('historial'=>$trans));
+            }else {
+            return Redirect::to('/403');
+        }
         
         }
 //Lista las ordenes con plan de pago
          public function ListaPlanes(){
+            if(Seguridad::()){
             $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
             //return var_dump($ordenPago);
             if(sizeof($ordenPago)>0){
@@ -631,8 +707,12 @@ class OrdenComprasController extends BaseController {
         }else{
             return 'no hay planes de pagos';
             }
+            }else {
+            return Redirect::to('/403');
+        }
         }
         public function DetallePlanPago(){
+            if(Seguridad::()){
                        $input=Input::all();
              $id=Input::get('id');
              $ordenCompra= OrdenCompra::find($id);
@@ -641,12 +721,14 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$id)->get();
              
             return View::make('OrdenCompras.detallePlanPago',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
-
+            }else {
+            return Redirect::to('/403');
+        }
         }
 
 //genero pago de orden compra
          public function generarpagoLC(){
-            
+            if(Seguridad::ListarPagoOrdenCompra()){
             $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
             
             $autorizadas= HistorialEstadoOrdenCompra::where('COM_EstadoOrdenCompra_IdEstAct','=','4')->lists('COM_TransicionEstado_IdOrdenCompra');
@@ -663,9 +745,13 @@ class OrdenComprasController extends BaseController {
 
             }
             return View::make('OrdenCompras.ListaOrdenCompraPago',array('Ordenes'=>$ordenCompra));
+            }else {
+            return Redirect::to('/403');
+        }
         }
         
         public function DetallePago(){
+            if(Seguridad::DetallePagoOrdenCompra()){
                        $input=Input::all();
              $id=Input::get('id');
              $ordenCompra= OrdenCompra::find($id);
@@ -674,6 +760,9 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_IdOrdenCompra','=',$id)->get();
              
             return View::make('OrdenCompras.detallePago',array('proveedor'=>$proveedor ,'detalles'=>$Detalles,'ordenCompra'=>$ordenCompra,'historial'=>$trans));
+            }else {
+            return Redirect::to('/403');
+        }
 
         }
         //funcion para calcular fecha
@@ -693,7 +782,7 @@ class OrdenComprasController extends BaseController {
  
 }
         public function GuardaPago(){
-
+            if(Seguridad::GuardarPagoOrdenPago()){
             $input = Input::all();
             $ordenOC=OrdenCompra::find(Input::get('id_ordenCompra'));
             $fp= DB::table('INV_FormaPago')->where('INV_FormaPago_ID', '=',$ordenOC->COM_OrdenCompra_FormaPago)->first();
@@ -738,6 +827,9 @@ class OrdenComprasController extends BaseController {
                     $mensajeBD = Mensaje::find(14);
                     $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
                     return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+                    }else {
+            return Redirect::to('/403');
+        }
         }
 
         //search de mazoni

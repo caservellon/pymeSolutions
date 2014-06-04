@@ -54,9 +54,9 @@
 							<li>
 								{{ link_to_route('Inventario.Proveedor.index', 'Proveedores')}}
 							</li>
-							<li>
+						<!--<li>
 								{{ link_to_route('Inventario.Proveedor.f2p', 'Administrar Formas de Pago')}}
-							</li>
+							</li>-->
 							<li>
 								{{ link_to_route('Inventario.Proveedor.save', 'Administrar Productos de Proveedores')}}
 							</li>
@@ -72,9 +72,9 @@
 							<li>
 								{{ link_to_route('Inventario.Horarios.index', 'Horarios')}}
 							</li>
-							<li>
+						    <li>
 								{{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
-							</li>
+							</li> 
 							<li>
 								{{ link_to_route('Inventario.Producto.historial.index2', 'Historial de un Producto')}}
 							</li>
