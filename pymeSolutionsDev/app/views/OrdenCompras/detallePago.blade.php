@@ -26,7 +26,7 @@
     <div class="col-md-4">
         <h4>Para:</h4>
         
-        <?php $proveedora=  Proveedor::find($proveedor)?>
+        <?php $proveedora=  invCompras::ProveedorCompras($proveedor);//Proveedor::find($proveedor)?>
         <h5>{{$proveedora->INV_Proveedor_Nombre}}</h5>
         <h5>{{$proveedora->INV_Proveedor_Email}}</h5>
         <h5>{{$proveedora->INV_Proveedor_Direccion}}</h5>
@@ -51,7 +51,7 @@
                         $total=0;
                       ?>
                       @foreach ($detalles as $product)
-                      <?php $product1=  Producto::find($product->COM_Producto_idProducto);
+                      <?php $product1=  invCompras::ProductoCompras($product->COM_Producto_idProducto);//Producto::find($product->COM_Producto_idProducto);
                               ?>
                       <tr>
                         <td>{{ $product1->INV_Producto_Codigo}}</td>
@@ -59,7 +59,7 @@
                         <td>{{ $product1->INV_Producto_Descripcion}}</td>
                         <td>{{ $product->COM_DetalleOrdenCompra_Cantidad}}</td>
 			<td>{{ $product->COM_DetalleOrdenCompra_PrecioUnitario}}</td>
-                        <?php $medida=  UnidadMedida::find($product1->INV_UnidadMedida_ID);?>
+                        <?php $medida=  invCompras::UnidadCompras($product1->INV_UnidadMedida_ID);  // UnidadMedida::find($product1->INV_UnidadMedida_ID);?>
 			<td>{{$medida->INV_UnidadMedida_Nombre}}</td>
                       </tr> 
                       <?php $contador++; ?>
@@ -77,7 +77,7 @@
         {{$ordenCompra->COM_OrdenCompra_FechaEntrega}}
         <br>
         <label>Forma de Pago</label>
-         <?php  $forma= FormaPago::find($ordenCompra->COM_OrdenCompra_FormaPago);
+         <?php  $forma= invCompras::FormaPagoCompras($ordenCompra->COM_OrdenCompra_FormaPago);// FormaPago::find($ordenCompra->COM_OrdenCompra_FormaPago);
                  
                  
          ?>

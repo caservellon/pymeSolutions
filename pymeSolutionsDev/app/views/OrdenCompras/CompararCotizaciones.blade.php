@@ -41,7 +41,7 @@
                                 @foreach($detalles as $detalle)
 
                                 <?php 
-                                $producto=  Producto::find($detalle->COM_Producto_Id_Producto);?>
+                                $producto=  invCompras::ProductoCompras($detalle->COM_Producto_Id_Producto);//Producto::find($detalle->COM_Producto_Id_Producto);?>
                                 <th>{{$producto->INV_Producto_Nombre}}</th>
                                 @endforeach
 

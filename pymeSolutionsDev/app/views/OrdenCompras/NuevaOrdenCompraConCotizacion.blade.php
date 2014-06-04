@@ -49,7 +49,7 @@
                         <td>{{$cotizacion->COM_Cotizacion_Codigo}}
                             {{Form::text('id_cotizacion'.$contador,$cotizacion->COM_Cotizacion_IdCotizacion,array('style'=>'display:none'))}}
                         </td>
-                        <?php $proveedor= Proveedor::find($cotizacion->COM_Proveedor_idProveedor);?>
+                        <?php $proveedor= invCompras::ProveedorCompras($cotizacion->COM_Proveedor_idProveedor);//Proveedor::find($cotizacion->COM_Proveedor_idProveedor);?>
                         <td>{{$proveedor->INV_Proveedor_Nombre}}</td>
                         <td>{{$cotizacion->COM_Cotizacion_Vigencia}}</td>
                         @if($cotizacion->COM_Cotizacion_Activo==1)
