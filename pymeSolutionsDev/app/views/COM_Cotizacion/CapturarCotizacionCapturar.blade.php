@@ -225,7 +225,7 @@
 				@endif
 				
 				<br><br>
-			
+				
 				{{ Form::label('Total', 'Total:') }}
 				{{ Form::text('TotalFinal', null, array('class' => 'form-control', 'readonly' => 'readonly', 'disabled')) }}
 			</div>
@@ -235,7 +235,7 @@
 			<div class="col-md-5 pull-right" style="text-align: right">
 				<div class="form-group" id="campos Locales">
 					<br><br>
-				
+					
 					@if(Helpers::ExistenCamposLocalesCotizaciones())
 						<h4 class="text-center">Campos Locales</h4>
 						
