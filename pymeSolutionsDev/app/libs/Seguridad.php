@@ -39,6 +39,14 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CRM_Configuracion;
 		}
 
+		public static function BuscarPersona(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CRM_BuscarPersona;
+		}
+
+		public static function BuscarEmpresa(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CRM_BuscarEmpresa;
+		}
+
 		//Ventas
 
 		public static function CrearCaja(){
@@ -127,6 +135,26 @@
 
 		public static function ListarVentas(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_ListarVentas;
+		}
+
+		public static function VerVentas(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_VerVentas;
+		}
+
+		public static function IniciarDevolucion(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_IniciarDevolucion;
+		}
+
+		public static function AutorizarDevolucion(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_AutorizarDevolucion;
+		}
+
+		public static function ListarDevoluciones(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_ListarDevoluciones;
+		}
+
+		public static function DetalleDeDevolucion(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_DetalleDeDevolucion;
 		}
 
 		public static function VerVentas(){
