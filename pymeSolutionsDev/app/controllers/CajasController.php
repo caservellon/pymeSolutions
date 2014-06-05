@@ -53,6 +53,7 @@ class CajasController extends BaseController {
 	{
 		if (Seguridad::CrearCaja()) {
 			$input = Input::all();
+			$input["VEN_Caja_Estado"] = true;
 			$validation = Validator::make($input, Caja::$rules);
 
 			if ($validation->passes())
