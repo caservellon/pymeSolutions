@@ -353,6 +353,9 @@ class OrdenComprasController extends BaseController {
             $proveedor= $cotizacion->COM_Proveedor_idProveedor;
             //echo $cotizacion->COM_Proveedor_idProveedor;
             return View::make('OrdenCompras.CotOrdenCompraForm',array('proveedor'=>$proveedor ,'productos'=>$productos,'id_cot'=>Input::get('id')));
+            }else{
+                    return Redirect::route('ComCot', array('id'=>$cotizaciones[0]));
+            }
         }
 
          public function guardarOCcnCOT(){
