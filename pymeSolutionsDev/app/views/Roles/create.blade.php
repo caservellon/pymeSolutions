@@ -3,7 +3,7 @@
 @section('main')
 
 <div class="page-header clearfix">
-      <h3 class="pull-left">Roles &gt; <small>Crear Roles</small></h3>
+      <h3 class="pull-left">Roles &gt; <small>Crear Rol</small></h3>
       <div class="pull-right">
         <a href="/Seguridad" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
       </div>
@@ -180,7 +180,7 @@
 
 	<div class="form-group">
         <div class='col-md-3'>
-			{{ Form::submit('Crear Role', array('class' => 'btn btn-success')) }}
+			{{ Form::submit('Crear Rol', array('class' => 'btn btn-success')) }}
         </div>
 	</div>
 

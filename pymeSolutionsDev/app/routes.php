@@ -52,7 +52,7 @@ Route::group(array('prefix'=>'mantenimiento'),function(){
 
 //Inventario
 
-Route::group(array('prefix' => 'Inventario'), function()
+Route::group(array('prefix' => 'Inventario', 'before' => 'auth'), function()
 {
 	Route::get('/', function()
 	{

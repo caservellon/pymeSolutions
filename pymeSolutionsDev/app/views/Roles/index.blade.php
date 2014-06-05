@@ -5,7 +5,7 @@
 <h2 class="sub-header">Listado de Roles</h2>
 <div class="btn-agregar">
 	<a type="button" href="{{ URL::route('Auth.Roles.create') }}" class="btn btn-default">
-	  <span class="glyphicon glyphicon glyphicon-eye-open"></span> Agregar Role
+	  <span class="glyphicon glyphicon glyphicon-eye-open"></span> Agregar Rol
 	</a>
 </div>
 
