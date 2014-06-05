@@ -20,9 +20,13 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 * @return Response
 	 */
 	public function index(){
-		$PeriodoCierreDeCajas = PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_Estado', 1)->get();
-
-		return View::make('PeriodoCierreDeCajas.index', compact('PeriodoCierreDeCajas'));
+		if (Seguridad::VerPeriodoDeCierre()) {
+			$PeriodoCierreDeCajas = PeriodoCierreDeCaja::where('VEN_PeriodoCierreDeCaja_Estado', 1)->get();
+			return View::make('PeriodoCierreDeCajas.index', compact('PeriodoCierreDeCajas'));
+		} else {
+			return Redirect::to('/403');
+		}
+		
 	}
 
 	/**
@@ -31,7 +35,11 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 * @return Response
 	 */
 	public function create() {
-		return View::make('PeriodoCierreDeCajas.create');
+		if (Seguridad::CrearPeriodoDeCierre()) {
+			return View::make('PeriodoCierreDeCajas.create');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -41,34 +49,38 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$hora = $input['VEN_PeriodoCierreDeCaja_Hora'];
-		$min = $input['VEN_PeriodoCierreDeCaja_Min'];
-		$pa = $input['VEN_PeriodoCierreDeCaja_PA'];
-		unset($input['VEN_PeriodoCierreDeCaja_Hora']);
-		unset($input['VEN_PeriodoCierreDeCaja_Min']);
-		unset($input['VEN_PeriodoCierreDeCaja_PA']);
-		//return $hora .":" . $min ." " . $pa;
-		if ($pa == "PM" && $hora != "12") {
-			$hora += 12;
-		} elseif($pa == "AM" && $hora == "12"){
-			$hora = 0;
+		if (Seguridad::CrearPeriodoDeCierre()) {
+			$input = Input::all();
+			$hora = $input['VEN_PeriodoCierreDeCaja_Hora'];
+			$min = $input['VEN_PeriodoCierreDeCaja_Min'];
+			$pa = $input['VEN_PeriodoCierreDeCaja_PA'];
+			unset($input['VEN_PeriodoCierreDeCaja_Hora']);
+			unset($input['VEN_PeriodoCierreDeCaja_Min']);
+			unset($input['VEN_PeriodoCierreDeCaja_PA']);
+			//return $hora .":" . $min ." " . $pa;
+			if ($pa == "PM" && $hora != "12") {
+				$hora += 12;
+			} elseif($pa == "AM" && $hora == "12"){
+				$hora = 0;
+			}
+			$input['VEN_PeriodoCierreDeCaja_HoraPartida'] = $hora .":" . $min;
+			//return $input;
+			$validation = Validator::make($input, PeriodoCierreDeCaja::$rules);
+
+			if ($validation->passes())
+			{
+				$this->PeriodoCierreDeCaja->create($input);
+
+				return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
+			}
+
+			return Redirect::route('Ventas.PeriodoCierreDeCajas.create')
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-		$input['VEN_PeriodoCierreDeCaja_HoraPartida'] = $hora .":" . $min;
-		//return $input;
-		$validation = Validator::make($input, PeriodoCierreDeCaja::$rules);
-
-		if ($validation->passes())
-		{
-			$this->PeriodoCierreDeCaja->create($input);
-
-			return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
-		}
-
-		return Redirect::route('Ventas.PeriodoCierreDeCajas.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -79,9 +91,13 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$PeriodoCierreDeCaja = $this->PeriodoCierreDeCaja->findOrFail($id);
+		if (Seguridad::VerPeriodoDeCierre()) {
+			$PeriodoCierreDeCaja = $this->PeriodoCierreDeCaja->findOrFail($id);
 
-		return View::make('PeriodoCierreDeCajas.show', compact('PeriodoCierreDeCaja'));
+			return View::make('PeriodoCierreDeCajas.show', compact('PeriodoCierreDeCaja'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -92,24 +108,28 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$PeriodoCierreDeCaja = $this->PeriodoCierreDeCaja->find($id);
-		if (is_null($PeriodoCierreDeCaja)){
-			return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
+		if (Seguridad::EditarPeriodoDeCierre()) {
+			$PeriodoCierreDeCaja = $this->PeriodoCierreDeCaja->find($id);
+			if (is_null($PeriodoCierreDeCaja)){
+				return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
+			}
+			$HoraPartida = $PeriodoCierreDeCaja['VEN_PeriodoCierreDeCaja_HoraPartida'];
+			$hora = substr($HoraPartida,0,2);
+			$min = substr($HoraPartida,3,2);
+			$ap = "AM";
+			if($hora > 12){
+				$hora = $hora - 12;
+				$ap = "PM";
+			} elseif ($hora == 0) {
+				$hora = 12;
+			}
+			$PeriodoCierreDeCaja['VEN_PeriodoCierreDeCaja_Hora'] = $hora;
+			$PeriodoCierreDeCaja['VEN_PeriodoCierreDeCaja_Min'] = $min;
+			$PeriodoCierreDeCaja['VEN_PeriodoCierreDeCaja_PA'] = $ap;
+			return View::make('PeriodoCierreDeCajas.edit', compact('PeriodoCierreDeCaja'));
+		} else {
+			return Redirect::to('/403');
 		}
-		$HoraPartida = $PeriodoCierreDeCaja['VEN_PeriodoCierreDeCaja_HoraPartida'];
-		$hora = substr($HoraPartida,0,2);
-		$min = substr($HoraPartida,3,2);
-		$ap = "AM";
-		if($hora > 12){
-			$hora = $hora - 12;
-			$ap = "PM";
-		} elseif ($hora == 0) {
-			$hora = 12;
-		}
-		$PeriodoCierreDeCaja['VEN_PeriodoCierreDeCaja_Hora'] = $hora;
-		$PeriodoCierreDeCaja['VEN_PeriodoCierreDeCaja_Min'] = $min;
-		$PeriodoCierreDeCaja['VEN_PeriodoCierreDeCaja_PA'] = $ap;
-		return View::make('PeriodoCierreDeCajas.edit', compact('PeriodoCierreDeCaja'));
 	}
 
 	/**
@@ -120,35 +140,39 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$hora = $input['VEN_PeriodoCierreDeCaja_Hora'];
-		$min = $input['VEN_PeriodoCierreDeCaja_Min'];
-		$pa = $input['VEN_PeriodoCierreDeCaja_PA'];
-		unset($input['VEN_PeriodoCierreDeCaja_Hora']);
-		unset($input['VEN_PeriodoCierreDeCaja_Min']);
-		unset($input['VEN_PeriodoCierreDeCaja_PA']);
-		if ($pa == "PM" && $hora != "12") {
-			$hora += 12;
-		} elseif($pa == "AM" && $hora == "12"){
-			$hora = 0;
+		if (Seguridad::EditarPeriodoDeCierre()) {
+			$input = array_except(Input::all(), '_method');
+			$hora = $input['VEN_PeriodoCierreDeCaja_Hora'];
+			$min = $input['VEN_PeriodoCierreDeCaja_Min'];
+			$pa = $input['VEN_PeriodoCierreDeCaja_PA'];
+			unset($input['VEN_PeriodoCierreDeCaja_Hora']);
+			unset($input['VEN_PeriodoCierreDeCaja_Min']);
+			unset($input['VEN_PeriodoCierreDeCaja_PA']);
+			if ($pa == "PM" && $hora != "12") {
+				$hora += 12;
+			} elseif($pa == "AM" && $hora == "12"){
+				$hora = 0;
+			}
+			$input['VEN_PeriodoCierreDeCaja_HoraPartida'] = $hora .":" . $min;
+			$validation = Validator::make($input, PeriodoCierreDeCaja::$rulesUpdate);
+
+			
+
+			if ($validation->passes())
+			{
+				$PeriodoCierreDeCaja = $this->PeriodoCierreDeCaja->find($id);
+				$PeriodoCierreDeCaja->update($input);
+
+				return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
+			}
+
+			return Redirect::route('Ventas.PeriodoCierreDeCajas.edit', $id)
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-		$input['VEN_PeriodoCierreDeCaja_HoraPartida'] = $hora .":" . $min;
-		$validation = Validator::make($input, PeriodoCierreDeCaja::$rulesUpdate);
-
-		
-
-		if ($validation->passes())
-		{
-			$PeriodoCierreDeCaja = $this->PeriodoCierreDeCaja->find($id);
-			$PeriodoCierreDeCaja->update($input);
-
-			return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
-		}
-
-		return Redirect::route('Ventas.PeriodoCierreDeCajas.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -159,11 +183,15 @@ class PeriodoCierreDeCajasController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$PDDC = PeriodoCierreDeCaja::find($id);
-		$PDDC->VEN_PeriodoCierreDeCaja_Estado = 0;
-		$PDDC->save();
+		if (Seguridad::BorrarPeriodoDeCierre()) {
+			$PDDC = PeriodoCierreDeCaja::find($id);
+			$PDDC->VEN_PeriodoCierreDeCaja_Estado = 0;
+			$PDDC->save();
 
-		return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
+			return Redirect::route('Ventas.PeriodoCierreDeCajas.index');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 }
