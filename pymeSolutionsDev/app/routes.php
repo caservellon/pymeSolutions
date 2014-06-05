@@ -462,6 +462,11 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::post('tabla',array('as'=>'con.bltable','uses'=>'BalanzaComprobacionController@table'));
 			});
 
+			Route::group(array('prefix'=>'estadosfinancieros'),function(){
+
+				Route::get('/',array('as'=>'con.estadosfinancieros','uses'=>'EstadosFinancierosController@index'));
+			});
+
 	});
 
 

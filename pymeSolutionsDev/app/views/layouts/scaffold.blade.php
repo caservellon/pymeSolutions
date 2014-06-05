@@ -95,6 +95,8 @@
 
 						<a href="contabilidad" class="dropdown-toggle" data-toggle="dropdown">Contabilidad <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							<li><a href="{{URL::to('contabilidad')}}">Menu principal</a></li>
+							<li class="divider"></li>
 							<li><a href="{{URL::to('contabilidad/librodiario')}}">Libro Diario</a></li>
 							<li><a href="#">ROI</a></li>
 							<li><a href="#">Punto de Equilibrio</a></li>
