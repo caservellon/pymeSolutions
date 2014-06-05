@@ -391,6 +391,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('asientocontable','AsientosController');
 			//Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::resource('estadoresultados', 'EstadoresultadosController');
+			Route::resource('BalanceGeneral', 'BalancegeneralsController');
 
 			Route::resource('conceptomotivo','ConceptoMotivoController');
 			Route::get('crear/conceptomotivo',array('uses'=>'ConceptoMotivoController@create'));
