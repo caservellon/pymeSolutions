@@ -157,9 +157,6 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_DetalleDeDevolucion;
 		}
 
-		public static function VerVentas(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_VerVentas;
-		}
 
 
 		//Compras

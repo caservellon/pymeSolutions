@@ -21,9 +21,12 @@ class DescuentosController extends BaseController {
 	 */
 	public function index()
 	{
-		$Descuentos = $this->Descuento->where("VEN_DescuentoEspecial_Estado", 1)->orderBy('VEN_DescuentoEspecial_Precedencia', 'desc')->get();
-
-		return View::make('Descuentos.index', compact('Descuentos'));
+		if (Seguridad::VerDescuentos()){
+			$Descuentos = $this->Descuento->where("VEN_DescuentoEspecial_Estado", 1)->orderBy('VEN_DescuentoEspecial_Precedencia', 'desc')->get();
+			return View::make('Descuentos.index', compact('Descuentos'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -33,7 +36,11 @@ class DescuentosController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('Descuentos.create');
+		if (Seguridad::CrearDescuentos()){
+			return View::make('Descuentos.create');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -43,20 +50,24 @@ class DescuentosController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, Descuento::$rules);
+		if (Seguridad::CrearDescuentos()){
+			$input = Input::all();
+			$validation = Validator::make($input, Descuento::$rules);
 
-		if ($validation->passes())
-		{
-			$this->Descuento->create($input);
+			if ($validation->passes())
+			{
+				$this->Descuento->create($input);
 
-			return Redirect::route('Ventas.Descuentos.index');
+				return Redirect::route('Ventas.Descuentos.index');
+			}
+
+			return Redirect::route('Ventas.Descuentos.create')
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');	
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Ventas.Descuentos.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -67,9 +78,12 @@ class DescuentosController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$Descuento = $this->Descuento->findOrFail($id);
-
-		return View::make('Descuentos.show', compact('Descuento'));
+		if (Seguridad::VerDescuentos()){
+			$Descuento = $this->Descuento->findOrFail($id);
+			return View::make('Descuentos.show', compact('Descuento'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -80,14 +94,16 @@ class DescuentosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$Descuento = $this->Descuento->find($id);
-
-		if (is_null($Descuento))
-		{
-			return Redirect::route('Ventas.Descuentos.index');
+		if(Seguridad::EditarDescuentos()){
+			$Descuento = $this->Descuento->find($id);
+			if (is_null($Descuento))
+			{
+				return Redirect::route('Ventas.Descuentos.index');
+			}
+			return View::make('Descuentos.edit', compact('Descuento'));
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return View::make('Descuentos.edit', compact('Descuento'));
 	}
 
 	/**
@@ -98,21 +114,25 @@ class DescuentosController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Descuento::$rulesUpdate);
+		if(Seguridad::EditarDescuentos()){
+			$input = array_except(Input::all(), '_method');
+			$validation = Validator::make($input, Descuento::$rulesUpdate);
 
-		if ($validation->passes())
-		{
-			$Descuento = $this->Descuento->find($id);
-			$Descuento->update($input);
+			if ($validation->passes())
+			{
+				$Descuento = $this->Descuento->find($id);
+				$Descuento->update($input);
 
-			return Redirect::route('Ventas.Descuentos.index');
-		}
+				return Redirect::route('Ventas.Descuentos.index');
+			}
 
-		return Redirect::route('Ventas.Descuentos.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+			return Redirect::route('Ventas.Descuentos.edit', $id)
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
+		}		
 	}
 
 	/**
@@ -123,10 +143,14 @@ class DescuentosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$disc = Descuento::find($id);
-		$disc->VEN_DescuentoEspecial_Estado = 0;
-		$disc->save();
-		return Redirect::route('Ventas.Descuentos.index');
+		if(Seguridad::EliminarDescuentos()){
+			$disc = Descuento::find($id);
+			$disc->VEN_DescuentoEspecial_Estado = 0;
+			$disc->save();
+			return Redirect::route('Ventas.Descuentos.index');
+		} else {
+			return Redirect::to('/403');
+		}	
 	}
 
 }

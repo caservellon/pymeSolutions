@@ -21,27 +21,31 @@ class AperturaCajasController extends BaseController {
 	 */
 	public function abrir($id)
 	{
-		$Caja = Caja::find($id);
-		$Periodo = PeriodoCierreDeCaja::find($Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id);
-		//return $Periodo->VEN_PeriodoCierreDeCaja_HoraPartida ." " .strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) .
-		//	" " . time(). " -> " . (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) > time());
-		if (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) > time()) {
+		if(Seguridad::AbrirAperturaDeCaja()){
+			$Caja = Caja::find($id);
+			$Periodo = PeriodoCierreDeCaja::find($Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id);
+			//return $Periodo->VEN_PeriodoCierreDeCaja_HoraPartida ." " .strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) .
+			//	" " . time(). " -> " . (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) > time());
+			if (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) > time()) {
 
-			$Caja->VEN_Caja_Estado = 0;
-			$Caja->save();
+				$Caja->VEN_Caja_Estado = 0;
+				$Caja->save();
 
-			$AperturaActual = new AperturaCaja;
-			$AperturaActual->VEN_Caja_VEN_Caja_id = $id;
-			$AperturaActual->VEN_AperturaCaja_TimeStamp = date("Y-m-d H:i:s");
-			$AperturaActual->VEN_FormaPago_Gerente = "Gerente Temporal";
-			$AperturaActual->VEN_FormaPago_Cajero = "Cajero Temporal";
-			$AperturaActual->save();
+				$AperturaActual = new AperturaCaja;
+				$AperturaActual->VEN_Caja_VEN_Caja_id = $id;
+				$AperturaActual->VEN_AperturaCaja_TimeStamp = date("Y-m-d H:i:s");
+				$AperturaActual->VEN_FormaPago_Gerente = "Gerente Temporal";
+				$AperturaActual->VEN_FormaPago_Cajero = "Cajero Temporal";
+				$AperturaActual->save();
 
-			return Redirect::route('Ventas.AperturaCajas.index');
+				return Redirect::route('Ventas.AperturaCajas.index');
+			} else {
+				return Redirect::route('Ventas.AperturaCajas.index')->withInput()
+				->withErrors("La caja no se puede abrir. El periodo de tiempo no es el correcto.")->with('message', 'La caja no se puede abrir.');;
+			}
 		} else {
-			return Redirect::route('Ventas.AperturaCajas.index')->withInput()
-			->withErrors("La caja no se puede abrir. El periodo de tiempo no es el correcto.")->with('message', 'La caja no se puede abrir.');;
-		}
+			return Redirect::to('/403');
+		}	
 	}
 
 
@@ -52,10 +56,13 @@ class AperturaCajasController extends BaseController {
 	 */
 	public function index()
 	{
-		$CajasDisponibles = Caja::all();
-		$AperturaCajas = $this->AperturaCaja->all();
-
-		return View::make('AperturaCajas.index', compact('CajasDisponibles'));
+		if(Seguridad::VerAperturaDeCierre()){
+			$CajasDisponibles = Caja::all();
+			$AperturaCajas = $this->AperturaCaja->all();
+			return View::make('AperturaCajas.index', compact('CajasDisponibles'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -63,17 +70,17 @@ class AperturaCajasController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	/**public function create()
 	{
 		return View::make('AperturaCajas.create');
-	}
+	}*/
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
 	 */
-	public function store()
+	/*public function store()
 	{
 		$input = Input::all();
 		$validation = Validator::make($input, AperturaCaja::$rules);
@@ -89,7 +96,7 @@ class AperturaCajasController extends BaseController {
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
-	}
+	}*/
 
 	/**
 	 * Display the specified resource.
@@ -99,9 +106,14 @@ class AperturaCajasController extends BaseController {
 	 */
 	public function show($id)
 	{
+		if(Seguridad::VerAperturaDeCierre()){
+
 		$AperturaCaja = $this->AperturaCaja->findOrFail($id);
 
 		return View::make('AperturaCajas.show', compact('AperturaCaja'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -110,7 +122,7 @@ class AperturaCajasController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	/*public function edit($id)
 	{
 		$AperturaCaja = $this->AperturaCaja->find($id);
 
@@ -120,7 +132,7 @@ class AperturaCajasController extends BaseController {
 		}
 
 		return View::make('AperturaCajas.edit', compact('AperturaCaja'));
-	}
+	}*/
 
 	/**
 	 * Update the specified resource in storage.
@@ -128,7 +140,7 @@ class AperturaCajasController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	/*public function update($id)
 	{
 		$input = array_except(Input::all(), '_method');
 		$validation = Validator::make($input, AperturaCaja::$rules);
@@ -145,7 +157,7 @@ class AperturaCajasController extends BaseController {
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
-	}
+	}*/
 
 	/**
 	 * Remove the specified resource from storage.
@@ -153,11 +165,11 @@ class AperturaCajasController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	/*public function destroy($id)
 	{
 		$this->AperturaCaja->find($id)->delete();
 
 		return Redirect::route('Ventas.AperturaCajas.index');
-	}
+	}*/
 
 }
