@@ -22,7 +22,7 @@
             <table class="table table-striped">
               <thead>
 				<tr>
-					<th>#</th>
+					
 					<th>Código</th>
 					<th>Número de Caja</th>
 					<th>Estado de Caja</th>
@@ -33,7 +33,6 @@
             <tbody>
             	@foreach ($CajasDisponibles as $Caja)
                 <tr>
-					<td>{{{ $Caja->VEN_Caja_id }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Codigo }}}</td>
 					<td>{{{ $Caja->VEN_Caja_Numero }}}</td>
 					@if ($Caja->VEN_Caja_Estado == 1)
