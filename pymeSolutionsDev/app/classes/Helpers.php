@@ -9,7 +9,7 @@ class Helpers {
 			-> select('COM_SolicitudCotizacion_Codigo as Codigo',
 					  'INV_Proveedor_Nombre as NombreProveedor',
 					  'COM_SolicitudCotizacion_FechaCreacion as FechaCreacion',
-					  'COM_Usuario_idUsuarioCreo as IdUsuarioCreo'
+					  'COM_Usuario_idUsuarioCreo as UsuarioCreo'
 					)
 			-> where('COM_SolicitudCotizacion_Activo', '=', '1')
 			-> where('COM_SolicitudCotizacion_Recibido', '=', '1')
@@ -164,7 +164,7 @@ class Helpers {
 			-> select('COM_SolicitudCotizacion_Codigo as Codigo',
 					  'INV_Proveedor_Nombre as NombreProveedor',
 					  'COM_SolicitudCotizacion_FechaCreacion as FechaCreacion',
-					  'COM_Usuario_idUsuarioCreo as IdUsuarioCreo'
+					  'COM_Usuario_idUsuarioCreo as UsuarioCreo'
 					)
 			-> where('COM_SolicitudCotizacion_Activo', '=', '1')
 			-> where('COM_SolicitudCotizacion_Recibido', '=', '1')
@@ -179,7 +179,7 @@ class Helpers {
 						-> where('COM_SolicitudCotizacion_Codigo', 'LIKE', '%' . $Busqueda . '%')
 						-> orWhere('INV_Proveedor_Nombre', 'LIKE', '%' . $Busqueda . '%')
 						-> orWhere('COM_SolicitudCotizacion_FechaCreacion', 'LIKE', '%' . $Busqueda . '%')
-						-> orWhere('COM_SolicitudCotizacion.COM_Usuario_idUsuarioCreo', 'LIKE', '%' . $Busqueda . '%');
+						-> orWhere('COM_Usuario_idUsuarioCreo', 'LIKE', '%' . $Busqueda . '%');
 				});
 		
 		
@@ -190,7 +190,7 @@ class Helpers {
 			-> select('COM_SolicitudCotizacion_Codigo as Codigo',
 					  'INV_Proveedor_Nombre as NombreProveedor',
 					  'COM_SolicitudCotizacion_FechaCreacion as FechaCreacion',
-					  'COM_SolicitudCotizacion.COM_Usuario_idUsuarioCreo as IdUsuarioCreo'
+					  'COM_SolicitudCotizacion.COM_Usuario_idUsuarioCreo as UsuarioCreo'
 					)
 			-> where('COM_SolicitudCotizacion_Activo', '=', '1')
 			-> where('COM_SolicitudCotizacion_Recibido', '=', '1')

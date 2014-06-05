@@ -99,7 +99,7 @@
 											@endif
 										@endforeach
 										
-										<td>{{ $SolicitudCotizacion -> IdUsuarioCreo }}</td>
+										<td>{{ $SolicitudCotizacion -> UsuarioCreo }}</td>
 									</tr>
 								@endforeach
 							</tbody>

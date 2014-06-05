@@ -183,7 +183,7 @@
 		}
 
 		public static function detalleNuevaOrdenCompras(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleNuevaOrdenCompras;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_DetalleNuevaOrdenCompras;
 		}
 
 		public static function GuardarNuevaOrdenCompra(){

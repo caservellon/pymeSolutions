@@ -339,6 +339,9 @@ class OrdenComprasController extends BaseController {
                 }
              
             return View::make('OrdenCompras.CompararCotizaciones');
+            }else{
+                    return Redirect::route('ComCot', array('id'=>$cotizaciones[0]));
+            }
         }
         public function FormOrdenCompracnCotizacion(){
             if(Seguridad::detalleNuevaOrdenCompraConCotizacion()){
@@ -701,7 +704,7 @@ class OrdenComprasController extends BaseController {
         }
 //Lista las ordenes con plan de pago
          public function ListaPlanes(){
-            if(Seguridad::()){
+            if(Seguridad::VerPlanPagoOrdenCompra()){
             $ordenPago= COMOrdenPago::all()->lists('COM_OrdenCompra_idOrdenCompra');
             //return var_dump($ordenPago);
             if(sizeof($ordenPago)>0){
@@ -715,7 +718,7 @@ class OrdenComprasController extends BaseController {
         }
         }
         public function DetallePlanPago(){
-            if(Seguridad::()){
+            if(Seguridad::detallePlanPagoOrdenCompra()){
                        $input=Input::all();
              $id=Input::get('id');
              $ordenCompra= OrdenCompra::find($id);
