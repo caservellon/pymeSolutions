@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_FechaModificacion` DATETIME NULL,
   `SEG_Roles_UsuarioCreacion` VARCHAR(45) NULL,
   `SEG_Roles_UsuarioModificacion` VARCHAR(45) NULL,
-  `SEG_Roles_Estado` TINYINT(1) NULL,
+  `SEG_Roles_Estado` TINYINT(1) NULL DEFAULT 1,
+  `SEG_Roles_Administrador` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CRM_CrearPersona` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CRM_VerPersona` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CRM_EditarPersona` TINYINT(1) NULL DEFAULT 0,
@@ -96,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_CON_AgregarAsiento` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_AgregarMotivo` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_LibroDiario` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_CON_RevertirAsiento` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CON_RevertirAsiento` TINYINT(1) NULL DEFAULT 0 COMMENT '		',
   `SEG_Roles_CON_FiltrarAsientos` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_CierreDePeriodo` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CON_VerConfiguracion` TINYINT(1) NULL DEFAULT 0,
@@ -198,6 +199,13 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_VEN_VerVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_INV_agregarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_INV_quitarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CRM_BuscarPersona` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CRM_BuscarEmpresa` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_VEN_IniciarDevolucion` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_VEN_AutorizarDevolucion` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_VEN_ListarDevoluciones` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_VEN_DetalleDeVentas` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_VEN_DetalleDeDevolucion` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`SEG_Roles_ID`))
 ENGINE = InnoDB;
 
@@ -332,3 +340,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_PassToken` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
