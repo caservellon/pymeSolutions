@@ -166,15 +166,15 @@
 		}
 
 		public static function AlmacenaestadoOrden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_AlmacenaestadoOrden;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_GuardarEstadoOrden;
 		}
 
 		public static function IndexEstadoorden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_IndexEstadoorden;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_IndexEstadoOrden;
 		}
 
 		public static function EditEstadoorden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_EditEstadoOrden;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_EditarEstadoOrden;
 		}
 
 		public static function ModificarTransicionesEstado(){
@@ -182,7 +182,7 @@
 		}
 
 		public static function NuevaTransicionEstado(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_NuevaTransicionEstado;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_nuevaTransicionEstado;
 		}
 
 		public static function detalleTransicionesEstado(){
@@ -256,7 +256,7 @@
 		}
 		
 		public static function guardarAdministrarOC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_guardarAdministrarOC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_guardarAdministrarOrdenCompra;
 		}
 		
 		public static function ListarHistorialOrdenes(){
@@ -300,83 +300,63 @@
 		}
 		
 		public static function indexOC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexOrdenCompra;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_MostrarOrdenCompra;
 		}
 
 		public static function indexImprimirOC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexImprimirOC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_MostrarImprimirOrdenCompra;
 		}
 		
 		public static function ImprimirOC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ImprimirOC;
-		}
-		
-		public static function search_index(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_search_index;
-		}
-		
-		public static function Search_Cotizacion(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_Search_Cotizacion;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ImprimirOrdenCompra;
 		}
 		
 		public static function indexCampoLocal(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexCampoLocal;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VerCampoLocal;
 		}
 		
 		public static function createCampoLocal(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_createCampoLocal;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_AgregarCampoLocal;
 		}
 		
 		public static function editCampoLocal(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_editCampoLocal;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_EditarCampoLocal;
 		}
 		
 		public static function destroyCampoLocal(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_destroyCampoLocal;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_EliminarCampoLocal;
 		}
 		
 		public static function indexSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexSC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_MostrarSolicitudCotizacion;
 		}
 		
 		public static function vistaCrearSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_vistaCrearSC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VerCualquierProductoSC;
 		}
 		
 		public static function vistaReordenSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_vistaReordenSC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VerProductoReordenSC;
 		}
 		
 		public static function crearSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_crearSC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_crearSolicitudCotizacion;
 		}
 		
 		public static function editSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_editSC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_EditarSolicitudCotizacion;
 		}
 		
 		public static function detalleSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexSC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_DetalleSolicitudCotizacion;
 		}
 		
 		public static function indexImprimirSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_indexImprimirSC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ImprimirSolicitudCotizacion;
 		}
 		
 		public static function ImprimirSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ImprimirSC;
-		}
-		
-		public static function search_indexSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_search_indexSC;
-		}
-		
-		public static function buscarCualquierProductoSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_buscarCualquierProductoSC;
-		}
-		
-		public static function buscarCualquierProveedorSC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_buscarCualquierProveedorSC;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_ImpresionSolicitudCotizacion;
 		}
 		
 		public static function VistaMenuCotizaciones(){
@@ -399,10 +379,6 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_CapturarCotizacionCapturar;
 		}
 		
-		public static function VCCCMCC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VCCCMCC;
-		}
-		
 		public static function VistaTodasCotizaciones(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VistaTodasCotizaciones;
 		}
@@ -421,14 +397,6 @@
 
 		public static function HabilitarInhabilitar(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_HabilitarInhabilitar;
-		}
-		
-		public static function VHIMECC(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_VHIMECC;
-		}
-		
-		public static function search_indexCOT(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_search_indexCOT;
 		}
 		
 		public static function VistaTodasOrdenesCompra(){
