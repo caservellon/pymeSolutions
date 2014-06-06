@@ -380,7 +380,7 @@ Route::group(array('prefix' => 'Compras', 'before' => 'auth'), function(){
 Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::get('/',array('as'=>'con.principal' ,'uses'=>function ()
 			{
-				//Contabilidad::GenerarTransaccionCmp(8,3000,1);
+
 				return View::make('Menus.contabilidad');
 			}));
 			
@@ -391,7 +391,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::resource('asientocontable','AsientosController');
 			//Route::resource('balanzacomprobacion','BalanzaComprobacionController');
 			Route::resource('estadoresultados', 'EstadoresultadosController');
-			Route::resource('BalanceGeneral', 'BalancegeneralsController');
+			Route::resource('balancegeneral', 'BalancegeneralsController');
 
 			Route::resource('conceptomotivo','ConceptoMotivoController');
 			Route::get('crear/conceptomotivo',array('uses'=>'ConceptoMotivoController@create'));
@@ -442,9 +442,6 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::post('estado',array('as'=>'con.cierreperiodo.estado','uses'=>'CierrePeriodoController@retrieve'));
 				Route::post('/',array('as'=>'con.cierreperiodo','uses'=>'CierrePeriodoController@index'));
 				/*Route::post('mayorizacion',array('as'=>'con.mayorizar', 'uses'=>'CierrePeriodoController@mayorizar'));
-				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'CierrePeriodoController@balanza'));
-				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'CierrePeriodoController@estado'));
-				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'CierrePeriodoController@balance'));
 				Route::post('nuevoperiodo',array('as'=>'con.nuevoperiodo','uses'=>'CierrePeriodoController@nuevoPeriodo'));
 				*/
 			});
@@ -466,6 +463,11 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 			Route::group(array('prefix'=>'estadosfinancieros'),function(){
 
 				Route::get('/',array('as'=>'con.estadosfinancieros','uses'=>'EstadosFinancierosController@index'));
+
+				Route::post('periodoslist',array('as'=>'con.periodoslist','uses'=>'EstadosFinancierosController@getPeriodos'));
+				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'EstadosFinancierosController@balanza'));
+				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'EstadosFinancierosController@estado'));
+				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'EstadosFinancierosController@balance'));
 			});
 
 	});
