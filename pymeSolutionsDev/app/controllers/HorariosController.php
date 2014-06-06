@@ -21,9 +21,12 @@ class HorariosController extends BaseController {
 	 */
 	public function index()
 	{
-		$Horarios = $this->Horario->all();
-
-		return View::make('Horarios.index', compact('Horarios'));
+		if (Seguridad::listarHorario()) {
+			$Horarios = $this->Horario->all();
+			return View::make('Horarios.index', compact('Horarios'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -33,7 +36,11 @@ class HorariosController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('Horarios.create');
+		if (Seguridad::crearHorario()) {
+			return View::make('Horarios.create');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -43,20 +50,21 @@ class HorariosController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, Horario::$rules);
-
-		if ($validation->passes())
-		{
-			$this->Horario->create($input);
-
-			return Redirect::route('Inventario.Horarios.index');
+		if (Seguridad::crearHorario()) {
+			$input = Input::all();
+			$validation = Validator::make($input, Horario::$rules);
+			if ($validation->passes())
+			{
+				$this->Horario->create($input);
+				return Redirect::route('Inventario.Horarios.index');
+			}
+			return Redirect::route('Inventario.Horarios.create')
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Inventario.Horarios.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -67,9 +75,12 @@ class HorariosController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$Horario = $this->Horario->findOrFail($id);
-
-		return View::make('Horarios.show', compact('Horario'));
+		if (Seguridad::listarHorario()) {
+			$Horario = $this->Horario->findOrFail($id);
+			return View::make('Horarios.show', compact('Horario'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -80,14 +91,16 @@ class HorariosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$Horario = $this->Horario->find($id);
-
-		if (is_null($Horario))
-		{
-			return Redirect::route('Inventario.Horarios.index');
+		if (Seguridad::editarHorario()) {
+			$Horario = $this->Horario->find($id);
+			if (is_null($Horario))
+			{
+				return Redirect::route('Inventario.Horarios.index');
+			}
+			return View::make('Horarios.edit', compact('Horario'));
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return View::make('Horarios.edit', compact('Horario'));
 	}
 
 	/**
@@ -98,21 +111,23 @@ class HorariosController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = Input::except('_method');
-		$validation = Validator::make($input, Horario::$rules);
 
-		if ($validation->passes())
-		{
-			$Horario = $this->Horario->find($id);
-			$Horario->update($input);
-
-			return Redirect::route('Inventario.Horarios.index', $id);
+		if (Seguridad::editarHorario()) {
+			$input = Input::except('_method');
+			$validation = Validator::make($input, Horario::$rules);
+			if ($validation->passes())
+			{
+				$Horario = $this->Horario->find($id);
+				$Horario->update($input);
+				return Redirect::route('Inventario.Horarios.index', $id);
+			}
+			return Redirect::route('Inventario.Horarios.edit', $id)
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Inventario.Horarios.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -123,9 +138,12 @@ class HorariosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Horario->find($id)->delete();
-
-		return Redirect::route('Inventario.Horarios.index');
+		if (Seguridad::listarHorario()) {
+			$this->Horario->find($id)->delete();
+			return Redirect::route('Inventario.Horarios.index');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	public function returnUser()
