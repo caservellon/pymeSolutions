@@ -12,7 +12,8 @@
 
  
 
-$proveedores = invCompras::ProveedorCompras($imprimir->Proveedor_idProveedor); ?>
+$proveedores = invCompras::ProveedorCompras($imprimir->Proveedor_idProveedor); 
+$empresa= Seguridad::Compania(); ?>
 
 <div class="row">
     <div class="col-md-1 col-md-offset-10"> <button type="button" class="btn btn-default no-print imprimir-solicitud">Imprimir</button></div>
@@ -21,12 +22,12 @@ $proveedores = invCompras::ProveedorCompras($imprimir->Proveedor_idProveedor); ?
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
         <h2> Solicitud de Cotizacion</h2>
-        <h5>Empresa X S.A.</h5>
-        <h5>Colonia la America, Tegucigalpa,Francisco Morazán</h5>
+        <h5><?php echo $empresa->SEG_Config_NombreEmpresa; ?></h5>
+        <h5><?php echo $empresa->SEG_Config_Direccion; ?></h5>
         <h5>Honduras C.A.</h5>
     </div>
     <div class="col-md-4 " style="text-align: right">
-        <h5 >Tel.2234-9000 Fax.2234-9000</h5>
+        <h5 >Tel: <?php echo " ".$empresa->SEG_Config_Telefono; echo '  '; echo $empresa->SEG_Config_Telefono2; ?></h5>
     </div>
     </div>
             <div class="row">

@@ -34,17 +34,18 @@
 
 
 @for($j=0; $j < count($proveedor); $j++)
-<?php $proveedores = invCompras::ProveedorCompras($proveedor[$j]); ?>
+<?php $proveedores = invCompras::ProveedorCompras($proveedor[$j]);
+      $empresa= Seguridad::Compania(); ?>
 <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
         <h2> Solicitud de Cotizacion</h2>
-        <h5>Empresa X S.A.</h5>
-        <h5>Colonia la America, Tegucigalpa,Francisco Morazán</h5>
+        <h5><?php echo $empresa->SEG_Config_NombreEmpresa; ?></h5>
+        <h5><?php echo $empresa->SEG_Config_Direccion; ?></h5>
         <h5>Honduras C.A.</h5>
     </div>
     <div class="col-md-4 " style="text-align: right">
-        <h5 >Tel.2234-9000 Fax.2234-9000</h5>
+        <h5 >Tel: <?php echo " ".$empresa->SEG_Config_Telefono; echo '  '; echo $empresa->SEG_Config_Telefono2; ?></h5>
     </div>
 </div>
 <div class="row">
@@ -160,7 +161,7 @@
 
 <div class="row" >
     <div class="col-md-6" ><label></label></div>
-    <div class="col-md-6" style="text-align: right"><h5>Nombre del Oficial de Compras</h5></div>
+    <div class="col-md-6" style="text-align: right"><label>Oficial Compras</label><h5><?php echo Auth::user()->SEG_Usuarios_Nombre; ?></h5></div>
 </div>
 <hr>
 @endfor    

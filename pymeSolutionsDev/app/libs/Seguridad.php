@@ -741,6 +741,12 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CON_GenerarPuntoEquilibrio;
 		}
 
+
+		//metodo para obtener la compania
+		public static function compania(){
+			return DB::table('SEG_Config')->first();
+		}
+
 	}
 
 ?>
