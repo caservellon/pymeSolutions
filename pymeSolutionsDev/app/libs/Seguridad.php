@@ -673,8 +673,8 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CON_AgregarPeriodoContable;
 		}
 
-		public static function Habilitar/DeshabilitarPeriodoContable(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CON_Habilitar/DeshabilitarPeriodosContables;
+		public static function HabilitarDeshabilitarPeriodoContable(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CON_HabilitarDeshabilitarPeriodosContables;
 		}
 
 		public static function EditarPeriodoContable(){
