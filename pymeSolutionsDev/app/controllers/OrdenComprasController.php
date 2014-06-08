@@ -208,7 +208,7 @@ class OrdenComprasController extends BaseController {
                     $OrdenCompras->COM_OrdenCompra_Activo=0;
              }
              $OrdenCompras->COM_OrdenCompra_FechaCreacion=date('Y/m/d H:i:s');
-             $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
+             $OrdenCompras->COM_Usuario_IdUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
              $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
              $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
 			 
@@ -226,7 +226,7 @@ class OrdenComprasController extends BaseController {
                         $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
                         $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
                         $valorcampolocal->COM_OrdenCompra_IdOrdenCompra=($ultimoI+1);
-                        $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
+                        $valorcampolocal->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                          $valorcampolocal->save();
                                 
                     }
@@ -239,7 +239,7 @@ class OrdenComprasController extends BaseController {
                   $detalle1->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('precio'.$contador1);
                   $detalle1->COM_DetalleOrdenCompra_idOrdenCompra=$ultimo;
                   $detalle1->COM_Producto_idProducto=Input::get('producto'.$contador1);
-                  $detalle1->COM_Usuario_idUsuarioCreo=1;
+                  $detalle1->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                   $detalle1->COM_DetalleOrdenCompra_Codigo='COM_DOC_'.($ultDet+1);
                   $detalle1->save();
                   
@@ -254,7 +254,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_TransicionEstado_IdOrdenCompra=$ultimo;
                       //$historial->COM_OrdenCompra_TransicionEstado_Id=1;
-                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d');
                       $historial->COM_TransicionEstado_Observacion='Esta es la transicion creada al inicio';
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
@@ -418,7 +418,7 @@ class OrdenComprasController extends BaseController {
                     $OrdenCompras->COM_OrdenCompra_Activo=0;
              }
              $OrdenCompras->COM_OrdenCompra_FechaCreacion=date('Y/m/d H:i:s');
-             $OrdenCompras->COM_Usuario_IdUsuarioCreo=1;
+             $OrdenCompras->COM_Usuario_IdUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
              $OrdenCompras->COM_Proveedor_IdProveedor=Input::get('COM_Proveedor_IdProveedor');
              $OrdenCompras->COM_OrdenCompra_FormaPago=Input::get('formapago');
              $OrdenCompras->COM_OrdenCompra_IdCotizacion=Input::get('Id_Cot');
@@ -434,7 +434,7 @@ class OrdenComprasController extends BaseController {
                         $valorcampolocal->COM_ValorCampoLocal_Valor=Input::get($campo->GEN_CampoLocal_Codigo);
                         $valorcampolocal->COM_CampoLocal_IdCampoLocal=$campo->GEN_CampoLocal_ID;
                         $valorcampolocal->COM_OrdenCompra_IdOrdenCompra=($ultimoI+1);
-                        $valorcampolocal->COM_Usuario_idUsuarioCreo=1;
+                        $valorcampolocal->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                          $valorcampolocal->save();
                                 
                     }
@@ -452,7 +452,7 @@ class OrdenComprasController extends BaseController {
                   $detalle->COM_DetalleOrdenCompra_PrecioUnitario=Input::get('COM_DetalleOrdenCompra_PrecioUnitario'.$contador);
                   $detalle->COM_DetalleOrdenCompra_idOrdenCompra=$ultimo;
                   $detalle->COM_Producto_idProducto=Input::get('COM_Producto_idProducto'.$contador);
-                  $detalle->COM_Usuario_idUsuarioCreo=1;
+                  $detalle->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                   $detalle->COM_DetalleOrdenCompra_Codigo='COM_DOC_'.($ultDet+1);
                   $detalle->save();
                   
@@ -467,7 +467,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_TransicionEstado_IdOrdenCompra=$ultimo;
                       //$historial->COM_OrdenCompra_TransicionEstado_Id=1;
-                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d H:i:s');
                       $historial->COM_TransicionEstado_Observacion='Esta es la transicion creada al inicio';
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=1;
@@ -545,6 +545,8 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
              foreach($trans as $tran){
                   if($tran->COM_TransicionEstado_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
+                      $tran->COM_TrancicionEstado_FechaModificacion=date('Y/m/d H:i:s');
+                      $tran->COM_Usuario_idUsuarioModifico=Auth::user()->SEG_Usuarios_Nombre;
                       $tran->COM_TransicionEstado_Activo=0;
                       $tran->update();
                       $ultimo=HistorialEstadoOrdenCompra::count();
@@ -552,7 +554,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Codigo='COM_HOC_'.($ultimo+1);
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_TransicionEstado_IdOrdenCompra=$id;
-                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d H:i:s');
                       $historial->COM_TransicionEstado_Observacion='Esta transicion fue Autorizada';
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=$tran->COM_EstadoOrdenCompra_IdEstAct;
@@ -581,6 +583,8 @@ class OrdenComprasController extends BaseController {
              $trans= HistorialEstadoOrdenCompra::where('COM_TransicionEstado_Activo','=',1)->get();
              foreach($trans as $tran){
                   if($tran->COM_TransicionEstado_IdOrdenCompra==$or->COM_OrdenCompra_IdOrdenCompra){
+                      $tran->COM_TrancicionEstado_FechaModificacion=date('Y/m/d H:i:s');
+                      $tran->COM_Usuario_idUsuarioModifico=Auth::user()->SEG_Usuarios_Nombre;
                       $tran->COM_TransicionEstado_Activo=0;
                       $tran->update();
                       $ultimo=HistorialEstadoOrdenCompra::count();
@@ -588,12 +592,14 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Codigo='COM_HOC_'.($ultimo+1);
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_TransicionEstado_IdOrdenCompra=$id;
-                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d H:i:s');
                       $historial->COM_TransicionEstado_Observacion='Esta transaccion no fue autorizada por lo que se  Canceló';
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=$tran->COM_EstadoOrdenCompra_IdEstAct;
                       $historial->COM_EstadoOrdenCompra_IdEstAct=7;
                       $historial->save();
+                      $or->Usuario_idUsuarioModifico=Auth::user()->SEG_Usuarios_Nombre;
+                      $or->COM_OrdenCompra_FechaModificacion=date('Y/m/d H:i:s');
                       $or->COM_OrdenCompra_Activo=0;
                       $or->update();
                       
@@ -657,7 +663,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Codigo='COM_HOC_'.($ultimo+1);
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_TransicionEstado_IdOrdenCompra=$id;
-                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d H:i:s');
                       $historial->COM_TransicionEstado_Observacion=$Observacion;
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=$eact;
@@ -668,7 +674,7 @@ class OrdenComprasController extends BaseController {
                       $historial->COM_TransicionEstado_Codigo='COM_HOC_'.($ultimo+1);
                       $historial->COM_TransicionEstado_Activo=1;
                       $historial->COM_TransicionEstado_IdOrdenCompra=$id;
-                      $historial->COM_Usuario_idUsuarioCreo=1;
+                      $historial->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                       $historial->COM_TransicionEstado_FechaCreo=date('Y/m/d H:i:s');
                       $historial->COM_TransicionEstado_Observacion=$Observacion;
                       $historial->COM_EstadoOrdenCompra_IdEstAnt=$eact;
@@ -800,7 +806,7 @@ class OrdenComprasController extends BaseController {
                 $nuevopago->COM_OrdenPago_Codigo='COM_OPG_'.($ultimo+1);
                 $nuevopago->COM_OrdenCompra_idOrdenCompra= Input::get('id_ordenCompra');
                 $nuevopago->COM_OrdenPago_Activo=1;
-                $nuevopago->COM_Usuario_idUsuarioCreo=1;
+                $nuevopago->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                 $nuevopago->COM_OrdenCompra_FechaCreo= date('Y/m/d H:i:s');
                 $nuevopago->COM_OrdenCompra_FechaPagar=$fecha2;
                 $nuevopago->COM_OrdenCompra_Monto=$abonos;
@@ -818,7 +824,7 @@ class OrdenComprasController extends BaseController {
                 $nuevopago->COM_OrdenPago_Codigo='COM_OPG_'.($ultimo+1);
                 $nuevopago->COM_OrdenCompra_idOrdenCompra= Input::get('id_ordenCompra');
                 $nuevopago->COM_OrdenPago_Activo=1;
-                $nuevopago->COM_Usuario_idUsuarioCreo=1;
+                $nuevopago->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                 $nuevopago->COM_OrdenCompra_FechaCreo= date('Y/m/d H:i:s');
                 $nuevopago->COM_OrdenCompra_FechaPagar=$fecha;
                 $nuevopago->COM_OrdenCompra_Monto=$abonos;

@@ -104,7 +104,7 @@ class DevolucionCompraController extends BaseController {
             $devolucion->COM_DevolucionCompra_FechaEmision=date('Y/m/d H:i:s');
             $devolucion->COM_DevolucionCompra_Activo=1;
             $devolucion->COM_DevolucionCompra_Total=$total;
-            $devolucion->COM_DevolucionCompra_UsuarioCreo=1;
+            $devolucion->COM_DevolucionCompra_UsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
             $devolucion->COM_OrdenCompra_COM_OrdenCompra_IdOrdenCompra=$id_Orden;
             $devolucion->COM_Proveedor_IdProveedor=$idproveedor;
             $devolucion->save();
@@ -115,7 +115,7 @@ class DevolucionCompraController extends BaseController {
                     $ultdet= DetalleDevolucionCompra::count();
                      $detalle1=new DetalleDevolucionCompra();
                      $detalle1->COM_DetalleDevolucionCompra_Codigo='COM_DDOC_'.($ultdet+1);
-                     $detalle1->COM_Usuario_idUsuarioCreo=1;
+                     $detalle1->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                      $detalle1->COM_DetalleDevolucionCompra_FechaCreo=date('Y/m/d H:i:s');
                      $detalle1->COM_DevolucionCompra_ID=$ultOrd;
                      $detalle1->COM_DetalleDevolucionCompra_Cantidad=Input::get('COM_DetalleOrdenCompra_Cantidad'.$contador);
@@ -134,7 +134,7 @@ class DevolucionCompraController extends BaseController {
                 $nuevopago->COM_OrdenPago_Codigo='COM_OPG_'.($ultimo+1);
                 $nuevopago->COM_OrdenCompra_idOrdenCompra= $id_Orden;
                 $nuevopago->COM_OrdenPago_Activo=1;
-                $nuevopago->COM_Usuario_idUsuarioCreo=1;
+                $nuevopago->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                 $nuevopago->COM_OrdenCompra_FechaCreo= date('Y/m/d H:i:s');
                 $nuevopago->COM_OrdenCompra_FechaPagar=$Elemento->COM_OrdenCompra_FechaPagar;
                 $nuevopago->COM_OrdenCompra_Monto=(($saldo-$total)/$tamaño);
@@ -160,7 +160,7 @@ class DevolucionCompraController extends BaseController {
                 $reembolso= new ReembolsoDevolucionCompra();
                 $reembolso->COM_ReembosoDevolucionCompras_Activo=1;
                 $reembolso->COM_ReembosoDevolucionCompras_FechaCreacion=date('Y/m/d H:i:s');
-                $reembolso->COM_ReembosoDevolucionCompras_UsuarioCreo=1;
+                $reembolso->COM_ReembosoDevolucionCompras_UsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                 $reembolso->COM_ReembosoDevolucionCompras_Monto=($total-$saldo);
                 $reembolso->COM_ReembosoDevolucionCompras_Proveedor=$Orden->COM_Proveedor_IdProveedor;
                 $reembolso->COM_DevolucionCompra_COM_DevolucionCompra_ID=$ultimod;

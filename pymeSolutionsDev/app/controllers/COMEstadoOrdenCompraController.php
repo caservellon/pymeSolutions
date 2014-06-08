@@ -28,7 +28,7 @@ class COMEstadoOrdenCompraController extends BaseController
                $estadoOrden->COM_EstadoOrdenCompra_Nombre=Input::get('COM_EstadoOrdenCompra_Nombre');
                $estadoOrden->COM_EstadoOrdenCompra_Observacion=Input::get('COM_EstadoOrdenCompra_Observacion');
                $estadoOrden->COM_EstadoOrdenCompra_Activo=Input::get('COM_EstadoOrdenCompra_Activo');
-               $estadoOrden->COM_Usuario_idUsuarioCreo=1;
+               $estadoOrden->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                $estadoOrden->COM_EstadoOrdenCompra_FechaCreacion=date('Y-m-D');
                 if(Input::has('COM_EstadoOrdenCompra_Activo')){
                      $estadoOrden->COM_EstadoOrdenCompra_Activo=1;
@@ -78,7 +78,7 @@ class COMEstadoOrdenCompraController extends BaseController
        $COM_EstadoOrdenCompra= COM_EstadoOrdenCompra::find(Input::get('COM_EstadoOrdenCompra_IdEstadoOrdenCompra'));
        $COM_EstadoOrdenCompra->COM_EstadoOrdenCompra_Nombre=Input::get('COM_EstadoOrdenCompra_Nombre');
        $COM_EstadoOrdenCompra->COM_EstadoOrdenCompra_Observacion=Input::get('COM_EstadoOrdenCompra_Observacion');
-        $COM_EstadoOrdenCompra->COM_Usuario_idUsuarioModifico=1;
+        $COM_EstadoOrdenCompra->COM_Usuario_idUsuarioModifico=Auth::user()->SEG_Usuarios_Nombre;
         $COM_EstadoOrdenCompra->COM_EstadoOrdenCompra_FechaModificacion=date('Y-m-d');
        
        

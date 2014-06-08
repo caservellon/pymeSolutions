@@ -71,7 +71,7 @@ class COMTransicionEstadoController extends BaseController {
                             $model->COM_OrdenCompra_TransicionEstado_Activo=0;
                         }
                         $model->COM_TansicionEstado_FechaCreacion=date('Y-m-d');
-                        $model->COM_Usuario_idUsuarioCreo=1;
+                        $model->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
                         $model->save();
                          $ruta = route('index');
                  $mensajeBD = Mensaje::find(1);
@@ -117,7 +117,7 @@ class COMTransicionEstadoController extends BaseController {
                      $model->COM_OrdenCompra_TransicionEstado_Activo=0;
                 }
                 $model->COM_TansicionEstado_FechaModificacion=date('Y-m-d');
-                $model->COM_Usuario_idUsuarioModifico=1;
+                $model->COM_Usuario_idUsuarioModifico=Auth::user()->SEG_Usuarios_Nombre;
                 $model->update();
                  $ruta = route('index');
                  $mensajeBD = Mensaje::find(1);
