@@ -18,9 +18,10 @@ ction('main')
 <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
+    <?php $perfil = DB::table('SEG_Perfil')->first();?>
         <h2>Orden de Compra</h2>
-        <h5>Empresa X S.A.</h5>
-        <h5>Colonia la America, Tegucigalpa,Francisco Morazán</h5>
+        <h5>{{$perfil->SEG_Perfil_NombreCompleto}}</h5>
+        <h5>{{$perfil->SEG_Perfil_Direccion}}</h5>
         <h5>Honduras C.A.</h5>
     </div>
     <div class="col-md-4 " style="text-align: right">
@@ -29,7 +30,7 @@ ction('main')
               {{ implode('', $errors->all('<li >:message</li>')) }}
         </div>
         @endif
-        <h5 >Tel.2234-9000 Fax.2234-9000</h5>
+        <h5 >{{$perfil->SEG_Perfil_Telefono.' '.$perfil->SEG_Perfil_Celular}}</h5>
     </div>
 </div>
 {{Form::open(array('route'=>'GuardaOCcnCot'),array('id'=>'formu'))}}
