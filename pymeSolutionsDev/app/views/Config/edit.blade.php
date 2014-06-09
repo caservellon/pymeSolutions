@@ -23,7 +23,7 @@
 </div>
 @endif
 
-{{ Form::model($Config, array('method' => 'PATCH', 'route' => array('Auth.Configuracion.update', $Config->SEG_Config_ID), 'class' => 'form-horizontal', 'role' => 'form')) }}
+{{ Form::model($Config, array('method' => 'PATCH', 'route' => array('Auth.Configuracion.update', $Config->SEG_Config_ID), 'files' => true, 'class' => 'form-horizontal', 'role' => 'form')) }}
 	<div class="form-group">
         {{ Form::label('SEG_Config_NombreEmpresa', 'NombreEmpresa:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
@@ -76,6 +76,12 @@
         {{ Form::label('SEG_Config_Descripcion', 'Descripcion:', array('class' => 'col-md-2 control-label')) }}
         <div class="col-md-4">
             {{ Form::textarea('SEG_Config_Descripcion', $Config->SEG_Config_Descripcion, array('class' => 'form-control','rows' => '3', 'id' => 'SEG_Config_Descripcion', 'placeholder'=>'Descripcion', 'maxlength'=>'512')) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ Form::label('SEG_Config_Imagen', 'Imagen:', array('class' => 'col-md-2 control-label')) }}
+        <div class="col-md-4">
+            {{ Form::file('SEG_Config_Imagen') }}
         </div>
     </div>
     <div class="form-group">

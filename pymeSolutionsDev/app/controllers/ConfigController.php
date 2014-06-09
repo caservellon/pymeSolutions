@@ -54,7 +54,8 @@ class ConfigController extends BaseController {
 	public function update($id){
 		$input = Input::except('_method');
 		$validation = Validator::make($input, Configuracion::$rules);
-
+		$file = Input::file('SEG_Config_Imagen');
+		//return $file;
 		if ($validation->passes())
 		{
 			$Config = $this->Config->find($id);
@@ -69,8 +70,11 @@ class ConfigController extends BaseController {
 			$Config->SEG_Config_EmailCompras = Input::get('SEG_Config_EmailCompras');
 			$Config->SEG_Config_EmailVentas = Input::get('SEG_Config_EmailVentas');
 			$Config->SEG_Config_Descripcion = Input::get('SEG_Config_Descripcion');
-			//$Config->SEG_Config_Imagen = Input::get('SEG_Config_Imagen');
+			if($file != ''){
+			$Config->SEG_Config_Imagen = '/images/'.Input::file('SEG_Config_Imagen')->getClientOriginalName();
 			$Config->SEG_Config_FechaModificacion = date('Y-m-d H:i:s');
+			$file->move('images',$file->getClientOriginalName());
+		}
 			$Config->update();
 
 			return Redirect::route('Auth.Configuracion.index');
