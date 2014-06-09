@@ -18,7 +18,7 @@
 		<header>
 			<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 				<a class="navbar-brand" href="#">pymeSolutions</a>
-
+				@if(Auth::check())
 				<ul class="nav navbar-nav navbar-left">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas <b class="caret"></b></a>
@@ -38,7 +38,10 @@
 							<li><a href="/Compras/Cotizaciones">Cotizaciones</a></li>
 							<li><a href="/Compras/OrdenCompra" >Ordenes de Compras</a></li>
 							<li class="divider"></li>
+							@if(Seguridad::indexCampoLocal())
 							<li><a href="/Compras">Configuración</a></li>
+							@endif
+							
 						</ul>
 					</li>
 
@@ -138,6 +141,7 @@
 					</li>
 
 				</ul>
+				@endif
 				@if (Auth::check()) 
 					<p class="navbar-text navbar-right auth">Hola {{Auth::user()->SEG_Usuarios_Email}} <span class="navbar-link">{{ link_to_route('Auth.logout', 'Salir') }}</span></p>
 				@else
