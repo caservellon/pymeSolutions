@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Config` (
   `SEG_Config_Descripcion` VARCHAR(45) NULL,
   `SEG_Config_FechaModificacion` VARCHAR(45) NULL,
   `SEG_Config_Imagen` VARCHAR(128) NULL DEFAULT '/images/office-building.png',
-  `SEG_Usuarios_SEG_Usuarios_ID` INT NOT NULL,
+  `SEG_Usuarios_SEG_Usuarios_ID` INT NULL,
   PRIMARY KEY (`SEG_Config_ID`),
   INDEX `fk_SEG_Config_SEG_Usuarios1_idx` (`SEG_Usuarios_SEG_Usuarios_ID` ASC),
   CONSTRAINT `fk_SEG_Config_SEG_Usuarios1`
