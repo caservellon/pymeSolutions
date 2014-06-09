@@ -168,7 +168,7 @@
 							<li><a href="{{ URL::to('Auth/Roles') }}">Roles</a></li>
 							<li><a href="#">Logs</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Configuración</a></li>
+							<li><a href="{{URL::to('Auth/Configuracion') }}">Configuración</a></li>
 						</ul>
 					</li>
 
