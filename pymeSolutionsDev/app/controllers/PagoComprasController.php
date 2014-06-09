@@ -9,10 +9,13 @@ class PagoComprasController extends BaseController {
 	 */
 
 	public function index()
-	{	
-
-		$OrdenesPago=comContabilidad::OrdenesSinPagar();
-		return View::make('PagoCompras.index',compact('OrdenesPago'));
+	{
+		if (Seguridad::VerPagos()) {
+			$OrdenesPago=comContabilidad::OrdenesSinPagar();
+			return View::make('PagoCompras.index',compact('OrdenesPago'));
+		}else{
+				return Redirect::to('/403');
+		}
     }
 
 	/**
@@ -22,14 +25,17 @@ class PagoComprasController extends BaseController {
 	 */
 	public function paid()
 	{
-		
-		$id=Input::get('id');
-		$osp=comContabilidad::OrdenesSinPagar();
-		$osp=$osp->find($id);
-		
-		Contabilidad::GenerarTransaccionCmpSM(13,$osp->COM_OrdenCompra_Monto,$osp->COM_Proveedor_IdProveedor);
-		comContabilidad::cambiarAPagada($id);
-	  	return ":D ".Input::get('id');
+		if (Seguridad::RealizarPagos()) {
+			$id=Input::get('id');
+			$osp=comContabilidad::OrdenesSinPagar();
+			$osp=$osp->find($id);
+			
+			Contabilidad::GenerarTransaccionCmpSM(13,$osp->COM_OrdenCompra_Monto,$osp->COM_Proveedor_IdProveedor);
+			comContabilidad::cambiarAPagada($id);
+		  	return ":D ".Input::get('id');
+	  	}else{
+				return Redirect::to('/403');
+		}
 	}
 
 }

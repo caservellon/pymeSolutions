@@ -9,12 +9,13 @@
 		
 	</div>
 </div>
-
+@if(Seguridad::CrearAsientosContable())
 <div>
 	<a href="{{URL::to('contabilidad/crear/asientocontable')}}" class="btn btn-info">
 	<span class="glyphicon glyphicon-edit"></span> Crear Asiento</a>
 </div>
 <br>
+@endif
 
 @if($PeriodoContable!=null && $PeriodoContable->count())
       <div class="well table form-inline">
