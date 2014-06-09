@@ -48,45 +48,69 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							@if(Seguridad::listarProducto())
 							<li>
 								{{ link_to_route('Inventario.Productos.index', 'Productos')}}
 							</li>
+							@endif
+							@if(Seguridad::listarAtributo())
 							<li>
 								{{ link_to_route('Inventario.Atributos.index', 'Atributos')}}
 							</li>
+							@endif
+							@if(Seguridad::listarProveedor())
 							<li>
 								{{ link_to_route('Inventario.Proveedor.index', 'Proveedores')}}
 							</li>
+							@endif
 						<!--<li>
 								{{ link_to_route('Inventario.Proveedor.f2p', 'Administrar Formas de Pago')}}
 							</li>-->
+							@if(Seguridad::agregarProveedorProducto())
 							<li>
 								{{ link_to_route('Inventario.Proveedor.save', 'Administrar Productos de Proveedores')}}
 							</li>
+							@endif
+							@if(Seguridad::listarCategoria())
 							<li>
 								{{ link_to_route('Inventario.Categoria.index', 'Categorías')}}
 							</li>
+							@endif
+							@if(Seguridad::listarCiudad())
 							<li>
 								{{ link_to_route('Inventario.Ciudad.index', 'Ciudades')}}
 							</li>
+							@endif
+							@if(Seguridad::listarUnidadMedida())
 							<li>
 								{{ link_to_route('Inventario.UnidadMedidas.index', 'Unidades de Medida')}}
 							</li>
+							@endif
+							@if(Seguridad::listarHorario())
 							<li>
 								{{ link_to_route('Inventario.Horarios.index', 'Horarios')}}
 							</li>
+							@endif
+							@if(Seguridad::listarFormaPago())
 						    <li>
 								{{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
 							</li> 
+							@endif
+
 							<li>
 								{{ link_to_route('Inventario.Producto.historial.index2', 'Historial de un Producto')}}
 							</li>
+
+							@if(Seguridad::listarSalidaInventario())
 							<li>
 								{{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
 							</li>
+							@endif
+							@if(Seguridad::listarMotivoMovimientoInventario())
 							<li>
 								{{ link_to_route('Inventario.MotivoMovimiento.index', 'Concepto Movimiento Inventario')}}
 							</li>
+							@endif
 							<li class="divider"></li>
 							<li>
 								 <a href="/Inventario">Configuración</a>
