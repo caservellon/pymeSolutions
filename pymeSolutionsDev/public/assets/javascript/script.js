@@ -1,4 +1,10 @@
 $(document).ready(function(){
+	// ---------------- Seguridad -------------------
+
+	if($('.cambio-view').length){
+       $('#NuevaContrasena').pwstrength();
+    };
+
 	// ---------------- Devoluciones ------------------------------
 
 	// POST busca factura y devuelve items

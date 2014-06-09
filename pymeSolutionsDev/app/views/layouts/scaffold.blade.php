@@ -188,9 +188,11 @@
 		</div>
 		<script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
 		<script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/assets/javascript/pwstrength-bootstrap-1.1.2.js"></script>
 		<script src="/assets/javascript/script.js"></script>
 		<script src="/assets/javascript/jquery.simple-dtpicker.js"></script>
 		<script type="text/javascript" src="/assets/javascript/jquery-ui.js"></script>
+
 	</body>
 		 
 	@yield('contabilidad_scripts')
