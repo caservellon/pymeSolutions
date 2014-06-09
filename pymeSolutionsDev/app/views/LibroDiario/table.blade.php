@@ -27,9 +27,11 @@
 	                  	<td></td>
 	                  	<td style="vertical-align:middle;" rowspan="2">{{{ $Libro[0]['observacion'] }}}</td>
 	                  	<td style="vertical-align:middle;" rowspan="2">
-	                  	@if ($Libro[0]['reversion']==1 || $Libro[0]['revertido']==1)
-	                  		@else
-	                  		<button class="btn btn-primary revertir" id="{{{$Libro[0]['no']}}}">Revertir</button>
+	                  	@if (Seguridad::RevertirAsientosContables())
+	                  		@if ($Libro[0]['reversion']==1 || $Libro[0]['revertido']==1)
+	                  			@else
+	                  			<button class="btn btn-primary revertir" id="{{{$Libro[0]['no']}}}">Revertir</button>
+	                  		@endif
 	                  	@endif
 	                  	</td>
 					</tr>

@@ -170,7 +170,8 @@
 		}
 
 		public static function IndexEstadoorden(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_IndexEstadoOrden;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_NuevoEstadoOrdenCompra
+;
 		}
 
 		public static function EditEstadoorden(){

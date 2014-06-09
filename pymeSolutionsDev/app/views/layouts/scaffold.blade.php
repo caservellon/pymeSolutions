@@ -34,11 +34,17 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							@if((Seguridad::indexSC()) || (Seguridad::indexImprimirSC()))
 							<li><a href="/Compras/SolicitudCotizacion">Solicitudes de Cotización</a></li>
+							@endif
+							@if((Seguridad::VistaMenuCotizaciones()) || (Seguridad::VistaTodasCotizaciones()) || (Seguridad::VistaHabilitarInhabilitar()))
 							<li><a href="/Compras/Cotizaciones">Cotizaciones</a></li>
+							@endif
+							@if((Seguridad::indexOC()) || (Seguridad::indexImprimirOC()) || (Seguridad::ListarAutorizarOrdenCompra()) || (Seguridad::ListaAdministrarOrdenCompra()) || (Seguridad::ListarPagoOrdenCompra()) || (Seguridad::VerPlanPagoOrdenCompra()) || (Seguridad::ListarHistorialOrdenes()) || (Seguridad::ListaDevolucionCompras()))
 							<li><a href="/Compras/OrdenCompra" >Ordenes de Compras</a></li>
+							@endif
+							@if((Seguridad::indexCampoLocal()) || (Seguridad::NuevoEstadoOrden()) || (Seguridad::IndexEstadoorden()) || (Seguridad::NuevaTransicionEstado()) || (Seguridad::ModificarTransicionesEstado()))
 							<li class="divider"></li>
-							@if(Seguridad::indexCampoLocal())
 							<li><a href="/Compras">Configuración</a></li>
 							@endif
 							
