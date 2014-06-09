@@ -112,9 +112,11 @@
 							</li>
 							@endif
 							<li class="divider"></li>
+							@if(Seguridad::listarCampoLocal())
 							<li>
 								 <a href="/Inventario">Configuración</a>
 							</li>
+							@endif
 						</ul>
 					</li>
 
