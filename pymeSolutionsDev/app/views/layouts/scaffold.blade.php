@@ -30,8 +30,7 @@
 							<li><a href="/Ventas">Configuración</a></li>
 						</ul>
 					</li>
-					@if((Seguridad::indexSC()) || (Seguridad::indexImprimirSC()) || (Seguridad::VistaMenuCotizaciones()) || (Seguridad::VistaTodasCotizaciones()) || (Seguridad::VistaHabilitarInhabilitar()) || (Seguridad::indexOC()) || (Seguridad::indexImprimirOC()) || (Seguridad::ListarAutorizarOrdenCompra()) || (Seguridad::ListaAdministrarOrdenCompra()) || (Seguridad::ListarPagoOrdenCompra()) || (Seguridad::VerPlanPagoOrdenCompra()) || (Seguridad::ListarHistorialOrdenes()) || (Seguridad::ListaDevolucionCompras()) ||
-					(Seguridad::indexCampoLocal()) || (Seguridad::NuevoEstadoOrden()) || (Seguridad::IndexEstadoorden()) || (Seguridad::NuevaTransicionEstado()) || (Seguridad::ModificarTransicionesEstado()))
+
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -51,7 +50,7 @@
 							
 						</ul>
 					</li>
-					@endif
+
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -132,11 +131,11 @@
 
 							<a href="contabilidad" class="dropdown-toggle" data-toggle="dropdown">Contabilidad <b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								@if( Seguridad::VerLibroDiario() || Seguridad::VerEstadosfinancieros() || Seguridad::GenerarCierrePeriodo() || Seguridad::VerPagos() || Seguridad::VerReembolsos())
+								@if( Seguridad::VerLibroDiario() || Seguridad::VerEstadosfinancieros() || Seguridad::GenerarCierrePeriodo() || Seguridad::VerPagos() || Seguridad::VerReembolsos() ||Seguridad::ListarCatalogoContables() || Seguridad::ListarPeriodosContables() || Seguridad::ListarUnidadesMonetarias() || Seguridad::ListarMotivosDeInventario() || Seguridad::ListarConceptosDeTransaccionesAutomaticas())
 								<li><a href="{{URL::to('contabilidad')}}">Menu principal</a></li>
-								<li class="divider"></li>
 								@endif
 								@if(Seguridad::VerLibroDiario())
+								<li class="divider"></li>
 								<li><a href="{{URL::to('contabilidad/librodiario')}}">Libro Diario</a></li>
 								@endif
 								@if (Seguridad::VerROI())
@@ -147,9 +146,9 @@
 								@endif
 								@if(Seguridad::VerFlujoEfectivo())
 								<li><a href="#">Flujo de Caja</a></li>
-								<li class="divider"></li>
 								@endif
 								@if(Seguridad::ListarCatalogoContables() || Seguridad::ListarPeriodosContables() || Seguridad::ListarUnidadesMonetarias() || Seguridad::ListarMotivosDeInventario() || Seguridad::ListarConceptosDeTransaccionesAutomaticas())
+								<li class="divider"></li>
 								<li><a href="{{ URL::to('contabilidad/configuracion/') }}">Configuración</a></li>
 								@endif
 							</ul>
