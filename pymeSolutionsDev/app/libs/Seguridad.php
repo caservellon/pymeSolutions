@@ -117,8 +117,8 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_ConfigurarVentas;
 		}
 
-		public static function POSVentas(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_POSVentas;
+		public static function GestionarVentas(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_VEN_GestionarVentas;
 		}
 
 		public static function EliminarProductoDeVentas(){

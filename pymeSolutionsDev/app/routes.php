@@ -30,6 +30,8 @@ Route::group(array('prefix' => 'Auth'), function()
 	Route::resource('Roles', 'RolesController');
 	Route::resource('Errores', 'ErrorController');
 	Route::get('prueba', array('as' => 'Auth.test', 'uses' => 'RolesController@ejemplo'));
+	Route::get('Cambio', array('as' => 'Auth.renderCambio', 'uses' => 'UserController@renderCambio'));
+	Route::post('Cambio', array('as' => 'Auth.cambio', 'uses' => 'UserController@cambio'));
 });
 
 Route::group(array('prefix'=>'mantenimiento'),function(){
