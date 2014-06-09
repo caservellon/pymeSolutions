@@ -1,4 +1,3 @@
-
 -- -----------------------------------------------------
 -- Table `pymeERP`.`SEG_Roles`
 -- -----------------------------------------------------
@@ -22,6 +21,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_CRM_EditarEmpresa` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CRM_EliminarEmpresa` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CRM_Configuracion` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CRM_BuscarPersona` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CRM_BuscarEmpresa` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_COM_NuevoEstadoOrdenCompra` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_COM_GuardarEstadoOrden` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_COM_ListaEstadoOrden` TINYINT(1) NULL DEFAULT 0,
@@ -164,6 +165,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_INV_agregarProveedorProducto` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_INV_quitarProveedorProducto` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_INV_cambiarEstadoOrdenCompra` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_agregarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_quitarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_CrearCaja` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_AbrirCaja` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_BorrarCaja` TINYINT(1) NULL DEFAULT 0,
@@ -181,21 +184,19 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_VEN_EliminarDescuentos` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_VerDescuentos` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_ConfigurarVentas` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_VEN_POSVentas` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_VEN_GestionarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_EliminarProductoDeVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_EditarCantidadDeVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_GuardarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_ListarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_VerVentas` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_INV_agregarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_INV_quitarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_CRM_BuscarPersona` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_CRM_BuscarEmpresa` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_IniciarDevolucion` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_AutorizarDevolucion` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_ListarDevoluciones` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_DetalleDeVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_DetalleDeDevolucion` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_ListarHistorial` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_VerMenuMovimiento` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`SEG_Roles_ID`))
 ENGINE = InnoDB;
 
@@ -240,6 +241,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Usuarios` (
   `SEG_Usuarios_FechaModificacion` DATETIME NULL,
   `SEG_Usuarios_UsuarioCreacion` VARCHAR(45) NULL,
   `SEG_Usuarios_UsuarioModificacion` VARCHAR(45) NULL,
+  `SEG_Usuarios_FechaDeExpiracion` DATE NULL,
   `SEG_Roles_SEG_Roles_ID` INT NULL,
   `SEG_Perfil_SEG_Perfil_ID` INT NULL,
   PRIMARY KEY (`SEG_Usuarios_ID`),
@@ -300,6 +302,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Config` (
   `SEG_Config_EmailVentas` VARCHAR(45) NULL,
   `SEG_Config_Descripcion` VARCHAR(45) NULL,
   `SEG_Config_FechaModificacion` VARCHAR(45) NULL,
+  `SEG_Config_Imagen` VARCHAR(128) NULL DEFAULT '/images/office-building.png',
   `SEG_Usuarios_SEG_Usuarios_ID` INT NOT NULL,
   PRIMARY KEY (`SEG_Config_ID`),
   INDEX `fk_SEG_Config_SEG_Usuarios1_idx` (`SEG_Usuarios_SEG_Usuarios_ID` ASC),
@@ -330,4 +333,3 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_PassToken` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
