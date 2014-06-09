@@ -614,7 +614,7 @@
 
 
 		//Contabilidad
-		public static function ListarCatalogoContable(){
+		public static function ListarCatalogoContables(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CON_ListarCatalogoContable;
 		}
 

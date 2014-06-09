@@ -8,7 +8,7 @@
     <a href="{{{ URL::to('contabilidad/configuracion') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 </div>
 @if (isset($clasi) && $clasi->count())
-@if(Seguridad::Agregarcuenta())
+@if(Seguridad::AgregarCuenta())
 <div class="btn-agregar">
 	<a type="button" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/create') }}" class="btn btn-success">
 	  <span class="glyphicon glyphicon-plus"></span> Agregar Cuenta

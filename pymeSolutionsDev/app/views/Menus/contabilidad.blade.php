@@ -29,7 +29,7 @@
 	<a href="{{URL::route('con.reembolsos')}}" class="btn btn-default btn-lg btn-block">
 	<span class="glyphicon glyphicon-usd"></span><br>Reembolsos pendientes <span class="badge">{{sizeof(comContabilidad::Reembolsos())}}</span></a>
 	@endif
-	@if(Seguridad::ListarCatalogoContable() || Seguridad::ListarPeriodosContables() || Seguridad::ListarUnidadesMonetarias() || Seguridad::ListarMotivosDeInventario() || Seguridad::ListarConceptosDeTransaccionesAutomaticas())
+	@if(Seguridad::ListarCatalogoContables() || Seguridad::ListarPeriodosContables() || Seguridad::ListarUnidadesMonetarias() || Seguridad::ListarMotivosDeInventario() || Seguridad::ListarConceptosDeTransaccionesAutomaticas())
 	<a href="{{URL::to('contabilidad/configuracion')}}" class="btn btn-default btn-lg btn-block">
 	<span class="glyphicon glyphicon-cog"></span><br>Configuracion</a>
 	@endif
