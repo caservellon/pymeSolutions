@@ -34,11 +34,17 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Compras <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							@if((Seguridad::indexSC()) || (Seguridad::indexImprimirSC()))
 							<li><a href="/Compras/SolicitudCotizacion">Solicitudes de Cotización</a></li>
+							@endif
+							@if((Seguridad::VistaMenuCotizaciones()) || (Seguridad::VistaTodasCotizaciones()) || (Seguridad::VistaHabilitarInhabilitar()))
 							<li><a href="/Compras/Cotizaciones">Cotizaciones</a></li>
+							@endif
+							@if((Seguridad::indexOC()) || (Seguridad::indexImprimirOC()) || (Seguridad::ListarAutorizarOrdenCompra()) || (Seguridad::ListaAdministrarOrdenCompra()) || (Seguridad::ListarPagoOrdenCompra()) || (Seguridad::VerPlanPagoOrdenCompra()) || (Seguridad::ListarHistorialOrdenes()) || (Seguridad::ListaDevolucionCompras()))
 							<li><a href="/Compras/OrdenCompra" >Ordenes de Compras</a></li>
+							@endif
+							@if((Seguridad::indexCampoLocal()) || (Seguridad::NuevoEstadoOrden()) || (Seguridad::IndexEstadoorden()) || (Seguridad::NuevaTransicionEstado()) || (Seguridad::ModificarTransicionesEstado()))
 							<li class="divider"></li>
-							@if(Seguridad::indexCampoLocal())
 							<li><a href="/Compras">Configuración</a></li>
 							@endif
 							
@@ -162,7 +168,7 @@
 							<li><a href="{{ URL::to('Auth/Roles') }}">Roles</a></li>
 							<li><a href="#">Logs</a></li>
 							<li class="divider"></li>
-							<li><a href="#">Configuración</a></li>
+							<li><a href="{{URL::to('Auth/Configuracion') }}">Configuración</a></li>
 						</ul>
 					</li>
 
@@ -182,9 +188,11 @@
 		</div>
 		<script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>
 		<script src="<?php public_path(); ?>/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/assets/javascript/pwstrength-bootstrap-1.1.2.js"></script>
 		<script src="/assets/javascript/script.js"></script>
 		<script src="/assets/javascript/jquery.simple-dtpicker.js"></script>
 		<script type="text/javascript" src="/assets/javascript/jquery-ui.js"></script>
+
 	</body>
 		 
 	@yield('contabilidad_scripts')
