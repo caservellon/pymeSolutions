@@ -21,9 +21,12 @@ class FormaPagosController extends BaseController {
 	 */
 	public function index()
 	{
-		$FormaPagos = $this->FormaPago->all();
-
-		return View::make('FormaPagos.index', compact('FormaPagos'));
+		if (Seguridad::listarFormaPago()) {
+			$FormaPagos = $this->FormaPago->all();
+			return View::make('FormaPagos.index', compact('FormaPagos'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -33,7 +36,12 @@ class FormaPagosController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('FormaPagos.create');
+
+		if (Seguridad::crearFormaPago()) {
+			return View::make('FormaPagos.create');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -43,21 +51,22 @@ class FormaPagosController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, FormaPago::$rules);
 
-		if ($validation->passes())
-		{
-			$this->FormaPago->create($input);
-
-			return Redirect::route('Inventario.FormaPagos.index');
+		if (Seguridad::crearFormaPago()) {
+			$input = Input::all();
+			$validation = Validator::make($input, FormaPago::$rules);
+			if ($validation->passes())
+			{
+				$this->FormaPago->create($input);
+				return Redirect::route('Inventario.FormaPagos.index');
+			}
+			return Redirect::route('Inventario.FormaPagos.create')
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Inventario.FormaPagos.create')
-
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -68,9 +77,12 @@ class FormaPagosController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$FormaPago = $this->FormaPago->findOrFail($id);
-
-		return View::make('FormaPagos.show', compact('FormaPago'));
+		if (Seguridad::listarFormaPago()) {
+			$FormaPago = $this->FormaPago->findOrFail($id);
+			return View::make('FormaPagos.show', compact('FormaPago'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -81,15 +93,17 @@ class FormaPagosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$FormaPago = $this->FormaPago->find($id);
 
-		if (is_null($FormaPago))
-		{
-			return Redirect::route('Inventario.FormaPagos.index');
-
+		if (Seguridad::editarFormaPago()) {
+			$FormaPago = $this->FormaPago->find($id);
+			if (is_null($FormaPago))
+			{
+				return Redirect::route('Inventario.FormaPagos.index');
+			}
+			return View::make('FormaPagos.edit', compact('FormaPago'));
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return View::make('FormaPagos.edit', compact('FormaPago'));
 	}
 
 	/**
@@ -100,24 +114,22 @@ class FormaPagosController extends BaseController {
 	 */
 	public function update($id)
 	{
-
-		$input = Input::except('_method');
-
-		$validation = Validator::make($input, FormaPago::$rules);
-
-		if ($validation->passes())
-		{
-			$FormaPago = $this->FormaPago->find($id);
-			$FormaPago->update($input);
-
-			return Redirect::route('Inventario.FormaPagos.index', $id);
+		if (Seguridad::editarFormaPago()) {
+			$input = Input::except('_method');
+			$validation = Validator::make($input, FormaPago::$rules);
+			if ($validation->passes())
+			{
+				$FormaPago = $this->FormaPago->find($id);
+				$FormaPago->update($input);
+				return Redirect::route('Inventario.FormaPagos.index', $id);
+			}
+			return Redirect::route('Inventario.FormaPagos.edit', $id)
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Inventario.FormaPagos.edit', $id)
-
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -128,9 +140,12 @@ class FormaPagosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->FormaPago->find($id)->delete();
-
-		return Redirect::route('Inventario.FormaPagos.index');
+		if (Seguridad::listarFormaPago()) {
+			$this->FormaPago->find($id)->delete();
+			return Redirect::route('Inventario.FormaPagos.index');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	public function returnUser()

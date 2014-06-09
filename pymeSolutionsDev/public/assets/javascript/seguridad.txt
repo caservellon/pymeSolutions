@@ -1,0 +1,85 @@
+Seguridad
+Este documento tiene como objetivo mostrar el uso del modulo de Seguridad en la aplicación.
+
+La implementación es una combinación de la seguridad de Laravel como la implementación de roles de nuestra parte.
+
+Contenido:
+
+Clase de usuario autenticado Auth::user()
+Validación de Roles con Seguridad::accion()
+Redirección al 403 Forbidden
+Protección de Rutas con before
+Conclusión
+Clase a Usuario Autenticado
+
+Cuando un usuario esta autenticado en el sistema, se podrá acceder mediante el Scope Resolution Operator y la clase Auth.
+
+Para acceder a la información del usuario utilizar:
+
+Auth::user()
+Para acceder a información mas especifica utilizar:
+
+Auth::user()->SEG_Usuarios_Email
+Auth::user()->SEG_Usuarios_Username
+Auth::user()->SEG_Usuarios_Nombre
+Para revisar si un usuario esta navegando el sitio como guest, utilizar:
+
+if (Auth::check())
+{
+    // El usuario esta autenticado ...
+}
+Validación de Roles
+
+Dentro de la aplicación se tiene que tomar en cuenta dos tiempos fundamentales en la validación de un usuario.
+
+Al momento de solicitar una vista.
+Al momento de mandar una acción al backend (salvar, editar, eliminar...).
+Para proteger una vista simplemente protegemos las siguientes funciones en un controlador: index, show, edit. Estas son las funciones que se encargand de la solicitud 'get' de las vistas.
+
+Seguir el siguiente esquema en esas funciones:
+
+Tenemos como ejemplo una funcion index del controlador de Empresas dentro del modulo CRM:
+
+class EmpresasController extends BaseController {
+    public function index() {
+        $Empresas = $this->Empresa->whereNull('CRM_Empresas_Eliminados')->get();
+        return View::make('Empresas.index', compact('Empresas'));
+    }
+}
+Para poder validar que el usuario actual tiene permiso de acceder a ver las empresas, encapsulamos el contenido de la función index de la siguiente manera:
+
+class EmpresasController extends BaseController {
+    public function index() {
+        if(Seguridad::VerEmpresa()){
+            $Empresas = $this->Empresa->whereNull('CRM_Empresas_Eliminados')->get();
+            return View::make('Empresas.index', compact('Empresas'));
+        } else {
+            return Redirect::to('/403');
+        }
+    }
+}
+Notarán que la esencia de la validación es:
+
+if(Seguridad::accion()){
+    return View::make('deseada/vista'));
+} else {
+    return Redirect::to('/403');
+}
+Este mimso proceso funciona para las otras acciones update, store y destroy.
+
+Protección de Rutas
+
+Dentro de los controladores validamos unicamente que el usuario tenga o no permiso para acceder a las funciones.
+
+Para validar que el usuario este autenticado aplicaremos filtros en las rutas:
+
+Route::group(array('prefix' => 'Inventario', 'before' => 'auth'), function()
+{
+    // Usuario autenticado...
+}));
+
+De esta manera evitamos que un usuario no autenticado ingrese a los recursos de Inventario.
+
+Conclusión
+
+Para la una lista de todas las acciones disponibles para la clase Seguridad:: ver el archivo /pymeSolutionsDev/app/libs/Seguridad.php. No hacer ningun cambio a estas funciones. Si se ocupa agregar alguna acción mas, avocarse a su compañero de grupo que trabaja en el modulo de Seguridad, esto es para llevar un control de las reglas que estan y las que se tienen que implementar.

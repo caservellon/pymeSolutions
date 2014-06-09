@@ -5,7 +5,7 @@ class SolicitudCotizacion extends Eloquent {
         protected $table = 'COM_SolicitudCotizacion';
 
 	protected $primaryKey = 'COM_SolicitudCotizacion_IdSolicitudCotizacion';
-        protected $perPage = 10;
+        protected $perPage = 3;
 	public $timestamps = false;
 	public static $rules = array(
 		

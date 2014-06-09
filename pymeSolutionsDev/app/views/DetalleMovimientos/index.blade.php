@@ -4,7 +4,7 @@
 
 <h2 class="sub-header">Historial de Movimientos</h2>
 <div class="btn-agregar">
-<a href="{{{ URL::to('Inventario/DetalleMovimiento') }}}" class="btn btn-sm btn-primary col-md-offset-12"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
+<a href="{{{ URL::to('Inventario/Productos/historial') }}}" class="btn btn-sm btn-primary col-md-offset-12"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
 </div>
 
 
@@ -15,7 +15,7 @@
 {{ Form::text('FechaFin', null,  array('class' => 'col-md-3', 'form-control', 'id' => 'FechaFin', 'placeholder'=>'Dia/Mes/Ano')) }}
 {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
 {{ Form::hidden('INV_DetalleMovimiento_IDProducto', $DetalleMovimientos[0]->INV_DetalleMovimiento_IDProducto) }}
-{{ Form::close() }}
+{{ Form::close() }} 
 
 <br /> 
 <div class="detalle-movi"></div>

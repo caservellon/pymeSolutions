@@ -21,38 +21,44 @@ class ProductosController extends BaseController {
 	 */
 	public function index()
 	{
-		$Productos = $this->Producto->all();
-		
-		return View::make('Productos.index', compact('Productos'));
+		if (Seguridad::listarProducto()) {
+			$Productos = $this->Producto->all();
+			return View::make('Productos.index', compact('Productos'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	public function index2()
 	{
-		$Productos = $this->Producto->all();
-		
-		return View::make('Productos.historial', compact('Productos'));
+		if (Seguridad::listarProducto()) {
+			$Productos = $this->Producto->all();
+			return View::make('Productos.historial', compact('Productos'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 	
 	public function create()
 	{
-		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
-      	$combobox = $tipos;
 
-      	$padres = DB::table('INV_Categoria')->lists('INV_Categoria_ID', 'INV_Categoria_Nombre');
-      	$hijos = DB::table('INV_Categoria')->lists('INV_Categoria_IDCategoriaPadre', 'INV_Categoria_Nombre');
-
-      	$jpadres = json_encode($padres);
-      	$jhijos = json_encode($hijos);
-
-      	//$results = DB::select('select * from users where id = ?', array(1));
-
-      	$idPadre = Input::get('INV_Categoria_IDCategoriaPadre');
-
-      	//$query = DB::table('INV_Categoria')->where('INV_Categoria_IDCategoriaPadre', '3')->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
-      	//$combobox2 = $query;
-      	$unidad = UnidadMedida::all()->lists('INV_UnidadMedida_Nombre', 'INV_UnidadMedida_ID');
-      	$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		return View::make('Productos.create', compact('combobox', 'horarios', 'unidad', 'jpadres' ,'jhijos'));
+		if (Seguridad::crearProducto()) {
+			$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+	      	$combobox = $tipos;
+	      	$padres = DB::table('INV_Categoria')->lists('INV_Categoria_ID', 'INV_Categoria_Nombre');
+	      	$hijos = DB::table('INV_Categoria')->lists('INV_Categoria_IDCategoriaPadre', 'INV_Categoria_Nombre');
+	      	$jpadres = json_encode($padres);
+	      	$jhijos = json_encode($hijos);
+	      	//$results = DB::select('select * from users where id = ?', array(1));
+	      	$idPadre = Input::get('INV_Categoria_IDCategoriaPadre');
+	      	//$query = DB::table('INV_Categoria')->where('INV_Categoria_IDCategoriaPadre', '3')->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+	      	//$combobox2 = $query;
+	      	$unidad = UnidadMedida::all()->lists('INV_UnidadMedida_Nombre', 'INV_UnidadMedida_ID');
+	      	$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
+			return View::make('Productos.create', compact('combobox', 'horarios', 'unidad', 'jpadres' ,'jhijos'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -62,47 +68,46 @@ class ProductosController extends BaseController {
 	 */
 	public function store()
 	{
-
-		$input = Input::all();
-		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->get();
-		$res = Producto::$rules;
-
-		foreach ($campos as $campo) {
-			$val = '';
-			if ($campo->GEN_CampoLocal_Requerido) {
-				$val = $val.'Required|';
-			}
-			switch ($campo->GEN_CampoLocal_Tipo) {
-				case 'TXT':
-					$val = $val.'alpha_spaces|';
-					break;				
-				case 'INT':
-					$val = $val.'Integer|';
-					break;
-				case 'FLOAT':
-					$val = $val.'Numeric|';
-					break;				
-				default:
-					break;
-			}
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
-		}
-
-		$validation = Validator::make($input, $res);
-
-		if ($validation->passes())
-		{
-			$produ = $this->Producto->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->lists('GEN_CampoLocal_Codigo')));
+		if (Seguridad::crearProducto()) {
+			$input = Input::all();
+			$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->get();
+			$res = Producto::$rules;
 			foreach ($campos as $campo) {
-				DB::table('INV_Producto_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'INV_Producto_ID' => $produ->INV_Producto_ID));
+				$val = '';
+				if ($campo->GEN_CampoLocal_Requerido) {
+					$val = $val.'Required|';
+				}
+				switch ($campo->GEN_CampoLocal_Tipo) {
+					case 'TXT':
+						$val = $val.'alpha_spaces|';
+						break;				
+					case 'INT':
+						$val = $val.'Integer|';
+						break;
+					case 'FLOAT':
+						$val = $val.'Numeric|';
+						break;				
+					default:
+						break;
+				}
+				$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
 			}
-			return Redirect::route('Inventario.Productos.index');
+			$validation = Validator::make($input, $res);
+			if ($validation->passes())
+			{
+				$produ = $this->Producto->create(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->lists('GEN_CampoLocal_Codigo')));
+				foreach ($campos as $campo) {
+					DB::table('INV_Producto_CampoLocal')->insertGetId(array('GEN_CampoLocal_GEN_CampoLocal_ID' => $campo->GEN_CampoLocal_ID,'INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo), 'INV_Producto_ID' => $produ->INV_Producto_ID));
+				}
+				return Redirect::route('Inventario.Productos.index');
+			}
+			return Redirect::route('Inventario.Productos.create')
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Inventario.Productos.create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -113,18 +118,19 @@ class ProductosController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$Producto = $this->Producto->findOrFail($id);
-
-		return View::make('Productos.show', compact('Producto'));
+		if (Seguridad::listarProducto()) {
+			$Producto = $this->Producto->findOrFail($id);
+			return View::make('Productos.show', compact('Producto'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
-	public function search_index(){
-
+	public function search_index()
+	{
 		try{
-			
 			$Productos = Producto::where('INV_Producto_Nombre', 'like', '%'.Input::get('search').'%') ->get();
 			return View::make('Productos.index', compact('Productos'));
-
 		}catch(Exception $e){
 			return View::make('Productos.index', compact('Productos'));
 		}
@@ -163,18 +169,21 @@ class ProductosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$Producto = $this->Producto->find($id);
-		$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
-      	$combobox = $tipos;
-      	$unidad = UnidadMedida::all()->lists('INV_UnidadMedida_Nombre', 'INV_UnidadMedida_ID');
-      	$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
-		
-		if (is_null($Producto))
-		{
-			return Redirect::route('Inventario.Productos.index', compact('combobox', 'horarios', 'unidad'));
-		}
 
-		return View::make('Productos.edit', compact('Producto', 'combobox', 'horarios', 'unidad'));
+		if (Seguridad::editarProducto()) {
+			$Producto = $this->Producto->find($id);
+			$tipos = Categoria::all()->lists('INV_Categoria_Nombre', 'INV_Categoria_ID');
+	      	$combobox = $tipos;
+	      	$unidad = UnidadMedida::all()->lists('INV_UnidadMedida_Nombre', 'INV_UnidadMedida_ID');
+	      	$horarios = Horario::all()->lists('INV_Horario_Nombre', 'INV_Horario_ID');
+			if (is_null($Producto))
+			{
+				return Redirect::route('Inventario.Productos.index', compact('combobox', 'horarios', 'unidad'));
+			}
+			return View::make('Productos.edit', compact('Producto', 'combobox', 'horarios', 'unidad'));
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -185,49 +194,50 @@ class ProductosController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->get();
-		$res = Producto::$rules;
 
-		foreach ($campos as $campo) {
-			$val = '';
-			if ($campo->GEN_CampoLocal_Requerido) {
-				$val = $val.'Required|';
-			}
-			switch ($campo->GEN_CampoLocal_Tipo) {
-				case 'TXT':
-					$val = $val.'alpha_spaces|';
-					break;				
-				case 'INT':
-					$val = $val.'Integer|';
-					break;
-				case 'FLOAT':
-					$val = $val.'Numeric|';
-					break;				
-				default:
-					break;
-			}
-			$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
-		}
-
-		$validation = Validator::make($input, $res);
-
-		if ($validation->passes())
-		{
-			$Producto = $this->Producto->find($id);
-			$Producto->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->lists('GEN_CampoLocal_Codigo')));
+		if (Seguridad::editarProducto()) {
+			$input = array_except(Input::all(), '_method');
+			$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->get();
+			$res = Producto::$rules;
 			foreach ($campos as $campo) {
-				if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 ) {
-				    DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->update(array('INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+				$val = '';
+				if ($campo->GEN_CampoLocal_Requerido) {
+					$val = $val.'Required|';
 				}
+				switch ($campo->GEN_CampoLocal_Tipo) {
+					case 'TXT':
+						$val = $val.'alpha_spaces|';
+						break;				
+					case 'INT':
+						$val = $val.'Integer|';
+						break;
+					case 'FLOAT':
+						$val = $val.'Numeric|';
+						break;				
+					default:
+						break;
+				}
+				$res = array_merge($res,array($campo->GEN_CampoLocal_Codigo => $val));
 			}
-			return Redirect::route('Inventario.Productos.index', $id);
+			$validation = Validator::make($input, $res);
+			if ($validation->passes())
+			{
+				$Producto = $this->Producto->find($id);
+				$Producto->update(Input::except(DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRD%')->lists('GEN_CampoLocal_Codigo')));
+				foreach ($campos as $campo) {
+					if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 ) {
+					    DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->update(array('INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
+					}
+				}
+				return Redirect::route('Inventario.Productos.index', $id);
+			}
+			return Redirect::route('Inventario.Productos.edit', $id)
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
 		}
-
-		return Redirect::route('Inventario.Productos.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -239,18 +249,19 @@ class ProductosController extends BaseController {
 	public function destroy($id)
 	{
 		
- 		$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'LIKE', 'INV_PRD%')->get();
- 		$Producto = $this->Producto->find($id);
- 
- 		foreach ($campos as $campo) {
- 			if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 ) {
- 			    DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->delete();
- 			}
- 		}
- 
- 		$Producto->delete();
-
-		return Redirect::route('Inventario.Productos.index');
+		if (Seguridad::eliminarProducto()) {
+			$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'LIKE', 'INV_PRD%')->get();
+	 		$Producto = $this->Producto->find($id);
+	 		foreach ($campos as $campo) {
+	 			if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 ) {
+	 			    DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->delete();
+	 			}
+	 		}
+	 		$Producto->delete();
+			return Redirect::route('Inventario.Productos.index');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	public function returnUser()

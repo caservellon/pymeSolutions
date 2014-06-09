@@ -27,11 +27,7 @@ class CotizacionController extends BaseController {
 	}
 	
 	public function VistaCapturarCotizacionCapturarMensajeCotizacionCapturada(){
-		if(Seguridad::VCCCMCC()){
 			return View::make('COM_Cotizacion.MensajeCotizacionCapturada');
-		}else{
-            return Redirect::to('/403');
-        }
 	}
 	
 	public function VistaTodasCotizaciones(){
@@ -59,11 +55,9 @@ class CotizacionController extends BaseController {
 	}
 	
 	public function VistaHabilitarInhabilitarMensajeEstadoCotizacionCambiado(){
-		if(Seguridad::VHIMECC()){
+		
 			return View::make('COM_Cotizacion.MensajeEstadoCotizacionCambiado');
-		}else{
-            return Redirect::to('/403');
-        }
+		
 	}
 	
 	public function CapturarCotizacion(){

@@ -8,7 +8,7 @@
 	<a type="button" href="{{ URL::route('Inventario.Productos.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Producto
 	</a>
-	<a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
+	<a href="{{{ URL::to('Inventario/Productos/historial') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
 </div>
 
 {{ Form::open(array('route' => 'Productos.search_index2')) }}

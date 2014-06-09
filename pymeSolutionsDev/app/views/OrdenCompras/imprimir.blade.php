@@ -15,13 +15,14 @@
             <div class="row">
     <div class="col-md-4 " ></div>
     <div class="col-md-4 " style="text-align: center">
-        <h2> Orden de Compra</h2>
-        <h5>Empresa X S.A.</h5>
-        <h5>Colonia la America, Tegucigalpa,Francisco Morazán</h5>
-        <h5>Honduras C.A.</h5>
+        <?php $perfil = DB::table('SEG_Config')->first();?>
+            <h2>Orden de Compra</h2>
+            <h5>{{$perfil->SEG_Config_NombreEmpresa}}</h5>
+            <h5>{{$perfil->SEG_Config_Direccion}}</h5>
+            <h5>Honduras C.A.</h5>
     </div>
     <div class="col-md-4 " style="text-align: right">
-        <h5 >Tel.2234-9000 Fax.2234-9000</h5>
+        <h5 >{{$perfil->SEG_Config_Telefono.' '.$perfil->SEG_Config_Telefono2}}</h5>
     </div>
     </div>
             <div class="row">

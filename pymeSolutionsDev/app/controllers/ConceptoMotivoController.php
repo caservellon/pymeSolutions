@@ -17,11 +17,18 @@ class ConceptoMotivoController extends BaseController {
 
 	public function index()
 	{
-		$conceptos = ConceptoMotivo::all();
-		$Motiv     = MotivoTransaccion::all();
-        return View::make('ConceptoMotivo.index')
-        -> with('ConceptoMotivos',$conceptos)
-        -> with('Moti',$Motiv);
+
+		if (Seguridad::listarMotivoMovimientoInventario()) {
+			$conceptos = ConceptoMotivo::all();
+			$Motiv     = MotivoTransaccion::all();
+	        return View::make('ConceptoMotivo.index')
+	        -> with('ConceptoMotivos',$conceptos)
+	        -> with('Moti',$Motiv);
+		} else {
+			return Redirect::to('/403');
+		}
+
+		
     }
 
 	/**
@@ -31,13 +38,18 @@ class ConceptoMotivoController extends BaseController {
 	 */
 	public function create()
 	{
-	   $Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
-      	$Periodo=false;
-      	if(ClasificacionPeriodo::all()->count())
-      		$Periodo=true;
-       return View::make('ConceptoMotivo.create')
-       		->with('Motivos',$Motivos)
-       		->with('PeriodoContable',$Periodo);
+		if (Seguridad::crearMotivoMovimientoInventario()) {
+			$Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+	      	$Periodo=false;
+	      	if(ClasificacionPeriodo::all()->count())
+	      		$Periodo=true;
+	       return View::make('ConceptoMotivo.create')
+	       		->with('Motivos',$Motivos)
+	       		->with('PeriodoContable',$Periodo);
+		} else {
+			return Redirect::to('/403');
+		}
+	   
 	}
 
 	/**
@@ -121,22 +133,25 @@ class ConceptoMotivoController extends BaseController {
 
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, ConceptoMotivo::$rules);
 
-		if ($validation->passes())
-		{
-			//$input['CON_ConceptoMotivo_FechaCreacion']= date('Y-m-d');
-			//$input['CON_ConceptoMotivo_FechaModificacion'] =date('Y-m-d');
-			$this->ConceptoMotivo->create($input);
+		if (Seguridad::crearMotivoMovimientoInventario()) {
+			$input = Input::all();
+			$validation = Validator::make($input, ConceptoMotivo::$rules);
+			if ($validation->passes())
+			{
+				//$input['CON_ConceptoMotivo_FechaCreacion']= date('Y-m-d');
+				//$input['CON_ConceptoMotivo_FechaModificacion'] =date('Y-m-d');
+				$this->ConceptoMotivo->create($input);
 
-			return Redirect::action('ConceptoMotivoController@index');
-		}
-
-		return Redirect::action('ConceptoMotivoController@create')
+				return Redirect::action('ConceptoMotivoController@index');
+			}
+			return Redirect::action('ConceptoMotivoController@create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -147,7 +162,11 @@ class ConceptoMotivoController extends BaseController {
 	 */
 	public function show($id)
 	{
-        return View::make('Asientos.show');
+		if (Seguridad::listarMotivoMovimientoInventario()) {
+			return View::make('Asientos.show');
+		} else {
+			return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -158,16 +177,22 @@ class ConceptoMotivoController extends BaseController {
 	 */
 	public function edit($id)
 	{
-        $CM = $this->ConceptoMotivo->find($id);
-        $MT = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
-        //return $MT;
-		if (is_null($CM))
-		{
-			return Redirect::action('ConceptoMotivoController@index');
+
+		if (Seguridad::editarMotivoMovimientoInventario()) {
+			$CM = $this->ConceptoMotivo->find($id);
+	        $MT = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+	        //return $MT;
+			if (is_null($CM))
+			{
+				return Redirect::action('ConceptoMotivoController@index');
+			}
+	        return View::make('ConceptoMotivo.edit')
+	        	->with('ConceptoMotivos',$CM)
+	        	->with('ListaMotivos',$MT);
+		} else {
+			return Redirect::to('/403');
 		}
-        return View::make('ConceptoMotivo.edit')
-        	->with('ConceptoMotivos',$CM)
-        	->with('ListaMotivos',$MT);
+        
 	}
 
 	/**
@@ -178,24 +203,27 @@ class ConceptoMotivoController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$Concepto = ConceptoMotivo::findOrFail($id);
-		$var = $Concepto->CON_ConceptoMotivo_Concepto;
-		$rules=str_replace(":Concepto", $var, ConceptoMotivo::$rules);
-		//return $rules;
-		$validation = Validator::make($input, $rules);
 
-		if ($validation->passes())
-		{
-			$Concepto->update($input);
+		if (Seguridad::editarMotivoMovimientoInventario()) {
+			$input = array_except(Input::all(), '_method');
+			$Concepto = ConceptoMotivo::findOrFail($id);
+			$var = $Concepto->CON_ConceptoMotivo_Concepto;
+			$rules=str_replace(":Concepto", $var, ConceptoMotivo::$rules);
+			//return $rules;
+			$validation = Validator::make($input, $rules);
+			if ($validation->passes())
+			{
+				$Concepto->update($input);
 
-			return Redirect::action('ConceptoMotivoController@index');
-		}
-
-		return Redirect::action('ConceptoMotivoController@edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');//
+				return Redirect::action('ConceptoMotivoController@index');
+			}
+			return Redirect::action('ConceptoMotivoController@edit', $id)
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');//
+			} else {
+				return Redirect::to('/403');
+			}
 	}
 
 	/**

@@ -83,7 +83,7 @@
 						@endif
                                         @if($editars->COM_SolicitudCotizacion_Recibido == 1)
                                         
-					<td style="visibility:hidden">{{ link_to_route('Compras.SolicitudCotizacions.edit', 'Editar', array($editars->COM_SolicitudCotizacion_IdSolicitudCotizacion),array('class' => 'btn btn-info')) }}</td>
+					<td></td>
 					@else
                                         <td>{{ link_to_route('Compras.SolicitudCotizacions.edit', 'Editar', array($editars->COM_SolicitudCotizacion_IdSolicitudCotizacion),array('class' => 'btn btn-info')) }}</td>
                                         @endif
