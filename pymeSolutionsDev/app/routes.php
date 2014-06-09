@@ -380,7 +380,7 @@ Route::group(array('prefix' => 'Compras', 'before' => 'auth'), function(){
 
 
 
-Route::group(array('prefix' => 'contabilidad'),function(){
+Route::group(array('prefix' => 'contabilidad', 'before' => 'auth'),function(){
 			Route::get('/',array('as'=>'con.principal' ,'uses'=>function ()
 			{
 
