@@ -54,4 +54,10 @@
 
 			return View::make('EstadosFinancieros._balance', compact('BalanceGeneral',"CuentasT"));
 	    }
+
+	    public function libromayor(){
+	    	$LibroMayor = DB::select(DB::raw('CALL CON_BalanzaComprobacion(?)'),array(Input::get('id')));
+        			return View::make('EstadosFinancieros._libromayor')
+        			->with('Libro',$LibroMayor);
+	    }
 	}
