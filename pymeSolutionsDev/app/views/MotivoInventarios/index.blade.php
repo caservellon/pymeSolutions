@@ -2,10 +2,11 @@
 
 @section('main')
 
-<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Motivos de Inventario</small></h2>
+<h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración > <small>Motivos de Inventario</small></h2>
 
 <div class="pull-right">
-    <a href="{{{ URL::to('contabilidad/configuracion') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+    <a href="{{{ URL::to('contabilidad/configuracion') }}}" class="btn btn-sm btn-primary">
+    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 </div>
 
 <br>
@@ -20,7 +21,9 @@
 			<th>Tipo Movimiento</th>
 			<th>Observaciones</th>
 			<th>Activo</th>
+			@if(Seguridad::ConfigurarMotivosDeInventario())
 			<th></th>
+			@endif
 		</tr>
 	</thead>	
 <tbody>
@@ -40,8 +43,9 @@
 		@else 
 		<td><span class="glyphicon glyphicon-remove"></td>
 		@endif
+		@if(Seguridad::ConfigurarMotivosDeInventario())
         <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/motivoinventarios/'.$concepto->INV_MotivoMovimiento_ID.'/edit') }}"> Editar</a></td>
-
+        @endif
         @endif
         </tr>
 @endforeach
@@ -56,7 +60,9 @@
 			<th>Tipo Movimiento</th>
 			<th>Observaciones</th>
 			<th>Activo</th>
+			@if(Seguridad::ConfigurarMotivosDeInventario())
 			<th></th>
+			@endif
 		</tr>
 	</thead>	
 <tbody>
@@ -74,8 +80,9 @@
 		@else 
 		<td><span class="glyphicon glyphicon-remove"></td>
 		@endif
+		@if (Seguridad::ConfigurarMotivosDeInventario())
         <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/motivoinventarios/'.$concepto->INV_MotivoMovimiento_ID.'/edit') }}"> Editar</a></td>
-
+        @endif
         @endif
         </tr>
 @endforeach

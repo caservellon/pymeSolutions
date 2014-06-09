@@ -6,7 +6,8 @@
       <h3 class="pull-left">Catalogo Contable &gt; <small>Nueva Subcuenta</small></h3>
       <div class="pull-right">
 
-        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+        <a href="{{{ URL::to('contabilidad/configuracion/catalogocuentas') }}}" class="btn btn-sm btn-primary">
+        <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
       </div>
 </div>
 

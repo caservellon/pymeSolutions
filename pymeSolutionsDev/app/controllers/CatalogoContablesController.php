@@ -21,7 +21,7 @@ class CatalogoContablesController extends BaseController {
 	 */
 	public function index()
 	{
-		if (Seguridad::ListarCatalogoContable()) {
+		if (Seguridad::ListarCatalogoContables()) {
 		//Contabilidad::GenerarTransaccion(1,500);
 
 		$Catalogo = $this->CatalogoContable	->orderby('CON_CatalogoContable_Codigo')
@@ -88,19 +88,6 @@ class CatalogoContablesController extends BaseController {
 	}
 
 	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$CatalogoContable = $this->CatalogoContable->findOrFail($id);
-
-		return View::make('CatalogoContables.show', compact('CatalogoContable'));
-	}
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
@@ -163,6 +150,7 @@ class CatalogoContablesController extends BaseController {
 		}
 	}
 
+// **********************************************************************
 	public function cambiarestado($id,$estado)
 	{
 		//	$id=$array['id'];
@@ -205,22 +193,5 @@ class CatalogoContablesController extends BaseController {
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');*/
 	}
-
-
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	/*
-	public function destroy($id)
-	{
-		$this->CatalogoContable->find($id)->delete();
-
-		return Redirect::route('CatalogoContables.index');
-	}*/
 
 }

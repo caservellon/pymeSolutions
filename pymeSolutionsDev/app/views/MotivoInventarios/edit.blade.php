@@ -6,7 +6,8 @@
 
 
 <div class="pull-right">
-    <a href="{{{ URL::to('contabilidad/configuracion/motivoinventarios') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+    <a href="{{{ URL::to('contabilidad/configuracion/motivoinventarios') }}}" class="btn btn-sm btn-primary">
+    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 </div>
 {{ Form::model($MotivoInventario, array('class' => 'form-horizontal', 'action' => array('MotivoInventariosController@update', $MotivoInventario->CON_MotivoInventario_ID), 'method' => 'PUT')) }}         
 
