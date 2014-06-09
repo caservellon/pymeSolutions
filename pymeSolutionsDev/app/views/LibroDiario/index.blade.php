@@ -2,16 +2,11 @@
 
 @section('main')
 
-<div class="page-header" style="padding-top:1%;">
+<div class="page-header">
 	<div class="row">
-		<div class="col-sm-10">
-		      <h3 class="pull-lef">LibroDiario &gt; <small>Ver Asientos</small></h3>
-		</div>
+		      <h2 class="pull-lef">Libro Diario &gt; <small>Ver Asientos</small> <a href="{{{ URL::to('contabilidad') }}}" class="btn btn-sm btn-primary pull-right">
+		        	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
 		
-		<div class="col-sm-2">
-		        <a href="{{{ URL::to('contabilidad') }}}" class="btn btn-sm btn-primary">
-		        	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
-		</div>
 	</div>
 </div>
 

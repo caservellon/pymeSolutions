@@ -468,6 +468,7 @@ Route::group(array('prefix' => 'contabilidad'),function(){
 				Route::post('balanzacomprobacion',array('as'=>'con.balanza','uses'=>'EstadosFinancierosController@balanza'));
 				Route::post('estadoresultados',array('as'=>'con.estado','uses'=>'EstadosFinancierosController@estado'));
 				Route::post('balancegeneral',array('as'=>'con.balance','uses'=>'EstadosFinancierosController@balance'));
+				Route::post('libromayor',array('as'=>'con.libromayor','uses'=>'EstadosFinancierosController@libromayor'));
 			});
 
 	});

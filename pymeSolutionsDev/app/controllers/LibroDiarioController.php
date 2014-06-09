@@ -4,7 +4,7 @@ class LibroDiarioController extends BaseController {
 	
 	public function index()
 	{
-		$nPag=10;
+		$nPag=3;
 		if(Request::Ajax()){
 			$LibroDiario = LibroDiario::where('CON_LibroDiario_FechaCreacion','>=',Input::get('date1'))
 				->where('CON_LibroDiario_FechaCreacion','<=',Input::get('date2'))

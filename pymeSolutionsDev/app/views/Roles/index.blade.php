@@ -24,12 +24,19 @@
                 <tr>
 					<td>{{{ $Role->SEG_Roles_ID }}}</td>
 					<td>{{{ $Role->SEG_Roles_Nombre }}}</td>
+          @if ($Role->SEG_Roles_Nombre != "Administrator")
                     <td>{{ link_to_route('Auth.Roles.edit', 'Editar', array($Role->SEG_Roles_ID), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Auth.Roles.destroy', $Role->SEG_Roles_ID))) }}
                             {{ Form::submit('Desactivar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
+            @else
+              <td><button class="btn btn-info" disabled>Editar</button></td>
+                    <td>
+                        <button class="btn btn-danger" disabled>Desactivar</button>
+                    </td>
+            @endif
 				</tr>
                 @endforeach
               </tbody>
