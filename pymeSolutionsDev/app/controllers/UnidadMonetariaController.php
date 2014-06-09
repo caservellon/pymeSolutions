@@ -18,8 +18,12 @@ class UnidadMonetariaController extends BaseController {
 
 	public function index()
 	{
-		$unidadmonetarias = $this->UnidadMonetaria->all();
-        return View::make('unidadmonetarias.index',compact('unidadmonetarias'));
+		if (Seguridad::ListarUnidadesMonetarias()) {
+			$unidadmonetarias = $this->UnidadMonetaria->all();
+        	return View::make('unidadmonetarias.index',compact('unidadmonetarias'));
+        }else{
+				return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -29,7 +33,11 @@ class UnidadMonetariaController extends BaseController {
 	 */
 	public function create()
 	{
-        return View::make('unidadmonetarias.create');
+		if (Seguridad::AgregarUnidadesMonetarias()) {
+			return View::make('unidadmonetarias.create');
+		}else{
+				return Redirect::to('/403');
+		}
 	}
 
 	/**
@@ -39,40 +47,24 @@ class UnidadMonetariaController extends BaseController {
 	 */
 	public function store()
 	{
-		$input = Input::all();
-		$validation = Validator::make($input, UnidadMonetaria::$rules);
+		if (Seguridad::AgregarUnidadesMonetarias()) {
+			$input = Input::all();
+			$validation = Validator::make($input, UnidadMonetaria::$rules);
 
-		if ($validation->fails())
-		{
-			return Redirect::action('UnidadMonetariaController@create')
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
+			if ($validation->fails())
+			{
+				return Redirect::action('UnidadMonetariaController@create')
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+			}else{
+				$this->UnidadMonetaria->create($input);
+
+				return Redirect::action('UnidadMonetariaController@index');
+			}
 		}else{
-			$this->UnidadMonetaria->create($input);
-
-			return Redirect::action('UnidadMonetariaController@index');
-		}
-
-		
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$UM = $this->UnidadMonetaria->find($id);
-
-		if (is_null($UM))
-		{
-			return Redirect::action('UnidadMonetariaController@index');
-		}
-
-         return Redirect::action('UnidadMonetariaController@index');
+				return Redirect::to('/403');
+		}	
 	}
 
 	/**
@@ -83,14 +75,18 @@ class UnidadMonetariaController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		$UM = $this->UnidadMonetaria->find($id);
+		if (Seguridad::EditarUnidadesMonetarias()) {
+			$UM = $this->UnidadMonetaria->find($id);
 
-		if (is_null($UM))
-		{
-			return Redirect::action('UnidadMonetariaController@index');
+			if (is_null($UM))
+			{
+				return Redirect::action('UnidadMonetariaController@index');
+			}
+	        return View::make('unidadmonetarias.edit')
+	        	->with('UnidadMonetaria',$UM);
+        }else{
+				return Redirect::to('/403');
 		}
-        return View::make('unidadmonetarias.edit')
-        	->with('UnidadMonetaria',$UM);
     }
 
 	/**
@@ -101,32 +97,25 @@ class UnidadMonetariaController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, UnidadMonetaria::$rules);
+		if (Seguridad::EditarUnidadesMonetarias()) {
+			$input = array_except(Input::all(), '_method');
+			$validation = Validator::make($input, UnidadMonetaria::$rules);
 
-		if ($validation->passes())
-		{
-			$Caja = $this->UnidadMonetaria->find($id);
-			$Caja->update($input);
+			if ($validation->passes())
+			{
+				$Caja = $this->UnidadMonetaria->find($id);
+				$Caja->update($input);
 
-			return Redirect::action('UnidadMonetariaController@show', $id);
+				return Redirect::action('UnidadMonetariaController@show', $id);
+			}
+
+			return Redirect::action('UnidadMonetariaController@edit', $id)
+				->withInput()
+				->withErrors($validation)
+				->with('message', 'There were validation errors.');
+		}else{
+				return Redirect::to('/403');
 		}
-
-		return Redirect::action('UnidadMonetariaController@edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
 	}
 
 }
