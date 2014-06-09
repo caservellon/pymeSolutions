@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	</div>
-
+@if($OrdenesPago->count())
 	<div>
 		<table class="table table-striped table-bordered">
 		<thead>
@@ -24,7 +24,9 @@
 			<th>Forma de Pago</th>
 			<th>Fecha limite de pago</th>
 			<th>Total</th>
+			@if(Seguridad::RealizarPagos())
 			<th>Accion</th>
+			@endif
 		</tr>
 		</thead>
 		<tbody>
@@ -41,15 +43,20 @@
 				<td> {{ $var['Nombre'] }}</td>
 				<td> {{date('Y-m-d',strtotime($key->COM_OrdenCompra_FechaPagar))}} </td>
 				<td> {{$key->COM_OrdenCompra_Monto}}</td>
+				@if(Seguridad::RealizarPagos())
 				<td>
 					<button id="{{$idop}}" class="pago btn btn-success">
 						Pagar <i class="glyphicon glyphicon-hand-up"></i></button> 
 				</td>
+				@endif
 			</tr>
 			@endforeach									
 		</tbody>
 		</table>
 	</div>
+@else
+<p>No hay Pagos a Realizar</p>
+@endif
 
 @stop
 

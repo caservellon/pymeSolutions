@@ -691,7 +691,7 @@
 		}
 
 		public static function VerReembolsos(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CON_VerReembolsos;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CON_VerReembolso;
 		}
 
 		public static function RealizarReembolso(){

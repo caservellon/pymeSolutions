@@ -8,17 +8,20 @@
     <a href="{{{ URL::to('contabilidad/configuracion') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 </div>
 @if (isset($clasi) && $clasi->count())
+@if(Seguridad::Agregarcuenta())
 <div class="btn-agregar">
 	<a type="button" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/create') }}" class="btn btn-success">
 	  <span class="glyphicon glyphicon-plus"></span> Agregar Cuenta
 	</a>
 </div>
-
+@endif
+@if(Seguridad::ListarSubcuentas())
 <div class="btn-agregar">
 	<a type="button" href="{{URL::to('contabilidad/configuracion/subcuentas')}}"  class="btn btn-success">
 	  <span class="glyphicon glyphicon-list"></span> Listar Subcuenta
 	</a>
 </div>
+@endif
 @foreach ($clasi as $unidad)
 				<tr>
 					<h3>{{{ $unidad->CON_ClasificacionCuenta_Nombre }}}</h3>
@@ -32,7 +35,9 @@
 							<th>Usuario Creacion</th>
 							<th>Naturaleza Saldo</th>
 							<th>Estado</th>
+							@if(Seguridad::EditarCuenta())
 							<th>Accion</th>
+							@endif
 						</tr>
 					</thead>
 
@@ -53,7 +58,7 @@
 					@else 
 					<td><span class="glyphicon glyphicon-remove"></td>
 					@endif
-					@if ($CatalogoContable->CON_CatalogoContable_EnUso == 0)
+					@if ($CatalogoContable->CON_CatalogoContable_EnUso == 0 && Seguridad::EditarCuenta())
                     <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/'.$CatalogoContable->CON_CatalogoContable_ID.'/edit') }}"> Editar</a></td>
                     @endif
 				</tr>

@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	</div>
-
+@if($Reembolsos->count())
 	<table class="table table-striped table-bordered">
 		<thead>
 			<th>Proveedor deudor</th>
@@ -28,7 +28,9 @@
 				$reembolso->COM_ReembosoDevolucionCompras_Proveedor); ?>
 				<td>{{ $ProveedorName->INV_Proveedor_Nombre}}</td>
 				<td>{{ $reembolso->COM_ReembosoDevolucionCompras_Monto}} </td>
-				<td><a href="{{URL::route('con.registrarReembolso',$reembolso->COM_ReembosoDevolucionCompras_ID)}}" class="btn btn-success">Marcar recibido</a>
+				@if(Seguridad::RealizarReembolso())
+					<td><a href="{{URL::route('con.registrarReembolso',$reembolso->COM_ReembosoDevolucionCompras_ID)}}" class="btn btn-success">Marcar recibido</a>
+				@endif
 			@endforeach
 
 		</tbody>
@@ -36,5 +38,7 @@
 
 
 	</table>
-
+@else
+<p>No hay Reembolsos Pendientes</p>
+@endif
 @stop

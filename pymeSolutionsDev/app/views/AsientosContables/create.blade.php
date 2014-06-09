@@ -10,9 +10,11 @@
 </div>
 
 @if($PeriodoContable)
+@if(Seguridad::AgregarMotivoAsientosManuales())
 <button id="crearmotivo" class="btn btn-info form-group" data-toggle="modal" data-target="#CrearMotivo">
      <i class="glyphicon glyphicon-plus"></i> Agregar Motivo
     </button>
+@endif
 @include('_messages.errors')
 
 

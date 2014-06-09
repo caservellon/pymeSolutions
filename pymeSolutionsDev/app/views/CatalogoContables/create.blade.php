@@ -46,7 +46,7 @@
             </div>
             </div>
 
-            {{ Form::hidden('CON_CatalogoContable_UsuarioCreacion','Admin') }}
+            {{ Form::hidden('CON_CatalogoContable_UsuarioCreacion',Auth::user()->SEG_Usuarios_Username) }}
             {{ Form::hidden('CON_CatalogoContable_CodigoSubcuenta','00') }}
             
             <div class="col-md-4">

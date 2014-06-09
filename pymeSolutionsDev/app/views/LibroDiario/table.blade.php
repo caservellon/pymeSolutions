@@ -12,7 +12,9 @@
 				<th>Debe</th>
 				<th>Haber</th>
 				<th>Observaciones</th>
+				@if(Seguridad::RevertirAsientosContables())
 				<th>Reversion de Asiento</th>
+				@endif
 			</tr>
 		</thead>
 
@@ -26,14 +28,14 @@
 						<td class="align-right">L. {{{$Libro[0]['monto']}}}</td>
 	                  	<td></td>
 	                  	<td style="vertical-align:middle;" rowspan="2">{{{ $Libro[0]['observacion'] }}}</td>
-	                  	<td style="vertical-align:middle;" rowspan="2">
 	                  	@if (Seguridad::RevertirAsientosContables())
+	                  	<td style="vertical-align:middle;" rowspan="2">
 	                  		@if ($Libro[0]['reversion']==1 || $Libro[0]['revertido']==1)
 	                  			@else
 	                  			<button class="btn btn-primary revertir" id="{{{$Libro[0]['no']}}}">Revertir</button>
 	                  		@endif
-	                  	@endif
 	                  	</td>
+	                  	@endif
 					</tr>
 					<tr class="@if ($flag) {{'active'}} @endif">
 						

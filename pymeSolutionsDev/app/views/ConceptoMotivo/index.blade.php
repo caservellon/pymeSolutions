@@ -15,7 +15,9 @@
 			<tr>
 				<th>Nombre del Concepto</th>
 				<th>Motivo Transaccion</th>
+				@if(Seguridad::EditarConceptosDeTransaccionesAutomaticas())
 				<th>Accion</th>
+				@endif
 			</tr>
 		</thead>
 
@@ -28,7 +30,9 @@
 						<td>{{{ $M->CON_MotivoTransaccion_Descripcion }}}</td>
 						@endif
 					@endforeach
+					@if(Seguridad::EditarConceptosDeTransaccionesAutomaticas())
 					<td><a class="btn btn-success" href="{{URL::to('contabilidad/conceptomotivo/'.$ConceptoMotivo->CON_ConceptoMotivo_ID.'/edit')}}">Editar</a></td>
+					@endif
 				</tr>
 			@endforeach
 		</tbody>
