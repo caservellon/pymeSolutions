@@ -18,7 +18,7 @@
 		<header>
 			<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 				<a class="navbar-brand" href="#">pymeSolutions</a>
-
+				@if(Auth::check())
 				<ul class="nav navbar-nav navbar-left">
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas <b class="caret"></b></a>
@@ -38,56 +38,85 @@
 							<li><a href="/Compras/Cotizaciones">Cotizaciones</a></li>
 							<li><a href="/Compras/OrdenCompra" >Ordenes de Compras</a></li>
 							<li class="divider"></li>
+							@if(Seguridad::indexCampoLocal())
 							<li><a href="/Compras">Configuración</a></li>
+							@endif
+							
 						</ul>
 					</li>
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							@if(Seguridad::listarProducto())
 							<li>
 								{{ link_to_route('Inventario.Productos.index', 'Productos')}}
 							</li>
+							@endif
+							@if(Seguridad::listarAtributo())
 							<li>
 								{{ link_to_route('Inventario.Atributos.index', 'Atributos')}}
 							</li>
+							@endif
+							@if(Seguridad::listarProveedor())
 							<li>
 								{{ link_to_route('Inventario.Proveedor.index', 'Proveedores')}}
 							</li>
+							@endif
 						<!--<li>
 								{{ link_to_route('Inventario.Proveedor.f2p', 'Administrar Formas de Pago')}}
 							</li>-->
+							@if(Seguridad::agregarProveedorProducto())
 							<li>
 								{{ link_to_route('Inventario.Proveedor.save', 'Administrar Productos de Proveedores')}}
 							</li>
+							@endif
+							@if(Seguridad::listarCategoria())
 							<li>
 								{{ link_to_route('Inventario.Categoria.index', 'Categorías')}}
 							</li>
+							@endif
+							@if(Seguridad::listarCiudad())
 							<li>
 								{{ link_to_route('Inventario.Ciudad.index', 'Ciudades')}}
 							</li>
+							@endif
+							@if(Seguridad::listarUnidadMedida())
 							<li>
 								{{ link_to_route('Inventario.UnidadMedidas.index', 'Unidades de Medida')}}
 							</li>
+							@endif
+							@if(Seguridad::listarHorario())
 							<li>
 								{{ link_to_route('Inventario.Horarios.index', 'Horarios')}}
 							</li>
+							@endif
+							@if(Seguridad::listarFormaPago())
 						    <li>
 								{{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
 							</li> 
+							@endif
+
 							<li>
 								{{ link_to_route('Inventario.Producto.historial.index2', 'Historial de un Producto')}}
 							</li>
+
+							@if(Seguridad::listarSalidaInventario())
 							<li>
 								{{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
 							</li>
+							@endif
+							@if(Seguridad::listarMotivoMovimientoInventario())
 							<li>
 								{{ link_to_route('Inventario.MotivoMovimiento.index', 'Concepto Movimiento Inventario')}}
 							</li>
+							@endif
 							<li class="divider"></li>
+							@if(Seguridad::listarCampoLocal())
 							<li>
 								 <a href="/Inventario">Configuración</a>
 							</li>
+							@endif
 						</ul>
 					</li>
 
@@ -138,6 +167,7 @@
 					</li>
 
 				</ul>
+				@endif
 				@if (Auth::check()) 
 					<p class="navbar-text navbar-right auth">Hola {{Auth::user()->SEG_Usuarios_Email}} <span class="navbar-link">{{ link_to_route('Auth.logout', 'Salir') }}</span></p>
 				@else
