@@ -5,12 +5,13 @@
 
 
 <h2 class="sub-header">Todas las Ordenes de Compra</h2>
+@if((Seguridad::nuevaOrdenCompraSinCotizacion()) || (Seguridad::nuevaOrdenCompraConCotizacion()) )
 <div class="btn-agregar">
     <a type="button" href="{{ URL::to('/Compras/OrdenCompra/Crear') }}" class="btn btn-default">
         <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Ordenes de Compra
     </a>
 </div>
-
+@endif
 <!--          <div  class="col-md-9" >
                           
                                  <div class="col-xs-5 col-sm-6 col-md-12">

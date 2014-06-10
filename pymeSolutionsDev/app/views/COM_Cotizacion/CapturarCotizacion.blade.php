@@ -54,12 +54,13 @@
 	
 	@else
 		{{ Form::open(array('route' => 'CotizacionesCapturarCotizacion')) }}
+		@if(Seguridad::CapturarCotizacionCapturar())
 			<div class="row">
 				<div class="col-md-2 pull-right">
 					{{ Form::submit('Capturar', array('name' => 'Capturar', 'class' => 'btn btn-success btn-block')) }}
 				</div>
 			</div>
-			
+			@endif
 			<br>
 		
 			<div class="row">

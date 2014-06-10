@@ -65,9 +65,9 @@
 							<td>Inactivo</td>
 						@endif
                                         
-					
+					@if(Seguridad::ImprimirOC())
                    <td>{{ link_to_route('impresionOrden', 'Impresion', array('ordImp'=>$editars->COM_OrdenCompra_IdOrdenCompra), array('class' => 'btn btn-success')) }}</td>
-
+                   @endif
 
         
                                 </tr>

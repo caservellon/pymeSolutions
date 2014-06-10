@@ -75,9 +75,9 @@
 							<td>Inactivo</td>
 						@endif
                                         
-					
+					@if(Seguridad::ImprimirSC())
                    <td>{{ link_to_route('impresion', 'Impresion', array('solCot'=>$editars->COM_SolicitudCotizacion_IdSolicitudCotizacion), array('class' => 'btn btn-success')) }}</td>
-
+                   @endif
 
         
                                 </tr>
