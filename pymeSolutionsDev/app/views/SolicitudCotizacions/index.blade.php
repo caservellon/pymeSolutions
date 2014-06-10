@@ -5,11 +5,13 @@
 
 
 <h2 class="sub-header">Todas las Solicitudes de Cotizacion</h2>
+@if(Seguridad::crearSC())
 <div class="btn-agregar">
     <a type="button" href="{{ URL::to('/Compras/SolicitudCotizacion/Crear') }}" class="btn btn-default">
         <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Solicitudes de Cotizacion
     </a>
 </div>
+@endif
 
           <div  class="col-md-9" >
                           
@@ -81,14 +83,17 @@
 						@else
 							<td>Inactivo</td>
 						@endif
+						@if(Seguridad::editSC())
                                         @if($editars->COM_SolicitudCotizacion_Recibido == 1)
                                         
 					<td></td>
 					@else
                                         <td>{{ link_to_route('Compras.SolicitudCotizacions.edit', 'Editar', array($editars->COM_SolicitudCotizacion_IdSolicitudCotizacion),array('class' => 'btn btn-info')) }}</td>
                                         @endif
+                                        @endif
+                                        @if(Seguridad::detalleSC())
                                         <td>{{ link_to_route('detalle', 'Detalle', array('prov'=>$editars->Proveedor_idProveedor, 'solCot'=> $editars->COM_SolicitudCotizacion_IdSolicitudCotizacion), array('class' => 'btn btn-success')) }}</td>
-
+                                       	@endif
         
                                 </tr>
                                 

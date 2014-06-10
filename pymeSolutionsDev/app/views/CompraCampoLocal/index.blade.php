@@ -3,12 +3,13 @@
 @section('main')
 
 <h2 class="sub-header">Listado de Campos Locales</h2>
+@if(Seguridad::createCampoLocal())
 <div class="btn-agregar">
     <a type="button" href="{{ URL::route('Compras.Configuracion.CampoLocal.create') }}" class="btn btn-default">
         <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Campo Local
     </a>
 </div>
-
+@endif
 @if ($CampoSolicitud->count())
 <h3>Campos de Solicitud de Cotizacion</h3>
 <div class="table-responsive">
@@ -57,13 +58,16 @@
                 @else
                 <td></td>
                 @endif
-
+                @if(Seguridad::editCampoLocal())
                 <td>{{ link_to_route('Compras.Configuracion.CampoLocal.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
+                @endif
+                @if(Seguridad::destroyCampoLocal())
                 <td>
                     {{ Form::open(array('method' => 'DELETE', 'route' => array('Compras.Configuracion.CampoLocal.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
                     {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                     {{ Form::close() }}
                 </td>
+                @endif
             </tr>
             @endforeach
         </tbody>
