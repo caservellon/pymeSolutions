@@ -31,19 +31,19 @@ class ProveedorController extends BaseController {
 
 	public function search_index(){
 		//Querys de las columnas propias de Proveedor
-		$Proveedor = Proveedor::where('INV_Proveedor_Nombre', '=', Input::get('search')) 
-		->orWhere('INV_Proveedor_Codigo', '=', Input::get('search'))
-		->orWhere('INV_Proveedor_RepresentanteVentas', '=', Input::get('search'))	
+		$Proveedor = Proveedor::where('INV_Proveedor_Nombre', 'like', '%'.Input::get('search').'%') 
+		->orWhere('INV_Proveedor_Codigo', 'like', '%'.Input::get('search').'%')
+		->orWhere('INV_Proveedor_RepresentanteVentas', 'like', '%'.Input::get('search').'%')	
 		->get();	
 
 		try {
 			
 
 			//Querys de las columnas que tiene relacion con la tabla Proveedor
-			$queryCiudad = DB::select('SELECT INV_Ciudad_ID FROM INV_Ciudad WHERE INV_Ciudad_Nombre = ?', array(Input::get('search')));
-			$queryProducto = DB::select('SELECT INV_Proveedor_ID FROM INV_Producto_Proveedor WHERE INV_Producto_ID = (SELECT INV_Producto_ID FROM INV_Producto WHERE INV_Producto_Nombre = ?)', array(Input::get('search')));
-			$IDProveedor = DB::select('SELECT INV_Proveedor_INV_Proveedor_ID FROM INV_Proveedor_CampoLocal WHERE INV_Proveedor_CampoLocal_Valor = ?', array(Input::get('search'))); 
-			$GENSID = DB::select('SELECT GEN_CampoLocal_GEN_CampoLocal_ID FROM INV_Proveedor_CampoLocal WHERE INV_Proveedor_CampoLocal_Valor = ?', array(Input::get('search')));
+			$queryCiudad = DB::select('SELECT INV_Ciudad_ID FROM INV_Ciudad WHERE INV_Ciudad_Nombre LIKE ?', array('%'.Input::get('search').'%'));
+			$queryProducto = DB::select('SELECT INV_Proveedor_ID FROM INV_Producto_Proveedor WHERE INV_Producto_ID = (SELECT INV_Producto_ID FROM INV_Producto WHERE INV_Producto_Nombre = ?)', array('%'.Input::get('search').'%'));
+			$IDProveedor = DB::select('SELECT INV_Proveedor_INV_Proveedor_ID FROM INV_Proveedor_CampoLocal WHERE INV_Proveedor_CampoLocal_Valor = ?', array('%'.Input::get('search').'%')); 
+			$GENSID = DB::select('SELECT GEN_CampoLocal_GEN_CampoLocal_ID FROM INV_Proveedor_CampoLocal WHERE INV_Proveedor_CampoLocal_Valor = ?', array('%'.Input::get('search').'%'));
 			
 			//Se evalua si la Query trae algo
 			if(!empty($queryCiudad)){
@@ -302,6 +302,9 @@ class ProveedorController extends BaseController {
 	 */
 	public function update($id)
 	{
+
+	try {
+
 		if (Seguridad::editarProveedor()) {
 			$input = array_except(Input::all(), '_method');
 			$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'like', 'INV_PRV%')->get();
@@ -347,6 +350,10 @@ class ProveedorController extends BaseController {
 		} else {
 			return Redirect::to('/403');
 		}	
+
+		}catch(Exception $e){
+			return Redirect::route('Inventario.Proveedor.index', $id);
+		}
 	}
 
 	/**
