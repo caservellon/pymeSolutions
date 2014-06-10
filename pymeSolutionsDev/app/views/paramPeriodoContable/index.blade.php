@@ -7,11 +7,13 @@
 <div class="pull-right">
 	<a href="{{{ URL::to('contabilidad/configuracion') }}}" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 </div>
+@if(Seguridad::AgregarPeriodoContable())
 <div class="btn-agregar">
 	<a type="button" href="{{ URL::to('contabilidad/configuracion/periodocontable/create') }}" class="btn btn-success">
 	  <i class="glyphicon glyphicon-plus"></i> Agregar Periodo Contable
 	</a>
 </div>
+@endif
 
 <div class="table-responsive">
 	<table class="table table-striped table-bordered">
@@ -19,7 +21,9 @@
 					<tr>
 						<th>Nombre del Periodo Contable</th>
 						<th>Cantidad Dias del Periodo</th>
+						@if(Seguridad::HabilitarDeshabilitarPeriodoContable() || Seguridad::EditarPeriodoContable())
 						<th>Accion</th>
+						@endif
 					</tr>
 				</thead>
 
@@ -29,12 +33,16 @@
 			<tr>
 				<td>{{ $Clasificacion->CON_ClasificacionPeriodo_Nombre  }}</td>
 				<td>{{ $Clasificacion->CON_ClasificacionPeriodo_CatidadDias  }}</td>
+				@if(Seguridad::HabilitarDeshabilitarPeriodoContable() || Seguridad::EditarPeriodoContable())
 				<td>
 					<div class="row">
+						@if (Seguridad::EditarPeriodoContable())
 						<div class="col-sm-3">
 			        	<a class="btn btn-info" href="{{ URL::route('con.editperiodo',$Clasificacion->CON_ClasificacionPeriodo_ID)}}">
 						<i class='glyphicon glyphicon-pencil'></i> Editar</a>
 						</div>
+						@endif
+						@if(Seguridad::HabilitarDeshabilitarPeriodoContable())
 						<div class="col-sm-2">
 						<?php 
 							if ($Clasificacion->deleted_at==null){
@@ -54,9 +62,11 @@
 					        <i class="glyphicon glyphicon-trash"></i> {{{$text}}}</button>
 				        </form>
 				        </div>
+				        @endif
 			        </div>
 
 				</td>
+				@endif
 			</tr>
 		@endforeach	
 		</tbody>
