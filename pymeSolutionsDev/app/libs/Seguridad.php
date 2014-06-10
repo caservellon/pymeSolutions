@@ -611,6 +611,14 @@
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_quitarProveedorFormaPago;
 		}
 
+		public static function ListarHistorial(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_ListarHistorial;
+		}
+
+		public static function VerMenuMovimiento(){
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_INV_VerMenuMovimiento;
+		}
+
 
 
 		//Contabilidad
