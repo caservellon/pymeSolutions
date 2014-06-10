@@ -19,17 +19,26 @@
 			<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
 				<a class="navbar-brand" href="#">pymeSolutions</a>
 				@if(Auth::check())
+
 				<ul class="nav navbar-nav navbar-left">
+					@if (Seguridad::CrearCaja() || Seguridad::AbrirCaja() || Seguridad::BorrarCaja() || Seguridad::EditarCaja() || Seguridad::VerCaja() || Seguridad::CrearPeriodoDeCierre() || Seguridad::BorrarPeriodoDeCierre() || Seguridad::EditarPeriodoDeCierre() || Seguridad::VerPeriodoDeCierre() || Seguridad::VerPeriodoDeCierre() || Seguridad::CerrarAperturaDeCaja() || Seguridad::VerAperturaDeCierre() || Seguridad::CrearDescuentos() || Seguridad::EditarDescuentos() || Seguridad::EliminarDescuentos() || Seguridad::VerDescuentos() || Seguridad::ConfigurarVentas() || Seguridad::GestionarVentas() || Seguridad::EliminarProductoDeVentas() || Seguridad::EditarCantidadDeVentas() || Seguridad::GuardarVentas() || Seguridad::ListarVentas() || Seguridad::VerVentas() || Seguridad::IniciarDevolucion() || Seguridad::AutorizarDevolucion() || Seguridad::ListarDevoluciones() || Seguridad::DetalleDeDevolucion())
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Ventas <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							@if (Seguridad::GestionarVentas())
 							<li><a href="/Ventas/Ventas/create">Gestión de Ventas</a></li>
+							@endif
+							@if (Seguridad::CrearCaja() || Seguridad::AbrirCaja() || Seguridad::BorrarCaja() || Seguridad::EditarCaja() || Seguridad::VerCaja())
 							<li><a href="/Ventas/Cajas">Gestión de Caja</a></li>
+							@endif
+							@if (Seguridad::IniciarDevolucion())
 							<li><a href="/Ventas/Devoluciones/create">Devoluciones</a></li>
+							@endif
 							<li class="divider"></li>
 							<li><a href="/Ventas">Configuración</a></li>
 						</ul>
 					</li>
+					@endif
 					@if((Seguridad::indexSC()) || (Seguridad::indexImprimirSC()) || (Seguridad::VistaMenuCotizaciones()) || (Seguridad::VistaTodasCotizaciones()) || (Seguridad::VistaHabilitarInhabilitar()) || (Seguridad::indexOC()) || (Seguridad::indexImprimirOC()) || (Seguridad::ListarAutorizarOrdenCompra()) || (Seguridad::ListaAdministrarOrdenCompra()) || (Seguridad::ListarPagoOrdenCompra()) || (Seguridad::VerPlanPagoOrdenCompra()) || (Seguridad::ListarHistorialOrdenes()) || (Seguridad::ListaDevolucionCompras()) || 	
 					(Seguridad::indexCampoLocal()) || (Seguridad::NuevoEstadoOrden()) || (Seguridad::IndexEstadoorden()) || (Seguridad::NuevaTransicionEstado()) || (Seguridad::ModificarTransicionesEstado()))
 					<li class="dropdown">
