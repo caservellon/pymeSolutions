@@ -37,7 +37,7 @@ class VentasController extends BaseController {
 	 */
 	public function create()
 	{
-		if (Seguridad::POSVentas()) {
+		if (Seguridad::GestionarVentass()) {
 			$Clientes = Persona::all();
 
 			$Descuentos = Descuento::where('VEN_DescuentoEspecial_Estado', '1')->get();
@@ -60,7 +60,7 @@ class VentasController extends BaseController {
 	 */
 	public function store()
 	{
-		if (Seguridad::POSVentas()) {
+		if (Seguridad::GestionarVentass()) {
 			$input = Input::all();
 			$validation = Validator::make($input, Venta::$rules);
 
@@ -263,7 +263,7 @@ class VentasController extends BaseController {
 	 */
 	public function searchInvoice()
 	{
-		if (Seguridad::POSVentas()) {
+		if (Seguridad::GestionarVentass()) {
 			if (Request::ajax())
 			{
 				$Input = Input::all();
@@ -309,7 +309,7 @@ class VentasController extends BaseController {
 	 */
 	public function checkStock()
 	{
-		if (Seguridad::POSVentas()) {
+		if (Seguridad::GestionarVentass()) {
 			if (Request::ajax())
 			{
 				$Input = Input::get('codigo');
