@@ -1,12 +1,11 @@
 
-
 -- -----------------------------------------------------
 -- Table `pymeERP`.`SEG_Roles`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pymeERP`.`SEG_Roles` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
-  `SEG_Roles_ID` INT NOT NULL,
+  `SEG_Roles_ID` INT NOT NULL AUTO_INCREMENT,
   `SEG_Roles_Nombre` VARCHAR(45) NULL,
   `SEG_Roles_FechaCreacion` DATETIME NULL,
   `SEG_Roles_FechaModificacion` DATETIME NULL,
