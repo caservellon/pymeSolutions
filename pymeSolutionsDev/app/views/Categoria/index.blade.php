@@ -4,9 +4,11 @@
 
 <h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Categoria<small></h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearCategoria())
 	<a type="button" href="{{ URL::route('Inventario.Categoria.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Categoría
 	</a>
+	@endif
 </div>
 
 @if ($Categoria->count())
@@ -42,12 +44,18 @@
 					<td>{{{ ($Categoria->INV_Categoria_Activo ? 'Activa' : 'Desactivada') }}}</td>
 					<td>{{{ $Categorias[$Categoria->INV_Categoria_IDCategoriaPadre - 1]->INV_Categoria_Nombre }}}</td>
 					<td>{{{ $Horarios[$Categoria->INV_Categoria_HorarioDescuento_ID - 1]->INV_Horario_Nombre }}}</td>
-                    <td>{{ link_to_route('Inventario.Categoria.edit', 'Editar', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    @if(Seguridad::editarCategoria())
+                    <td>
+                    	{{ link_to_route('Inventario.Categoria.edit', 'Editar', array($Categoria->INV_Categoria_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}
+                    </td>
+                    @endif
+                    @if(Seguridad::eliminarCategoria())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Categoria.destroy', $Categoria->INV_Categoria_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
+                    @endif
 				</tr>
                 @endforeach
               </tbody>

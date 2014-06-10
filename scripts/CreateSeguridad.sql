@@ -1,11 +1,12 @@
 
+
 -- -----------------------------------------------------
 -- Table `pymeERP`.`SEG_Roles`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `pymeERP`.`SEG_Roles` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
-  `SEG_Roles_ID` INT NOT NULL AUTO_INCREMENT,
+  `SEG_Roles_ID` INT NOT NULL,
   `SEG_Roles_Nombre` VARCHAR(45) NULL,
   `SEG_Roles_FechaCreacion` DATETIME NULL,
   `SEG_Roles_FechaModificacion` DATETIME NULL,
@@ -196,6 +197,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_VEN_ListarDevoluciones` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_DetalleDeVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_DetalleDeDevolucion` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_ListarHistorial` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_VerMenuMovimiento` TINYINT(1) NULL DEFAULT 0 COMMENT '	',
   PRIMARY KEY (`SEG_Roles_ID`))
 ENGINE = InnoDB;
 
@@ -332,4 +335,3 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_PassToken` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-

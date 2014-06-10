@@ -2,15 +2,18 @@
 
 @section('main')
 
-<h1>Subcuentas</h1>
-@if(Seguridad::AgregarSubcuentas())
+<h1>Subcuentas > <small> Listar</small></h1>
 <div class="btn-agregar">
+@if(Seguridad::AgregarSubcuentas())
     <a type="button" href="{{URL::to('contabilidad/configuracion/subcuentas/create')}}"  class="btn btn-success">
       <span class="glyphicon glyphicon-plus"></span> Agregar Sub-Cuenta
     </a>
 @endif
-    <a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad/configuracion/catalogocuentas')}}">
-    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+	<div class="pull-right">
+		<a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad/configuracion/catalogocuentas')}}">
+    	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+	</div>
+    
 </div>
 
 

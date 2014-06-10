@@ -158,11 +158,21 @@ class ParamPeriodoContableController extends BaseController {
 	}
 
 	public function enable($id){
-		if (Seguridad::HabilitarDeshabilitarPeriodosContables()) {
+		if (Seguridad::HabilitarDeshabilitarPeriodoContable()) {
 			$clasificacion=ClasificacionPeriodo::withTrashed()->where('CON_ClasificacionPeriodo_ID', $id)->restore();
 			return Redirect::action('ParamPeriodoContableController@index');	
 		}else{
 				return Redirect::to('/403');
+		}
+	}
+
+	public function destroy($id)
+	{
+		if (Seguridad::HabilitarDeshabilitarPeriodoContable()) {
+			$this->ClasificacionPeriodo->find($id)->delete();
+			return Redirect::action('ParamPeriodoContableController@index');
+		} else {
+			return Redirect::to('/403');
 		}
 	}
 

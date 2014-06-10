@@ -61,6 +61,8 @@
 						</ul>
 					</li>
 					@endif
+
+					@if( (Seguridad::listarProducto()) || (Seguridad::listarAtributo()) || (Seguridad::listarProveedor()) || (Seguridad::agregarProveedorProducto()) || (Seguridad::listarCategoria()) || (Seguridad::listarCiudad()) || (Seguridad::listarUnidadMedida() || (Seguridad::listarHorario()) || (Seguridad::listarFormaPago()) || (Seguridad::listarSalidaInventario()) || (Seguridad::listarMotivoMovimientoInventario()) || (Seguridad::listarCampoLocal()) || (Seguridad::ListarHistorial()) ))
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -112,11 +114,11 @@
 								{{ link_to_route('Inventario.FormaPagos.index', 'Formas de Pagos')}}
 							</li> 
 							@endif
-
+							@if(Seguridad::ListarHistorial())
 							<li>
 								{{ link_to_route('Inventario.Producto.historial.index2', 'Historial de un Producto')}}
 							</li>
-
+							@endif
 							@if(Seguridad::listarSalidaInventario())
 							<li>
 								{{ link_to_route('Inventario.MovimientoInventario.index', 'Movimiento Inventario')}}
@@ -135,6 +137,7 @@
 							@endif
 						</ul>
 					</li>
+					@endif
 
 					@if( Seguridad::VerLibroDiario() || Seguridad::VerROI() || Seguridad::VerPuntoEquilibrio() || Seguridad::VerFlujoEfectivo() || Seguridad::VerEstadosfinancieros() || Seguridad::GenerarCierrePeriodo() || Seguridad::VerPagos() || Seguridad::VerReembolsos() ||Seguridad::ListarCatalogoContables() || Seguridad::ListarPeriodosContables() || Seguridad::ListarUnidadesMonetarias() || Seguridad::ListarMotivosDeInventario() || Seguridad::ListarConceptosDeTransaccionesAutomaticas())
 						<li class="dropdown">
