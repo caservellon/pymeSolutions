@@ -57,7 +57,7 @@
 						@else
 							<td></td>
 						@endif
-						@if(Seguridad::editarCampoLocal)		
+						@if(Seguridad::editarCampoLocal())		
 						<td>
 							{{ link_to_route('Inventario.CampoLocals.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}
 						</td>
