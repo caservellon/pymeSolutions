@@ -4,9 +4,11 @@
 
 <h2 class="sub-header">Listado de Campos Locales</h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearCampoLocal())
 	<a type="button" href="{{ URL::route('Inventario.CampoLocals.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Campo Local
 	</a>
+	@endif
 </div>
 
 @if ($CampoPersonas->count())
@@ -54,13 +56,19 @@
 							<td><span class="glyphicon glyphicon-ok"></span></td>
 						@else
 							<td></td>
-						@endif		
-						<td>{{ link_to_route('Inventario.CampoLocals.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}</td>
+						@endif
+						@if(Seguridad::editarCampoLocal)		
+						<td>
+							{{ link_to_route('Inventario.CampoLocals.edit', 'Editar', array($CampoLocal->GEN_CampoLocal_ID), array('class' => 'btn btn-info')) }}
+						</td>
+						@endif
+						@if(Seguridad::eliminarCampoLocal())
 						<td>
 							{{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.CampoLocals.destroy', $CampoLocal->GEN_CampoLocal_ID))) }}
 								{{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
 							{{ Form::close() }}
 						</td>
+						@endif
 					</tr>
 				@endforeach
 			</tbody>
