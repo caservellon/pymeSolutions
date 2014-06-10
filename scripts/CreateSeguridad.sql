@@ -1,3 +1,4 @@
+
 -- -----------------------------------------------------
 -- Table `pymeERP`.`SEG_Roles`
 -- -----------------------------------------------------
@@ -21,8 +22,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_CRM_EditarEmpresa` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CRM_EliminarEmpresa` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_CRM_Configuracion` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_CRM_BuscarPersona` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_CRM_BuscarEmpresa` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_COM_NuevoEstadoOrdenCompra` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_COM_GuardarEstadoOrden` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_COM_ListaEstadoOrden` TINYINT(1) NULL DEFAULT 0,
@@ -165,8 +164,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_INV_agregarProveedorProducto` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_INV_quitarProveedorProducto` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_INV_cambiarEstadoOrdenCompra` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_INV_agregarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_INV_quitarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_CrearCaja` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_AbrirCaja` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_BorrarCaja` TINYINT(1) NULL DEFAULT 0,
@@ -190,13 +187,15 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_Roles` (
   `SEG_Roles_VEN_GuardarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_ListarVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_VerVentas` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_agregarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_INV_quitarProveedorFormaPago` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CRM_BuscarPersona` TINYINT(1) NULL DEFAULT 0,
+  `SEG_Roles_CRM_BuscarEmpresa` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_IniciarDevolucion` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_AutorizarDevolucion` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_ListarDevoluciones` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_DetalleDeVentas` TINYINT(1) NULL DEFAULT 0,
   `SEG_Roles_VEN_DetalleDeDevolucion` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_INV_ListarHistorial` TINYINT(1) NULL DEFAULT 0,
-  `SEG_Roles_INV_VerMenuMovimiento` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`SEG_Roles_ID`))
 ENGINE = InnoDB;
 
@@ -333,3 +332,4 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`SEG_PassToken` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
