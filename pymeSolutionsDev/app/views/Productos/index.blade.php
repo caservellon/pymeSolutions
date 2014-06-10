@@ -5,9 +5,11 @@
 
 <h2 class="sub-header">Productos</h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearProducto())
 	<a type="button" href="{{ URL::route('Inventario.Productos.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Producto
 	</a>
+	@endif
 	<a href="{{{ URL::to('Inventario/Productos') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
 </div>
 
@@ -93,14 +95,18 @@
 					@if($isEmpty)
 						<td></td>
 					@endif	
-                    <td>{{ link_to_route('Inventario.Productos.edit', 'Editar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}</td>
-    
-
+                    @if(Seguridad::editarProducto())
+                    <td>
+                    	{{ link_to_route('Inventario.Productos.edit', 'Editar', array($Producto->INV_Producto_ID), array('class' => 'btn btn-info')) }}
+                    </td>
+    				@endif 
+                    @if(Seguridad::eliminarProducto())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Productos.destroy', $Producto->INV_Producto_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
+                    @endif
 				</tr>
 			@endforeach
 		</tbody>

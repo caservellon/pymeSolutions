@@ -5,9 +5,11 @@
 
 <h2 class="sub-header">Horarios</h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearHorario())
 	<a type="button" href="{{ URL::route('Inventario.Horarios.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Horario
 	</a>
+	@endif
 </div>
 
 @if ($Horarios->count())
@@ -39,12 +41,18 @@
 					<td>{{{ $Horario->INV_Horario_UsuarioCreacion }}}</td>
 					<td>{{{ $Horario->INV_Horario_FechaModificacion }}}</td>
 					<td>{{{ $Horario->INV_Horario_UsuarioModificacion }}}</td>
-                    <td>{{ link_to_route('Inventario.Horarios.edit', 'Editar', array($Horario->INV_Horario_ID), array('class' => 'btn btn-info')) }}</td>
+					@if(Seguridad::editarHorario())
+                    <td>
+                    	{{ link_to_route('Inventario.Horarios.edit', 'Editar', array($Horario->INV_Horario_ID), array('class' => 'btn btn-info')) }}
+                    </td>
+                    @endif
+                    @if(Seguridad::eliminarHorario())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Horarios.destroy', $Horario->INV_Horario_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
+                    @endif
 				</tr>
 			@endforeach
 		</tbody>

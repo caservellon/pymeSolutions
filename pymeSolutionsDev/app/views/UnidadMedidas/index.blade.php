@@ -5,9 +5,11 @@
 
 <h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Unidades Medidas</small></h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearUnidadMedida())
 	<a type="button" href="{{ URL::route('Inventario.UnidadMedidas.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Unidad Medida
 	</a>
+	@endif
 </div>
 
 @if ($UnidadMedidas->count())
@@ -38,12 +40,18 @@
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_FechaModificacion }}}</td>
 					<td>{{{ $UnidadMedida->INV_UnidadMedida_UsuarioModificacion }}}</td>
 					<td>{{{ ($UnidadMedida->INV_UnidadMedida_Activo ? 'Activa' : 'Desactivada') }}}</td>
-                    <td>{{ link_to_route('Inventario.UnidadMedidas.edit', 'Editar', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                    @if(Seguridad::editarUnidadMedida())
+                    <td>
+                    	{{ link_to_route('Inventario.UnidadMedidas.edit', 'Editar', array($UnidadMedida->INV_UnidadMedida_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}
+                    </td>
+                    @endif
+                    @if(Seguridad::eliminarUnidadMedida())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.UnidadMedidas.destroy', $UnidadMedida->INV_UnidadMedida_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
+                    @endif
 				</tr>
 			@endforeach
 		</tbody>

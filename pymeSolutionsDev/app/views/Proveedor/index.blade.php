@@ -5,9 +5,11 @@
 
 <h2 class="sub-header">Proveedores</h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearProveedor())
 	<a type="button" href="{{ URL::route('Inventario.Proveedor.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Proveedor
 	</a>
+	@endif
 	 <a href="{{{ URL::to('Inventario/Proveedor') }}}" class="btn btn-sm btn-primary col-md-offset-8"><span class="glyphicon glyphicon-refresh"></span> Refrescar</a>
 </div>
 
@@ -71,13 +73,18 @@
 					    	<td></td>
 					    @endif
 					@endforeach
-
-                    <td>{{ link_to_route('Inventario.Proveedor.edit', 'Editar', array($Proveedor->INV_Proveedor_ID), array('class' => 'btn btn-info')) }}</td>
+					@if(Seguridad::editarProveedor())
+                    <td>
+                    	{{ link_to_route('Inventario.Proveedor.edit', 'Editar', array($Proveedor->INV_Proveedor_ID), array('class' => 'btn btn-info')) }}
+                    </td>
+                    @endif
+                    @if(Seguridad::eliminarProveedor())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Proveedor.destroy', $Proveedor->INV_Proveedor_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
+                    @endif
 				</tr>
 			@endforeach
 		</tbody>

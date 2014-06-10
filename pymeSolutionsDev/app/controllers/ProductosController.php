@@ -31,7 +31,7 @@ class ProductosController extends BaseController {
 
 	public function index2()
 	{
-		if (Seguridad::listarProducto()) {
+		if (Seguridad::ListarHistorial()) {
 			$Productos = $this->Producto->all();
 			return View::make('Productos.historial', compact('Productos'));
 		} else {
