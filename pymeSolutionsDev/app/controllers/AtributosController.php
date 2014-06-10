@@ -21,8 +21,7 @@ class AtributosController extends BaseController {
 	 */
 	public function index()
 	{
-		$Atributos = $this->Atributo->all();
-
+		$Atributos = $this->Atributo->where('INV_Atributo_Activo', 1)->get();
 		return View::make('Atributos.index', compact('Atributos'));
 	}
 
@@ -140,8 +139,9 @@ class AtributosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->Atributo->find($id)->delete();
-
+		$a = Atributo::find($id);
+		$a->INV_Atributo_Activo = 0;
+		$a->save();
 		return Redirect::route('Inventario.Atributos.index');
 	}
 
