@@ -4,9 +4,11 @@
 
 <h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Concepto Movimiento de Inventario<small></h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearMotivoMovimientoInventario())
 	<a type="button" href="{{ URL::route('Inventario.MotivoMovimiento.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Nuevo Concepto
 	</a>
+	@endif
 </div>
 
 @if ($MotivoMovimientos->count())
@@ -38,12 +40,18 @@
 					<td>{{{ $MotivoMovimiento->INV_MotivoMovimiento_FechaModificacion }}}</td>
 					<td>{{{ $MotivoMovimiento->INV_MotivoMovimiento_UsuarioModificacion }}}</td>
 					<td>{{{ $MotivoMovimiento->INV_MotivoMovimiento_Activo ? 'Activo' : 'Inactivo' }}}</td>
-                    <td>{{ link_to_route('Inventario.MotivoMovimiento.edit', 'Editar', array($MotivoMovimiento->INV_MotivoMovimiento_ID), array('class' => 'btn btn-info')) }}</td>
+                    @if(Seguridad::editarMotivoMovimientoInventario())
+                    <td>
+                    	{{ link_to_route('Inventario.MotivoMovimiento.edit', 'Editar', array($MotivoMovimiento->INV_MotivoMovimiento_ID), array('class' => 'btn btn-info')) }}
+                    </td>
+                    @endif
+                    @if(Seguridad::eliminarMotivoMovimientoInventario())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.MotivoMovimiento.destroy', $MotivoMovimiento->INV_MotivoMovimiento_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
+                    @endif
 				</tr>
 			@endforeach
 		</tbody>
