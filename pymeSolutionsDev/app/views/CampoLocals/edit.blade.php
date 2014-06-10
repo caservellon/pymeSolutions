@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Campo Local &gt; <small>Editar Campo Local</small></h3>
       <div class="pull-right">
-        <a href="/CRM/CampoLocals" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
+        <a href="/Inventario/CampoLocals" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
       </div>
 </div>
 
@@ -86,7 +86,7 @@
     <div class="form-group">
       <div class="col-md-5 ">
             {{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-            {{ link_to_route('Inventario.CampoLocals.show', 'Cancel', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
+            {{ link_to_route('Inventario.CampoLocals.index', 'Cancel', $CampoLocal->GEN_CampoLocal_ID, array('class' => 'btn')) }}
       </div>
     </div>
 
