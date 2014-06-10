@@ -5,9 +5,11 @@
 
 <h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Ciudad</small></h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearCiudad())
 	<a type="button" href="{{ URL::route('Inventario.Ciudad.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Ciudad
 	</a>
+	@endif
 </div>
 
 @if ($Ciudad->count())
@@ -37,12 +39,18 @@
 					<td>{{{ $Ciudad->INV_Ciudad_FechaModificacion }}}</td>
 					<td>{{{ $Ciudad->INV_Ciudad_UsuarioModificacion }}}</td>
 					<td>{{{ ($Ciudad->INV_Ciudad_Activo ? 'Activa' : 'Desactivada') }}}</td>
-                    <td>{{ link_to_route('Inventario.Ciudad.edit', 'Editar', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
+                   	@if(Seguridad::editarCiudad())
+                    <td>
+                    	{{ link_to_route('Inventario.Ciudad.edit', 'Editar', array($Ciudad->INV_Ciudad_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}
+                    </td>
+                    @endif
+                    @if(Seguridad::eliminarCiudad())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Ciudad.destroy', $Ciudad->INV_Ciudad_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
+                    @endif
 				</tr>
 			@endforeach
 		  </tbody>

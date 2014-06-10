@@ -5,9 +5,11 @@
 
 <h2 class="sub-header">Formas de Pago</h2>
 <div class="btn-agregar">
+	@if(Seguridad::crearFormaPago())
 	<a type="button" href="{{ URL::route('Inventario.FormaPagos.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Forma de Pago
 	</a>
+	@endif
 </div>
 
 @if ($FormaPagos->count())
@@ -41,13 +43,18 @@
 					<td>{{{ $FormaPago->INV_FormaPago_FechaModificacion }}}</td>
 					<td>{{{ $FormaPago->INV_FormaPago_UsuarioModificacion }}}</td>
 					<td>{{{ $FormaPago->INV_FormaPago_Activo ? 'Activa' : 'Desactivada' }}}</td>
-                    <td>{{ link_to_route('Inventario.FormaPagos.edit', 'Editar', array($FormaPago->INV_FormaPago_ID), array('class' => 'btn btn-info')) }}</td>
+					@if(Seguridad::editarFormaPago)
+                    <td>
+                    	{{ link_to_route('Inventario.FormaPagos.edit', 'Editar', array($FormaPago->INV_FormaPago_ID), array('class' => 'btn btn-info')) }}
+                    </td>
+                    @endif
+                    @if(Seguridad::eliminarFormaPago)
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.FormaPagos.destroy', $FormaPago->INV_FormaPago_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
-
                         {{ Form::close() }}
                     </td>
+                    @endif
 				</tr>
 			@endforeach
 		</tbody>
