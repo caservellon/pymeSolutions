@@ -22,7 +22,7 @@ Route::get('/403', function(){
 });
 Route::any('login', array('as' => 'Auth.login', 'uses' => 'UserController@login'));
 
-Route::group(array('prefix' => 'Auth'), function()
+Route::group(array('prefix' => 'Auth', 'before' => 'auth'), function()
 {
 	Route::any('login', array('as' => 'Auth.login', 'uses' => 'UserController@login'));
 	Route::any('logout', array('as' => 'Auth.logout', 'uses' => 'UserController@logout'));
