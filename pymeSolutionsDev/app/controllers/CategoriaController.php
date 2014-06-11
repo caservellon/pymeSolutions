@@ -22,7 +22,8 @@ class CategoriaController extends BaseController {
 	public function index()
 	{
 		if (Seguridad::listarCategoria()) {
-			$Categoria = $this->Categoria->all();
+			//$Categoria = $this->Categoria->all();
+			$Categoria = $this->Categoria->where('INV_Categoria_Activo', 1)->get();
 			$Categorias = Categoria::all();
 			$Horarios = Horario::all();
 			return View::make('Categoria.index', compact('Categoria', 'Categorias', 'Horarios'));
@@ -168,7 +169,11 @@ class CategoriaController extends BaseController {
 	{
 
 		if (Seguridad::eliminarCategoria()) {
-			$this->Categoria->find($id)->delete();
+			//$this->Categoria->find($id)->delete();
+			$a = Categoria::find($id);
+			$a->INV_Categoria_Activo = 0;
+			$a->save();
+
 			return Redirect::route('Inventario.Categoria.index');
 		} else {
 			return Redirect::to('/403');
