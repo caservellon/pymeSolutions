@@ -1,4 +1,4 @@
-INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('1', 'COM_1', '3', 'La Configuracion ha sido guardada Correctamente', '1');
+﻿INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('1', 'COM_1', '3', 'La Configuracion ha sido guardada Correctamente', '1');
 INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('2', 'COM_2', '3', 'para los siguientes proveedores han sido enviada automaticamente', '1');
 INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('3', 'COM_3', '2', 'para los siguientes proveedores se imprimio', '1');
 INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('4', 'COM_4', '3', 'No existe ningun campo con ese valor', '1');
@@ -94,3 +94,4 @@ INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GE
 INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('94', 'VEN_94', '3', 'El cupon fue creado exitosamente.', '1');
 INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('95', 'VEN_95', '1', 'El cupon ya ha sido usado.', '1');
 INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('96', 'VEN_96', '1', 'El cupon esta vencido.', '1');
+INSERT INTO `GEN_Mensajes` (`GEN_Mensaje_idMensajes`, `GEN_Mensajes_Codigo`, `GEN_Mensajes_Severidad`, `GEN_Mensajes_Mensaje`, `GEN_Mensajes_Activo`) VALUES ('97', 'COM_97', '1', 'No se encontraron Planes de pago que se puedan mostrar', '1');
