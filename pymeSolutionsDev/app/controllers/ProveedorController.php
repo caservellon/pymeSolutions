@@ -22,7 +22,8 @@ class ProveedorController extends BaseController {
 	public function index()
 	{
 		if (Seguridad::listarProveedor()) {
-			$Proveedor = $this->Proveedor->all();
+			//$Proveedor = $this->Proveedor->all();
+			$Proveedor = $this->Proveedor->where('INV_Proveedor_Activo', 1)->get();
 			return View::make('Proveedor.index', compact('Proveedor'));
 		} else {
 			return Redirect::to('/403');
@@ -366,13 +367,17 @@ class ProveedorController extends BaseController {
 	{
 		if (Seguridad::eliminarProveedor()) {
 			$campos = DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo', 'LIKE', 'INV_PRV%')->get();
-	 		$Proveedor = $this->Proveedor->find($id);
+	 		//$Proveedor = $this->Proveedor->find($id);
+			$a = Proveedor::find($id);
+			$a->INV_Proveedor_Activo = 0;
+			$a->save();
+
 	 		foreach ($campos as $campo) {
 	 			if (DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->count() > 0 ) {
 	 			    DB::table('INV_Proveedor_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Proveedor_INV_Proveedor_ID',$Proveedor->INV_Proveedor_ID)->delete();
 	 			}
 	 		}
-	 		$Proveedor->delete();
+	 		//$Proveedor->delete();
 			return Redirect::route('Inventario.Proveedor.index');
 		} else {
 			return Redirect::to('/403');

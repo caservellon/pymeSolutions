@@ -22,7 +22,8 @@ class CiudadController extends BaseController {
 	public function index()
 	{
 		if (Seguridad::listarCiudad()) {
-			$Ciudad = $this->Ciudad->all();
+			//$Ciudad = $this->Ciudad->all();
+			$Ciudad = $this->Ciudad->where('INV_Ciudad_Activo', 1)->get();
 			return View::make('Ciudad.index', compact('Ciudad'));
 		} else {
 			return Redirect::to('/403');
@@ -155,7 +156,10 @@ class CiudadController extends BaseController {
 	public function destroy($id)
 	{
 		if (Seguridad::listarCiudad()) {
-			$this->Ciudad->find($id)->delete();
+			//$this->Ciudad->find($id)->delete();
+			$c = Ciudad::find($id);
+			$c->INV_Ciudad_Activo = 0;
+			$c->save();
 			return Redirect::route('Inventario.Ciudad.index');
 		} else {
 			return Redirect::to('/403');
