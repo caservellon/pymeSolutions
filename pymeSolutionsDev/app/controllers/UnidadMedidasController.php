@@ -22,7 +22,8 @@ class UnidadMedidasController extends BaseController {
 	public function index()
 	{
 		if (Seguridad::listarUnidadMedida()) {
-			$UnidadMedidas = $this->UnidadMedida->all();
+			//$UnidadMedidas = $this->UnidadMedida->all();
+			$UnidadMedidas = $this->UnidadMedida->where('INV_UnidadMedida_Activo', 1)->get();
 			return View::make('UnidadMedidas.index', compact('UnidadMedidas'));
 		} else {
 			return Redirect::to('/403');
@@ -148,7 +149,10 @@ class UnidadMedidasController extends BaseController {
 	public function destroy($id)
 	{
 		if (Seguridad::eliminarUnidadMedida()) {
-			$this->UnidadMedida->find($id)->delete();
+			//$this->UnidadMedida->find($id)->delete();
+			$u = UnidadMedida::find($id);
+			$u->INV_UnidadMedida_Activo = 0;
+			$u->save();
 			return Redirect::route('Inventario.UnidadMedidas.index');
 		} else {
 			return Redirect::to('/403');
