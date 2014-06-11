@@ -41,7 +41,7 @@
 </head>
 <body>
 	<div class="welcome">
-		<a href="http://laravel.com" title="Laravel PHP Framework"><img src="{{$empresa->SEG_Config_Imagen}}"></a>
+		<img src="{{$empresa->SEG_Config_Imagen}}"></img>
 		<h1>{{$empresa->SEG_Config_NombreEmpresa}}</h1> 
 		
 	</div>
