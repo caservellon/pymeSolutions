@@ -99,28 +99,28 @@ Route::group(array('prefix' => 'Inventario', 'before' => 'auth'), function()
 		Route::resource('Horarios', 'HorariosController');
 		Route::resource('FormaPagos', 'FormaPagosController');
 		Route::resource('CampoLocals', 'CampoLocalsController');
-		Route::resource('DetalleMovimiento', 'DetallemovimientosController');
+		Route::resource('DetalleMovimiento', 'DetalleMovimientosController');
 		Route::resource('SalidaInventario', 'SalidaInventariosController');
 		Route::resource('DetalleSalida', 'DetalleSalidasController');
 
-		Route::get('DetalleMovimiento/Agregar/{id}', array('as' => 'Inventario.DetalleMovimiento.Agregar', 'uses' =>'DetallemovimientosController@agregar'));
-		Route::get('DetalleMovimiento/Detalles/{id}', array('as' => 'Inventario.MovimientoInventario.Detalles', 'uses' =>'MovimientoinventariosController@detalles'));
-		Route::get('DetalleMovimiento/Terminar/{id}', array('as' => 'Inventario.MovimientoInventario.Terminar', 'uses' =>'MovimientoinventariosController@detalles'));
-		Route::post('DetalleMovimiento/search', array('as' => 'Inventario.DetalleMovimiento.search', 'uses' =>'DetallemovimientosController@search'));
+		Route::get('DetalleMovimiento/Agregar/{id}', array('as' => 'Inventario.DetalleMovimiento.Agregar', 'uses' =>'DetalleMovimientosController@agregar'));
+		Route::get('DetalleMovimiento/Detalles/{id}', array('as' => 'Inventario.MovimientoInventario.Detalles', 'uses' =>'MovimientoInventariosController@detalles'));
+		Route::get('DetalleMovimiento/Terminar/{id}', array('as' => 'Inventario.MovimientoInventario.Terminar', 'uses' =>'MovimientoInventariosController@detalles'));
+		Route::post('DetalleMovimiento/search', array('as' => 'Inventario.DetalleMovimiento.search', 'uses' =>'DetalleMovimientosController@search'));
 
-		Route::resource('MotivoMovimiento', 'MotivomovimientosController');
-		Route::get('MovimientoInventario/Salida', array('as' => 'Inventario.MovimientoInventario.Salida', 'uses' =>'MovimientoinventariosController@salidas'));
-		Route::get('MovimientoInventario/Entrada', array('as' => 'Inventario.MovimientoInventario.Entrada', 'uses' =>'MovimientoinventariosController@entradas'));
+		Route::resource('MotivoMovimiento', 'MotivoMovimientosController');
+		Route::get('MovimientoInventario/Salida', array('as' => 'Inventario.MovimientoInventario.Salida', 'uses' =>'MovimientoInventariosController@salidas'));
+		Route::get('MovimientoInventario/Entrada', array('as' => 'Inventario.MovimientoInventario.Entrada', 'uses' =>'MovimientoInventariosController@entradas'));
 		
 		Route::get('DetalleSalida/Agregar/{id}', array('as' => 'Inventario.DetalleSalida.Agregar', 'uses' =>'DetalleSalidasController@agregar'));
 
-		Route::get('MovimientoInventario/Orden', array('as' => 'Inventario.MovimientoInventario.Orden', 'uses' =>'MovimientoinventariosController@ordenes'));
-		Route::post('MovimientoInventario/search', array('as' => 'Inventario.MovimientoInventario.search', 'uses' =>'MovimientoinventariosController@search'));
-		Route::post('MovimientoInventario/Recibida', array('as' => 'Inventario.MovimientoInventario.Recibida', 'uses' =>'MovimientoinventariosController@recibida'));
-		Route::post('MovimientoInventario/Rechazada', array('as' => 'Inventario.MovimientoInventario.Rechazada', 'uses' =>'MovimientoinventariosController@rechazada'));
-		Route::post('MovimientoInventario/RecibidaErrores', array('as' => 'Inventario.MovimientoInventario.Errores', 'uses' =>'MovimientoinventariosController@errores'));
+		Route::get('MovimientoInventario/Orden', array('as' => 'Inventario.MovimientoInventario.Orden', 'uses' =>'MovimientoInventariosController@ordenes'));
+		Route::post('MovimientoInventario/search', array('as' => 'Inventario.MovimientoInventario.search', 'uses' =>'MovimientoInventariosController@search'));
+		Route::post('MovimientoInventario/Recibida', array('as' => 'Inventario.MovimientoInventario.Recibida', 'uses' =>'MovimientoInventariosController@recibida'));
+		Route::post('MovimientoInventario/Rechazada', array('as' => 'Inventario.MovimientoInventario.Rechazada', 'uses' =>'MovimientoInventariosController@rechazada'));
+		Route::post('MovimientoInventario/RecibidaErrores', array('as' => 'Inventario.MovimientoInventario.Errores', 'uses' =>'MovimientoInventariosController@errores'));
 
-		Route::resource('MovimientoInventario', 'MovimientoinventariosController');
+		Route::resource('MovimientoInventario', 'MovimientoInventariosController');
 
 		Route::resource('ProductosRechazados', 'ProductorechazadosController');
 
