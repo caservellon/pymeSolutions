@@ -31,9 +31,7 @@
 				    <th>{{{ $campo->GEN_CampoLocal_Nombre }}}</th>
 				@endforeach
 				<th></th>
-				@if(Seguridad::EliminarEmpresa())
 				<th></th>
-				@endif
 			</tr>
 		</thead>
 
@@ -59,13 +57,11 @@
 					    @endif
 					@endforeach
                     <td>{{ link_to_route('CRM.Empresas.edit', 'Editar', array($Empresa->CRM_Empresas_ID), array('class' => 'btn btn-info')) }}</td>
-					@if(Seguridad::EliminarEmpresa())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.Empresas.destroy', $Empresa->CRM_Empresas_ID))) }}
                             {{ Form::submit('Desactivar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
-                    @endif
 				</tr>
 			@endforeach
 		</tbody>

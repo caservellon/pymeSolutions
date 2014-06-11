@@ -1,4 +1,5 @@
-
+CREATE SCHEMA IF NOT EXISTS `pymeERP` DEFAULT CHARACTER SET utf8 ;
+USE `pymeERP` ;
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`INV_Horario`
@@ -15,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Horario` (
   `INV_Horario_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Horario_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_Horario_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_Horario_Activo` INT NULL,
   PRIMARY KEY (`INV_Horario_ID`))
 ENGINE = InnoDB;
 
@@ -81,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Producto` (
   `INV_Producto_Codigo` VARCHAR(16) NULL DEFAULT NULL,
   `INV_Producto_Nombre` VARCHAR(128) NULL DEFAULT NULL,
   `INV_Producto_Descripcion` VARCHAR(512) NULL DEFAULT NULL,
-  `INV_Producto_PrecioVenta` DECIMAL(19,4) NULL DEFAULT NULL,
+  `INV_Producto_PrecioVenta` DECIMAL(19,2) NULL DEFAULT NULL,
   `INV_Producto_MargenGanancia` FLOAT NULL DEFAULT NULL,
-  `INV_Producto_PrecioCosto` DECIMAL(19,4) NULL DEFAULT NULL,
+  `INV_Producto_PrecioCosto` DECIMAL(19,2) NULL DEFAULT NULL,
   `INV_Producto_Cantidad` INT(10) NULL DEFAULT NULL,
   `INV_Producto_Impuesto1` FLOAT NULL DEFAULT NULL,
   `INV_Producto_Impuesto2` FLOAT NULL DEFAULT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Producto` (
   `INV_Producto_NivelReposicion` INT(10) NULL DEFAULT NULL,
   `INV_Producto_TipoCodigoBarras` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Producto_ValorCodigoBarras` VARCHAR(512) NULL DEFAULT NULL,
-  `INV_Producto_ValorDescuento` DECIMAL(19,4) NULL DEFAULT NULL,
+  `INV_Producto_ValorDescuento` DECIMAL(19,2) NULL DEFAULT NULL,
   `INV_Producto_PorcentajeDescuento` FLOAT NULL DEFAULT NULL,
   `INV_Producto_FechaCreacion` DATETIME NULL DEFAULT NULL,
   `INV_Producto_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
@@ -244,7 +244,9 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Proveedor` (
     REFERENCES `pymeERP`.`INV_Ciudad` (`INV_Ciudad_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+COMMENT = ' /* comment truncated */ /* /* comment truncated */ /*INV_Ci /* comment truncated */ /* /* comment truncated */ /*udad_INV_Ciudad_ID*/*/*/*/';
+
 
 -- -----------------------------------------------------
 -- Table `pymeERP`.`INV_Producto_Proveedor`
@@ -271,7 +273,8 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Producto_Proveedor` (
     REFERENCES `pymeERP`.`INV_Proveedor` (`INV_Proveedor_ID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+COMMENT = ' /* comment truncated */ /* /* comment truncated */ /*INV_Pr /* comment truncated */ /* /* comment truncated */ /*oveedor_INV_Proveedor_ID*/*/*/*/';
 
 
 -- -----------------------------------------------------
@@ -358,7 +361,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `pymeERP`.`INV_Reporte` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Reporte` (
-  `INV_Reporte_ID` INT NOT NULL AUTO_INCREMENT,
+  `INV_Reporte_ID` INT NOT NULL AUTO_INCREMENT COMMENT ' /* comment truncated */ /* /* comment truncated */ /*  */*/',
   `INV_Reporte_Numero` DECIMAL(19,0) NULL DEFAULT NULL,
   `INV_Reporte_Encabezado` VARCHAR(512) NULL DEFAULT NULL,
   `INV_Reporte_FechaInicio` DATETIME NULL DEFAULT NULL,
@@ -411,7 +414,6 @@ DROP TABLE IF EXISTS `pymeERP`.`INV_MotivoMovimiento` ;
 CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_MotivoMovimiento` (
   `INV_MotivoMovimiento_ID` INT NOT NULL AUTO_INCREMENT,
   `INV_MotivoMovimiento_Nombre` VARCHAR(128) NULL DEFAULT NULL,
-  `INV_MotivoMovimiento_IDTransaccion` INT NULL DEFAULT NULL,
   `INV_MotivoMovimiento_TipoMovimiento` INT NULL DEFAULT NULL,
   `INV_MotivoMovimiento_Observaciones` VARCHAR(512) NULL DEFAULT NULL,
   `INV_MotivoMovimiento_FechaCreacion` DATETIME NULL DEFAULT NULL,
@@ -430,8 +432,6 @@ DROP TABLE IF EXISTS `pymeERP`.`INV_Movimiento` ;
 
 CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_Movimiento` (
   `INV_Movimiento_ID` INT NOT NULL AUTO_INCREMENT,
-  `INV_Movimiento_Numero` DECIMAL(19,0) NULL DEFAULT NULL,
-  `INV_Movimiento_IDTransaccion` INT NULL DEFAULT NULL,
   `INV_Movimiento_IDOrdenCompra` INT NULL DEFAULT NULL,
   `INV_Movimiento_Observaciones` VARCHAR(512) NULL DEFAULT NULL,
   `INV_Movimiento_FechaCreacion` DATETIME NULL DEFAULT NULL,
@@ -460,11 +460,11 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_DetalleMovimiento` (
   `INV_DetalleMovimiento_CodigoProducto` VARCHAR(16) NULL DEFAULT NULL,
   `INV_DetalleMovimiento_NombreProducto` VARCHAR(128) NULL DEFAULT NULL,
   `INV_DetalleMovimiento_CantidadProducto` INT NULL DEFAULT NULL,
-  `INV_DetalleMovimiento_PrecioCosto` DECIMAL(19,4) NULL DEFAULT NULL,
-  `INV_DetalleMovimiento_PrecioVenta` DECIMAL(19,4) NULL DEFAULT NULL,
-  `INV_DetalleMovimiento_FechaCreacion`  DATETIME NULL DEFAULT NULL,
+  `INV_DetalleMovimiento_PrecioCosto` DECIMAL(19,2) NULL DEFAULT NULL,
+  `INV_DetalleMovimiento_PrecioVenta` DECIMAL(19,2) NULL DEFAULT NULL,
+  `INV_DetalleMovimiento_FechaCreacion` DATETIME NULL DEFAULT NULL,
   `INV_DetalleMovimiento_UsuarioCreacion` VARCHAR(64) NULL DEFAULT NULL,
-  `INV_DetalleMovimiento_FechaModificacion`  DATETIME NULL DEFAULT NULL,
+  `INV_DetalleMovimiento_FechaModificacion` DATETIME NULL DEFAULT NULL,
   `INV_DetalleMovimiento_UsuarioModificacion` VARCHAR(64) NULL DEFAULT NULL,
   `INV_Movimiento_ID` INT NOT NULL,
   `INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID` INT NOT NULL,
@@ -486,3 +486,37 @@ CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_DetalleMovimiento` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `pymeERP`.`INV_ProductoRechazado`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pymeERP`.`INV_ProductoRechazado` ;
+
+CREATE TABLE IF NOT EXISTS `pymeERP`.`INV_ProductoRechazado` (
+  `INV_ProductoRechazado_ID` INT NOT NULL AUTO_INCREMENT,
+  `INV_ProductoRechazado_IDOrdenCompra` INT NOT NULL,
+  `INV_ProductoRechazado_IDProducto` INT NOT NULL,
+  `INV_ProductoRechazado_Cantidad` INT NOT NULL,
+  `INV_ProductoRechazado_PrecioCosto` DECIMAL(19,2) NOT NULL,
+  `INV_ProductoRechazado_PrecioVenta` DECIMAL(19,2) NOT NULL,
+  `INV_ProductoRechazado_Activo` INT NULL,
+  `INV_ProductoRechazado_Observaciones` VARCHAR(512) NULL DEFAULT NULL,
+  `INV_ProductoRechazado_FechaCreacion` DATETIME NULL,
+  `INV_ProductoRechazado_UsuarioCreacion` VARCHAR(64) NULL,
+  `INV_ProductoRechazado_FechaModificacion` DATETIME NULL,
+  `INV_ProductoRechazado_UsuarioModificacion` VARCHAR(64) NULL,
+  PRIMARY KEY (`INV_ProductoRechazado_ID`, `INV_ProductoRechazado_IDOrdenCompra`, `INV_ProductoRechazado_IDProducto`),
+  INDEX `fk_INV_ProductoRechazado_COM_OrdenCompra_idx` (`INV_ProductoRechazado_IDOrdenCompra` ASC),
+  INDEX `fk_INV_ProductoRechazado_INV_Producto_idx` (`INV_ProductoRechazado_IDProducto` ASC),
+  CONSTRAINT `fk_INV_ProductoRechazado_COM_OrdenCompra1`
+    FOREIGN KEY (`INV_ProductoRechazado_IDOrdenCompra`)
+    REFERENCES `pymeERP`.`COM_OrdenCompra` (`COM_OrdenCompra_IdOrdenCompra`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_INV_ProductoRechazado_INV_Producto1`
+    FOREIGN KEY (`INV_ProductoRechazado_IDProducto`)
+    REFERENCES `pymeERP`.`INV_Producto` (`INV_Producto_ID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+

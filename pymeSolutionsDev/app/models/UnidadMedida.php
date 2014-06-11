@@ -19,11 +19,4 @@ class UnidadMedida extends Eloquent {
 		'INV_UnidadMedida_UsuarioModificacion' => '',
 		'INV_UnidadMedida_Activo' => ''
 	);
-
-	public static $rulesUpdate = array(
-		'INV_UnidadMedida_Nombre' => 'required|regex:/^[a-z A-Z]?/|Between:1,128',
-		'INV_UnidadMedida_Descripcion' => 'Between:1,256',
-	);
-
-
 }

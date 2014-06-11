@@ -21,12 +21,9 @@ class AtributosController extends BaseController {
 	 */
 	public function index()
 	{
-		if (Seguridad::listarAtributo()) {
-			$Atributos = $this->Atributo->where('INV_Atributo_Activo', 1)->get();
-			return View::make('Atributos.index', compact('Atributos'));
-		} else {
-			return Redirect::to('/403');
-		}
+		$Atributos = $this->Atributo->all();
+
+		return View::make('Atributos.index', compact('Atributos'));
 	}
 
 	/**
@@ -36,11 +33,7 @@ class AtributosController extends BaseController {
 	 */
 	public function create()
 	{
-		if (Seguridad::crearAtributo()) {
-			return View::make('Atributos.create');
-		} else {
-			return Redirect::to('/403');
-		}
+		return View::make('Atributos.create');
 	}
 
 	/**
@@ -50,22 +43,30 @@ class AtributosController extends BaseController {
 	 */
 	public function store()
 	{
+		$input = Input::all();
+		$validation = Validator::make($input, Atributo::$rules);
 
-		if (Seguridad::crearAtributo()) {
-			$input = Input::all();
-			$validation = Validator::make($input, Atributo::$rules);
-			if ($validation->passes())
-			{
-				$this->Atributo->create($input);
-				return Redirect::route('Inventario.Atributos.index');
-			}
-			return Redirect::route('Inventario.Atributos.create')
-				->withInput()
-				->withErrors($validation)
-				->with('message', 'There were validation errors.');
-		} else {
-			return Redirect::to('/403');
+		if ($validation->passes())
+		{
+			/*
+			$Atributo = new Atributo;
+			$Atributo->INV_Atributo_Nombre = Input::get('INV_Atributo_Nombre');
+			$Atributo->INV_Atributo_TipoDato = Input::get('INV_Atributo_TipoDato');
+			$Atributo->INV_Atributo_Activo = Input::get('INV_Atributo_Activo');
+			$Atributo->INV_Atributo_FechaCreacion = date('Y-m-d H:i:s');
+			$Atributo->INV_Atributo_UsuarioCreacion = Input::get('INV_Atributo_UsuarioCreacion');
+			$Atributo->INV_Atributo_FechaModificacion = date('Y-m-d H:i:s');
+			$Atributo->INV_Atributo_UsuarioModificacion = Input::get('INV_Atributo_UsuarioModificacion');
+			$Atributo->save();
+			*/
+			$this->Atributo->create($input);
+			return Redirect::route('Inventario.Atributos.index');
 		}
+
+		return Redirect::route('Inventario.Atributos.create')
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -76,12 +77,9 @@ class AtributosController extends BaseController {
 	 */
 	public function show($id)
 	{
-		if (Seguridad::listarAtributo()) {
-			$Atributo = $this->Atributo->findOrFail($id);
-			return View::make('Atributos.show', compact('Atributo'));
-		} else {
-			return Redirect::to('/403');
-		}
+		$Atributo = $this->Atributo->findOrFail($id);
+
+		return View::make('Atributos.show', compact('Atributo'));
 	}
 
 	/**
@@ -92,16 +90,14 @@ class AtributosController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		if (Seguridad::editarAtributo()) {
-			$Atributo = $this->Atributo->find($id);
-			if (is_null($Atributo))
-			{
-				return Redirect::route('Inventario.Atributos.index');
-			}
-			return View::make('Atributos.edit', compact('Atributo'));
-		} else {
-			return Redirect::to('/403');
+		$Atributo = $this->Atributo->find($id);
+
+		if (is_null($Atributo))
+		{
+			return Redirect::route('Inventario.Atributos.index');
 		}
+
+		return View::make('Atributos.edit', compact('Atributo'));
 	}
 
 	/**
@@ -112,30 +108,28 @@ class AtributosController extends BaseController {
 	 */
 	public function update($id)
 	{
-		if (Seguridad::editarAtributo()) {
-			$input = Input::except('_method');
-			$validation = Validator::make($input, Atributo::$rules);
-			if ($validation->passes())
-			{
-				$Atributo = $this->Atributo->find($id);
-				$Atributo->INV_Atributo_ID = $id;
-				$Atributo->INV_Atributo_Codigo = Input::get('INV_Atributo_Codigo');
-				$Atributo->INV_Atributo_Nombre = Input::get('INV_Atributo_Nombre');
-				$Atributo->INV_Atributo_TipoDato = Input::get('INV_Atributo_TipoDato');
-				$Atributo->INV_Atributo_Activo = Input::get('INV_Atributo_Activo');
-				$Atributo->INV_Atributo_FechaModificacion = date('Y-m-d H:i:s');
-				$Atributo->INV_Atributo_UsuarioModificacion = Input::get('INV_Atributo_UsuarioModificacion');
-				$Atributo->update();
+		$input = Input::except('_method');
+		$validation = Validator::make($input, Atributo::$rules);
 
-				return Redirect::route('Inventario.Atributos.show', $id);
-			}
-			return Redirect::route('Inventario.Atributos.edit', $id)
-				->withInput()
-				->withErrors($validation)
-				->with('message', 'There were validation errors.');
-		} else {
-			return Redirect::to('/403');
+		if ($validation->passes())
+		{
+			$Atributo = $this->Atributo->find($id);
+			$Atributo->INV_Atributo_ID = $id;
+			$Atributo->INV_Atributo_Codigo = Input::get('INV_Atributo_Codigo');
+			$Atributo->INV_Atributo_Nombre = Input::get('INV_Atributo_Nombre');
+			$Atributo->INV_Atributo_TipoDato = Input::get('INV_Atributo_TipoDato');
+			$Atributo->INV_Atributo_Activo = Input::get('INV_Atributo_Activo');
+			$Atributo->INV_Atributo_FechaModificacion = date('Y-m-d H:i:s');
+			$Atributo->INV_Atributo_UsuarioModificacion = Input::get('INV_Atributo_UsuarioModificacion');
+			$Atributo->update();
+
+			return Redirect::route('Inventario.Atributos.show', $id);
 		}
+
+		return Redirect::route('Inventario.Atributos.edit', $id)
+			->withInput()
+			->withErrors($validation)
+			->with('message', 'There were validation errors.');
 	}
 
 	/**
@@ -146,14 +140,9 @@ class AtributosController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		if (Seguridad::crearAtributo()) {
-			$a = Atributo::find($id);
-			$a->INV_Atributo_Activo = 0;
-			$a->save();
-			return Redirect::route('Inventario.Atributos.index');
-		} else {
-			return Redirect::to('/403');
-		}
+		$this->Atributo->find($id)->delete();
+
+		return Redirect::route('Inventario.Atributos.index');
 	}
 
 	public function returnUser()

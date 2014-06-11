@@ -4,11 +4,9 @@
 
 <h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Atributos<small></h2>
 <div class="btn-agregar">
-	@if(Seguridad::crearAtributo())
 	<a type="button" href="{{ URL::route('Inventario.Atributos.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Atributo
 	</a>
-	@endif
 </div>
 
 @if ($Atributos->count())
@@ -40,18 +38,12 @@
 					<td>{{{ $Atributo->INV_Atributo_FechaModificacion }}}</td>
 					<td>{{{ $Atributo->INV_Atributo_UsuarioModificacion }}}</td>
 					<td>{{{ ($Atributo->INV_Atributo_Activo ? 'Activo' : 'Desactivado') }}}</td>
-                    @if(Seguridad::editarAtributo())
-                    <td>
-                    	{{ link_to_route('Inventario.Atributos.edit', 'Editar', array($Atributo->INV_Atributo_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}
-                    </td>
-                    @endif
-                    @if(Seguridad::eliminarAtributo())
+                    <td>{{ link_to_route('Inventario.Atributos.edit', 'Editar', array($Atributo->INV_Atributo_ID), array('class' => 'btn btn-info glyphicon glyphicon-pencil')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('Inventario.Atributos.destroy', $Atributo->INV_Atributo_ID))) }}
                             {{ Form::submit('Eliminar', array('class' => 'btn btn-danger')) }}
                         {{ Form::close() }}
                     </td>
-                    @endif
 				</tr>
                 @endforeach
               </tbody>

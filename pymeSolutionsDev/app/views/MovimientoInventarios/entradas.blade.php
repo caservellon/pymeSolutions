@@ -5,11 +5,9 @@
 
 <h2 class="sub-header"><span class="glyphicon glyphicon-cog"></span> Configuración <small>Entrada de Inventario<small></h2>
 <div class="btn-agregar">
-	@if(Seguridad::crearProducto())
 	<a type="button" href="{{ URL::route('Inventario.MovimientoInventario.create') }}" class="btn btn-default">
 	  <span class="glyphicon glyphicon-save"></span> Nueva Entrada Inventario
 	</a>
-	@endif
 	<div class="pull-right">
     	<a href="{{{ URL::to('Inventario/MovimientoInventario') }}}" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Regresar</a>
     </div>
