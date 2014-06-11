@@ -154,6 +154,7 @@ mysql -u "root" "-proot" "pymeERP" < "INS_GEN_Mensajes.sql" >> ./logs/install.lo
 
 echo "Populating Seguridad " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_SEG_RoleAdmin.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_SEG_Config.sql" >> ./logs/install.log 2>&1
  
 
 DATE=$(date +"%Y/%m/%d %H:%M:%S")
