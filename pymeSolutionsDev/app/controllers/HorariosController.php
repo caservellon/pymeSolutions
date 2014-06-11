@@ -22,7 +22,8 @@ class HorariosController extends BaseController {
 	public function index()
 	{
 		if (Seguridad::listarHorario()) {
-			$Horarios = $this->Horario->all();
+			//$Horarios = $this->Horario->all();
+			$Horarios = $this->Horario->where('INV_Horario_Activo', 1)->get();
 			return View::make('Horarios.index', compact('Horarios'));
 		} else {
 			return Redirect::to('/403');
@@ -139,7 +140,10 @@ class HorariosController extends BaseController {
 	public function destroy($id)
 	{
 		if (Seguridad::listarHorario()) {
-			$this->Horario->find($id)->delete();
+			//$this->Horario->find($id)->delete();
+			$h = Horario::find($id);
+			$h->INV_Horario_Activo = 0;
+			$h->save();
 			return Redirect::route('Inventario.Horarios.index');
 		} else {
 			return Redirect::to('/403');

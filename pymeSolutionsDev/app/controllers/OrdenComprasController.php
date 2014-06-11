@@ -717,10 +717,7 @@ class OrdenComprasController extends BaseController {
             $ordenCompra=OrdenCompra::whereIn('COM_OrdenCompra_IdOrdenCompra',$ordenPago)->paginate();
             return View::make('OrdenCompras.ListaPlanPago',array('Ordenes'=>$ordenCompra));
         }else{
-            $ruta = route('ListaOrdenes');
-                    $mensajeBD = Mensaje::find(97);
-                    $mensaje= $mensajeBD->GEN_Mensajes_Mensaje;
-                    return View::make('MensajeCompra', compact('mensaje', 'ruta'));
+            return 'no hay planes de pagos';
             }
             }else {
             return Redirect::to('/403');

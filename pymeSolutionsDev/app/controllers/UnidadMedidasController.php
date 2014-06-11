@@ -117,7 +117,7 @@ class UnidadMedidasController extends BaseController {
 	{
 		if (Seguridad::editarUnidadMedida()) {
 			$input = Input::except('_method');
-			$validation = Validator::make($input, UnidadMedida::$rules);
+			$validation = Validator::make($input, UnidadMedida::$rulesUpdate);
 			if ($validation->passes())
 			{
 				$UnidadMedida = $this->UnidadMedida->find($id);

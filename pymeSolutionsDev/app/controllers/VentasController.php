@@ -37,7 +37,7 @@ class VentasController extends BaseController {
 	 */
 	public function create()
 	{
-		if (Seguridad::GestionarVentass()) {
+		if (Seguridad::GestionarVentas()) {
 			$Clientes = Persona::all();
 
 			$Descuentos = Descuento::where('VEN_DescuentoEspecial_Estado', '1')->get();

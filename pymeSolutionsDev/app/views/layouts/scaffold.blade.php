@@ -167,25 +167,35 @@
 							</ul>
 						</li>
 					@endif
+					@if(Seguridad::VerPersona() || Seguridad::VerEmpresa() || Seguridad::Configuracion())
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">CRM <b class="caret"></b></a>
 						<ul class="dropdown-menu">
+							@if(Seguridad::VerPersona())
 							<li>
 								{{ link_to_route('CRM.Personas.index', 'Clientes')}}
 							</li>
+							@endif
+							@if(Seguridad::VerEmpresa())
 							<li>
 								{{ link_to_route('CRM.Empresas.index', 'Empresas')}}
 							</li>
+							@endif
 							<li><a href="#">Proveedores</a></li>
 							<li><a href="#">Campañas</a></li>
+							@if(Seguridad::Configuracion())
 							<li>
 								{{ link_to_route('CRM.TipoDocumentos.index', 'Documentos')}}
 							</li>
+							@endif
 							<li><a href="#">Oportunidades de Negocios</a></li>
+							@if(Seguridad::Configuracion())
 							<li class="divider"></li>
 							<li><a href="/CRM">Configuración</a></li>
+							@endif
 						</ul>
 					</li>
+					@endif
 
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguridad <b class="caret"></b></a>
