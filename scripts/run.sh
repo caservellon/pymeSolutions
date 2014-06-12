@@ -60,6 +60,7 @@ mysql -u "root" "-proot" "pymeERP" < "INS_CON_MotivoTransaccion.sql" >> ./logs/i
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_CuentaMotivo.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_UnidadMonetaria.sql" >> ./logs/install.log 2>&1
 mysql -u "root" "-proot" "pymeERP" < "INS_CON_ConceptoMotivo.sql" >> ./logs/install.log 2>&1
+mysql -u "root" "-proot" "pymeERP" < "INS_CON_MotivoInventario.sql" >> ./logs/install.log 2>&1
 
 echo "Populating Ventas " >> ./logs/install.log
 mysql -u "root" "-proot" "pymeERP" < "INS_VEN_DescuentoEspecial.sql" >> ./logs/install.log 2>&1
