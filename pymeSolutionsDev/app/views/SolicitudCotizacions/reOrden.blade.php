@@ -19,6 +19,7 @@
                                 </div>
              
 </div>
+@if($reOrden->count())
             {{ Form::open(array('route' => 'seleccion', 'class' => "form-horizontal" , 'role' => 'form' )) }}
             <div class="row">
                 
@@ -74,7 +75,16 @@
 {{Form::close()}}
 
 
+@endif
+<br>
+<br>
+<br>
 
+@if(!$reOrden->count())
+<div class="alert alert-danger">
+    <strong>Oh no!</strong> No hay Productos a Nivel de Reorden disponibles :(
+</div>
+@endif
 
 
 
