@@ -83,6 +83,8 @@ class DevolucionesController extends BaseController {
 				$Detalle->save();
 			}
 
+			invVentas::Devolucion($Input['data']);
+
 
 			if ($cantidadBono != 0) {
 				$BonoDeCompra = new BonoDeCompra;

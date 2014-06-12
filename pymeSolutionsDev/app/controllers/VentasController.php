@@ -137,7 +137,7 @@ class VentasController extends BaseController {
 					$DetalleVenta->VEN_Venta_VEN_Venta_id = $venta->VEN_Venta_id;
 					$DetalleVenta->save();
 					$subTotal += (float)$DetalleVenta->VEN_DetalleDeVenta_PrecioVenta * $p['cantidad'];
-					$isvCalculado += $subTotal * 0.15;
+					//$isvCalculado += $p['cantidad'] * $DetalleVenta->VEN_DetalleDeVenta_PrecioVenta * 0.15;
 					//$isvCalculado += $subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_Impuesto1 + ($subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_Impuesto2); // TODO revisar el campo de isv en db
 					$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 				}
@@ -181,7 +181,7 @@ class VentasController extends BaseController {
 				}
 				
 				
-				Contabilidad::GenerarTransaccion(5,$isvCalculado);
+				Contabilidad::GenerarTransaccion(5,$subTotal * 0.15);
 				Contabilidad::GenerarTransaccion(7,$descuentoCalculado);
 				Contabilidad::GenerarTransaccion(6,$costoVendido);
 
@@ -263,7 +263,7 @@ class VentasController extends BaseController {
 	 */
 	public function searchInvoice()
 	{
-		if (Seguridad::GestionarVentass()) {
+		if (Seguridad::GestionarVentas()) {
 			if (Request::ajax())
 			{
 				$Input = Input::all();
