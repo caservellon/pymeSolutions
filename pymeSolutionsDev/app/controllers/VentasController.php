@@ -138,7 +138,7 @@ class VentasController extends BaseController {
 					$DetalleVenta->save();
 					$subTotal += (float)$DetalleVenta->VEN_DetalleDeVenta_PrecioVenta * $p['cantidad'];
 					$isvCalculado += $subTotal * 0.15;
-				//	$isvCalculado += $subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_Impuesto1 + ($subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_Impuesto2); // TODO revisar el campo de isv en db
+					//$isvCalculado += $subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_Impuesto1 + ($subTotal * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_Impuesto2); // TODO revisar el campo de isv en db
 					$costoVendido += $p['cantidad'] * Producto::where('INV_Producto_Codigo', $p['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
 				}
 

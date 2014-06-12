@@ -99,7 +99,7 @@
                         <td>{{{ $Producto->INV_Producto_ID }}}</td>
                         <td class='cod'>{{{ $Producto->INV_Producto_Codigo }}}</td>
                         <td class='nombre'>{{{ $Producto->INV_Producto_Nombre }}}</td>
-                        <td class='precio'>{{{ $Producto->INV_Producto_PrecioVenta }}}</td>
+                        <td class='precio'>{{{ number_format((float)$Producto->INV_Producto_PrecioVenta, 2, '.', '') }}}</td>
                     </tr>
                     @endforeach
                 </tbody>
