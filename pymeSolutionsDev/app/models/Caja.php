@@ -16,7 +16,6 @@ class Caja extends Eloquent {
 	public static $rulesUpdate = array(
 		'VEN_Caja_Codigo' => 'required',
 		'VEN_Caja_Numero' => 'required|integer|is_positive',
-		'VEN_Caja_Estado' => 'required',
 		'VEN_Caja_SaldoInicial' => 'required|num_decimal'
 	);
 }
