@@ -99,6 +99,7 @@ $(document).ready(function(){
     };
 
     $('.search-cliente').on('click', function(){
+    	$('.clientes-buscados-list').html("");
     	if($('.cliente').val() !==  ""){
 			if ($('.Tipo_de_Cliente').val() == '0') {
 				$.post('/CRM/Personas/buscar',
