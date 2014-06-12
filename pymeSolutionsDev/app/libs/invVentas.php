@@ -39,16 +39,16 @@
 
 			foreach ($Productos as $producto) {
 				$detalle = array();
-				$temp = Producto::where('INV_Producto_Codigo', $producto['VEN_DetalleDeVenta_Codigo'])->orderBy('INV_Producto_ID', 'DESC')->get();
+				$temp = Producto::where('INV_Producto_Codigo', $producto['codigo'])->orderBy('INV_Producto_ID', 'DESC')->get();
 				$prod = $temp[0];
 				
 				//se llenan los datos para almacenar el detalle
 				$detalle['INV_DetalleMovimiento_IDProducto'] = $prod->INV_Producto_ID;
-				$detalle['INV_DetalleMovimiento_CodigoProducto'] = $producto['VEN_DetalleDeVenta_Codigo'];
+				$detalle['INV_DetalleMovimiento_CodigoProducto'] = $producto['codigo'];
 				$detalle['INV_DetalleMovimiento_NombreProducto'] = $prod->INV_Producto_Nombre;
-				$detalle['INV_DetalleMovimiento_CantidadProducto'] = $producto['VEN_DetalleDeVenta_CantidadVendida'];
+				$detalle['INV_DetalleMovimiento_CantidadProducto'] = $producto['cantidad'];
 				$detalle['INV_DetalleMovimiento_PrecioCosto'] = $prod->INV_Producto_PrecioCosto;
-				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $producto['VEN_DetalleDeVenta_PrecioVenta'];
+				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $prod->INV_Producto_PrecioVenta;
 				$detalle['INV_DetalleMovimiento_FechaCreacion'] = $fecha;
 				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = $user;
 				$detalle['INV_DetalleMovimiento_FechaModificacion'] = $fecha;
@@ -62,7 +62,7 @@
 				DetalleMovimiento::create($detalle);
 
 				//Actualizamos el Inventario
-				$prod->INV_Producto_Cantidad = $prod->INV_Producto_Cantidad - $producto['VEN_DetalleDeVenta_CantidadVendida'];
+				$prod->INV_Producto_Cantidad = $prod->INV_Producto_Cantidad - $producto['cantidad'];
 				$prod->save();
 			}
 			return '1';
@@ -93,14 +93,14 @@
 			
 			foreach ($Productos as $producto) {
 				$detalle = array();
-				$temp = Producto::where('INV_Producto_Codigo', $producto['VEN_DetalleDeVenta_Codigo'])->orderBy('INV_Producto_ID', 'DESC')->get();
+				$temp = Producto::where('INV_Producto_Codigo', $producto['codigo'])->orderBy('INV_Producto_ID', 'DESC')->get();
 				$prod = $temp[0];
 
 				//se llenan los datos para almacenar el detalle
 				$detalle['INV_DetalleMovimiento_IDProducto'] = $prod['INV_Producto_ID'];
-				$detalle['INV_DetalleMovimiento_CodigoProducto'] = $producto['VEN_DetalleDeVenta_Codigo'];
+				$detalle['INV_DetalleMovimiento_CodigoProducto'] = $producto['codigo'];
 				$detalle['INV_DetalleMovimiento_NombreProducto'] = $prod['INV_Producto_Nombre'];
-				$detalle['INV_DetalleMovimiento_CantidadProducto'] = $producto['VEN_DetalleDeVenta_CantidadVendida'];
+				$detalle['INV_DetalleMovimiento_CantidadProducto'] = $producto['cantidad'];
 				$detalle['INV_DetalleMovimiento_PrecioCosto'] = $prod['INV_Producto_PrecioCosto'];
 				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $producto['VEN_DetalleDeVenta_PrecioVenta'];
 				$detalle['INV_DetalleMovimiento_FechaCreacion'] = $fecha;
@@ -116,7 +116,7 @@
 				DetalleMovimiento::create($detalle);
 
 				//Actualizamos el Inventario
-				$prod->INV_Producto_Cantidad = $prod->INV_Producto_Cantidad + $producto['VEN_DetalleDeVenta_CantidadVendida'];
+				$prod->INV_Producto_Cantidad = $prod->INV_Producto_Cantidad + $producto['cantidad'];
 				$prod->save();
 			}
 			return '1';

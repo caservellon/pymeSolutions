@@ -99,10 +99,36 @@ $(document).ready(function(){
     };
 
     $('.search-cliente').on('click', function(){
+    	$('.clientes-buscados-list').html("");
     	if($('.cliente').val() !==  ""){
 			if ($('.Tipo_de_Cliente').val() == '0') {
 				$.post('/CRM/Personas/buscar',
 {					'name' : $('.cliente').val()
+				}).success(function(data){
+					console.log(data);
+					$.each(data, function(i, value){
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Personas_ID']+'</td><td>'+value['CRM_Personas_Nombres']+'</td><td>'+value['CRM_Personas_Apellidos']+'</td></tr>');
+					});
+				}).fail(function(data) {
+					//TODO: Mensaje de no encontrado
+				});
+			} else {
+				$.post('/CRM/Empresas/buscar',{
+					'name' : $('.cliente').val()
+				}).success(function(data){
+					$.each(data, function(i, value){
+						$('.clientes-buscados-list').append('<tr><td>'+value['CRM_Empresas_ID']+'</td><td>'+value['CRM_Empresas_Nombre']+'</td><td>'+value['CRM_Empresas_Codigo']+'</td></tr>');
+					});
+				}).fail(function (data) {
+
+				});
+			};
+
+			$('#buscarCliente').modal('show');
+		} else {
+			if ($('.Tipo_de_Cliente').val() == '0') {
+				$.post('/CRM/Personas/buscar',
+{					'name' : ""
 				}).success(function(data){
 					console.log(data);
 					$.each(data, function(i, value){

@@ -20,6 +20,9 @@ class EmpresasController extends BaseController {
 		if (Seguridad::BuscarEmpresa()) {
  			#return Empresa::where('CRM_Empresas_Nombre', 'LIKE' ,'%' . Input::get('name') . '%')->get();
  			$val = '%'.Input::get('name').'%';
+ 			if ($val == "") {
+ 				return DB::table('CRM_Empresas')->get();
+ 			}
  			$result = DB::table('CRM_Empresas')->where('CRM_Empresas_Nombre','LIKE',$val)
  								->orWhere('CRM_Empresas_Direccion','LIKE',$val)
  								->orWhere('CRM_Empresas_Codigo','LIKE',$val)->lists('CRM_Empresas_ID');
@@ -56,7 +59,7 @@ class EmpresasController extends BaseController {
 	{
 		if (Seguridad::VerEmpresa()) {
  			//$Empresas = $this->Empresa->all();
- 			$Empresas = $this->Empresa->whereNull('CRM_Empresas_Eliminados')->paginate(10);
+ 			$Empresas = $this->Empresa->whereNull('CRM_Empresas_Eliminados')->paginate(3);
 
  			return View::make('Empresas.index', compact('Empresas'));	
  		} else {
