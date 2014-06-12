@@ -52,7 +52,7 @@ INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
 VALUES
 (5,
 'Impuesto sobre la venta',
-5,Now(),Now());
+9,Now(),Now());
 
 INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
 (`CON_ConceptoMotivo_ID`,
