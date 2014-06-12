@@ -96,7 +96,7 @@
             <tr>
                 <td>{{{ $CampoLocal->GEN_CampoLocal_Codigo }}}</td>
                 <td>{{{ $CampoLocal->GEN_CampoLocal_Nombre }}}</td>
-                <td>
+                
                     @if($CampoLocal->GEN_CampoLocal_Tipo == "TXT")
                 <td>Texto</td>
                 @elseif($CampoLocal->GEN_CampoLocal_Tipo == "FLOAT") 
@@ -107,7 +107,7 @@
                 <td>Entero</td>
                 @endif 
 
-                </td>
+                
 
                 @if($CampoLocal->GEN_CampoLocal_Activo == 1)
                 <td><span class="glyphicon glyphicon-ok"></span></td>
