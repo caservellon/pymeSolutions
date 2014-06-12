@@ -102,7 +102,7 @@
 				$detalle['INV_DetalleMovimiento_NombreProducto'] = $prod['INV_Producto_Nombre'];
 				$detalle['INV_DetalleMovimiento_CantidadProducto'] = $producto['cantidad'];
 				$detalle['INV_DetalleMovimiento_PrecioCosto'] = $prod['INV_Producto_PrecioCosto'];
-				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $producto['VEN_DetalleDeVenta_PrecioVenta'];
+				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $prod['VEN_DetalleDeVenta_PrecioVenta'];
 				$detalle['INV_DetalleMovimiento_FechaCreacion'] = $fecha;
 				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = $user;
 				$detalle['INV_DetalleMovimiento_FechaModificacion'] = $fecha;
