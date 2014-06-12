@@ -19,6 +19,9 @@ class PersonasController extends BaseController {
 	public function buscar() {
 		if (Seguridad::BuscarPersona()) {
 			$val = '%'.Input::get('name').'%';
+			if ($val == "") {
+				return DB::table('CRM_Personas')->get();
+			}
 			$result = DB::table('CRM_Personas')->where('CRM_Personas_Nombres','LIKE',$val)
 								->orWhere('CRM_Personas_Apellidos','LIKE',$val)
 								->orWhere('CRM_Personas_Direccion','LIKE',$val)
@@ -54,7 +57,7 @@ class PersonasController extends BaseController {
 	{
 		if (Seguridad::VerPersona()) {
  			//$Personas = $this->Persona->all();
- 			$Personas = $this->Persona->whereNull('CRM_Personas_Eliminado')->paginate(10);
+ 			$Personas = $this->Persona->whereNull('CRM_Personas_Eliminado')->paginate(3);
 
  			return View::make('Personas.index', compact('Personas'));
  		} else {
