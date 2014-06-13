@@ -4,7 +4,7 @@
 <div class="page-header clearfix">
       <h3 class="pull-left">Lista de Devoluciones por Compras<small></small></h3>
       <div class="pull-right">
-        <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="javascript:window.history.back();" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
       </div>
 </div>
 <div class="row">
