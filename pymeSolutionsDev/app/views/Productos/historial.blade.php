@@ -19,6 +19,14 @@
 {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
 {{ Form::close() }}
 
+<br />
+
+@if(!DetalleMovimiento::all()->isEmpty())
+	<a href="{{{ URL::to('Inventario/DetalleMovimiento') }}}" class="btn btn-warning"><span class=""></span>Historial General</a>
+	@else
+	<button class="btn btn-danger">No hay Historial</button>
+@endif
+
 @if ($Productos->count())
 	
 	<div class="table-responsive">

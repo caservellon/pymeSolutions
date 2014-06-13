@@ -79,7 +79,7 @@
 			@endforeach
 		</tbody>
 	</table>
-
+	
 @else
 	<div class="alert alert-danger">
       <strong>Oh no!</strong> No hay Historial disponible :(

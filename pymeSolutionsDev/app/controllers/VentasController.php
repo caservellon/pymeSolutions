@@ -43,7 +43,7 @@ class VentasController extends BaseController {
 			$Descuentos = Descuento::where('VEN_DescuentoEspecial_Estado', '1')->get();
 			$Productos = Producto::all();
 
-			if (Caja::where("VEN_Caja_Estado", 1)->get()->count() == 0) {
+			if (Caja::where("VEN_Caja_Estado", 0)->get()->count() == 0) {
 				return Redirect::route('Ventas.Cajas.index');
 			}
 

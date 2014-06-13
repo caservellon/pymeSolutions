@@ -300,6 +300,7 @@ class DetalleMovimientosController extends BaseController {
 	public function history($id){
 		$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->get();
 		if (!$DetalleMovimientos->isEmpty()) {
+			//$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->paginate(3);
 			return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
 		} else {
 			
