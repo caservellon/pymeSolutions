@@ -50,6 +50,7 @@ class DevolucionesController extends BaseController {
 			$Return = array();
 			$totalDevolucion = 0;
 			$DevolucionCode = $this->randomCode();
+			$costoVendido = 0;
 
 			foreach ($Input['data'] as $prod) {
 
@@ -64,6 +65,8 @@ class DevolucionesController extends BaseController {
 					array_push($Return, [$prod['codigo'] => "Hay existencia de Inventario."]);
 					$totalDevolucion += ($Producto->INV_Producto_PrecioVenta * $prod['cantidad']);
 				}
+				$costoVendido += $prod['cantidad'] * Producto::where('INV_Producto_Codigo', $prod['codigo'])->firstOrFail()->INV_Producto_PrecioCosto;
+				
 			}
 
 			$Devolucion = new Devolucion;
@@ -98,7 +101,9 @@ class DevolucionesController extends BaseController {
 				array_push($Return, ['BonoCompraCantidad' => $cantidadBono]);
 				array_push($Return, ['BonoCompraCodigo' => $BonoDeCompra->VEN_BonoDeCompra_Numero]);
 			}
-			
+				
+				Contabilidad::GenerarTransaccion(14,$costoVendido);
+				Contabilidad::GenerarTransaccion(15,$cantidadBono);
 
 		    return $Return;
 		}

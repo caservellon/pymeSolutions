@@ -141,3 +141,15 @@ VALUES
 (13,
 'Pago a proveedor',
 11,Now(),Now()); 
+
+INSERT INTO `pymeERP`.`CON_ConceptoMotivo`
+(`CON_ConceptoMotivo_ID`,
+`CON_ConceptoMotivo_Concepto`,
+`CON_MotivoTransaccion_ID`,
+`CON_ConceptoMotivo_FechaCreacion`,
+`CON_ConceptoMotivo_FechaModificacion`)
+VALUES
+(14,
+'Devolucion sobre Compras',
+6,Now(),Now());
+
