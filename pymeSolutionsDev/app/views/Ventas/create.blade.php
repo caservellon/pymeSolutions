@@ -262,4 +262,25 @@
     </div>
   </div>
 </div>
+
+<!-- Modal de Agregar Bono de Compra -->
+<div class="modal fade" id="error-pago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Error</h4>
+      </div>
+      <div class="modal-body">
+        <center>
+           <h2>El pago es insuficiente!</h2>
+
+         </center>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cerrar-bono-modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
 @stop

@@ -230,57 +230,63 @@ $(document).ready(function(){
 	//Mandar todo pa-tras
 	$('.guardar-compra').on('click',function(){
 
-		var data = {};
+		if ($('.saldo-info').text().substring(5) > 0) {
+			$('#error-pago').modal('show');
+		}else{
+			var data = {};
 
-		data.productos = [];
+			data.productos = [];
 
-		$('.pro-list tr').each(function(i, producto) {
-		    var td = $(producto).find('td');
-		    var codigo = td.eq(1).text();
-		    var cantidad = td.eq(4).text();
+			$('.pro-list tr').each(function(i, producto) {
+			    var td = $(producto).find('td');
+			    var codigo = td.eq(1).text();
+			    var cantidad = td.eq(4).text();
 
-		    data.productos.push({
-		        codigo: codigo,
-		        cantidad: cantidad
-		    });
-		});
-
-		data.descuentos = [];
-
-		$('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
-		    var id = $(descuento).find('td:eq(1)').text();
-		    data.descuentos.push(id);
-		});
-
-		data.abonos = [];
-
-		$('.pagos-list').find('tr').each(function(i, abono){
-			//console.log("dafsdafdfS", abono);
-			data.abonos.push({
-				metodo: $(abono).find('td:eq(0)').text(),
-				monto: $(abono).find('td:eq(1)').text().substring(5)
+			    data.productos.push({
+			        codigo: codigo,
+			        cantidad: cantidad
+			    });
 			});
-		});
 
-		data.isv = $('.isv').text().substring(5);
+			data.descuentos = [];
 
-		data.saldo = $('.saldo-info').text().substring(5);
+			$('.descuento-add input:checked').parents('tr').map(function(i, descuento) {
+			    var id = $(descuento).find('td:eq(1)').text();
+			    data.descuentos.push(id);
+			});
 
-		data.tipocliente = $('.Tipo_de_Cliente').val();
+			data.abonos = [];
 
-		data.cliente = $('.cliente').val();
+			$('.pagos-list').find('tr').each(function(i, abono){
+				//console.log("dafsdafdfS", abono);
+				data.abonos.push({
+					metodo: $(abono).find('td:eq(0)').text(),
+					monto: $(abono).find('td:eq(1)').text().substring(5)
+				});
+			});
 
-		data.total = $('.grand-total').text().substring(5);
-		data.clienteid = $('.id-cliente-buscado').val();
-		data.caja = '1';
+			data.isv = $('.isv').text().substring(5);
 
-		console.log(data);
+			data.saldo = $('.saldo-info').text().substring(5);
 
-		$.post("/Ventas/Ventas/guardar", data).success(function(data){
-			$('.num-factura').text(data[0].numFact);
-			console.log(data[0].numFact);
-			window.print();
-		});
+			data.tipocliente = $('.Tipo_de_Cliente').val();
+
+			data.cliente = $('.cliente').val();
+
+			data.total = $('.grand-total').text().substring(5);
+			data.clienteid = $('.id-cliente-buscado').val();
+			data.caja = '1';
+
+			console.log(data);
+
+			$.post("/Ventas/Ventas/guardar", data).success(function(data){
+				$('.num-factura').text(data[0].numFact);
+				console.log(data[0].numFact);
+				window.print();
+				$(".guardar-compra").hide();
+			});
+
+		}
 	});
 
 	//Seleccionador

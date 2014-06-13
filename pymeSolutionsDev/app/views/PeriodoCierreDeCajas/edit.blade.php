@@ -45,7 +45,6 @@
           {{ Form::selectRange('VEN_PeriodoCierreDeCaja_Hora', 0, 23, null, array('class' => 'form-control' )) }}
           :
           {{ Form::selectRange('VEN_PeriodoCierreDeCaja_Min', 0 , 59, null, array('class' => 'form-control' ))}}
-          {{ Form::select('VEN_PeriodoCierreDeCaja_PA', array('AM' => 'AM', 'PM' => 'PM'),'AM', array('class'=> 'form-control'))}}
         </div>
     </div>
 

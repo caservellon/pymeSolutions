@@ -26,7 +26,7 @@ class AperturaCajasController extends BaseController {
 			$Periodo = PeriodoCierreDeCaja::find($Caja->VEN_PeriodoCierreDeCaja_VEN_PeriodoCierreDeCaja_id);
 			//return $Periodo->VEN_PeriodoCierreDeCaja_HoraPartida ." " .strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) .
 			//	" " . time(). " -> " . (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) > time());
-			if (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) > time()) {
+			if (strtotime($Periodo->VEN_PeriodoCierreDeCaja_HoraPartida) < time()) {
 
 				$Caja->VEN_Caja_Estado = 0;
 				$Caja->save();
