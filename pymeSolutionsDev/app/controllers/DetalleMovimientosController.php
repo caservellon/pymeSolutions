@@ -299,14 +299,14 @@ class DetalleMovimientosController extends BaseController {
 	}
 
 	public function history($id){
-		$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->paginate(5);
+
+		$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->get();
+
 		if (!$DetalleMovimientos->isEmpty()) {
-			//$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id);
-			//return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
 
-
-		$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->paginate(5); 
-		return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
+			//var_dump(get_class_methods($DetalleMovimientos));
+			$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->paginate(5);
+			return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
 
 		} else {
 			
