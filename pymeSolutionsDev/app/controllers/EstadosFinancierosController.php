@@ -55,9 +55,10 @@
 
 	    public function estado(){
 	    	if (Seguridad::VerEstadosFinancieros()) {
-		    	$EstadoResultado = EstadoResultado::findOrFail(Input::get('id'));
-
-				return View::make('EstadosFinancieros._estado', compact('EstadoResultado'));
+		    	$EstadoResultado = EstadoResultado::find(Input::get('id'));
+		    	if ($EstadoResultado)
+					return View::make('EstadosFinancieros._estado', compact('EstadoResultado'));
+				return "No se encontro estado de resultados";
 			}else{
 				return Redirect::to('/403');
 			}
@@ -65,7 +66,8 @@
 
 	    public function balance(){
 	    	if (Seguridad::VerEstadosFinancieros()) {
-		    	$BalanceGeneral = BalanceGeneral::findOrFail(Input::get('id'));
+		    	$BalanceGeneral = BalanceGeneral::find(Input::get('id'));
+		    	if ($BalanceGeneral){
 				$CuentasT = DB::table('CON_CatalogoContable')
 		            ->join('CON_CuentaT', 'CON_CatalogoContable.CON_CatalogoContable_ID', '=', 'CON_CuentaT.CON_CatalogoContable_ID')
 		            ->join('CON_LibroMayor', 'CON_LibroMayor.CON_LibroMayor_ID', '=', 'CON_CuentaT.CON_LibroMayor_ID')
@@ -73,6 +75,8 @@
 		            ->get();					
 
 				return View::make('EstadosFinancieros._balance', compact('BalanceGeneral',"CuentasT"));
+				}
+				return "No se encontro balance general";
 			}else{
 				return Redirect::to('/403');
 			}	
@@ -81,8 +85,9 @@
 	    public function libromayor(){
 	    	if (Seguridad::VerEstadosFinancieros()) {
 		    	$LibroMayor = DB::select(DB::raw('CALL CON_BalanzaComprobacion(?)'),array(Input::get('id')));
-	        			return View::make('EstadosFinancieros._libromayor')
-	        			->with('Libro',$LibroMayor);
+	        		if($LibroMayor)
+	        			return View::make('EstadosFinancieros._libromayor')->with('Libro',$LibroMayor);
+	        		return "No se encontro libro mayor";
 	        }else{
 				return Redirect::to('/403');
 			}
