@@ -2,6 +2,11 @@
 
 @section('main')
 
+<script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+<link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+<script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
+
 <div class="page-header clearfix">
       <h3 class="pull-left">Descuento &gt; <small>Editar Descuento</small></h3>
       <div class="pull-right">

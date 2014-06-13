@@ -1,22 +1,26 @@
+@if (count($Libro))
 <div align="center">
 <h2>Empresa pymeERP</h2>
 	<h3>Libro Mayor</h3>
 	<h4 class="date">Para el</h4><br>
 </div>
-
+@endif
 
 <div class="row">
 	@foreach ($Libro as $Cuenta)
 	<div class="col-sm-6">
 		<table class="table table-striped">
 			<thead>
-				<th colspan="2">{{{ $Cuenta->CON_CatalogoContable_Nombre }}}</th>
-			</thead>
-			<tbody>
+				<tr>
+					<th colspan="2">{{{ $Cuenta->CON_CatalogoContable_Nombre }}}</th>
+				</tr>
 				<tr>
 					<th>Debe</th>
 					<th>Haber</th>
 				</tr>
+			</thead>
+			<tbody>
+				
 				<tr>
 					@if ( $Cuenta->CON_CuentaT_AcreedorDeudor)
 						<td></td>
