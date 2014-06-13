@@ -6,7 +6,7 @@
 
 @include('_messages.errors')
 <div class="page-header">
-    <h1>Modificar el Motivo de Inventario<a href="{{{ URL::to('contabilidad/configuracion/motivoinventarios') }}}" class="btn btn-sm btn-primary pull-right">
+    <h1>Motivo de Inventario > <small>Editar</small><a href="{{{ URL::to('contabilidad/configuracion/motivoinventarios') }}}" class="btn btn-sm btn-primary pull-right">
     <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h1>
 </div>
 {{ Form::model($MotivoInventario, 
