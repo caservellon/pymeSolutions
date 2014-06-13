@@ -111,20 +111,4 @@ public static function GenerarTransaccionCmpSM($Concepto,$Monto,$IdProv){
 
 }
 
-public static function Devolucion($Monto,$IdProveedor){
-	if($Monto!=0){
-		Contabilidad::GenerarTransaccionCmp(10,$Monto,$IdProveedor);
-		/*$Proveedor= CON_Proveedor::find($IdProveedor);
-		if($Proveedor!=null){
-
-		}else{
-			$Proveedor= new CON_Proveedor;
-			$Proveedor->INV_Proveedores_ID=$IdProveedor;
-
-			array(`CON_Subcuenta_Codigo`=>,`CON_Subcuenta_Nombre`,`CON_Subcuenta_FechaCreacion`,`CON_Subcuenta_FechaModificacion`,`CON_CatalogoContable_ID`);
-		}*/
-	}
-
-}
-
 } ?>
