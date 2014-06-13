@@ -422,7 +422,8 @@ Route::group(array('prefix' => 'contabilidad', 'before' => 'auth'),function(){
 				Route::resource('periodocontable', 'ParamPeriodoContableController');
 				Route::resource('catalogocuentas', 'CatalogoContablesController');
 				Route::resource('subcuentas', 'SubcuentaController');
-				Route::resource('motivoinventarios', 'MotivoInventariosController');
+				//Route::resource('motivoinventarios', 'MotivoInventariosController');
+
 
 				Route::post('periodocontable/habilitar/{id}',array('as'=>'con.enableperiodo','uses'=>'ParamPeriodoContableController@enable'));
 				Route::post('periodocontable/eliminar/{id}',array('as'=>'con.deleteperiodo','uses'=>'ParamPeriodoContableController@destroy'));
@@ -430,8 +431,16 @@ Route::group(array('prefix' => 'contabilidad', 'before' => 'auth'),function(){
 				Route::get('unidadmonetaria',array('as'=>'unidadmonetaria', 'uses' => 'UnidadMonetariaController@index'));
 				Route::get('periodocontable',array('as'=>'periodocontable', 'uses' => 'ParamPeriodoContableController@index'));
 				Route::get('subcuentas',array ('as'=>'subcuentas', 'uses' => 'SubcuentaController@index'));
+				Route ::group(array('prefix'=>'motivoinventarios'),function(){
+					Route::get('/', array('as'=>'con.motivoinventario', 'uses'=>'MotivoInventariosController@index'));
 
-
+					Route::get('crear/{id}', array('as'=>'con.motivoinventario.crear', 'uses'=> 'MotivoInventariosController@create'));
+					Route::get('editar/{id}', array('as'=>'con.motivoinventario.editar','uses'=> 'MotivoInventariosController@edit'));
+					Route::post('crear', array('as'=>'con.motivoinventario.store', 'uses'=> 'MotivoInventariosController@store'));
+					Route::post('editar', array('as'=>'con.motivoinventario.update','uses'=> 'MotivoInventariosController@update'));
+					
+				});
+				
 				Route::any('motivoinventarios/activar', array('as' => 'MotivoInventario.activar', 'uses' =>'MotivoInventariosController@activar'));
 
 

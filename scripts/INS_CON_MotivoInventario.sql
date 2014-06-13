@@ -52,7 +52,7 @@ INSERT INTO `pymeERP`.`CON_MotivoInventario`
 `CON_MotivoInventario_UsuarioModificacion`)
 VALUES
 (4,
-4,
+16,
 Now(),
 Now(),
 "Admin",
@@ -67,7 +67,7 @@ INSERT INTO `pymeERP`.`CON_MotivoInventario`
 `CON_MotivoInventario_UsuarioModificacion`)
 VALUES
 (5,
-5,
+17,
 Now(),
 Now(),
 "Admin",

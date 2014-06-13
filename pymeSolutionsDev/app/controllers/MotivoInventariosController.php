@@ -22,10 +22,11 @@ class MotivoInventariosController extends BaseController {
 	public function index()
 	{
 		if (Seguridad::ListarMotivosDeInventario()) {
-			$Conceptos=invContabilidad:: getMotivos();
-			$MotivoInventarios = $this->MotivoInventario->all();
-
-			return View::make('MotivoInventarios.index', compact('MotivoInventarios','Conceptos'));
+			$Conceptos=MotivoMovimiento::
+				select('MT.CON_MotivoTransaccion_Descripcion','INV_MotivoMovimiento.*')
+				->leftjoin ('CON_MotivoInventario as MI','INV_MotivoMovimiento_ID','=','MI.CON_MotivoInventario_ID')
+				->leftjoin('CON_MotivoTransaccion as MT','MT.CON_MotivoTransaccion_ID','=','MI.CON_MotivoTransaccion_ID')->get();
+			return View::make('MotivoInventarios.index', compact('Conceptos'));
 		}else{
 				return Redirect::to('/403');
 		}
@@ -36,10 +37,14 @@ class MotivoInventariosController extends BaseController {
 	 *
 	 * @return Response
 	 */
-	public function create()
+	public function create($id)
 	{
 		if (Seguridad::ConfigurarMotivosDeInventario()) {
-			return View::make('MotivoInventarios.create');
+			$MotivoInventario=null;
+			$Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+			$concepto = invContabilidad:: getMotivos()->find($id);
+			$action="MotivoInventariosController@store";
+			return View::make('MotivoInventarios.edit',compact('MotivoInventario','id','Motivos','concepto','action'));
 		}else{
 				return Redirect::to('/403');
 		}
@@ -64,7 +69,7 @@ class MotivoInventariosController extends BaseController {
 
 			}
 
-			return Redirect::route('MotivoInventarios.create')
+			return View::make('MotivoInventarios.edit',$id)
 				->withInput()
 				->withErrors($validation)
 				->with('message', 'There were validation errors.');
@@ -83,19 +88,15 @@ class MotivoInventariosController extends BaseController {
 	{
 		if (Seguridad::ConfigurarMotivosDeInventario()) {
 			$MotivoInventario = $this->MotivoInventario->find($id);
-			$Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
-		   $concepto = invContabilidad:: getMotivos()->find($id);
 
-			if (is_null($MotivoInventario))
-			{
-
-		   
-	      	return View::make('MotivoInventarios.create',compact('id','Motivos','concepto'));
-		
-
+			if (is_null($MotivoInventario)){
+	      		return Redirect::route('con.motivoinventario.crear',$id);
 			}
 
-			return View::make('MotivoInventarios.edit', compact('MotivoInventario','Motivos','concepto'));
+			$Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
+		   	$concepto = invContabilidad:: getMotivos()->find($id);
+			$action=array("con.motivoinventario.update");
+			return View::make('MotivoInventarios.edit', compact('MotivoInventario','id','Motivos','concepto','action'));
 		}else{
 				return Redirect::to('/403');
 		}
@@ -107,10 +108,12 @@ class MotivoInventariosController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update()
 	{
+		
 		if (Seguridad::ConfigurarMotivosDeInventario()) {
 			$input = Input::except('_method');
+			$id=$input['CON_MotivoInventario_ID'];
 			$validation = Validator::make($input, MotivoInventario::$rules);
 
 			if ($validation->passes())
@@ -121,10 +124,9 @@ class MotivoInventariosController extends BaseController {
 				$Conceptos=invContabilidad:: getMotivos();
 			$MotivoInventarios = $this->MotivoInventario->all();
 
-			return View::make('MotivoInventarios.index', compact('MotivoInventarios','Conceptos'));
+			return Redirect::action('MotivoInventariosController@index');
 			}
-
-			return Redirect::route('MotivoInventarios.edit', $id)
+			return View::make('MotivoInventarios.edit',$id)
 				->withInput()
 				->withErrors($validation)
 				->with('message', 'There were validation errors.');

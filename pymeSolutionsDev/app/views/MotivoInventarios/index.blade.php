@@ -20,6 +20,7 @@
 			<th>Nombre</th>
 			<th>Tipo Movimiento</th>
 			<th>Observaciones</th>
+			<th>Motivo Asignado</th>
 			<th>Activo</th>
 			@if(Seguridad::ConfigurarMotivosDeInventario())
 			<th></th>
@@ -38,13 +39,14 @@
 			<td>Entrada</td>
 		@endif
 		<td>{{{$concepto->INV_MotivoMovimiento_Observaciones}}}</td>
+		<td>{{ $concepto->CON_MotivoTransaccion_Descripcion}}</td>
 		@if ($concepto->INV_MotivoMovimiento_Activo == 1)
 		<td ><span class="glyphicon glyphicon-ok"></td>
 		@else 
 		<td><span class="glyphicon glyphicon-remove"></td>
 		@endif
 		@if(Seguridad::ConfigurarMotivosDeInventario())
-        <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/motivoinventarios/'.$concepto->INV_MotivoMovimiento_ID.'/edit') }}"> Editar</a></td>
+        <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::route('con.motivoinventario.editar',$concepto->INV_MotivoMovimiento_ID) }}"> Editar</a></td>
         @endif
         @endif
         </tr>
@@ -81,7 +83,7 @@
 		<td><span class="glyphicon glyphicon-remove"></td>
 		@endif
 		@if (Seguridad::ConfigurarMotivosDeInventario())
-        <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/motivoinventarios/'.$concepto->INV_MotivoMovimiento_ID.'/edit') }}"> Editar</a></td>
+        <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::route('con.motivoinventario.editar',$concepto->INV_MotivoMovimiento_ID) }}"> Editar</a></td>
         @endif
         @endif
         </tr>

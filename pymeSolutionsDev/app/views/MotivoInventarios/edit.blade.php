@@ -2,42 +2,85 @@
 
 @section('main')
 
-<h1>Modificar el Motivo de Inventario</h1>
 
 
-<div class="pull-right">
-    <a href="{{{ URL::to('contabilidad/configuracion/motivoinventarios') }}}" class="btn btn-sm btn-primary">
-    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+@include('_messages.errors')
+<div class="page-header">
+    <h1>Modificar el Motivo de Inventario<a href="{{{ URL::to('contabilidad/configuracion/motivoinventarios') }}}" class="btn btn-sm btn-primary pull-right">
+    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h1>
 </div>
-{{ Form::model($MotivoInventario, array('class' => 'form-horizontal', 'action' => array('MotivoInventariosController@update', $MotivoInventario->CON_MotivoInventario_ID), 'method' => 'PUT')) }}         
+{{ Form::model($MotivoInventario, 
+      array(
+      'class' => 'form-horizontal',
+      'action' => $action,
+      'method' => 'POST')) }}         
 
-	<ul>
-     <p>Nombre: {{{$concepto->INV_MotivoMovimiento_Nombre}}}</p>
-  
+	     <div class="form-group"> 
+		  	{{ Form::label('', 'Nombre: ') }}
+		  	<div class="col-md-5">
+		  		 {{ Form::input('text',null,$concepto->INV_MotivoMovimiento_Nombre ,array('disabled')) }}
+		    </div>
+  		 </div>
+        <div class="form-group"> 
+        	{{ Form::label('', 'Observacion: ') }}
+        	<div class="col-md-5">
+        		{{ Form::input('text',null,$concepto->INV_MotivoMovimiento_Observaciones ,array('disabled')) }}
+        	</div>
+        </div>
+        <div class="form-group"> 
+            {{ Form::label('CON_MotivoTransaccion_ID', 'MotivoTransaccion:*') }}
+            <div class="col-md-5">
+         {{ Form::select('CON_MotivoTransaccion_ID',$Motivos,Input::get('CON_MotivoTransaccion_ID'),array('class'=>'form-control')) }}
+         </div>
+        </div>
 
-  <p>Observacion: {{{$concepto->INV_MotivoMovimiento_Observacion}}}</p>
-
-          {{ Form::label('CON_MotivoTransaccion_ID', 'MotivoTransaccion:*') }}
-      {{ Form::select('CON_MotivoTransaccion_ID',$Motivos,'',array('class'=>'form-control')) }}
+      <div class="form-group">
+        {{ Form::label('debe', 'Debe: ') }}
+        <div class='col-md-5'>
+        {{ Form::input('text', 'debe','',array('disabled')) }}
+        </div>
+      </div>
+      <div class="form-group">
+      {{ Form::label('haber', 'Haber: ') }}
+      <div class='col-md-5'>
+         {{ Form::input('text', 'haber','',array('disabled')) }}
+        </div>
+       </div>
     
       <br>
 
-    
-		<li>
-          
-  
-  {{ Form::hidden('CON_MotivoInventario_ID') }}
-
+    @if (isset($id))
+   	  {{ Form::hidden('CON_MotivoInventario_ID',$id) }}
+      @endif
+<div class="form-group">
+<div class="col-md-5"> 
 			{{ Form::submit('Cambiar', array('class' => 'btn btn-info')) }}
-		</li>
-	</ul>
+			</div>
+	</div>
 {{ Form::close() }}
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
 
+@stop
+
+@section('contabilidad_scripts')
+  <script type="text/javascript">
+
+  $(document).ready(function(){
+        $('input').addClass('form-control');
+        $("label").addClass('col-md-2 control-label pull-left');
+        $('#CON_MotivoTransaccion_ID').on('click',function(){
+         $.post('{{{URL::route("cargarcuentas")}}}',{id:$("#CON_MotivoTransaccion_ID").val()}).success(function(data){
+            $("#debe").val(""+data.v1);
+            $('#haber').val("\t"+data.v2);
+          });
+        });
+         $('#crearmotivo').on('click',function(){
+            $.post('{{{URL::route("crearmotivo")}}}',{}).success(function(data){
+              $('#div_crearmotivo').html(data);
+            });
+         });
+         $('#CON_MotivoTransaccion_ID').click();
+    });
+</script>
 @stop
 
