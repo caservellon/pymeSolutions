@@ -61,9 +61,9 @@
 			{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$idOrden - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Recibida') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
-			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', Auth::user()->SEG_Usuarios_Username) }}
 			{{ Form::hidden('INV_Movimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
-			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', Auth::user()->SEG_Usuarios_Username) }}
 			{{ Form::hidden('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 2) }}
 			<div class="modal fade" id="recibida" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -93,9 +93,9 @@
     		{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$idOrden - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Recibida Con Errores') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
-			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', Auth::user()->SEG_Usuarios_Username) }}
 			{{ Form::hidden('INV_Movimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
-			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', Auth::user()->SEG_Usuarios_Username) }}
 			{{ Form::hidden('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 2) }}
 			<div class="modal fade" id="errores" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
@@ -149,9 +149,9 @@
     		{{ Form::hidden('INV_Movimiento_IDOrdenCompra', $ordenes[$idOrden - 1]->COM_OrdenCompra_IdOrdenCompra) }}
 			{{ Form::hidden('INV_Movimiento_Observaciones', 'Compra Rechazada') }}
 			{{ Form::hidden('INV_Movimiento_FechaCreacion', date('Y-m-d H:i:s')) }}
-			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_UsuarioCreacion', Auth::user()->SEG_Usuarios_Username) }}
 			{{ Form::hidden('INV_Movimiento_FechaModificacion', date('Y-m-d H:i:s')) }}
-			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', 'Admin') }}
+			{{ Form::hidden('INV_Movimiento_UsuarioModificacion', Auth::user()->SEG_Usuarios_Username) }}
 			{{ Form::hidden('INV_MotivoMovimiento_INV_MotivoMovimiento_ID', 2) }}
 			<div class="modal fade" id="rechazada" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">

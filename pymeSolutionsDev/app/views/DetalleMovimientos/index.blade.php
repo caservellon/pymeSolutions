@@ -1,6 +1,11 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<script type="text/javascript" src="/assets/javascript/jquery.simple-dtpicker.js"></script>
+<link type="text/css" href="/assets/javascript/jquery.simple-dtpicker.css" rel="stylesheet" />
+<script type="text/javascript" src="/assets/javascript/datetimepicker.js"></script>
+<link rel="stylesheet" type="text/css" href="/assets/css/jquery.simple-dtpicker.css">
+
 
 <h2 class="sub-header">Historial de Movimientos</h2>
 <div class="btn-agregar">

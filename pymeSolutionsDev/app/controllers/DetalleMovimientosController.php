@@ -136,9 +136,9 @@ class DetalleMovimientosController extends BaseController {
 				$detalle['INV_DetalleMovimiento_PrecioCosto'] = $t[$t3];
 				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
 				$detalle['INV_DetalleMovimiento_FechaCreacion'] = date('Y-m-d H:i:s');
-				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = 'Admin';
+				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = Auth::user()->SEG_Usuarios_Username;
 				$detalle['INV_DetalleMovimiento_FechaModificacion'] = date('Y-m-d H:i:s');
-				$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = 'Admin';
+				$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = Auth::user()->SEG_Usuarios_Username;
 				$detalle['INV_Movimiento_ID'] = $input['Motivo'];
 				$detalle['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'] = $input['Motivo2'];
 				$detalle['INV_Producto_INV_Producto_ID'] = $Producto->INV_Producto_ID;

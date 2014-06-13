@@ -262,8 +262,8 @@ class MovimientoInventariosController extends BaseController {
 			$detalle['INV_DetalleMovimiento_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
 			$detalle['INV_DetalleMovimiento_FechaCreacion'] = date('Y-m-d H:i:s');
 			$detalle['INV_DetalleMovimiento_FechaModificacion'] = date('Y-m-d H:i:s');
-			$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = 'Admin';
-			$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = 'Admin';
+			$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = Auth::user()->SEG_Usuarios_Username;
+			$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = Auth::user()->SEG_Usuarios_Username;
 			$detalle['INV_Movimiento_ID'] = $Movimiento->INV_Movimiento_ID;
 			$detalle['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'] = '2';
 			$detalle['INV_Producto_INV_Producto_ID'] = $Producto->INV_Producto_ID;
@@ -318,9 +318,9 @@ class MovimientoInventariosController extends BaseController {
 			$producto['INV_ProductoRechazado_Activo'] = 1;
 			$producto['INV_ProductoRechazado_Observaciones'] = $input['INV_Movimiento_Observaciones'];
 			$producto['INV_ProductoRechazado_FechaCreacion'] = date('Y-m-d H:i:s');
-			$producto['INV_ProductoRechazado_UsuarioCreacion'] = 'Admin';
+			$producto['INV_ProductoRechazado_UsuarioCreacion'] = Auth::user()->SEG_Usuarios_Username;
 			$producto['INV_ProductoRechazado_FechaModificacion'] = date('Y-m-d H:i:s');
-			$producto['INV_ProductoRechazado_UsuarioModificacion'] = 'Admin';
+			$producto['INV_ProductoRechazado_UsuarioModificacion'] = Auth::user()->SEG_Usuarios_Username;
 			//return $producto;
 			ProductoRechazado::create($producto);
 		}
@@ -411,8 +411,8 @@ class MovimientoInventariosController extends BaseController {
 				$detalle['INV_DetalleMovimiento_PrecioVenta'] = $Producto->INV_Producto_PrecioVenta;
 				$detalle['INV_DetalleMovimiento_FechaCreacion'] = date('Y-m-d H:i:s');
 				$detalle['INV_DetalleMovimiento_FechaModificacion'] = date('Y-m-d H:i:s');
-				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = 'Admin';
-				$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = 'Admin';
+				$detalle['INV_DetalleMovimiento_UsuarioCreacion'] = Auth::user()->SEG_Usuarios_Username;
+				$detalle['INV_DetalleMovimiento_UsuarioModificacion'] = Auth::user()->SEG_Usuarios_Username;
 				$detalle['INV_Movimiento_ID'] = $Movimiento->INV_Movimiento_ID;
 				$detalle['INV_Movimiento_INV_MotivoMovimiento_INV_MotivoMovimiento_ID'] = '2';
 				$detalle['INV_Producto_INV_Producto_ID'] = $Producto->INV_Producto_ID;
@@ -443,9 +443,9 @@ class MovimientoInventariosController extends BaseController {
 				$producto['INV_ProductoRechazado_Activo'] = 1;
 				$producto['INV_ProductoRechazado_Observaciones'] = $input['INV_Movimiento_Observaciones'];
 				$producto['INV_ProductoRechazado_FechaCreacion'] = date('Y-m-d H:i:s');
-				$producto['INV_ProductoRechazado_UsuarioCreacion'] = 'Admin';
+				$producto['INV_ProductoRechazado_UsuarioCreacion'] = Auth::user()->SEG_Usuarios_Username;
 				$producto['INV_ProductoRechazado_FechaModificacion'] = date('Y-m-d H:i:s');
-				$producto['INV_ProductoRechazado_UsuarioModificacion'] = 'Admin';
+				$producto['INV_ProductoRechazado_UsuarioModificacion'] = Auth::user()->SEG_Usuarios_Username;
 				//return $producto;
 				ProductoRechazado::create($producto);
 			}
