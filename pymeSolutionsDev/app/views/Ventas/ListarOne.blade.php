@@ -16,7 +16,7 @@
           <h2>Factura Número: {{{ $ven->VEN_Venta_id }}} </h2><br>
           @if ($ven->CRM_Empresas_CRM_Empresas_ID)
             <h4><b>Empresa:</b> {{{ DB::table('CRM_Empresas')->where('CRM_Empresas_ID',$ven->CRM_Empresas_CRM_Empresas_ID)->first()->CRM_Empresas_Nombre }}}</h4>
-            <h4><b>Cliente:</b> {{{ DB::table('CRM_Personas')->where('CRM_Personas_ID',DB::table('CRM_Empresas')->where('CRM_Empresas_ID',$ven->CRM_Empresas_CRM_Empresas_ID)->first()->CRM_Personas_CRM_Personas_ID)->first()->CRM_Personas_Nombres.' '.DB::table('CRM_Personas')->where('CRM_Personas_ID',$ven->CRM_Personas_CRM_Personas_ID)->first()->CRM_Personas_Apellidos }}}</h4><br>
+            <h4><b>Cliente:</b> {{{ DB::table('CRM_Personas')->where('CRM_Personas_ID',DB::table('CRM_Empresas')->where('CRM_Empresas_ID',$ven->CRM_Empresas_CRM_Empresas_ID)->first()->CRM_Personas_CRM_Personas_ID)->first()->CRM_Personas_Nombres.' '.DB::table('CRM_Personas')->where('CRM_Personas_ID',DB::table('CRM_Empresas')->where('CRM_Empresas_ID',$ven->CRM_Empresas_CRM_Empresas_ID)->first()->CRM_Personas_CRM_Personas_ID)->first()->CRM_Personas_Apellidos }}}</h4><br>
           @elseif ($ven->CRM_Personas_CRM_Personas_ID)
             <h4><b>Cliente:</b> {{{ DB::table('CRM_Personas')->where('CRM_Personas_ID',$ven->CRM_Personas_CRM_Personas_ID)->first()->CRM_Personas_Nombres.' '.DB::table('CRM_Personas')->where('CRM_Personas_ID',$ven->CRM_Personas_CRM_Personas_ID)->first()->CRM_Personas_Apellidos }}}</h4><br>
           @endif
