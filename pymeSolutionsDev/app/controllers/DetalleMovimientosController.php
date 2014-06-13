@@ -21,9 +21,10 @@ class DetalleMovimientosController extends BaseController {
 	 */
 	public function index()
 	{
-		$DetalleMovimientos = $this->DetalleMovimiento->all();
-
+		//$DetalleMovimientos = $this->DetalleMovimiento->all();
+		$DetalleMovimientos = $this->DetalleMovimiento->paginate(5);
 		return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
+
 	}
 
 	/**
@@ -279,16 +280,16 @@ class DetalleMovimientosController extends BaseController {
 		public function search_index(){
 
 			if(Input::get('FechaFin') == '') {
-				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', date('Y-m-d H:i:s'))->get();
+				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', date('Y-m-d H:i:s'))->paginate(5);
 				return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
 			} elseif(Input::get('FechaInc') == '') {
-				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , date('Y-m-d H:i:s'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->get();
+				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , date('Y-m-d H:i:s'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->paginate(5);
 				return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
 			} elseif (Input::get('FechaInc') == '' && Input::get('FechaInc') == '') {
-				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , date('Y-m-d H:i:s'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', date('Y-m-d H:i:s'))->get();
+				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , date('Y-m-d H:i:s'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', date('Y-m-d H:i:s'))->paginate(5);
 				return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
 			} else {
-				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->get();
+				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->paginate(5);
  				return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
 			}
 
@@ -298,15 +299,18 @@ class DetalleMovimientosController extends BaseController {
 	}
 
 	public function history($id){
-		$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->get();
+		$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->paginate(5);
 		if (!$DetalleMovimientos->isEmpty()) {
-			//$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->paginate(3);
-			return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
+			//$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id);
+			//return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
+
+
+		$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->paginate(5); 
+		return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
+
 		} else {
 			
 		}
 	}
 		
-		
-
 }

@@ -85,6 +85,8 @@
 		</tbody>
 	</table>
 	
+	<div class="text-center"> {{ $DetalleMovimientos->links() }}</div>
+
 @else
 	<div class="alert alert-danger">
       <strong>Oh no!</strong> No hay Historial disponible :(
