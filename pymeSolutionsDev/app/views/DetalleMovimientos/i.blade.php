@@ -19,14 +19,10 @@
 {{ Form::label('FechaFinLabel', 'Fecha Final: ', array('class' => 'col-md-2 control-label')) }}
 {{ Form::text('FechaFin', null,  array('class' => 'col-md-3', 'form-control', 'id' => 'FechaFin', 'placeholder'=>'Dia/Mes/Ano')) }}
 {{ Form::submit('Buscar', array('class' => 'btn btn-success btn-sm' )) }}
-{{ Form::hidden('INV_DetalleMovimiento_IDProducto', $DetalleMovimientos[0]->INV_DetalleMovimiento_IDProducto) }}
 {{ Form::close() }} 
 
 <br /> 
 <div class="detalle-movi"></div>
-
-{{ Form::label('CantidadA', 'Cantidad Actual: ', array('class' => 'col-md-2 control-label')) }}
-{{ Form::text('CantidadAT', DB::table('INV_Producto')->where('INV_Producto_ID', $DetalleMovimientos[0]->INV_DetalleMovimiento_IDProducto)->first()->INV_Producto_Cantidad,  array('class' => 'col-md-1', 'form-control', 'disabled' , 'id' => 'FechaFin', 'placeholder'=>'Dia/Mes/Ano')) }}
 
 @if ($DetalleMovimientos->count())
 	

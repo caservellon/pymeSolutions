@@ -279,24 +279,23 @@ class DetalleMovimientosController extends BaseController {
 
 		public function search_index(){
 
+
 			if(Input::get('FechaFin') == '') {
-				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', date('Y-m-d H:i:s'))->paginate(5);
-				return View::make('DetalleMovimientos.search_index', compact('DetalleMovimientos'));
+				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', date('Y-m-d H:i:s'))->get();
 			} elseif(Input::get('FechaInc') == '') {
-				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , date('Y-m-d H:i:s'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->paginate(5);
-				return View::make('DetalleMovimientos.search_index', compact('DetalleMovimientos'));
+				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , date('Y-m-d H:i:s'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->get();
 			} elseif (Input::get('FechaInc') == '' && Input::get('FechaInc') == '') {
-				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , date('Y-m-d H:i:s'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', date('Y-m-d H:i:s'))->paginate(5);
-				return View::make('DetalleMovimientos.search_index', compact('DetalleMovimientos'));
+				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , date('Y-m-d H:i:s'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', date('Y-m-d H:i:s'))->get();
 			} else {
-				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->paginate(5);
- 				return View::make('DetalleMovimientos.search_index', compact('DetalleMovimientos'));
+				$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->get();
+			}	
+
+			if(!empty($DetalleMovimientos)){
+				return View::make('DetalleMovimientos.i', compact('DetalleMovimientos'));
+			} else {
+				return View::make('DetalleMovimientos.search_index', compact('DetalleMovimientos'));
 			}
-
-			//$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', Input::get('INV_DetalleMovimiento_IDProducto'))->where('INV_DetalleMovimiento_FechaModificacion', '>=' , Input::get('FechaInc'))->where('INV_DetalleMovimiento_FechaModificacion', '<=', Input::get('FechaFin'))->get();
-			//return View::make('DetalleMovimientos.index', compact('DetalleMovimientos'));
-
-	}
+		}
 
 	public function history($id){
 
@@ -304,7 +303,6 @@ class DetalleMovimientosController extends BaseController {
 
 		if (!$DetalleMovimientos->isEmpty()) {
 
-			//var_dump(get_class_methods($DetalleMovimientos));
 			$DetalleMovimientos = DetalleMovimiento::where('INV_DetalleMovimiento_IDProducto', $id)->paginate(5);
 			return View::make('DetalleMovimientos.history', compact('DetalleMovimientos'));
 
