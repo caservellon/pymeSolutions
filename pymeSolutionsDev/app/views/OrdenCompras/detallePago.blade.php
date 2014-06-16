@@ -5,7 +5,7 @@
     <div class="page-header clearfix">
       <h3 class="pull-left">Generar Pago &gt; Orden de Compra&gt;Detalle<small></small></h3>
       <div class="pull-right">
-        <a href="/Compras/OrdenCompra/GenerarPago/ListaCotizaciones" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+        <a href="/Compras/OrdenCompra/GenerarPago/ListaCotizaciones" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
       </div>
 </div>
 </div>
