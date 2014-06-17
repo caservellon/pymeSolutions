@@ -1,6 +1,6 @@
 @if (count($Libro))
 <div align="center">
-<h2>Empresa pymeERP</h2>
+<h2>{{{$config->SEG_Config_NombreEmpresa}}}</h2>
 	<h3>Libro Mayor</h3>
 	<h4 class="date">Para el</h4><br>
 </div>
