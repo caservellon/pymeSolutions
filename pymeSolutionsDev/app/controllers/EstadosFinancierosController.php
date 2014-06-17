@@ -44,9 +44,10 @@
 		public function balanza(){
 			if (Seguridad::VerEstadosFinancieros()) {
 		    	$Cuentas = DB::select(DB::raw('CALL CON_BalanzaComprobacion(?)'),array(Input::get('id')));
+		    	$config = Configuracion::find(1);
 
 		    	if(sizeof($Cuentas)!=0)
-		    		return View::make('EstadosFinancieros._balanza',compact('Cuentas'));
+		    		return View::make('EstadosFinancieros._balanza',compact('Cuentas','config'));
 		    	return "<p> No se encontro balanza </p>";
 		    }else{
 				return Redirect::to('/403');
@@ -56,8 +57,9 @@
 	    public function estado(){
 	    	if (Seguridad::VerEstadosFinancieros()) {
 		    	$EstadoResultado = EstadoResultado::find(Input::get('id'));
+		    	$config = Configuracion::find(1);
 		    	if ($EstadoResultado)
-					return View::make('EstadosFinancieros._estado', compact('EstadoResultado'));
+					return View::make('EstadosFinancieros._estado', compact('EstadoResultado','config'));
 				return "No se encontro estado de resultados";
 			}else{
 				return Redirect::to('/403');
@@ -67,6 +69,8 @@
 	    public function balance(){
 	    	if (Seguridad::VerEstadosFinancieros()) {
 		    	$BalanceGeneral = BalanceGeneral::find(Input::get('id'));
+		    	$config = Configuracion::find(1);
+
 		    	if ($BalanceGeneral){
 				$CuentasT = DB::table('CON_CatalogoContable')
 		            ->join('CON_CuentaT', 'CON_CatalogoContable.CON_CatalogoContable_ID', '=', 'CON_CuentaT.CON_CatalogoContable_ID')
@@ -74,7 +78,7 @@
 		            ->select('CON_CatalogoContable.CON_CatalogoContable_Nombre', 'CON_CuentaT.CON_CuentaT_SaldoFinal', 'CON_CatalogoContable.CON_ClasificacionCuenta_CON_ClasificacionCuenta_ID')
 		            ->get();					
 
-				return View::make('EstadosFinancieros._balance', compact('BalanceGeneral',"CuentasT"));
+				return View::make('EstadosFinancieros._balance', compact('BalanceGeneral',"CuentasT",'config'));
 				}
 				return "No se encontro balance general";
 			}else{
@@ -85,8 +89,9 @@
 	    public function libromayor(){
 	    	if (Seguridad::VerEstadosFinancieros()) {
 		    	$LibroMayor = DB::select(DB::raw('CALL CON_BalanzaComprobacion(?)'),array(Input::get('id')));
+		    	$config = Configuracion::find(1);
 	        		if($LibroMayor)
-	        			return View::make('EstadosFinancieros._libromayor')->with('Libro',$LibroMayor);
+	        			return View::make('EstadosFinancieros._libromayor')->with('Libro',$LibroMayor)->with('config',$config);
 	        		return "No se encontro libro mayor";
 	        }else{
 				return Redirect::to('/403');
