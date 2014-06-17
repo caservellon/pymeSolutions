@@ -23,6 +23,8 @@
 			$SolicitudCotizacionDeCotizacion = Helpers::InformacionSolicitudCotizacionDeCotizacion($CodigoCotizacion);
 			$CamposLocalesSolicitudCotizacion = Helpers::InformacionCamposLocalesSolicitudCotizacion($SolicitudCotizacionDeCotizacion[0] -> Codigo);
 			$CamposLocalesCotizaciones = Helpers::InformacionCamposLocalesCotizaciones();
+			
+			$Empresa = Seguridad::Compania();
 		?>
 		
 		{{ Form::open() }}
@@ -30,8 +32,8 @@
 				<div class="col-md-4 " ></div>
 				<div class="col-md-5 " style="text-align: center">
 					<h2>Cotizaci&oacute;n</h2>
-					<h5>Empresa X S.A.</h5>
-					<h5>Colonia El &Aacute;lamo, Tegicigalpa, Francisco Moraz&aacute;n</h5>
+					<h5>{{ $Empresa -> SEG_Config_NombreEmpresa }}</h5>
+					<h5>{{ $Empresa -> SEG_Config_Direccion }}</h5>
 					<h5>Honduras, C.A.</h5>
 				</div>
 				<div class="col-md-12 " style="text-align: right">
