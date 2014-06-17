@@ -191,7 +191,7 @@
 		}
 
 		public static function detalleNuevaTransicionesEstado(){
-			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleNuevaTransicionesEstado;
+			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_COM_detalleNuevaTransicion;
 		}
 		
 
