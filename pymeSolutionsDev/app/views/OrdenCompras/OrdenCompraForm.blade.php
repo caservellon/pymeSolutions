@@ -19,7 +19,7 @@
       <div class="page-header clearfix">
         <h3 class="pull-left">Crear Orden de Compra&gt;sin cotizacion&gt;Detalle<small></small></h3>
         <div class="pull-right">
-          <a href="/Compras/OrdenCompra/sinCotizacion/ListaProductos" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+          <a href="/Compras/OrdenCompra/sinCotizacion/ListaProductos" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-arrow-left"></span> Atras</a>
         </div>
   </div>
   </div>

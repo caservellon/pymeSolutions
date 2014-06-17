@@ -20,13 +20,11 @@
 {{ Form::close() }}
 
 <br />
-@if(Seguridad::crearProducto())
 	@if(!DetalleMovimiento::all()->isEmpty())
 		<a href="{{{ URL::to('Inventario/DetalleMovimiento') }}}" class="btn btn-warning"><span class=""></span>Historial General</a>
 	@else
 		<button class="btn btn-danger">No hay Historial</button>
 	@endif
-@endif
 
 @if ($Productos->count())
 	

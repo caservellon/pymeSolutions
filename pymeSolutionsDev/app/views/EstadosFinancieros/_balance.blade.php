@@ -3,10 +3,10 @@ td {
 	text-align: left;
 }
 </style>
-<?php $empresa = Seguridad::Compania(); ?>
 
 <div align="center">
-	<h2>{{$empresa->SEG_Config_NombreEmpresa}}</h2>
+
+	<h2>{{{$config->SEG_Config_NombreEmpresa}}}</h2>
 	<h3>Balance General</h3>
 	<h4 class="balance-date">Para el {{{$BalanceGeneral->CON_BalanceGeneral_FechaCreacion }}}</h4><br>
 

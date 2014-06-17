@@ -3,9 +3,8 @@ td {
 	text-align: left;
 }
 </style>
-<?php $empresa = Seguridad::Compania(); ?>
 <div align="center">
-	<h2>{{$empresa->SEG_Config_NombreEmpresa}}</h2>
+	<h2>{{{$config->SEG_Config_NombreEmpresa}}}</h2>
 	<h3>Estado de Resultados</h3>
 	<h4 class="estado-date">Para el {{{$EstadoResultado->CON_EstadoResultados_FechaCreacion}}}</h4><br>
     <div class="table-responsive">
