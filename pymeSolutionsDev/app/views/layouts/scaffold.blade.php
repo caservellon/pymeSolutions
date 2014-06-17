@@ -220,6 +220,7 @@
 
 		
 		<div class="container col-md-8 col-md-offset-2">
+			@include('_messages.flash')
 			@yield('main')
 		</div>
 		<script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>

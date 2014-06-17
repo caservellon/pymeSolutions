@@ -1,6 +1,8 @@
+
 @if (count($Libro))
+<?php $empresa = Seguridad::Compania(); ?>
 <div align="center">
-<h2>Empresa pymeERP</h2>
+<h2>{{$empresa->SEG_Config_NombreEmpresa}}</h2>
 	<h3>Libro Mayor</h3>
 	<h4 class="date">Para el</h4><br>
 </div>

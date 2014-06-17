@@ -1,6 +1,7 @@
+<?php $empresa = Seguridad::Compania(); ?>
 <div align="center">
-<h2>Empresa pymeERP</h2>
-	<h3>Balanza Comprobacion</h3>
+<h2>{{$empresa->SEG_Config_NombreEmpresa}}</h2>
+	<h3>Balanza de Comprobacion</h3>
 	<h4 class="date">Para el</h4><br>
 </div>
 

@@ -3,9 +3,9 @@ td {
 	text-align: left;
 }
 </style>
-
+<?php $empresa = Seguridad::Compania(); ?>
 <div align="center">
-	<h2>Empresa pymeERP</h2>
+	<h2>{{$empresa->SEG_Config_NombreEmpresa}}</h2>
 	<h3>Estado de Resultados</h3>
 	<h4 class="estado-date">Para el {{{$EstadoResultado->CON_EstadoResultados_FechaCreacion}}}</h4><br>
     <div class="table-responsive">
@@ -54,7 +54,7 @@ td {
 	      		<td><center>{{{ $EstadoResultado->CON_EstadoResultados_Impuesto }}}</center></td>
 	      	</tr>
 	      	<tr>
-	      		<td><strong>Utilidad Neta</strong></td>
+	      		<td><strong>Utilidad Neta/Perdida Neta</strong></td>
 	      		<td> <center>{{{ $EstadoResultado->CON_EstadoResultados_UtilidadPerdidaFinal }}}</center></td>
 	      	</tr>
 	    </tbody>
