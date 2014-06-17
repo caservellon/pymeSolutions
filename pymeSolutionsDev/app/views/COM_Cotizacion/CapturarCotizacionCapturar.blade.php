@@ -257,7 +257,7 @@
 										switch($CampoLocalCotizaciones -> Tipo){
 											case 'TXT':
 												if(Helpers::EsAlfaEspacio($ValorCampoLocal)){
-													$HayError = true;
+													
 												}
 											break;
 											
