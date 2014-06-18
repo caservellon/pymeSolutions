@@ -2,6 +2,14 @@
 
 	class Seguridad {
 
+		public static function Administrador(){
+			if (Auth::user()->SEG_Roles_SEG_Roles_ID == 1) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		//CRM
 		public static function CrearPersona(){
 			return Role::find(Auth::user()->SEG_Roles_SEG_Roles_ID)->SEG_Roles_CRM_CrearPersona;
