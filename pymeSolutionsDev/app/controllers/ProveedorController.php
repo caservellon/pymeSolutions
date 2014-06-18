@@ -191,6 +191,7 @@ class ProveedorController extends BaseController {
 				return View::make('Proveedor.f2p', compact('fpagos', 'proveedor'));
 				//return Redirect::route('Inventario.Proveedor.index');
 			}
+
 			return Redirect::route('Inventario.Proveedor.create')
 				->withInput()
 				->withErrors($validation)
