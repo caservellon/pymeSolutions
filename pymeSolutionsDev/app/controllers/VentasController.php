@@ -270,10 +270,7 @@ class VentasController extends BaseController {
 
 				$Venta = Venta::find($Input['searchTerm']);
 				$DetalleVenta = DetalleDeVenta::where('VEN_Venta_VEN_Venta_id', $Venta->VEN_Venta_id)->get();
-				if (Devolucion::where('VEN_Venta_VEN_Venta_id', $DetalleVenta->VEN_Venta_VEN_Venta_id)->count() > 0) {
-					return null;
-				}
-
+				
 			    return $DetalleVenta;
 			}
 		} else {
