@@ -66,9 +66,9 @@ class COMTransicionEstadoController extends BaseController {
                         }
                         
                         if(Input::has('COM_OrdenCompra_TransicionEstado_Activo')){
-                            $model->COM_OrdenCompra_TransicionEstado_Activo=1;
+                            $model->COM_TransicionEstado_Activo=1;
                         }else{
-                            $model->COM_OrdenCompra_TransicionEstado_Activo=0;
+                            $model->COM_TransicionEstado_Activo=0;
                         }
                         $model->COM_TansicionEstado_FechaCreacion=date('Y-m-d');
                         $model->COM_Usuario_idUsuarioCreo=Auth::user()->SEG_Usuarios_Nombre;
@@ -112,9 +112,9 @@ class COMTransicionEstadoController extends BaseController {
                 $model->COM_OrdenCompra_TransicionEstado_EstadoPosterior=Input::get('COM_OrdenCompra_TransicionEstado_EstadoPosterior');
                 $model->COM_OrdenCompra_TransicionEstado_Observacion=Input::get('COM_OrdenCompra_TransicionEstado_Observacion');
                  if(Input::has('COM_OrdenCompra_TransicionEstado_Activo')){
-                     $model->COM_OrdenCompra_TransicionEstado_Activo=1;
+                     $model->COM_TransicionEstado_Activo=1;
                 }else{
-                     $model->COM_OrdenCompra_TransicionEstado_Activo=0;
+                     $model->COM_TransicionEstado_Activo=0;
                 }
                 $model->COM_TansicionEstado_FechaModificacion=date('Y-m-d');
                 $model->COM_Usuario_idUsuarioModifico=Auth::user()->SEG_Usuarios_Nombre;

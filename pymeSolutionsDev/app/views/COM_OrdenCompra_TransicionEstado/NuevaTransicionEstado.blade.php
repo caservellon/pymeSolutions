@@ -1,6 +1,7 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<div style="float:left">
 <h2 class="sub-header">Nueva Transicion Estado Orden Compra</h2>
 <div class="btn-agregar">
 	<a type="button" href="" class="btn btn-default">
@@ -27,7 +28,7 @@
             <table class="table table-striped" >
               <thead>
                 <tr>
-                    <div class="form-group">
+                    <div class="row">
                         <th>Estado Previo</th>
                         <th>Estado Actual</th>
                         <th>Estado Posterior</th>
@@ -74,4 +75,5 @@
             
         </ul>
         {{ Form::close() }}
+        </div>
 @stop
