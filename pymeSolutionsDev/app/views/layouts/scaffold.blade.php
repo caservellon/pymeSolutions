@@ -181,14 +181,11 @@
 								{{ link_to_route('CRM.Empresas.index', 'Empresas')}}
 							</li>
 							@endif
-							<li><a href="#">Proveedores</a></li>
-							<li><a href="#">Campañas</a></li>
 							@if(Seguridad::Configuracion())
 							<li>
 								{{ link_to_route('CRM.TipoDocumentos.index', 'Documentos')}}
 							</li>
 							@endif
-							<li><a href="#">Oportunidades de Negocios</a></li>
 							@if(Seguridad::Configuracion())
 							<li class="divider"></li>
 							<li><a href="/CRM">Configuración</a></li>

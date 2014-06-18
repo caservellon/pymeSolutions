@@ -27,7 +27,9 @@
 				@foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','CRM_PS%')->get() as $campo)
 				    <th>{{{ $campo->GEN_CampoLocal_Nombre }}}</th>
 				@endforeach
+                @if(Seguridad::EditarPersona())
 				<th></th>
+				@endif
                 @if(Seguridad::EliminarPersona())
 				<th></th>
 				@endif
@@ -58,7 +60,9 @@
 					    	<td></td>
 					    @endif
 					@endforeach
+                    @if(Seguridad::EditarPersona())
                     <td>{{ link_to_route('CRM.Personas.edit', 'Editar', array($Persona->CRM_Personas_ID), array('class' => 'btn btn-info')) }}</td>
+                    @endif
                     @if(Seguridad::EliminarPersona())
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('CRM.Personas.destroy', $Persona->CRM_Personas_ID))) }}
