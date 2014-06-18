@@ -7,6 +7,7 @@ class UnidadMonetaria extends Eloquent {
 	protected $table ='CON_UnidadMonetaria';
 	protected $primaryKey='CON_UnidadMonetaria_ID';
 
+
 	public static $rules = array(
 			//'CON_UnidadMonetaria_ID' => 'required|integer',
 			'CON_UnidadMonetaria_Nombre' => 'required|max:45|alpha_spaces',

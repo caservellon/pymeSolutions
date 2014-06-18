@@ -25,11 +25,13 @@ class AsientosController extends BaseController {
 		if (Seguridad::CrearAsientosContable()) {
 		   $Motivos = MotivoTransaccion::all()->lists('CON_MotivoTransaccion_Descripcion','CON_MotivoTransaccion_ID');
 	      	$Periodo=false;
+	      	$UM=UnidadMonetaria::all()->lists('CON_UnidadMonetaria_Nombre','CON_UnidadMonetaria_ID');
 	      	if(ClasificacionPeriodo::all()->count())
 	      		$Periodo=true;
 	       return View::make('AsientosContables.create')
 	       		->with('Motivos',$Motivos)
-	       		->with('PeriodoContable',$Periodo);
+	       		->with('PeriodoContable',$Periodo)
+	       		->with('UnidadMonetaria',$UM);
        	}else{
        		return Redirect::to('/403');
        	}
@@ -44,9 +46,14 @@ class AsientosController extends BaseController {
 			if ($validation->passes())
 			{
 				$LibroDiario= new LibroDiario;
-				$input['CON_LibroDiario_FechaCreacion']= date('Y-m-d');
-				$input['CON_LibroDiario_FechaModificacion'] =date('Y-m-d');
-				$LibroDiario->create($input);
+				$input['CON_LibroDiario_FechaCreacion']= date('Y-m-d H:m:s');
+				$input['CON_LibroDiario_FechaModificacion'] =date('Y-m-d H:m:s');
+				$Unidad=UnidadMonetaria::find($input['CON_UnidadMonetaria_ID']);
+				if($Unidad){
+					$input['CON_LibroDiario_Monto']=$input['CON_LibroDiario_Monto']*$Unidad->CON_UnidadMonetaria_TasaConversion;
+					$LibroDiario->create($input);
+				}
+				
 
 				return Redirect::action('LibroDiarioController@index');
 			}

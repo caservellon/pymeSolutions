@@ -68,11 +68,15 @@
       <div class='col-md-4'>
           {{ Form::input('text', 'CON_LibroDiario_Monto','',array('placeholder'=>'### ### ###.##','maxlength'=>'12')) }}
       </div>
+      <div class="col-md-4">
+          {{Form::select('CON_UnidadMonetaria_ID',$UnidadMonetaria,'',array('class'=>'form-control'))}}
+      </div>
     </div> 
 	 <div class='form-group'>    
             {{ Form::label('CON_LibroDiario_Observacion', 'Observacion:') }}
              <div class='col-md-9'>
             {{ Form::input('text', 'CON_LibroDiario_Observacion','',array('placeholder'=>'Breve Observacion del Asiento','maxlength'=>'255')) }}
+
             </div>
     </div>
     
