@@ -155,7 +155,7 @@ DELIMITER ;
 -- Trigger ENUSO
 
 DELIMITER $$
- Create trigger CuentasEnUso after insert on CON_TransaccionContabilidad
+ Create trigger CuentasEnUso after insert on CON_LibroDiario
  for each row
 begin
 declare c1 int;
