@@ -41,17 +41,17 @@
 				<th>Nivel Reposicion</th>
 				<th>Tipo Codigo Barras</th>
 				<th>Valor Codigo Barras</th>
-				<th>Valor Descuento</th>
+				<!-- <th>Valor Descuento</th> -->
 				<th>Porcentaje Descuento</th>
 				<th>Fecha Creacion</th>
 				<th>Usuario Creacion</th>
 				<th>Fecha Modificacion</th>
 				<th>Usuario Modificacion</th>
 				<th>Activo</th>
-				<th>Categoria ID</th>
-				<th>ID Categoria Padre</th>
-				<th>UnidadMedida ID</th>
-				<th>Horario Bloqueo ID</th>
+				<th>Categoria Padre</th>
+				<th>Categoria Hija</th>
+				<th>Unidad Medida</th>
+				<th>Vigencia de Descuento</th>
 			</tr>
 		</thead>
 
@@ -74,17 +74,17 @@
 					<td>{{{ $Producto->INV_Producto_NivelReposicion }}}</td>
 					<td>{{{ $Producto->INV_Producto_TipoCodigoBarras }}}</td>
 					<td>{{{ $Producto->INV_Producto_ValorCodigoBarras }}}</td>
-					<td>{{{ $Producto->INV_Producto_ValorDescuento }}}</td>
+					<!-- <td>{{{ $Producto->INV_Producto_ValorDescuento }}}</td> -->
 					<td>{{{ $Producto->INV_Producto_PorcentajeDescuento }}}</td>
 					<td>{{{ $Producto->INV_Producto_FechaCreacion }}}</td>
 					<td>{{{ $Producto->INV_Producto_UsuarioCreacion }}}</td>
 					<td>{{{ $Producto->INV_Producto_FechaModificacion }}}</td>
 					<td>{{{ $Producto->INV_Producto_UsuarioModificacion }}}</td>
 					<td>{{{ $Producto->INV_Producto_Activo ? 'Activa' : 'Desactivada' }}}</td>
-					<td>{{{ $Producto->INV_Categoria_ID }}}</td>
-					<td>{{{ $Producto->INV_Categoria_IDCategoriaPadre }}}</td>
-					<td>{{{ $Producto->INV_UnidadMedida_ID }}}</td>
-					<td>{{{ $Producto->INV_HorarioBloqueo_ID }}}</td>
+					<td>{{{ DB::table('INV_Categoria')->where('INV_Categoria_ID', $Producto->INV_Categoria_IDCategoriaPadre)->first()->INV_Categoria_Nombre }}}</td>
+					<td>{{{ DB::table('INV_Categoria')->where('INV_Categoria_ID', $Producto->INV_Categoria_ID)->first()->INV_Categoria_Nombre }}}</td>
+					<td>{{{ DB::table('INV_UnidadMedida')->where('INV_UnidadMedida_ID', $Producto->INV_UnidadMedida_ID)->first()->INV_UnidadMedida_Nombre }}}</td>
+					<td>{{{ DB::table('INV_Horario')->where('INV_Horario_ID', $Producto->INV_HorarioBloqueo_ID)->first()->INV_Horario_Nombre }}}</td>
 					@foreach (DB::table('GEN_CampoLocal')->where('GEN_CampoLocal_Activo','1')->where('GEN_CampoLocal_Codigo','LIKE','INV_PRD%')->get() as $campo)
 					    @if (DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->count() > 0 )
 					    	<td>{{{ DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->first()->INV_Producto_CampoLocal_Valor }}}</td>
