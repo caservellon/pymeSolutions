@@ -1,12 +1,14 @@
 @extends('layouts.scaffold')
 
 @section('main')
+<div  class="col-md-10">
 <h2 class="sub-header">Editar Estado Orden Compra</h2>
 <div class="btn-agregar">
 	<a type="button" href="" class="btn btn-default">
 	  <span class="glyphicon glyphicon-shopping-cart"></span> Configuración <small>>Parametrizar>Estados Orden de Compra</small>
 	</a>
 </div>
+  
          <div class="table-responsive">
             <table class="table table-striped" >
               <thead>
@@ -16,7 +18,7 @@
                   <th>activa</th>
                 </tr>
               </thead>
-         </div>
+         
     
       <tbody>   
       
@@ -41,6 +43,7 @@
      
      </tbody>
      </table>
-             
+         </div>    
       <h6>{{ $data1->links() }}</h6>
+      </div>
 @stop
