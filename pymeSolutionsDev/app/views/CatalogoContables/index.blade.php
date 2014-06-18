@@ -60,6 +60,8 @@
 					@endif
 					@if ($CatalogoContable->CON_CatalogoContable_EnUso == 0 && Seguridad::EditarCuenta())
                     <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::to('contabilidad/configuracion/catalogocuentas/'.$CatalogoContable->CON_CatalogoContable_ID.'/edit') }}"> Editar</a></td>
+                    @else
+                    	<td></td>
                     @endif
 				</tr>
 				
