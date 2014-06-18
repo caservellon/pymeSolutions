@@ -3,7 +3,6 @@ td {
 	text-align: left;
 }
 </style>
-
 <div align="center">
 	<h2>{{{$config->SEG_Config_NombreEmpresa}}}</h2>
 	<h3>Estado de Resultados</h3>
@@ -54,7 +53,7 @@ td {
 	      		<td><center>{{{ $EstadoResultado->CON_EstadoResultados_Impuesto }}}</center></td>
 	      	</tr>
 	      	<tr>
-	      		<td><strong>Utilidad Neta</strong></td>
+	      		<td><strong>Utilidad Neta/Perdida Neta</strong></td>
 	      		<td> <center>{{{ $EstadoResultado->CON_EstadoResultados_UtilidadPerdidaFinal }}}</center></td>
 	      	</tr>
 	    </tbody>

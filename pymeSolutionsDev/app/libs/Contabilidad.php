@@ -111,4 +111,63 @@ public static function GenerarTransaccionCmpSM($Concepto,$Monto,$IdProv){
 
 }
 
+public static function motivoProveedor($IdProv){
+	$Prov=CONProveedor::find($IdProv);
+
+	if ($Prov){
+		return $Prov->CON_MotivoTransaccion_ID;
+	}else{
+		$ProvName=invContabilidad::ProveedorInfo($IdProv)->INV_Proveedor_Nombre;
+		$Date=date('Y-m-d H:i:s');
+
+		$Cuenta=CatalogoContable::find(75);
+
+		//DB::beginTransaction();
+		
+		$input=array(
+			'CON_CatalogoContable_ID'=>75,
+			'CON_Subcuenta_Nombre'=>$Cuenta->CON_CatalogoContable_Nombre.' '.$ProvName,
+			'CON_Subcuenta_FechaCreacion'=>$Date,
+			'CON_Subcuenta_FechaModificacion'=>$Date
+			);
+		$SubCuenta=Subcuentum::create($input);
+
+		
+		$Motivo=new MotivoTransaccion;
+		$idMotivo=DB::table('CON_MotivoTransaccion')->insertGetId(array(
+			'CON_MotivoTransaccion_Codigo'=>'P'.$IdProv,
+			'CON_MotivoTransaccion_Descripcion'=>'Compra a Proveedor '.$ProvName,
+			'CON_MotivoTransaccion_FechaCreacion'=>$Date,
+			'CON_MotivoTransaccion_FechaModificacion'=>$Date
+			));
+		//DB::commit();
+		$Cuenta1=CatalogoContable::where('CON_CatalogoContable_Nombre','=','Inventario en Transito')->first();
+		$input=array('CON_CuentaMotivo_DebeHaber' => 0,
+				'CON_MotivoTransaccion_ID'=>$idMotivo,
+				'CON_CatalogoContable_ID'=>$Cuenta1->CON_CatalogoContable_ID,
+				'CON_CuentaMotivo_FechaCreacion'=>$Date,
+				'CON_CuentaMotivo_FechaModificacion'=>$Date );
+		//$CuentaMotivo1=new CuentaMotivo;
+		$CuentaMotivo1=CuentaMotivo::create($input);
+
+
+		$Cuenta2=CatalogoContable::where('CON_CatalogoContable_Nombre','=',$SubCuenta->CON_Subcuenta_Nombre)->first();
+		$input=array('CON_CuentaMotivo_DebeHaber' => 1 ,
+				'CON_MotivoTransaccion_ID'=>$idMotivo,
+				'CON_CatalogoContable_ID'=>$Cuenta2->CON_CatalogoContable_ID,
+				'CON_CuentaMotivo_FechaCreacion'=>$Date,
+				'CON_CuentaMotivo_FechaModificacion'=>$Date );
+		//$CuentaMotivo2=new CuentaMotivo;
+		$CuentaMotivo2=CuentaMotivo::create($input);
+
+		$input=array(
+			'INV_Proveedores_ID'=>$IdProv,
+			'CON_MotivoTransaccion_ID'=>$idMotivo
+			);
+		$Prov=CONProveedor::create($input);
+		return $idMotivo;
+	}
+	return null;
+}
+
 } ?>

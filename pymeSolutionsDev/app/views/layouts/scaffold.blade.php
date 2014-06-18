@@ -196,7 +196,7 @@
 						</ul>
 					</li>
 					@endif
-
+					@if(Seguridad::Administrador())
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguridad <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -207,7 +207,7 @@
 							<li><a href="{{URL::to('Auth/Configuracion') }}">Configuración</a></li>
 						</ul>
 					</li>
-
+					@endif
 				</ul>
 				@endif
 				@if (Auth::check()) 
@@ -220,6 +220,7 @@
 
 		
 		<div class="container col-md-8 col-md-offset-2">
+			@include('_messages.flash')
 			@yield('main')
 		</div>
 		<script src="<?php public_path(); ?>/bootstrap/js/jquery-2.0.2.min.js"></script>

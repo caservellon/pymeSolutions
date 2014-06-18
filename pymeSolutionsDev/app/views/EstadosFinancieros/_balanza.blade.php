@@ -1,4 +1,6 @@
+
 <div align="center">
+
 <h2>{{{$config->SEG_Config_NombreEmpresa}}}</h2>
 	<h3>Balanza Comprobacion</h3>
 	<h4 class="date">Para el</h4><br>

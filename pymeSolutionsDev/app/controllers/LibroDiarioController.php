@@ -5,27 +5,47 @@ class LibroDiarioController extends BaseController {
 	public function index()
 	{
 		if (Seguridad::VerLibroDiario()) {
-			$nPag=3;
-			if(Request::Ajax()){
-				$LibroDiario = LibroDiario::where('CON_LibroDiario_FechaCreacion','>=',Input::get('date1'))
-					->where('CON_LibroDiario_FechaCreacion','<=',Input::get('date2'))
-					->paginate($nPag);
-				$Asientos=$this->getAsientos($LibroDiario);
-				return View::make('LibroDiario.table')
-					->with('LibroDiario',$Asientos)
-					->with('Pages',$LibroDiario);
-			}else{
-				$LibroDiario = LibroDiario::paginate($nPag);
+				Cache::forget('date1');
+				Cache::forget('date2');
+				$LibroDiario = LibroDiario::paginate(3);
 				$Asientos=$this->getAsientos($LibroDiario);
 				$PeriodoContable = PeriodoContable::orderBy('CON_PeriodoContable_FechaInicio')->first();
 				return View::make('LibroDiario.index')
 					->with('PeriodoContable',$PeriodoContable)
 					->with('LibroDiario',$Asientos)
 					->with('Pages',$LibroDiario);
-			}
+			
 		}else{
 			return Redirect::to('/403');
 		}
+	}
+
+	public function search(){
+		if (Seguridad::VerLibroDiario()) {
+			if (Input::has('date1') && Input::has('date2')){
+				$date1=Input::get('date1');
+				$date2=Input::get('date2');
+				Cache::forever('date1',$date1);
+				Cache::forever('date2',$date2);
+			}else{
+				$date1=Cache::get('date1');
+				$date2=Cache::get('date2');
+			}
+			$LibroDiario = LibroDiario::where('CON_LibroDiario_FechaCreacion','>=',$date1)
+						->where('CON_LibroDiario_FechaCreacion','<=',$date2)
+						->paginate(3);
+			$Asientos=$this->getAsientos($LibroDiario);
+			$PeriodoContable = PeriodoContable::orderBy('CON_PeriodoContable_FechaInicio')->first();
+
+			return View::make('LibroDiario.index')
+						->with('Fields',array($date1,$date2))
+						->with('PeriodoContable',$PeriodoContable)
+						->with('LibroDiario',$Asientos)
+						->with('Pages',$LibroDiario);
+		}else{
+			return Redirect::to('/403');
+		}
+
 	}
 
 	protected function getAsientos($LibroDiario){

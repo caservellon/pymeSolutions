@@ -39,7 +39,8 @@
 	
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs">
-		  <li class="active"><a href="#balanza" data-toggle="tab">Balanza de Comprobacion</a></li>
+		  <li id="tab_balanza" class="active">
+		  	<a href="#balanza" data-toggle="tab">Balanza de Comprobacion</a></li>
 		  <li id="tab_estado"><a href="#estado" data-toggle="tab">Estado de Resultados</a></li>
 		  <li id="tab_balance"><a href="#balance" data-toggle="tab">Balance General</a></li>
 		  <li id="tab_libromayor" ><a href="#libromayor" data-toggle="tab">Libro Mayor</a></li>
@@ -72,13 +73,9 @@
 						$("#periodos").html(data);
 						PC.disabled=false;
 						$('#PC').on('change',function(){
-
-							$.post('{{URL::route("con.balanza")}}',{id:this.value})
-									.success(function(data){
-										flag_balanza=true;
-										$("#balanza").html(data);
-										$(".date").html("Para el "+$("#PC option:selected").text().split("-")[1]);
-									});
+							flag_balanza = flag_estado = flag_balance = flag_libromayor = false;
+							cleanTabs();
+							window.setTimeout($("li.active a").click(),2000);
 						});
 						$('#PC').change();
 				});
@@ -95,38 +92,66 @@
 				$("#options").toggle();
 			});
 
+			$('#tab_balanza a').click(function (e){
+				if(!flag_balanza){
+				$.post('{{URL::route("con.balanza")}}',{id:$("#PC").val()})
+							.success(function(data){
+								flag_balanza=true;
+								$("#balanza").html(data);
+								$(".date").html("Para el "+$("#PC option:selected").text().split("-")[1]);
+							});
+				}
+			});
+
 			$('#tab_estado a').click(function (e) {
-			  $.post('{{URL::route("con.estado")}}',{id:$("#PC")[0].value})
+			if(!flag_estado){
+			  $.post('{{URL::route("con.estado")}}',{id:$("#PC").val()})
 									.success(function(data){
 										flag_estado=true;
 										$("#estado").html(data);
 										$(".estado-date").html("Para el "+$("#PC option:selected").text().split("-")[1]);
 										
 									});
+			}
 			});
 
 			$('#tab_balance a').click(function (e) {
-				$.post('{{URL::route("con.balance")}}',{id:$("#PC")[0].value})
+				if(!flag_balance){
+				$.post('{{URL::route("con.balance")}}',{id:$("#PC").val()})
 									.success(function(data){
-										flag_estado=true;
+										flag_balance=true;
 										$("#balance").html(data);
 										$(".balance-date").html("Para el "+$("#PC option:selected").text().split("-")[1]);
 										
 									});
+				}
 			});
 
 			$('#tab_libromayor a').click(function (e) {
-				$.post('{{URL::route("con.libromayor")}}',{id:$("#PC")[0].value})
+				if(!flag_libromayor){
+				$.post('{{URL::route("con.libromayor")}}',{id:$("#PC").val()})
 									.success(function(data){
-										flag_estado=true;
+										flag_libromayor=true;
 										$("#libromayor").html(data);
 										$(".date").html("Para el "+$("#PC option:selected").text().split("-")[1]);
 										
 									});
+				}
 			});
+
+			function cleanTabs(){
+				var layout='<div class="jumbotron" align="center">'
+							  +'<h3><i class="glyphicon glyphicon-list"></i> :title</h3>'
+							+'</div>';
+				$("#balanza").html(layout.replace(":title","Balanza de Comprobacion"));
+				$("#estado").html(layout.replace(":title","Estado de Resultados"));
+				$("#balance").html(layout.replace(":title","Balance General"));
+				$("#libromayor").html(layout.replace(":title","Libro Mayor"));
+			}
 			  
 	});
 
 	</script>
+			
 
 @stop

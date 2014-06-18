@@ -4,7 +4,7 @@
 
 <div class="page-header">
 	<div class="row">
-		      <h2 class="pull-lef">Libro Diario &gt; <small>Ver Asientos</small> <a href="{{{ URL::to('contabilidad') }}}" class="btn btn-sm btn-primary pull-right">
+		      <h2 class="pull-lef">Libro Diario &gt; <small>Ver Asientos</small> <a href="{{URL::to('contabilidad')}}" class="btn btn-sm btn-primary pull-right">
 		        	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
 		
 	</div>
@@ -18,15 +18,17 @@
 @endif
 
 @if($PeriodoContable!=null && $PeriodoContable->count())
+<form id="search" action="{{URL::route('con.librodiario.search')}}" method="post">
       <div class="well table form-inline">
             <label><i class="glyphicon glyphicon-calendar"></i> Fecha Inicio:</label>
-            	<input type="text" class="span2 form-control" value="" id="dpd1" placeholder="aaaa-mm-dd" readonly>
+            	<input required name="date1" type="text" class="span2 form-control" value="" id="dpd1" placeholder="aaaa-mm-dd" readonly>
 
             <label><i class="glyphicon glyphicon-calendar"></i> Fecha Final:</label>
-            	<input type="text" class="span2 form-control" value="" id="dpd2" placeholder="aaaa-mm-dd" readonly >
+            	<input required name="date2" type="text" class="span2 form-control" value="" id="dpd2" placeholder="aaaa-mm-dd" readonly >
             <button id='charge' type="Submmit" class="btn btn-success">Filtrar</button>
             <label id="lbl-filtro"></label>
       </div>
+</form>
       <p class="result"></p>
 <div id="LibroDiario">
 	@include('LibroDiario.table')
@@ -72,7 +74,7 @@
 	
 		$(document).ready(function(){
 
-			$('#charge').on('click',function(){
+			/*$('#charge').on('click',function(){
 
 
 				$.ajax({
@@ -100,7 +102,21 @@
 				}
 				});
 			});
+*/
+			@if (isset($Fields))
+				$("#dpd1").val("{{ $Fields[0] }}");
+				$("#dpd2").val("{{ $Fields[1] }}");
+			@endif
 
+			$("#search").on('submit',function(e){
+				if ($('#dpd1').val()=="" || $('#dpd2').val()==""){
+					$('#lbl-filtro')[0].textContent='Tiene campos sin llenar';
+					e.preventDefault();
+				}else{
+					$('#lbl-filtro')[0].textContent='Espere...';
+				}
+
+			});	
 			$('.revertir').on('click',function(e){
 			
 				$.post('{{{URL::route("revertirasiento")}}}',{id:e.toElement.id})

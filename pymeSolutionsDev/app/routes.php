@@ -409,7 +409,8 @@ Route::group(array('prefix' => 'contabilidad', 'before' => 'auth'),function(){
 
 			Route::post('librodiario/revertirasiento',array('as'=>'revertirasiento', 'uses' => 'LibroDiarioController@reversion'));
 			Route::post('crear/motivotransaccion',array('as'=>'crearmotivo','uses'=>'AsientosController@crearmotivo'));
-			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));			
+			Route::post('librodiario', array('uses'=>'LibroDiarioController@index'));
+			Route::any('librodiario/busqueda', array('as'=>'con.librodiario.search', 'uses'=>'LibroDiarioController@search'));			
 			Route::post('crear/asientocontable/cargar/cuentas',array('as'=>'cargarcuentas', 'uses'=>'AsientosController@cargarcuentas'));
 			Route::post('creando/motivotransaccion',array('as'=>'creandomotivo','uses'=>'AsientosController@creandomotivo'));
 

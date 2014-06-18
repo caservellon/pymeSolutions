@@ -55,7 +55,7 @@ class SubcuentaController extends BaseController {
 	 */
 	public function store()
 	{
-		if (Seguridad::AgregarSubcuentas) {
+		if (Seguridad::AgregarSubcuentas()) {
 			$input = Input::all();
 			$validation = Validator::make($input, Subcuentum::$rules);
 

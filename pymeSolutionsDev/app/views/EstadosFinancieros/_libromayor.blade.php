@@ -1,3 +1,4 @@
+
 @if (count($Libro))
 <div align="center">
 <h2>{{{$config->SEG_Config_NombreEmpresa}}}</h2>

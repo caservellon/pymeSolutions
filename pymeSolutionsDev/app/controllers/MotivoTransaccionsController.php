@@ -26,6 +26,10 @@ class MotivoTransaccionsController extends BaseController {
 		return View::make('MotivoTransaccions.index', compact('MotivoTransaccions'));
 	}
 
+	public function i_m_gay(){
+		
+	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -48,7 +52,9 @@ class MotivoTransaccionsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->MotivoTransaccion->create($input);
+			$Motivo=new MotivoTransaccion;
+			$Motivo->create($input);
+			//$this->MotivoTransaccion->create($input);
 
 			return Redirect::action('MotivoTransaccionsController@index');
 		}
