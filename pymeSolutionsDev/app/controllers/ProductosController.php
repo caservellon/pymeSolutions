@@ -240,6 +240,16 @@ class ProductosController extends BaseController {
 					    DB::table('INV_Producto_CampoLocal')->where('GEN_CampoLocal_GEN_CampoLocal_ID',$campo->GEN_CampoLocal_ID)->where('INV_Producto_ID',$Producto->INV_Producto_ID)->update(array('INV_Producto_CampoLocal_Valor' => Input::get($campo->GEN_CampoLocal_Codigo)));
 					}
 				}
+
+				if(!Producto::where('INV_Producto_Nombre', Input::get('INV_Producto_Nombre'))->first()->INV_Producto_PorcentajeDescuento == 0){
+					$NuevoPrecioVenta = Producto::where('INV_Producto_Nombre', Input::get('INV_Producto_Nombre'))->first()->INV_Producto_PrecioVenta - (Producto::where('INV_Producto_Nombre', Input::get('INV_Producto_Nombre'))->first()->INV_Producto_PrecioVenta * Producto::where('INV_Producto_Nombre', Input::get('INV_Producto_Nombre'))->first()->INV_Producto_PorcentajeDescuento);
+
+				DB::table('INV_Producto')
+            	->where('INV_Producto_Nombre', Input::get('INV_Producto_Nombre'))
+            	->update(array('INV_Producto_PrecioVenta' => $NuevoPrecioVenta));
+
+				}
+				
 				return Redirect::route('Inventario.Productos.index', $id);
 			}
 			return Redirect::route('Inventario.Productos.edit', $id)

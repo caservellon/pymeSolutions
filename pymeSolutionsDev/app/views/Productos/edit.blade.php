@@ -117,12 +117,12 @@
         {{ Form::text('INV_Producto_ValorCodigoBarras',$Producto->INV_Producto_ValorCodigoBarras, array('class' => 'form-control', 'id' => 'INV_Producto_ValorCodigoBarras', 'placeholder' => 'Valor' )) }}
       </div>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       {{ Form::label('INV_Producto_ValorDescuento', 'Valor de Descuento:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::text('INV_Producto_ValorDescuento',$Producto->INV_Producto_ValorDescuento, array('class' => 'form-control', 'id' => 'INV_Producto_ValorDescuento', 'placeholder' => '*.##' )) }}
       </div>
-    </div>
+    </div> -->
     <div class="form-group">
       {{ Form::label('INV_Producto_PorcentajeDescuento', 'Porcentaje de Descuento:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
@@ -136,32 +136,28 @@
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('INV_Categoria_ID', 'Categoria ID: *', array('class' => 'col-md-2 control-label')) }}
-      <div class="col-md-5">
-        {{ Form::select('INV_Categoria_ID', $combobox,$Producto->INV_Producto_Categoria_ID, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
-      </div>
-    </div>
-    <div class="form-group">
-      {{ Form::label('INV_Categoria_IDCategoriaPadre', 'Categoria Padre ID:', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_Categoria_IDCategoriaPadre', 'Categoria Padre:', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
         {{ Form::select('INV_Categoria_IDCategoriaPadre', $combobox, $Producto->INV_Producto_IDCategoriaPadre, array('class' => 'form-control', 'id' => 'INV_Categoria_IDCategoriaPadre', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('INV_UnidadMedida_ID', 'Unidad de Medida ID: *', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_Categoria_ID', 'Categoria Hija: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('INV_UnidadMedida_ID', $unidad,$Producto->INV_UnidadMedida_ID, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_Categoria_ID', $combobox,$Producto->INV_Producto_Categoria_ID, array('class' => 'form-control', 'id' => 'INV_Categoria_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
     <div class="form-group">
-      {{ Form::label('INV_HorarioBloqueo_ID', 'Horario de Bloqueo ID: *', array('class' => 'col-md-2 control-label')) }}
+      {{ Form::label('INV_UnidadMedida_ID', 'Unidad de Medida: *', array('class' => 'col-md-2 control-label')) }}
       <div class="col-md-5">
-        {{ Form::select('INV_HorarioBloqueo_ID', $horarios,$Producto->INV_HorarioBloqueo_ID, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
+        {{ Form::select('INV_UnidadMedida_ID', $unidad, null, array('class' => 'form-control', 'id' => 'INV_UnidadMedida_ID', 'placeholder' => '#' )) }}
       </div>
     </div>
-
-    <div class="page-header clearfix">
-      <h3 class="pull-left">Producto &gt; <small>Campos Locales</small></h3>
+    <div class="form-group">
+      {{ Form::label('INV_HorarioBloqueo_ID', 'Vigencia del Descuento: *', array('class' => 'col-md-2 control-label')) }}
+      <div class="col-md-5">
+        {{ Form::select('INV_HorarioBloqueo_ID', $horarios,null, array('class' => 'form-control', 'id' => 'INV_HorarioBloqueo_ID', 'placeholder' => '#' )) }}
+      </div>
     </div>
 
 
