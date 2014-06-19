@@ -8,9 +8,9 @@
 			 <h2><i class='glyphicon glyphicon-list'></i> Reembolsos pendientes </h2>
 		</div>
 		<div class="col-sm-2">
-			<a href="{{URL::route('con.principal')}}" class="btn btn-sm btn-primary">
+			<!--a href="{{URL::route('con.principal')}}" class="btn btn-sm btn-primary">
 				<i class="glyphicon glyphicon-arrow-left"></i> Atras
-			</a>
+			</a-->
 		</div>
 	</div>
 	</div>

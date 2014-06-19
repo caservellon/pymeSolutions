@@ -8,8 +8,8 @@
 	<div class="page-header">
 		<div class="row">
 		<h2 class='sub-header'><i class="glyphicon glyphicon-paperclip"></i> Estados Financieros 
-		<a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
-		    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+		<!--a class='btn btn-sm btn-primary pull-right ' href="{{URL::to('contabilidad')}}">
+		    <i class="glyphicon glyphicon-arrow-left"></i> Atras</a-->
 		</h2>
 		</div>
 	</div>

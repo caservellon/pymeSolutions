@@ -145,20 +145,36 @@
 							<a href="contabilidad" class="dropdown-toggle" data-toggle="dropdown">Contabilidad <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								@if( Seguridad::VerLibroDiario() || Seguridad::VerEstadosfinancieros() || Seguridad::GenerarCierrePeriodo() || Seguridad::VerPagos() || Seguridad::VerReembolsos() ||Seguridad::ListarCatalogoContables() || Seguridad::ListarPeriodosContables() || Seguridad::ListarUnidadesMonetarias() || Seguridad::ListarMotivosDeInventario() || Seguridad::ListarConceptosDeTransaccionesAutomaticas())
-								<li><a href="{{URL::to('contabilidad')}}">Menu principal</a></li>
+								<!--li><a href="{{URL::to('contabilidad')}}">Menu principal</a></li>
+								<li class="divider"></li-->
 								@endif
 								@if(Seguridad::VerLibroDiario())
-								<li class="divider"></li>
+								
 								<li><a href="{{URL::to('contabilidad/librodiario')}}">Libro Diario</a></li>
 								@endif
+								@if(Seguridad::VerEstadosFinancieros())
+								<li><a href="{{URL::route('con.estadosfinancieros')}}">
+								Estados Financieros</a></li>
+								@endif
+								@if(Seguridad::GenerarCierrePeriodo())
+								<li><a href="{{URL::route('con.cierreperiodo')}}">Cierre de Periodo</a></li>
+								@endif
+								@if(Seguridad::VerPagos())
+								<li><a href="{{URL::route('con.compras')}}">
+								Compras - Ordenes de pago <span class="badge">{{sizeof(comContabilidad::OrdenesSinPagar())}}</span></a></li>
+								@endif
+								@if(Seguridad::VerReembolsos())
+								<li><a href="{{URL::route('con.reembolsos')}}">
+								Reembolsos pendientes <span class="badge">{{sizeof(comContabilidad::Reembolsos())}}</span></a></li>
+								@endif
 								@if (Seguridad::VerROI())
-								<li><a href="#">ROI</a></li>
+								<!--li><a href="#">ROI</a></li>
 								@endif
 								@if(Seguridad::VerPuntoEquilibrio())
 								<li><a href="#">Punto de Equilibrio</a></li>
 								@endif
 								@if(Seguridad::VerFlujoEfectivo())
-								<li><a href="#">Flujo de Caja</a></li>
+								<li><a href="#">Flujo de Caja</a></li-->
 								@endif
 								@if(Seguridad::ListarCatalogoContables() || Seguridad::ListarPeriodosContables() || Seguridad::ListarUnidadesMonetarias() || Seguridad::ListarMotivosDeInventario() || Seguridad::ListarConceptosDeTransaccionesAutomaticas())
 								<li class="divider"></li>

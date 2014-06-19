@@ -4,8 +4,8 @@
 
 <div class="page-header">
 	<div class="row">
-		      <h2 class="pull-lef">Libro Diario &gt; <small>Ver Asientos</small> <a href="{{URL::to('contabilidad')}}" class="btn btn-sm btn-primary pull-right">
-		        	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a></h2>
+		      <h2 class="pull-lef">Libro Diario &gt; <small>Ver Asientos</small> <!--a href="{{URL::to('contabilidad')}}" class="btn btn-sm btn-primary pull-right">
+		        	<i class="glyphicon glyphicon-arrow-left"></i> Atras</a--></h2>
 		
 	</div>
 </div>
