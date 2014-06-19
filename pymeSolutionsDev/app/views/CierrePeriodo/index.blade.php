@@ -9,8 +9,8 @@
 		</div>
 
 		<div class="col-sm-2">
-			<!--a class="btn btn-sm btn-primary pull-right" href="{{{URL::route('con.cierreperiodo')}}}">
-			<i class="glyphicon glyphicon-arrow-left"></i> Atras</a-->
+			<a class="btn btn-sm btn-primary pull-right" href="{{{URL::route('con.cierreperiodo')}}}">
+			<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
 		</div>
 	</div>
 </div>

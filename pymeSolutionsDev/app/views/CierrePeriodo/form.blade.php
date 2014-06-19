@@ -9,8 +9,8 @@
 			<h2>Seleccione un periodo contable</h2>
 		</div>
 		<div class="col-sm-2">
-			<a href="{{URL::route('con.principal')}}" class="pull-right btn btn-sm btn-primary">
-			<i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
+			<!--a href="{{URL::route('con.principal')}}" class="pull-right btn btn-sm btn-primary">
+			<i class="glyphicon glyphicon-arrow-left"></i> Atras</a-->
 		</div>
 	</div>
 	</div>
