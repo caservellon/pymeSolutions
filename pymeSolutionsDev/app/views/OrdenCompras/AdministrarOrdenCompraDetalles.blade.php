@@ -170,11 +170,11 @@
                  <h4>Accion a Realizar</h4>
                  <div class="form-group" >
                      @if(sizeof($ante) > 0)
-                     {{Form::radio('queHacer','TransitarAntes',true,array('style'=>''))}}<span>Regresar Transision Anterior  </span>
+                     {{Form::radio('queHacer','TransitarAntes',true,array('style'=>''))}}<span>Regresar Transicion Anterior  </span>
                      @endif
                  </div>
                  <div class="form-group">
-                        {{Form::radio('queHacer','TransitarDespues',true)}}<span>Avanzar Transision Siguiente  </span>
+                        {{Form::radio('queHacer','TransitarDespues',true)}}<span>Avanzar Transicion Siguiente  </span>
                  </div>
                  @if(sizeof($ante) > 0)
                   <div class="form-group">
