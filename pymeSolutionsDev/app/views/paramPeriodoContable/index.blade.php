@@ -36,14 +36,15 @@
 				@if(Seguridad::HabilitarDeshabilitarPeriodoContable() || Seguridad::EditarPeriodoContable())
 				<td>
 					<div class="row">
+
 						@if (Seguridad::EditarPeriodoContable())
-						<div class="col-sm-3">
+						<div class="col-sm-5">
 			        	<a class="btn btn-info" href="{{ URL::route('con.editperiodo',$Clasificacion->CON_ClasificacionPeriodo_ID)}}">
 						<i class='glyphicon glyphicon-pencil'></i> Editar</a>
 						</div>
 						@endif
 						@if(Seguridad::HabilitarDeshabilitarPeriodoContable())
-						<div class="col-sm-2">
+						<div class="col-sm-5">
 						<?php 
 							if ($Clasificacion->deleted_at==null){
 							 $route=URL::route('con.deleteperiodo',$Clasificacion->CON_ClasificacionPeriodo_ID);

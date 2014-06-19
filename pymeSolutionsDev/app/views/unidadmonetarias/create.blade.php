@@ -36,7 +36,7 @@
 
 		<div class="form-group">
             <div class='col-md-3'>
-			{{ Form::submit('Agregar unidad monetaria', array('class' => 'btn btn-success')) }}
+			{{ Form::submit('Agregar', array('class' => 'btn btn-success')) }}
             </div>
 		</div>
 	

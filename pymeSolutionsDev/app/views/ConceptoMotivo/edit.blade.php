@@ -3,7 +3,7 @@
 @section('main')
 
 <div class="page-header clearfix">
-      <h3 class="pull-left">Concepto Motivo &gt; <small>Editar Concepto</small></h3>
+      <h3 class="pull-left">Transacciones Autmoticas &gt; <small>Editar</small></h3>
       <div class="pull-right">
         <a href="{{{ URL::to('contabilidad/conceptomotivo') }}}" class="btn btn-sm btn-primary">
         <i class="glyphicon glyphicon-arrow-left"></i> Atras</a>
@@ -28,7 +28,7 @@
 </div></div>
 
 <div class="col-md-5">
-            {{ Form::submit('Actualizar Concepto', array('class' => 'btn btn-success')) }}
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-success')) }}
     </div>
 {{ Form::close() }}
 

@@ -38,7 +38,7 @@
             {{ Form::select('CON_CatalogoContable_Estado',array(1=>'Activo',0=>'Inactivo')) }}
 </div></div>
 <div class="col-md-5">
-            {{ Form::submit('Realizar Cambios en la cuenta', array('class' => 'btn btn-success')) }}
+            {{ Form::submit('Aceptar', array('class' => 'btn btn-success')) }}
     </div>
 {{ Form::close() }}
 

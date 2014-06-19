@@ -21,7 +21,7 @@
         </div>
 
 		<div class="col-md-5">
-			{{ Form::submit('Realizar Cambios del Periodo Contable', array('class' => 'btn btn-success')) }}
+			{{ Form::submit('Aceptar', array('class' => 'btn btn-success')) }}
         </div>
 	   
 {{ Form::close() }}

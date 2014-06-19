@@ -36,7 +36,7 @@
             <div class="col-md-4">
     
 
-			{{ Form::submit('Agregar Sub-Cuenta', array('class' => 'btn btn-success form-control')) }}
+			{{ Form::submit('Agregar', array('class' => 'btn btn-success form-control')) }}
 	       </div>
            {{ Form::hidden('CON_Subcuenta_Codigo','99') }}
                      

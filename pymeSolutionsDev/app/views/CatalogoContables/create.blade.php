@@ -50,7 +50,7 @@
             {{ Form::hidden('CON_CatalogoContable_CodigoSubcuenta','00') }}
             
             <div class="col-md-4">
-			{{ Form::submit('Agregar Cuenta al Catalogo Contable', array('class' => 'btn btn-success')) }}
+			{{ Form::submit('Agregar', array('class' => 'btn btn-success')) }}
             </div>
 
 {{ Form::close() }}

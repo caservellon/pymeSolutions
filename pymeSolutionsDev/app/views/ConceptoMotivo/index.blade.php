@@ -31,7 +31,7 @@
 						@endif
 					@endforeach
 					@if(Seguridad::EditarConceptosDeTransaccionesAutomaticas())
-					<td><a class="btn btn-success" href="{{URL::to('contabilidad/conceptomotivo/'.$ConceptoMotivo->CON_ConceptoMotivo_ID.'/edit')}}">Editar</a></td>
+					<td><a class="btn btn-info" href="{{URL::to('contabilidad/conceptomotivo/'.$ConceptoMotivo->CON_ConceptoMotivo_ID.'/edit')}}"><i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
 					@endif
 				</tr>
 			@endforeach

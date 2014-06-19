@@ -38,7 +38,7 @@
         </div>
 
       <div class="col-md-5">
-			{{ Form::submit('Agregar Periodo Contable', array('class' => 'btn btn-success')) }}
+			{{ Form::submit('Agregar', array('class' => 'btn btn-success')) }}
 		  </div>
 	
 {{ Form::close() }}

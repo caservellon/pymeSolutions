@@ -46,7 +46,7 @@
 		<td><span class="glyphicon glyphicon-remove"></td>
 		@endif
 		@if(Seguridad::ConfigurarMotivosDeInventario())
-        <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::route('con.motivoinventario.editar',$concepto->INV_MotivoMovimiento_ID) }}"> Editar</a></td>
+        <td><a class="btn btn-info" href="{{ URL::route('con.motivoinventario.editar',$concepto->INV_MotivoMovimiento_ID) }}"><i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
         @endif
         @endif
         </tr>
@@ -83,7 +83,7 @@
 		<td><span class="glyphicon glyphicon-remove"></td>
 		@endif
 		@if (Seguridad::ConfigurarMotivosDeInventario())
-        <td><a class="btn btn-info glyphicon glyphicon-pencil" href="{{ URL::route('con.motivoinventario.editar',$concepto->INV_MotivoMovimiento_ID) }}"> Editar</a></td>
+        <td><a class="btn btn-info" href="{{ URL::route('con.motivoinventario.editar',$concepto->INV_MotivoMovimiento_ID) }}"><i class="glyphicon glyphicon-pencil"></i> Editar</a></td>
         @endif
         @endif
         </tr>
